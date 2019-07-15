@@ -92,11 +92,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-					<source>7</source>
-					<links>
+                    <source>7</source>
+                    <links>
                         <link>https://docs.oracle.com/javase/7/docs/api/</link>
                     </links>
-				</configuration>
+                </configuration>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>

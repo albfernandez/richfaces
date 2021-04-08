@@ -1,7 +1,6 @@
 4.6.14-SNAPSHOT (unreleased)
 ---------
-
-
+    [  ] Upgrade guava from 20 to 30
 
 4.6.13.ayg 2020-07-28
 ---------

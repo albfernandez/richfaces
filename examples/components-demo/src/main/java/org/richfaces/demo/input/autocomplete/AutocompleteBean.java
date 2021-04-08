@@ -11,13 +11,15 @@ import javax.faces.context.FacesContext;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+
 import org.richfaces.demo.model.person.Person;
 
 @ManagedBean
 @RequestScoped
 public class AutocompleteBean implements Serializable {
 
-    private Person person;
+	private static final long serialVersionUID = 7029646394934680537L;
+	private Person person;
 
     public Person getPerson() {
         return person;
@@ -39,6 +41,10 @@ public class AutocompleteBean implements Serializable {
                     return true;
                 }
                 return input.getName().toLowerCase().startsWith(prefix.toLowerCase());
+            }
+            @Override
+            public boolean test(Person input) {
+                return apply(input);
             }
         });
     }

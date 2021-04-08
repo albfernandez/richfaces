@@ -43,7 +43,8 @@ import org.richfaces.demo.model.person.Person;
 @ViewScoped
 public class SelectBean implements Serializable {
 
-    private List<SelectItem> values;
+	private static final long serialVersionUID = -8254376540070086906L;
+	private List<SelectItem> values;
     private String value;
 
     private Person person;
@@ -88,6 +89,10 @@ public class SelectBean implements Serializable {
                     return true;
                 }
                 return input.getName().toLowerCase().startsWith(prefix.toLowerCase());
+            }
+            @Override
+            public boolean test(Person input) {
+                return apply(input);
             }
         });
         return persons;

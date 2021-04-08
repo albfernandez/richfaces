@@ -486,7 +486,7 @@ public final class ChoicePickerHelper {
             Preconditions.checkArgument(!predicates.isEmpty());
             Preconditions.checkArgument(predicates.size() - 1 == logicalFunctions.size());
             if (options.isEmpty()) {
-                return Collections.EMPTY_LIST;
+                return Collections.emptyList();
             }
             LinkedHashSet<WebElement> result;
             try {
@@ -498,7 +498,7 @@ public final class ChoicePickerHelper {
                 }
                 return Lists.newArrayList(result);
             } catch (NoSuchElementException ex) {
-                return Collections.EMPTY_LIST;
+                return Collections.emptyList();
             }
         }
 
@@ -602,7 +602,7 @@ public final class ChoicePickerHelper {
 
             @Override
             public LogicalOperation not() {
-                predicates.peekLast().negate();
+                predicates.peekLast().negatePredicate();
                 return operation;
             }
         }
@@ -618,7 +618,7 @@ public final class ChoicePickerHelper {
                 this.stringToBoolean = stringToBoolean;
             }
 
-            public void negate() {
+            public void negatePredicate() {
                 this.negate = Boolean.TRUE;
             }
 

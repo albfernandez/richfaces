@@ -125,9 +125,10 @@ public class ResourceWriterImpl implements ResourceWriter {
         File outFile = createOutputFile(requestPathWithSkin);
 
         log.debug("Opening output stream for " + outFile);
-        matchingProcessor.process(requestPathWithSkin, new ResourceInputStreamSupplier(resource).openStream(),
-                Files.asByteSink(outFile).openStream(), true);
-        processedResources.put(ResourceUtil.getResourceQualifier(resource), requestPath);
+        try (InputStream is = new ResourceInputStreamSupplier(resource).openStream(); OutputStream os = Files.asByteSink(outFile).openStream()) {
+            matchingProcessor.process(requestPathWithSkin, is, os, true);
+            processedResources.put(ResourceUtil.getResourceQualifier(resource), requestPath);
+        }
     }
 
     public void writePackedResource(String packName, String skinName, Resource resource) throws IOException {
@@ -167,8 +168,9 @@ public class ResourceWriterImpl implements ResourceWriter {
         }
 
         synchronized (outputStream) {
-            matchingProcessor.process(requestPathWithSkin, resource.getInputStream(), outputStream,
-                    false);
+            try (InputStream is = resource.getInputStream()) {
+                matchingProcessor.process(requestPathWithSkin, is, outputStream, false);
+            }
         }
 
         processedResources.put(ResourceUtil.getResourceQualifier(resource), requestPathWithSkinVariable);
@@ -201,35 +203,21 @@ public class ResourceWriterImpl implements ResourceWriter {
     @Override
     public void writeProcessedResourceMappings(File staticResourceMappingFile, String staticResourcePrefix) throws IOException {
         // TODO separate mappings file location
-        OutputStream fos = null;
-        try {
-            if (!staticResourceMappingFile.exists()) {
-                staticResourceMappingFile.getParentFile().mkdirs();
-                staticResourceMappingFile.createNewFile();
-            }
 
-            fos = new BufferedOutputStream(
-            		java.nio.file.Files.newOutputStream(
-            				staticResourceMappingFile.toPath(), 
-            				StandardOpenOption.CREATE, 
-            				StandardOpenOption.APPEND
-            		));
-            		
+        if (!staticResourceMappingFile.exists()) {
+            staticResourceMappingFile.getParentFile().mkdirs();
+            staticResourceMappingFile.createNewFile();
+        }
+
+        try (OutputStream fos = new BufferedOutputStream(
+                java.nio.file.Files.newOutputStream(staticResourceMappingFile.toPath(), StandardOpenOption.CREATE, StandardOpenOption.APPEND))) {
 
             Properties properties = new Properties();
             for (Entry<String, String> entry : processedResources.entrySet()) {
                 properties.put(entry.getKey(), staticResourcePrefix + entry.getValue());
             }
-            // properties.putAll(processedResources);
+
             properties.store(fos, null);
-        } finally {
-            try {
-                if (fos != null) {
-                    fos.close();
-                }
-            } catch (IOException e) {
-                // TODO: handle exception
-            }
         }
     }
 

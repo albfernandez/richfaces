@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.util.Map;
@@ -160,21 +161,14 @@ public class CacheManager {
     }
 
     private String searchInClasspath(String factoryId) {
-        try {
-            ClassLoader cl = findClassLoader();
-            InputStream is = URLToStreamHelper.urlToStreamSafe(cl.getResource("META-INF/services/" + factoryId));
-
+        ClassLoader cl = findClassLoader();
+        try (InputStream is = URLToStreamHelper.urlToStream(cl.getResource("META-INF/services/" + factoryId))) {
             if (is != null) {
-                BufferedReader r = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-
-                try {
+                try (BufferedReader r = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
                     return r.readLine();
-                } finally {
-                    r.close();
                 }
             }
         } catch (IOException ignore) {
-
             // TODO Refactoring
         }
 
@@ -187,16 +181,11 @@ public class CacheManager {
             File file = new File(configFile);
 
             if (file.exists()) {
-                InputStream in = new BufferedInputStream(Files.newInputStream(file.toPath()));
-
-                try {
+                try (InputStream in = new BufferedInputStream(Files.newInputStream(file.toPath()))) {
                     Properties props = new Properties();
-
                     props.load(in);
 
                     return props.getProperty(factoryId);
-                } finally {
-                    in.close();
                 }
             }
         } catch (SecurityException ignore) {

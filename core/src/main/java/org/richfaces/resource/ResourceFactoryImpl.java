@@ -371,7 +371,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug(String.format("Resource '%s' is redirected to following resource path: %s", resourceKey, path));
-            if (aggregatedResources.size() >= 1) {
+            if (!aggregatedResources.isEmpty()) {
                 LOGGER.debug(String.format("Following resources are marked as rendered: %s", resourceKey, aggregatedResources));
             }
         }

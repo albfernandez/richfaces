@@ -111,8 +111,6 @@ public class PushHandlerFilter implements Filter, Serializable {
                 } catch (Exception e) {
                     LOGGER.error(e.getMessage(), e);
                 }
-
-                return;
             }
         }
     }

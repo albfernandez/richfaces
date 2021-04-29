@@ -24,8 +24,6 @@ package org.richfaces.resource.optimizer.resource.util;
 import static org.richfaces.resource.optimizer.strings.Constants.COLON_JOINER;
 import static org.richfaces.resource.optimizer.strings.Constants.DOT_JOINER;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -120,8 +118,7 @@ public final class ResourceUtil {
         return null;
     }
 
-    private static Collection<VirtualFile> getExistingChildren(Iterable<VFSRoot> files, String path) throws URISyntaxException,
-            IOException {
+    private static Collection<VirtualFile> getExistingChildren(Iterable<VFSRoot> files, String path) {
         Collection<VirtualFile> result = Lists.newArrayList();
 
         for (VirtualFile file : files) {
@@ -134,8 +131,7 @@ public final class ResourceUtil {
         return result;
     }
 
-    public static Collection<VirtualFile> getResourceRoots(Iterable<VFSRoot> cpRoots, Iterable<VFSRoot> webRoots)
-            throws URISyntaxException, IOException {
+    public static Collection<VirtualFile> getResourceRoots(Iterable<VFSRoot> cpRoots, Iterable<VFSRoot> webRoots) {
         List<VirtualFile> result = Lists.newArrayList();
 
         result.addAll(getExistingChildren(cpRoots, CLASSPATH_RESOURCES_LOCATION));

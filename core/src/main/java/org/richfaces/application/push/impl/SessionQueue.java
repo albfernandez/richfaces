@@ -85,7 +85,7 @@ public final class SessionQueue {
                     } else {
                         Session x = queue.poll();
                         assert x != null;
-                        if (queue.size() != 0) {
+                        if (!queue.isEmpty()) {
                             available.signalAll(); // wake up other takers
                         }
                         return x;

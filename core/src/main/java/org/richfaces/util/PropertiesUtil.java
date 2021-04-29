@@ -75,8 +75,6 @@ public final class PropertiesUtil {
                     loaded = true;
                 } catch (IOException e) {
                     LOGGER.warn(MessageFormat.format("Failure loading properties from URL: {0}", url.toExternalForm()), e);
-
-                    continue;
                 } finally {
                     if (null != propertyStream) {
                         propertyStream.close();

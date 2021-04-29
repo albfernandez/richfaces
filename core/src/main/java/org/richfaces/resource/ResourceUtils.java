@@ -46,11 +46,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.ObjectStreamClass;
 import java.io.OutputStream;
-import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.ByteBuffer;
@@ -60,6 +56,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -82,7 +79,6 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.Messages;
 import org.ajax4jsf.util.base64.Codec;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -224,29 +220,16 @@ public final class ResourceUtils {
     }
 
     public static byte[] decodeBytesData(String encodedData) {
-        byte[] objectArray = null;
+        byte[] dataArray = encodedData.getBytes(StandardCharsets.ISO_8859_1);
 
-        try {
-            byte[] dataArray = encodedData.getBytes("ISO-8859-1");
-
-            objectArray = decrypt(dataArray);
-        } catch (UnsupportedEncodingException e1) {
-
-            // default encoding always presented.
-        }
-
-        return objectArray;
+        return decrypt(dataArray);
     }
 
     public static String encodeBytesData(byte[] data) {
         if (data != null) {
-            try {
-                byte[] dataArray = encrypt(data);
+            byte[] dataArray = encrypt(data);
 
-                return new String(dataArray, "ISO-8859-1");
-            } catch (Exception e) {
-                RESOURCE_LOGGER.error(Messages.getMessage(Messages.QUERY_STRING_BUILDING_ERROR), e);
-            }
+            return new String(dataArray, StandardCharsets.ISO_8859_1);
         }
 
         return null;
@@ -256,14 +239,14 @@ public final class ResourceUtils {
         String mapping = ResourceUtils.getMappingForRequest(context);
         String resourcePath = url;
 
-        if (mapping.startsWith("/")) {
+        if (mapping != null && mapping.startsWith("/")) {
             if (mapping.length() != 1) {
                 resourcePath = mapping + url;
             }
         } else {
             int paramsSeparator = resourcePath.indexOf(QUESTION_SIGN);
             if (paramsSeparator >= 0) {
-                StringBuilder resourcePathBuilder = new StringBuilder(resourcePath.length() + mapping.length());
+                StringBuilder resourcePathBuilder = new StringBuilder(resourcePath.length() + (mapping != null ? mapping.length() : 0));
 
                 resourcePathBuilder.append(resourcePath.substring(0, paramsSeparator));
                 resourcePathBuilder.append(mapping);
@@ -394,7 +377,7 @@ public final class ResourceUtils {
                 builder.append(s.substring(start, idx));
 
                 if (encoder == null) {
-                    encoder = Charset.forName("UTF-8").newEncoder();
+                    encoder = StandardCharsets.UTF_8.newEncoder();
                 }
                 if (buffer == null) {
                     buffer = CharBuffer.allocate(1);

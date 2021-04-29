@@ -65,7 +65,7 @@ public final class Test {
         }
 
         FastBufferInputStream input = new FastBufferInputStream(output.getFirstBuffer());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         byte[] bs = new byte[ARRAY_LENGTH];
@@ -104,7 +104,7 @@ public final class Test {
         }
 
         ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         byte[] bs = new byte[ARRAY_LENGTH];
@@ -142,7 +142,7 @@ public final class Test {
         }
 
         FastBufferReader input = new FastBufferReader(output.getFirstBuffer());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         char[] bs = new char[ARRAY_LENGTH];
@@ -180,7 +180,7 @@ public final class Test {
         }
 
         StringReader input = new StringReader(output.toString());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         char[] bs = new char[ARRAY_LENGTH];
@@ -219,7 +219,7 @@ public final class Test {
 
         FastBufferOutputStream output2 = output.convertToOutputStream("UTF-8");
         FastBufferInputStream input = new FastBufferInputStream(output2.getFirstBuffer());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         byte[] bs = new byte[ARRAY_LENGTH];
@@ -258,7 +258,7 @@ public final class Test {
 
         String str = output.toString();
         ByteArrayInputStream input = new ByteArrayInputStream(str.getBytes());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         byte[] bs = new byte[ARRAY_LENGTH];
@@ -297,7 +297,7 @@ public final class Test {
 
         FastBufferWriter output2 = output.convertToWriter("UTF-8");
         FastBufferReader input = new FastBufferReader(output2.getFirstBuffer());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         char[] bs = new char[ARRAY_LENGTH];

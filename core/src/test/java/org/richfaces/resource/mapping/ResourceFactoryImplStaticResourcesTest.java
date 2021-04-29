@@ -163,7 +163,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
 
     private void configureCustomMappingFiles(String... customMappingFiles) {
         String packagePath = this.getClass().getPackage().getName().replace('.', '/');
-        StringBuffer mappingFiles = new StringBuffer();
+        StringBuilder mappingFiles = new StringBuilder();
         for (String mappingFile : customMappingFiles) {
             if (mappingFiles.length() > 0) {
                 mappingFiles.append(',');

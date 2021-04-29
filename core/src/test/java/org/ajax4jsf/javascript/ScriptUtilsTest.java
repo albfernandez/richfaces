@@ -239,7 +239,7 @@ public class ScriptUtilsTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.richfaces.javascript.ScriptUtils#addEncodedString(java.lang.StringBuffer, java.lang.Object)}.
+     * Test method for {@link org.richfaces.javascript.ScriptUtils#addEncodedString(java.lang.Appendable, java.lang.Object)}.
      *
      * @throws Exception
      */
@@ -251,7 +251,7 @@ public class ScriptUtilsTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.richfaces.javascript.ScriptUtils#addEncoded(java.lang.StringBuffer, java.lang.Object)}.
+     * Test method for {@link org.richfaces.javascript.ScriptUtils#addEncoded(java.lang.Appendable, java.lang.Object)}.
      *
      * @throws Exception
      */

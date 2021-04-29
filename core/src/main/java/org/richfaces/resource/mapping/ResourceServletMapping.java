@@ -88,14 +88,14 @@ public class ResourceServletMapping implements ResourceMapping {
     }
 
     static String getResourcePath(Resource resource) {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
 
         String ln = Strings.nullToEmpty(resource.getLibraryName());
         if (!ln.isEmpty()) {
-            buffer.append(ln).append("/");
+            sb.append(ln).append("/");
         }
 
-        buffer.append(resource.getResourceName());
+        sb.append(resource.getResourceName());
 
         try {
             URI originalRequestPath = new URI("path://" + resource.getRequestPath());
@@ -110,9 +110,9 @@ public class ResourceServletMapping implements ResourceMapping {
                 }
             }
             if (!query.isEmpty()) {
-                buffer.append("?").append(query);
+                sb.append("?").append(query);
             }
-            return buffer.toString();
+            return sb.toString();
         } catch (URISyntaxException e) {
             throw new IllegalStateException(String.format("Failed to parse requestPath '%s' for resource '%s': %s",
                     resource.getRequestPath(), ResourceKey.create(resource), e.getMessage()), e);

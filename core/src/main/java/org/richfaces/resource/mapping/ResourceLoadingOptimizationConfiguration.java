@@ -107,7 +107,7 @@ enum ResourceLoadingOptimizationConfiguration {
      *         "Static" is returned when no other feature enabled
      */
     private static String getEnabledFeatures() {
-        StringBuffer affix = new StringBuffer();
+        StringBuilder affix = new StringBuilder();
         for (ResourceLoadingOptimizationConfiguration feature : ResourceLoadingOptimizationConfiguration.values()) {
             if (feature.enabled()) {
                 affix.append(feature.toString());

@@ -56,7 +56,7 @@ public class CodecTest extends AbstractThreadedTest {
     }
 
     private String generateRandomString() {
-        StringBuffer ss = new StringBuffer();
+        StringBuilder ss = new StringBuilder();
 
         for (int i = 0; i < 50000; i++) {
             char c = (char) (96 + Math.random() * 26);

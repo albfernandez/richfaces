@@ -31,9 +31,9 @@ import java.util.List;
  * @version $Revision: 1.1.2.2 $ $Date: 2007/01/24 13:22:31 $
  *
  */
-public class JSFunctionDefinition extends ScriptStringBase implements ScriptString {
+public class JSFunctionDefinition extends ScriptStringBase {
     private List<Object> parameters = new ArrayList<Object>();
-    private StringBuffer body = new StringBuffer();
+    private StringBuilder body = new StringBuilder();
     private String name;
 
     /**

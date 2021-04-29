@@ -330,7 +330,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
     private static String readFileAsString(String filePath) throws java.io.IOException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         File testResourceFile = new File(classLoader.getResource(RESOURCES_FOLDER_PATH + "/" + filePath).getFile());
-        StringBuffer fileData = new StringBuffer(1000);
+        StringBuilder fileData = new StringBuilder(1000);
         BufferedReader reader = Files.newBufferedReader(testResourceFile.toPath(), StandardCharsets.UTF_8);
         char[] buf = new char[1024];
         int numRead = 0;

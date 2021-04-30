@@ -23,7 +23,6 @@ package org.ajax4jsf.io;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 /**
@@ -184,48 +183,6 @@ public class FastBufferOutputStream extends OutputStream {
             out.write(c.getChars(), 0, c.getUsedSize());
             b = b.getNext();
         }
-    }
-
-    /**
-     * Returns instance of FastBufferWriter containing all data written to this output stream.
-     *
-     * @param encoding
-     * @return instance of FastBufferWriter containing all data written to this output stream
-     * @throws UnsupportedEncodingException
-     */
-    public FastBufferWriter convertToWriter(String encoding) throws UnsupportedEncodingException {
-        ByteBuffer c = firstBuffer;
-        CharBuffer first = c.toCharBuffer(encoding);
-        CharBuffer b = first;
-
-        for (c = c.getNext(); c != null; ) {
-            CharBuffer n = c.toCharBuffer(encoding);
-
-            b.setNext(n);
-            b = n;
-        }
-
-        return new FastBufferWriter(first);
-    }
-
-    /**
-     * Returns instance of FastBufferWriter containing all data written to this output stream.
-     *
-     * @return instance of FastBufferWriter containing all data written to this output stream
-     */
-    public FastBufferWriter convertToWriter() {
-        ByteBuffer c = firstBuffer;
-        CharBuffer first = c.toCharBuffer();
-        CharBuffer b = first;
-
-        for (c = c.getNext(); c != null; ) {
-            CharBuffer n = c.toCharBuffer();
-
-            b.setNext(n);
-            b = n;
-        }
-
-        return new FastBufferWriter(first);
     }
 
     /**

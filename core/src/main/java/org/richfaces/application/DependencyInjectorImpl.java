@@ -135,9 +135,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
             if (dependency != null) {
                 String propertyName = field.getName();
 
-                if (!fieldsMap.containsKey(propertyName)) {
-                    fieldsMap.put(propertyName, dependency);
-                }
+                fieldsMap.putIfAbsent(propertyName, dependency);
             }
         }
 

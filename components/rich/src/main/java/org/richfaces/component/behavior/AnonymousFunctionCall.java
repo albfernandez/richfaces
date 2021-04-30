@@ -9,7 +9,7 @@ import org.ajax4jsf.javascript.ScriptStringBase;
 
 public class AnonymousFunctionCall extends ScriptStringBase {
 
-    private StringBuffer body = new StringBuffer();
+    private StringBuilder body = new StringBuilder();
 
     private List<Object> parameterNames = new ArrayList<Object>();
     private List<Object> parameterValues = new ArrayList<Object>();

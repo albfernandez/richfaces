@@ -96,7 +96,7 @@ public abstract class AjaxCommandRendererBase extends RendererBase {
     }
 
     public String getOnClick(FacesContext context, UIComponent component) {
-        StringBuffer onClick = new StringBuffer();
+        StringBuilder onClick = new StringBuilder();
 
         if (!getUtils().isBooleanAttribute(component, "disabled")) {
             HandlersChain handlersChain = new HandlersChain(context, component);

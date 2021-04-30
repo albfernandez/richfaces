@@ -207,7 +207,7 @@ public final class CDL {
      * @return A string ending in NEWLINE.
      */
     public static String rowToString(JSONArray ja) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < ja.length(); i += 1) {
             if (i > 0) {
@@ -276,7 +276,7 @@ public final class CDL {
             return null;
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < ja.length(); i += 1) {
             JSONObject jo = ja.optJSONObject(i);

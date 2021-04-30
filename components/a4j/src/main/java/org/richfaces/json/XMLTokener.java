@@ -63,7 +63,7 @@ public class XMLTokener extends JSONTokener {
     public String nextCDATA() throws JSONException {
         char c;
         int i;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (;;) {
             c = next();
@@ -94,7 +94,6 @@ public class XMLTokener extends JSONTokener {
      */
     public Object nextContent() throws JSONException {
         char c;
-        StringBuffer sb;
 
         do {
             c = next();
@@ -108,7 +107,7 @@ public class XMLTokener extends JSONTokener {
             return XML.LT;
         }
 
-        sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (;;) {
             if ((c == '<') || (c == 0)) {
@@ -135,7 +134,7 @@ public class XMLTokener extends JSONTokener {
      * @throws JSONException If missing ';' in XML entity.
      */
     public Object nextEntity(char a) throws JSONException {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (;;) {
             char c = next();
@@ -247,7 +246,7 @@ public class XMLTokener extends JSONTokener {
     public Object nextToken() throws JSONException {
         char c;
         char q;
-        StringBuffer sb;
+        StringBuilder sb;
 
         do {
             c = next();
@@ -279,7 +278,7 @@ public class XMLTokener extends JSONTokener {
             case '"':
             case '\'':
                 q = c;
-                sb = new StringBuffer();
+                sb = new StringBuilder();
 
                 for (;;) {
                     c = next();
@@ -301,7 +300,7 @@ public class XMLTokener extends JSONTokener {
             default:
 
                 // Name
-                sb = new StringBuffer();
+                sb = new StringBuilder();
 
                 for (;;) {
                     sb.append(c);

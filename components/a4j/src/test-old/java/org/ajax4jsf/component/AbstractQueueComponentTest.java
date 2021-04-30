@@ -562,7 +562,7 @@ class UnescapingScriptPreprocessor implements ScriptPreProcessor {
     public String preProcess(HtmlPage htmlPage, String sourceCode, String sourceName, HtmlElement htmlElement) {
         if (sourceName != null && !sourceName.startsWith("http:/")) {
             Matcher m = ENTITIES_PATTERN.matcher(sourceCode);
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
 
             while (m.find()) {
                 String entity = m.group(1);

@@ -95,7 +95,7 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
         callback.addParameter(new JSReference(REF_COMPONENT));
 
         // create callback function
-        StringBuffer script = new StringBuffer();
+        StringBuilder script = new StringBuilder();
         script.append(REF_COMPONENT).append("['").append(apiFunctionName).append("'].").append("apply").append("(");
 
         // get client api function parameters
@@ -120,7 +120,7 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
         eventFunction.addParameter(new JSReference(REF_EVENT));
         eventFunction.addParameter(parameters);
 
-        StringBuffer execution = new StringBuffer();
+        StringBuilder execution = new StringBuilder();
         execution.append(eventFunction.toScript());
         execution.append("; return false;");
         return execution.toString();

@@ -87,7 +87,7 @@ public final class XML {
      * @return The escaped string.
      */
     public static String escape(String string) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int len = string.length();
 
         for (int i = 0; i < len; i++) {
@@ -338,7 +338,7 @@ public final class XML {
      * @throws JSONException
      */
     public static String toString(Object o, String tagName) throws JSONException {
-        StringBuffer b = new StringBuffer();
+        StringBuilder b = new StringBuilder();
         int i;
         JSONArray ja;
         JSONObject jo;

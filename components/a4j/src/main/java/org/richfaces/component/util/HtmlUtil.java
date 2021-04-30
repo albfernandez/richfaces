@@ -78,6 +78,7 @@ public final class HtmlUtil {
      */
     public static String expandIdSelector(String selector, UIComponent component, FacesContext context) {
         Matcher matcher = ID_SELECTOR_PATTERN.matcher(selector);
+        // NOTE: can't use StringBuilder here since Matcher.appendReplacement() and Matcher.appendTail() won't accept a StringBuilder as parameter until Java 9
         StringBuffer sb = new StringBuffer();
 
         while (matcher.find()) {
@@ -98,22 +99,22 @@ public final class HtmlUtil {
     }
 
     public static String idsToIdSelector(String ids) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         if (ids != null) {
             String[] idString = ids.split("\\s*,\\s*");
 
             for (int i = 0; i < idString.length; i++) {
                 if (i > 0) {
-                    buffer.append(",");
+                    sb.append(",");
                 }
 
                 idString[i] = idString[i].replaceAll(":", "\\\\:");
-                buffer.append("#").append(idString[i]);
+                sb.append("#").append(idString[i]);
             }
         }
 
-        return buffer.toString();
+        return sb.toString();
     }
 
     public static boolean shouldWriteId(UIComponent component) {

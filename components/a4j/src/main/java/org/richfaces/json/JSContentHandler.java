@@ -304,18 +304,18 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
             return "";
         }
 
-        StringBuffer buf = new StringBuffer(" (");
+        StringBuilder sb = new StringBuilder(" (");
 
         if (this.getSystemId() != null) {
-            buf.append(this.getSystemId());
-            buf.append(' ');
+            sb.append(this.getSystemId());
+            sb.append(' ');
         }
 
-        buf.append("line " + this.getLineNumber());
-        buf.append(" col " + this.getColumnNumber());
-        buf.append(')');
+        sb.append("line " + this.getLineNumber());
+        sb.append(" col " + this.getColumnNumber());
+        sb.append(')');
 
-        return buf.toString();
+        return sb.toString();
     }
 
     /* ====================================================================== */

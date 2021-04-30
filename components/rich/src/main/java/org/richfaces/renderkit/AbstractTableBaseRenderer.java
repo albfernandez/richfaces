@@ -200,7 +200,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     protected void encodeStyle(ResponseWriter writer, FacesContext context, UIComponent component, String predefinedStyles)
         throws IOException {
 
-        StringBuffer toEncode = new StringBuffer();
+        StringBuilder toEncode = new StringBuilder();
 
         if (!isEmptyAttr(component, HtmlConstants.STYLE_ATTRIBUTE)) {
             String style = ((String) component.getAttributes().get(HtmlConstants.STYLE_ATTRIBUTE)).trim();

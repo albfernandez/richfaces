@@ -210,7 +210,7 @@ public class JSONTokener {
      */
     public String nextString(char quote) throws JSONException {
         char c;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (;;) {
             c = next();
@@ -283,7 +283,7 @@ public class JSONTokener {
      * @return A string.
      */
     public String nextTo(char d) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (;;) {
             char c = next();
@@ -308,7 +308,7 @@ public class JSONTokener {
      */
     public String nextTo(String delimiters) {
         char c;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (;;) {
             c = next();
@@ -358,7 +358,7 @@ public class JSONTokener {
          *
          * Accumulate characters until we reach the end of the text or a formatting character.
          */
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         char b = c;
 
         while ((c >= ' ') && (",:]}/\\\"[{;=#".indexOf(c) < 0)) {

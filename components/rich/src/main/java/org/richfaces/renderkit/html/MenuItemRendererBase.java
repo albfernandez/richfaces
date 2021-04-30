@@ -81,7 +81,7 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
     public String getOnClick(FacesContext context, UIComponent component) {
         AbstractMenuItem menuItem = (AbstractMenuItem) component;
         Mode submitMode = resolveSubmitMode(menuItem);
-        StringBuffer onClick = new StringBuffer();
+        StringBuilder onClick = new StringBuilder();
 
         if (!getUtils().isBooleanAttribute(component, "disabled")) {
             HandlersChain handlersChain = new HandlersChain(context, component);

@@ -101,7 +101,6 @@ public class AjaxPollRenderer extends RendererBase {
         // polling script.
         writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", null);
-        StringBuffer script = new StringBuffer("");
 
         JSFunction function = new JSFunction(AJAX_POLL_FUNCTION);
         Map<String, Object> options = new HashMap<String, Object>();

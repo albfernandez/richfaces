@@ -20,6 +20,7 @@
  */
 package org.ajax4jsf.util.base64;
 
+import java.nio.charset.StandardCharsets;
 import java.security.spec.KeySpec;
 
 import javax.crypto.Cipher;
@@ -65,7 +66,7 @@ public class Codec {
     public void setPassword(String p) throws FacesException {
 
         try {
-            KeySpec keySpec = new DESKeySpec(p.getBytes("UTF8"));
+            KeySpec keySpec = new DESKeySpec(p.getBytes(StandardCharsets.UTF_8));
             SecretKey key = SecretKeyFactory.getInstance("DES").generateSecret(keySpec);
 
             e = Cipher.getInstance(key.getAlgorithm());
@@ -81,17 +82,17 @@ public class Codec {
     }
 
     public String decode(String str) throws Exception {
-        byte[] src = str.getBytes("UTF8");
+        byte[] src = str.getBytes(StandardCharsets.UTF_8);
         byte[] utf8 = decode(src);
 
         // Decode using utf-8
-        return new String(utf8, "UTF8");
+        return new String(utf8, StandardCharsets.UTF_8);
     }
 
     public String encode(String str) throws Exception {
 
         // try {
-        byte[] src = str.getBytes("UTF8");
+        byte[] src = str.getBytes(StandardCharsets.UTF_8);
 
         // int len = (src.length/8+1)*8;
         // byte[] block = new byte[len];
@@ -101,7 +102,7 @@ public class Codec {
         byte[] utf8 = encode(src);
 
         // Decode using utf-8
-        return new String(utf8, "UTF8");
+        return new String(utf8, StandardCharsets.UTF_8);
 
         // } catch (Exception e) {
         // // TODO: handle exception

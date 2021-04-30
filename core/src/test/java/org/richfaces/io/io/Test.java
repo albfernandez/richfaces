@@ -275,45 +275,6 @@ public final class Test {
         }
     }
 
-    static void testTransitionFromStreamToWriter() throws IOException {
-        String s = "This is a senseless text to test transform from stream to writer.\n";
-
-        for (int i = 0; i < 10; i++) {
-            s = s + s; // repeated 16 times
-        }
-
-        byte[] bytes = s.getBytes();
-        FastBufferOutputStream output = new FastBufferOutputStream(16);
-
-        // write it several times.
-        for (int i = 0; i < 4; i++) {
-            output.write(bytes);
-        }
-
-        // write it one more time by one byte
-        for (int i = 0; i < bytes.length; i++) {
-            output.write(bytes[i]);
-        }
-
-        FastBufferWriter output2 = output.convertToWriter("UTF-8");
-        FastBufferReader input = new FastBufferReader(output2.getFirstBuffer());
-        StringBuilder sb = new StringBuilder();
-
-        // use for reading unconvenient array length.
-        char[] bs = new char[ARRAY_LENGTH];
-        int l = 0;
-
-        while ((l = input.read(bs, READ_OFF, READ_LENGTH)) >= 0) {
-            if (BUILD_STRING) {
-                sb.append(new String(bs, READ_OFF, l));
-            }
-        }
-
-        if (BUILD_STRING && OUT_STRING) {
-            System.out.println(sb);
-        }
-    }
-
     /**
      * @param args
      */
@@ -329,8 +290,6 @@ public final class Test {
                 // testStandardReaders();
                 // testTransitionFromWriterToStream();
                 testStandardTransitionFromWriterToStream();
-
-                // testTransitionFromStreamToWriter();
             }
         } catch (Exception e) {
             e.printStackTrace();

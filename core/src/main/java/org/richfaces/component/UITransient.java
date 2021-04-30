@@ -128,7 +128,7 @@ public abstract class UITransient extends UIComponentBase {
             // now resolve our own client id
             String clientId = getId();
             if (clientId == null) {
-                if (null != namingContainerAncestor && namingContainerAncestor instanceof UniqueIdVendor) {
+                if (namingContainerAncestor instanceof UniqueIdVendor) {
                     clientId = ((UniqueIdVendor) namingContainerAncestor).createUniqueId(context, null);
                 } else {
                     clientId = context.getViewRoot().createUniqueId();
@@ -406,7 +406,7 @@ public abstract class UITransient extends UIComponentBase {
 
     @Override
     public List<SystemEventListener> getListenersForEventClass(Class<? extends SystemEvent> eventClass) {
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     protected abstract boolean hasAttribute(Object key);

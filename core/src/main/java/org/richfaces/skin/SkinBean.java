@@ -49,7 +49,7 @@ public class SkinBean extends AbstractMap implements Skin {
      */
     @Override
     public Set entrySet() {
-        return Collections.EMPTY_SET;
+        return Collections.emptySet();
     }
 
     /*

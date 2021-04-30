@@ -198,13 +198,7 @@ public class FastBufferOutputStream extends OutputStream {
         CharBuffer first = c.toCharBuffer(encoding);
         CharBuffer b = first;
 
-        while (c != null) {
-            c = c.getNext();
-
-            if (c == null) {
-                break;
-            }
-
+        for (c = c.getNext(); c != null; ) {
             CharBuffer n = c.toCharBuffer(encoding);
 
             b.setNext(n);
@@ -224,13 +218,7 @@ public class FastBufferOutputStream extends OutputStream {
         CharBuffer first = c.toCharBuffer();
         CharBuffer b = first;
 
-        while (c != null) {
-            c = c.getNext();
-
-            if (c == null) {
-                break;
-            }
-
+        for (c = c.getNext(); c != null; ) {
             CharBuffer n = c.toCharBuffer();
 
             b.setNext(n);

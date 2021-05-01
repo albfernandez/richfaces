@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>34</version>
+        <version>36</version>
         <relativePath />
     </parent>
 
@@ -485,7 +485,7 @@
                 <arquillian.maven.settings />
 
                 <!-- Container Selection -->
-                <arquillian.launch.wildfly>fasle</arquillian.launch.wildfly>
+                <arquillian.launch.wildfly>false</arquillian.launch.wildfly>
                 <arquillian.launch.tomcat>false</arquillian.launch.tomcat>
                 <arquillian.launch.payara>false</arquillian.launch.payara>
 

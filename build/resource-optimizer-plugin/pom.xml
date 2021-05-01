@@ -37,10 +37,10 @@
     <description>Maven plugin for packaging resources with web application</description>
 
     <properties>
-        <version.maven-core>3.6.1</version.maven-core>
+        <version.maven-core>3.6.3</version.maven-core>
         <version.maven-archiver>3.5.1</version.maven-archiver>
         <version.maven-file-management>3.0.0</version.maven-file-management>
-        <version.plexus-utils>3.1.1</version.plexus-utils>
+        <version.plexus-utils>3.3.0</version.plexus-utils>
         <version.plexus-velocity>1.2</version.plexus-velocity>
     </properties>
 

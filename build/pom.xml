@@ -70,7 +70,7 @@
 
         <!-- Project Versions -->
         <version.google-guava>30.1.1-jre</version.google-guava>
-        <version.cssparser>0.9.27</version.cssparser>
+        <version.cssparser>0.9.29</version.cssparser>
 
         <!-- JSF Implementations Versions-->
         <version.javax.faces-api>2.2</version.javax.faces-api>

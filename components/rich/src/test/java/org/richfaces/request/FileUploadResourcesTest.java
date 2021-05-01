@@ -40,7 +40,8 @@ import java.util.UUID;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.richfaces.util.StreamUtils;
+
+import com.google.common.io.ByteStreams;
 
 /**
  * @author Nick Belaevski
@@ -79,7 +80,7 @@ public class FileUploadResourcesTest {
 
     private byte[] readFully(InputStream is) throws IOException {
         try {
-            return StreamUtils.toByteArray(is);
+            return ByteStreams.toByteArray(is);
         } finally {
             try {
                 is.close();

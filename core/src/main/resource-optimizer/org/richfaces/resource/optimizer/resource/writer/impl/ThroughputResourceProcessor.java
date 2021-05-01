@@ -25,10 +25,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
+
 import com.google.common.io.ByteSink;
 import com.google.common.io.ByteSource;
-import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
-import org.richfaces.util.StreamUtils;
+import com.google.common.io.ByteStreams;
 
 /**
  * @author Nick Belaevski
@@ -53,7 +54,7 @@ final class ThroughputResourceProcessor implements ResourceProcessor {
     @Override
     public void process(String outputName, InputStream in, OutputStream out, boolean closeAtFinish) throws IOException {
         try {
-            StreamUtils.copy(in, out);
+            ByteStreams.copy(in, out);
         } finally {
             try {
                 in.close();

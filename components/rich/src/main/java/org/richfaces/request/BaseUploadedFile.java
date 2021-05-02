@@ -26,7 +26,8 @@ import java.io.InputStream;
 
 import org.richfaces.exception.FileUploadException;
 import org.richfaces.model.UploadedFile;
-import org.richfaces.util.StreamUtils;
+
+import com.google.common.io.ByteStreams;
 
 /**
  * @author Nick Belaevski
@@ -61,7 +62,7 @@ public abstract class BaseUploadedFile implements UploadedFile {
         InputStream is = null;
         try {
             is = getInputStream();
-            return StreamUtils.toByteArray(is);
+            return ByteStreams.toByteArray(is);
         } catch (IOException e) {
             throw new FileUploadException(e.getMessage(), e);
         } finally {

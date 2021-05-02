@@ -45,7 +45,8 @@ import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import org.richfaces.util.StreamUtils;
+import com.google.common.io.ByteStreams;
+import com.google.common.primitives.Bytes;
 
 /**
  * @author Nick Belaevski
@@ -205,23 +206,21 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
     }
 
     private boolean containsELExpression(Resource resource) {
+        byte[] elExpression = { '#', '{' };
+
         InputStream is = null;
         try {
             is = resource.getInputStream();
-            byte[] bs = StreamUtils.toByteArray(is);
+            byte[] bs = ByteStreams.toByteArray(is);
 
-            for (int i = 0; i < bs.length; i++) {
-                byte b = bs[i];
-
-                if (b == '#' && i + 1 < bs.length && bs[i + 1] == '{') {
-                    return true;
-                }
-            }
+            return Bytes.indexOf(bs, elExpression) != -1;
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         } finally {
             try {
-                is.close();
+                if (is != null) {
+                    is.close();
+                }
             }
             catch(IOException e){
                 // Swallow

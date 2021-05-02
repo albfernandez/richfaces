@@ -315,8 +315,7 @@ public class ResourceGenerator {
         List<String> classpath = new ArrayList<String>();
         classpath.add(classpathDir.getAbsolutePath());
 
-        URL[] urlClasspath = filter(transform(classpath, filePathToURL), notNull()).toArray(EMPTY_URL_ARRAY);
-        return urlClasspath;
+        return filter(transform(classpath, filePathToURL), notNull()).toArray(EMPTY_URL_ARRAY);
     }
 
     protected ClassLoader createProjectClassLoader(URL[] cp) {

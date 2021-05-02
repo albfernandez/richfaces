@@ -82,8 +82,7 @@ public class MessageFactoryImpl implements MessageFactory {
     };
     private static final Factory<String> FORMAT_FACTORY = new Factory<String>() {
         public String create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException {
-            String format = bundle.getString(messageKey.toString());
-            return format;
+            return bundle.getString(messageKey.toString());
         }
     };
     private BundleLoader bundleLoader;

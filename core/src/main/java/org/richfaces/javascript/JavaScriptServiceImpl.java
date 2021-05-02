@@ -124,8 +124,7 @@ public class JavaScriptServiceImpl implements JavaScriptService {
     private UIScripts findScriptComponent(List<UIComponent> componentResources) {
         for (UIComponent uiComponent : componentResources) {
             if (uiComponent instanceof UIScripts) {
-                UIScripts script = (UIScripts) uiComponent;
-                return script;
+                return (UIScripts) uiComponent;
             }
         }
         return null;

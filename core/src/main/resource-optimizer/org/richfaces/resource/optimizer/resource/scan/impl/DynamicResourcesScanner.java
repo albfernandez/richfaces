@@ -52,9 +52,7 @@ public class DynamicResourcesScanner implements ResourcesScanner {
     private static final Function<Class<?>, ResourceKey> RESOURCE_LOCATOR_FUNCTION = new Function<Class<?>, ResourceKey>() {
         @Override
         public ResourceKey apply(Class<?> from) {
-            ResourceKey key = ResourceKey.create(from.getName());
-
-            return key;
+            return ResourceKey.create(from.getName());
         }
     };
     private static final Predicate<Class<?>> UNINSTANTIATABLE_CLASSES_PREDICATE = new Predicate<Class<?>>() {

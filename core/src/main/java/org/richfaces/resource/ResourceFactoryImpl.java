@@ -214,9 +214,8 @@ public class ResourceFactoryImpl implements ResourceFactory {
         }
 
         Class<? extends Resource> resourceClass = loadedClass.asSubclass(Resource.class);
-        Resource result = (Resource) resourceClass.getDeclaredConstructor().newInstance();
 
-        return result;
+        return resourceClass.getDeclaredConstructor().newInstance();
     }
 
     /**

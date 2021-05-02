@@ -104,8 +104,8 @@ public class DynamicResourceWrapper extends Resource {
 
         String resourcePath = SLASH_JOINER.join(getLibraryName(), resourceName);
         String filename = getFileNameMapper().createName(resourcePath);
-        String filenameWithSkinPlaceholder = ResourceSkinUtils.prefixPathWithSkinPlaceholder(filename);
-        return filenameWithSkinPlaceholder;
+
+        return ResourceSkinUtils.prefixPathWithSkinPlaceholder(filename);
     }
 
     @Override

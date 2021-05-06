@@ -23,6 +23,7 @@ package org.richfaces.fragment.panelMenu;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
@@ -41,8 +42,6 @@ import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
-
-import com.google.common.base.Predicate;
 
 public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, AdvancedVisibleComponentIteractions<AbstractPanelMenu.AdvancedAbstractPanelMenuInteractions> {
 
@@ -202,10 +201,9 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.ignoring(org.openqa.selenium.remote.ErrorHandler.UnknownServerException.class).until(
-                        new Predicate<WebDriver>() {
+                    wait.ignoring(org.openqa.selenium.remote.ErrorHandler.UnknownServerException.class).until(new Function<WebDriver, Boolean>() {
                             @Override
-                            public boolean apply(WebDriver input) {
+                            public Boolean apply(WebDriver input) {
                                 return AbstractPanelMenu.this.isGroupExpanded(groupHeader);
                             }
                         });
@@ -219,10 +217,9 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.ignoring(org.openqa.selenium.remote.ErrorHandler.UnknownServerException.class).until(
-                        new Predicate<WebDriver>() {
+                    wait.ignoring(org.openqa.selenium.remote.ErrorHandler.UnknownServerException.class).until(new Function<WebDriver, Boolean>() {
                             @Override
-                            public boolean apply(WebDriver input) {
+                            public Boolean apply(WebDriver input) {
                                 return !AbstractPanelMenu.this.isGroupExpanded(groupHeader);
                             }
                         });

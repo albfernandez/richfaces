@@ -32,6 +32,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.net.URL;
+import java.util.function.Function;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -53,7 +54,6 @@ import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
-import com.google.common.base.Predicate;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -280,10 +280,10 @@ public abstract class AbstractPlaceholderTest {
 
         // when
         input().focus();
-        waitGui().until(new Predicate<WebDriver>() {
+        waitGui().until(new Function<WebDriver, Boolean>() {
 
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return input().getEditedText().isEmpty();
             }
         });
@@ -298,9 +298,9 @@ public abstract class AbstractPlaceholderTest {
         // when
         input().setTestedValue(getTestedValue());
         blur();
-        waitGui().until(new Predicate<WebDriver>() {
+        waitGui().until(new Function<WebDriver, Boolean>() {
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return input().getEditedText().equals(getTestedValue());
             }
         });
@@ -315,9 +315,9 @@ public abstract class AbstractPlaceholderTest {
         // having
         browser.get(contextPath.toExternalForm() + "index.jsf");
         input().setTestedValue(getTestedValue());
-        waitGui().until(new Predicate<WebDriver>() {
+        waitGui().until(new Function<WebDriver, Boolean>() {
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return !input().getStyleClass().contains(PLACEHOLDER_CLASS);
             }
         });
@@ -337,9 +337,9 @@ public abstract class AbstractPlaceholderTest {
         input().setTestedValue(getTestedValue());
         input().clear();
         blur();
-        waitGui().until(new Predicate<WebDriver>() {
+        waitGui().until(new Function<WebDriver, Boolean>() {
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return input().getDefaultText().equals(PLACEHOLDER_TEXT);
             }
         });

@@ -22,6 +22,7 @@
 package org.richfaces.fragment.notify;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.GrapheneElement;
@@ -37,8 +38,6 @@ import org.richfaces.fragment.list.ListItem;
 import org.richfaces.fragment.message.Message.MessageType;
 import org.richfaces.fragment.messages.Messages;
 import org.richfaces.fragment.notify.RichFacesNotify.NotifyMessageItemImpl;
-
-import com.google.common.base.Predicate;
 
 /**
  * This fragment ignores its findBy. Global component.
@@ -164,10 +163,10 @@ public class RichFacesNotify extends AbstractListComponent<NotifyMessageItemImpl
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return !isVisible();
                         }
                     });
@@ -181,10 +180,10 @@ public class RichFacesNotify extends AbstractListComponent<NotifyMessageItemImpl
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isVisible();
                         }
                     });

@@ -25,6 +25,7 @@ import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -36,8 +37,6 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
-
-import com.google.common.base.Predicate;
 
 public abstract class AbstractSwitchableComponent<T extends ComponentContainer> implements SwitchableComponent<T>, AdvancedVisibleComponentIteractions<AbstractSwitchableComponent<T>.AdvancedSwitchableComponentInteractions> {
 
@@ -112,7 +111,7 @@ public abstract class AbstractSwitchableComponent<T extends ComponentContainer> 
 
         protected abstract List<WebElement> getSwitcherControllerElements();
 
-        protected abstract Predicate<WebDriver> getConditionForContentSwitched(String textToContain);
+        protected abstract Function<WebDriver, Boolean> getConditionForContentSwitched(String textToContain);
 
         protected void waitUntilContentSwitched(String textToContain) {
             (switchType.equals(SwitchType.CLIENT)

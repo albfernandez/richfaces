@@ -50,12 +50,12 @@
         <dependency>
             <groupId>org.jboss.arquillian.extension</groupId>
             <artifactId>arquillian-phantom-driver</artifactId>
+            <version>1.2.1.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
-            <version>2.53.1</version>
         </dependency>
 
         <!-- Testing dependencies -->
@@ -79,7 +79,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -98,7 +97,6 @@
                         <link>https://docs.oracle.com/javase/7/docs/api/</link>
                     </links>
 				</configuration>
-                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>

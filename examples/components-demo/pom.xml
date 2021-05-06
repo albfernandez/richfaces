@@ -60,14 +60,17 @@
 	</issueManagement>
 	
     <properties>
-        <version.richfaces>4.6.14-SNAPSHOT</version.richfaces>
-        <version.hibernate-validator>5.4.3.Final</version.hibernate-validator>
-        <version.jboss-spec>3.0.3.Final</version.jboss-spec>
-        <version.junit>4.13.1</version.junit>
+        <java.version>1.8</java.version>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <version.richfaces>4.6.14-SNAPSHOT</version.richfaces>
+        <version.hibernate-validator>5.4.3.Final</version.hibernate-validator>
+        <version.jboss-spec>3.0.3.Final</version.jboss-spec>
+        <version.junit>4.13.1</version.junit>
     </properties>
 
     <dependencies>

@@ -3,6 +3,7 @@ package org.richfaces.component.fileUpload;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.net.URL;
+import java.util.function.Function;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -14,8 +15,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.fileUpload.RichFacesFileUpload;
-
-import com.google.common.base.Predicate;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -56,11 +55,11 @@ public abstract class IT_RF14257 {
     }
 
     protected void assertOnsizeRejectedTriggered(final int times) {
-        Graphene.waitGui().until(new Predicate<WebDriver>() {
+        Graphene.waitGui().until(new Function<WebDriver, Boolean>() {
             private int onsizerejectedTriggeredTimes = 0;
 
             @Override
-            public boolean apply(WebDriver t) {
+            public Boolean apply(WebDriver t) {
                 onsizerejectedTriggeredTimes = Integer.valueOf(String.valueOf(executor.executeScript("return window.onsizerejected")));
                 return onsizerejectedTriggeredTimes == times;
             }

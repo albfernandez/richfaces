@@ -25,6 +25,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
@@ -35,8 +36,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.dataTable.page.ArrangableModelPage;
-
-import com.google.common.base.Predicate;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -78,11 +77,11 @@ public class ITestArrangeableModel extends AbstractWebDriverTest {
 
     private boolean doesColumnContainsOnlyRowsWithData(By column, String data, final int numberOfVisibleRows) {
         final List<WebElement> rows = page.getTable().findElements(By.tagName("tr"));
-        Graphene.waitAjax().until(new Predicate<WebDriver>() {
+        Graphene.waitAjax().until(new Function<WebDriver, Boolean>() {
             private int lastVisibleRowsCount;
 
             @Override
-            public boolean apply(WebDriver t) {
+            public Boolean apply(WebDriver t) {
                 return (lastVisibleRowsCount = rows.size()) == numberOfVisibleRows;
             }
 

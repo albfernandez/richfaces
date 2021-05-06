@@ -23,6 +23,7 @@ package org.richfaces.fragment.messages;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.GrapheneElementImpl;
@@ -40,8 +41,6 @@ import org.richfaces.fragment.message.AbstractMessage;
 import org.richfaces.fragment.message.Message;
 import org.richfaces.fragment.message.Message.MessageType;
 import org.richfaces.fragment.messages.RichFacesMessages.MessageImpl;
-
-import com.google.common.base.Predicate;
 
 /**
  * Component for rich:messages.
@@ -162,10 +161,10 @@ public class RichFacesMessages extends AbstractListComponent<MessageImpl> implem
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return !isVisible();
                         }
                     });
@@ -179,10 +178,10 @@ public class RichFacesMessages extends AbstractListComponent<MessageImpl> implem
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isVisible();
                         }
                     });

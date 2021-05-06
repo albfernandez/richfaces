@@ -156,31 +156,26 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
         throw new RuntimeException("Cannot find any suitable position for mouseout event.");
     }
 
-    @Override
     public Actions keyDown(Keys theKey) {
         super.keyDown(theKey);
         return this;
     }
 
-    @Override
     public Actions keyDown(WebElement element, Keys theKey) {
         super.keyDown(element, theKey);
         return this;
     }
 
-    @Override
     public Actions keyUp(Keys theKey) {
         super.keyUp(theKey);
         return this;
     }
 
-    @Override
     public Actions keyUp(WebElement element, Keys theKey) {
         super.keyUp(element, theKey);
         return this;
     }
 
-    @Override
     public Actions moveByOffset(int xOffset, int yOffset) {
         super.moveByOffset(xOffset, yOffset);
         return this;

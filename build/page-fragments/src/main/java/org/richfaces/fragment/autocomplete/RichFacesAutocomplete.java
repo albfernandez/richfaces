@@ -24,6 +24,7 @@ package org.richfaces.fragment.autocomplete;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
@@ -45,8 +46,6 @@ import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
-
-import com.google.common.base.Predicate;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -160,9 +159,9 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return getSuggestionsElements().isEmpty();
                         }
                     });
@@ -176,9 +175,9 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return !getSuggestionsElements().isEmpty();
                         }
                     });

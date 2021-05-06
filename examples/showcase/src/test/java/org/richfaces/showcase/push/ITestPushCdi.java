@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
@@ -36,7 +37,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.showcase.AbstractWebDriverTest;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 
 /**
@@ -126,7 +126,7 @@ public class ITestPushCdi extends AbstractWebDriverTest {
         checkExpectedMessagesOnConsumers(consumersWindows);
     }
 
-    private class WindowsHandlesSizeIncreasePredicate implements Predicate<WebDriver> {
+    private class WindowsHandlesSizeIncreasePredicate implements Function<WebDriver, Boolean> {
 
         private final int previousWindowHandlesSize;
 
@@ -135,12 +135,12 @@ public class ITestPushCdi extends AbstractWebDriverTest {
         }
 
         @Override
-        public boolean apply(WebDriver d) {
+        public Boolean apply(WebDriver d) {
             return (d.getWindowHandles().size() - 1) > previousWindowHandlesSize;
         }
     };
 
-    private class ConsumerHasMessagePredicate implements Predicate<WebDriver> {
+    private class ConsumerHasMessagePredicate implements Function<WebDriver, Boolean> {
 
         private final int index;
         private String message, actualText, expectedText;
@@ -150,7 +150,7 @@ public class ITestPushCdi extends AbstractWebDriverTest {
         }
 
         @Override
-        public boolean apply(WebDriver t) {
+        public Boolean apply(WebDriver t) {
             actualText = webDriver.findElement(MESSAGES_BY_ID).getText();
             expectedText = EXPECTED_MESSAGES_ON_CONSUMERS.get(index);
             boolean result = actualText.equals(expectedText);

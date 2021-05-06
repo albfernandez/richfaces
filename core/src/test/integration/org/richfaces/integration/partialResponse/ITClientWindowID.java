@@ -92,11 +92,11 @@ public class ITClientWindowID {
     @Test
     public void should_include_hidden_field_with_client_window_id() {
         browser.get(contextPath.toString());
-        waitModel().until(new Predicate<WebDriver>() {
+        waitModel().until(new java.util.function.Function<WebDriver, Boolean>() {
             private String value;
 
             @Override
-            public boolean apply(WebDriver t) {
+            public Boolean apply(WebDriver t) {
                 value = hiddenFieldWithClientWindowID.getAttribute("value").trim();
                 return !value.isEmpty();
             }

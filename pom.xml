@@ -472,6 +472,8 @@
                 <!-- Arquillian Configuration -->
                 <arquillian.debug>false</arquillian.debug>
                 <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
+                <!-- part of the path is the md5 hash of the phantomjs zip package, so if phantomjs gets updated this should too -->
+                <arquillian.drone.phantomjs.binary.path>target/drone/1c947d57fce2f21ce0b43fe2ed7cd361/phantomjs-2.1.1-linux-x86_64/bin/phantomjs</arquillian.drone.phantomjs.binary.path>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
                 <arquillian.richfaces.version />
                 <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>

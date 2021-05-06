@@ -21,6 +21,8 @@
  */
 package org.richfaces.fragment.log;
 
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -37,8 +39,6 @@ import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.list.AbstractListComponent;
 import org.richfaces.fragment.list.ListComponent;
 import org.richfaces.fragment.list.RichFacesListItem;
-
-import com.google.common.base.Predicate;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -66,10 +66,10 @@ public class RichFacesLog implements Log, AdvancedVisibleComponentIteractions<Ri
     @Override
     public void clear() {
         advanced().getClearButtonElement().click();
-        Graphene.waitGui().until(new Predicate<WebDriver>() {
+        Graphene.waitGui().until(new Function<WebDriver, Boolean>() {
 
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return getLogEntries().isEmpty();
             }
         });

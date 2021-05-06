@@ -22,6 +22,7 @@
 package org.richfaces.fragment.tree;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -34,8 +35,6 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
-
-import com.google.common.base.Predicate;
 
 public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
 
@@ -209,10 +208,10 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isCollapsed();
                         }
                     });
@@ -227,10 +226,10 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isExpanded();
                         }
                     });
@@ -245,10 +244,10 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return !isSelected();
                         }
                     });
@@ -262,10 +261,10 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isSelected();
                         }
                     });

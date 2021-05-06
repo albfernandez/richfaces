@@ -23,14 +23,13 @@ package org.richfaces.fragment.accordion;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.switchable.AbstractSwitchableComponent;
-
-import com.google.common.base.Predicate;
 
 public class RichFacesAccordion extends AbstractSwitchableComponent<RichFacesAccordionItem> implements Accordion {
 
@@ -71,10 +70,10 @@ public class RichFacesAccordion extends AbstractSwitchableComponent<RichFacesAcc
         }
 
         @Override
-        protected Predicate<WebDriver> getConditionForContentSwitched(final String textToContain) {
-            return new Predicate<WebDriver>() {
+        protected Function<WebDriver, Boolean> getConditionForContentSwitched(final String textToContain) {
+            return new Function<WebDriver, Boolean>() {
                 @Override
-                public boolean apply(WebDriver input) {
+                public Boolean apply(WebDriver input) {
                     return getActiveItem().advanced().getActiveHeaderElement().getText().contains(textToContain);
                 }
             };

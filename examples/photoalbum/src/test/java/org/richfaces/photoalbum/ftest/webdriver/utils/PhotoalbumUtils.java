@@ -24,6 +24,7 @@ package org.richfaces.photoalbum.ftest.webdriver.utils;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.By;
@@ -35,7 +36,6 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.photoalbum.ftest.webdriver.pages.GPlusLoginPage;
 import org.richfaces.photoalbum.ftest.webdriver.pages.SocialLoginPage;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 
 /**
@@ -119,7 +119,7 @@ public final class PhotoalbumUtils {
         }
     }
 
-    public static class NumberOfWindowsOpenedPredicate implements Predicate<WebDriver> {
+    public static class NumberOfWindowsOpenedPredicate implements Function<WebDriver, Boolean> {
 
         private final WebDriver browser;
         private final int numberOfWindows;
@@ -130,7 +130,7 @@ public final class PhotoalbumUtils {
         }
 
         @Override
-        public boolean apply(WebDriver input) {
+        public Boolean apply(WebDriver input) {
             return browser.getWindowHandles().size() == numberOfWindows;
         }
 

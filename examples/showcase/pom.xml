@@ -62,10 +62,13 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <version.richfaces>4.6.14-SNAPSHOT</version.richfaces>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <version.richfaces>4.6.14-SNAPSHOT</version.richfaces>
 
         <!-- Container Versions -->
         <version.wildfly100>10.1.0.Final</version.wildfly100>
@@ -81,7 +84,7 @@
         <container.resources>${project.basedir}/src/main/resources-tomcat</container.resources>
         <container.resources.exclude />
         <container.webapp>${project.basedir}/src/main/webapp-tomcat</container.webapp>
-        
+
         <war.outputFileNameMapping>@{artifactId}@@{dashClassifier?}@-@{version}@.@{extension}@</war.outputFileNameMapping>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
@@ -130,9 +133,6 @@
 
         <testCategory.included.default>NOT category.None</testCategory.included.default>
         <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
-
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
 
         <!-- JVM values for surefire plugin -->
         <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->

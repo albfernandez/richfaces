@@ -21,6 +21,8 @@
  */
 package org.richfaces.fragment.status;
 
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.graphene.wait.FluentWait;
 import org.openqa.selenium.WebDriver;
@@ -32,8 +34,6 @@ import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.status.RichFacesStatus.AdvancedStatusInteractions;
-
-import com.google.common.base.Predicate;
 
 public class RichFacesStatus implements Status, AdvancedVisibleComponentIteractions<AdvancedStatusInteractions> {
 
@@ -101,9 +101,9 @@ public class RichFacesStatus implements Status, AdvancedVisibleComponentIteracti
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return getStatusState().equals(state);
                         }
                     });
@@ -116,9 +116,9 @@ public class RichFacesStatus implements Status, AdvancedVisibleComponentIteracti
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return getStatusText().equals(statusText);
                         }
                     });
@@ -131,9 +131,9 @@ public class RichFacesStatus implements Status, AdvancedVisibleComponentIteracti
             return new WaitingWrapperImpl() {
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return !getStatusText().equals(before);
                         }
                     });

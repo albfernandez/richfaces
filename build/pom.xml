@@ -131,7 +131,7 @@
         <version.arquillian.wildfly>2.2.0.Final</version.arquillian.wildfly>
         <version.arquillian.payara>2.2</version.arquillian.payara>
         <version.arquillian.suite.extension>1.1.2</version.arquillian.suite.extension>
-        <version.httpclient>4.5.8</version.httpclient>
+        <version.httpclient>4.5.13</version.httpclient>
 
 
         <maven.min.version>3.0</maven.min.version>

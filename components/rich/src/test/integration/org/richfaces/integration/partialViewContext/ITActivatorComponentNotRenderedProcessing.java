@@ -28,6 +28,7 @@ import static org.junit.Assert.fail;
 
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import javax.faces.context.PartialViewContext;
 
@@ -47,8 +48,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import com.google.common.base.Predicate;
 
 /**
  * Tests r:commandButton processing using {@link PartialViewContext}. (RF-12145)
@@ -85,10 +84,10 @@ public class ITActivatorComponentNotRenderedProcessing {
 
         guardAjax(button).click();
 
-        waitAjax().withTimeout(1, TimeUnit.SECONDS).until(new Predicate<WebDriver>() {
+        waitAjax().withTimeout(1, TimeUnit.SECONDS).until(new Function<WebDriver, Boolean>() {
 
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return (Boolean) ((JavascriptExecutor) browser).executeScript("return !!window.oncompleteEvaluated");
             }
         });

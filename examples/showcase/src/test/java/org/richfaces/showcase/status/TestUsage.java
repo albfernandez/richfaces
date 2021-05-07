@@ -22,11 +22,11 @@
 package org.richfaces.showcase.status;
 
 import static java.text.MessageFormat.format;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,8 +38,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.richfaces.showcase.AbstractWebDriverTest;
-
-import com.google.common.base.Predicate;
 
 /**
  * @author pmensik
@@ -62,9 +60,9 @@ public abstract class TestUsage extends AbstractWebDriverTest {
 
         statusChangeObserver.watchForChangeOfStatus(statusIndex);
         Graphene.guardAjax(actionTriggeringStatusToShow).perform();
-        Graphene.waitAjax().until(new Predicate<WebDriver>() {
+        Graphene.waitAjax().until(new Function<WebDriver, Boolean>() {
             @Override
-            public boolean apply(WebDriver t) {
+            public Boolean apply(WebDriver t) {
                 return statusChangeObserver.getRecords().size() >= 2;
             }
         });

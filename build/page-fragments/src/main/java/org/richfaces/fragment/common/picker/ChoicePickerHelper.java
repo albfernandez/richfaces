@@ -24,6 +24,7 @@ package org.richfaces.fragment.common.picker;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -74,8 +75,8 @@ public final class ChoicePickerHelper {
 
     public static class ByIndexChoicePicker implements ChoicePicker, MultipleChoicePicker {
 
-        private final Set<Integer> reachableIndexes = new LinkedHashSet<Integer>();
-        private final List<PreparationCommand> preparationCommands = Lists.newArrayList();
+        private final Set<Integer> reachableIndexes = new LinkedHashSet<>();
+        private final List<PreparationCommand> preparationCommands = new ArrayList<>();
 
         private ByIndexChoicePicker() {
         }
@@ -195,7 +196,7 @@ public final class ChoicePickerHelper {
                 return Collections.emptyList();
             }
 
-            List<WebElement> result = Lists.newArrayList();
+            List<WebElement> result = new ArrayList<>();
             if (pickFirst) {
                 result.add(options.get(reachableIndexes.iterator().next()));
             } else {
@@ -221,11 +222,11 @@ public final class ChoicePickerHelper {
 
             void prepare(List<WebElement> list);
         }
-    };
+    }
 
     public static class ByVisibleTextChoicePicker implements ChoicePicker, MultipleChoicePicker {
 
-        private final List<Predicate> filters = Lists.newArrayList();
+        private final List<Predicate<WebElement>> filters = new ArrayList<>();
         private boolean allRulesMustPass = Boolean.TRUE;
         private Function<WebElement, WebElement> transformationFunction;
 
@@ -304,14 +305,14 @@ public final class ChoicePickerHelper {
             Preconditions.checkNotNull(options, "Options cannot be null.");
             Preconditions.checkArgument(!filters.isEmpty(), "No filters specified.");
             if (options.isEmpty()) {
-                return Collections.EMPTY_LIST;
+                return Collections.emptyList();
             }
 
             if (pickFirst) {
                 try {
                     return Lists.newArrayList(Iterables.find(options, new PickPredicate()));
                 } catch (NoSuchElementException e) {
-                    return Collections.EMPTY_LIST;
+                    return Collections.emptyList();
                 }
 
 //                Less performant:
@@ -386,14 +387,14 @@ public final class ChoicePickerHelper {
             public boolean apply(WebElement input) {
                 WebElement element = transFormIfNeeded(input);
                 if (allRulesMustPass) {
-                    for (Predicate predicate : filters) {
+                    for (Predicate<WebElement> predicate : filters) {
                         if (!predicate.apply(element)) {
                             return FALSE;
                         }
                     }
                     return TRUE;
                 } else {
-                    for (Predicate predicate : filters) {
+                    for (Predicate<WebElement> predicate : filters) {
                         if (predicate.apply(element)) {
                             return TRUE;
                         }
@@ -402,7 +403,7 @@ public final class ChoicePickerHelper {
                 }
             }
         }
-    };
+    }
 
     public interface WebElementPicking {
 
@@ -441,8 +442,8 @@ public final class ChoicePickerHelper {
 
     public static class WebElementPickerImpl implements WebElementPicker {
 
-        private final LinkedList<MergingPredicate> predicates = new LinkedList<MergingPredicate>();
-        private final LinkedList<LogicalFunctions> logicalFunctions = new LinkedList<LogicalFunctions>();
+        private final LinkedList<MergingPredicate> predicates = new LinkedList<>();
+        private final LinkedList<LogicalFunctions> logicalFunctions = new LinkedList<>();
 
         private final ComparationBy comparation = new ComparationByImpl();
         private final LogicalOperation operation = new LogicalOperationImpl();
@@ -496,7 +497,7 @@ public final class ChoicePickerHelper {
                 } else {
                     result = Sets.newLinkedHashSet(Iterables.filter(options, new FinalPredicate()));
                 }
-                return Lists.newArrayList(result);
+                return new ArrayList<>(result);
             } catch (NoSuchElementException ex) {
                 return Collections.emptyList();
             }
@@ -525,8 +526,8 @@ public final class ChoicePickerHelper {
                 if (predicates.size() == 1) {
                     return predicates.peekFirst().apply(input);
                 }
-                LinkedList<Predicate<WebElement>> predicatesCopy = new LinkedList<Predicate<WebElement>>(predicates);
-                LinkedList<LogicalFunctions> logicalFunctionsCopy = new LinkedList<LogicalFunctions>(logicalFunctions);
+                LinkedList<Predicate<WebElement>> predicatesCopy = new LinkedList<>(predicates);
+                LinkedList<LogicalFunctions> logicalFunctionsCopy = new LinkedList<>(logicalFunctions);
                 boolean previousResult = predicatesCopy.removeFirst().apply(transformed);
                 LogicalFunctions logicalFunction;
                 while (!logicalFunctionsCopy.isEmpty()) {

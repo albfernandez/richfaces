@@ -25,6 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.net.URL;
+import java.util.function.Function;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -42,8 +43,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import com.google.common.base.Predicate;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -175,9 +174,9 @@ public class ITPanelMenu {
      * Wait until JS function (hack for enabling the disabled menu) binded to 'onload' event is executed
      */
     private void waitUntilOnLoadJavaScriptIsExecuted() {
-        Graphene.waitAjax().until(new Predicate<WebDriver>() {
+        Graphene.waitAjax().until(new Function<WebDriver, Boolean>() {
             @Override
-            public boolean apply(WebDriver t) {
+            public Boolean apply(WebDriver t) {
                 return (Boolean) executor.executeScript("return enableMenuWasCalled;");
             }
         });

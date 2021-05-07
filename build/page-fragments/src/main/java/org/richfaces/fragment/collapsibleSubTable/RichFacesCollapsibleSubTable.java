@@ -24,6 +24,7 @@ package org.richfaces.fragment.collapsibleSubTable;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
@@ -36,8 +37,6 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.dataTable.AbstractTable;
-
-import com.google.common.base.Predicate;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -212,9 +211,9 @@ public abstract class RichFacesCollapsibleSubTable<HEADER, ROW, FOOTER> extends 
             return new WaitingWrapperImpl() {
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return !isExpanded();
                         }
                     });
@@ -226,9 +225,9 @@ public abstract class RichFacesCollapsibleSubTable<HEADER, ROW, FOOTER> extends 
             return new WaitingWrapperImpl() {
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isExpanded();
                         }
                     });

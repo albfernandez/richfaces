@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
@@ -37,8 +38,6 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.notify.NotifyMessage;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.notify.page.NotifyAttributesPage;
-
-import com.google.common.base.Predicate;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -133,9 +132,9 @@ public class ITestNotifyAttributes extends AbstractWebDriverTest {
         actions.moveToElement(message.advanced().getSummaryElement()).perform();
 
         Graphene.waitAjax().withMessage("The notify should has opacity " + opacity + ".")
-            .pollingEvery(50, TimeUnit.MILLISECONDS).until(new Predicate<WebDriver>() {
+            .pollingEvery(50, TimeUnit.MILLISECONDS).until(new Function<WebDriver, Boolean>() {
                 @Override
-                public boolean apply(WebDriver input) {
+                public Boolean apply(WebDriver input) {
                     double actualOpacity = Double.valueOf(message.advanced().getRootElement().getCssValue("opacity"));
                     boolean succcess = Math.abs(opacity - actualOpacity) <= 0.2;
                     if (!succcess) {

@@ -1,12 +1,12 @@
 package org.richfaces.utils.focus;
 
+import java.util.function.Function;
+
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.google.common.base.Predicate;
-
-public class ElementIsFocused implements Predicate<WebDriver> {
+public class ElementIsFocused implements Function<WebDriver, Boolean> {
 
     private WebElement activeElement;
     private final WebElement element;
@@ -19,7 +19,7 @@ public class ElementIsFocused implements Predicate<WebDriver> {
     }
 
     @Override
-    public boolean apply(WebDriver browser) {
+    public Boolean apply(WebDriver browser) {
         try {
             activeElement = FocusRetriever.retrieveActiveElement();
             if (element == null && activeElement == null) {

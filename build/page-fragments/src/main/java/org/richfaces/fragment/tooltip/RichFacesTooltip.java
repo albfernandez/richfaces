@@ -22,6 +22,7 @@
 package org.richfaces.fragment.tooltip;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
@@ -39,8 +40,6 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
-
-import com.google.common.base.Predicate;
 
 /**
  * The root of this tooltip will be used for invoking this tooltip. In other words:
@@ -207,9 +206,9 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
                 ? new WaitingWrapperImpl() {
                     @Override
                     protected void performWait(FluentWait<WebDriver, Void> wait) {
-                        wait.until(new Predicate<WebDriver>() {
+                        wait.until(new Function<WebDriver, Boolean>() {
                             @Override
-                            public boolean apply(WebDriver input) {
+                            public Boolean apply(WebDriver input) {
                                 if (getTooltipsBefore() == 0) {
                                     return driver.findElements(getTooltipsSelector()).isEmpty();
                                 } else {
@@ -234,9 +233,9 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
                 ? new WaitingWrapperImpl() {
                     @Override
                     protected void performWait(FluentWait<WebDriver, Void> wait) {
-                        wait.until(new Predicate<WebDriver>() {
+                        wait.until(new Function<WebDriver, Boolean>() {
                             @Override
-                            public boolean apply(WebDriver input) {
+                            public Boolean apply(WebDriver input) {
                                 return driver.findElements(getTooltipsSelector()).size() > getTooltipsBefore();
                             }
                         });

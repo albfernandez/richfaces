@@ -27,6 +27,7 @@ import static java.lang.Boolean.TRUE;
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
@@ -47,7 +48,6 @@ import org.richfaces.fragment.list.ListComponent;
 import org.richfaces.fragment.list.RichFacesListItem;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
 
 public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponentIteractions<RichFacesFileUpload.AdvancedFileUploadInteractions> {
 
@@ -94,9 +94,9 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
 
         Utils.jQ("attr('class', '" + containerStyleClassBefore + "')", advanced().getInputContainer());
         try {
-            Graphene.waitGui().withTimeout(1, TimeUnit.SECONDS).until(new Predicate<WebDriver>() {
+            Graphene.waitGui().withTimeout(1, TimeUnit.SECONDS).until(new Function<WebDriver, Boolean>() {
                 @Override
-                public boolean apply(WebDriver input) {
+                public Boolean apply(WebDriver input) {
                     return advanced().getFileInputElements().size() == expectedSize;
                 }
             });
@@ -114,9 +114,9 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
     @Override
     public FileUpload clearAll() {
         advanced().getClearAllButtonElement().click();
-        Graphene.waitGui().until(new Predicate<WebDriver>() {
+        Graphene.waitGui().until(new Function<WebDriver, Boolean>() {
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return advanced().getItems().isEmpty();
             }
         });

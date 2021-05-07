@@ -22,6 +22,7 @@
 package org.richfaces.fragment.calendar;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -35,8 +36,6 @@ import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
-
-import com.google.common.base.Predicate;
 
 /**
  *
@@ -126,9 +125,9 @@ public class RichFacesAdvancedInlineCalendar {
         return new WaitingWrapperImpl() {
             @Override
             protected void performWait(FluentWait<WebDriver, Void> wait) {
-                wait.withTimeout(getTimeoutForPopupToBeNotVisible(), TimeUnit.MILLISECONDS).until(new Predicate<WebDriver>() {
+                wait.withTimeout(getTimeoutForPopupToBeNotVisible(), TimeUnit.MILLISECONDS).until(new Function<WebDriver, Boolean>() {
                     @Override
-                    public boolean apply(WebDriver input) {
+                    public Boolean apply(WebDriver input) {
                         return !isVisible();
                     }
                 });
@@ -141,9 +140,9 @@ public class RichFacesAdvancedInlineCalendar {
 
             @Override
             protected void performWait(FluentWait<WebDriver, Void> wait) {
-                wait.withTimeout(getTimeoutForPopupToBeVisible(), TimeUnit.MILLISECONDS).until(new Predicate<WebDriver>() {
+                wait.withTimeout(getTimeoutForPopupToBeVisible(), TimeUnit.MILLISECONDS).until(new Function<WebDriver, Boolean>() {
                     @Override
-                    public boolean apply(WebDriver input) {
+                    public Boolean apply(WebDriver input) {
                         return isVisible();
                     }
                 });

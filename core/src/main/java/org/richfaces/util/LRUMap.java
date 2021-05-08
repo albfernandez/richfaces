@@ -21,7 +21,6 @@
  */
 package org.richfaces.util;
 
-import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
@@ -30,7 +29,7 @@ import java.util.Map.Entry;
  *
  * @author asmirnov
  */
-public class LRUMap<K, V> extends LinkedHashMap<K, V> implements Serializable {
+public class LRUMap<K, V> extends LinkedHashMap<K, V> {
     /**
      *
      */

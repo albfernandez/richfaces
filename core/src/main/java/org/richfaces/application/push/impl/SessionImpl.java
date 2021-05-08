@@ -60,7 +60,7 @@ import com.google.common.collect.Sets;
  *
  * @see Session
  */
-public class SessionImpl implements Session, DestroyableSession {
+public class SessionImpl implements DestroyableSession {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     private final int maxInactiveInterval;
     private final String id;

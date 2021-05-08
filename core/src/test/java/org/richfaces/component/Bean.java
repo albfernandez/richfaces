@@ -39,6 +39,8 @@ import org.richfaces.application.ServiceTracker;
 public class Bean {
 
     private static final class TestScript extends JSLiteral implements ResourceLibrary {
+        private static final long serialVersionUID = 1L;
+
         public TestScript() {
             super(TEST_SCRIPT);
         }

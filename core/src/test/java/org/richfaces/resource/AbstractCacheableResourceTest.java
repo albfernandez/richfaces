@@ -33,8 +33,8 @@ import java.util.TimeZone;
 
 import javax.faces.context.FacesContext;
 
+import org.easymock.EasyMock;
 import org.easymock.IAnswer;
-import org.easymock.classextension.EasyMock;
 import org.jboss.test.faces.AbstractFacesTest;
 import org.jboss.test.faces.mock.FacesMock;
 
@@ -42,7 +42,6 @@ import org.jboss.test.faces.mock.FacesMock;
  * @author Nick Belaevski
  * @since 4.0
  */
-@SuppressWarnings("deprecation")
 public class AbstractCacheableResourceTest extends AbstractFacesTest {
     private static final int MILLISECONDS_IN_HOUR = 60 * 60 * 1000;
     /* HTTP Date format required by the HTTP/1.1 RFC */

@@ -71,7 +71,7 @@ public class CSSPackagingProcessor implements ResourceProcessor {
             reader = new InputStreamReader(in, charset);
             writer = new OutputStreamWriter(out, charset);
 
-            CurrentResourceContext crc = (CurrentResourceContext) CurrentResourceContext.getInstance(FacesContext.getCurrentInstance());
+            CurrentResourceContext crc = CurrentResourceContext.getInstance(FacesContext.getCurrentInstance());
 
             // add comment to the packed resource before writing the file into stream
             writer.write(String.format("/* resource: %s */\n", ResourceKey.create(crc.getResource())));

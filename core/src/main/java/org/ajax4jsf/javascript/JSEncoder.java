@@ -82,7 +82,7 @@ public class JSEncoder {
      * @see <a href="http://json.org/">JSON.org</a>
      */
     public static boolean compile(char c) {
-        if ((c == '\b') || (c == '\f') | (c == '\t') || (c == '\n') || (c == '\r') || (c == '"') || (c == '\\') || (c == '/')
+        if ((c == '\b') || (c == '\f') || (c == '\t') || (c == '\n') || (c == '\r') || (c == '"') || (c == '\\') || (c == '/')
             || (c == ']') || // ] - to avoid conflicts in CDATA
             (c == '<') || // - escape HTML markup characters
             (c == '>') || // - HTML

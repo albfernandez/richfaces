@@ -104,35 +104,25 @@ public class ResourceGenerator {
     private static final Logger log = RichfacesLogger.RESOURCE.getLogger();
 
     private static final URL[] EMPTY_URL_ARRAY = new URL[0];
-    private static final Function<String, Predicate<CharSequence>> REGEX_CONTAINS_BUILDER_FUNCTION = new Function<String, Predicate<CharSequence>>() {
-        public Predicate<CharSequence> apply(String from) {
-            Predicate<CharSequence> containsPredicate = Predicates.containsPattern(from);
-            return Predicates.and(Predicates.notNull(), containsPredicate);
-        }
+    private static final Function<String, Predicate<CharSequence>> REGEX_CONTAINS_BUILDER_FUNCTION = from -> {
+        Predicate<CharSequence> containsPredicate = Predicates.containsPattern(from);
+        return Predicates.and(Predicates.notNull(), containsPredicate);
     };
-    private static final Function<Resource, String> CONTENT_TYPE_FUNCTION = new Function<Resource, String>() {
-        public String apply(Resource from) {
-            return from.getContentType();
-        }
+    private static final Function<Resource, String> CONTENT_TYPE_FUNCTION = from -> from.getContentType();
+    private static final Function<Resource, String> RESOURCE_QUALIFIER_FUNCTION = from -> {
+        return ResourceUtil.getResourceQualifier(from);
     };
-    private static final Function<Resource, String> RESOURCE_QUALIFIER_FUNCTION = new Function<Resource, String>() {
-        public String apply(Resource from) {
-            return ResourceUtil.getResourceQualifier(from);
-        }
-    };
-    private final Function<String, URL> filePathToURL = new Function<String, URL>() {
-        public URL apply(String from) {
-            try {
-                File file = new File(from);
-                if (file.exists()) {
-                    return file.toURI().toURL();
-                }
-            } catch (MalformedURLException e) {
-                log.error("Bad URL in classpath", e);
+    private final Function<String, URL> filePathToURL = from -> {
+        try {
+            File file = new File(from);
+            if (file.exists()) {
+                return file.toURI().toURL();
             }
-
-            return null;
+        } catch (MalformedURLException e) {
+            log.error("Bad URL in classpath", e);
         }
+
+        return null;
     };
 
     /**

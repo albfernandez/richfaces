@@ -62,7 +62,7 @@ public class JavaLogger implements Logger {
         this(RICHFACES_LOG);
     }
 
-    private void fillCallerData(String fqn, LogRecord record) {
+    private void fillCallerData(String fqn, LogRecord logRecord) {
         StackTraceElement[] stackTrace = new Exception().getStackTrace();
 
         int i = 0;
@@ -82,8 +82,8 @@ public class JavaLogger implements Logger {
         }
 
         if (idx < stackTrace.length) {
-            record.setSourceMethodName(stackTrace[idx].getMethodName());
-            record.setSourceClassName(stackTrace[idx].getClassName());
+            logRecord.setSourceMethodName(stackTrace[idx].getMethodName());
+            logRecord.setSourceClassName(stackTrace[idx].getClassName());
         }
     }
 
@@ -97,14 +97,14 @@ public class JavaLogger implements Logger {
 
     private LogRecord createRecord(java.util.logging.Level level, CharSequence message, Throwable thrown) {
         // millis and thread are filled by the constructor
-        LogRecord record = new LogRecord(level, message != null ? message.toString() : null);
+        LogRecord logRecord = new LogRecord(level, message != null ? message.toString() : null);
 
         // TODO resource bundle?
-        record.setLoggerName(jdkLogger.getName());
-        record.setThrown(thrown);
-        fillCallerData(CLASS_NAME, record);
+        logRecord.setLoggerName(jdkLogger.getName());
+        logRecord.setThrown(thrown);
+        fillCallerData(CLASS_NAME, logRecord);
 
-        return record;
+        return logRecord;
     }
 
     public boolean isDebugEnabled() {

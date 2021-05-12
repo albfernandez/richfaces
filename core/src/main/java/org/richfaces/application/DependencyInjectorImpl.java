@@ -75,17 +75,17 @@ public class DependencyInjectorImpl implements DependencyInjector {
     private void verifyPostConstructMethod(Method method) {
         // TODO - allow FacesContext to be passed
         if (method.getParameterTypes().length != 0) {
-            throw new IllegalStateException(MessageFormat.format("Post-construction method {0} has one or more parameters",
-                method.toString()));
+            throw new IllegalStateException(
+                    MessageFormat.format("Post-construction method {0} has one or more parameters", method));
         }
 
         if (!Void.TYPE.equals(method.getReturnType())) {
-            throw new IllegalStateException(MessageFormat.format("Post-construction method {0} has incorrect return type",
-                method.toString()));
+            throw new IllegalStateException(
+                    MessageFormat.format("Post-construction method {0} has incorrect return type", method));
         }
 
         if ((method.getModifiers() & Modifier.STATIC) != 0) {
-            throw new IllegalStateException(MessageFormat.format("Post-construction method {0} is static", method.toString()));
+            throw new IllegalStateException(MessageFormat.format("Post-construction method {0} is static", method));
         }
 
         Class<?>[] exceptionTypes = method.getExceptionTypes();
@@ -94,8 +94,8 @@ public class DependencyInjectorImpl implements DependencyInjector {
                 continue;
             }
 
-            throw new IllegalStateException(MessageFormat.format("Post-construction method {0} throws checked exception",
-                method.toString()));
+            throw new IllegalStateException(
+                    MessageFormat.format("Post-construction method {0} throws checked exception", method));
         }
     }
 
@@ -108,7 +108,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
             if (introspectionData.getPostConstructMethod() != null) {
                 throw new IllegalStateException(MessageFormat.format(
                     "There are two conflicting post-construction methods: {0} and {1}", method.toString(), introspectionData
-                        .getPostConstructMethod().toString()));
+                        .getPostConstructMethod()));
             }
 
             introspectionData.setPostConstructMethod(method);

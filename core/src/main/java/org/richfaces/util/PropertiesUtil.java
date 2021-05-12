@@ -66,7 +66,7 @@ public final class PropertiesUtil {
             Enumeration<URL> resources = getClassLoader().getResources(location);
 
             while (resources.hasMoreElements()) {
-                URL url = (URL) resources.nextElement();
+                URL url = resources.nextElement();
                 InputStream propertyStream = null;
 
                 try {

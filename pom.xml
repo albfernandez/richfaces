@@ -131,7 +131,7 @@
         <version.resources.plugin>3.1.0</version.resources.plugin>
         <version.scm.plugin>1.11.2</version.scm.plugin>
         <version.source.plugin>3.0.1</version.source.plugin>
-        <version.surefire.plugin>3.0.0-M3</version.surefire.plugin>
+        <version.surefire.plugin>3.0.0-M5</version.surefire.plugin>
         <version.vdldoc>1.2</version.vdldoc>
 
         <version.screenshooter>2.1.0.Alpha1</version.screenshooter>

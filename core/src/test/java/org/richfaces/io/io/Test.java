@@ -34,6 +34,7 @@ import org.ajax4jsf.io.FastBufferWriter;
 import org.junit.Ignore;
 
 @Ignore
+@SuppressWarnings("unused")
 public final class Test {
     private static final int ARRAY_LENGTH = 27;
     private static final int READ_LENGTH = 22;

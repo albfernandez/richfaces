@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.richfaces.application.push.MessageDataSerializer;
-import org.richfaces.application.push.MessageException;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.SessionPreSubscriptionEvent;
 import org.richfaces.application.push.SubscriptionFailureException;

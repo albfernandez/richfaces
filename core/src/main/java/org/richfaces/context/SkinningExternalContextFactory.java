@@ -22,7 +22,6 @@
 package org.richfaces.context;
 
 import javax.faces.FacesException;
-import javax.faces.FacesWrapper;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.ExternalContextFactory;
 import javax.faces.context.ExternalContextWrapper;
@@ -31,7 +30,7 @@ import javax.faces.context.ExternalContextWrapper;
  * @author Nick Belaevski
  *
  */
-public class SkinningExternalContextFactory extends ExternalContextFactory implements FacesWrapper<ExternalContextFactory> {
+public class SkinningExternalContextFactory extends ExternalContextFactory {
     private ExternalContextFactory factory;
 
     private static final class ExternalContextWrapperImpl extends ExternalContextWrapper {

@@ -48,7 +48,7 @@ public abstract class MockTestBase {
         UIViewRoot viewRoot = facesEnvironment.createMock(UIViewRoot.class);
         expect(viewRoot.getLocale()).andStubReturn(Locale.ENGLISH);
         expect(facesEnvironment.getFacesContext().getViewRoot()).andStubReturn(viewRoot);
-        expect(input.getAttributes()).andStubReturn(Collections.EMPTY_MAP);
+        expect(input.getAttributes()).andStubReturn(Collections.emptyMap());
         expect(input.getClientId(facesEnvironment.getFacesContext())).andStubReturn(TEST_COMPONENT_ID);
     }
 

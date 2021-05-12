@@ -39,7 +39,7 @@ import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
-import org.easymock.classextension.EasyMock;
+import org.easymock.EasyMock;
 import org.jboss.test.faces.AbstractFacesTest;
 import org.jboss.test.faces.htmlunit.LocalWebClient;
 import org.richfaces.application.DependencyInjector;

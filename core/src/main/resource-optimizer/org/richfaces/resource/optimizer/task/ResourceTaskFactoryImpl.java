@@ -28,7 +28,7 @@ import java.text.MessageFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
 
-import javax.activation.MimetypesFileTypeMap;
+import javax.activation.FileTypeMap;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
@@ -180,7 +180,7 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
 
                 // detect whether the mime-type of the given resource path denotes image
                 File resourceFileName = new File(resourceKey.getResourceName());
-                String mimeType = MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(resourceFileName);
+                String mimeType = FileTypeMap.getDefaultFileTypeMap().getContentType(resourceFileName);
 
                 if (mimeType.startsWith("image/")) {
                     log.debug(String.format("Skipped rendering of %s as it is image that isn't required by skin %s", resourceKey, skin));

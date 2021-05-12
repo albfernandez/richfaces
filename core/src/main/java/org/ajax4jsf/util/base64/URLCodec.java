@@ -222,7 +222,7 @@ public class URLCodec implements BinaryEncoder, BinaryDecoder {
         } else if (pObject instanceof byte[]) {
             return encode((byte[]) pObject);
         } else if (pObject instanceof String) {
-            return encode((String) pObject);
+            return encode(pObject);
         } else {
             throw new EncoderException("Objects of type " + pObject.getClass().getName() + " cannot be URL encoded");
         }
@@ -247,7 +247,7 @@ public class URLCodec implements BinaryEncoder, BinaryDecoder {
         } else if (pObject instanceof byte[]) {
             return decode((byte[]) pObject);
         } else if (pObject instanceof String) {
-            return decode((String) pObject);
+            return decode(pObject);
         } else {
             throw new DecoderException("Objects of type " + pObject.getClass().getName() + " cannot be URL decoded");
         }

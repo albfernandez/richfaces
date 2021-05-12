@@ -23,7 +23,6 @@ package org.richfaces.services;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.richfaces.application.Initializable;
@@ -42,15 +41,12 @@ public final class ServiceUtils {
      *
      * @param services list of services
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "rawtypes" })
     public static void sortByPriority(List<?> services) {
-        Collections.sort(services, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                int p1 = (o1 instanceof Prioritizable) ? ((Prioritizable) o1).getPriority() : 0;
-                int p2 = (o2 instanceof Prioritizable) ? ((Prioritizable) o2).getPriority() : 0;
-                return p2 - p1;
-            }
+        Collections.sort(services, (o1, o2) -> {
+            int p1 = (o1 instanceof Prioritizable) ? ((Prioritizable) o1).getPriority() : 0;
+            int p2 = (o2 instanceof Prioritizable) ? ((Prioritizable) o2).getPriority() : 0;
+            return p2 - p1;
         });
     }
 

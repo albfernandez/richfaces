@@ -118,7 +118,7 @@ public class SessionImpl implements DestroyableSession {
     /**
      * Process connecting of given request to this session and try to post messages if there are any
      */
-    protected void processConnect(Request request) throws Exception {
+    protected void processConnect(Request request) {
         this.request = request;
         sessionManager.requeue(this);
 

@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javax.activation.MimetypesFileTypeMap;
+import javax.activation.FileTypeMap;
 import javax.faces.application.Resource;
 
 import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
@@ -94,7 +94,7 @@ public class StaticResourceHandler extends AbstractResourceHandler {
             result.setLibraryName(libraryName);
 
             if (Strings.isNullOrEmpty(contentType)) {
-                result.setContentType(MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(resourceName));
+                result.setContentType(FileTypeMap.getDefaultFileTypeMap().getContentType(resourceName));
             } else {
                 result.setContentType(contentType);
             }

@@ -39,22 +39,18 @@ import com.google.common.collect.Multimap;
  *
  */
 public class ReflectionsExt extends Reflections {
-    private static final Function<String, Class<?>> CLASS_FOR_NAME = new Function<String, Class<?>>() {
-        public java.lang.Class<?> apply(String from) {
-            try {
-                return Class.forName(from, true, Thread.currentThread().getContextClassLoader());
-            } catch (ClassNotFoundException e) {
-                // TODO: handle exception
-                e.printStackTrace();
-            } catch (LinkageError e) {
-                // TODO: handle exception
-                e.printStackTrace();
-            }
-
-            return null;
+    private static final Function<String, Class<?>> CLASS_FOR_NAME = from -> {
+        try {
+            return Class.forName(from, true, Thread.currentThread().getContextClassLoader());
+        } catch (ClassNotFoundException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        } catch (LinkageError e) {
+            // TODO: handle exception
+            e.printStackTrace();
         }
 
-        ;
+        return null;
     };
 
     public ReflectionsExt() {

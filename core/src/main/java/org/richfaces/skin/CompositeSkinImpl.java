@@ -35,16 +35,12 @@ import com.google.common.collect.Iterables;
  */
 final class CompositeSkinImpl extends AbstractSkin {
     private static final Joiner DASH_JOINER = Joiner.on('-').skipNulls();
-    private static final Function<Skin, String> SKIN_NAME_FUNCTION = new Function<Skin, String>() {
-        public String apply(Skin from) {
-            if (from == null) {
-                return null;
-            }
-
-            return from.getName();
+    private static final Function<Skin, String> SKIN_NAME_FUNCTION = (Skin from) -> {
+        if (from == null) {
+            return null;
         }
 
-        ;
+        return from.getName();
     };
     private int hashCode = 0;
     private List<Skin> skinsChain;

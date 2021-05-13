@@ -41,7 +41,7 @@ public class TestFocusManagerImpl extends AbstractServicesTest {
     UIComponent component;
 
     @Spy
-    Map<Object, Object> attributes = new HashMap<Object, Object>();
+    Map<Object, Object> attributes = new HashMap<>();
 
     @Mock
     JavaScriptService javaScriptService;

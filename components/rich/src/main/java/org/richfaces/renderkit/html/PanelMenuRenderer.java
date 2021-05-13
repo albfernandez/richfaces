@@ -101,7 +101,7 @@ public class PanelMenuRenderer extends DivPanelRenderer {
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractPanelMenu panelMenu = (AbstractPanelMenu) component;
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         // TODO nick - only options with non-default values should be rendered
         options.put("ajax", getAjaxOptions(context, panelMenu));
         options.put("disabled", panelMenu.isDisabled());

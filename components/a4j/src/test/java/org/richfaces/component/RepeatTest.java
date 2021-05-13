@@ -45,7 +45,7 @@ public class RepeatTest {
     private static final int TEST_DATA_SIZE = 40;
 
     public static class TestBean {
-        private List<String> data = new ArrayList<String>();
+        private List<String> data = new ArrayList<>();
         private int first;
         private int rows;
         private int switchedFirst;
@@ -130,7 +130,7 @@ public class RepeatTest {
 
     private List<HtmlElement> getRepeatContent(HtmlPage page) {
         List<?> xPathResult = page.getByXPath("//div[@id='repeatWrapper']/*");
-        List<HtmlElement> result = new ArrayList<HtmlElement>();
+        List<HtmlElement> result = new ArrayList<>();
 
         for (Object xPathResultObject : xPathResult) {
             result.add(HtmlElement.class.cast(xPathResultObject));

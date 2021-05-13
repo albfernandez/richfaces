@@ -38,7 +38,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
     private static final String DEFAULT_LEFT = "auto";
     private static final String DEFAULT_TOP = "auto";
     // TODO nick - use enums
-    private static final Set<String> ALLOWED_ATTACHMENT_OPTIONS = new HashSet<String>();
+    private static final Set<String> ALLOWED_ATTACHMENT_OPTIONS = new HashSet<>();
 
     static {
         ALLOWED_ATTACHMENT_OPTIONS.add("body");
@@ -189,14 +189,14 @@ public class PopupPanelBaseRenderer extends RendererBase {
         result = prepareVisualOptions(options, panel);
 
         if (null == result) {
-            result = new HashMap<String, Object>();
+            result = new HashMap<>();
         }
         return result;
     }
 
     private Map<String, Object> prepareVisualOptions(Object value, AbstractPopupPanel panel) {
         if (null == value) {
-            return new HashMap<String, Object>();
+            return new HashMap<>();
         } else if (value instanceof Map) {
             return (Map<String, Object>) value;
         } else if (value instanceof String) {

@@ -48,8 +48,8 @@ public abstract class ChartDataModel<T, S> {
     private Map<String, Object> attributes;
 
     public ChartDataModel(ChartType type) {
-        data = new HashMap<T, S>();
-        keys = new LinkedList<T>();
+        data = new HashMap<>();
+        keys = new LinkedList<>();
         this.type = type;
     }
 

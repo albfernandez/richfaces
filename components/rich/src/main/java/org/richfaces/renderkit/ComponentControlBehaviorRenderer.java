@@ -103,7 +103,7 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
         script.append(REF_COMPONENT).append(",").append(ScriptUtils.toScript(apiFunctionParams.toArray())).append(");");
         callback.addToBody(script);
 
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put(PARAM_CALLBACK, callback);
         parameters.put(PARAM_TARGET, resolveTargets(facesContext, targetSourceString));
         parameters.put(PARAM_SELECTOR, selector);
@@ -127,7 +127,7 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
     }
 
     protected List<Object> createSignature(ComponentControlBehavior behavior) {
-        List<Object> elements = new ArrayList<Object>();
+        List<Object> elements = new ArrayList<>();
         List<UIComponent> children = behavior.getChildren();
 
         for (UIComponent child : children) {
@@ -149,7 +149,7 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
 
                 if (value != null) {
                     if (name != null) {
-                        Map<String, Object> map = new HashMap<String, Object>();
+                        Map<String, Object> map = new HashMap<>();
                         map.put(name, value);
                         elements.add(map);
                     } else {
@@ -173,7 +173,7 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
             contextComponent = context.getViewRoot();
         }
 
-        List<String> resultHolder = new ArrayList<String>(split.length);
+        List<String> resultHolder = new ArrayList<>(split.length);
 
         for (String target : split) {
             UIComponent targetComponent = RENDERER_UTILS.findComponentFor(contextComponent, target);

@@ -33,7 +33,7 @@ import org.richfaces.resource.ResourceKey;
  *
  */
 public abstract class DnDScript implements ScriptWithDependencies {
-    private static final Set<ResourceKey> BASE_RESOURCES = new LinkedHashSet<ResourceKey>();
+    private static final Set<ResourceKey> BASE_RESOURCES = new LinkedHashSet<>();
 
     static {
         BASE_RESOURCES.add(new ResourceKey("jquery.js", "org.richfaces"));

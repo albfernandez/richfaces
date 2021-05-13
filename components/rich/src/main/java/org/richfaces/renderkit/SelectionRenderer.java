@@ -170,7 +170,7 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
             AbstractExtendedDataTable table = (AbstractExtendedDataTable) component;
             Collection<Object> selection = table.getSelection();
             if (selection == null) {
-                selection = new HashSet<Object>();
+                selection = new HashSet<>();
                 // TODO nick - model updates should not happen on the 2nd phase
                 updateAttribute(context, component, "selection", selection);
             }

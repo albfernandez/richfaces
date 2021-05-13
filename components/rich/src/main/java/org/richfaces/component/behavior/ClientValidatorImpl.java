@@ -165,7 +165,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
     }
 
     public Set<UIComponent> getMessages(FacesContext context, UIComponent component) {
-        Set<UIComponent> messages = new HashSet<UIComponent>();
+        Set<UIComponent> messages = new HashSet<>();
         findMessages(component.getParent(), component, messages, false, component.getId());
         // TODO - enable then UIRichMessages will be done
         // findRichMessages(context, context.getViewRoot(), messages);

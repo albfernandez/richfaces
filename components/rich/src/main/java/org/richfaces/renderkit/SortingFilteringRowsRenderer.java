@@ -117,7 +117,7 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
     }
 
     protected void decodeSorting(FacesContext context, UIDataTableBase dataTableBase, String value) {
-        Set<Object> sortPriority = new LinkedHashSet<Object>();
+        Set<Object> sortPriority = new LinkedHashSet<>();
 
         String[] values = value.split(SEPARATOR);
         String columnId = values[0];

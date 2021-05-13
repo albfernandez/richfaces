@@ -70,14 +70,14 @@ public class UploadedFile25 extends BaseUploadedFile {
     }
 
     public Collection<String> getHeaderNames() {
-        return new HashSet<String>(headersMap.keySet());
+        return new HashSet<>(headersMap.keySet());
     }
 
     public Collection<String> getHeaders(String headerName) {
         String lcHeaderName = headerName.toLowerCase(Locale.US);
         Collection<String> headers = headersMap.get(lcHeaderName);
 
-        return new ArrayList<String>(headers);
+        return new ArrayList<>(headers);
     }
 
     public long getSize() {

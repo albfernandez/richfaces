@@ -142,8 +142,8 @@ public abstract class ToolbarRendererBase extends RendererBase {
 
     protected void renderColElements(FacesContext context, UIComponent component) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
-        List<UIComponent> childrenToTheLeft = new LinkedList<UIComponent>();
-        List<UIComponent> childrenToTheRight = new LinkedList<UIComponent>();
+        List<UIComponent> childrenToTheLeft = new LinkedList<>();
+        List<UIComponent> childrenToTheRight = new LinkedList<>();
 
         getChildrenToLeftAndRight(context, component, childrenToTheLeft, childrenToTheRight);
         int columnAmount = getCountSeparators((AbstractToolbar) component, childrenToTheLeft) + getColumnCount(childrenToTheLeft);
@@ -194,8 +194,8 @@ public abstract class ToolbarRendererBase extends RendererBase {
         List<UIComponent> children = toolbar.getChildren();
 
         if (children != null) {
-            List<UIComponent> childrenToTheLeft = new LinkedList<UIComponent>();
-            List<UIComponent> childrenToTheRight = new LinkedList<UIComponent>();
+            List<UIComponent> childrenToTheLeft = new LinkedList<>();
+            List<UIComponent> childrenToTheRight = new LinkedList<>();
 
             getChildrenToLeftAndRight(context, component, childrenToTheLeft, childrenToTheRight);
 
@@ -348,9 +348,9 @@ public abstract class ToolbarRendererBase extends RendererBase {
         if (component == null) {
             return null;
         }
-        HashMap<String, Object> results = new HashMap<String, Object>();
+        HashMap<String, Object> results = new HashMap<>();
         if (component instanceof AbstractToolbar) {
-            Map<String, Object> tbEvents = new HashMap<String, Object>();
+            Map<String, Object> tbEvents = new HashMap<>();
             for (ComponentAttribute componentAttribute : ITEMS_HANDLER_ATTRIBUTES.values()) {
                 Object attr = component.getAttributes().get(componentAttribute.getComponentAttributeName());
                 if (attr != null) {
@@ -362,13 +362,13 @@ public abstract class ToolbarRendererBase extends RendererBase {
             results.put("events", tbEvents);
 
             List<AbstractToolbarGroup> groups = getToolBarGroups((AbstractToolbar) component);
-            List<Map<String, Object>> tbgListOptions = new LinkedList<Map<String, Object>>();
+            List<Map<String, Object>> tbgListOptions = new LinkedList<>();
 
             for (AbstractToolbarGroup tbg : groups) {
 
-                Map<String, Object> tbgOptions = new HashMap<String, Object>();
-                Map<String, Object> tbgEvents = new HashMap<String, Object>();
-                List<String> tbgIDs = new LinkedList<String>();
+                Map<String, Object> tbgOptions = new HashMap<>();
+                Map<String, Object> tbgEvents = new HashMap<>();
+                List<String> tbgIDs = new LinkedList<>();
 
                 for (UIComponent comp : tbg.getChildren()) {
                     tbgIDs.add(encodeClientItemID(comp));
@@ -398,7 +398,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
     }
 
     private List<AbstractToolbarGroup> getToolBarGroups(AbstractToolbar toolBar) {
-        List<AbstractToolbarGroup> list = new LinkedList<AbstractToolbarGroup>();
+        List<AbstractToolbarGroup> list = new LinkedList<>();
         if (toolBar != null) {
             for (UIComponent comp : toolBar.getChildren()) {
                 if (comp instanceof AbstractToolbarGroup) {

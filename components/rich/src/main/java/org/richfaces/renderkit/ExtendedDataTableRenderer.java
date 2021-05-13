@@ -143,7 +143,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             int count = Math.min(frozenColumnsSize, columns.size());
             List<UIComponent> frozenColumns = columns.subList(0, count);
             columns = columns.subList(count, columns.size());
-            parts = new ArrayList<Part>(PartName.values().length);
+            parts = new ArrayList<>(PartName.values().length);
             if (frozenColumns.size() > 0) {
                 parts.add(new Part(PartName.frozen, frozenColumns));
             }
@@ -153,7 +153,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
 
         protected List<UIComponent> getOrderedColumns(FacesContext context) {
-            Map<String, UIComponent> columnsMap = new LinkedHashMap<String, UIComponent>();
+            Map<String, UIComponent> columnsMap = new LinkedHashMap<>();
             Iterator<UIComponent> iterator = table.columns();
             while (iterator.hasNext()) { // initialize a map of all the columns
                 UIComponent component = iterator.next();
@@ -162,7 +162,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 }
             }
 
-            List<UIComponent> columns = new ArrayList<UIComponent>();
+            List<UIComponent> columns = new ArrayList<>();
 
             String[] columnsOrder = RenderKitUtils.evaluateAttribute("columnsOrder", table, context);
             if (columnsOrder != null && columnsOrder.length > 0) { // add columns in the order specified by columnsOrder
@@ -606,7 +606,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 // TODO 1. Encode fixed children
                 for (state.startIterate(); state.hasNextPart();) {
                     String partId = state.nextPart().getName().getId();
-                    final List<String> ids = new LinkedList<String>();
+                    final List<String> ids = new LinkedList<>();
                     table.walk(context, new DataVisitor() {
                         public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
                             UIDataTableBase dataTable = state.getRow();
@@ -619,7 +619,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                         public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
                             UIDataTableBase dataTable = state.getRow();
                             dataTable.setRowKey(context, rowKey);
-                            HashMap<String, String> attributes = new HashMap<String, String>(1);
+                            HashMap<String, String> attributes = new HashMap<>(1);
                             String id = dataTable.getContainerClientId(context) + ":" + state.getPart().getName().getId();
                             attributes.put("id", id);
                             try {
@@ -785,7 +785,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         ajaxFunction.getOptions().setClientParameters(CLIENT_PARAMS);
 
         Map<String, Object> attributes = component.getAttributes();
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         addToScriptHash(options, "selectionMode", attributes.get("selectionMode"), SelectionMode.multiple);
         addToScriptHash(options, "showColumnControl", attributes.get("showColumnControl"), false);
         addToScriptHash(options, "onbeforeselectionchange",

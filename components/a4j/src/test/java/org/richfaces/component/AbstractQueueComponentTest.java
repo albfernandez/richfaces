@@ -272,11 +272,11 @@ public abstract class AbstractQueueComponentTest {
         private Map<String, Object> parameters;
 
         private ParametersBuilder() {
-            this.parameters = new HashMap<String, Object>();
+            this.parameters = new HashMap<>();
         }
 
         private ParametersBuilder(Map<String, Object> parameters) {
-            this.parameters = new HashMap<String, Object>(parameters);
+            this.parameters = new HashMap<>(parameters);
         }
 
         private ParametersBuilder put(String key, Object value) {
@@ -413,7 +413,7 @@ public abstract class AbstractQueueComponentTest {
     }
 
     protected static final class TestsResult {
-        private List<RequestData> dataList = new ArrayList<RequestData>();
+        private List<RequestData> dataList = new ArrayList<>();
         private double currentTime;
 
         public void addData(RequestData data) {
@@ -455,7 +455,7 @@ public abstract class AbstractQueueComponentTest {
 }
 
 class UnescapingScriptPreprocessor implements ScriptPreProcessor {
-    private static final Map<String, String> ENTITIES_MAP = new HashMap<String, String>();
+    private static final Map<String, String> ENTITIES_MAP = new HashMap<>();
     private static final Pattern ENTITIES_PATTERN;
 
     static {

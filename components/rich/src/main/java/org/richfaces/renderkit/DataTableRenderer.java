@@ -364,7 +364,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
 
         AjaxOptions ajaxOptions = AjaxRendererUtils.buildEventOptions(facesContext, dataTable);
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         options.put("ajaxEventOptions", ajaxOptions.getParameters());
         function.addParameter(options);
 

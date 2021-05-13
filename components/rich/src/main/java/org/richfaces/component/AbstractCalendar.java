@@ -840,7 +840,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
             if (calendarDataModel != null) {
                 CalendarDataModelItem[] calendarDataModelItems = calendarDataModel.getData(preloadDateRange);
 
-                HashMap<String, Object> args = new HashMap<String, Object>();
+                HashMap<String, Object> args = new HashMap<>();
 
                 args.put("startDate", formatStartDate(preloadDateRange[0]));
                 args.put("days", deleteEmptyPropeties(calendarDataModelItems));
@@ -855,16 +855,16 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         AbstractCalendar calendarInstance = (AbstractCalendar) AbstractCalendar.getCurrentComponent(facesContext);
         Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarInstance);
         calendar.setTime(date);
-        HashMap<String, Object> hashDate = new HashMap<String, Object>();
+        HashMap<String, Object> hashDate = new HashMap<>();
         hashDate.put("month", calendar.get(Calendar.MONTH));
         hashDate.put("year", calendar.get(Calendar.YEAR));
         return hashDate;
     }
 
     public ArrayList<Object> deleteEmptyPropeties(CalendarDataModelItem[] calendarDataModelItems) {
-        ArrayList<Object> hashItems = new ArrayList<Object>();
+        ArrayList<Object> hashItems = new ArrayList<>();
         for (CalendarDataModelItem item : calendarDataModelItems) {
-            HashMap<String, Object> itemPropertiesMap = new HashMap<String, Object>();
+            HashMap<String, Object> itemPropertiesMap = new HashMap<>();
             if (null != item) {
                 if (!item.isEnabled()) {
                     itemPropertiesMap.put("enabled", item.isEnabled());
@@ -919,7 +919,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
                 throw new IllegalArgumentException();
             }
 
-            List<Date> dates = new ArrayList<Date>();
+            List<Date> dates = new ArrayList<>();
 
             Calendar calendar = Calendar.getInstance(CalendarHelper.getTimeZoneOrDefault(this),
                     CalendarHelper.getAsLocale(facesContext, this, this.getLocale()));

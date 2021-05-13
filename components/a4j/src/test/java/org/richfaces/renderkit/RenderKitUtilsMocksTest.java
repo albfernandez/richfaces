@@ -88,9 +88,9 @@ public class RenderKitUtilsMocksTest {
         expect(facesContext.getResponseWriter()).andStubReturn(responseWriter);
         expect(responseWriter.getContentType()).andStubReturn("application/xhtml+xml");
 
-        componentAttributes = new HashMap<String, Object>();
-        behaviorsMap = new HashMap<String, List<ClientBehavior>>();
-        knownAttributes = new TreeMap<String, ComponentAttribute>();
+        componentAttributes = new HashMap<>();
+        behaviorsMap = new HashMap<>();
+        knownAttributes = new TreeMap<>();
     }
 
     @After
@@ -290,7 +290,7 @@ public class RenderKitUtilsMocksTest {
         ClientBehaviorHolder behaviorHolder = createMockClientBehaviorHolder();
         UIComponent component = (UIComponent) behaviorHolder;
 
-        Map<String, String> requestParameterMap = new HashMap<String, String>();
+        Map<String, String> requestParameterMap = new HashMap<>();
         requestParameterMap.put(RenderKitUtils.BEHAVIOR_SOURCE_ID, behaviorSourceId);
         requestParameterMap.put(RenderKitUtils.BEHAVIOR_EVENT_NAME, behaviorEventName);
         expect(externalContext.getRequestParameterMap()).andStubReturn(requestParameterMap);

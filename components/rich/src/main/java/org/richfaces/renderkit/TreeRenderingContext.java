@@ -112,7 +112,7 @@ public final class TreeRenderingContext {
             Object chainedBeforeToggleHandler = chain(beforeToggleHandler, beforeNodeToggleHandler);
 
             if (chainedToggleHandler != null || chainedBeforeToggleHandler != null) {
-                Map<String, Object> map = new HashMap<String, Object>(2);
+                Map<String, Object> map = new HashMap<>(2);
 
                 if (chainedToggleHandler != null) {
                     map.put("th", chainedToggleHandler);
@@ -132,7 +132,7 @@ public final class TreeRenderingContext {
     private FacesContext context;
     private AbstractTree tree;
     private String baseClientId;
-    private Map<String, Handlers> handlersMap = new HashMap<String, Handlers>();
+    private Map<String, Handlers> handlersMap = new HashMap<>();
     private Handlers handlers;
 
     private TreeRenderingContext(FacesContext context, AbstractTree tree) {

@@ -180,7 +180,7 @@ public class AjaxStatusRenderer extends RendererBase {
 
         JSFunction statusConstructor = new JSFunction("new RichFaces.ui.Status", clientId);
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
 
         Map<String, Object> attributes = ajaxStatus.getAttributes();
         for (String eventName : EVENT_NAMES) {

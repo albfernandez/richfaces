@@ -429,7 +429,7 @@ public final class RenderKitUtils {
         Object attributesThatAreSetObject = component.getAttributes().get(ATTRIBUTES_THAT_ARE_SET);
         if (attributesThatAreSetObject instanceof Collection<?>) {
             boolean disabled = isDisabled(component);
-            Set<String> handledAttributes = new HashSet<String>(knownAttributesMap.size());
+            Set<String> handledAttributes = new HashSet<>(knownAttributesMap.size());
 
             Collection<?> attributesThatAreSet = (Collection<?>) attributesThatAreSetObject;
             for (Object attributeNameObject : attributesThatAreSet) {

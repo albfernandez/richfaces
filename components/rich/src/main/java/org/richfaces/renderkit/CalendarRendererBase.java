@@ -342,7 +342,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     }
 
     protected Map<String, Object> getCollectedLabels(ResourceBundle[] bundles, String[] names) {
-        Map<String, Object> labels = new HashMap<String, Object>();
+        Map<String, Object> labels = new HashMap<>();
         if (bundles != null && names != null) {
             for (String name : names) {
                 String label = null;
@@ -369,7 +369,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         AbstractCalendar abstractCalendar = (AbstractCalendar) component;
 
         Date date = CalendarHelper.getFormattedDefaultTime(abstractCalendar);
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         if (date != null) {
             Calendar calendar = CalendarHelper.getCalendar(null, null);
             calendar.setTime(date);
@@ -404,7 +404,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     protected Map<String, Object> getLocaleOptions(FacesContext facesContext, UIComponent component) {
         AbstractCalendar calendarComponent = (AbstractCalendar) component;
 
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         Locale locale = CalendarHelper.getAsLocale(facesContext, calendarComponent);
         DateFormatSymbols dateFormat = new DateFormatSymbols(locale);

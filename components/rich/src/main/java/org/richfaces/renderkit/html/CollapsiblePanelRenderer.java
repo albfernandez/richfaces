@@ -122,7 +122,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractTogglePanel panel = (AbstractTogglePanel) component;
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         options.put("activeItem", panel.getActiveItem());
         options.put("ajax", getAjaxOptions(context, panel));
         options.put("switchMode", panel.getSwitchType());

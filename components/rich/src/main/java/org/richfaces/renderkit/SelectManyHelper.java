@@ -233,7 +233,7 @@ public class SelectManyHelper {
     }
 
     public static List<ClientSelectItem> getClientSelectItems(FacesContext facesContext, AbstractSelectManyComponent select, Iterator<SelectItem> selectItems) {
-        List<ClientSelectItem> clientSelectItems = new ArrayList<ClientSelectItem>();
+        List<ClientSelectItem> clientSelectItems = new ArrayList<>();
         Object object = select.getValue();
         List values;
         if (object == null) {

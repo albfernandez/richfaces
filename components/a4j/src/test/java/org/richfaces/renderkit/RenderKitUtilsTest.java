@@ -168,7 +168,7 @@ public class RenderKitUtilsTest {
 
     @Test
     public void testAddToScriptHash() throws Exception {
-        Map<String, Object> hash = new HashMap<String, Object>();
+        Map<String, Object> hash = new HashMap<>();
 
         addToScriptHash(hash, "x", "y", null, null);
         assertEquals("y", hash.get("x"));
@@ -251,7 +251,7 @@ public class RenderKitUtilsTest {
 
     @Test
     public void testAsArray3() {
-        ArrayList<Integer> list = new ArrayList<Integer>();
+        ArrayList<Integer> list = new ArrayList<>();
 
         list.add(new Integer(12));
         list.add(null);
@@ -266,7 +266,7 @@ public class RenderKitUtilsTest {
 
     @Test
     public void testAsArray31() {
-        Set<Integer> set = new TreeSet<Integer>();
+        Set<Integer> set = new TreeSet<>();
 
         set.add(new Integer(12));
         set.add(new Integer(22));

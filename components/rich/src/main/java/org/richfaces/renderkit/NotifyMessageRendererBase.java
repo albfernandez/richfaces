@@ -96,7 +96,7 @@ public class NotifyMessageRendererBase extends MessageRendererBase {
         JavaScriptService javaScriptService = ServiceTracker.getService(JavaScriptService.class);
         for (MessageForRender message : getVisibleMessages(facesContext, component)) {
             JSFunction notifyCall = new JSFunction("RichFaces.ui.Notify");
-            Map<String, Object> optionsCopy = new LinkedHashMap<String, Object>(options);
+            Map<String, Object> optionsCopy = new LinkedHashMap<>(options);
             addMessageSpecificAttributes(message, facesContext, component, optionsCopy);
             notifyCall.addParameter(optionsCopy);
             javaScriptService.addPageReadyScript(facesContext, notifyCall);

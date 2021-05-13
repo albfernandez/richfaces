@@ -88,7 +88,7 @@ public class ComponentAttribute implements Comparable<ComponentAttribute> {
     }
 
     public static final Map<String, ComponentAttribute> createMap(ComponentAttribute... attributes) {
-        Map<String, ComponentAttribute> result = new TreeMap<String, ComponentAttribute>();
+        Map<String, ComponentAttribute> result = new TreeMap<>();
 
         for (ComponentAttribute componentAttribute : attributes) {
             result.put(componentAttribute.getComponentAttributeName(), componentAttribute);

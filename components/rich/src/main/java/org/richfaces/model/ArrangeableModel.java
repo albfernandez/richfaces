@@ -217,9 +217,9 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     private void initializeRowKeys(FacesContext context) {
         int rowCount = originalModel.getRowCount();
         if (rowCount > 0) {
-            rowKeys = new ArrayList<Object>(rowCount);
+            rowKeys = new ArrayList<>(rowCount);
         } else {
-            rowKeys = new ArrayList<Object>();
+            rowKeys = new ArrayList<>();
         }
         Object rowKey = originalModel.getRowKey();
         originalModel.walk(context, new DataVisitor() {
@@ -237,7 +237,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     private void filter(FacesContext context) {
         List<FilterField> filterFields = state.getFilterFields();
         if (filterFields != null && !filterFields.isEmpty()) {
-            List<Object> filteredCollection = new ArrayList<Object>();
+            List<Object> filteredCollection = new ArrayList<>();
             for (Object rowKey : rowKeys) {
                 if (accept(context, rowKey)) {
                     filteredCollection.add(rowKey);

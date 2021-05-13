@@ -57,8 +57,8 @@ public class PartialStateHolderHelper implements StateHelper {
     public PartialStateHolderHelper(PartialStateHolder stateHolder) {
 
         this.stateHolder = stateHolder;
-        this.deltaMap = new HashMap<Serializable, Object>();
-        this.defaultMap = new HashMap<Serializable, Object>();
+        this.deltaMap = new HashMap<>();
+        this.defaultMap = new HashMap<>();
     }
 
     // ------------------------------------------------ Methods from StateHelper
@@ -116,14 +116,14 @@ public class PartialStateHolderHelper implements StateHelper {
         if (stateHolder.initialStateMarked()) {
             Map<String, Object> dMap = (Map<String, Object>) deltaMap.get(key);
             if (dMap == null) {
-                dMap = new HashMap<String, Object>(5);
+                dMap = new HashMap<>(5);
                 deltaMap.put(key, dMap);
             }
             ret = dMap.put(mapKey, value);
         }
         Map<String, Object> map = (Map<String, Object>) get(key);
         if (map == null) {
-            map = new HashMap<String, Object>(8);
+            map = new HashMap<>(8);
             defaultMap.put(key, map);
         }
         if (ret == null) {
@@ -173,14 +173,14 @@ public class PartialStateHolderHelper implements StateHelper {
         if (stateHolder.initialStateMarked()) {
             List<Object> deltaList = (List<Object>) deltaMap.get(key);
             if (deltaList == null) {
-                deltaList = new ArrayList<Object>(4);
+                deltaList = new ArrayList<>(4);
                 deltaMap.put(key, deltaList);
             }
             deltaList.add(value);
         }
         List<Object> items = (List<Object>) get(key);
         if (items == null) {
-            items = new ArrayList<Object>(4);
+            items = new ArrayList<>(4);
             defaultMap.put(key, items);
         }
         items.add(value);

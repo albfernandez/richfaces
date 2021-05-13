@@ -8,7 +8,7 @@ public class DataScrollerBean {
     private int pageNumber = 1;
 
     public DataScrollerBean() {
-        content = new ArrayList<String>();
+        content = new ArrayList<>();
         content.add("1 page content");
         content.add("2 page content");
         content.add("3 page content");

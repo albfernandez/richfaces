@@ -123,7 +123,7 @@ public final class DataScrollerUtils {
     }
 
     public static List<AbstractDataScroller> findDataScrollers(UIComponent dataTable) {
-        List<AbstractDataScroller> datascrollers = new ArrayList<AbstractDataScroller>();
+        List<AbstractDataScroller> datascrollers = new ArrayList<>();
         Map<String, UIComponent> facets = dataTable.getFacets();
         Set<Entry<String, UIComponent>> entries = facets.entrySet();
 

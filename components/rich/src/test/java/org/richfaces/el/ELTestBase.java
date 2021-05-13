@@ -121,10 +121,10 @@ public class ELTestBase {
         bean = new Bean();
         person = new Person();
         bean.setString("foo");
-        ArrayList<String> list = new ArrayList<String>(1);
+        ArrayList<String> list = new ArrayList<>(1);
         list.add("bar");
         bean.setList(list);
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         map.put("boo", "baz");
         bean.setMap(map);
         elResolver = new DummyELResolver();

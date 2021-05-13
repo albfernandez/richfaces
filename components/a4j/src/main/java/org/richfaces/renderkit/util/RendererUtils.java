@@ -63,7 +63,7 @@ public class RendererUtils {
     /**
      * Substitutions for components properies names and HTML attributes names.
      */
-    private static final Map<String, String> SUBSTITUTIONS = new HashMap<String, String>();
+    private static final Map<String, String> SUBSTITUTIONS = new HashMap<>();
 
     static {
         SUBSTITUTIONS.put(HtmlConstants.CLASS_ATTRIBUTE, "styleClass");
@@ -166,7 +166,7 @@ public class RendererUtils {
     }
 
     public Map<String, Object> createParametersMap(FacesContext context, UIComponent component) {
-        Map<String, Object> parameters = new LinkedHashMap<String, Object>();
+        Map<String, Object> parameters = new LinkedHashMap<>();
 
         if (component.getChildCount() > 0) {
             for (UIComponent child : component.getChildren()) {

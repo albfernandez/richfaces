@@ -52,7 +52,7 @@ public class ComponentControlBehavior extends ClientBehavior {
 
     public List<UIComponent> getChildren() {
         if (children == null) {
-            children = new ArrayList<UIComponent>();
+            children = new ArrayList<>();
         }
         return children;
     }

@@ -54,7 +54,7 @@ public class DataTablePreRenderListener implements SystemEventListener {
     public AbstractDataScroller processActiveDatascroller(FacesContext facesContext, List<AbstractDataScroller> dataScrollers,
         UIComponent dataTable) {
         AbstractDataScroller activeComponent = null;
-        List<Object> values = new ArrayList<Object>(dataScrollers.size());
+        List<Object> values = new ArrayList<>(dataScrollers.size());
 
         String stateKey = dataTable.getClientId(facesContext) + AbstractDataScroller.SCROLLER_STATE_ATTRIBUTE;
         Map<String, Object> attributes = dataTable.getAttributes();

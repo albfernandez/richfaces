@@ -48,7 +48,7 @@ public class PushResource extends AbstractUserResource {
     private static final String FORGET_PUSH_SESSION_ID_PARAM = "forgetPushSessionId";
 
     private Map<String, String> getFailuresMap(Map<TopicKey, String> failedSubscriptions) {
-        Map<String, String> result = new HashMap<String, String>();
+        Map<String, String> result = new HashMap<>();
 
         for (Entry<TopicKey, String> entry : failedSubscriptions.entrySet()) {
             result.put(entry.getKey().getTopicAddress(), entry.getValue());
@@ -87,7 +87,7 @@ public class PushResource extends AbstractUserResource {
 
         session.subscribe(topicNames);
 
-        Map<String, Object> subscriptionData = new HashMap<String, Object>(4);
+        Map<String, Object> subscriptionData = new HashMap<>(4);
         subscriptionData.put("sessionId", session.getId());
 
         Map<TopicKey, String> failedSubscriptions = session.getFailedSubscriptions();

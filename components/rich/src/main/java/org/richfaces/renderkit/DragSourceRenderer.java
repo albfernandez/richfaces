@@ -53,7 +53,7 @@ import com.google.common.base.Strings;
 public class DragSourceRenderer extends DnDRenderBase {
     @Override
     public Map<String, Object> getOptions(FacesContext facesContext, UIComponent component) {
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         if (component instanceof AbstractDragSource) {
             AbstractDragSource dragSource = (AbstractDragSource) component;
             options.put("indicator", getDragIndicatorClientId(facesContext, dragSource));

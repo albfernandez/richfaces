@@ -50,7 +50,7 @@ public class FacesValidatorServiceTest {
         expect(environment.getFacesContext().getViewRoot()).andStubReturn(viewRoot);
         expect(viewRoot.getLocale()).andStubReturn(Locale.ENGLISH);
         expect(environment.getApplication().getMessageBundle()).andStubReturn("javax.faces.Messages");
-        HashMap<String, Object> attributes = new HashMap<String, Object>();
+        HashMap<String, Object> attributes = new HashMap<>();
         attributes.put("label", "foo");
         expect(input.getAttributes()).andStubReturn(attributes);
         expect(input.getRequiredMessage()).andStubReturn(null);

@@ -131,7 +131,7 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
             immediateAssociateWith(component, getClientId());
         } else {
             if (componentsToAssociate == null) {
-                componentsToAssociate = new ArrayList<UIComponent>(2);
+                componentsToAssociate = new ArrayList<>(2);
             }
 
             componentsToAssociate.add(component);
@@ -154,7 +154,7 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
             immediateAssociateWith(behavior, getClientId());
         } else {
             if (behaviorsToAssociate == null) {
-                behaviorsToAssociate = new ArrayList<AjaxBehavior>(2);
+                behaviorsToAssociate = new ArrayList<>(2);
             }
 
             behaviorsToAssociate.add(behavior);

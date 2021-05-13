@@ -70,7 +70,7 @@ public final class TagHandlerUtils {
         }
 
         if (list == null) {
-            list = new ArrayList<AttachedObjectHandler>();
+            list = new ArrayList<>();
             attrs.put(JAVAX_FACES_RETARGETABLE_HANDLERS, list);
             attrs.put(JAVAX_FACES_ATTACHED_OBJECT_HANDLERS, list);
         }

@@ -68,7 +68,7 @@ public abstract class ClientBehavior extends ClientBehaviorBase {
                 setLiteralValue(name, valueExpression);
             } else {
                 if (bindings == null) {
-                    bindings = new HashMap<String, ValueExpression>(6, 1.0f);
+                    bindings = new HashMap<>(6, 1.0f);
                 }
                 bindings.put(name, valueExpression);
             }
@@ -168,7 +168,7 @@ public abstract class ClientBehavior extends ClientBehaviorBase {
         Object[] values = (Object[]) state;
         String[] names = (String[]) values[0];
         Object[] states = (Object[]) values[1];
-        Map<String, ValueExpression> bindings = new HashMap<String, ValueExpression>();
+        Map<String, ValueExpression> bindings = new HashMap<>();
         for (int i = 0; i < names.length; i++) {
             bindings.put(names[i], (ValueExpression) UIComponentBase.restoreAttachedState(context, states[i]));
         }

@@ -170,7 +170,7 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractTooltip tooltip = (AbstractTooltip) component;
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
 
         RenderKitUtils.addToScriptHash(options, "ajax", getAjaxOptions(context, tooltip), TooltipMode.DEFAULT);
 

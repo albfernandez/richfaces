@@ -78,11 +78,11 @@ public class ForEachLoop<T> implements Iterable<T> {
     }
 
     public static <T> ForEachLoop<T> getInstance(Iterator<T> iterator) {
-        return new ForEachLoop<T>(iterator);
+        return new ForEachLoop<>(iterator);
     }
 
     public static <T> ForEachLoop<T> getInstance(Iterable<T> iterable) {
-        ForEachLoop<T> loop = new ForEachLoop<T>(iterable.iterator());
+        ForEachLoop<T> loop = new ForEachLoop<>(iterable.iterator());
         return loop;
     }
 

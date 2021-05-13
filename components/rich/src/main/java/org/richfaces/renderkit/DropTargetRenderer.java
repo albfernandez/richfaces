@@ -122,7 +122,7 @@ public class DropTargetRenderer extends DnDRenderBase {
 
     @Override
     public Map<String, Object> getOptions(FacesContext facesContext, UIComponent component) {
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
 
         if (component instanceof AbstractDropTarget) {
             JSReference dragSourceId = new JSReference("dragSourceId");

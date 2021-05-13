@@ -207,7 +207,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractPanelMenuItem panelMenuItem = (AbstractPanelMenuItem) component;
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         // TODO nick - ajax options should not be rendered in client mode
         options.put("ajax", getAjaxOptions(context, panelMenuItem));
         options.put("disabled", PanelMenuItemRenderer.isParentPanelMenuDisabled(panelMenuItem) || panelMenuItem.isDisabled());

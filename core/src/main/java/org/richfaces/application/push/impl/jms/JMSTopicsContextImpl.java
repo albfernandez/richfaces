@@ -261,9 +261,9 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
 
         private Connection createConnection() throws JMSException, NamingException {
             ConnectionFactory connectionFactory = (ConnectionFactory) initialContext.lookup(connectionFactoryName);
-            Connection connection = connectionFactory.createConnection(username, password);
-            connection.start();
-            return connection;
+            Connection c = connectionFactory.createConnection(username, password);
+            c.start();
+            return c;
         }
 
         private Topic lookupTopic() throws NamingException {

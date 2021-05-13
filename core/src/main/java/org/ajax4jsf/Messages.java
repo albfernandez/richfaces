@@ -330,7 +330,7 @@ public final class Messages {
             return "%" + name + "%";
         }
 
-        return MessageFormat.format(pattern, new Object[] { param });
+        return MessageFormat.format(pattern, param);
     }
 
     public static String getMessage(String name, Object param1, Object param2) {
@@ -340,7 +340,7 @@ public final class Messages {
             return "%" + name + "%";
         }
 
-        return MessageFormat.format(pattern, new Object[] { param1, param2 });
+        return MessageFormat.format(pattern, param1, param2);
     }
 
     public static String getMessage(String name, Object[] params) {

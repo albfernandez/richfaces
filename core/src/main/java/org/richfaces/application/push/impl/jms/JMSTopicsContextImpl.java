@@ -52,13 +52,14 @@ import javax.naming.NameParser;
 import javax.naming.NamingException;
 
 import org.ajax4jsf.javascript.JSLiteral;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.impl.TopicsContextImpl;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.application.ServiceTracker;
 
+import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -150,20 +151,22 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
      * If there is no context created for given name created yet, it will be created and started.
      */
     private final LoadingCache<String, JMSConsumerContext> jmsConsumerContexts = CacheBuilder.newBuilder().build(
-            CacheLoader.from(name -> {
-                JMSConsumerContext topicContext = new JMSConsumerContext(name);
-                try {
-                    topicContext.start();
-                } catch (Exception e) {
+            CacheLoader.from(new Function<String, JMSConsumerContext>() {
+                public JMSConsumerContext apply(String name) {
+                    JMSConsumerContext topicContext = new JMSConsumerContext(name);
                     try {
-                        topicContext.stop();
-                    } catch (Exception e1) {
-                        LOGGER.error(e1.getMessage(), e1);
-                    }
+                        topicContext.start();
+                    } catch (Exception e) {
+                        try {
+                            topicContext.stop();
+                        } catch (Exception e1) {
+                            LOGGER.error(e1.getMessage(), e1);
+                        }
 
-                    throw new FacesException(e.getMessage(), e);
+                        throw new FacesException(e.getMessage(), e);
+                    }
+                    return topicContext;
                 }
-                return topicContext;
             }));
 
     /**
@@ -177,6 +180,7 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
         private final String name;
         private Connection connection;
         private Session session;
+        private Thread pollingThread;
         private MessageConsumer consumer;
 
         public JMSConsumerContext(String name) {
@@ -192,30 +196,32 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             consumer = session.createConsumer(lookupTopic(), null, false);
 
-            Thread pollingThread = getThreadFactory().newThread(() -> {
-                try {
-                    while (true) {
-                        Message message = consumer.receive();
+            pollingThread = getThreadFactory().newThread(new Runnable() {
+                public void run() {
+                    try {
+                        while (true) {
+                            Message message = consumer.receive();
 
-                        if (message != null) {
-                            String subtopicName = message.getStringProperty(SUBTOPIC_PROPERTY);
-                            TopicKey topicKey = new TopicKey(name, subtopicName);
+                            if (message != null) {
+                                String subtopicName = message.getStringProperty(SUBTOPIC_PROPERTY);
+                                TopicKey topicKey = new TopicKey(name, subtopicName);
 
-                            org.richfaces.application.push.Topic pushTopic = getOrCreateTopic(topicKey);
-                            if (pushTopic != null) {
-                                try {
-                                    Object messageData = getMessageData(message);
-                                    pushTopic.publish(messageData, subtopicName);
-                                } catch (Exception e) {
-                                    LOGGER.error(e.getMessage(), e);
+                                org.richfaces.application.push.Topic pushTopic = getOrCreateTopic(topicKey);
+                                if (pushTopic != null) {
+                                    try {
+                                        Object messageData = getMessageData(message);
+                                        pushTopic.publish(messageData, subtopicName);
+                                    } catch (Exception e) {
+                                        LOGGER.error(e.getMessage(), e);
+                                    }
                                 }
+                            } else {
+                                break;
                             }
-                        } else {
-                            break;
                         }
+                    } catch (JMSException e) {
+                        LOGGER.error(e.getMessage(), e);
                     }
-                } catch (JMSException e) {
-                    LOGGER.error(e.getMessage(), e);
                 }
             });
 
@@ -256,9 +262,9 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
 
         private Connection createConnection() throws JMSException, NamingException {
             ConnectionFactory connectionFactory = (ConnectionFactory) initialContext.lookup(connectionFactoryName);
-            Connection c = connectionFactory.createConnection(username, password);
-            c.start();
-            return c;
+            Connection connection = connectionFactory.createConnection(username, password);
+            connection.start();
+            return connection;
         }
 
         private Topic lookupTopic() throws NamingException {

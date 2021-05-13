@@ -113,7 +113,7 @@ public final class ComponentIdResolver {
         Iterator<MetaComponentResolver> iterator = createResolversChainIterator(component);
 
         while (iterator.hasNext()) {
-            MetaComponentResolver metaComponentResolver = iterator.next();
+            MetaComponentResolver metaComponentResolver = (MetaComponentResolver) iterator.next();
 
             String resolvedId = metaComponentResolver.substituteUnresolvedClientId(context, component, metaComponentId);
 
@@ -129,7 +129,7 @@ public final class ComponentIdResolver {
         Iterator<MetaComponentResolver> iterator = createResolversChainIterator(component);
 
         while (iterator.hasNext()) {
-            MetaComponentResolver metaComponentResolver = iterator.next();
+            MetaComponentResolver metaComponentResolver = (MetaComponentResolver) iterator.next();
 
             String resolvedId = metaComponentResolver.resolveClientId(context, component, metaComponentId);
 

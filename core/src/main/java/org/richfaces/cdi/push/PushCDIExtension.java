@@ -169,7 +169,7 @@ public class PushCDIExtension implements Extension {
 
         private <T> T getBeanReference(Class<T> beanType) {
             Set<Bean<?>> beans = beanManager.getBeans(beanType);
-            Bean<?> bean = beans.iterator().next();
+            Bean<?> bean = (Bean<?>) beans.iterator().next();
             CreationalContext<?> ctx = beanManager.createCreationalContext(bean);
             @SuppressWarnings("unchecked")
             T reference = (T) beanManager.getReference(bean, beanType, ctx);

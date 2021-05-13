@@ -43,7 +43,7 @@ public class BundleLoader {
 
         if (bundleAnnotation == null) {
             throw new IllegalArgumentException(MessageFormat.format("Cannot detect baseName for enumeration {0} in class {1}",
-                messageKey, messageKey.getClass().getName()));
+                messageKey.toString(), messageKey.getClass().getName()));
         }
 
         return bundleAnnotation;

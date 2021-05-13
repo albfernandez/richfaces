@@ -35,7 +35,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.activation.FileTypeMap;
+import javax.activation.MimetypesFileTypeMap;
 import javax.faces.context.ExternalContext;
 
 import com.google.common.collect.Sets;
@@ -460,6 +460,6 @@ public class ExternalContextImpl extends ExternalContext {
      */
     @Override
     public String getMimeType(String file) {
-        return FileTypeMap.getDefaultFileTypeMap().getContentType(file);
+        return MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(file);
     }
 }

@@ -56,11 +56,19 @@ import com.google.common.collect.Sets;
  *
  */
 public class ResourceOrderingScanner implements ResourcesScanner {
-    private static final Function<ResourceDependency, ResourceKey> RESOURCE_DEPENDENCY_TO_KEY = (
-            resourceDependency) -> new ResourceKey(resourceDependency.name(), resourceDependency.library());
+    private static final Function<ResourceDependency, ResourceKey> RESOURCE_DEPENDENCY_TO_KEY = new Function<ResourceDependency, ResourceKey>() {
+        @Override
+        public ResourceKey apply(ResourceDependency resourceDependency) {
+            return new ResourceKey(resourceDependency.name(), resourceDependency.library());
+        }
+    };
 
-    private static final Predicate<ResourceDependency> RESOURCE_DEPENDENCY_NOT_BODY = resourceDependency -> !"body"
-            .equals(resourceDependency.target());
+    private static final Predicate<ResourceDependency> RESOURCE_DEPENDENCY_NOT_BODY = new Predicate<ResourceDependency>() {
+        @Override
+        public boolean apply(ResourceDependency resourceDependency) {
+            return !"body".equals(resourceDependency.target());
+        }
+    };
 
     private Collection<ResourceKey> resources = Lists.newLinkedList();
     private PartialOrderToCompleteOrder<ResourceKey> ordering = new PartialOrderToCompleteOrder<ResourceKey>();

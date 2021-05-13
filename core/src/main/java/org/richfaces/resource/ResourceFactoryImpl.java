@@ -59,12 +59,14 @@ public class ResourceFactoryImpl implements ResourceFactory {
     private static final String MAPPED_RESOURCES_RESOLUTION_STACK = MappedResourceFactory.class.getName()
             + ".MAPPED_RESOURCES_RESOLUTION_STACK";
 
-    private static final Function<Entry<String, String>, MappedResourceData> DYNAMIC_MAPPINGS_DATA_PRODUCER = from -> {
-        String resourceLocation = from.getValue();
-        Map<String, String> params = ResourceUtils.parseResourceParameters(resourceLocation);
-        String resourceQualifier = extractParametersFromResourceName(resourceLocation);
+    private static final Function<Entry<String, String>, MappedResourceData> DYNAMIC_MAPPINGS_DATA_PRODUCER = new Function<Entry<String, String>, MappedResourceData>() {
+        public MappedResourceData apply(Entry<String, String> from) {
+            String resourceLocation = from.getValue();
+            Map<String, String> params = ResourceUtils.parseResourceParameters(resourceLocation);
+            String resourceQualifier = extractParametersFromResourceName(resourceLocation);
 
-        return new MappedResourceData(ResourceKey.create(resourceQualifier), params);
+            return new MappedResourceData(ResourceKey.create(resourceQualifier), params);
+        }
     };
     private ResourceHandler defaultHandler;
     // private Map<ResourceKey, ExternalStaticResourceFactory> externalStaticResourceFactories;
@@ -369,7 +371,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug(String.format("Resource '%s' is redirected to following resource path: %s", resourceKey, path));
             if (!aggregatedResources.isEmpty()) {
-                LOGGER.debug(String.format("Following resources are marked as rendered: %s", aggregatedResources));
+                LOGGER.debug(String.format("Following resources are marked as rendered: %s", resourceKey, aggregatedResources));
             }
         }
 

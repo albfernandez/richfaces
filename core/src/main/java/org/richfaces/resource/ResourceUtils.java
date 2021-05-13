@@ -57,6 +57,7 @@ import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -101,7 +102,7 @@ public final class ResourceUtils {
     private static final String RFC1123_DATE_PATTERN = "EEE, dd MMM yyyy HH:mm:ss zzz";
     // TODO codec have settings
     private static final Codec CODEC = new Codec();
-    private static final TimeZone GMT_TIMEZONE = TimeZone.getTimeZone("GMT");
+    private static final SimpleDateFormat RFC1123_DATE_FORMATTER;
     private static final String QUESTION_SIGN = "?";
     private static final String EQUALS_SIGN = "=";
     private static final Pattern CHARSET_IN_CONTENT_TYPE_PATTERN = Pattern.compile(";\\s*charset\\s*=\\s*([^\\s;]+)",
@@ -119,14 +120,14 @@ public final class ResourceUtils {
         }
     }
 
-    private ResourceUtils() {
+    static {
+        SimpleDateFormat format = new SimpleDateFormat(RFC1123_DATE_PATTERN, Locale.US);
+
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        RFC1123_DATE_FORMATTER = format;
     }
 
-    private static SimpleDateFormat getRFC1123DateFormatter() {
-        SimpleDateFormat format = new SimpleDateFormat(RFC1123_DATE_PATTERN, Locale.US);
-        format.setTimeZone(GMT_TIMEZONE);
-
-        return format;
+    private ResourceUtils() {
     }
 
     public static String getMappingForRequest(FacesContext context) {
@@ -159,9 +160,9 @@ public final class ResourceUtils {
     public static Date parseHttpDate(String s) {
         Date result = null;
 
-        if (!Strings.isNullOrEmpty(s)) {
+        if (s != null) {
             try {
-                result = (Date) getRFC1123DateFormatter().parseObject(s);
+                result = (Date) ((Format) RFC1123_DATE_FORMATTER.clone()).parseObject(s);
             } catch (ParseException e) {
                 RESOURCE_LOGGER.error(e.getMessage(), e);
             }
@@ -172,10 +173,10 @@ public final class ResourceUtils {
 
     public static String formatHttpDate(Object object) {
         if (object != null) {
-            return getRFC1123DateFormatter().format(object);
+            return ((Format) RFC1123_DATE_FORMATTER.clone()).format(object);
+        } else {
+            return null;
         }
-
-        return null;
     }
 
     protected static byte[] encrypt(byte[] src) {

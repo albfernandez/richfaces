@@ -375,11 +375,13 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     public void setRenderAll(final boolean renderAll) {
         assertNotReleased();
         this.renderAll = renderAll;
-        visitPatentContexts(pvc -> {
-            if (pvc != ExtendedPartialViewContext.this) {
-                pvc.setRenderAll(renderAll);
+        visitPatentContexts(new Function<PartialViewContext, Void>() {
+            public Void apply(PartialViewContext pvc) {
+                if (pvc != ExtendedPartialViewContext.this) {
+                    pvc.setRenderAll(renderAll);
+                }
+                return null;
             }
-            return null;
         });
     }
 
@@ -835,7 +837,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
      * All the parent wrappers of this context will be traversed and given callback will be called upon them
      */
     private void visitPatentContexts(Function<PartialViewContext, Void> function) {
-        PartialViewContext pvc = this;
+        PartialViewContext pvc = (PartialViewContextWrapper) this;
         do {
             pvc = ((PartialViewContextWrapper) pvc).getWrapped();
             function.apply(pvc);

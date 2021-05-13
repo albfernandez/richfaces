@@ -27,7 +27,7 @@ package org.ajax4jsf.javascript;
  */
 public class JSChainJSFFunction extends JSFunction {
     public JSChainJSFFunction(Object... parameters) {
-        super("jsf.util.chain", createFunctionArgs(parameters));
+        super("jsf.util.chain", (Object[]) createFunctionArgs(parameters));
     }
 
     private static Object[] createFunctionArgs(Object[] sourceParams) {

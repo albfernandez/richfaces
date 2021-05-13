@@ -71,7 +71,7 @@ public final class HtmlColor {
             throw new IllegalArgumentException(Messages.getMessage(Messages.NULL_COLOR_PARAMETER_ERROR));
         }
 
-        Color c = colorNames.get(color.trim().toLowerCase());
+        Color c = (Color) colorNames.get(color.trim().toLowerCase());
 
         if (null == c) {
             try {

@@ -32,6 +32,7 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.FastJoiner;
 import org.richfaces.util.PropertiesUtil;
 
+import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -61,44 +62,44 @@ public class ResourceLibraryFactoryImpl implements ResourceLibraryFactory {
         }
     }
 
-    private LoadingCache<ResourceKey, ResourceLibrary> instances = CacheBuilder.newBuilder()
-            .build(CacheLoader.from(from -> {
-                String propsResourceName = from.getResourceName() + ".library.properties";
+    private LoadingCache<ResourceKey, ResourceLibrary> instances = CacheBuilder.newBuilder().build(CacheLoader.from(new Function<ResourceKey, ResourceLibrary>() {
+        public ResourceLibrary apply(ResourceKey from) {
+            String propsResourceName = from.getResourceName() + ".library.properties";
 
-                Map<String, String> props = PropertiesUtil.loadProperties(
-                        "META-INF/richfaces/" + SLASH_JOINER.join(from.getLibraryName(), propsResourceName));
+            Map<String, String> props = PropertiesUtil.loadProperties("META-INF/richfaces/"
+                + SLASH_JOINER.join(from.getLibraryName(), propsResourceName));
 
-                String libraryClass = props.get("class");
-                String resources = props.get("resources");
+            String libraryClass = props.get("class");
+            String resources = props.get("resources");
 
-                if (libraryClass != null) {
-                    try {
-                        Class<?> clazz = Class.forName(libraryClass.trim(), false,
-                                Thread.currentThread().getContextClassLoader());
-                        return (ResourceLibrary) clazz.getDeclaredConstructor().newInstance();
-                    } catch (ClassNotFoundException e) {
-                        LOGGER.error(e.getMessage(), e);
-                    } catch (InstantiationException e) {
-                        LOGGER.error(e.getMessage(), e);
-                    } catch (IllegalAccessException e) {
-                        LOGGER.error(e.getMessage(), e);
-                    } catch (IllegalArgumentException e) {
-                        LOGGER.error(e.getMessage(), e);
-                    } catch (InvocationTargetException e) {
-                        LOGGER.error(e.getMessage(), e);
-                    } catch (NoSuchMethodException e) {
-                        LOGGER.error(e.getMessage(), e);
-                    } catch (SecurityException e) {
-                        LOGGER.error(e.getMessage(), e);
-                    }
-                } else if (resources != null) {
-                    Iterable<ResourceKey> keys = Iterables.transform(COMA_SPLITTER.split(resources),
-                            ResourceKey.FACTORY);
-                    return new StaticResourceLibrary(Iterables.toArray(keys, ResourceKey.class));
-                } else {
-                    LOGGER.error("'class' or 'resources' properties should be declared in library descriptor: " + from);
-                }
+            if (libraryClass != null) {
+                try {
+                    Class<?> clazz = Class.forName(libraryClass.trim(), false, Thread.currentThread()
+                        .getContextClassLoader());
+                    return (ResourceLibrary) clazz.getDeclaredConstructor().newInstance();
+                } catch (ClassNotFoundException e) {
+                    LOGGER.error(e.getMessage(), e);
+                } catch (InstantiationException e) {
+                    LOGGER.error(e.getMessage(), e);
+                } catch (IllegalAccessException e) {
+                    LOGGER.error(e.getMessage(), e);
+                } catch (IllegalArgumentException e) {
+                	LOGGER.error(e.getMessage(), e);
+				} catch (InvocationTargetException e) {
+					LOGGER.error(e.getMessage(), e);
+				} catch (NoSuchMethodException e) {
+					LOGGER.error(e.getMessage(), e);
+				} catch (SecurityException e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+            } else if (resources != null) {
+                Iterable<ResourceKey> keys = Iterables.transform(COMA_SPLITTER.split(resources), ResourceKey.FACTORY);
+                return new StaticResourceLibrary(Iterables.toArray(keys, ResourceKey.class));
+            } else {
+                LOGGER.error("'class' or 'resources' properties should be declared in library descriptor: " + from);
+            }
 
-                return null;
-            }));
+            return null;
+        }
+    }));
 }

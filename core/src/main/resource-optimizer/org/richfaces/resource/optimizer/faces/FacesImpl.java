@@ -67,14 +67,16 @@ public class FacesImpl implements Faces {
     public void start() {
 
         final ServicesFactoryImpl serviceFactory = new ServicesFactoryImpl();
-        Module module = factory -> {
-            factory.setInstance(ConfigurationService.class, new ConfigurationServiceImpl());
-            factory.setInstance(SkinFactory.class, new SkinFactoryImpl());
-            factory.setInstance(FileNameMapper.class, fileNameMapper);
-            factory.setInstance(DependencyInjector.class, new DependencyInjectorImpl());
-            factory.setInstance(ResourceHandler.class, resourceHandler);
-            factory.setInstance(ResourceTracker.class, new ResourceTrackerImpl());
-            factory.setInstance(MappedResourceFactory.class, new NullMappedResourceFactory());
+        Module module = new Module() {
+            public void configure(ServicesFactory factory) {
+                factory.setInstance(ConfigurationService.class, new ConfigurationServiceImpl());
+                factory.setInstance(SkinFactory.class, new SkinFactoryImpl());
+                factory.setInstance(FileNameMapper.class, fileNameMapper);
+                factory.setInstance(DependencyInjector.class, new DependencyInjectorImpl());
+                factory.setInstance(ResourceHandler.class, resourceHandler);
+                factory.setInstance(ResourceTracker.class, new ResourceTrackerImpl());
+                factory.setInstance(MappedResourceFactory.class, new NullMappedResourceFactory());
+            }
         };
 
         ServiceTracker.setFactory(serviceFactory);

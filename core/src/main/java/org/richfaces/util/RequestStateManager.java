@@ -37,7 +37,7 @@ public final class RequestStateManager {
     }
 
     // TODO remove this stuff
-    public enum BooleanRequestStateVariable {
+    public static enum BooleanRequestStateVariable {
         LegacyResourceRequest("org.richfaces.LEGACY_RESOURCE_REQUEST"),
         ResourceRequest("org.richfaces.RESOURCE_REQUEST");
         private String attributeName;

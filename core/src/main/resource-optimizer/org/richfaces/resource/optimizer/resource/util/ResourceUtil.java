@@ -25,6 +25,7 @@ import static org.richfaces.resource.optimizer.strings.Constants.COLON_JOINER;
 import static org.richfaces.resource.optimizer.strings.Constants.DOT_JOINER;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,8 +51,12 @@ public final class ResourceUtil {
     private static final Pattern RESOURCE_VERSION_PATTERN = Pattern.compile("^((?:\\d+)(?:_\\d+)+)[\\.]?(\\w+)?");
 
     public static final class VersionKey {
-        static final Ordering<VersionKey> ORDERING = Ordering.from((VersionKey o1, VersionKey o2) -> Ints
-                .lexicographicalComparator().compare(o1.versionVector, o2.versionVector)).nullsFirst();
+        static final Ordering<VersionKey> ORDERING = Ordering.from(new Comparator<VersionKey>() {
+            @Override
+            public int compare(VersionKey o1, VersionKey o2) {
+                return Ints.lexicographicalComparator().compare(o1.versionVector, o2.versionVector);
+            }
+        }).nullsFirst();
         private String version;
         private int[] versionVector;
         private String extension;

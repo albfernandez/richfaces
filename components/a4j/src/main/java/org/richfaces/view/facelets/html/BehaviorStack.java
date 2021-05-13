@@ -48,7 +48,7 @@ public final class BehaviorStack {
     private LinkedList<BehaviorInfoImpl> behaviorStack = null;
 
     public BehaviorStack() {
-        behaviorStack = new LinkedList<BehaviorInfoImpl>();
+        behaviorStack = new LinkedList<>();
     }
 
     public static BehaviorStack getBehaviorStack(FacesContext context, boolean createIfNull) {
@@ -161,7 +161,7 @@ public final class BehaviorStack {
             ((StateHolder) behavior).restoreState(context, behaviorState);
 
             if (behaviors == null) {
-                behaviors = new ArrayList<ClientBehavior>();
+                behaviors = new ArrayList<>();
             }
 
             behaviors.add(behavior);

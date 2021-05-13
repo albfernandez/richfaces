@@ -187,7 +187,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
         int maxPages = (Integer) component.getAttributes().get("maxPagesOrDefault");
         int pageCount = (Integer) component.getAttributes().get("pageCount");
 
-        Map<String, String> digital = new HashMap<String, String>();
+        Map<String, String> digital = new HashMap<>();
 
         if (pageCount <= 1) {
             return digital;
@@ -264,9 +264,9 @@ public class DataScrollerBaseRenderer extends RendererBase {
 
     public Map<String, Map<String, String>> getControls(FacesContext context, UIComponent component, ControlsState controlsState) {
 
-        Map<String, Map<String, String>> controls = new HashMap<String, Map<String, String>>();
-        Map<String, String> right = new HashMap<String, String>();
-        Map<String, String> left = new HashMap<String, String>();
+        Map<String, Map<String, String>> controls = new HashMap<>();
+        Map<String, String> right = new HashMap<>();
+        Map<String, String> left = new HashMap<>();
 
         String clientId = component.getClientId(context);
 
@@ -310,7 +310,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
         JSFunction function = new JSFunction("new RichFaces.ui.DataScroller");
         function.addParameter(component.getClientId(context));
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         options.put("buttons", buttons);
         options.put("digitals", digitals);
         options.put("currentPage", (Integer) component.getAttributes().get("page"));

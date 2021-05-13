@@ -225,7 +225,7 @@ public class SelectRendererBase extends InputRendererBase implements MetaCompone
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId() + "Items", null);
         AutocompleteMode mode = (AutocompleteMode) component.getAttributes().get("mode");
         if (!isAutocomplete(component) || (mode != null && mode == AutocompleteMode.client)) {
-            List<Object> fetchValues = new ArrayList<Object>();
+            List<Object> fetchValues = new ArrayList<>();
             this.encodeItems(facesContext, component, clientSelectItems);
         }
         responseWriter.endElement(HtmlConstants.DIV_ELEM);

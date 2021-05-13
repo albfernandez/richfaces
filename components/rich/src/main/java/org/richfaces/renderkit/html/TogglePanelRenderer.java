@@ -144,7 +144,7 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractTogglePanel panel = (AbstractTogglePanel) component;
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         options.put("activeItem", panel.getActiveItem());
         options.put("cycledSwitching", panel.isCycledSwitching());
         options.put("ajax", getAjaxOptions(context, panel));

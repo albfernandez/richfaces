@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 public class Bean {
     private List<String> list;
-    private Map<String, String> map = new HashMap<String, String>();
+    private Map<String, String> map = new HashMap<>();
     private String string;
 
     public List<String> getList() {

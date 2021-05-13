@@ -73,7 +73,7 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
     public static final String FOOTER = "footer";
     public static final String BODY = "body";
     private static final Logger RENDERKIT_LOG = RichfacesLogger.RENDERKIT.getLogger();
-    private static final Set<String> SUPPORTED_META_COMPONENTS = new HashSet<String>();
+    private static final Set<String> SUPPORTED_META_COMPONENTS = new HashSet<>();
 
     static {
         SUPPORTED_META_COMPONENTS.add(HEADER);

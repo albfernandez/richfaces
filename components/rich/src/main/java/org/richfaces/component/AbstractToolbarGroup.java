@@ -144,7 +144,7 @@ public abstract class AbstractToolbarGroup extends UIComponentBase {
 
     public List<UIComponent> getRenderedChildren() {
         List<UIComponent> children = this.getChildren();
-        List<UIComponent> renderedChildren = new ArrayList<UIComponent>(children.size());
+        List<UIComponent> renderedChildren = new ArrayList<>(children.size());
 
         for (UIComponent child : children) {
             if (child.isRendered()) {

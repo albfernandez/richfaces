@@ -116,7 +116,7 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
 
     Collection<ValidatorDescriptor> processConstraints(FacesContext context, Set<ConstraintDescriptor<?>> constraints,
         FacesMessage msg) {
-        Set<ValidatorDescriptor> descriptors = new HashSet<ValidatorDescriptor>(constraints.size());
+        Set<ValidatorDescriptor> descriptors = new HashSet<>(constraints.size());
         for (ConstraintDescriptor<?> cd : constraints) {
             Annotation a = cd.getAnnotation();
             Map<String, Object> parameters = cd.getAttributes();
@@ -285,7 +285,7 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
     private Collection<String> extractMessages(Set<ConstraintViolation<Object>> violations) {
         Collection<String> messages;
         if (null != violations && violations.size() > 0) {
-            messages = new ArrayList<String>(violations.size());
+            messages = new ArrayList<>(violations.size());
             for (ConstraintViolation<? extends Object> constraintViolation : violations) {
                 messages.add(constraintViolation.getMessage());
             }

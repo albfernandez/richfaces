@@ -56,7 +56,7 @@ public class SwingTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNo
             throw new IllegalArgumentException(String.valueOf(wrappedData));
         }
 
-        SwingTreeNodeImpl<?> treeNodeImpl = new SwingTreeNodeImpl<Object>(nodes);
+        SwingTreeNodeImpl<?> treeNodeImpl = new SwingTreeNodeImpl<>(nodes);
         treeNodeImpl.setAllowUpdateParents(false);
         return treeNodeImpl;
     }

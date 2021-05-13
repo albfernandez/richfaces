@@ -140,7 +140,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     private ExtendedDataModel<?> extendedDataModel = null;
     private Object rowKey = null;
     private String containerClientId;
-    Stack<Object> originalVarValues = new Stack<Object>();
+    Stack<Object> originalVarValues = new Stack<>();
     private Converter rowKeyConverter;
 
     /**

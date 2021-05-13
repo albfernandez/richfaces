@@ -77,7 +77,7 @@ public class UIHashParameter extends UIComponentBase {
     @Attribute(hidden = true)
     public Map<String, Object> getValue() {
         List<UIComponent> children = getChildren();
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         for (UIComponent child : children) {
             if (child instanceof UIParameter) {

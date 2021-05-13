@@ -311,7 +311,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         String formId = nestingForm != null ? nestingForm.getClientId(facesContext) : "";
         AjaxOptions ajaxOptions = AjaxRendererUtils.buildEventOptions(facesContext, subTable);
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         options.put("ajaxEventOptions", ajaxOptions.getParameters());
         options.put("stateInput", subTable.getClientId(facesContext) + STATE);
         options.put("optionsInput", subTable.getClientId(facesContext) + OPTIONS);

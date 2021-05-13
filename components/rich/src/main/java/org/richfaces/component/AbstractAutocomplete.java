@@ -291,7 +291,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
         } else if (itemsObject instanceof ResultSet) {
             result = new ResultSetDataModel((ResultSet) itemsObject);
         } else if (itemsObject != null) {
-            List<Object> temp = new ArrayList<Object>();
+            List<Object> temp = new ArrayList<>();
             Iterator<Object> iterator = ((Iterable<Object>) itemsObject).iterator();
             while (iterator.hasNext()) {
                 temp.add(iterator.next());

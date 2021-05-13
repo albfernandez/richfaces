@@ -77,7 +77,7 @@ public final class GraphValidatorState {
         IdentityHashMap<Object, GraphValidatorState> statesMap = (IdentityHashMap<Object, GraphValidatorState>) context
             .getAttributes().get(STATE_ATTRIBUTE);
         if (null == statesMap) {
-            statesMap = new IdentityHashMap<Object, GraphValidatorState>();
+            statesMap = new IdentityHashMap<>();
             context.getAttributes().put(STATE_ATTRIBUTE, statesMap);
         }
         return statesMap;

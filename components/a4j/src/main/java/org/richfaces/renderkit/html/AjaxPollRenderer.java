@@ -103,7 +103,7 @@ public class AjaxPollRenderer extends RendererBase {
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", null);
 
         JSFunction function = new JSFunction(AJAX_POLL_FUNCTION);
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
 
         RenderKitUtils.addToScriptHash(options, "interval", poll.getInterval(), "1000");
         // RenderKitUtils.addToScriptHash(options, "pollId", component.getClientId(context));

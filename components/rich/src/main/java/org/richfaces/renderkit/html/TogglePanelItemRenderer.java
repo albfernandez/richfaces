@@ -82,7 +82,7 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractTogglePanelItemInterface panelItem = (AbstractTogglePanelItemInterface) component;
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         options.put("name", panelItem.getName());
         options.put("togglePanelId", panelItem.getParentPanel().getClientId(context));
         options.put("switchMode", panelItem.getSwitchType());

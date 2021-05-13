@@ -40,7 +40,7 @@ public final class DragScript extends DnDScript {
     }
 
     public Iterable<ResourceKey> getResources() {
-        Set<ResourceKey> dragResourceKeys = new LinkedHashSet<ResourceKey>();
+        Set<ResourceKey> dragResourceKeys = new LinkedHashSet<>();
         dragResourceKeys.addAll(getBaseResources());
         dragResourceKeys.addAll(DRAG_SCRIPT);
         return dragResourceKeys;

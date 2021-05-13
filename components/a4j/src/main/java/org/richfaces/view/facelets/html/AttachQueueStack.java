@@ -35,7 +35,7 @@ final class AttachQueueStack {
     private LinkedList<AttachQueueInfo> stack = null;
 
     public AttachQueueStack() {
-        stack = new LinkedList<AttachQueueInfo>();
+        stack = new LinkedList<>();
     }
 
     public static AttachQueueStack getStack(FacesContext context, boolean createIfNull) {

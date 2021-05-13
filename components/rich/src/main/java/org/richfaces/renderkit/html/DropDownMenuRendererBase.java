@@ -74,8 +74,8 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
     }
 
     public List<Map<String, Object>> getMenuGroups(FacesContext facesContext, UIComponent component) {
-        List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
-        List<AbstractMenuGroup> groups = new ArrayList<AbstractMenuGroup>();
+        List<Map<String, Object>> results = new ArrayList<>();
+        List<AbstractMenuGroup> groups = new ArrayList<>();
         if (component instanceof AbstractDropDownMenu) {
             if (component.isRendered() && !((AbstractDropDownMenu) component).isDisabled()) {
                 getMenuGroups(component, groups);
@@ -83,7 +83,7 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
         }
         for (AbstractMenuGroup group : groups) {
             if (group.isRendered() && !group.isDisabled()) {
-                Map<String, Object> map = new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<>();
                 map.put("id", group.getClientId(facesContext));
                 RenderKitUtils.addToScriptHash(map, "onhide", group.getOnhide(), null, ScriptHashVariableWrapper.eventHandler);
                 RenderKitUtils.addToScriptHash(map, "onshow", group.getOnshow(), null, ScriptHashVariableWrapper.eventHandler);

@@ -71,17 +71,17 @@ public class RendererUtilsTest {
         assertFalse(utils.isEmpty(Byte.valueOf((byte) 0)));
         assertTrue(utils.isEmpty(""));
         assertFalse(utils.isEmpty("s"));
-        assertTrue(utils.isEmpty(new ArrayList<Object>()));
+        assertTrue(utils.isEmpty(new ArrayList<>()));
         assertTrue(utils.isEmpty(Collections.EMPTY_LIST));
 
-        List<Object> testList = new ArrayList<Object>();
+        List<Object> testList = new ArrayList<>();
 
         testList.add("x");
         assertFalse(utils.isEmpty(testList));
         assertTrue(utils.isEmpty(new HashMap<String, Object>()));
         assertTrue(utils.isEmpty(Collections.EMPTY_MAP));
 
-        Map<String, Object> testMap = new HashMap<String, Object>();
+        Map<String, Object> testMap = new HashMap<>();
 
         testMap.put("x", "y");
         assertFalse(utils.isEmpty(testMap));

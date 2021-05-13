@@ -131,7 +131,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         AutocompleteEncodeStrategy strategy = getStrategy(component);
         AutocompleteMode mode = (AutocompleteMode) component.getAttributes().get("mode");
         if (mode != null && mode == AutocompleteMode.client) {
-            List<Object> fetchValues = new ArrayList<Object>();
+            List<Object> fetchValues = new ArrayList<>();
             this.encodeItems(facesContext, component, fetchValues);
             this.encodeFetchValues(facesContext, component, fetchValues);
         } else {
@@ -224,7 +224,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
     public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
         if (AbstractAutocomplete.ITEMS_META_COMPONENT_ID.equals(metaComponentId)) {
 
-            List<Object> fetchValues = new ArrayList<Object>();
+            List<Object> fetchValues = new ArrayList<>();
 
             PartialResponseWriter partialWriter = context.getPartialViewContext().getPartialResponseWriter();
             partialWriter.startUpdate(getStrategy(component).getContainerElementId(context, component));

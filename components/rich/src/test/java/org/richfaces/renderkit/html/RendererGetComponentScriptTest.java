@@ -244,7 +244,7 @@ public class RendererGetComponentScriptTest extends ValidatorRendererTestBase {
         } else {
             expect(mockBehavior.getConverter(behaviorContext)).andStubReturn(null);
         }
-        Collection<ValidatorDescriptor> validatorDescriptors = new ArrayList<ValidatorDescriptor>(validators.length);
+        Collection<ValidatorDescriptor> validatorDescriptors = new ArrayList<>(validators.length);
         for (Class<?> validator : validators) {
             ValidatorDescriptor validatorDescriptor = controller.createNiceMock(ValidatorDescriptor.class);
             setupDescription(validator, validatorDescriptor);

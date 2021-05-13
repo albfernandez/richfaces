@@ -83,7 +83,7 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
     private List<String> data;
 
     private ExtendedDataModel<String> createDataModel() {
-        return new SequenceDataModel<String>(new ListDataModel<String>(new ArrayList<String>(data)));
+        return new SequenceDataModel<>(new ListDataModel<>(new ArrayList<>(data)));
     }
 
     private Object getVarValue() {
@@ -424,7 +424,7 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
         VisitContext fullVisitContext = VisitContext.createVisitContext(facesContext);
 
         final char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
-        final Set<String> idsToVisit = new HashSet<String>();
+        final Set<String> idsToVisit = new HashSet<>();
         idsToVisit.add("_data" + separatorChar + "_facet");
         idsToVisit.add("_data" + separatorChar + "0" + separatorChar + "_child");
         idsToVisit.add("_data" + separatorChar + "2" + separatorChar + "_child");

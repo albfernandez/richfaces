@@ -216,7 +216,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     }
 
     private Boolean isValidName(final String name) {
-        final AtomicReference<Boolean> result = new AtomicReference<Boolean>(Boolean.FALSE);
+        final AtomicReference<Boolean> result = new AtomicReference<>(Boolean.FALSE);
 
         visitTogglePanelItems(this, new TogglePanelVisitCallback() {
             @Override
@@ -243,7 +243,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
      * Returns name of first non-disabled item in the list of panel's items.
      */
     private String getFirstNonDisabledItemName() {
-        final AtomicReference<String> result = new AtomicReference<String>(null);
+        final AtomicReference<String> result = new AtomicReference<>(null);
 
         visitTogglePanelItems(this, new TogglePanelVisitCallback() {
             @Override

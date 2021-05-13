@@ -38,7 +38,7 @@ public final class QueueRegistry {
     public static final String QUEUE_SCRIPT_ID = "_org_richfaces_queue";
     private static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
     private static final String REGISTRY_ATTRIBUTE_NAME = QueueRegistry.class.getName();
-    private Map<String, UIComponent> queuesData = new LinkedHashMap<String, UIComponent>();
+    private Map<String, UIComponent> queuesData = new LinkedHashMap<>();
 
     private QueueRegistry() {
     }

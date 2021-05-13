@@ -79,7 +79,7 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     public static final String FOOTER = "footer";
     public static final String BODY = "body";
     private static final Logger RENDERKIT_LOG = RichfacesLogger.RENDERKIT.getLogger();
-    private static final Set<String> SUPPORTED_META_COMPONENTS = new HashSet<String>();
+    private static final Set<String> SUPPORTED_META_COMPONENTS = new HashSet<>();
     private static Predicate<UIComponent> isRow = new Predicate<UIComponent>() {
         @Override
         public boolean apply(@Nullable UIComponent child) {
@@ -210,8 +210,8 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
 
     private ArrangeableState createArrangeableState(FacesContext context) {
         ArrangeableState state = null;
-        List<FilterField> filterFields = new LinkedList<FilterField>();
-        Map<Object, SortField> sortFieldsMap = new LinkedHashMap<Object, SortField>();
+        List<FilterField> filterFields = new LinkedList<>();
+        Map<Object, SortField> sortFieldsMap = new LinkedHashMap<>();
         for (Iterator<UIComponent> iterator = columns(); iterator.hasNext();) {
             UIComponent component = iterator.next();
             if (component instanceof AbstractColumn && component.isRendered()) {
@@ -226,7 +226,7 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
                 }
             }
         }
-        List<SortField> sortFields = new LinkedList<SortField>();
+        List<SortField> sortFields = new LinkedList<>();
         Collection<?> sortPriority = getSortPriority();
         if (sortPriority != null) {
             for (Object object : sortPriority) {

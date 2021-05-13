@@ -60,7 +60,7 @@ public class ValueExpressionAnalayserTest extends ELTestBase {
 
     private void recordFacesContextExpectations() {
         expect(facesContext.getELContext()).andReturn(elContext);
-        expect(facesContext.getAttributes()).andStubReturn(new HashMap<Object, Object>());
+        expect(facesContext.getAttributes()).andStubReturn(new HashMap<>());
         FacesMock.replay(facesEnvironment);
     }
 

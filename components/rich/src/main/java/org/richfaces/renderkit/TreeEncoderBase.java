@@ -77,7 +77,7 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
     protected final FacesContext context;
     protected final ResponseWriter responseWriter;
     protected final AbstractTree tree;
-    private LinkedList<QueuedData> queuedDataList = new LinkedList<QueuedData>();
+    private LinkedList<QueuedData> queuedDataList = new LinkedList<>();
 
     public TreeEncoderBase(FacesContext context, AbstractTree tree) {
         super();

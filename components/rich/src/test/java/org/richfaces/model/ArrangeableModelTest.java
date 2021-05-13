@@ -82,7 +82,7 @@ public class ArrangeableModelTest extends AbstractFacesTest {
     public void setUp() throws Exception {
         super.setUp();
         setupFacesRequest();
-        extendedDataModel = new SequenceDataModel<User>(new ArrayDataModel<User>(users));
+        extendedDataModel = new SequenceDataModel<>(new ArrayDataModel<>(users));
         arrangeableModel = new ArrangeableModel(extendedDataModel, "var", "filterVar");
         ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
         ELContext elContext = facesContext.getELContext();
@@ -178,7 +178,7 @@ public class ArrangeableModelTest extends AbstractFacesTest {
      */
     @Test
     public void testWalk() {
-        final List<Object> rowKeys = new ArrayList<Object>();
+        final List<Object> rowKeys = new ArrayList<>();
         DataVisitor visitor = new DataVisitor() {
             public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
                 arrangeableModel.setRowKey(rowKey);

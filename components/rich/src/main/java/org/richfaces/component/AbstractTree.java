@@ -202,7 +202,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         @SuppressWarnings("unchecked")
         Collection<Object> selection = (Collection<Object>) getStateHelper().eval(PropertyKeys.selection);
         if (selection == null) {
-            selection = new HashSet<Object>();
+            selection = new HashSet<>();
 
             ValueExpression ve = getValueExpression(PropertyKeys.selection.toString());
             if (ve != null) {

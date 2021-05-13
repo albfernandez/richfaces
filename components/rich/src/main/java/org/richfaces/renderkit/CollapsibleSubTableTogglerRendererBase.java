@@ -163,7 +163,7 @@ public abstract class CollapsibleSubTableTogglerRendererBase extends RendererBas
         String forId = subTable.getClientId(context);
         String toggleControlId = toggleControl.getClientId(context);
 
-        HashMap<String, Object> options = new HashMap<String, Object>();
+        HashMap<String, Object> options = new HashMap<>();
         options.put("forId", forId);
         options.put("expandedControl", toggleControlId + ":expanded");
         options.put("collapsedControl", toggleControlId + ":collapsed");

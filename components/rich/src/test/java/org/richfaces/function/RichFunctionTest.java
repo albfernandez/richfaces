@@ -103,7 +103,7 @@ public class RichFunctionTest {
         environment = MockFacesEnvironment.createNiceEnvironment();
 
         facesContext = environment.getFacesContext();
-        expect(facesContext.getAttributes()).andStubReturn(new HashMap<Object, Object>());
+        expect(facesContext.getAttributes()).andStubReturn(new HashMap<>());
 
         externalContext = environment.createMock(ExternalContext.class);
         expect(facesContext.getExternalContext()).andStubReturn(externalContext);
@@ -211,7 +211,7 @@ public class RichFunctionTest {
 
         assertTrue(RichFunction.isUserInRole("admin, user, root"));
 
-        Set<String> set = new LinkedHashSet<String>();
+        Set<String> set = new LinkedHashSet<>();
         set.add("manager");
         set.add("guest");
         set.add("supervisor");

@@ -101,7 +101,7 @@ public class QueueResourceComponentRenderer extends Renderer {
             writer.writeText(FUNCTION_NAME, null);
             writer.writeText("({", null);
 
-            Map<String, Object> queueOptionsMap = new LinkedHashMap<String, Object>();
+            Map<String, Object> queueOptionsMap = new LinkedHashMap<>();
 
             boolean isFirst = true;
             Map<String, UIComponent> registeredQueues = registry.getRegisteredQueues();

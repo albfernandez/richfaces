@@ -419,7 +419,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
     }
 
     private Set<String> copyToSet(Collection<String> collection) {
-        return Collections.unmodifiableSet(new HashSet<String>(collection));
+        return Collections.unmodifiableSet(new HashSet<>(collection));
     }
 
     private Collection<String> getCollectionValue(Serializable propertyName, Collection<String> collection) {

@@ -54,7 +54,7 @@ public final class HandlersChain {
     private boolean hasSubmittingBehavior = false;
     private boolean includeClientId = false;
     // TODO: review for optimization
-    private List<String> handlers = new ArrayList<String>(2);
+    private List<String> handlers = new ArrayList<>(2);
     private FacesContext facesContext;
     private UIComponent component;
     private Collection<Parameter> parameters;
@@ -190,7 +190,7 @@ public final class HandlersChain {
     }
 
     public static List<Parameter> createParametersList(Map<String, Object> parametersMap) {
-        List<Parameter> parameters = new ArrayList<Parameter>(parametersMap.size());
+        List<Parameter> parameters = new ArrayList<>(parametersMap.size());
 
         for (Entry<String, Object> entry : parametersMap.entrySet()) {
             parameters.add(new Parameter(entry.getKey(), entry.getValue()));

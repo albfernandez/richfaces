@@ -70,7 +70,7 @@ public class PushRendererBase extends RendererBase {
     protected String getOptionsString(FacesContext context, UIComponent component) {
         AbstractPush push = (AbstractPush) component;
 
-        Map<String, Object> options = new HashMap<String, Object>(2);
+        Map<String, Object> options = new HashMap<>(2);
 
         options.put("address", push.getAddress());
         options.put("dataHandler", push.getOndataavailable());

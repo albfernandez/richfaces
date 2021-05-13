@@ -71,7 +71,7 @@ public class ForEachLoopTest {
     @Test
     public void testCollectionIterationStatus() {
 
-        ForEachLoop<Integer> loop = ForEachLoop.getInstance(new LinkedList<Integer>(Arrays.asList(array)));
+        ForEachLoop<Integer> loop = ForEachLoop.getInstance(new LinkedList<>(Arrays.asList(array)));
 
         Set<Integer> iterated = asSet();
 
@@ -99,7 +99,7 @@ public class ForEachLoopTest {
     @Test
     public void testIteratorIterationStatus() {
 
-        ForEachLoop<Integer> loop = ForEachLoop.getInstance(new LinkedList<Integer>(Arrays.asList(array)).iterator());
+        ForEachLoop<Integer> loop = ForEachLoop.getInstance(new LinkedList<>(Arrays.asList(array)).iterator());
 
         Set<Integer> iterated = asSet();
 
@@ -283,7 +283,7 @@ public class ForEachLoopTest {
     }
 
     private Set<Integer> asSet(Integer... integers) {
-        return new TreeSet<Integer>(Arrays.asList(integers));
+        return new TreeSet<>(Arrays.asList(integers));
     }
 
 }

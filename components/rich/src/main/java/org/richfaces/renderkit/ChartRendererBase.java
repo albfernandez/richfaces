@@ -285,7 +285,7 @@ public abstract class ChartRendererBase extends RendererBase {
             this.particularSeriesHandlers = new JSONObject();
             this.plotClickHandlers = new JSONArray();
             this.plothoverHandlers = new JSONArray();
-            this.particularSeriesListeners = new LinkedList<MethodExpression>();
+            this.particularSeriesListeners = new LinkedList<>();
 
 
             try {
@@ -329,7 +329,7 @@ public abstract class ChartRendererBase extends RendererBase {
 
 
                 // Collect Series specific handlers
-                Map<String, Object> optMap = new HashMap<String, Object>();
+                Map<String, Object> optMap = new HashMap<>();
                 RenderKitUtils.Attributes seriesEvents = attributes().generic(
                         "onplothover", "onplothover", "plothover").generic(
                         "onplotclick", "onplotclick", "plotclick");

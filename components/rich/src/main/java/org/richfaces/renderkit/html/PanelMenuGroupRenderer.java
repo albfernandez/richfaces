@@ -199,7 +199,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractPanelMenuGroup panelMenuGroup = (AbstractPanelMenuGroup) component;
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         // TODO nick - non-default values should not be rendered
         options.put("ajax", getAjaxOptions(context, panelMenuGroup));
         options.put("name", panelMenuGroup.getName());

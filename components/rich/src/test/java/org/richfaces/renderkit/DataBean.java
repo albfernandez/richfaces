@@ -28,7 +28,7 @@ import java.util.List;
 public class DataBean {
     private String value = "Test String";
 
-    private List<Data> list = new ArrayList<Data>();
+    private List<Data> list = new ArrayList<>();
 
     public DataBean() {
         list.add(new Data("RF-8282", "jQuery 1.4 AJAX requests broken if using Richfaces"));

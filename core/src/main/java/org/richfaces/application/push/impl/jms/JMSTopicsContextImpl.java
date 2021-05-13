@@ -180,7 +180,6 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
         private final String name;
         private Connection connection;
         private Session session;
-        private Thread pollingThread;
         private MessageConsumer consumer;
 
         public JMSConsumerContext(String name) {
@@ -196,7 +195,7 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             consumer = session.createConsumer(lookupTopic(), null, false);
 
-            pollingThread = getThreadFactory().newThread(new Runnable() {
+            Thread pollingThread = getThreadFactory().newThread(new Runnable() {
                 public void run() {
                     try {
                         while (true) {

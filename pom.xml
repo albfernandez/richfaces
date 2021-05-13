@@ -287,14 +287,6 @@
                     </configuration>
                 </plugin>
 
-                <!-- TODO: Delete this plugin 'eclipse' as it is obsolete and long retired.  m2e does it all -->
-                <plugin>
-                    <artifactId>maven-eclipse-plugin</artifactId>
-                    <configuration>
-                        <wtpversion>2.9</wtpversion>
-                        <downloadSources>true</downloadSources>
-                    </configuration>
-                </plugin>
                 <plugin>
                     <groupId>org.zeroturnaround</groupId>
                     <artifactId>jrebel-maven-plugin</artifactId>

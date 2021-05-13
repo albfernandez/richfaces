@@ -43,7 +43,7 @@ public class PushContextFactoryImpl implements PushContextFactory {
     public static final String PUSH_HANDLER_MAPPING_ATTRIBUTE = PushContextFactoryImpl.class.getName();
     public static final String PUSH_CONTEXT_RESOURCE_NAME = "__richfaces_push";
 
-    private static final AtomicReference<PushContext> PUSH_CONTEXT_HOLDER = new AtomicReference<PushContext>();
+    private static final AtomicReference<PushContext> PUSH_CONTEXT_HOLDER = new AtomicReference<>();
 
 
     /*

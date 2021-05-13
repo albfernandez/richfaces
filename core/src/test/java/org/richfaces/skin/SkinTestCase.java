@@ -54,7 +54,7 @@ public class SkinTestCase {
     public FacesRequestSetupRule rule = new FacesRequestSetupRule();
 
     private void addParameters(FacesContext facesContext, Object[][] strings) {
-        Map<Object, Object> baseMap = new HashMap<Object, Object>();
+        Map<Object, Object> baseMap = new HashMap<>();
 
         for (Object[] objects : strings) {
             baseMap.put(objects[0], objects[1]);

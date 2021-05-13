@@ -54,7 +54,7 @@ public class PartialOrderToCompleteOrder<T> {
     private Set<T> allItems = Sets.newLinkedHashSet();
 
     // partial orderings used to check for ordering violation
-    private List<PartialOrdering> partialOrderings = new LinkedList<PartialOrdering>();
+    private List<PartialOrdering> partialOrderings = new LinkedList<>();
 
     // map from items to their dependencies
     private Map<T, Set<T>> dependencies = Maps.newLinkedHashMap();
@@ -264,7 +264,7 @@ public class PartialOrderToCompleteOrder<T> {
         }
 
         public List<T> filter(Collection<T> collection) {
-            List<T> list = new LinkedList<T>(collection);
+            List<T> list = new LinkedList<>(collection);
             list.retainAll(items);
             return list;
         }

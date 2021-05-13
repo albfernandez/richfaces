@@ -46,8 +46,8 @@ import com.google.common.collect.Sets;
  */
 public class ExternalContextImpl extends ExternalContext {
     private String webRoot;
-    private Map<String, String> initParamsMap = new HashMap<String, String>();
-    private Map<String, Object> requestMap = new HashMap<String, Object>();
+    private Map<String, String> initParamsMap = new HashMap<>();
+    private Map<String, Object> requestMap = new HashMap<>();
 
     protected void setWebRoot(String webroot) {
         this.webRoot = webroot;

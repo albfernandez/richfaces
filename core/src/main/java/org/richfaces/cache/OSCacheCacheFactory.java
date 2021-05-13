@@ -48,7 +48,7 @@ import com.opensymphony.oscache.general.GeneralCacheAdministrator;
  */
 public class OSCacheCacheFactory implements CacheFactory {
     private static final Logger LOG = RichfacesLogger.CACHE.getLogger();
-    private List<GeneralCacheAdministrator> cacheAdministrators = new ArrayList<GeneralCacheAdministrator>(1);
+    private List<GeneralCacheAdministrator> cacheAdministrators = new ArrayList<>(1);
 
     public OSCacheCacheFactory() throws ClassNotFoundException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();

@@ -187,7 +187,7 @@ public abstract class AbstractBaseResource extends Resource {
 
     @Override
     public Map<String, String> getResponseHeaders() {
-        Map<String, String> headers = new HashMap<String, String>();
+        Map<String, String> headers = new HashMap<>();
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
         if (isResourceRequest()) {

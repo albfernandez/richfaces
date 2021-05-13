@@ -58,7 +58,7 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
 
     private List<ResourceMapper> mappers;
 
-    private Set<String> RESOURCE_LIBRARIES_TO_MAP = new TreeSet<String>(Arrays.asList(
+    private Set<String> RESOURCE_LIBRARIES_TO_MAP = new TreeSet<>(Arrays.asList(
             "com.jqueryui",
             "org.richfaces",
             "org.richfaces.ckeditor"
@@ -71,7 +71,7 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
      */
     @Override
     public void init() {
-        List<ResourceMapper> mappers = new LinkedList<ResourceMapper>();
+        List<ResourceMapper> mappers = new LinkedList<>();
 
         // default mappers
         mappers.add(new PropertiesResourceMapper());

@@ -65,7 +65,7 @@ import org.richfaces.application.push.TopicsContext;
  */
 public class PushCDIExtension implements Extension {
 
-    private Set<Push> pushAnnotations = new LinkedHashSet<Push>();
+    private Set<Push> pushAnnotations = new LinkedHashSet<>();
 
     /**
      * Scans all the injection points on found injection targets for {@link Push} annotations
@@ -156,7 +156,7 @@ public class PushCDIExtension implements Extension {
         }
 
         public Set<Annotation> getObservedQualifiers() {
-            return new HashSet<Annotation>(Arrays.asList(pushAnnotation));
+            return new HashSet<>(Arrays.asList(pushAnnotation));
         }
 
         public Reception getReception() {

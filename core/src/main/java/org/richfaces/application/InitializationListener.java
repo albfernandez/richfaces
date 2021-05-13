@@ -103,7 +103,7 @@ public class InitializationListener implements SystemEventListener {
     protected ServicesFactory createFactory() {
         ServicesFactoryImpl injector = new ServicesFactoryImpl();
         ServiceTracker.setFactory(injector);
-        ArrayList<Module> modules = new ArrayList<Module>();
+        ArrayList<Module> modules = new ArrayList<>();
         addDefaultModules(modules);
         try {
             modules.addAll(ServiceLoader.loadServices(Module.class));

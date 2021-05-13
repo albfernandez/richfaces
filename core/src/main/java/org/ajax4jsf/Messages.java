@@ -291,7 +291,7 @@ public final class Messages {
     public static final String WRAPPED_RULES_NULL_ERROR = "WRAPPED_RULES_NULL_ERROR";
     public static final String JAVASCRIPT_CIRCULAR_REFERENCE = "JAVASCRIPT_CIRCULAR_REFERENCE";
     private static final String BUNDLE_NAME = "org.richfaces.messages";
-    private static Map<ClassLoader, ResourceBundle> bundles = new HashMap<ClassLoader, ResourceBundle>();
+    private static Map<ClassLoader, ResourceBundle> bundles = new HashMap<>();
 
     private Messages() {
     }

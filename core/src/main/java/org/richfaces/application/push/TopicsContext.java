@@ -51,7 +51,7 @@ import org.richfaces.el.util.ELUtils;
  */
 public abstract class TopicsContext {
 
-    private ConcurrentMap<String, Topic> topics = new ConcurrentHashMap<String, Topic>();
+    private ConcurrentMap<String, Topic> topics = new ConcurrentHashMap<>();
 
     /**
      * Creates topic for given topic key

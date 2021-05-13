@@ -33,7 +33,7 @@ import java.util.List;
  *
  */
 public class JSFunction extends ScriptStringBase {
-    private List<Object> parameters = new ArrayList<Object>();
+    private List<Object> parameters = new ArrayList<>();
     private String name;
 
     /**

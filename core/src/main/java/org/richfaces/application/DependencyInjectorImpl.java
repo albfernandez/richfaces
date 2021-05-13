@@ -56,7 +56,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
-    private ConcurrentMap<Class<?>, IntrospectionData> classesCache = new ConcurrentHashMap<Class<?>, IntrospectionData>();
+    private ConcurrentMap<Class<?>, IntrospectionData> classesCache = new ConcurrentHashMap<>();
 
     private void invokeMethod(Object bean, Method method) throws IllegalArgumentException, IllegalAccessException,
         InvocationTargetException {
@@ -199,7 +199,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
     protected IntrospectionData createIntrospectionData(Class<?> beanClass) {
         IntrospectionData introspectionData = new IntrospectionData();
 
-        Map<String, ResourceParameter> injectableFields = new HashMap<String, ResourceParameter>();
+        Map<String, ResourceParameter> injectableFields = new HashMap<>();
         locateManagedPropertyFields(beanClass, injectableFields);
 
         locateManagedPropertyDescriptors(beanClass, introspectionData, injectableFields);
@@ -346,7 +346,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
 
         public void addInjector(String propertyName, Injector<?> injector) {
             if (injectorsMap == null) {
-                injectorsMap = new HashMap<String, Injector<?>>();
+                injectorsMap = new HashMap<>();
             }
 
             injectorsMap.put(propertyName, injector);

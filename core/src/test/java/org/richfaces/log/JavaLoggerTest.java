@@ -76,7 +76,7 @@ public class JavaLoggerTest {
     @Before
     public void setUp() throws Exception {
         LogManager.getLogManager().reset();
-        publishedRecords = new ArrayList<LogRecord>();
+        publishedRecords = new ArrayList<>();
 
         wrappedLogger = java.util.logging.Logger.getLogger("org.richfaces.JavaLoggerTest");
         wrappedLogger.addHandler(new TrackingHandler());

@@ -170,7 +170,7 @@ public class ScriptUtilsTest extends TestCase {
 
         assertEquals("[[\"one\",\"two\"] ,[\"three\",\"four\"] ] ", ScriptUtils.toScript(obj));
 
-        Map<String, Object> map = new TreeMap<String, Object>();
+        Map<String, Object> map = new TreeMap<>();
 
         map.put("a", obj);
         map.put("b", "c");
@@ -181,7 +181,7 @@ public class ScriptUtilsTest extends TestCase {
      * Test method for {@link org.richfaces.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testListToScript() {
-        List<Integer> obj = new ArrayList<Integer>();
+        List<Integer> obj = new ArrayList<>();
 
         obj.add(Integer.valueOf(1));
         obj.add(Integer.valueOf(2));
@@ -195,7 +195,7 @@ public class ScriptUtilsTest extends TestCase {
      * Test method for {@link org.richfaces.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testSetToScript() {
-        Set<Integer> obj = new TreeSet<Integer>();
+        Set<Integer> obj = new TreeSet<>();
 
         obj.add(Integer.valueOf(1));
         obj.add(Integer.valueOf(2));
@@ -230,7 +230,7 @@ public class ScriptUtilsTest extends TestCase {
      * Test method for {@link org.richfaces.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testMapToScript() {
-        TreeMap<String, String> obj = new TreeMap<String, String>();
+        TreeMap<String, String> obj = new TreeMap<>();
 
         obj.put("a", "foo");
         obj.put("b", "bar");
@@ -432,7 +432,7 @@ public class ScriptUtilsTest extends TestCase {
         ReferenceHolderBean parent = new ReferenceHolderBean("parent");
         ReferencedBean child = new ReferencedBean("child", parent);
 
-        Collection<Object> set = new ArrayList<Object>();
+        Collection<Object> set = new ArrayList<>();
         set.add(child);
         parent.setReference(set);
 
@@ -444,7 +444,7 @@ public class ScriptUtilsTest extends TestCase {
         ReferenceHolderBean parent = new ReferenceHolderBean("parent");
         ReferencedBean child = new ReferencedBean("child", parent);
 
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("key", child);
         parent.setReference(map);
 

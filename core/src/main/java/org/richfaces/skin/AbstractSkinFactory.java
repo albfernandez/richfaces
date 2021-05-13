@@ -68,7 +68,7 @@ public abstract class AbstractSkinFactory extends SkinFactory {
      * vendor , "" - user-defined.
      */
     private static final String[] SKINS_PATHS = { DEFAULT_SKIN_PATH, USER_SKIN_PATH };
-    private ConcurrentMap<String, FutureTask<Skin>> skins = new ConcurrentHashMap<String, FutureTask<Skin>>();
+    private ConcurrentMap<String, FutureTask<Skin>> skins = new ConcurrentHashMap<>();
 
     protected void processProperties(FacesContext context, Map<Object, Object> properties) {
         ELContext elContext = context.getELContext();
@@ -144,7 +144,7 @@ public abstract class AbstractSkinFactory extends SkinFactory {
 
         FutureTask<Skin> skinFuture = skins.get(name);
         if (skinFuture == null) {
-            FutureTask<Skin> newSkinFuture = new FutureTask<Skin>(new SkinBuilder(name));
+            FutureTask<Skin> newSkinFuture = new FutureTask<>(new SkinBuilder(name));
             skinFuture = skins.putIfAbsent(name, newSkinFuture);
 
             if (skinFuture == null) {

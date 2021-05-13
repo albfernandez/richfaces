@@ -61,7 +61,7 @@ public final class RequestStateManager {
         Map<String, Object> result = (Map<String, Object>) attributesMap.get(CONTEXT_ATTRIBUTE_NAME);
 
         if (create && (result == null)) {
-            result = new HashMap<String, Object>();
+            result = new HashMap<>();
             attributesMap.put(CONTEXT_ATTRIBUTE_NAME, result);
         }
 

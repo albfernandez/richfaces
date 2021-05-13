@@ -188,7 +188,7 @@ public class CachedResourceImpl extends AbstractCacheableResource {
 
     @Override
     public Map<String, String> getResponseHeaders() {
-        return new HashMap<String, String>(headers);
+        return new HashMap<>(headers);
     }
 
     @Override

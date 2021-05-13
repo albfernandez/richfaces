@@ -82,7 +82,7 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
         this.subtreeIds = HashMultimap.create();
         this.directSubtreeIds = ArrayListMultimap.create();
 
-        this.shortIds = new HashSet<String>();
+        this.shortIds = new HashSet<>();
 
         this.clientIds = Sets.newHashSet();
 
@@ -233,7 +233,7 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
 
         String clientId = component.getClientId(getFacesContext());
 
-        Set<String> result = new HashSet<String>(directSubtreeIds.get(clientId));
+        Set<String> result = new HashSet<>(directSubtreeIds.get(clientId));
 
         addDirectSubtreeIdsToVisitForImplicitComponents(component, result);
 

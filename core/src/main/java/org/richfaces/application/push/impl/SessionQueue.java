@@ -47,7 +47,7 @@ public final class SessionQueue {
             return expTime1.compareTo(expTime2);
         }
     };
-    private final Queue<Session> queue = new PriorityQueue<Session>(1, SESSIONS_COMPARATOR);
+    private final Queue<Session> queue = new PriorityQueue<>(1, SESSIONS_COMPARATOR);
     private final ReentrantLock lock = new ReentrantLock();
     private final Condition available = lock.newCondition();
     private boolean active = true;

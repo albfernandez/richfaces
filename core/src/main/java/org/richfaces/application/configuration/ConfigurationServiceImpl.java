@@ -51,7 +51,7 @@ import com.google.common.base.Strings;
 public class ConfigurationServiceImpl implements ConfigurationService {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     private static final String JNDI_COMP_PREFIX = "java:comp/env/";
-    private Map<Enum<?>, ValueExpressionHolder> itemsMap = new ConcurrentHashMap<Enum<?>, ValueExpressionHolder>();
+    private Map<Enum<?>, ValueExpressionHolder> itemsMap = new ConcurrentHashMap<>();
     private AtomicBoolean webEnvironmentUnavailableLogged = new AtomicBoolean();
 
     private ConfigurationItem getConfigurationItem(Enum<?> enumKey) {

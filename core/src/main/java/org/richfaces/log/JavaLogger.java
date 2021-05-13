@@ -40,7 +40,7 @@ import org.richfaces.l10n.MessageInterpolator;
  */
 public class JavaLogger implements Logger {
     public static final String RICHFACES_LOG = "org.richfaces";
-    static final Map<Level, java.util.logging.Level> LEVELS_MAP = new EnumMap<Level, java.util.logging.Level>(Level.class);
+    static final Map<Level, java.util.logging.Level> LEVELS_MAP = new EnumMap<>(Level.class);
 
     static {
         LEVELS_MAP.put(Level.ERROR, java.util.logging.Level.SEVERE);

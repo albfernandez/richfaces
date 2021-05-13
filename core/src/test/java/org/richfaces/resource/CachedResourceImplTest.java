@@ -95,7 +95,7 @@ public class CachedResourceImplTest extends AbstractFacesTest {
     }
 
     private Map<String, String> createTestHeaders() {
-        Map<String, String> headers = new HashMap<String, String>();
+        Map<String, String> headers = new HashMap<>();
 
         headers.put("ETag", "W/\"123\"");
         headers.put(LAST_MODIFIED, "Tue, 21 Jul 2009 12:45:09 GMT");

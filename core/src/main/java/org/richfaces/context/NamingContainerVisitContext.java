@@ -70,7 +70,7 @@ final class NamingContainerVisitContext extends ExtendedVisitContext {
             throw new IllegalArgumentException("Component is not a NamingContainer: " + component);
         }
 
-        this.ids = new HashSet<String>(ids);
+        this.ids = new HashSet<>(ids);
         this.idsToVisit = new IdsProxyCollection();
         this.startingComponent = component;
     }

@@ -71,7 +71,7 @@ public class ResourceOrderingScanner implements ResourcesScanner {
     };
 
     private Collection<ResourceKey> resources = Lists.newLinkedList();
-    private PartialOrderToCompleteOrder<ResourceKey> ordering = new PartialOrderToCompleteOrder<ResourceKey>();
+    private PartialOrderToCompleteOrder<ResourceKey> ordering = new PartialOrderToCompleteOrder<>();
     private Collection<VFSRoot> cpFiles;
     private Logger log;
 

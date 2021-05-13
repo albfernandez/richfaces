@@ -64,7 +64,7 @@ public class JBossCacheCache implements Cache {
     }
 
     public void put(Object key, Object value, Date expired) {
-        Map<String, Object> map = new HashMap<String, Object>(3);
+        Map<String, Object> map = new HashMap<>(3);
 
         map.put(RESOURCE, value);
 

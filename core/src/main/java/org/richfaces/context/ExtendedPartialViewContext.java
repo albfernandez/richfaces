@@ -173,7 +173,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     private StringBuilder completeHandler = new StringBuilder();
 
     // current visit mode setup during #processPartial method
-    private Stack<ExtendedVisitContextMode> visitMode = new Stack<ExtendedVisitContextMode>();
+    private Stack<ExtendedVisitContextMode> visitMode = new Stack<>();
 
 
     public ExtendedPartialViewContext(PartialViewContext wrappedViewContext, FacesContext facesContext) {
@@ -282,7 +282,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
         assertNotReleased();
         if (detectContextMode() == ContextMode.EXTENDED) {
             if (executeIds == null) {
-                executeIds = new LinkedHashSet<String>();
+                executeIds = new LinkedHashSet<>();
                 visitActivatorAtExecute();
             }
             return executeIds;
@@ -302,7 +302,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
         if (detectContextMode() == ContextMode.EXTENDED) {
             PhaseId currenPhaseId = facesContext.getCurrentPhaseId();
             if (renderIds == null) {
-                renderIds = new LinkedHashSet<String>();
+                renderIds = new LinkedHashSet<>();
             }
             if (currenPhaseId == PhaseId.RENDER_RESPONSE) {
                 visitActivatorAtRender();
@@ -352,7 +352,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     private boolean detectRenderAll() {
         // RF-13740, MyFaces doesn't call for renderIds in advance
         if (renderIds == null) {
-            renderIds = new LinkedHashSet<String>();
+            renderIds = new LinkedHashSet<>();
             
             PhaseId currentPhaseId = facesContext.getCurrentPhaseId();
             // NEW: Do this only in the RENDER_RESPONSE Phase

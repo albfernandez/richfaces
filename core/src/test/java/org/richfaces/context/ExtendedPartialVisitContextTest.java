@@ -104,7 +104,7 @@ import com.sun.faces.component.visit.PartialVisitContext;
  */
 public class ExtendedPartialVisitContextTest {
     private class TrackingVisitCallback implements VisitCallback {
-        private List<String> visitedIds = new ArrayList<String>();
+        private List<String> visitedIds = new ArrayList<>();
 
         public VisitResult visit(VisitContext context, UIComponent target) {
             if (context instanceof ExtendedVisitContext) {
@@ -157,7 +157,7 @@ public class ExtendedPartialVisitContextTest {
             }
 
             if (c != null) {
-                return new HashSet<T>(c);
+                return new HashSet<>(c);
             } else {
                 return null;
             }
@@ -165,7 +165,7 @@ public class ExtendedPartialVisitContextTest {
     }
 
     private static <T> Set<T> asSet(T... args) {
-        Set<T> set = new HashSet<T>();
+        Set<T> set = new HashSet<>();
         for (T argItem : args) {
             set.add(argItem);
         }
@@ -183,14 +183,14 @@ public class ExtendedPartialVisitContextTest {
     }
 
     private void createNestedTableData() {
-        nestedTableData = new ArrayList<String>();
+        nestedTableData = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             nestedTableData.add(MessageFormat.format("Nested item {0}", i));
         }
     }
 
     private void createTableData() {
-        tableData = new ArrayList<String>();
+        tableData = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             tableData.add(MessageFormat.format("Item {0}", i));
         }

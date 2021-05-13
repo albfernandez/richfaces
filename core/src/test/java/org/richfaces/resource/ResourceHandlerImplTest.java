@@ -344,7 +344,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
     }
 
     private List<String> populateResourcesToCheck() {
-        List<String> resources = new ArrayList<String>();
+        List<String> resources = new ArrayList<>();
         resources.add("importedEL.ecss");
         resources.add("media.ecss");
         resources.add("fake.ecss");

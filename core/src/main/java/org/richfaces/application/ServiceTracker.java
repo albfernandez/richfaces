@@ -60,7 +60,7 @@ public final class ServiceTracker {
      * <p class="changed_added_4_0">
      * </p>
      */
-    private static final Map<ClassLoader, ServicesFactory> INSTANCES = new ConcurrentHashMap<ClassLoader, ServicesFactory>();
+    private static final Map<ClassLoader, ServicesFactory> INSTANCES = new ConcurrentHashMap<>();
 
     /**
      * <p class="changed_added_4_0">

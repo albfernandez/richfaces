@@ -397,7 +397,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
     private Deque<ResourceKey> getMappedResourcesResolutionStack(FacesContext context) {
         LinkedList<ResourceKey> list = (LinkedList<ResourceKey>) context.getAttributes().get(MAPPED_RESOURCES_RESOLUTION_STACK);
         if (list == null) {
-            list = new LinkedList<ResourceKey>();
+            list = new LinkedList<>();
             context.getAttributes().put(MAPPED_RESOURCES_RESOLUTION_STACK, list);
         }
         return list;

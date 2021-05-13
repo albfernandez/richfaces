@@ -312,7 +312,7 @@ public class ResourceGenerator {
     }
 
     protected URL[] getProjectClassPath() {
-        List<String> classpath = new ArrayList<String>();
+        List<String> classpath = new ArrayList<>();
         classpath.add(classpathDir.getAbsolutePath());
 
         return filter(transform(classpath, filePathToURL), notNull()).toArray(EMPTY_URL_ARRAY);
@@ -336,7 +336,7 @@ public class ResourceGenerator {
         ServicesFactoryImpl servicesFactory = new ServicesFactoryImpl();
         ServiceTracker.setFactory(servicesFactory);
 
-        ArrayList<Module> modules = new ArrayList<Module>();
+        ArrayList<Module> modules = new ArrayList<>();
         modules.add(new ServiceFactoryModule());
 //        try {
 //            modules.addAll(ServiceLoader.loadServices(Module.class));
@@ -415,7 +415,7 @@ public class ResourceGenerator {
             taskFactory.setResourceWriter(resourceWriter);
 
             executorService = createExecutorService();
-            CompletionService<Object> completionService = new CountingExecutorCompletionService<Object>(executorService);
+            CompletionService<Object> completionService = new CountingExecutorCompletionService<>(executorService);
             taskFactory.setCompletionService(completionService);
             taskFactory.setSkins(Iterables.toArray(Constants.COMMA_SPLITTER.split(skins), String.class));
             taskFactory.setLog(log);

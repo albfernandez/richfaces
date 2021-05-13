@@ -68,7 +68,7 @@ public final class ServiceLoader {
      */
     public static <S> Collection<S> loadServices(Class<S> serviceClass) throws ServiceException {
         Collection<Class<? extends S>> serviceClasses = loadServiceClasses(serviceClass);
-        List<S> instances = new ArrayList<S>();
+        List<S> instances = new ArrayList<>();
         for (Class<? extends S> implementationClass : serviceClasses) {
             instances.add(createInstance(implementationClass));
         }
@@ -124,7 +124,7 @@ public final class ServiceLoader {
      */
     public static <S> Collection<Class<? extends S>> loadServiceClasses(Class<S> serviceClass) throws ServiceException {
         ClassLoader classLoader = getClassLoader(serviceClass);
-        Set<String> names = new LinkedHashSet<String>();
+        Set<String> names = new LinkedHashSet<>();
         Enumeration<URL> resources;
         try {
             resources = classLoader.getResources(META_INF_SERVICES + serviceClass.getName());
@@ -134,7 +134,7 @@ public final class ServiceLoader {
         } catch (IOException e) {
             throw new ServiceException("Error load service descriptions", e);
         }
-        Set<Class<? extends S>> instanceClasses = new LinkedHashSet<Class<? extends S>>();
+        Set<Class<? extends S>> instanceClasses = new LinkedHashSet<>();
         for (String className : names) {
             instanceClasses.add(loadClass(serviceClass, classLoader, className));
         }
@@ -150,7 +150,7 @@ public final class ServiceLoader {
             } catch (IllegalArgumentException e) {
                 // Do nothing.
             }
-            Set<String> names = new HashSet<String>();
+            Set<String> names = new HashSet<>();
             inputStream = connection.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
             String line;

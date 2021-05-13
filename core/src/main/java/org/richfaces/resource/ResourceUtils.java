@@ -264,7 +264,7 @@ public final class ResourceUtils {
     }
 
     public static Map<String, String> parseResourceParameters(String resourceName) {
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<>();
 
         Matcher matcher = RESOURCE_PARAMS.matcher(resourceName);
         if (matcher.find()) {

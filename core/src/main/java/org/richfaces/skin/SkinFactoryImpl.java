@@ -48,7 +48,7 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
     private static final String DEFAULT_SKIN_NAME = "DEFAULT";
     private static final String[] THEME_PATHS = { "META-INF/themes/%s.theme.properties", "%s.theme.properties" };
     // private Properties defaultSkinProperties = null;
-    private Map<String, Theme> themes = new HashMap<String, Theme>();
+    private Map<String, Theme> themes = new HashMap<>();
 
     public Skin getDefaultSkin(FacesContext context) {
         return getSkin(context, DEFAULT_SKIN_NAME);

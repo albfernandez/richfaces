@@ -75,7 +75,7 @@ public final class Xcss2EcssConverter {
         private StringBuilder currentCssValue = new StringBuilder();
         private boolean hasAttribbute = false;
         private boolean verbatim = false;
-        private List<String> conditions = new ArrayList<String>();
+        private List<String> conditions = new ArrayList<>();
         private PrintStream outputStream;
 
         public Handler() {

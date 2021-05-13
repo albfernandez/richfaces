@@ -57,7 +57,7 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
     private FacesContext facesContext;
     private String encoding;
     private StringBuilder buffer = new StringBuilder();
-    private List<String> prefixes = new ArrayList<String>(2);
+    private List<String> prefixes = new ArrayList<>(2);
 
     public CSSVisitorImpl(FacesContext facesContext) {
         super();

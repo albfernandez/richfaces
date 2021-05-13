@@ -114,7 +114,7 @@ final class ContextUtils {
      * @return
      */
     public Collection<String> findComponentsFor(FacesContext context, UIComponent component, Collection<String> shortIds) {
-        Set<String> result = new LinkedHashSet<String>(shortIds.size());
+        Set<String> result = new LinkedHashSet<>(shortIds.size());
 
         if (checkKeyword(shortIds, ALL)) {
             result.add(ALL);

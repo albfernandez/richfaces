@@ -88,7 +88,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
     private static final String BEHAVIOR_EVENT_NAME = "javax.faces.behavior.event";
     private static final String ROW = "row";
 
-    protected static enum PartName {
+    protected enum PartName {
 
         frozen,
         normal;
@@ -144,10 +144,10 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             List<UIComponent> frozenColumns = columns.subList(0, count);
             columns = columns.subList(count, columns.size());
             parts = new ArrayList<>(PartName.values().length);
-            if (frozenColumns.size() > 0) {
+            if (!frozenColumns.isEmpty()) {
                 parts.add(new Part(PartName.frozen, frozenColumns));
             }
-            if (columns.size() > 0) {
+            if (!columns.isEmpty()) {
                 parts.add(new Part(PartName.normal, columns));
             }
         }
@@ -244,9 +244,9 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
     private static final Map<java.lang.String, ComponentAttribute> EVENT_ATTRIBUTES = Collections
         .unmodifiableMap(ComponentAttribute.createMap(
-            new ComponentAttribute("onselectionchange").setEventNames(new String[] { "selectionchange" }),
-            new ComponentAttribute("onbeforeselectionchange").setEventNames(new String[] { "beforeselectionchange" }),
-            new ComponentAttribute("onready").setEventNames(new String[] { "ready" })));
+            new ComponentAttribute("onselectionchange").setEventNames("selectionchange"),
+            new ComponentAttribute("onbeforeselectionchange").setEventNames("beforeselectionchange"),
+            new ComponentAttribute("onready").setEventNames("ready")));
 
     /**
      * Clear the extendedDataModel before the component encode begins.  This is to force the extendedDataModel to be
@@ -845,7 +845,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
     }
 
-    protected String getCSSText(FacesContext context, UIDataTableBase table) throws IOException {
+    protected String getCSSText(FacesContext context, UIDataTableBase table) {
         StringBuilder sb = new StringBuilder();
         String tableLocator = "div.rf-edt[id=\"" + table.getClientId() + "\"]";
 
@@ -915,7 +915,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         int columnNumber = 0 + frozenColumns;
         int lastColumnNumber = part.getColumns().size() + frozenColumns - 1;
         while (columns.hasNext()) {
-            UIComponent column = (UIComponent) columns.next();
+            UIComponent column = columns.next();
             if (column.isRendered()) {
                 writer.startElement(HtmlConstants.TD_ELEM, table);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, column.getContainerClientId(facesContext), null);

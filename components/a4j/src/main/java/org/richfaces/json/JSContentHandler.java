@@ -442,7 +442,7 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
         this.outputWriter.write(C_QUOTE); // [']
     }
 
-    protected void encodeText(char[] chars, int start, int length) throws SAXException, IOException {
+    protected void encodeText(char[] chars, int start, int length) throws SAXException {
         this.encode(chars, start, length);
     }
 
@@ -646,7 +646,7 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
             for (int x = start; x < end; x++) {
                 char c = data[x];
 
-                if (JSContentHandler.ENCODER.compile(c)) {
+                if (JSEncoder.compile(c)) {
                     continue;
                 }
 
@@ -656,8 +656,6 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
 
                 this.outputWriter.write(JSContentHandler.ENCODER.encode(c));
                 start = x + 1;
-
-                continue;
             }
 
             if (start != end) {

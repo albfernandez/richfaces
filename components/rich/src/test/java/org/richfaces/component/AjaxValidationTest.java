@@ -4,7 +4,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.html.HtmlInput;

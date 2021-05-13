@@ -35,7 +35,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.activation.FileTypeMap;
+import javax.activation.MimetypesFileTypeMap;
 import javax.faces.context.ExternalContext;
 
 import com.google.common.collect.Sets;
@@ -46,8 +46,8 @@ import com.google.common.collect.Sets;
  */
 public class ExternalContextImpl extends ExternalContext {
     private String webRoot;
-    private Map<String, String> initParamsMap = new HashMap<String, String>();
-    private Map<String, Object> requestMap = new HashMap<String, Object>();
+    private Map<String, String> initParamsMap = new HashMap<>();
+    private Map<String, Object> requestMap = new HashMap<>();
 
     protected void setWebRoot(String webroot) {
         this.webRoot = webroot;
@@ -460,6 +460,6 @@ public class ExternalContextImpl extends ExternalContext {
      */
     @Override
     public String getMimeType(String file) {
-        return FileTypeMap.getDefaultFileTypeMap().getContentType(file);
+        return MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(file);
     }
 }

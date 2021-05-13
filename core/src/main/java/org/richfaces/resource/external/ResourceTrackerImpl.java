@@ -44,7 +44,7 @@ public class ResourceTrackerImpl implements ResourceTracker {
     private static final String[] MYFACES_RESOURCE_UTILS_CLASSES = { MYFACES_RESOURCE_UTILS_CLASS,
             WEBSPHERE_BUNDLED_MYFACES_RESOURCE_UTILS_CLASS };
 
-    private AtomicReference<ResourceTracker> externalResourceTracker = new AtomicReference<ResourceTracker>();
+    private AtomicReference<ResourceTracker> externalResourceTracker = new AtomicReference<>();
 
     /*
      * (non-Javadoc)

@@ -75,7 +75,7 @@ public class ResourceWriterImpl implements ResourceWriter {
     /*
      * packed output stream by extension
      */
-    private final Map<String, OutputStream> PACKED = new LinkedHashMap<String, OutputStream>();
+    private final Map<String, OutputStream> PACKED = new LinkedHashMap<>();
 
     private File resourceContentsDir;
     private Map<String, String> processedResources = Maps.newConcurrentMap();

@@ -60,7 +60,7 @@ public class LRUMapTest extends TestCase {
      * Test method for {@link org.richfaces.util.LRUMap#LRUMap(int)}.
      */
     public void testLRUMap() {
-        LRUMap<Integer, String> map = new LRUMap<Integer, String>(5);
+        LRUMap<Integer, String> map = new LRUMap<>(5);
 
         for (int i = 0; i < 10; i++) {
             map.put(Integer.valueOf(i), "Val" + i);
@@ -94,7 +94,7 @@ public class LRUMapTest extends TestCase {
      * Test method for {@link java.util.HashMap#put(K, V)}.
      */
     public void testPut() {
-        LRUMap<Integer, String> map = new LRUMap<Integer, String>(5);
+        LRUMap<Integer, String> map = new LRUMap<>(5);
 
         for (int i = 0; i < 10; i++) {
             map.put(Integer.valueOf(i), "Val" + i);

@@ -53,7 +53,7 @@ public class IdParserTest {
     public void setUp() throws Exception {
         environment.resetToNice();
         FacesContext facesContext = environment.getFacesContext();
-        expect(facesContext.getAttributes()).andStubReturn(new HashMap<Object, Object>());
+        expect(facesContext.getAttributes()).andStubReturn(new HashMap<>());
         environment.replay();
     }
 

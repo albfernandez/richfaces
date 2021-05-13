@@ -133,9 +133,10 @@ public class FastBufferReader extends Reader {
     /**
      * Returns the number of chars that may be read from this storage.
      *
-     * @return the number of chars that may be read from this storage
+     * @return the number of chars that may be read from this storag
+     * @throws IOException
      */
-    public int available() {
+    public int available() throws IOException {
         if (current == null) {
             return 0;
         }

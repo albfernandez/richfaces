@@ -32,7 +32,7 @@ import org.richfaces.skin.Theme;
  *
  */
 public class SkinFactoryImpl extends AbstractSkinFactory {
-    private static ThreadLocal<String> skinNames = new ThreadLocal<String>();
+    private static ThreadLocal<String> skinNames = new ThreadLocal<>();
 
     public static void setSkinName(String skinName) {
         skinNames.set(skinName);

@@ -51,7 +51,7 @@ import com.google.common.base.Strings;
 public class ConfigurationServiceImpl implements ConfigurationService {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     private static final String JNDI_COMP_PREFIX = "java:comp/env/";
-    private Map<Enum<?>, ValueExpressionHolder> itemsMap = new ConcurrentHashMap<Enum<?>, ValueExpressionHolder>();
+    private Map<Enum<?>, ValueExpressionHolder> itemsMap = new ConcurrentHashMap<>();
     private AtomicBoolean webEnvironmentUnavailableLogged = new AtomicBoolean();
 
     private ConfigurationItem getConfigurationItem(Enum<?> enumKey) {
@@ -85,7 +85,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 
     private String getInitParameterValue(FacesContext context, ConfigurationItem configurationItem) {
         for (String name : configurationItem.names()) {
-            String value = context.getExternalContext().getInitParameter(name);
+            String value = (String) context.getExternalContext().getInitParameter(name);
 
             if (!Strings.isNullOrEmpty(value)) {
                 return value;
@@ -177,7 +177,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
                     @SuppressWarnings({ "unchecked", "rawtypes" })
 					Iterator<? extends Enum> keys = EnumSet.allOf(key.getClass()).iterator();
                     while (keys.hasNext()) {
-                        Enum<?> nextBundleKey = keys.next();
+                        Enum<?> nextBundleKey = (Enum<?>) keys.next();
 
                         ConfigurationItem item = getConfigurationItem(nextBundleKey);
 

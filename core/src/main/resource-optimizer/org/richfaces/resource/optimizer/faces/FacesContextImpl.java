@@ -40,7 +40,7 @@ import javax.faces.render.RenderKit;
  *
  */
 public class FacesContextImpl extends FacesContext {
-    private Map<Object, Object> attributes = new HashMap<Object, Object>();
+    private Map<Object, Object> attributes = new HashMap<>();
     private ELContext elContext = createELContext();
     private ExternalContextImpl externalContext = new ExternalContextImpl();
     private ApplicationImpl application = new ApplicationImpl();

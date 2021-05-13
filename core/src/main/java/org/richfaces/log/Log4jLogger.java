@@ -11,7 +11,7 @@ import org.richfaces.l10n.MessageInterpolator;
 public class Log4jLogger implements Logger {
     public static final String RICHFACES_LOG = "org.richfaces";
 
-    static final Map<Level, org.apache.log4j.Level> LEVELS_MAP = new EnumMap<Level, org.apache.log4j.Level>(Level.class);
+    static final Map<Level, org.apache.log4j.Level> LEVELS_MAP = new EnumMap<>(Level.class);
     static {
         LEVELS_MAP.put(Level.ERROR, org.apache.log4j.Level.ERROR);
         LEVELS_MAP.put(Level.INFO, org.apache.log4j.Level.INFO);

@@ -60,7 +60,7 @@ public class JBossCacheCacheFactory implements CacheFactory {
 
     public JBossCacheCacheFactory() {
         super();
-        cacheFactory = new DefaultCacheFactory<String, Object>();
+        cacheFactory = new DefaultCacheFactory<>();
     }
 
     private void setupMaxSizeEviction(FacesContext facesContext, Cache<String, Object> cache) {

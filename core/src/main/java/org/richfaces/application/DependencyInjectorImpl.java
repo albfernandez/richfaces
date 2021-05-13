@@ -56,7 +56,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
-    private ConcurrentMap<Class<?>, IntrospectionData> classesCache = new ConcurrentHashMap<Class<?>, IntrospectionData>();
+    private ConcurrentMap<Class<?>, IntrospectionData> classesCache = new ConcurrentHashMap<>();
 
     private void invokeMethod(Object bean, Method method) throws IllegalArgumentException, IllegalAccessException,
         InvocationTargetException {
@@ -75,17 +75,17 @@ public class DependencyInjectorImpl implements DependencyInjector {
     private void verifyPostConstructMethod(Method method) {
         // TODO - allow FacesContext to be passed
         if (method.getParameterTypes().length != 0) {
-            throw new IllegalStateException(
-                    MessageFormat.format("Post-construction method {0} has one or more parameters", method));
+            throw new IllegalStateException(MessageFormat.format("Post-construction method {0} has one or more parameters",
+                method.toString()));
         }
 
         if (!Void.TYPE.equals(method.getReturnType())) {
-            throw new IllegalStateException(
-                    MessageFormat.format("Post-construction method {0} has incorrect return type", method));
+            throw new IllegalStateException(MessageFormat.format("Post-construction method {0} has incorrect return type",
+                method.toString()));
         }
 
         if ((method.getModifiers() & Modifier.STATIC) != 0) {
-            throw new IllegalStateException(MessageFormat.format("Post-construction method {0} is static", method));
+            throw new IllegalStateException(MessageFormat.format("Post-construction method {0} is static", method.toString()));
         }
 
         Class<?>[] exceptionTypes = method.getExceptionTypes();
@@ -94,8 +94,8 @@ public class DependencyInjectorImpl implements DependencyInjector {
                 continue;
             }
 
-            throw new IllegalStateException(
-                    MessageFormat.format("Post-construction method {0} throws checked exception", method));
+            throw new IllegalStateException(MessageFormat.format("Post-construction method {0} throws checked exception",
+                method.toString()));
         }
     }
 
@@ -108,7 +108,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
             if (introspectionData.getPostConstructMethod() != null) {
                 throw new IllegalStateException(MessageFormat.format(
                     "There are two conflicting post-construction methods: {0} and {1}", method.toString(), introspectionData
-                        .getPostConstructMethod()));
+                        .getPostConstructMethod().toString()));
             }
 
             introspectionData.setPostConstructMethod(method);
@@ -199,7 +199,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
     protected IntrospectionData createIntrospectionData(Class<?> beanClass) {
         IntrospectionData introspectionData = new IntrospectionData();
 
-        Map<String, ResourceParameter> injectableFields = new HashMap<String, ResourceParameter>();
+        Map<String, ResourceParameter> injectableFields = new HashMap<>();
         locateManagedPropertyFields(beanClass, injectableFields);
 
         locateManagedPropertyDescriptors(beanClass, introspectionData, injectableFields);
@@ -346,7 +346,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
 
         public void addInjector(String propertyName, Injector<?> injector) {
             if (injectorsMap == null) {
-                injectorsMap = new HashMap<String, Injector<?>>();
+                injectorsMap = new HashMap<>();
             }
 
             injectorsMap.put(propertyName, injector);

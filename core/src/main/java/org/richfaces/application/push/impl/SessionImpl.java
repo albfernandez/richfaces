@@ -68,7 +68,7 @@ public class SessionImpl implements DestroyableSession {
     private volatile long lastAccessedTime;
     private volatile Request request;
     private volatile boolean active = true;
-    private final Queue<MessageData> messagesQueue = new ConcurrentLinkedQueue<MessageData>();
+    private final Queue<MessageData> messagesQueue = new ConcurrentLinkedQueue<>();
     private final Set<TopicKey> successfulSubscriptions = Sets.newHashSet();
     private final Map<TopicKey, String> failedSubscriptions = Maps.newHashMap();
     private TopicsContext topicsContext;
@@ -118,7 +118,7 @@ public class SessionImpl implements DestroyableSession {
     /**
      * Process connecting of given request to this session and try to post messages if there are any
      */
-    protected void processConnect(Request request) {
+    protected void processConnect(Request request) throws Exception {
         this.request = request;
         sessionManager.requeue(this);
 

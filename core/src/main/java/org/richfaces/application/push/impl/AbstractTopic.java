@@ -48,7 +48,7 @@ public abstract class AbstractTopic implements Topic {
     private TopicKey key;
     private volatile MessageDataSerializer serializer;
     private volatile boolean allowSubtopics;
-    private List<TopicListener> listeners = new CopyOnWriteArrayList<TopicListener>();
+    private List<TopicListener> listeners = new CopyOnWriteArrayList<>();
 
     public AbstractTopic(TopicKey key) {
         super();

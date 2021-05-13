@@ -30,7 +30,7 @@ import org.richfaces.util.LRUMap;
  */
 public final class CacheMap extends LRUMap<Object, CacheEntry> {
     private static final long serialVersionUID = -5422668357346537621L;
-    private PriorityQueue<CacheEntry> expirationQueue = new PriorityQueue<CacheEntry>();
+    private PriorityQueue<CacheEntry> expirationQueue = new PriorityQueue<>();
 
     public CacheMap() {
         super();

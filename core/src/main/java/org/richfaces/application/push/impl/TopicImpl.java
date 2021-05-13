@@ -41,7 +41,7 @@ import org.richfaces.application.push.TopicKey;
  */
 public class TopicImpl extends AbstractTopic {
 
-    private ConcurrentMap<TopicKey, PublishingContext> sessions = new ConcurrentHashMap<TopicKey, PublishingContext>();
+    private ConcurrentMap<TopicKey, PublishingContext> sessions = new ConcurrentHashMap<>();
     private TopicsContextImpl topicsContext;
 
     public TopicImpl(TopicKey key, TopicsContextImpl topicsContext) {
@@ -131,8 +131,8 @@ public class TopicImpl extends AbstractTopic {
      * Binds a {@link TopicKey} with list of {@link Session}s subscribed to given topic.
      */
     private final class PublishingContext {
-        private final List<Session> sessions = new CopyOnWriteArrayList<Session>();
-        private final Queue<String> serializedMessages = new ConcurrentLinkedQueue<String>();
+        private final List<Session> sessions = new CopyOnWriteArrayList<>();
+        private final Queue<String> serializedMessages = new ConcurrentLinkedQueue<>();
         private final TopicKey key;
         private boolean submittedForPublishing;
 

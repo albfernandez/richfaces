@@ -113,7 +113,7 @@ public abstract class BaseCacheTest extends AbstractFacesTest {
     public void testMaxSize() throws Exception {
         Date expirationDate = new Date(System.currentTimeMillis() + 3600000 /* one hour - this should be enough for our test */);
 
-        Map<String, String> data = new LinkedHashMap<String, String>();
+        Map<String, String> data = new LinkedHashMap<>();
         for (int i = 0; i < sizeLimit; i++) {
             String key = UUID.randomUUID().toString();
             String value = UUID.randomUUID().toString();

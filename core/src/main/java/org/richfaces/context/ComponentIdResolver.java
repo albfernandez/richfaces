@@ -52,7 +52,7 @@ import com.google.common.collect.Iterators;
  */
 public final class ComponentIdResolver {
     private static final Joiner EMPTY_STRING_JOINER = Joiner.on("").skipNulls();
-    private static Map<String, String> metaComponentSubstitutions = new HashMap<String, String>();
+    private static Map<String, String> metaComponentSubstitutions = new HashMap<>();
 
     static {
         metaComponentSubstitutions.put(AjaxContainer.META_COMPONENT_ID, AjaxContainer.DEFAULT_RENDER_ID);
@@ -71,8 +71,8 @@ public final class ComponentIdResolver {
 
         this.facesContext = facesContext;
 
-        this.resolvedIds = new HashSet<String>();
-        this.unresolvedIds = new HashSet<String>();
+        this.resolvedIds = new HashSet<>();
+        this.unresolvedIds = new HashSet<>();
         this.rootNode = new ComponentIdResolverNode(null, null);
     }
 
@@ -113,7 +113,7 @@ public final class ComponentIdResolver {
         Iterator<MetaComponentResolver> iterator = createResolversChainIterator(component);
 
         while (iterator.hasNext()) {
-            MetaComponentResolver metaComponentResolver = iterator.next();
+            MetaComponentResolver metaComponentResolver = (MetaComponentResolver) iterator.next();
 
             String resolvedId = metaComponentResolver.substituteUnresolvedClientId(context, component, metaComponentId);
 
@@ -129,7 +129,7 @@ public final class ComponentIdResolver {
         Iterator<MetaComponentResolver> iterator = createResolversChainIterator(component);
 
         while (iterator.hasNext()) {
-            MetaComponentResolver metaComponentResolver = iterator.next();
+            MetaComponentResolver metaComponentResolver = (MetaComponentResolver) iterator.next();
 
             String resolvedId = metaComponentResolver.resolveClientId(context, component, metaComponentId);
 
@@ -222,7 +222,7 @@ public final class ComponentIdResolver {
     public void addId(String id) {
         if (isAbsolute(id)) {
             if (absoluteIds == null) {
-                absoluteIds = new HashSet<String>();
+                absoluteIds = new HashSet<>();
             }
 
             absoluteIds.add(id.substring(1));
@@ -454,7 +454,7 @@ public final class ComponentIdResolver {
 
     protected boolean findComponentsBelow(UIComponent component) {
         if (componentsStack == null) {
-            componentsStack = new LinkedList<UIComponent>();
+            componentsStack = new LinkedList<>();
         }
 
         componentsStack.addFirst(component);

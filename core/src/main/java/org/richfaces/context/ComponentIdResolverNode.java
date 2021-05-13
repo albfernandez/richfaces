@@ -30,7 +30,7 @@ final class ComponentIdResolverNode {
     private Set<String> fullIds;
     private String id;
     private ComponentIdResolverNode parent;
-    private Map<String, ComponentIdResolverNode> children = new HashMap<String, ComponentIdResolverNode>(2);
+    private Map<String, ComponentIdResolverNode> children = new HashMap<>(2);
 
     public ComponentIdResolverNode(ComponentIdResolverNode parent, String id) {
         this.parent = parent;
@@ -78,7 +78,7 @@ final class ComponentIdResolverNode {
 
     public void addFullId(String fullId) {
         if (fullIds == null) {
-            fullIds = new HashSet<String>(2);
+            fullIds = new HashSet<>(2);
         }
 
         fullIds.add(fullId);

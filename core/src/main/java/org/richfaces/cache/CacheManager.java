@@ -51,7 +51,7 @@ public class CacheManager {
     private static final String FACTORY_PROPERTY_NAME = "org.richfaces.cache.CacheFactory";
     private static final Logger LOG = RichfacesLogger.CACHE.getLogger();
     private CacheFactory cacheFactory;
-    private final Map<String, Cache> caches = new ConcurrentHashMap<String, Cache>(1, 0.75f, 1);
+    private final Map<String, Cache> caches = new ConcurrentHashMap<>(1, 0.75f, 1);
 
     public Cache getCache(String cacheName) {
         return caches.get(cacheName);

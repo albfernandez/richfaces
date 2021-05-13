@@ -32,7 +32,7 @@ import java.util.List;
  *
  */
 public class JSFunctionDefinition extends ScriptStringBase {
-    private List<Object> parameters = new ArrayList<Object>();
+    private List<Object> parameters = new ArrayList<>();
     private StringBuilder body = new StringBuilder();
     private String name;
 

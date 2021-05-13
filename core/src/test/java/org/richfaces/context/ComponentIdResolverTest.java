@@ -96,7 +96,7 @@ public class ComponentIdResolverTest {
     }
 
     private <T> Set<T> asSet(T... elements) {
-        Set<T> set = new HashSet<T>();
+        Set<T> set = new HashSet<>();
 
         for (T element : elements) {
             set.add(element);

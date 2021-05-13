@@ -49,16 +49,23 @@ import com.google.common.collect.Sets;
  *
  */
 public class DynamicResourcesScanner implements ResourcesScanner {
-    private static final Function<Class<?>, ResourceKey> RESOURCE_LOCATOR_FUNCTION = from -> ResourceKey.create(from.getName());
-
-    private static final Predicate<Class<?>> UNINSTANTIATABLE_CLASSES_PREDICATE = input -> {
-        if (input.isInterface() || Modifier.isAbstract(input.getModifiers())) {
-            return false;
+    private static final Function<Class<?>, ResourceKey> RESOURCE_LOCATOR_FUNCTION = new Function<Class<?>, ResourceKey>() {
+        @Override
+        public ResourceKey apply(Class<?> from) {
+            return ResourceKey.create(from.getName());
         }
-
-        return true;
     };
+    private static final Predicate<Class<?>> UNINSTANTIATABLE_CLASSES_PREDICATE = new Predicate<Class<?>>() {
+        @Override
+        public boolean apply(Class<?> input) {
 
+            if (input.isInterface() || Modifier.isAbstract(input.getModifiers())) {
+                return false;
+            }
+
+            return true;
+        }
+    };
     private Collection<ResourceKey> resources = Sets.newHashSet();
     private Collection<VFSRoot> cpFiles;
     private ResourceFactory resourceFactory;

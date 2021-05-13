@@ -40,7 +40,7 @@ import org.richfaces.l10n.MessageInterpolator;
  */
 public class JavaLogger implements Logger {
     public static final String RICHFACES_LOG = "org.richfaces";
-    static final Map<Level, java.util.logging.Level> LEVELS_MAP = new EnumMap<Level, java.util.logging.Level>(Level.class);
+    static final Map<Level, java.util.logging.Level> LEVELS_MAP = new EnumMap<>(Level.class);
 
     static {
         LEVELS_MAP.put(Level.ERROR, java.util.logging.Level.SEVERE);
@@ -62,7 +62,7 @@ public class JavaLogger implements Logger {
         this(RICHFACES_LOG);
     }
 
-    private void fillCallerData(String fqn, LogRecord logRecord) {
+    private void fillCallerData(String fqn, LogRecord record) {
         StackTraceElement[] stackTrace = new Exception().getStackTrace();
 
         int i = 0;
@@ -82,8 +82,8 @@ public class JavaLogger implements Logger {
         }
 
         if (idx < stackTrace.length) {
-            logRecord.setSourceMethodName(stackTrace[idx].getMethodName());
-            logRecord.setSourceClassName(stackTrace[idx].getClassName());
+            record.setSourceMethodName(stackTrace[idx].getMethodName());
+            record.setSourceClassName(stackTrace[idx].getClassName());
         }
     }
 
@@ -97,14 +97,14 @@ public class JavaLogger implements Logger {
 
     private LogRecord createRecord(java.util.logging.Level level, CharSequence message, Throwable thrown) {
         // millis and thread are filled by the constructor
-        LogRecord logRecord = new LogRecord(level, message != null ? message.toString() : null);
+        LogRecord record = new LogRecord(level, message != null ? message.toString() : null);
 
         // TODO resource bundle?
-        logRecord.setLoggerName(jdkLogger.getName());
-        logRecord.setThrown(thrown);
-        fillCallerData(CLASS_NAME, logRecord);
+        record.setLoggerName(jdkLogger.getName());
+        record.setThrown(thrown);
+        fillCallerData(CLASS_NAME, record);
 
-        return logRecord;
+        return record;
     }
 
     public boolean isDebugEnabled() {

@@ -37,7 +37,7 @@ public final class HtmlColor {
     static {
 
         // color names.
-        colorNames = new HashMap<String, Color>();
+        colorNames = new HashMap<>();
         colorNames.put("black", new Color(0x000000));
         colorNames.put("green", new Color(0x008000));
         colorNames.put("silver", new Color(0xC0C0C0));
@@ -71,7 +71,7 @@ public final class HtmlColor {
             throw new IllegalArgumentException(Messages.getMessage(Messages.NULL_COLOR_PARAMETER_ERROR));
         }
 
-        Color c = colorNames.get(color.trim().toLowerCase());
+        Color c = (Color) colorNames.get(color.trim().toLowerCase());
 
         if (null == c) {
             try {

@@ -142,5 +142,9 @@ public final class ResourceKey {
     /**
      * A function for creating {@link ResourceKey} from strings by calling {@link #create(String)} factory.
      */
-    public static final Function<String, ResourceKey> FACTORY = from -> create(from);
+    public static final Function<String, ResourceKey> FACTORY = new Function<String, ResourceKey>() {
+        public ResourceKey apply(String from) {
+            return create(from);
+        }
+    };
 }

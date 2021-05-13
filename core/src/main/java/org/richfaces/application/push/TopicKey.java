@@ -224,7 +224,15 @@ public class TopicKey implements Serializable {
         return TO_ADDRESS;
     }
 
-    private static final Function<String, TopicKey> FACTORY = from -> new TopicKey(from);
+    private static final Function<String, TopicKey> FACTORY = new Function<String, TopicKey>() {
+        public TopicKey apply(String from) {
+            return new TopicKey(from);
+        }
+    };
 
-    private static final Function<TopicKey, String> TO_ADDRESS = from -> from.getTopicAddress();
+    private static final Function<TopicKey, String> TO_ADDRESS = new Function<TopicKey, String>() {
+        public String apply(TopicKey from) {
+            return from.getTopicAddress();
+        }
+    };
 }

@@ -41,7 +41,7 @@ final class ZipNode {
         setDirectory(true);
 
         if (children == null) {
-            children = new LinkedHashMap<String, ZipNode>();
+            children = new LinkedHashMap<>();
         }
 
         String lcName = name.toLowerCase();

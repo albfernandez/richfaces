@@ -79,10 +79,10 @@ public class AbstractResourceMappingTest extends AbstractServicesTest {
 
     @Before
     public void setUp() {
-        facesAttributes = new HashMap<Object, Object>();
+        facesAttributes = new HashMap<>();
         when(facesContext.getAttributes()).thenReturn(facesAttributes);
 
-        requestMap = new HashMap<String, Object>();
+        requestMap = new HashMap<>();
         when(externalContext.getRequestMap()).thenReturn(requestMap);
 
         when(skinFactory.getSkin(Mockito.any(FacesContext.class))).thenReturn(skin);

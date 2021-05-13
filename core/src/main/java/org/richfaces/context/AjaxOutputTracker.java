@@ -79,7 +79,7 @@ public class AjaxOutputTracker implements SystemEventListener {
      */
     static Collection<UIComponent> getAjaxOutputs(FacesContext facesContext, UIComponent component) {
         final Collection<String> childrenIds = getDirectChildrenIds(component);
-        final Set<UIComponent> ajaxOutputs = new HashSet<UIComponent>();
+        final Set<UIComponent> ajaxOutputs = new HashSet<>();
 
         if (childrenIds != null) {
             for (String childId : childrenIds) {
@@ -129,7 +129,7 @@ public class AjaxOutputTracker implements SystemEventListener {
         @SuppressWarnings("unchecked")
         Set<String> trackedChildrenSet = (Set<String>) attributes.get(ATTRIBUTE_NAME);
         if (trackedChildrenSet == null && create) {
-            trackedChildrenSet = new HashSet<String>();
+            trackedChildrenSet = new HashSet<>();
             attributes.put(ATTRIBUTE_NAME, trackedChildrenSet);
         }
 

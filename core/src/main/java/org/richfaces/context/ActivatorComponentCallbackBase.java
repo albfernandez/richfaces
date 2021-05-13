@@ -77,7 +77,7 @@ abstract class ActivatorComponentCallbackBase implements VisitCallback {
         // TODO - unit tests check for "@none" element
         Collection<String> result = Sets.asSet(value);
         if (result == null) {
-            result = new LinkedHashSet<String>(1);
+            result = new LinkedHashSet<>(1);
         }
 
         return result;

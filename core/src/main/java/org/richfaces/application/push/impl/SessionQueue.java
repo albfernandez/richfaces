@@ -39,13 +39,15 @@ import org.richfaces.application.push.Session;
 // TODO - optimize algorithm
 // TODO - use BlockingQueue ?
 public final class SessionQueue {
-    private static final Comparator<? super Session> SESSIONS_COMPARATOR = (o1, o2) -> {
-        Long expTime1 = getExpirationTime(o1);
-        Long expTime2 = getExpirationTime(o2);
+    private static final Comparator<? super Session> SESSIONS_COMPARATOR = new Comparator<Session>() {
+        public int compare(Session o1, Session o2) {
+            Long expTime1 = getExpirationTime(o1);
+            Long expTime2 = getExpirationTime(o2);
 
-        return expTime1.compareTo(expTime2);
+            return expTime1.compareTo(expTime2);
+        }
     };
-    private final Queue<Session> queue = new PriorityQueue<Session>(1, SESSIONS_COMPARATOR);
+    private final Queue<Session> queue = new PriorityQueue<>(1, SESSIONS_COMPARATOR);
     private final ReentrantLock lock = new ReentrantLock();
     private final Condition available = lock.newCondition();
     private boolean active = true;

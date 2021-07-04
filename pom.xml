@@ -122,7 +122,7 @@
         <!-- Plugin Management: versions -->
         <version.assembly.plugin>3.1.1</version.assembly.plugin>
         <version.clean.plugin>3.1.0</version.clean.plugin>
-        <version.compiler.plugin>3.8.0</version.compiler.plugin>
+        <version.compiler.plugin>3.8.1</version.compiler.plugin>
         <version.install.plugin>3.0.0-M1</version.install.plugin>
         <version.jacoco.plugin>0.8.3</version.jacoco.plugin>
         <version.jrebel.plugin>1.1.9</version.jrebel.plugin>

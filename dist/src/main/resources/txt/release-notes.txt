@@ -1,6 +1,18 @@
 4.6.15-SNAPSHOT (unreleased)
 ---------
+
+
+4.6.14.ayg 2021-05-13
+---------
+
+    [  ] Code cleanup
+    [  ] Update httpclient to 4.5.13 
+    [  ] Update to EasyMock 3.0
+    [  ] Update jsf-test 1.1.14
+    [  ] Update junit to 4.13.2
+    [  ] Upgrade jquery to 3.6.0
     [  ] Upgrade guava from 20 to 30
+
 
 4.6.13.ayg 2020-07-28
 ---------

@@ -432,7 +432,7 @@
                 this.progressBarFacet.show();
                 this.link.html("");
                 this.model.state = ITEM_STATE.UPLOADING;
-                this.uid = Math.random();
+                this.uid = window.crypto.getRandomValues(new Uint32Array(1))[0];
 
                 var formData = new FormData(),
                     fileName = this.model.file.name,

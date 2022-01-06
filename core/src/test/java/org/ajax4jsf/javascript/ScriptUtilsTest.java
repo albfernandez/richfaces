@@ -496,8 +496,8 @@ public class ScriptUtilsTest extends TestCase {
     @Test
     public void testGetMD5scriptHash() throws Exception {
         String testString = "Some string to hash";
-        String expectedMD5hash = "7624f3fd394f02f0ff8c53fac249129a";
-        String computedMD5hash = ScriptUtils.getMD5scriptHash(testString);
+        String expectedMD5hash = "9b4c973000261599b98f8fc91db8a538470234280d8389806fbda3f5ca721802";
+        String computedMD5hash = ScriptUtils.getScriptHash(testString);
         assertEquals(expectedMD5hash, computedMD5hash);
     }
 }

@@ -282,7 +282,7 @@ public final class ScriptUtils {
 
 
     public static String getValidJavascriptName(String script) {
-        String s = "av_" + getMD5scriptHash(script);
+        String s = "av_" + getScriptHash(script);
         StringBuilder sb = null;
         final int len = s.length();
 
@@ -338,14 +338,14 @@ public final class ScriptUtils {
         return sb == null ? s : sb.toString();
     }
 
-    public static String getMD5scriptHash(String script) {
+    public static String getScriptHash(String script) {
         byte[] bytesOfScript = script.getBytes(StandardCharsets.UTF_8);
 
         MessageDigest md = null;
         try {
-            md = MessageDigest.getInstance("MD5");
+            md = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Unable to locate MD5 hash algorithm", e);
+            throw new RuntimeException("Unable to locate SHA-256 hash algorithm", e);
         }
         md.reset();
         //byte[] thedigest = md.digest(bytesOfScript);

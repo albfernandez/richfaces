@@ -34,19 +34,21 @@ import javax.faces.FacesException;
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:59:10 $
  */
 public class Codec {
-    private Cipher d = null;
-    private Cipher e = null;
+    private Cipher decripter = null;
+    private Cipher encripter = null;
 
     /**
      *
      */
     public Codec() {
+    	super();
     }
 
     /**
      *
      */
     public Codec(String p) throws Exception {
+    	super();
         setPassword(p);
     }
 
@@ -67,15 +69,15 @@ public class Codec {
 
         try {
             KeySpec keySpec = new DESKeySpec(p.getBytes(StandardCharsets.UTF_8));
-            SecretKey key = SecretKeyFactory.getInstance("DES").generateSecret(keySpec);
+            SecretKey key = SecretKeyFactory.getInstance("AES").generateSecret(keySpec);
 
-            e = Cipher.getInstance(key.getAlgorithm());
-            d = Cipher.getInstance(key.getAlgorithm());
+            encripter = Cipher.getInstance(key.getAlgorithm());
+            decripter = Cipher.getInstance(key.getAlgorithm());
 
             // Prepare the parameters to the cipthers
             // AlgorithmParameterSpec paramSpec = new IvParameterSpec(s);
-            e.init(Cipher.ENCRYPT_MODE, key);
-            d.init(Cipher.DECRYPT_MODE, key);
+            encripter.init(Cipher.ENCRYPT_MODE, key);
+            decripter.init(Cipher.DECRYPT_MODE, key);
         } catch (Exception e) {
             throw new FacesException("Error set encryption key", e);
         }
@@ -114,8 +116,8 @@ public class Codec {
         byte[] dec = URL64Codec.decodeBase64(src);
 
         // Decrypt
-        if (null != d) {
-            return d.doFinal(dec);
+        if (null != decripter) {
+            return decripter.doFinal(dec);
         } else {
             return dec;
         }
@@ -124,8 +126,8 @@ public class Codec {
     public byte[] encode(byte[] src) throws Exception {
         byte[] dec;
 
-        if (null != e) {
-            dec = e.doFinal(src);
+        if (null != encripter) {
+            dec = encripter.doFinal(src);
         } else {
             dec = src;
         }

@@ -69,7 +69,7 @@ public class Codec {
 
         try {
             KeySpec keySpec = new DESKeySpec(p.getBytes(StandardCharsets.UTF_8));
-            SecretKey key = SecretKeyFactory.getInstance("AES").generateSecret(keySpec);
+            SecretKey key = SecretKeyFactory.getInstance("DES").generateSecret(keySpec);
 
             encripter = Cipher.getInstance(key.getAlgorithm());
             decripter = Cipher.getInstance(key.getAlgorithm());

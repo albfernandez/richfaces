@@ -1082,8 +1082,7 @@ function getSyntaxHighlighterScriptTags()
  * @param {String} original	Input code.
  * @return {String} Returns code without leading <![CDATA[]]> tags.
  */
-function stripCData(original)
-{
+function stripCData(original) {
 	var left = '<![CDATA[',
 		right = ']]>',
 		// for some reason IE inserts some leading blanks here
@@ -1093,16 +1092,14 @@ function stripCData(original)
 		rightLength = right.length
 		;
 	
-	if (copy.indexOf(left) == 0)
-	{
+	if (copy.indexOf(left) == 0) {
 		copy = copy.substring(leftLength);
 		changed = true;
 	}
 	
 	var copyLength = copy.length;
 	
-	if (copy.indexOf(right) == copyLength - rightLength)
-	{
+	if (copy.substring(copyLength - rightLength) === right) {
 		copy = copy.substring(0, copyLength - rightLength);
 		changed = true;
 	}

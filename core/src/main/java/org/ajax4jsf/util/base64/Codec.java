@@ -21,12 +21,11 @@
 package org.ajax4jsf.util.base64;
 
 import java.nio.charset.StandardCharsets;
-import java.security.spec.KeySpec;
+import java.security.MessageDigest;
+import java.util.Arrays;
 
 import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.faces.FacesException;
 
 /**
@@ -53,7 +52,7 @@ public class Codec {
     }
 
     /**
-     * @param p
+     * @param password
      * @throws java.security.InvalidKeyException
      *
      * @throws java.io.UnsupportedEncodingException
@@ -65,19 +64,20 @@ public class Codec {
      * @throws javax.crypto.NoSuchPaddingException
      *
      */
-    public void setPassword(String p) throws FacesException {
+    public void setPassword(String password) throws FacesException {
 
         try {
-            KeySpec keySpec = new DESKeySpec(p.getBytes(StandardCharsets.UTF_8));
-            SecretKey key = SecretKeyFactory.getInstance("DES").generateSecret(keySpec);
+              MessageDigest sha = MessageDigest.getInstance("SHA-256");
+              byte[] shaKey = sha.digest(password.getBytes(StandardCharsets.UTF_8));
+              byte[] finalKey = Arrays.copyOf(shaKey, 16); 
+              SecretKeySpec secretKey = new SecretKeySpec(finalKey, "AES");
+              
+              Cipher encripter = Cipher.getInstance("AES/ECB/PKCS5Padding");
+              encripter.init(Cipher.ENCRYPT_MODE, secretKey);
+              
+              Cipher decripter = Cipher.getInstance("AES/ECB/PKCS5Padding");
+              decripter.init(Cipher.DECRYPT_MODE, secretKey);
 
-            encripter = Cipher.getInstance(key.getAlgorithm());
-            decripter = Cipher.getInstance(key.getAlgorithm());
-
-            // Prepare the parameters to the cipthers
-            // AlgorithmParameterSpec paramSpec = new IvParameterSpec(s);
-            encripter.init(Cipher.ENCRYPT_MODE, key);
-            decripter.init(Cipher.DECRYPT_MODE, key);
         } catch (Exception e) {
             throw new FacesException("Error set encryption key", e);
         }
@@ -93,23 +93,11 @@ public class Codec {
 
     public String encode(String str) throws Exception {
 
-        // try {
         byte[] src = str.getBytes(StandardCharsets.UTF_8);
 
-        // int len = (src.length/8+1)*8;
-        // byte[] block = new byte[len];
-        // Arrays.fill(block,0,len,(byte)0x20);
-        // System.arraycopy(src,0,block,0,src.length);
-        // Decrypt
         byte[] utf8 = encode(src);
-
         // Decode using utf-8
         return new String(utf8, StandardCharsets.UTF_8);
-
-        // } catch (Exception e) {
-        // // TODO: handle exception
-        // return null;
-        // }
     }
 
     public byte[] decode(byte[] src) throws Exception {

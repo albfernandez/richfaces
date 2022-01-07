@@ -2711,7 +2711,7 @@ Licensed under the MIT license.
         function insertLegend() {
 
             if (options.legend.container != null) {
-                $(options.legend.container).html("");
+                $.find(options.legend.container).html("");
             } else {
                 placeholder.find(".legend").remove();
             }

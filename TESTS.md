@@ -140,6 +140,9 @@ Choosing a browser
 To switch the browser used in test execution, you can use the following Maven property:
 
     -Dbrowser=chrome
+    
+Note: to use chrome, you must download chrome driver from [https://sites.google.com/chromium.org/driver/](https://sites.google.com/chromium.org/driver/) and install to `/opt/google/crhome/chromedriver`
+
 
 By default, tests will use headless browser `phantomjs`.
 

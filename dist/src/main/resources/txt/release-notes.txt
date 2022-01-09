@@ -1,5 +1,16 @@
-4.6.16-SNAPSHOT (unreleased)
+4.6.16.ayg 2022-01-09
 ---------
+
+    [  ] Reupload of 4.6.15.ayg
+
+4.6.15.ayg 2022-01-09
+---------
+
+    [  ] Use AES instead of DES for encripted base64 generation
+    [  ] Secure random in javascript code
+    [  ] Bump jsoup from 1.5.2 to 1.14.2
+    [  ] Upgrade jquery-ui to 1.13.0
+    [  ] Upgrade ckeditor to 4.17.1
 
 
 4.6.14.ayg 2021-05-13
@@ -12,7 +23,6 @@
     [  ] Update junit to 4.13.2
     [  ] Upgrade jquery to 3.6.0
     [  ] Upgrade guava from 20 to 30
-
 
 4.6.13.ayg 2020-07-28
 ---------

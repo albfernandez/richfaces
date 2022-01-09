@@ -72,10 +72,10 @@ public class Codec {
               byte[] finalKey = Arrays.copyOf(shaKey, 16); 
               SecretKeySpec secretKey = new SecretKeySpec(finalKey, "AES");
               
-              Cipher encripter = Cipher.getInstance("AES/ECB/PKCS5Padding");
+              Cipher encripter = Cipher.getInstance("AES");
               encripter.init(Cipher.ENCRYPT_MODE, secretKey);
               
-              Cipher decripter = Cipher.getInstance("AES/ECB/PKCS5Padding");
+              Cipher decripter = Cipher.getInstance("AES");
               decripter.init(Cipher.DECRYPT_MODE, secretKey);
 
         } catch (Exception e) {

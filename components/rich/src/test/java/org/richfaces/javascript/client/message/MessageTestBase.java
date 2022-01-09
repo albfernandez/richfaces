@@ -34,7 +34,7 @@ public class MessageTestBase {
     protected Builder createQunitPage() {
         return Qunit
             .builder()
-            .emulate(BrowserVersion.FIREFOX_52)
+            .emulate(BrowserVersion.getDefault())
             .loadJsfResource("jquery.js", "org.richfaces")
             .loadJsfResource("richfaces.js", "org.richfaces")
             .loadJsfResource("richfaces-event.js", "org.richfaces")

@@ -27,7 +27,7 @@
     <artifactId>template</artifactId>
     <groupId>org.richfaces.examples</groupId>
     <name>RichFaces Examples Template</name>
-    <version>4.6.16.ayg</version>
+    <version>4.6.17-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <description>
@@ -68,7 +68,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <version.richfaces>4.6.16.ayg</version.richfaces>
+        <version.richfaces>4.6.17-SNAPSHOT</version.richfaces>
     </properties>
 
     <dependencyManagement>

@@ -27,7 +27,7 @@
     <parent>
         <groupId>com.github.albfernandez.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>4.6.15.ayg</version>
+        <version>4.6.16-SNAPSHOT</version>
     </parent>
 
     <artifactId>richfaces-core</artifactId>
@@ -45,7 +45,7 @@
     </issueManagement>
 
     <properties>
-        <version.richfaces>4.6.15-SNAPSHOT</version.richfaces>
+        <version.richfaces>4.6.16-SNAPSHOT</version.richfaces>
     </properties>
 
     <dependencies>

@@ -99,7 +99,7 @@ public class MessageTestBase {
 
     protected String getMessageAsText() {
         HtmlElement htmlElement = getMessageContentElement();
-        String text = htmlElement.asText();
+        String text = htmlElement.asNormalizedText();
         return text;
     }
 }

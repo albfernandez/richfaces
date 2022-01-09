@@ -68,7 +68,7 @@ public class CalendarRenderTest extends RendererTestBase {
         List<?> tds = calendarHeaderElement.getByXPath("table/tbody/tr/td");
         for (Object td : tds) {
             HtmlTableDataCell htdc = (HtmlTableDataCell) td;
-            if (">".equals(htdc.asText())) {
+            if (">".equals(htdc.asNormalizedText())) {
                 nextTD = htdc;
             }
         }
@@ -79,13 +79,13 @@ public class CalendarRenderTest extends RendererTestBase {
         Calendar calendar = Calendar.getInstance();
         calendar.set(CalendarBean.CURRENT_YEAR, CalendarBean.CURRENT_MONTH, CalendarBean.CURRENT_DAY);
         String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US);
-        assertTrue(calendarHeaderElement.asText().indexOf(month) > -1);
+        assertTrue(calendarHeaderElement.asNormalizedText().indexOf(month) > -1);
 
         page = div.click();
 
         // After click
         calendar.add(Calendar.MONTH, 1);
         month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US);
-        assertTrue(calendarHeaderElement.asText().indexOf(month) > -1);
+        assertTrue(calendarHeaderElement.asNormalizedText().indexOf(month) > -1);
     }
 }

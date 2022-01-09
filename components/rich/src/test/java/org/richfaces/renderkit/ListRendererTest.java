@@ -123,7 +123,7 @@ public class ListRendererTest {
 
             assertEquals("li", item.getNodeName());
             assertEquals(styleClass, item.getAttribute("class"));
-            assertEquals(data.getTerm(), item.asText());
+            assertEquals(data.getTerm(), item.asNormalizedText());
         }
     }
 
@@ -140,7 +140,7 @@ public class ListRendererTest {
             HtmlElement item = (HtmlElement) termItems.get(i);
             assertEquals("dt", item.getNodeName());
             assertEquals("rf-dlst-trm", item.getAttribute("class"));
-            assertEquals(data.getTerm(), item.asText());
+            assertEquals(data.getTerm(), item.asNormalizedText());
         }
 
         for (int i = 0; i < definitionItems.size(); i++) {
@@ -149,7 +149,7 @@ public class ListRendererTest {
             HtmlElement item = (HtmlElement) definitionItems.get(i);
             assertEquals("dd", item.getNodeName());
             assertEquals("rf-dlst-dfn", item.getAttribute("class"));
-            assertEquals(data.getDefinition(), item.asText());
+            assertEquals(data.getDefinition(), item.asNormalizedText());
         }
     }
 }

@@ -121,7 +121,7 @@ public class AjaxPushRendererTest extends AbstractAjax4JsfTestCase {
             DomText text = (DomText) item.getFirstChild();
 
             assertNotNull(text);
-            assertTrue(text.asText().contains("A4J.AJAX.Push"));
+            assertTrue(text.asNormalizedText().contains("A4J.AJAX.Push"));
             i++;
         }
 
@@ -138,7 +138,7 @@ public class AjaxPushRendererTest extends AbstractAjax4JsfTestCase {
             DomText text = (DomText) item.getFirstChild();
 
             assertNotNull(text);
-            assertTrue(text.asText().contains("A4J.AJAX.StopPush"));
+            assertTrue(text.asNormalizedText().contains("A4J.AJAX.StopPush"));
             i++;
         }
 

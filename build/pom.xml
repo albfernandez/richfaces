@@ -110,8 +110,8 @@
         <version.mockito>1.8.5</version.mockito>
         <version.xmlunit>1.6</version.xmlunit>
 
-        <version.htmlunit>2.37.0</version.htmlunit>
-        <version.htmlunit-core-js>2.37.0</version.htmlunit-core-js>
+        <version.htmlunit>2.56.0</version.htmlunit>
+        <version.htmlunit-core-js>2.56.0</version.htmlunit-core-js>
         <version.xml-apis>1.4.01</version.xml-apis>
         <version.hibernate-validator>4.3.2.Final</version.hibernate-validator>
 

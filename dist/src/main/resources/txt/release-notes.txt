@@ -1,6 +1,8 @@
 4.6.17-SNAPSHOT unreleased
 ---------
 
+    [  ] Upgrade htmlunit to 2.56.0
+
 4.6.16.ayg 2022-01-09
 ---------
 

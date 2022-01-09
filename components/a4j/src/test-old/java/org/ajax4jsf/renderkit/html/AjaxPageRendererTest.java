@@ -92,7 +92,7 @@ public class AjaxPageRendererTest extends AbstractAjax4JsfTestCase {
         HtmlElement title = (HtmlElement) html.getHtmlElementsByTagName("title").get(0);
 
         assertNotNull(title);
-        assertEquals("title", title.getFirstChild().asText());
+        assertEquals("title", title.getFirstChild().asNormalizedText());
 
         HtmlElement meta = (HtmlElement) html.getHtmlElementsByTagName("meta").get(0);
 

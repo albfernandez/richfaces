@@ -27,7 +27,7 @@
     <groupId>org.richfaces.examples</groupId>
     <artifactId>jpa-demo</artifactId>
     <packaging>war</packaging>
-    <version>4.6.15-SNAPSHOT</version>
+    <version>4.6.15.ayg</version>
     <name>RichFaces Example - JPA Demo</name>
 
     <description>

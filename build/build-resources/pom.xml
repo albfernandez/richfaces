@@ -26,7 +26,7 @@
 
     <groupId>com.github.albfernandez.richfaces</groupId>
     <artifactId>richfaces-build-resources</artifactId>
-    <version>4.6.15-SNAPSHOT</version>
+    <version>4.6.15.ayg</version>
     <name>RichFaces Build Resources</name>
 
     <description>

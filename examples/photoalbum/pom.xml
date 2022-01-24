@@ -66,7 +66,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <java.version>1.8</java.version>
         <version.richfaces>4.6.17-SNAPSHOT</version.richfaces>
         <version.metadata-extractor>2.13.0</version.metadata-extractor>
-        <version.jackson>1.9.13</version.jackson>
+        <version.jackson>2.13.1</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
         <version.wildfly100>10.1.0.Final</version.wildfly100>
@@ -200,11 +200,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <artifactId>metadata-extractor</artifactId>
             <version>${version.metadata-extractor}</version>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-jaxrs</artifactId>
-            <version>${version.jackson}</version>
-        </dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.jaxrs</groupId>
+		    <artifactId>jackson-jaxrs-json-provider</artifactId>
+		    <version>${version.jackson}</version>
+		</dependency>
+
+
 
         <!-- Test dependencies -->
         <dependency>

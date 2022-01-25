@@ -33,7 +33,6 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import com.google.common.collect.Sets;
 
@@ -244,13 +243,7 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
         } else if (event.equals(Event.MOUSEMOVE)) {
             return moveToElement(element);
         } else if (event.equals(Event.CONTEXTCLICK) || event.equals(Event.CONTEXTMENU)) {
-            // workaround for RF-14034 / RF-14273
-            if (driver instanceof PhantomJSDriver) {
-                return triggerEventByJS(event, element);
-            } else {
-                // all other browsers use former solution - simply invoke context click
-                return contextClick(element);
-            }
+            return contextClick(element);            
         } else if (event.equals(Event.MOUSEOUT)) {
             Point coords = getPossibleCoordinationsForMouseOut(element);
             return moveToElement(element).moveByOffset(coords.x, coords.y);

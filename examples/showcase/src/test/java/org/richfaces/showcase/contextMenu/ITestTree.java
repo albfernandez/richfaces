@@ -27,14 +27,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.contextMenu.RichFacesContextMenu;
 import org.richfaces.showcase.contextMenu.page.TreeContextMenuPage;
 
-import category.FailingOnPhantomJS;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -62,12 +59,7 @@ public class ITestTree extends AbstractContextMenuTest {
 
             RichFacesContextMenu contextMenu = page.getContextMenu();
             contextMenu.advanced().setShowEvent(Event.CONTEXTMENU);
-            if (webDriver instanceof PhantomJSDriver) {
-                // the menu is invoked by JavaScript, which does not invoke any ajax request
-                contextMenu.advanced().show(leaf);
-            } else {
-                guardAjax(contextMenu.advanced()).show(leaf);
-            }
+            guardAjax(contextMenu.advanced()).show(leaf);
             guardAjax(contextMenu).selectItem(0);
             waitModel().until().element(page.getArtistFromPopup()).is().visible();
 
@@ -84,7 +76,6 @@ public class ITestTree extends AbstractContextMenuTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void testContextMenuRenderedAtCorrectPosition() {
         page.expandNodes(4);
         WebElement elementToTryOn = page.getLeaves().get(0);

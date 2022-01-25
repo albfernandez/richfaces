@@ -36,7 +36,6 @@ import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Utils;
@@ -83,14 +82,9 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
         String containerStyleClassBefore = advanced().getInputContainer().getAttribute("class");
         Utils.jQ("attr('class', '')", advanced().getInputContainer());
 
-        if (browser instanceof PhantomJSDriver) {
-            // workaround for PhantomJS where usual upload does not work
-            ((PhantomJSDriver) browser).executePhantomJS("var page = this; page.uploadFile('input[type=file]', '"
-                + file.getAbsolutePath() + "');");
-        } else {
-            // for all other browsers
-            advanced().getFileInputElement().sendKeys(file.getAbsolutePath());
-        }
+
+        advanced().getFileInputElement().sendKeys(file.getAbsolutePath());
+
 
         Utils.jQ("attr('class', '" + containerStyleClassBefore + "')", advanced().getInputContainer());
         try {

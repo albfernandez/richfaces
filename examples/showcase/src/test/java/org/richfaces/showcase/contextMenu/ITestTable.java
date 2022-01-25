@@ -36,7 +36,6 @@ import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.showcase.contextMenu.page.TableContextMenuPage;
 
-import category.FailingOnPhantomJS;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -83,7 +82,6 @@ public class ITestTable extends AbstractContextMenuTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void testContextMenuRenderedOnTheCorrectPosition() {
         // resize browser window to enforce same conditions on all machines
         // this is a workaround for Jenkins where this test was failing

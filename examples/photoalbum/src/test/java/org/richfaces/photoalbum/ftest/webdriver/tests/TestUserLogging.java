@@ -29,7 +29,6 @@ import org.junit.experimental.categories.Category;
 import org.richfaces.fragment.message.Message;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.LoginPanel;
 
-import category.FailingOnPhantomJS;
 import category.Smoke;
 
 /**
@@ -61,7 +60,6 @@ public class TestUserLogging extends AbstractPhotoalbumTest {
     }
 
     @Test
-    @Category({ FailingOnPhantomJS.class })
     public void testLogInAndOutWithFB() {
         getPage().openLoginPanel().loginWithFB();
         getPage().checkUserLogged("Tom", false, true, false);
@@ -70,7 +68,6 @@ public class TestUserLogging extends AbstractPhotoalbumTest {
     }
 
     @Test
-    @Category({ FailingOnPhantomJS.class })
     public void testLogInAndOutWithGPlus() {
         getPage().openLoginPanel().loginWithGPlus();
         getPage().checkUserLogged("Rich", false, false, true);

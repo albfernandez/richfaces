@@ -1,6 +1,7 @@
 4.6.17-SNAPSHOT unreleased
 ---------
 
+	[  ] Remove phantomjs from tests
     [  ] Bump jsf-test from 1.1.14 to 1.1.16
     [  ] Bump htmlunit from 2.30 to 2.56.0
 

@@ -33,7 +33,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.ClearType;
@@ -101,28 +100,22 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
     @Override
     public void type(String text) {
         try {
-            if (browser instanceof PhantomJSDriver) {
-                // workaround for https://github.com/detro/ghostdriver/issues/335
-                if (!Utils.<Boolean>invokeRichFacesJSAPIFunction(advanced().getRootElement(), "isReadOnly()")) {
-                    switchToEditorActiveArea();
-                    executor.executeScript(String.format("document.body.textContent = document.body.textContent + '%s'", text));
-                }
+
+            // following is a workaround to put the typed text to the end of the editor's content (works with Selenium 2.46,
+            // 2.48)
+            WebElement area = switchToEditorActiveArea();
+            boolean hasNoText = area.getText().isEmpty();
+            // focus in editor
+            area.click();
+            if (hasNoText) {
+                area.sendKeys(text);
             } else {
-                // following is a workaround to put the typed text to the end of the editor's content (works with Selenium 2.46,
-                // 2.48)
-                WebElement area = switchToEditorActiveArea();
-                boolean hasNoText = area.getText().isEmpty();
-                // focus in editor
-                area.click();
-                if (hasNoText) {
-                    area.sendKeys(text);
-                } else {
-                    // focus on last element (<br>)
-                    area.findElement(ByJQuery.selector("*:last")).click();
-                    // move cursor to the end and append text
-                    area.sendKeys(Keys.ARROW_DOWN, Keys.ARROW_DOWN, text);
-                }
+                // focus on last element (<br>)
+                area.findElement(ByJQuery.selector("*:last")).click();
+                // move cursor to the end and append text
+                area.sendKeys(Keys.ARROW_DOWN, Keys.ARROW_DOWN, text);
             }
+            
         } finally {
             browser.switchTo().defaultContent();
         }

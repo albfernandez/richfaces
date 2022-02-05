@@ -28,7 +28,7 @@
     <parent>
         <groupId>com.github.albfernandez.richfaces</groupId>
         <artifactId>richfaces-components-parent</artifactId>
-        <version>4.6.17.ayg</version>
+        <version>4.6.18-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

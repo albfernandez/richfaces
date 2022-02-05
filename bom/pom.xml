@@ -27,7 +27,7 @@
     <groupId>com.github.albfernandez.richfaces</groupId>
     <artifactId>richfaces-cache-bom</artifactId>
     <packaging>pom</packaging>
-    <version>4.6.17.ayg</version>
+    <version>4.6.18-SNAPSHOT</version>
     <name>RichFaces BOM</name>
 
     <description>

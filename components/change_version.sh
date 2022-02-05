@@ -30,7 +30,7 @@ else
    exit 1;
 fi
 
-EXCLUSIONS="'*/target/*' '*/.git/*' '*/build/scripts/*' '*/build/dist/release-notes.txt' '*/Revision_History.xml'"
+EXCLUSIONS="'*/target/*' '*/.git/*' '*/build/scripts/*' '*release-notes.txt' '*/Revision_History.xml' 'README.md'"
 OMIT_PATHS=""
 for exclude in $EXCLUSIONS; do
 	OMIT_PATHS="$OMIT_PATHS -not -path $exclude"

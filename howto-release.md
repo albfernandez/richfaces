@@ -17,13 +17,13 @@ mvn clean install -Dintegration=wildfly81 -Dsmoke
 
 ```bash
 bash components/change_version.sh -r -o <4.5.0-SNAPSHOT> -n <4.5.0>
-;edit README.md
-git add -A
-git commit -S -m 'Release <4.5.0>'
+;edit README.md and dist/src/main/resources/txt/release-notes.txt
 mvn clean install verify -Prelease
 export OPENSSL_CONF=/etc/ssl/
 mvn clean install -Dintegration=wildfly81 -Dsmoke
 mvn clean install verify deploy -Prelease
+git add -A
+git commit -S -s -m 'Release <4.5.0>'
 git tag -a <4.5.0> -m "Tagging release <4.5.0>"
 git push --tags
 ```
@@ -39,6 +39,7 @@ mvn clean package -Prelease
 
 ```bash
 bash components/change_version.sh -r -o <4.5.0> -n <4.5.1-SNAPSHOT>
+;edit dist/src/main/resources/txt/release-notes.txt
 git add -A
 git commit -m 'Next release cycle'
 ```

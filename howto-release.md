@@ -41,7 +41,7 @@ mvn clean package -Prelease
 bash components/change_version.sh -r -o <4.5.0> -n <4.5.1-SNAPSHOT>
 ;edit dist/src/main/resources/txt/release-notes.txt
 git add -A
-git commit -m 'Next release cycle'
+git commit -S -s -m 'Next release cycle'
 ```
 
 ## Create release and upload artifacts to github

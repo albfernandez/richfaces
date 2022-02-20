@@ -22,11 +22,11 @@
 To use the RichFaces framework in your JSF maven application, simply add the following dependency to your `pom.xml` file:
 
 ```xml
-    <dependency>
-        <groupId>com.github.albfernandez.richfaces</groupId>
-        <artifactId>richfaces</artifactId>
-        <version>4.6.17.ayg</version>
-    </dependency>
+<dependency>
+    <groupId>com.github.albfernandez.richfaces</groupId>
+    <artifactId>richfaces</artifactId>
+    <version>4.6.17.ayg</version>
+</dependency>
 ```
 Prior releases of RichFaces required using a BOM to manage the project dependencies. With RichFaces 4.5 all required dependencies are managed transitively, simplifying your project setup.
 
@@ -35,14 +35,14 @@ Alternatively, if you are not using maven, you can download the project ZIP dist
 Once you have included the RichFaces dependency in your application, you can start developing by adding a JSF page which includes the RichFaces taglib references:
 
 ```html
-    <!DOCTYPE html>
-    <html lang="en"
-        xmlns="http://www.w3.org/1999/xhtml"
-        ...
-        xmlns:rich="http://richfaces.org/rich"
-        xmlns:a4j="http://richfaces.org/a4j">
+<!DOCTYPE html>
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    ...
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j">
 
-    </html>
+</html>
 ```
 For more information on how to get started with the project, see the [project documentation](http://docs.jboss.org/richfaces/).
 

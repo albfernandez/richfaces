@@ -97,7 +97,7 @@
         <version.jstl-api>1.2-rev-1</version.jstl-api>
 
         <!-- Resource Optimizer -->
-        <version.reflections>0.9.8</version.reflections> <!-- Update to 0.9.9+ requires code changes -->
+        <version.reflections>0.10.2</version.reflections> <!-- Update to 0.9.9+ requires code changes -->
         <version.yuicompressor>2.4.8</version.yuicompressor>
         <version.jcommander>1.20</version.jcommander>
         <version.jboss-el>1.0_02.CR6</version.jboss-el>

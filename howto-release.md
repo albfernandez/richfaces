@@ -20,7 +20,7 @@ bash components/change_version.sh -r -o <4.5.0-SNAPSHOT> -n <4.5.0>
 mvn clean install verify -Prelease
 export OPENSSL_CONF=/etc/ssl/
 mvn clean install -Dintegration=wildfly81 -Dsmoke
-mvn clean install verify deploy -Prelease
+mvn clean install verify deploy -Psign,release
 # edit README.md and dist/src/main/resources/txt/release-notes.txt
 git add -A
 git commit -S -s -m 'Release <4.5.0>'

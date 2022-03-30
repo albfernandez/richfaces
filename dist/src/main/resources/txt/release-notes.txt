@@ -1,6 +1,6 @@
-4.6.19-SNAPSHOT unreleased
+4.6.19.ayg 2022-03-30
 ---------
-
+    [  ] Bump ckeditor from 4.17.1 to 4.18.0
 
 
 4.6.18.ayg 2022-03-28

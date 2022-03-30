@@ -65,7 +65,7 @@
     <properties>
         <!-- Base Dependencies Versions -->
         <version.richfaces>4.6.19-SNAPSHOT</version.richfaces>
-        <version.cdk>4.5.0.Final</version.cdk>
+        <version.cdk>4.6.1.ayg</version.cdk>
         <version.jboss-javaee>3.0.3.Final</version.jboss-javaee>
 
         <!-- Project Versions -->
@@ -202,7 +202,7 @@
                 <version>${version.richfaces}</version>
             </dependency>
             <dependency>
-                <groupId>org.richfaces.cdk</groupId>
+                <groupId>com.github.albfernandez.richfaces.cdk</groupId>
                 <artifactId>annotations</artifactId>
                 <version>${version.cdk}</version>
             </dependency>
@@ -212,7 +212,7 @@
                 <version>2.3.1</version>
             </dependency>
             <dependency>
-                <groupId>org.richfaces.cdk</groupId>
+                <groupId>com.github.albfernandez.richfaces.cdk</groupId>
                 <artifactId>generator</artifactId>
                 <version>${version.cdk}</version>
                 <exclusions>

@@ -90,7 +90,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.richfaces.cdk</groupId>
+            <groupId>com.github.albfernandez.richfaces.cdk</groupId>
             <artifactId>generator</artifactId>
             <scope>provided</scope>
             <exclusions>

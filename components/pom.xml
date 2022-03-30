@@ -133,7 +133,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.richfaces.cdk</groupId>
+            <groupId>com.github.albfernandez.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
             <scope>provided</scope>
         </dependency>

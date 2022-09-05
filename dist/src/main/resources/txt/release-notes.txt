@@ -1,9 +1,12 @@
 4.6.20-SNAPSHOT unreleased
 ---------
 
+    [ ] Bump jquery from 3.6.0 to 3.6.1
+
 
 4.6.19.ayg 2022-03-30
 ---------
+
     [  ] Bump ckeditor from 4.17.1 to 4.18.0
 
 
@@ -15,8 +18,8 @@
 4.6.17.ayg 2022-02-05
 ---------
 
-	[  ] Remove phantomjs from tests
-	[  ] Replace log4j with reload4j
+    [  ] Remove phantomjs from tests
+    [  ] Replace log4j with reload4j
     [  ] Bump jquery-ui from 1.13.0 to 1.13.1
     [  ] Bump jsf-test from 1.1.14 to 1.1.16
     [  ] Bump htmlunit from 2.30 to 2.56.0
@@ -51,7 +54,7 @@
 ---------
 
     [  ] jQuery upgraded to 3.5.1
-
+    
 4.6.12.ayg 2020-04-16
 ---------
 
@@ -95,7 +98,7 @@
 
 4.6.6.ayg 2019-01-17
 ----------
-
+    
     [#22] Smoke tests fail without any changes 
     [#21] Remove serialization code  
 
@@ -188,7 +191,7 @@
     Enhancement
     [RF-14270] - showcase: attachQueue: UX: add intentional delay for showing the status
     [RF-14287] - page-fragments: select: replace invoking of blur in select method
-    [RF-14290] - integration-tests: limit page load timeout
+    [RF-14290] - integration-tests: limit page load     timeout
     [RF-14294] - Configure the tests to run with Firefox in Travis-ci
 
     Feature Request

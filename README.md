@@ -25,7 +25,7 @@ To use the RichFaces framework in your JSF maven application, simply add the fol
 <dependency>
     <groupId>com.github.albfernandez.richfaces</groupId>
     <artifactId>richfaces</artifactId>
-    <version>4.6.19.ayg</version>
+    <version>4.6.20.ayg</version>
 </dependency>
 ```
 Prior releases of RichFaces required using a BOM to manage the project dependencies. With RichFaces 4.5 all required dependencies are managed transitively, simplifying your project setup.

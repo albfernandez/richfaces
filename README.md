@@ -128,7 +128,7 @@ In order to effectively test the project with each code modification, you need t
 
     $ mvn clean install -Dintegration=wildfly81 -Dsmoke
 
-This will download WildFly and run the project tests against a managed instance of WildFly 8.1 using a headless PhantomJS browser.
+This will download WildFly and run the project tests against a managed instance of WildFly 8.1 using a headless Chrome browser.
 For a detailed explanation of additional testing configurations and options, refer to the [Testing guide](TESTS.md).
 
 

@@ -16,8 +16,7 @@ Note: for specific supported versions consult the pom.xml
 
 The supported browser matrix is:
 
-* PhantomJS (default)
-* Chrome
+* Chrome (Default)
 * Firefox
 * others (TBD)
 

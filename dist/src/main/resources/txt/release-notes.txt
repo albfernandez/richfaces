@@ -1,6 +1,7 @@
 4.6.21-SNAPSHOT unreleased
 ---------
 
+	[ ] Use Chrome headless for integration tests
 
 4.6.20.ayg 2022-09-05
 ---------

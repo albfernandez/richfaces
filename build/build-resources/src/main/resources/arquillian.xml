@@ -66,7 +66,7 @@
         <property name="remoteReusable">${arquillian.drone.reusable}</property>
         <property name="remoteAddress">http://localhost:4444/wd/hub/</property>
 
-        <property name="chromeDriverBinary">/opt/google/chrome/chromedriver</property>
+        <property name="chromeDriverBinary">/usr/bin/chromedriver</property>
     </extension>
 
     <extension qualifier="richfaces">

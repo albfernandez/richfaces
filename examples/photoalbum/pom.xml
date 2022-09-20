@@ -606,7 +606,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <!-- Arquillian Configuration -->
                 <arquillian.debug>false</arquillian.debug>
-                <arquillian.drone.browser>chrome</arquillian.drone.browser>
+                <arquillian.drone.browser>chromeHeadless</arquillian.drone.browser>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
                 <arquillian.richfaces.version/>
                 <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
@@ -801,7 +801,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </property>
             </activation>
             <properties>
-                <arquillian.drone.browser>chrome</arquillian.drone.browser>
+                <arquillian.drone.browser>chromeHeadless</arquillian.drone.browser>
                 <testCategory.excluded.browser/>
             </properties>
         </profile>

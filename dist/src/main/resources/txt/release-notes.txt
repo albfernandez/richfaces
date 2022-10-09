@@ -144,7 +144,26 @@
 
 ---------------------------------------------------------------------------------------------------
 
-4.5.20.ayg
+4.5.23.ayg 2018-08-21
+----------
+
+    [   ] Remove mediaoutput to fix CVE-2018-12532
+   
+
+4.5.22.ayg (Not released)
+----------
+ 
+ 
+4.5.21.ayg 2018-03-17
+----------
+
+    [#9] Upgraded CKEditor to 4.9.0
+    [#7] Removes usage of FileOutputStream and others to prevent GC overhead
+    [  ] Upgrade cssparser to 0.9.25
+    [  ] Use moono-lisa theme by default
+
+
+4.5.20.ayg 2017-08-22
 ----------
 
     [  ] Remove old prefixed css attributtes

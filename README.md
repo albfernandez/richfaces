@@ -7,6 +7,18 @@
 
 > **This is a fork of the unmaintained Richfaces 4.5**. Richfaces End of Life was June 2016. [more info about Richfaces End of Life](https://developer.jboss.org/wiki/RichFacesEnd-Of-LifeQuestionsAnswers)
 
+## Security
+
+List of vulnerabilities fixed
+  
+  - [CVE-2013-2165](https://nvd.nist.gov/vuln/detail/CVE-2013-2165) Fixed in 4.3.3 and 3.3.4
+  - [CVE-2018-14667](https://nvd.nist.gov/vuln/detail/CVE-2018-14667) Fixed in 4.0.0
+  - [CVE-2015-0279](https://nvd.nist.gov/vuln/detail/CVE-2015-0279) Fixed in 4.5.5
+  - [CVE-2018-12533](https://nvd.nist.gov/vuln/detail/CVE-2018-12533) Fixed in 4.0.0
+  - [CVE-2014-0086](https://nvd.nist.gov/vuln/detail/CVE-2014-0086) Fixed in 4.3.6
+  - [CVE-2018-12532](https://nvd.nist.gov/vuln/detail/CVE-2018-12532) Fixed in 4.6.4.ayg 2018-08-21
+  
+
 ## Project Info
 
 

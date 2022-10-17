@@ -99,7 +99,7 @@
         <!-- Resource Optimizer -->
         <version.reflections>0.9.8</version.reflections> <!-- Update to 0.9.9+ requires code changes -->
         <version.yuicompressor>2.4.8</version.yuicompressor>
-        <version.jcommander>1.20</version.jcommander>
+        <version.jcommander>1.82</version.jcommander>
         <version.jboss-el>1.0_02.CR6</version.jboss-el>
 
         <!-- Test Dependencies Versions -->

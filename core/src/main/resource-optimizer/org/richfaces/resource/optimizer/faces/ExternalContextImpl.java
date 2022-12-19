@@ -462,4 +462,12 @@ public class ExternalContextImpl extends ExternalContext {
     public String getMimeType(String file) {
         return MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(file);
     }
+    
+
+    public String encodeWebsocketURL(String url) {
+    	if (url == null) {
+    		throw new NullPointerException();
+    	}
+    	return url;
+    }
 }

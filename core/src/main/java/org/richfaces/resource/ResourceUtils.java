@@ -69,6 +69,7 @@ import java.util.Map.Entry;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
@@ -181,42 +182,66 @@ public final class ResourceUtils {
 
     protected static byte[] encrypt(byte[] src) {
         try {
-            Deflater compressor = new Deflater(Deflater.BEST_SPEED);
-            byte[] compressed = new byte[src.length + 100];
-
-            compressor.setInput(src);
-            compressor.finish();
-
-            int totalOut = compressor.deflate(compressed);
-            byte[] zipsrc = new byte[totalOut];
-
-            System.arraycopy(compressed, 0, zipsrc, 0, totalOut);
-            compressor.end();
+        	byte[] zipsrc = deflate(src);
 
             return CODEC.encode(zipsrc);
         } catch (Exception e) {
             throw new FacesException("Error encode resource data", e);
         }
     }
+    
+    private static byte[] deflate(byte[] src) {
+        Deflater compressor = null;
+        try {
+	        compressor = new Deflater(Deflater.BEST_SPEED);
+	        byte[] compressed = new byte[src.length + 100];
+	
+	        compressor.setInput(src);
+	        compressor.finish();
+	
+	        int totalOut = compressor.deflate(compressed);
+	        byte[] zipsrc = new byte[totalOut];
+	
+	        System.arraycopy(compressed, 0, zipsrc, 0, totalOut);
+	        return zipsrc;
+        }
+        finally {
+        	if (compressor != null) {
+        		compressor.end();
+        	}
+        }
+        
+    }
 
     protected static byte[] decrypt(byte[] src) {
         try {
             byte[] zipsrc = CODEC.decode(src);
-            Inflater decompressor = new Inflater();
-            byte[] uncompressed = new byte[zipsrc.length * 5];
-
-            decompressor.setInput(zipsrc);
-
-            int totalOut = decompressor.inflate(uncompressed);
-            byte[] out = new byte[totalOut];
-
-            System.arraycopy(uncompressed, 0, out, 0, totalOut);
-            decompressor.end();
-
+            byte[] out = inflate(zipsrc);
             return out;
         } catch (Exception e) {
             throw new FacesException("Error decode resource data", e);
         }
+    }
+    
+    private static byte[] inflate(byte[] zipsrc) throws DataFormatException {
+    	Inflater decompressor = null;
+    	try {
+	    	decompressor = new Inflater();
+	        byte[] uncompressed = new byte[zipsrc.length * 5];
+	
+	        decompressor.setInput(zipsrc);
+	
+	        int totalOut = decompressor.inflate(uncompressed);
+	        byte[] out = new byte[totalOut];
+	
+	        System.arraycopy(uncompressed, 0, out, 0, totalOut);
+	        return out;
+    	}
+    	finally {
+    		if (decompressor != null) {
+    			decompressor.end();
+    		}
+    	}
     }
 
     public static byte[] decodeBytesData(String encodedData) {

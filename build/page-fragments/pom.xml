@@ -27,7 +27,7 @@
     <parent>
         <groupId>com.github.albfernandez.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>4.6.21-SNAPSHOT</version>
+        <version>4.6.21.ayg</version>
         <relativePath>../..</relativePath>
     </parent>
 

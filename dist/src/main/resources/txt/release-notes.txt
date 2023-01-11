@@ -1,8 +1,12 @@
+4.6.22-SNAPSHOT unreleased
+---------
+
+
 4.6.21.ayg 2023-01-11
 ---------
 	[ ] Use Chrome headless for integration tests
 	[ ] Bump jquery from 3.6.1 to 3.6.3
-	[ ] Try to fix OutOfMemoryError when using Inflate and Deflate  
+	[#77] Try to fix OutOfMemoryError when using Inflate and Deflate  
 
 4.6.20.ayg 2022-09-05
 ---------

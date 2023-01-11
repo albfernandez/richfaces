@@ -27,6 +27,7 @@ mvn clean install verify deploy -Psign,release
 git add -A
 git commit -S -s -m 'Release <4.5.0>'
 git tag -a <4.5.0> -m "Tagging release <4.5.0>"
+git push
 git push --tags
 ```
 

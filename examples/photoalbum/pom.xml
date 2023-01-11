@@ -27,7 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-photoalbum</artifactId>
-    <version>4.6.21.ayg</version>
+    <version>4.6.22-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>RichFaces Photoalbum</name>
@@ -64,7 +64,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <properties>
         <java.version>1.8</java.version>
-        <version.richfaces>4.6.21.ayg</version.richfaces>
+        <version.richfaces>4.6.22-SNAPSHOT</version.richfaces>
         <version.metadata-extractor>2.18.0</version.metadata-extractor>
         <version.jackson>2.13.1</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>

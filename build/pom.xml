@@ -86,7 +86,7 @@
         <version.slf4j>1.7.26</version.slf4j>
         <version.hsqldb>2.7.1</version.hsqldb>
         <version.hornetq>2.2.7.Final</version.hornetq>
-        <version.netty>3.2.5.Final</version.netty>
+        <version.netty>3.9.8.Final</version.netty>
         <version.weld>2.2.16.SP1</version.weld>
         <version.rewrite>2.0.12.Final</version.rewrite>
         <version.jsoup>1.15.3</version.jsoup>

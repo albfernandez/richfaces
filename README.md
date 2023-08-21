@@ -134,7 +134,8 @@ For more information on how to run and develop this test suite, see [Framework T
 
 ### Running Smoke Tests
 
-Note for Debian users, you must `export OPENSSL_CONF=/etc/ssl/` before in order to run
+Note: you must install the package `chromium-driver` or manually install the `chromedriver` binary.
+Note: Ensure you're not using `8080` port.
 
 In order to effectively test the project with each code modification, you need to run at least framework’s smoke tests:
 

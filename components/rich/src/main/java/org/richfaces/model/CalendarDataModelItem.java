@@ -27,13 +27,13 @@ package org.richfaces.model;
  */
 public interface CalendarDataModelItem {
     /**
-     * @return true if date is �selectable� on calendar, default implementation return true
+     * @return true if date is selectable on calendar, default implementation return true
      **/
     boolean isEnabled();
 
     /**
-     * @return String that will be appended to style class for that date span. For example it may be �relevant holyday� � that
-     *         mean class will be like �rich-cal-day relevant holyday�. Default implementation return empty string.
+     * @return String that will be appended to style class for that date span. For example it may be relevant holyday that
+     *         mean class will be like rich-cal-day relevant holyday. Default implementation return empty string.
      * */
     String getStyleClass();
 
@@ -49,7 +49,7 @@ public interface CalendarDataModelItem {
     boolean hasToolTip();
 
     /**
-     * @return tool tip data that will be used in �batch� tooltip loading mode.
+     * @return tool tip data that will be used in batch tooltip loading mode.
      **/
     Object getToolTip();
 

@@ -16,21 +16,21 @@
 <script>
 	exportPdfUtils.initManualTest();
 
-	CKEDITOR.replace( 'editor1', exportPdfUtils.getDefaultConfig( 'manual', {
-		exportPdf_stylesheets: [ 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' ],
+	CKEDITOR.replace('editor1', exportPdfUtils.getDefaultConfig('manual', {
+		exportPdf_stylesheets: ['https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'],
 		extraPlugins: 'wysiwygarea,exportpdf',
 		allowedContent: true
-	} ) );
+	}));
 
-	CKEDITOR.replace( 'editor2', exportPdfUtils.getDefaultConfig( 'manual', {
-		exportPdf_stylesheets: [ 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' ],
+	CKEDITOR.replace('editor2', exportPdfUtils.getDefaultConfig('manual', {
+		exportPdf_stylesheets: ['https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'],
 		extraPlugins: 'divarea,exportpdf',
 		allowedContent: true
-	} ) );
+	}));
 
-	CKEDITOR.inline( 'editor3', exportPdfUtils.getDefaultConfig( 'manual', {
-		exportPdf_stylesheets: [ 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' ],
+	CKEDITOR.inline('editor3', exportPdfUtils.getDefaultConfig('manual', {
+		exportPdf_stylesheets: ['https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'],
 		extraPlugins: 'floatingspace,exportpdf',
 		allowedContent: true
-	} ) );
+	}));
 </script>

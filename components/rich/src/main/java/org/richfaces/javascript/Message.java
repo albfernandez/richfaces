@@ -25,7 +25,7 @@
  */
 package org.richfaces.javascript;
 
-import javax.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage;
 
 /**
  * @author asmirnov

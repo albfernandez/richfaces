@@ -5,79 +5,79 @@
 
 (function($, rf) {
 
-    rf.ui = rf.ui || {};
+	rf.ui = rf.ui || {};
 
-    var defaultOptions = {
-        enabledInInput : false,
-        preventDefault : true
-    };
-    
-    var types = [ 'keydown', 'keyup' ];
+	var defaultOptions = {
+		enabledInInput: false,
+		preventDefault: true
+	};
 
-    /**
-     * Backing object for rich:hotKey
-     * 
-     * @extends RichFaces.BaseComponent
-     * @memberOf! RichFaces.ui
-     * @constructs RichFaces.ui.HotKey
-     * 
-     * @param componentId
-     * @param options
-     */
-    rf.ui.HotKey = function(componentId, options) {
-        $super.constructor.call(this, componentId);
-        this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
-        this.attachToDom(this.componentId);
-        this.options = $.extend({}, defaultOptions, options);
-        this.__handlers = {};
-        
-        this.options.selector = (this.options.selector) ? this.options.selector : document;
+	var types = ['keydown', 'keyup'];
 
-        $(document).ready($.proxy(function() {
-            this.__bindDefinedHandlers();
-        }, this));
-    };
+	/**
+	 * Backing object for rich:hotKey
+	 * 
+	 * @extends RichFaces.BaseComponent
+	 * @memberOf! RichFaces.ui
+	 * @constructs RichFaces.ui.HotKey
+	 * 
+	 * @param componentId
+	 * @param options
+	 */
+	rf.ui.HotKey = function(componentId, options) {
+		$super.constructor.call(this, componentId);
+		this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
+		this.attachToDom(this.componentId);
+		this.options = $.extend({}, defaultOptions, options);
+		this.__handlers = {};
 
-    rf.BaseComponent.extend(rf.ui.HotKey);
+		this.options.selector = (this.options.selector) ? this.options.selector : document;
 
-    var $super = rf.ui.HotKey.$super;
+		$(document).ready($.proxy(function() {
+			this.__bindDefinedHandlers();
+		}, this));
+	};
 
-    $.extend(rf.ui.HotKey.prototype, {
+	rf.BaseComponent.extend(rf.ui.HotKey);
 
-        name : "HotKey",
-        
-        __bindDefinedHandlers : function() {
-            for (var i = 0; i < types.length; i++) {
-                if (this.options['on' + types[i]]) {
-                    this.__bindHandler(types[i]);
-                }
-            }
-        },
-        
-        __bindHandler : function(type) {
-            this.__handlers[type] = $.proxy(function(event) {
-                var result = this.invokeEvent.call(this, type, document.getElementById(this.id), event);
-                if (this.options.preventDefault) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                    return false;
-                }
-                return result;
-            }, this);
-            $(this.options.selector).on(type + this.namespace, this.options, this.__handlers[type]);
-        },
+	var $super = rf.ui.HotKey.$super;
 
-        destroy : function() {
-            rf.Event.unbindById(this.id, this.namespace);
+	$.extend(rf.ui.HotKey.prototype, {
 
-            for (var type in this.__handlers) {
-                if (this.__handlers.hasOwnProperty(type)) {
-                    $(this.options.selector).off(type + this.namespace, this.__handlers[type]);
-                }
-            }
+		name: "HotKey",
 
-            $super.destroy.call(this);
-        }
-    });
+		__bindDefinedHandlers: function() {
+			for (var i = 0; i < types.length; i++) {
+				if (this.options['on' + types[i]]) {
+					this.__bindHandler(types[i]);
+				}
+			}
+		},
+
+		__bindHandler: function(type) {
+			this.__handlers[type] = $.proxy(function(event) {
+				var result = this.invokeEvent.call(this, type, document.getElementById(this.id), event);
+				if (this.options.preventDefault) {
+					event.stopPropagation();
+					event.preventDefault();
+					return false;
+				}
+				return result;
+			}, this);
+			$(this.options.selector).on(type + this.namespace, this.options, this.__handlers[type]);
+		},
+
+		destroy: function() {
+			rf.Event.unbindById(this.id, this.namespace);
+
+			for (var type in this.__handlers) {
+				if (this.__handlers.hasOwnProperty(type)) {
+					$(this.options.selector).off(type + this.namespace, this.__handlers[type]);
+				}
+			}
+
+			$super.destroy.call(this);
+		}
+	});
 
 })(RichFaces.jQuery, RichFaces);

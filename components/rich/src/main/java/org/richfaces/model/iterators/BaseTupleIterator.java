@@ -21,7 +21,7 @@
  */
 package org.richfaces.model.iterators;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import org.richfaces.model.DeclarativeModelKey;
 import org.richfaces.model.DeclarativeTreeDataModelTuple;

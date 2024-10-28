@@ -21,7 +21,7 @@
  */
 package org.richfaces.resource.mapping;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Resource mapping determines URL where given resource is mapped.

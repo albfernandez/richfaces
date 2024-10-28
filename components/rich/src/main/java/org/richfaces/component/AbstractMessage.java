@@ -22,7 +22,7 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIMessage;
+import jakarta.faces.component.UIMessage;
 
 import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;

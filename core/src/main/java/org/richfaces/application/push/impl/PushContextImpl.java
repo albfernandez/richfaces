@@ -23,12 +23,12 @@ package org.richfaces.application.push.impl;
 
 import java.util.concurrent.ThreadFactory;
 
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.PreDestroyApplicationEvent;
-import javax.faces.event.SystemEvent;
-import javax.faces.event.SystemEventListener;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.PreDestroyApplicationEvent;
+import jakarta.faces.event.SystemEvent;
+import jakarta.faces.event.SystemEventListener;
 
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.application.push.PushContext;
@@ -70,7 +70,7 @@ public class PushContextImpl implements PushContext, SystemEventListener {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.application.push.PushContext#init(javax.faces.context.FacesContext)
+     * @see org.richfaces.application.push.PushContext#init(jakarta.faces.context.FacesContext)
      */
     @Override
     public void init(FacesContext facesContext) {

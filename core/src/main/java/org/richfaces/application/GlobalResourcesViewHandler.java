@@ -24,15 +24,15 @@ package org.richfaces.application;
 import java.io.ObjectStreamException;
 import java.util.List;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
-import javax.faces.application.ViewHandlerWrapper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.application.ViewHandlerWrapper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.el.BaseReadOnlyValueExpression;

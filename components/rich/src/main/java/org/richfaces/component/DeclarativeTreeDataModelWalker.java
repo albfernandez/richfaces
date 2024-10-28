@@ -23,8 +23,8 @@ package org.richfaces.component;
 
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

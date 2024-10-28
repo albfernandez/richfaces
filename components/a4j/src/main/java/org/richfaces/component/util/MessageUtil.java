@@ -21,8 +21,8 @@
  */
 package org.richfaces.component.util;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 import com.google.common.base.Strings;
 

@@ -27,7 +27,7 @@ import org.richfaces.cdk.annotations.Tag;
  * @author Lukas Macko
  */
 @JsfComponent(tag = @Tag(name="chartXAxis"))
-public abstract class AbstractChartXAxis extends javax.faces.component.UIComponentBase implements AxisAttributes{
+public abstract class AbstractChartXAxis extends jakarta.faces.component.UIComponentBase implements AxisAttributes{
 
     public static final String COMPONENT_TYPE = "org.richfaces.ui.output.XAxis";
     public static final String COMPONENT_FAMILY = "org.richfaces.ui.output.ChartFamily";

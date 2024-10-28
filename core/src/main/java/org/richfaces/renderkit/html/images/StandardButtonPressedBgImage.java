@@ -23,7 +23,7 @@ package org.richfaces.renderkit.html.images;
 
 import org.richfaces.skin.Skin;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 public class StandardButtonPressedBgImage extends BaseControlBackgroundImage {
     @Override

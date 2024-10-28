@@ -24,8 +24,8 @@ package org.richfaces.el;
 import java.beans.FeatureDescriptor;
 import java.util.Iterator;
 
-import javax.el.ELContext;
-import javax.el.ELResolver;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
 
 /**
  * @author Nick Belaevski
@@ -44,10 +44,11 @@ public class ELResolverWrapper extends ELResolver {
         return resolver.getCommonPropertyType(context, base);
     }
 
-
+    /*MZ TODO
     public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
         return resolver.getFeatureDescriptors(context, base);
     }
+    */
 
  
     public Class<?> getType(ELContext context, Object base, Object property) {

@@ -25,8 +25,10 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collection;
 
+import org.reflections.scanners.Scanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ConfigurationBuilder;
@@ -90,7 +92,10 @@ public class DynamicResourcesScanner implements ResourcesScanner {
         }
 
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder().setUrls(urls);
-        configurationBuilder.setScanners(new SubTypesScanner(), new TypeAnnotationsScanner(), new MarkerResourcesScanner());
+        
+        Scanner[] scanners = {new SubTypesScanner(), new TypeAnnotationsScanner(), new MarkerResourcesScanner()};
+        
+        configurationBuilder.setScanners();
 
         ReflectionsExt refl = new ReflectionsExt(configurationBuilder);
         Collection<Class<?>> allClasses = Sets.newHashSet();

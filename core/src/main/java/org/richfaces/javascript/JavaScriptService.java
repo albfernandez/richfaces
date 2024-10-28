@@ -21,7 +21,7 @@
  */
 package org.richfaces.javascript;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_4_0">

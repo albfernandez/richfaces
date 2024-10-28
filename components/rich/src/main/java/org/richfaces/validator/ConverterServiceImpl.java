@@ -25,24 +25,24 @@
  */
 package org.richfaces.validator;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.BigDecimalConverter;
-import javax.faces.convert.BigIntegerConverter;
-import javax.faces.convert.BooleanConverter;
-import javax.faces.convert.ByteConverter;
-import javax.faces.convert.CharacterConverter;
-import javax.faces.convert.Converter;
-import javax.faces.convert.DateTimeConverter;
-import javax.faces.convert.DoubleConverter;
-import javax.faces.convert.EnumConverter;
-import javax.faces.convert.FloatConverter;
-import javax.faces.convert.IntegerConverter;
-import javax.faces.convert.LongConverter;
-import javax.faces.convert.NumberConverter;
-import javax.faces.convert.ShortConverter;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.BigDecimalConverter;
+import jakarta.faces.convert.BigIntegerConverter;
+import jakarta.faces.convert.BooleanConverter;
+import jakarta.faces.convert.ByteConverter;
+import jakarta.faces.convert.CharacterConverter;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.DateTimeConverter;
+import jakarta.faces.convert.DoubleConverter;
+import jakarta.faces.convert.EnumConverter;
+import jakarta.faces.convert.FloatConverter;
+import jakarta.faces.convert.IntegerConverter;
+import jakarta.faces.convert.LongConverter;
+import jakarta.faces.convert.NumberConverter;
+import jakarta.faces.convert.ShortConverter;
 
 /**
  * @author asmirnov
@@ -54,8 +54,8 @@ public class ConverterServiceImpl extends FacesServiceBase<Converter> implements
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.validator.FacesConverterService#getConverterDescription(javax.faces.context.FacesContext,
-     * javax.faces.convert.Converter)
+     * @see org.richfaces.validator.FacesConverterService#getConverterDescription(jakarta.faces.context.FacesContext,
+     * jakarta.faces.convert.Converter)
      */
     public ConverterDescriptor getConverterDescription(FacesContext context, EditableValueHolder input, Converter converter,
         String converterMessage) {

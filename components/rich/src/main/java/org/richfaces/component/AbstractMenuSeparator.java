@@ -1,7 +1,7 @@
 package org.richfaces.component;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;

@@ -8,11 +8,11 @@
 <script>
 	exportPdfUtils.initManualTest();
 
-	CKEDITOR.replace( 'editor1', exportPdfUtils.getDefaultConfig( 'manual' ) );
+	CKEDITOR.replace('editor1', exportPdfUtils.getDefaultConfig('manual'));
 
-	var editor2 = CKEDITOR.replace( 'editor2', exportPdfUtils.getDefaultConfig( 'manual' ) );
+	var editor2 = CKEDITOR.replace('editor2', exportPdfUtils.getDefaultConfig('manual'));
 
-	editor2.on( 'exportPdf', function( evt ) {
+	editor2.on('exportPdf', function (evt) {
 		evt.data.html = '';
-	}, null, null, 16 );
+	}, null, null, 16);
 </script>

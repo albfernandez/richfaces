@@ -26,12 +26,12 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.behavior.ClientBehaviorBase;
-import javax.faces.render.Renderer;
-import javax.faces.view.facelets.BehaviorHandler;
-import javax.faces.view.facelets.ComponentHandler;
-import javax.faces.view.facelets.ConverterHandler;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.behavior.ClientBehaviorBase;
+import jakarta.faces.render.Renderer;
+import jakarta.faces.view.facelets.BehaviorHandler;
+import jakarta.faces.view.facelets.ComponentHandler;
+import jakarta.faces.view.facelets.ConverterHandler;
 import javax.xml.validation.ValidatorHandler;
 
 import org.richfaces.cdk.annotations.TagType;
@@ -649,10 +649,10 @@ public class RichFaces5Validator implements ModelValidator {
             attribute.setDefaultValue(attribute.getType().getDefaultValue());
         }
         // Check binding properties.
-        if ("javax.faces.el.MethodBinding".equals(attribute.getType().getName())) {
+        if ("jakarta.faces.el.MethodBinding".equals(attribute.getType().getName())) {
             attribute.setBinding(true);
             attribute.setBindingAttribute(true);
-        } else if ("javax.el.MethodExpression".equals(attribute.getType().getName())) {
+        } else if ("jakarta.el.MethodExpression".equals(attribute.getType().getName())) {
             attribute.setBindingAttribute(true);
         }
         // if(attribute.isBindingAttribute() && attribute.getSignature().isEmpty() && !attribute.isHidden()) {

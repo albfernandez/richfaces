@@ -22,7 +22,7 @@ package org.richfaces.component;
 
 import java.util.List;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import org.junit.Assert;
 import org.junit.Before;

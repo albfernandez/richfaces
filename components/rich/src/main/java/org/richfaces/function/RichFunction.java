@@ -22,9 +22,9 @@ package org.richfaces.function;
 
 import java.util.Set;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.cdk.annotations.Function;

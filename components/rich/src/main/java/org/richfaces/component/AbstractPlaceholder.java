@@ -21,15 +21,15 @@
  */
 package org.richfaces.component;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PostAddToViewEvent;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -47,7 +47,7 @@ import com.google.common.base.Strings;
  * input or textarea element whenever the element is empty and does not have focus. This provides a hint to the user as to what
  * the input or textarea element is used for, or the type of input that is required.
  */
-@JsfComponent(tag = @Tag(name = "placeholder", type = TagType.Facelets), renderer = @JsfRenderer(family = AbstractPlaceholder.COMPONENT_FAMILY, type = PlaceholderRendererBase.RENDERER_TYPE), attributes = { "javax.faces.component.ValueHolder.xml" })
+@JsfComponent(tag = @Tag(name = "placeholder", type = TagType.Facelets), renderer = @JsfRenderer(family = AbstractPlaceholder.COMPONENT_FAMILY, type = PlaceholderRendererBase.RENDERER_TYPE), attributes = { "jakarta.faces.component.ValueHolder.xml" })
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractPlaceholder extends UIOutput implements StyleClassProps {
     // ------------------------------ FIELDS ------------------------------

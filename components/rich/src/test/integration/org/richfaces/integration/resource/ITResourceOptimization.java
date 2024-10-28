@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 import java.net.URL;
 import java.util.List;
 
-import javax.faces.application.ProjectStage;
+import jakarta.faces.application.ProjectStage;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;

@@ -30,9 +30,9 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.FacesContext;
 
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
@@ -125,6 +125,10 @@ public class UserResourcesTestCase {
         environment = FacesEnvironment.createEnvironment();
         environment.getServer().addInitParameter("org.richfaces.resourceDefaultVersion", PACKAGE_VERSION);
         environment.getServer().addInitParameter("org.richfaces.push.jms.enabled", "false");
+        
+        //MZ - arbitrary content to avoid null UIViewRoot
+        environment.withResource("/test.xhtml", getClass().getResource("/org/richfaces/context/ComponentIdResolver.xhtml"));
+        
         environment.start();
 
         facesRequest = environment.createFacesRequest();

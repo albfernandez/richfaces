@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

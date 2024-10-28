@@ -28,7 +28,7 @@ import static org.richfaces.context.IdParser.parse;
 
 import java.util.HashMap;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Mock;

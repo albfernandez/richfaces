@@ -23,7 +23,7 @@ package org.richfaces.resource.external;
 
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
 
@@ -37,7 +37,7 @@ public class ResourceTrackerForMojarra implements ResourceTracker {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.resource.external.ExternalResourceTracker#isResourceRenderered(javax.faces.context.FacesContext,
+     * @see org.richfaces.resource.external.ExternalResourceTracker#isResourceRenderered(jakarta.faces.context.FacesContext,
      * org.richfaces.resource.ResourceKey)
      */
     @Override
@@ -52,7 +52,7 @@ public class ResourceTrackerForMojarra implements ResourceTracker {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.resource.external.ExternalResourceTracker#markResourceRendered(javax.faces.context.FacesContext,
+     * @see org.richfaces.resource.external.ExternalResourceTracker#markResourceRendered(jakarta.faces.context.FacesContext,
      * org.richfaces.resource.ResourceKey)
      */
     @Override

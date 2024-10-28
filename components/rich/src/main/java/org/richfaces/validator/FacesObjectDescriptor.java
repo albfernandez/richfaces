@@ -38,7 +38,7 @@ import org.richfaces.javascript.Message;
 public interface FacesObjectDescriptor {
     /**
      * <p class="changed_added_4_0">
-     * Returns JSF {@link javax.faces.validator.Validator} implementation class or JSR-303 annotation class.
+     * Returns JSF {@link jakarta.faces.validator.Validator} implementation class or JSR-303 annotation class.
      * </p>
      */
     Class<?> getImplementationClass();

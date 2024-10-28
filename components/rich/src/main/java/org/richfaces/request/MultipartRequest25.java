@@ -26,7 +26,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.richfaces.exception.FileUploadException;
 import org.richfaces.log.Logger;

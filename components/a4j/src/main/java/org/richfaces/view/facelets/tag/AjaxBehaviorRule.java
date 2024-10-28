@@ -21,12 +21,12 @@
  */
 package org.richfaces.view.facelets.tag;
 
-import javax.el.MethodExpression;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.Metadata;
-import javax.faces.view.facelets.MetadataTarget;
-import javax.faces.view.facelets.TagAttribute;
+import jakarta.el.MethodExpression;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.faces.view.facelets.FaceletContext;
+import jakarta.faces.view.facelets.Metadata;
+import jakarta.faces.view.facelets.MetadataTarget;
+import jakarta.faces.view.facelets.TagAttribute;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.ajax4jsf.component.behavior.AjaxBehavior;

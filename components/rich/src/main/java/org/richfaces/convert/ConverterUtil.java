@@ -21,10 +21,10 @@
  */
 package org.richfaces.convert;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.IntegerConverter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.IntegerConverter;
 
 import com.google.common.base.Strings;
 

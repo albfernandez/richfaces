@@ -22,8 +22,8 @@
 package org.ajax4jsf.component;
 
 /**
- * In the original {@link javax.faces.component.UIData} component, only state for a
- * {@link javax.faces.component.EditableValueHolder} component saved for an iteration. In the Richfaces, we also save state for
+ * In the original {@link jakarta.faces.component.UIData} component, only state for a
+ * {@link jakarta.faces.component.EditableValueHolder} component saved for an iteration. In the Richfaces, we also save state for
  * a components implemented this interface.
  *
  * @author asmirnov

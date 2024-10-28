@@ -21,7 +21,7 @@
  */
 package org.richfaces.context;
 
-import javax.faces.component.UIOutput;
+import jakarta.faces.component.UIOutput;
 
 import org.ajax4jsf.component.AjaxOutput;
 
@@ -35,7 +35,7 @@ public class AjaxOutputComponentImpl extends UIOutput implements AjaxOutput {
     }
 
     public AjaxOutputComponentImpl() {
-        setRendererType("javax.faces.Text");
+        setRendererType("jakarta.faces.Text");
     }
 
     public boolean isAjaxRendered() {

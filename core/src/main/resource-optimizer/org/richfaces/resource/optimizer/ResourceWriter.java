@@ -25,7 +25,7 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 
 /**
  * @author Nick Belaevski

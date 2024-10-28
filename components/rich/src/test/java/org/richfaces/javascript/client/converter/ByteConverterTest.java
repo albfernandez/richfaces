@@ -5,8 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.faces.convert.ByteConverter;
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.ByteConverter;
+import jakarta.faces.convert.Converter;
 
 import org.junit.runners.Parameterized.Parameters;
 import org.richfaces.javascript.client.RunParameters;

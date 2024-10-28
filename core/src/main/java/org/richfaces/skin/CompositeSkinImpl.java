@@ -24,7 +24,7 @@ package org.richfaces.skin;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;

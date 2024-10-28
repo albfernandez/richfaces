@@ -30,7 +30,7 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
-import javax.faces.context.PartialViewContext;
+import jakarta.faces.context.PartialViewContext;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;

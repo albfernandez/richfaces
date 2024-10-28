@@ -30,13 +30,13 @@
     <parent>
         <groupId>com.github.albfernandez.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>4.6.22-SNAPSHOT</version>
+        <version>10.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.github.albfernandez.richfaces</groupId>
     <artifactId>richfaces-components-parent</artifactId>
-    <version>4.6.22-SNAPSHOT</version>
+    <version>10.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>RichFaces UI Components Parent</name>
 
@@ -46,7 +46,7 @@
     </modules>
 
     <properties>
-        <version.richfaces>4.6.22-SNAPSHOT</version.richfaces>
+        <version.richfaces>10.0.1-SNAPSHOT</version.richfaces>
     </properties>
 
     <build>
@@ -77,11 +77,13 @@
                         </execution>
                     </executions>
                     <dependencies>
+                    	<!--MZ
                         <dependency>
                             <groupId>javax.xml.bind</groupId>
                             <artifactId>jaxb-api</artifactId>
                             <version>2.3.1</version>
                         </dependency>
+                        -->
                     </dependencies>
                 </plugin>
                 <plugin>
@@ -180,7 +182,7 @@
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -217,7 +219,8 @@
             <id>jsf_ri</id>
             <activation>
                 <property>
-                    <name>!jsf_profile</name>
+                    <name>jsf_profile</name>
+                    <value>jsfri</value>
                 </property>
             </activation>
             <dependencies>
@@ -255,8 +258,7 @@
             <id>myfaces</id>
             <activation>
                 <property>
-                    <name>jsf_profile</name>
-                    <value>myfaces</value>
+                    <name>!jsf_profile</name>
                 </property>
             </activation>
             <properties>
@@ -268,12 +270,10 @@
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-api</artifactId>
                     <scope>compile</scope>
-                    <optional>true</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
-                    <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>

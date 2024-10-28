@@ -40,29 +40,28 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
-import javax.faces.application.Application;
-import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.html.HtmlOutputText;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sun.faces.component.visit.PartialVisitContext;
+import jakarta.el.ELContext;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.ValueExpression;
+import jakarta.faces.application.Application;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.html.HtmlOutputText;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitHint;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+
 
 /**
  * Tested view structure:
@@ -311,6 +310,10 @@ public class ExtendedPartialVisitContextTest {
     public void setUp() throws Exception {
         environment = FacesEnvironment.createEnvironment();
         environment.getServer().addInitParameter("org.richfaces.push.jms.enabled", "false");
+        
+        //MZ - arbitrary content to avoid null UIViewRoot
+        environment.withResource("/test.xhtml", getClass().getResource("/org/richfaces/context/ComponentIdResolver.xhtml"));
+        
         environment.start();
 
         facesRequest = environment.createFacesRequest();

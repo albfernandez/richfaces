@@ -23,7 +23,7 @@ package org.richfaces.cache;
 
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * CacheFactory is a service provider specific interface. Service provider should implement CacheFactory to provide the

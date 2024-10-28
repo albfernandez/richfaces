@@ -21,7 +21,7 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UISelectOne;
+import jakarta.faces.component.UISelectOne;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;

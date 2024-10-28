@@ -23,7 +23,7 @@ package org.richfaces.model;
 
 import java.io.Serializable;
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 
 /**
  * @author Konstantin Mishin

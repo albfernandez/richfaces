@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.faces.webapp.FacesServlet;
+import jakarta.faces.webapp.FacesServlet;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -98,7 +98,7 @@ public class BaseDeployment {
             .welcomeFile("faces/index.xhtml")
             .up()
             .getOrCreateContextParam()
-            .paramName("javax.faces.PROJECT_STAGE")
+            .paramName("jakarta.faces.PROJECT_STAGE")
             .paramValue("Development")
             .up()
             .getOrCreateContextParam()
@@ -251,8 +251,8 @@ public class BaseDeployment {
 
         addMavenDependency("org.jboss.weld.servlet:weld-servlet");
 
-        addMavenDependency("javax.annotation:jsr250-api:1.0");
-        addMavenDependency("javax.servlet:jstl:1.2");
+        addMavenDependency("jakarta.annotation:jakarta.annotation-api:3.0.0");
+        addMavenDependency("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2");
 
         webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {

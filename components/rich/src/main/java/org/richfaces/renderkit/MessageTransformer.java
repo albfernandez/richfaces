@@ -1,6 +1,6 @@
 package org.richfaces.renderkit;
 
-import javax.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage;
 
 import com.google.common.base.Function;
 

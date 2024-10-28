@@ -24,10 +24,10 @@ package org.richfaces.ehcache;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.cache.Cache;
 import org.richfaces.cache.CacheManager;

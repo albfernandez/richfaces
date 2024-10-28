@@ -27,7 +27,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.servlet.jsp.jstl.core.LoopTagStatus;
 
 /**
  * <p>
@@ -184,47 +183,48 @@ public class ForEachLoop<T> implements Iterable<T> {
         }
     }
 
+    
     /**
      * Provides the functionality of {@link LoopTagStatus} for state of iteration.
      */
-    public class Status implements LoopTagStatus {
+    public class Status {
 
-        @Override
+        //MZ @Override
         public Object getCurrent() {
             return currentElement;
         }
 
-        @Override
+        //MZ @Override
         public int getIndex() {
             return index;
         }
 
-        @Override
+        //MZ @Override
         public int getCount() {
             return count;
         }
 
-        @Override
+        //MZ @Override
         public boolean isFirst() {
             return count == 1;
         }
 
-        @Override
+        //MZ @Override
         public boolean isLast() {
             return !stateAwareIterator.hasNext();
         }
 
-        @Override
+        //MZ @Override
         public Integer getBegin() {
             return begin;
         }
 
-        @Override
+        //MZ @Override
         public Integer getEnd() {
             return end;
         }
 
-        @Override
+        //MZ @Override
         public Integer getStep() {
             return step;
         }

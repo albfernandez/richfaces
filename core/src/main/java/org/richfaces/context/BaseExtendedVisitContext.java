@@ -30,13 +30,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitHint;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.util.SeparatorChar;
 
@@ -196,7 +196,7 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.component.visit.VisitContextWrapper#getSubtreeIdsToVisit(javax.faces.component.UIComponent)
+     * @see jakarta.faces.component.visit.VisitContextWrapper#getSubtreeIdsToVisit(jakarta.faces.component.UIComponent)
      */
     @Override
     public Collection<String> getSubtreeIdsToVisit(UIComponent component) {

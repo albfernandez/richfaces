@@ -32,9 +32,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-import javax.faces.model.DataModelListener;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.DataModelListener;
 
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
@@ -95,7 +95,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.model.ExtendedDataModel#walk(javax.faces.context.FacesContext, org.richfaces.model.DataVisitor,
+     * @see org.richfaces.model.ExtendedDataModel#walk(jakarta.faces.context.FacesContext, org.richfaces.model.DataVisitor,
      * org.richfaces.model.Range, java.lang.Object)
      */
     public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
@@ -117,7 +117,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#getRowCount()
+     * @see jakarta.faces.model.DataModel#getRowCount()
      */
     public int getRowCount() {
         if (rowKeys == null) {
@@ -130,7 +130,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#getRowData()
+     * @see jakarta.faces.model.DataModel#getRowData()
      */
     public Object getRowData() {
         return originalModel.getRowData();
@@ -139,7 +139,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#getRowIndex()
+     * @see jakarta.faces.model.DataModel#getRowIndex()
      */
     public int getRowIndex() {
         return rowKeys.indexOf(originalModel.getRowKey());
@@ -148,7 +148,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#getWrappedData()
+     * @see jakarta.faces.model.DataModel#getWrappedData()
      */
     public Object getWrappedData() {
         return originalModel.getWrappedData();
@@ -157,7 +157,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#isRowAvailable()
+     * @see jakarta.faces.model.DataModel#isRowAvailable()
      */
     public boolean isRowAvailable() {
         return originalModel.isRowAvailable();
@@ -166,7 +166,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#setRowIndex(int)
+     * @see jakarta.faces.model.DataModel#setRowIndex(int)
      */
     public void setRowIndex(int rowIndex) {
         Object originalKey = null;
@@ -179,7 +179,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#setWrappedData(java.lang.Object)
+     * @see jakarta.faces.model.DataModel#setWrappedData(java.lang.Object)
      */
     public void setWrappedData(Object data) {
         originalModel.setWrappedData(data);

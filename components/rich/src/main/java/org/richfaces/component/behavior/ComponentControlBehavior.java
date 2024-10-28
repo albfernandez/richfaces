@@ -24,7 +24,7 @@ package org.richfaces.component.behavior;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;

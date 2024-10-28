@@ -23,7 +23,7 @@ package org.richfaces.resource;
 
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 public final class DefaultResourceCodec implements ResourceCodec {
     private static final String VERSION_PARAM = "v";

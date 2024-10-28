@@ -156,7 +156,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
     rf.cleanDom = function(source) {
         var e = (typeof source == "string") ? document.getElementById(source) : $('body').get(0);
-        if (source == "javax.faces.ViewRoot") {
+        if (source == "jakarta.faces.ViewRoot") {
             e = $('body').get(0);
         }
         if (e) {
@@ -195,7 +195,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
                         var input = $("input[name='" + parameterName + "']", form);
                         if (input.length == 0) {
                             var newInput = $("<input />").attr({type: 'hidden', name: parameterName, value: parameterValue});
-                            if (parameterName === 'javax.faces.portletbridge.STATE_ID' /* fix for fileUpload in portlets */) {
+                            if (parameterName === 'jakarta.faces.portletbridge.STATE_ID' /* fix for fileUpload in portlets */) {
                                 input = newInput.prependTo(form);
                             } else {
                                 input = newInput.appendTo(form);
@@ -574,7 +574,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         var sourceElement = getSourceElement(source);
 
         // event source re-targeting finds a RichFaces component root
-        // to setup javax.faces.source correctly - RF-12616)
+        // to setup jakarta.faces.source correctly - RF-12616)
         if (sourceElement) {
             if (options.parameters && options.parameters["org.richfaces.ajax.component"] == sourceId ||
                     source == sourceId) {
@@ -615,12 +615,12 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
                 if (parameters.hasOwnProperty(i)) {
                     value = parameters[i];
                     
-                    if (i !== "javax.faces.source" &&
-                        i !== "javax.faces.partial.event" &&
-                        i !== "javax.faces.partial.execute" &&
-                        i !== "javax.faces.partial.render" &&
-                        i !== "javax.faces.partial.ajax" &&
-                        i !== "javax.faces.behavior.event" &&
+                    if (i !== "jakarta.faces.source" &&
+                        i !== "jakarta.faces.partial.event" &&
+                        i !== "jakarta.faces.partial.execute" &&
+                        i !== "jakarta.faces.partial.render" &&
+                        i !== "jakarta.faces.partial.ajax" &&
+                        i !== "jakarta.faces.behavior.event" &&
                         i !== "queueId") {                             
                             input = document.createElement("input");
                             input.setAttribute("type", "hidden");

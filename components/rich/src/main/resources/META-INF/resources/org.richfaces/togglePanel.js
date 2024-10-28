@@ -20,436 +20,436 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-(function ($, rf) {
+(function($, rf) {
 
-    rf.ui = rf.ui || {};
+	rf.ui = rf.ui || {};
 
-    /* SIMPLE INNER CLASS for handle switch operation*/
-    function SwitchItems(comp) {
-        this.comp = comp;
-    }
+	/* SIMPLE INNER CLASS for handle switch operation*/
+	function SwitchItems(comp) {
+		this.comp = comp;
+	}
 
-    SwitchItems.prototype = {
+	SwitchItems.prototype = {
 
-        /**
-         * @param {TogglePanelItem} oldPanel
-         * @param {TogglePanelItem} newPanel
-         *
-         * @return {void}
-         * */
-        exec : function (oldPanel, newPanel) {
-            if (newPanel.switchMode == "server") {
-                return this.execServer(oldPanel, newPanel);
-            } else if (newPanel.switchMode == "ajax") {
-                return this.execAjax(oldPanel, newPanel);
-            } else if (newPanel.switchMode == "client") {
-                return this.execClient(oldPanel, newPanel);
-            } else {
-                rf.log.error("SwitchItems.exec : unknown switchMode (" + this.comp.switchMode + ")");
-            }
-        },
+		/**
+		 * @param {TogglePanelItem} oldPanel
+		 * @param {TogglePanelItem} newPanel
+		 *
+		 * @return {void}
+		 * */
+		exec: function(oldPanel, newPanel) {
+			if (newPanel.switchMode == "server") {
+				return this.execServer(oldPanel, newPanel);
+			} else if (newPanel.switchMode == "ajax") {
+				return this.execAjax(oldPanel, newPanel);
+			} else if (newPanel.switchMode == "client") {
+				return this.execClient(oldPanel, newPanel);
+			} else {
+				rf.log.error("SwitchItems.exec : unknown switchMode (" + this.comp.switchMode + ")");
+			}
+		},
 
-        /**
-         * @protected
-         * @param {TogglePanelItem} oldPanel
-         * @param {TogglePanelItem} newPanel
-         *
-         * @return {Boolean} false
-         * */
-        execServer : function (oldPanel, newPanel) {
-            if (oldPanel) {
-                var continueProcess = oldPanel.__leave();
-                if (!continueProcess) {
-                    return false;
-                }
-            }
+		/**
+		 * @protected
+		 * @param {TogglePanelItem} oldPanel
+		 * @param {TogglePanelItem} newPanel
+		 *
+		 * @return {Boolean} false
+		 * */
+		execServer: function(oldPanel, newPanel) {
+			if (oldPanel) {
+				var continueProcess = oldPanel.__leave();
+				if (!continueProcess) {
+					return false;
+				}
+			}
 
-            this.__setActiveItem(newPanel.getName());
+			this.__setActiveItem(newPanel.getName());
 
-            rf.submitForm(this.__getParentForm());
+			rf.submitForm(this.__getParentForm());
 
-            return false;
-        },
+			return false;
+		},
 
-        /**
-         * @protected
-         * @param {TogglePanelItem} oldPanel
-         * @param {TogglePanelItem} newPanel
-         *
-         * @return {Boolean} false
-         * */
-        execAjax : function (oldPanel, newPanel) {
-            var options = $.extend({}, this.comp.options["ajax"], {}/*this.getParameters(newPanel)*/);
+		/**
+		 * @protected
+		 * @param {TogglePanelItem} oldPanel
+		 * @param {TogglePanelItem} newPanel
+		 *
+		 * @return {Boolean} false
+		 * */
+		execAjax: function(oldPanel, newPanel) {
+			var options = $.extend({}, this.comp.options["ajax"], {}/*this.getParameters(newPanel)*/);
 
-            this.__setActiveItem(newPanel.getName());
-            rf.ajax(this.comp.id, null, options);
+			this.__setActiveItem(newPanel.getName());
+			rf.ajax(this.comp.id, null, options);
 
-            if (oldPanel) {
-                this.comp.activeItem = oldPanel.getName();
-            }
+			if (oldPanel) {
+				this.comp.activeItem = oldPanel.getName();
+			}
 
-            return false;
-        },
+			return false;
+		},
 
-        /**
-         * @protected
-         * @param {TogglePanelItem} oldPanel
-         * @param {TogglePanelItem} newPanel
-         *
-         * @return {undefined}
-         *             - false - if process has been terminated
-         *             - true  - in other cases
-         * */
-        execClient : function (oldPanel, newPanel) {
-            if (oldPanel) {
-                var continueProcess = oldPanel.__leave();
-                if (!continueProcess) {
-                    return false;
-                }
-            }
+		/**
+		 * @protected
+		 * @param {TogglePanelItem} oldPanel
+		 * @param {TogglePanelItem} newPanel
+		 *
+		 * @return {undefined}
+		 *             - false - if process has been terminated
+		 *             - true  - in other cases
+		 * */
+		execClient: function(oldPanel, newPanel) {
+			if (oldPanel) {
+				var continueProcess = oldPanel.__leave();
+				if (!continueProcess) {
+					return false;
+				}
+			}
 
-            this.__setActiveItem(newPanel.getName());
+			this.__setActiveItem(newPanel.getName());
 
-            newPanel.__enter();
-            this.comp.__fireItemChange(oldPanel, newPanel);
+			newPanel.__enter();
+			this.comp.__fireItemChange(oldPanel, newPanel);
 
-            return true;
-        },
+			return true;
+		},
 
-        /**
-         * @private
-         * */
-        __getParentForm : function () {
-            return $(rf.getDomElement(this.comp.id)).parents('form:first');
-        },
+		/**
+		 * @private
+		 * */
+		__getParentForm: function() {
+			return $(rf.getDomElement(this.comp.id)).parents('form:first');
+		},
 
-        /**
-         * @private
-         * */
-        __setActiveItem : function (name) {
-            rf.getDomElement(this.__getValueInputId()).value = name;
-            this.comp.activeItem = name;
-        },
+		/**
+		 * @private
+		 * */
+		__setActiveItem: function(name) {
+			rf.getDomElement(this.__getValueInputId()).value = name;
+			this.comp.activeItem = name;
+		},
 
-        /**
-         * @private
-         * */
-        __getValueInputId: function () {
-            return this.comp.id + "-value"
-        }
-    };
+		/**
+		 * @private
+		 * */
+		__getValueInputId: function() {
+			return this.comp.id + "-value"
+		}
+	};
 
-    rf.ui.TogglePanel = rf.BaseComponent.extendClass({
+	rf.ui.TogglePanel = rf.BaseComponent.extendClass({
 
-            // class name
-            name:"TogglePanel",
+		// class name
+		name: "TogglePanel",
 
-            /**
-             * Backing object for rich:togglePanel
-             * 
-             * @extends RichFaces.BaseComponent
-             * @memberOf! RichFaces.ui
-             * @constructs RichFaces.ui.TogglePanel
-             * 
-             * @param componentId {string} component id
-             * @param options {Object} params
-             */
-            init : function (componentId, options) {
-                $super.constructor.call(this, componentId);
-                this.attachToDom();
+		/**
+		 * Backing object for rich:togglePanel
+		 * 
+		 * @extends RichFaces.BaseComponent
+		 * @memberOf! RichFaces.ui
+		 * @constructs RichFaces.ui.TogglePanel
+		 * 
+		 * @param componentId {string} component id
+		 * @param options {Object} params
+		 */
+		init: function(componentId, options) {
+			$super.constructor.call(this, componentId);
+			this.attachToDom();
 
-                this.items = [];
+			this.items = [];
 
-                this.options = $.extend(this.options, options || {});
-                this.activeItem = this.options.activeItem;
+			this.options = $.extend(this.options, options || {});
+			this.activeItem = this.options.activeItem;
 
-                this.__addUserEventHandler("itemchange");
-                this.__addUserEventHandler("beforeitemchange");
-            },
+			this.__addUserEventHandler("itemchange");
+			this.__addUserEventHandler("beforeitemchange");
+		},
 
-            /***************************** Public Methods  ****************************************************************/
+		/***************************** Public Methods  ****************************************************************/
 
-            /**
-             * @method
-             * @name RichFaces.ui.TogglePanel#getSelectedItem
-             *
-             * @return {string} name of current selected panel item
-             */
-            getSelectItem: function () {
-                return this.activeItem;
-            },
+		/**
+		 * @method
+		 * @name RichFaces.ui.TogglePanel#getSelectedItem
+		 *
+		 * @return {string} name of current selected panel item
+		 */
+		getSelectItem: function() {
+			return this.activeItem;
+		},
 
-            /**
-             * Switch to a new item
-             * 
-             * @method
-             * @name RichFaces.ui.TogglePanel#switchToItem
-             *
-             * @param name {string} panel item name to switch
-             *           we can use meta names @first, @prev, @next and @last
-             * @return {Boolean} - false if something wrong and true if all is ok
-             */
-            switchToItem: function (name) {
-                var newPanel = this.getNextItem(name);
-                if (newPanel == null) {
-                    rf.log.warn("TogglePanel.switchToItems(" + name + "): item with name '" + name + "' not found");
-                    return false;
-                }
+		/**
+		 * Switch to a new item
+		 * 
+		 * @method
+		 * @name RichFaces.ui.TogglePanel#switchToItem
+		 *
+		 * @param name {string} panel item name to switch
+		 *           we can use meta names @first, @prev, @next and @last
+		 * @return {Boolean} - false if something wrong and true if all is ok
+		 */
+		switchToItem: function(name) {
+			var newPanel = this.getNextItem(name);
+			if (newPanel == null) {
+				rf.log.warn("TogglePanel.switchToItems(" + name + "): item with name '" + name + "' not found");
+				return false;
+			}
 
-                var oldPanel = this.__getItemByName(this.getSelectItem());
+			var oldPanel = this.__getItemByName(this.getSelectItem());
 
-                var continueProcess = this.__fireBeforeItemChange(oldPanel, newPanel);
-                if (!continueProcess) {
-                    rf.log.warn("TogglePanel.switchToItems(" + name + "): switch has been canceled by beforeItemChange event");
-                    return false
-                }
+			var continueProcess = this.__fireBeforeItemChange(oldPanel, newPanel);
+			if (!continueProcess) {
+				rf.log.warn("TogglePanel.switchToItems(" + name + "): switch has been canceled by beforeItemChange event");
+				return false
+			}
 
-                return this.__itemsSwitcher().exec(oldPanel, newPanel);
-            },
+			return this.__itemsSwitcher().exec(oldPanel, newPanel);
+		},
 
-            /**
-             * Get the next item after given name
-             * 
-             * @method
-             * @name RichFaces.ui.TogglePanel#getNextItem
-             *
-             * @param name {string} name of TogglePanelItem or meta name (@first | @prev | @next | @last)
-             * @return {TogglePanelItem} null if item not found
-             */
-            getNextItem : function (name) {
-                if (name) {
-                    var newItemIndex = this.__ITEMS_META_NAMES[name];
-                    if (newItemIndex) {
-                        return this.__getItem(newItemIndex(this));
-                    } else {
-                        return this.__getItemByName(name);
-                    }
-                } else {
-                    return this.__getItemByName(this.nextItem());
-                }
-            },
+		/**
+		 * Get the next item after given name
+		 * 
+		 * @method
+		 * @name RichFaces.ui.TogglePanel#getNextItem
+		 *
+		 * @param name {string} name of TogglePanelItem or meta name (@first | @prev | @next | @last)
+		 * @return {TogglePanelItem} null if item not found
+		 */
+		getNextItem: function(name) {
+			if (name) {
+				var newItemIndex = this.__ITEMS_META_NAMES[name];
+				if (newItemIndex) {
+					return this.__getItem(newItemIndex(this));
+				} else {
+					return this.__getItemByName(name);
+				}
+			} else {
+				return this.__getItemByName(this.nextItem());
+			}
+		},
 
-            /*
-             * please, remove this method when client side ajax events will be added
-             *
-             */
-            onCompleteHandler : function (newItemName) {
-                var oldItem = this.__getItemByName(this.activeItem);
-                var newItem = this.__getItemByName(newItemName);
+		/*
+		 * please, remove this method when client side ajax events will be added
+		 *
+		 */
+		onCompleteHandler: function(newItemName) {
+			var oldItem = this.__getItemByName(this.activeItem);
+			var newItem = this.__getItemByName(newItemName);
 
-                // Don't do like this and remove it ASAP
-                this.__itemsSwitcher().execClient(oldItem, newItem);
-                $(document.getElementById(newItem.getTogglePanel().id)).trigger("resize");
-            },
+			// Don't do like this and remove it ASAP
+			this.__itemsSwitcher().execClient(oldItem, newItem);
+			$(document.getElementById(newItem.getTogglePanel().id)).trigger("resize");
+		},
 
-            /**
-             * Get all items
-             * 
-             * @method
-             * @name RichFaces.ui.TogglePanel#getItems
-             *
-             * @return {TogglePanelItem[]} all defined panel items
-             */
-            getItems : function () {
-                return this.items;
-            },
+		/**
+		 * Get all items
+		 * 
+		 * @method
+		 * @name RichFaces.ui.TogglePanel#getItems
+		 *
+		 * @return {TogglePanelItem[]} all defined panel items
+		 */
+		getItems: function() {
+			return this.items;
+		},
 
-            /**
-             * Get names of items
-             * 
-             * @method
-             * @name RichFaces.ui.TogglePanel#getItemsNames
-             *
-             * @return {string[]} names of all defined items
-             */
-            getItemsNames: function () {
-                var res = [];
-                for (var i = 0; i < this.items.length; i++) {
-                    res.push(this.items[i].getName());
-                }
+		/**
+		 * Get names of items
+		 * 
+		 * @method
+		 * @name RichFaces.ui.TogglePanel#getItemsNames
+		 *
+		 * @return {string[]} names of all defined items
+		 */
+		getItemsNames: function() {
+			var res = [];
+			for (var i = 0; i < this.items.length; i++) {
+				res.push(this.items[i].getName());
+			}
 
-                return res;
-            },
+			return res;
+		},
 
-            /**
-             * Get the name of the next item
-             * 
-             * @method
-             * @name RichFaces.ui.TogglePanel#nextItem
-             *
-             * @param iteName {string} name of the item for which the next is computed
-             * @return {string} name of next panel item
-             */
-            nextItem: function (itemName) {
-                var itemIndex = this.__getItemIndex(itemName || this.activeItem);
-                if (itemIndex == -1) {
-                    return null;
-                }
+		/**
+		 * Get the name of the next item
+		 * 
+		 * @method
+		 * @name RichFaces.ui.TogglePanel#nextItem
+		 *
+		 * @param iteName {string} name of the item for which the next is computed
+		 * @return {string} name of next panel item
+		 */
+		nextItem: function(itemName) {
+			var itemIndex = this.__getItemIndex(itemName || this.activeItem);
+			if (itemIndex == -1) {
+				return null;
+			}
 
-                return this.__getItemName(itemIndex + 1);
-            },
+			return this.__getItemName(itemIndex + 1);
+		},
 
-            /**
-             * Get the name of the first item
-             * 
-             * @method
-             * @name RichFaces.ui.TogglePanel#firstItem
-             *
-             * @return {string} name of first panel item
-             */
-            firstItem: function () {
-                return this.__getItemName(0);
-            },
+		/**
+		 * Get the name of the first item
+		 * 
+		 * @method
+		 * @name RichFaces.ui.TogglePanel#firstItem
+		 *
+		 * @return {string} name of first panel item
+		 */
+		firstItem: function() {
+			return this.__getItemName(0);
+		},
 
-            /**
-             * Get the name of the last item
-             * 
-             * @method
-             * @name RichFaces.ui.TogglePanel#lastItem
-             *
-             * @return {string} name of last panel item
-             */
-            lastItem: function () {
-                return this.__getItemName(this.items.length - 1);
-            },
+		/**
+		 * Get the name of the last item
+		 * 
+		 * @method
+		 * @name RichFaces.ui.TogglePanel#lastItem
+		 *
+		 * @return {string} name of last panel item
+		 */
+		lastItem: function() {
+			return this.__getItemName(this.items.length - 1);
+		},
 
-            /**
-             * Get the name of the previous items
-             * 
-             * @method
-             * @name TogglePanel#prevItem
-             *
-             * @param iteName {string} name of the item for which the previous is computed
-             * @return {string} name of previous panel item
-             *                  null if it is first item
-             */
-            prevItem: function (itemName) {
-                var itemIndex = this.__getItemIndex(itemName || this.activeItem);
-                if (!this.options.cycledSwitching && itemIndex < 1) {
-                    return null;
-                }
+		/**
+		 * Get the name of the previous items
+		 * 
+		 * @method
+		 * @name TogglePanel#prevItem
+		 *
+		 * @param iteName {string} name of the item for which the previous is computed
+		 * @return {string} name of previous panel item
+		 *                  null if it is first item
+		 */
+		prevItem: function(itemName) {
+			var itemIndex = this.__getItemIndex(itemName || this.activeItem);
+			if (!this.options.cycledSwitching && itemIndex < 1) {
+				return null;
+			}
 
-                return this.__getItemName(itemIndex - 1);
-            },
+			return this.__getItemName(itemIndex - 1);
+		},
 
-            /////////////////////////////////////////////////////////////////////////////////
-            //// Private
-            /////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////
+		//// Private
+		/////////////////////////////////////////////////////////////////////////////////
 
-            /********************* Methods *************************/
+		/********************* Methods *************************/
 
-            __itemsSwitcher : function () {
-                return new SwitchItems(this);
-            },
+		__itemsSwitcher: function() {
+			return new SwitchItems(this);
+		},
 
-            __ITEMS_META_NAMES : (function () {
-                function goFrom(comp, ind, step) {
-                    var res = ind;
-                    while ((!comp.items[res] || comp.items[res].disabled) && res < comp.items.length && res > 0) {
-                        res += step;
-                    }
-                    return res;
-                }
+		__ITEMS_META_NAMES: (function() {
+			function goFrom(comp, ind, step) {
+				var res = ind;
+				while ((!comp.items[res] || comp.items[res].disabled) && res < comp.items.length && res > 0) {
+					res += step;
+				}
+				return res;
+			}
 
 
-                return {
-                    "@first" : function (comp) {
-                        return goFrom(comp, 0, 1);
-                    },
+			return {
+				"@first": function(comp) {
+					return goFrom(comp, 0, 1);
+				},
 
-                    "@prev"  : function (comp) {
-                        return goFrom(comp, parseInt(comp.__getItemIndex(comp.activeItem)) - 1, -1);
-                    },
+				"@prev": function(comp) {
+					return goFrom(comp, parseInt(comp.__getItemIndex(comp.activeItem)) - 1, -1);
+				},
 
-                    "@next"  : function (comp) {
-                        return goFrom(comp, parseInt(comp.__getItemIndex(comp.activeItem)) + 1, 1);
-                    },
+				"@next": function(comp) {
+					return goFrom(comp, parseInt(comp.__getItemIndex(comp.activeItem)) + 1, 1);
+				},
 
-                    "@last"  : function (comp) {
-                        return goFrom(comp, comp.items.length - 1, -1);
-                    }
-                }
-            })(),
+				"@last": function(comp) {
+					return goFrom(comp, comp.items.length - 1, -1);
+				}
+			}
+		})(),
 
-            /**
-             * @private
-             * */
-            __getItemIndex : function (itemName) {
-                var item;
-                for (var i = 0; i < this.items.length; i++) {
-                    item = this.items[i];
-                    if (!item.disabled && item.getName() == itemName) {
-                        return i;
-                    }
-                }
+		/**
+		 * @private
+		 * */
+		__getItemIndex: function(itemName) {
+			var item;
+			for (var i = 0; i < this.items.length; i++) {
+				item = this.items[i];
+				if (!item.disabled && item.getName() == itemName) {
+					return i;
+				}
+			}
 
-                rf.log.info("TogglePanel.getItemIndex: item with name '" + itemName + "' not found");
-                return -1;
-            },
+			rf.log.info("TogglePanel.getItemIndex: item with name '" + itemName + "' not found");
+			return -1;
+		},
 
-            /**
-             * @private
-             * */
-            __addUserEventHandler : function (name) {
-                var handler = this.options["on" + name];
-                if (handler) {
-                    rf.Event.bindById(this.id, name, handler);
-                }
-            },
+		/**
+		 * @private
+		 * */
+		__addUserEventHandler: function(name) {
+			var handler = this.options["on" + name];
+			if (handler) {
+				rf.Event.bindById(this.id, name, handler);
+			}
+		},
 
-            /**
-             * @private
-             * @param {number} index - array index
-             *
-             * @return {TogglePanelItem}
-             *    null - if item not found
-             * */
-            __getItem : function (index) {
-                if (this.options.cycledSwitching) {
-                    var size = this.items.length;
-                    return this.items[(size + index) % size]
-                } else if (index >= 0 && index < this.items.length) {
-                    return this.items[index]
-                } else {
-                    return null;
-                }
-            },
+		/**
+		 * @private
+		 * @param {number} index - array index
+		 *
+		 * @return {TogglePanelItem}
+		 *    null - if item not found
+		 * */
+		__getItem: function(index) {
+			if (this.options.cycledSwitching) {
+				var size = this.items.length;
+				return this.items[(size + index) % size]
+			} else if (index >= 0 && index < this.items.length) {
+				return this.items[index]
+			} else {
+				return null;
+			}
+		},
 
-            __getItemByName : function (name) {
-                return this.__getItem(this.__getItemIndex(name));
-            },
+		__getItemByName: function(name) {
+			return this.__getItem(this.__getItemIndex(name));
+		},
 
-            __getItemName : function (index) {
-                var item = this.__getItem(index);
-                if (item == null) {
-                    return null;
-                }
+		__getItemName: function(index) {
+			var item = this.__getItem(index);
+			if (item == null) {
+				return null;
+			}
 
-                return item.getName();
-            },
+			return item.getName();
+		},
 
-            /**
-             * @private
-             * @memberOf! RichFaces.ui.TogglePanel#
-             * Fire Concealable Event
-             * */
-            __fireItemChange : function (oldItem, newItem) {
-                return new rf.Event.fireById(this.id, "itemchange", {
-                        id: this.id,
-                        oldItem : oldItem,
-                        newItem : newItem
-                    });
-            },
+		/**
+		 * @private
+		 * @memberOf! RichFaces.ui.TogglePanel#
+		 * Fire Concealable Event
+		 * */
+		__fireItemChange: function(oldItem, newItem) {
+			return new rf.Event.fireById(this.id, "itemchange", {
+				id: this.id,
+				oldItem: oldItem,
+				newItem: newItem
+			});
+		},
 
-            __fireBeforeItemChange : function (oldItem, newItem) {
-                return rf.Event.fireById(this.id, "beforeitemchange", {
-                        id: this.id,
-                        oldItem : oldItem,
-                        newItem : newItem
-                    });
-            }
-        });
+		__fireBeforeItemChange: function(oldItem, newItem) {
+			return rf.Event.fireById(this.id, "beforeitemchange", {
+				id: this.id,
+				oldItem: oldItem,
+				newItem: newItem
+			});
+		}
+	});
 
-    // define super class link
-    var $super = rf.ui.TogglePanel.$super;
+	// define super class link
+	var $super = rf.ui.TogglePanel.$super;
 })(RichFaces.jQuery, RichFaces);

@@ -23,7 +23,7 @@ package org.richfaces.resource.mapping;
 
 import java.net.URL;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.webapp.ResourceServlet;

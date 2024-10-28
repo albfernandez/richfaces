@@ -24,8 +24,8 @@ package org.richfaces.component.util;
 
 import java.util.NoSuchElementException;
 
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.util.FastJoiner;
 

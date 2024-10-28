@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
-import javax.servlet.http.Part;
+import jakarta.servlet.http.Part;
 
 import org.richfaces.model.UploadedFile;
 

@@ -1,6 +1,6 @@
 package org.richfaces.validator;
 
-import javax.faces.application.ResourceDependency;
+import jakarta.faces.application.ResourceDependency;
 
 import org.richfaces.javascript.ClientSideScript;
 

@@ -20,7 +20,7 @@
  */
 package org.richfaces.renderkit.util;
 
-import javax.faces.FacesException;
+import jakarta.faces.FacesException;
 
 /**
  * @author Filip Antonov - mailto:fantonov@exadel.com created 08.02.2007

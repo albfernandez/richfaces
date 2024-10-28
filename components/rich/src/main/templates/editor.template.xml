@@ -23,59 +23,65 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
-    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
-    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+	xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+	xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+	xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+	xmlns:javaee="http://java.sun.com/xml/ns/javaee">
 
-    <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.EditorRenderer</cdk:class>
-        <cdk:superclass>org.richfaces.renderkit.EditorRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.Editor</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.EditorRenderer</cdk:renderer-type>
-    </cc:interface>
+	<cc:interface>
+		<cdk:class>org.richfaces.renderkit.html.EditorRenderer</cdk:class>
+		<cdk:superclass>org.richfaces.renderkit.EditorRendererBase</cdk:superclass>
+		<cdk:component-family>org.richfaces.Editor</cdk:component-family>
+		<cdk:renderer-type>org.richfaces.EditorRenderer</cdk:renderer-type>
+	</cc:interface>
 
-    <cc:implementation>
-        <cdk:object name="style" value="#{component.attributes['style']}" />
-        <cdk:object name="textareaStyle" value="#{component.attributes['textareaStyle']}" />
-        <cdk:object name="width" value="#{resolveUnits(component.attributes['width'])}" />
-        <cdk:object name="height" value="#{resolveUnits(component.attributes['height'])}" />
-        <cdk:object name="config" value="#{component.attributes['config']}" />
-        <cdk:object name="configFacet" value="#{component.facets['config']}" type="javax.faces.component.UIComponent" />
-        
-        <div id="#{clientId}" class="rf-ed">
-	        <textarea id="#{clientId}:inp" name="#{clientId}" cdk:passThroughWithExclusions="id readonly style styleClass"
-	                class="#{concatClasses('rf-ed-inp', component.attributes['styleClass'], component.attributes['textareaClass'])}"
-	                readonly="#{component.attributes['readonly'] ? 'readonly' : ''}"
-	                style="#{empty style ? '' : style + '; '}#{empty textareaStyle ? '' : textareaStyle + '; '}width: #{empty width ? DEFAULT_WIDTH : width}; height: #{empty height ? DEFAULT_HEIGHT : height}; ">
-	            #{getInputValue(facesContext, component)}
-	        </textarea>
-	        <script id="#{clientId}Script" type="text/javascript">
-	            <cdk:scriptObject name="options">
-	                <cdk:scriptOption attributes="width height toolbar skin lang style styleClass editorStyle editorClass" />
-	                <cdk:scriptOption wrapper="eventHandler" attributes="onfocus onblur onchange oninit ondirty" />
-	            </cdk:scriptObject>
-	            window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.ckeditor/';
-                
-                (function() {
-                    var options = #{empty toScriptArgs(options) ? 'null' : toScriptArgs(options)};
-                    var config = {
-                    <c:choose>
-                        <c:when test="#{configFacet != null and configFacet.isRendered()}">
-                            <cdk:call expression="configFacet.encodeAll(facesContext)" />
-                        </c:when>
-                        <c:when test="#{not empty config}">
-                            #{config}
-                        </c:when>
-                        <c:otherwise>
-    
-                        </c:otherwise>
-                    </c:choose>
-                    };
-                    
-                    new RichFaces.ui.Editor("#{clientId}", options, config);
-                })();
-	        </script>
-        </div>
-        
-    </cc:implementation>
+	<cc:implementation>
+		<cdk:object name="style" value="#{component.attributes['style']}" />
+		<cdk:object name="textareaStyle"
+			value="#{component.attributes['textareaStyle']}" />
+		<cdk:object name="width"
+			value="#{resolveUnits(component.attributes['width'])}" />
+		<cdk:object name="height"
+			value="#{resolveUnits(component.attributes['height'])}" />
+		<cdk:object name="config" value="#{component.attributes['config']}" />
+		<cdk:object name="configFacet" value="#{component.facets['config']}"
+			type="jakarta.faces.component.UIComponent" />
+
+		<div id="#{clientId}" class="rf-ed">
+			<textarea id="#{clientId}:inp" name="#{clientId}"
+				cdk:passThroughWithExclusions="id readonly style styleClass"
+				class="#{concatClasses('rf-ed-inp', component.attributes['styleClass'], component.attributes['textareaClass'])}"
+				readonly="#{component.attributes['readonly'] ? 'readonly' : ''}"
+				style="#{empty style ? '' : style + '; '}#{empty textareaStyle ? '' : textareaStyle + '; '}width: #{empty width ? DEFAULT_WIDTH : width}; height: #{empty height ? DEFAULT_HEIGHT : height}; ">
+				#{getInputValue(facesContext, component)}
+			</textarea>
+			<script id="#{clientId}Script" type="text/javascript">
+				<cdk:scriptObject name="options">
+					<cdk:scriptOption
+						attributes="width height toolbar skin lang style styleClass editorStyle editorClass" />
+					<cdk:scriptOption wrapper="eventHandler"
+						attributes="onfocus onblur onchange oninit ondirty" />
+				</cdk:scriptObject>
+				window.CKEDITOR_BASEPATH =
+				'#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/jakarta.faces.resource/org.richfaces.ckeditor/';
+				(function() { var options = #{empty toScriptArgs(options) ?
+				'null' : toScriptArgs(options)}; var config = { <c:choose>
+					<c:when
+						test="#{configFacet != null and configFacet.isRendered()}">
+						<cdk:call
+							expression="configFacet.encodeAll(facesContext)" />
+					</c:when>
+					<c:when test="#{not empty config}">
+						#{config}
+					</c:when>
+					<c:otherwise>
+
+					</c:otherwise>
+				</c:choose>
+				}; new RichFaces.ui.Editor("#{clientId}", options, config);
+				})(); </script>
+		</div>
+
+	</cc:implementation>
 </cdk:root>

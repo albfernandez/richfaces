@@ -23,8 +23,8 @@ package org.richfaces.resource.external;
 
 import java.util.Set;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.mapping.ResourcePath;

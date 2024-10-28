@@ -62,7 +62,7 @@ public class ITAjaxCallbacksScope {
     private static void addIndexPage(CoreDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
+        p.head("<h:outputScript name='jsf.js' library='jakarta.faces' />");
         p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
         p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 

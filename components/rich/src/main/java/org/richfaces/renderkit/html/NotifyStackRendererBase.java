@@ -21,8 +21,8 @@
  */
 package org.richfaces.renderkit.html;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
 
 import org.richfaces.renderkit.RendererBase;
 

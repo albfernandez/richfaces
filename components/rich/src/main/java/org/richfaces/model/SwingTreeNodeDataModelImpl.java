@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.Converter;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.convert.IntegerSequenceRowKeyConverter;

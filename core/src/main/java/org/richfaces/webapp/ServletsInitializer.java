@@ -23,9 +23,9 @@ package org.richfaces.webapp;
 
 import java.util.Set;
 
-import javax.servlet.ServletContainerInitializer;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletContainerInitializer;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

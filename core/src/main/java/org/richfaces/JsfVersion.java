@@ -37,11 +37,11 @@ public enum JsfVersion {
      */
     private static JsfVersion detectVersion() {
         try {
-            Class.forName("javax.faces.lifecycle.ClientWindow");
+            Class.forName("jakarta.faces.lifecycle.ClientWindow");
             return JSF_2_2;
         } catch (ClassNotFoundException e1) {
             try {
-                Class.forName("javax.faces.view.facelets.FaceletCacheFactory");
+                Class.forName("jakarta.faces.view.facelets.FaceletCacheFactory");
                 return JSF_2_1;
             } catch (ClassNotFoundException e2) {
                 return JSF_2_0;

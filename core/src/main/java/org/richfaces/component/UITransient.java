@@ -30,23 +30,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.UINamingContainer;
-import javax.faces.component.UniqueIdVendor;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.FacesListener;
-import javax.faces.event.SystemEvent;
-import javax.faces.event.SystemEventListener;
-import javax.faces.render.Renderer;
-
 import org.richfaces.renderkit.html.ScriptsRenderer;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.component.UniqueIdVendor;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.FacesListener;
+import jakarta.faces.event.SystemEvent;
+import jakarta.faces.event.SystemEventListener;
+import jakarta.faces.render.Renderer;
 
 public abstract class UITransient extends UIComponentBase {
     private String id;
@@ -85,18 +85,20 @@ public abstract class UITransient extends UIComponentBase {
         return attributesMap;
     }
 
+    /*MZ
     @SuppressWarnings("deprecation")
     @Override
-    public javax.faces.el.ValueBinding getValueBinding(String name) {
+    public jakarta.faces.el.ValueBinding getValueBinding(String name) {
         return null;
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    public void setValueBinding(String name, javax.faces.el.ValueBinding binding) {
+    public void setValueBinding(String name, jakarta.faces.el.ValueBinding binding) {
         // do nothing
 
     }
+	*/
 
     @Override
     public ValueExpression getValueExpression(String name) {

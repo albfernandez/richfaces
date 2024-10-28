@@ -21,8 +21,8 @@
  */
 package org.ajax4jsf.model;
 
-import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.DataModel;
 
 /**
  * Extesion for {@link DataModel} , for support complex data structure, like tree, spreadsheet etc in iterable components.
@@ -39,7 +39,7 @@ public abstract class ExtendedDataModel<E> extends DataModel<E> {
      * <ol>
      * <li>key must be {@link java.io.Serializable}.</li>
      * <li>{@link Object#toString()} method must return representation compatible with
-     * {@link javax.faces.component.UIComponent#getClientId(javax.faces.context.FacesContext)}, as far as this string will be
+     * {@link jakarta.faces.component.UIComponent#getClientId(jakarta.faces.context.FacesContext)}, as far as this string will be
      * appended to clientId of iterator component.</li>
      * </ol>
      *

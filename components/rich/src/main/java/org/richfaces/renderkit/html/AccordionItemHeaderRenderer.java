@@ -7,8 +7,8 @@ import static org.richfaces.renderkit.html.DivPanelRenderer.attributeAsString;
 
 import java.io.IOException;
 
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractAccordionItem;
 import org.richfaces.component.AbstractTogglePanelTitledItem;

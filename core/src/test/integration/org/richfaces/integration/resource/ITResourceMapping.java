@@ -118,7 +118,7 @@ public class ITResourceMapping {
         WebElement element = driver.findElement(By.cssSelector("head > link[rel=stylesheet]"));
         String href = element.getAttribute("href");
 
-        assertThat(href, containsString("/javax.faces.resource/relocated.css"));
+        assertThat(href, containsString("/jakarta.faces.resource/relocated.css"));
     }
 
     @Test
@@ -133,7 +133,7 @@ public class ITResourceMapping {
         WebElement element = elements.get(0);
         String href = element.getAttribute("href");
 
-        assertTrue("href must contain aggregated.css resource path: " + href, href.contains("/javax.faces.resource/aggregated.css"));
+        assertTrue("href must contain aggregated.css resource path: " + href, href.contains("/jakarta.faces.resource/aggregated.css"));
     }
 
     @Test
@@ -148,6 +148,6 @@ public class ITResourceMapping {
         WebElement element = elements.get(0);
         String src = element.getAttribute("src");
 
-        assertTrue("src must contain aggregated.js resource path: " + src, src.contains("/javax.faces.resource/aggregated.js"));
+        assertTrue("src must contain aggregated.js resource path: " + src, src.contains("/jakarta.faces.resource/aggregated.js"));
     }
 }

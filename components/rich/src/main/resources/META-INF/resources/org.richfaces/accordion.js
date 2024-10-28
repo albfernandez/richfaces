@@ -20,58 +20,58 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-(function ($, rf) {
+(function($, rf) {
 
-    rf.ui = rf.ui || {};
+	rf.ui = rf.ui || {};
 
-    rf.ui.Accordion = rf.ui.TogglePanel.extendClass({
-            // class name
-            name:"Accordion",
+	rf.ui.Accordion = rf.ui.TogglePanel.extendClass({
+		// class name
+		name: "Accordion",
 
-            /**
-             * Backing object for rich:accordion
-             * 
-             * @extends RichFaces.ui.TogglePanel
-             * @memberOf! RichFaces.ui
-             *
-             * @constructs RichFaces.ui.Accordion
-             * @param {string} componentId - component id
-             * @param {Object} options - params
-             * */
-            init : function (componentId, options) {
-                $super.constructor.call(this, componentId, options);
-                this.items = [];
+		/**
+		 * Backing object for rich:accordion
+		 * 
+		 * @extends RichFaces.ui.TogglePanel
+		 * @memberOf! RichFaces.ui
+		 *
+		 * @constructs RichFaces.ui.Accordion
+		 * @param {string} componentId - component id
+		 * @param {Object} options - params
+		 * */
+		init: function(componentId, options) {
+			$super.constructor.call(this, componentId, options);
+			this.items = [];
 
-                this.isKeepHeight = options["isKeepHeight"] || false
-            },
+			this.isKeepHeight = options["isKeepHeight"] || false
+		},
 
-            /***************************** Public Methods  ****************************************************************/
+		/***************************** Public Methods  ****************************************************************/
 
-            getHeight : function (recalculate) {
-                if (recalculate || !this.__height) {
-                    this.__height = $(rf.getDomElement(this.id)).outerHeight(true)
-                }
+		getHeight: function(recalculate) {
+			if (recalculate || !this.__height) {
+				this.__height = $(rf.getDomElement(this.id)).outerHeight(true)
+			}
 
-                return this.__height;
-            },
+			return this.__height;
+		},
 
-            getInnerHeight : function (recalculate) {
-                if (recalculate || !this.__innerHeight) {
-                    this.__innerHeight = $(rf.getDomElement(this.id)).innerHeight()
-                }
+		getInnerHeight: function(recalculate) {
+			if (recalculate || !this.__innerHeight) {
+				this.__innerHeight = $(rf.getDomElement(this.id)).innerHeight()
+			}
 
-                return this.__innerHeight;
-            },
+			return this.__innerHeight;
+		},
 
-            /***************************** Private Methods ********************************************************/
+		/***************************** Private Methods ********************************************************/
 
 
-            destroy: function () {
-                rf.Event.unbindById(this.id, "." + this.namespace);
-                $super.destroy.call(this);
-            }
-        });
+		destroy: function() {
+			rf.Event.unbindById(this.id, "." + this.namespace);
+			$super.destroy.call(this);
+		}
+	});
 
-    // define super class link
-    var $super = rf.ui.Accordion.$super;
+	// define super class link
+	var $super = rf.ui.Accordion.$super;
 })(RichFaces.jQuery, RichFaces);

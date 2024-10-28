@@ -21,7 +21,7 @@
  */
 package org.richfaces.model;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import com.google.common.base.MoreObjects.ToStringHelper;
 

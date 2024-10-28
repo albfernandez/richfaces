@@ -21,9 +21,9 @@
  */
 package org.richfaces.event;
 
-import javax.faces.component.UIComponent;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.FacesListener;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.FacesListener;
 
 /**
  * <p>
@@ -49,7 +49,7 @@ public class ItemChangeEvent extends FacesEvent {
      * </p>
      *
      * <p>
-     * The default {@link javax.faces.event.PhaseId} for this event is {@link javax.faces.event.PhaseId#ANY_PHASE}.
+     * The default {@link jakarta.faces.event.PhaseId} for this event is {@link jakarta.faces.event.PhaseId#ANY_PHASE}.
      * </p>
      *
      * @param component Source {@link UIComponent} for this event
@@ -94,7 +94,7 @@ public class ItemChangeEvent extends FacesEvent {
     }
 
     /**
-     * @throws javax.faces.event.AbortProcessingException {@inheritDoc}
+     * @throws jakarta.faces.event.AbortProcessingException {@inheritDoc}
      */
     @Override
     public void processListener(FacesListener listener) {

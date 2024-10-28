@@ -23,7 +23,7 @@ package org.richfaces.resource;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.application.CommonComponentsConfiguration;
 

@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.ImageType;

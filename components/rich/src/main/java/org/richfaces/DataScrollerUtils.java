@@ -28,10 +28,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.faces.FacesException;
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIData;
 
 import org.richfaces.component.AbstractDataScroller;
 import org.richfaces.component.UIDataAdaptor;

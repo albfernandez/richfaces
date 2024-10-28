@@ -26,8 +26,8 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Sets;

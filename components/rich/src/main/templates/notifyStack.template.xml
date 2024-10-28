@@ -23,25 +23,28 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
-    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
-    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+	xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+	xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+	xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+	xmlns:javaee="http://java.sun.com/xml/ns/javaee">
 
-    <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.NotifyStackRenderer</cdk:class>
-        <cdk:superclass>org.richfaces.renderkit.html.NotifyStackRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.NotifyStack</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.NotifyStackRenderer</cdk:renderer-type>
-    </cc:interface>
+	<cc:interface>
+		<cdk:class>org.richfaces.renderkit.html.NotifyStackRenderer</cdk:class>
+		<cdk:superclass>org.richfaces.renderkit.html.NotifyStackRendererBase</cdk:superclass>
+		<cdk:component-family>org.richfaces.NotifyStack</cdk:component-family>
+		<cdk:renderer-type>org.richfaces.NotifyStackRenderer</cdk:renderer-type>
+	</cc:interface>
 
-    <cc:implementation>
-        <span id="#{clientId}" class="rf-ntf-stck">
-	        <script type="text/javascript">
-	            <cdk:scriptObject name="options">
-	                <cdk:scriptOption attributes="styleClass position method direction" />
-	            </cdk:scriptObject>
-	            new RichFaces.ui.NotifyStack(#{toScriptArgs(clientId, options)});
-	        </script>
-        </span>
-    </cc:implementation>
+	<cc:implementation>
+		<span id="#{clientId}" class="rf-ntf-stck">
+			<script type="text/javascript">
+				<cdk:scriptObject name="options">
+					<cdk:scriptOption
+						attributes="styleClass position method direction" />
+				</cdk:scriptObject>
+				new RichFaces.ui.NotifyStack(#{toScriptArgs(clientId,
+				options)}); </script>
+		</span>
+	</cc:implementation>
 </cdk:root>

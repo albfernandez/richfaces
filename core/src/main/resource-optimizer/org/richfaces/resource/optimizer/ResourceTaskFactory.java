@@ -23,7 +23,7 @@ package org.richfaces.resource.optimizer;
 
 import java.util.concurrent.CompletionService;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 
 import org.richfaces.resource.ResourceKey;
 

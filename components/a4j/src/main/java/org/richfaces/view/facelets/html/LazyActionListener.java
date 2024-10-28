@@ -23,11 +23,11 @@ package org.richfaces.view.facelets.html;
 
 import java.io.Serializable;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ActionListener;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ActionListener;
 
 import org.richfaces.cdk.annotations.Event;
 import org.richfaces.cdk.annotations.Tag;

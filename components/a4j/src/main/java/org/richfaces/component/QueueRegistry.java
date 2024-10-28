@@ -23,9 +23,9 @@ package org.richfaces.component;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

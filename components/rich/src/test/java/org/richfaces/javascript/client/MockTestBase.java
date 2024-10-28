@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.UIViewRoot;
 
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.jboss.test.qunit.Qunit;

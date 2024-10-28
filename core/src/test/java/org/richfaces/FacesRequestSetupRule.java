@@ -104,6 +104,9 @@ public class FacesRequestSetupRule implements MethodRule {
         for (Entry<String, String> paramEntry : getInitParameters(method).entrySet()) {
             environment.getServer().addInitParameter(paramEntry.getKey(), paramEntry.getValue());
         }
+        
+        //MZ - arbitrary content to avoid null UIViewRoot
+        environment.withResource("/test.xhtml", getClass().getResource("/org/richfaces/context/ComponentIdResolver.xhtml"));
 
         environment.start();
     }

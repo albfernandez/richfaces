@@ -26,8 +26,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
 
 import org.richfaces.model.ChartDataModel.ChartType;
 import org.richfaces.model.PlotClickEvent;

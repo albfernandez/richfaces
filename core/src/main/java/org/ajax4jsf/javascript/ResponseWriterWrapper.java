@@ -21,7 +21,7 @@
  */
 package org.ajax4jsf.javascript;
 
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
 

@@ -24,8 +24,8 @@ package org.richfaces.renderkit;
 import java.io.IOException;
 import java.util.Collections;
 
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.component.AbstractTreeNode;

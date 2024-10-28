@@ -21,8 +21,8 @@
  */
 package org.richfaces.util;
 
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.context.FacesContext;
 
 import com.google.common.base.Splitter;
 

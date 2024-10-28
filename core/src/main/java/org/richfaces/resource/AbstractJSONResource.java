@@ -23,7 +23,7 @@ package org.richfaces.resource;
 
 import java.io.IOException;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.ScriptUtils;
 

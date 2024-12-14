@@ -54,13 +54,14 @@ import com.google.common.collect.ImmutableSet;
  * @author akolonitsky
  */
 @JsfComponent(
-        tag = @Tag(type = TagType.Facelets), facets = { @Facet(name = "header", generate = false) },
+        tag = @Tag(type = TagType.Facelets), facets = {@Facet(name = "header", generate = false)},
         renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"))
 public abstract class AbstractTab extends AbstractActionComponent implements AbstractTogglePanelTitledItem, ClientBehaviorHolder, AjaxProps, BypassProps, CoreProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Tab";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tab";
 
-    public AbstractTab() {setRendererType("org.richfaces.TabRenderer");
+    public AbstractTab() {
+        setRendererType("org.richfaces.TabRenderer");
     }
 
     // ------------------------------------------------ Html Attributes
@@ -193,7 +194,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
     /**
      * If the VisitContext is not the RenderExtendedVisitContext, return the usual FacetsAndChildren iterator.
      * Otherwise return only the Facet iterator when a child visit is not required.
-     *
+     * <p>
      * This is useful to not render the tab contents when an item is not visible, while still visiting the header facets.
      *
      * @param visitContext The VisitContext of the component tree visit.
@@ -202,14 +203,14 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         Iterator<UIComponent> kids;
         if (ExtendedRenderVisitContext.isExtendedRenderVisitContext(visitContext)
                 && component instanceof VisitChildrenRejectable
-                && ! ((VisitChildrenRejectable)component).shouldVisitChildren()) {
+                && !((VisitChildrenRejectable) component).shouldVisitChildren()) {
             if (component.getFacetCount() > 0) {
                 kids = component.getFacets().values().iterator();
             } else {
                 kids = ImmutableSet.<UIComponent>of().iterator();
             }
         } else {
-            kids =  component.getFacetsAndChildren();
+            kids = component.getFacetsAndChildren();
         }
         return kids;
     }
@@ -320,7 +321,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
                 // Do not render the non-active children, but always render the visible header facets.
                 Iterator<UIComponent> kids = AbstractTab.getVisitableChildren(this, context);
 
-                while(kids.hasNext()) {
+                while (kids.hasNext()) {
                     boolean done = kids.next().visitTree(context, callback);
 
                     if (done) {
@@ -328,8 +329,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
                     }
                 }
             }
-        }
-        finally {
+        } finally {
             popComponentFromEL(facesContext);
         }
 

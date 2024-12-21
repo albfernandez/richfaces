@@ -2,8 +2,8 @@ package org.richfaces.component.validation;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 

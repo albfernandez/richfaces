@@ -21,13 +21,13 @@
  */
 package org.richfaces.event;
 
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesListener;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.FacesListener;
 
 /**
  * <p>
  * A listener interface for receiving {@link PanelToggleEvent}s. A class that is interested in receiving such events implements
- * this interface, and then registers itself with the source {@link javax.faces.component.UIComponent} of interest, by calling
+ * this interface, and then registers itself with the source {@link jakarta.faces.component.UIComponent} of interest, by calling
  * <code>addPanelToggleListener()</code>.
  * </p>
  *

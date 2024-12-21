@@ -26,7 +26,7 @@ import java.util.Arrays;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import javax.faces.FacesException;
+import jakarta.faces.FacesException;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)

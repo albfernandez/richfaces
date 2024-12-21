@@ -24,8 +24,8 @@ package org.richfaces.application.push.impl;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.ServletContext;
 
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.application.push.PushContext;

@@ -23,10 +23,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
+    <!--MZ forgotten?? -->
+    <parent>
+        <groupId>com.github.albfernandez.richfaces</groupId>
+        <artifactId>richfaces-parent</artifactId>
+        <version>10.0.1-SNAPSHOT</version>
+        <relativePath>../..</relativePath>
+    </parent>
 
     <groupId>com.github.albfernandez.richfaces</groupId>
     <artifactId>richfaces-build-resources</artifactId>
-    <version>4.6.22-SNAPSHOT</version>
+    <version>10.0.1-SNAPSHOT</version>
     <name>RichFaces Build Resources</name>
 
     <description>
@@ -58,8 +66,8 @@
         <url>https://github.com/albfernandez/richfaces/issues</url>
     </issueManagement>
     <properties>
-    	<java.version>1.8</java.version>
-        <version.richfaces>4.6.22-SNAPSHOT</version.richfaces>
+    	<java.version>21</java.version>
+        <version.richfaces>10.0.1-SNAPSHOT</version.richfaces>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -83,11 +91,36 @@
     </dependencyManagement>
 
     <dependencies>
+    	<!--MZ
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.3.1</version>
         </dependency>
+        -->
+        
+        <dependency>
+			<groupId>org.apache.myfaces.core</groupId>
+			<artifactId>myfaces-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.el</groupId>
+			<artifactId>jakarta.el-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>jakarta.el</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>jakarta.validation</groupId>
+		    <artifactId>jakarta.validation-api</artifactId>
+		</dependency>
+		
+		
 
         <dependency>
             <groupId>com.github.albfernandez.richfaces.cdk</groupId>
@@ -102,8 +135,8 @@
         </dependency>
 
         <dependency>
-            <groupId>xmlunit</groupId>
-            <artifactId>xmlunit</artifactId>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-legacy</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -131,7 +164,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -151,11 +184,11 @@
             <!-- Build -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.13.0</version>
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.7.1</version>
                 <executions>
                     <execution>
                         <id>package-configuration-tomcat6</id>
@@ -186,12 +219,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <version>3.1.3</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.3.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -204,13 +237,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.10.0</version>
                 <configuration>
-                    <source>7</source>
+                    <source>21</source>
+                    <!--MZ
                     <links>
                         <link>https://docs.oracle.com/javase/7/docs/api/</link>
                     </links>
+                    -->
                 </configuration>
-                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -223,17 +258,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.4.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
+                <version>3.1.1</version>
                 <configuration>
                     <localCheckout>true</localCheckout>
                     <pushChanges>false</pushChanges>
@@ -242,7 +277,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>3.5.1</version>
             </plugin>            
         </plugins>
     </build>
@@ -255,7 +290,7 @@
 						<plugin>
 				        <groupId>org.apache.maven.plugins</groupId>
 				        <artifactId>maven-gpg-plugin</artifactId>
-				        <version>1.6</version>
+				        <version>3.2.7</version>
 				        <configuration>
 				            <keyname>${gpg.keyname}</keyname>
 				            <passphraseServerId>${gpg.keyname}</passphraseServerId>
@@ -273,7 +308,7 @@
 				    <plugin>
 				        <groupId>org.sonatype.plugins</groupId>
 				        <artifactId>nexus-staging-maven-plugin</artifactId>
-				        <version>1.6.8</version>
+				        <version>1.7.0</version>
 				        <extensions>true</extensions>
 				        <configuration>
 				            <serverId>ossrh</serverId>

@@ -1,7 +1,7 @@
 package org.richfaces.renderkit;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
 
 public class MessageForRender {
     private final FacesMessage msg;
@@ -16,7 +16,7 @@ public class MessageForRender {
      * <p class="changed_added_4_0">
      * </p>
      *
-     * @see javax.faces.application.FacesMessage#getDetail()
+     * @see jakarta.faces.application.FacesMessage#getDetail()
      */
     public String getDetail() {
         return this.msg.getDetail();
@@ -26,7 +26,7 @@ public class MessageForRender {
      * <p class="changed_added_4_0">
      * </p>
      *
-     * @see javax.faces.application.FacesMessage#getSeverity()
+     * @see jakarta.faces.application.FacesMessage#getSeverity()
      */
     public Severity getSeverity() {
         return this.msg.getSeverity();
@@ -36,7 +36,7 @@ public class MessageForRender {
      * <p class="changed_added_4_0">
      * </p>
      *
-     * @see javax.faces.application.FacesMessage#getSummary()
+     * @see jakarta.faces.application.FacesMessage#getSummary()
      */
     public String getSummary() {
         return this.msg.getSummary();
@@ -46,7 +46,7 @@ public class MessageForRender {
      * <p class="changed_added_4_0">
      * </p>
      *
-     * @see javax.faces.application.FacesMessage#isRendered()
+     * @see jakarta.faces.application.FacesMessage#isRendered()
      */
     public boolean isRendered() {
         return this.msg.isRendered();
@@ -56,7 +56,7 @@ public class MessageForRender {
      * <p class="changed_added_4_0">
      * </p>
      *
-     * @see javax.faces.application.FacesMessage#rendered()
+     * @see jakarta.faces.application.FacesMessage#rendered()
      */
     public void rendered() {
         this.msg.rendered();

@@ -25,8 +25,8 @@ import org.ajax4jsf.Messages;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import javax.faces.FacesException;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.ResponseWriter;
 
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
@@ -382,7 +382,7 @@ public final class ScriptUtils {
      * Test for valid value of property. by default, for non-setted properties with Java primitive types of JSF component return
      * appropriate MIN_VALUE .
      *
-     * @param property - value of property returned from {@link javax.faces.component.UIComponent#getAttributes()}
+     * @param property - value of property returned from {@link jakarta.faces.component.UIComponent#getAttributes()}
      * @return true for setted property, false otherthise.
      */
     public static boolean isValidProperty(Object property) {

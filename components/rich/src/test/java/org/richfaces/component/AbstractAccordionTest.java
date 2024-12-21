@@ -26,9 +26,9 @@ import static org.easymock.EasyMock.expect;
 
 import java.util.List;
 
-import javax.el.MethodExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.convert.Converter;
+import jakarta.el.MethodExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.convert.Converter;
 
 import org.junit.Assert;
 import org.junit.Before;

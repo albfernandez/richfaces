@@ -21,14 +21,14 @@
  */
 package org.richfaces.component.behavior;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.component.StateHelper;
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.behavior.ClientBehaviorBase;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.behavior.ClientBehaviorBase;
+import jakarta.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;

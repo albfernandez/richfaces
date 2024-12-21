@@ -22,9 +22,9 @@ package org.richfaces.component.util;
 
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
 
 import junit.framework.TestCase;
 

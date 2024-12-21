@@ -21,12 +21,12 @@
  */
 package org.richfaces.view.facelets.html;
 
-import javax.faces.view.facelets.BehaviorConfig;
-import javax.faces.view.facelets.BehaviorHandler;
-import javax.faces.view.facelets.CompositeFaceletHandler;
-import javax.faces.view.facelets.MetaRule;
-import javax.faces.view.facelets.TagHandler;
-import javax.faces.view.facelets.TagHandlerDelegate;
+import jakarta.faces.view.facelets.BehaviorConfig;
+import jakarta.faces.view.facelets.BehaviorHandler;
+import jakarta.faces.view.facelets.CompositeFaceletHandler;
+import jakarta.faces.view.facelets.MetaRule;
+import jakarta.faces.view.facelets.TagHandler;
+import jakarta.faces.view.facelets.TagHandlerDelegate;
 
 import org.richfaces.view.facelets.tag.BehaviorRule;
 

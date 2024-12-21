@@ -22,7 +22,7 @@
 
 package org.richfaces.focus;
 
-import javax.faces.event.PhaseId;
+import jakarta.faces.event.PhaseId;
 
 /**
  * Service for managing Focus of components on the page.

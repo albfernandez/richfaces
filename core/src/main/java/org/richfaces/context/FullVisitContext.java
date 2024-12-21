@@ -21,12 +21,12 @@
  */
 package org.richfaces.context;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitHint;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
 import java.util.Collection;
 import java.util.Set;
 
@@ -36,6 +36,7 @@ import java.util.Set;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public class FullVisitContext extends VisitContext {
+	
     private final FacesContext facesContext;
     private final Set<VisitHint> visitHints;
 

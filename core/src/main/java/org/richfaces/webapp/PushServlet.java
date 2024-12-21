@@ -23,8 +23,10 @@ package org.richfaces.webapp;
 
 import java.util.Map;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.atmosphere.cpr.ApplicationConfig;
 import org.atmosphere.cpr.AtmosphereHandler;
@@ -59,12 +61,12 @@ public final class PushServlet extends AtmosphereServlet {
     /*
      * (non-Javadoc)
      *
-     * @see org.atmosphere.cpr.AtmosphereServlet#init(javax.servlet.ServletConfig)
+     * @see org.atmosphere.cpr.AtmosphereServlet#init(jakarta.servlet.ServletConfig)
      */
-    @Override
+    //MZ TODO  @Override
     public void init(final ServletConfig sc) throws ServletException {
         if (!initialized) {
-            super.init(new ServletConfigDefaultsFacade(sc, DEFAULT_INIT_PARAMETERS));
+            //MZ TODO super.init(new ServletConfigDefaultsFacade(sc, DEFAULT_INIT_PARAMETERS));
             this.initialized = true;
 
             String mapping = (String) sc.getServletContext()
@@ -77,7 +79,7 @@ public final class PushServlet extends AtmosphereServlet {
             ReflectorServletProcessor r = new ReflectorServletProcessor(this);
             r.setFilterClassName(PushHandlerFilter.class.getName());
 
-            framework().addAtmosphereHandler(mapping, r).initAtmosphereHandler(sc);
+            //MZ TODO framework().addAtmosphereHandler(mapping, r).initAtmosphereHandler(sc);
         }
     }
 
@@ -93,4 +95,10 @@ public final class PushServlet extends AtmosphereServlet {
             super.destroy();
         }
     }
+
+    //MZ TODO dummy
+	public void doGet(HttpServletRequest httpReq, HttpServletResponse httpResp) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -33,8 +33,8 @@ import static org.richfaces.application.CoreConfiguration.SKIN_PARAM_NAME;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
 
 import org.junit.Rule;
 import org.junit.Test;

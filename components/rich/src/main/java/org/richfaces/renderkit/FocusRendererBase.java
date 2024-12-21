@@ -1,8 +1,8 @@
 package org.richfaces.renderkit;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.application.ServiceTracker;

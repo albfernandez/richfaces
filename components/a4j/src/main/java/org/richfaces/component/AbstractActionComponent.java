@@ -21,10 +21,10 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UICommand;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.PhaseId;
 
 import org.richfaces.component.attribute.BypassProps;
 

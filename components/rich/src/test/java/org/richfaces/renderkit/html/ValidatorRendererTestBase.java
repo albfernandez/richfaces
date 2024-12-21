@@ -3,7 +3,7 @@ package org.richfaces.renderkit.html;
 import java.util.Collections;
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage;
 
 import org.jboss.test.faces.mock.Mock;
 import org.richfaces.component.behavior.BehaviorTestBase;

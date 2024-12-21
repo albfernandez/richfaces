@@ -34,7 +34,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.easymock.EasyMock;
 import org.jboss.test.faces.AbstractFacesTest;

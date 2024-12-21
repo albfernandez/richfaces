@@ -44,7 +44,7 @@ mvn clean richfaces-resources:process -Dskins=blueSky -DstaticResourceMappingFil
             <skin>blueSky</skin>
         </skins>
         <excludedFiles>
-            <exclude>^javax.faces</exclude>
+            <exclude>^jakarta.faces</exclude>
             <exclude>^flot</exclude>
             <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
             <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>

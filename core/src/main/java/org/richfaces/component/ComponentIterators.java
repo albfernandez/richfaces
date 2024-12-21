@@ -23,7 +23,7 @@ package org.richfaces.component;
 
 import java.util.Iterator;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.AbstractIterator;

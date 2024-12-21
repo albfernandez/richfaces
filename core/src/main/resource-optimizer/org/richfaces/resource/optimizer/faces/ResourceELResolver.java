@@ -29,13 +29,13 @@ import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ELResolver;
-import javax.el.PropertyNotFoundException;
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.ELResolver;
+import jakarta.el.PropertyNotFoundException;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.FacesContext;
 
 import com.google.common.collect.Lists;
 
@@ -137,10 +137,12 @@ public class ResourceELResolver extends ELResolver {
         return true;
     }
 
+    /*MZ
     @Override
     public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
         return null;
     }
+	*/
 
     @Override
     public Class<?> getCommonPropertyType(ELContext context, Object base) {

@@ -24,10 +24,10 @@ package org.richfaces.renderkit;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.application.ServiceTracker;

@@ -27,7 +27,7 @@
     <groupId>com.github.albfernandez.richfaces</groupId>
     <artifactId>richfaces-cache-bom</artifactId>
     <packaging>pom</packaging>
-    <version>4.6.22-SNAPSHOT</version>
+    <version>10.0.1-SNAPSHOT</version>
     <name>RichFaces BOM</name>
 
     <description>
@@ -63,8 +63,8 @@
 
     <properties>
         <version.oscache>2.4.1</version.oscache>
-        <version.jbosscache>3.2.5.GA</version.jbosscache>
-        <version.ehcache>2.10.6</version.ehcache>
+        <version.jbosscache>3.2.7.GA</version.jbosscache>
+        <version.ehcache>2.10.9.2</version.ehcache>
 
         <maven.min.version>3.0</maven.min.version>
     </properties>
@@ -162,7 +162,7 @@
 				    <plugin>
 				        <groupId>org.sonatype.plugins</groupId>
 				        <artifactId>nexus-staging-maven-plugin</artifactId>
-				        <version>1.6.8</version>
+				        <version>1.7.0</version>
 				        <extensions>true</extensions>
 				        <configuration>
 				            <serverId>ossrh</serverId>

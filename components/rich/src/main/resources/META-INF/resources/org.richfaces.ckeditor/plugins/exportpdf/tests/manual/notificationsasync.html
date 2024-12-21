@@ -9,37 +9,37 @@
 <script>
 	exportPdfUtils.initManualTest();
 
-	var editor1 = CKEDITOR.replace( 'editor1', exportPdfUtils.getDefaultConfig( 'manual' ) );
+	var editor1 = CKEDITOR.replace('editor1', exportPdfUtils.getDefaultConfig('manual'));
 
-	editor1.on( 'exportPdf', function( evt ) {
-		if ( !evt.data.asyncDone ) {
-			setTimeout( function() {
+	editor1.on('exportPdf', function (evt) {
+		if (!evt.data.asyncDone) {
+			setTimeout(function () {
 				evt.data.html = '<p>Content filtered!</p>';
 				evt.data.asyncDone = true;
 
-				editor1.fire( 'exportPdf', evt.data );
-			}, 2000 );
+				editor1.fire('exportPdf', evt.data);
+			}, 2000);
 
 			evt.cancel();
 		} else {
 			delete evt.data.asyncDone;
 		}
-	}, null, null, 1 );
+	}, null, null, 1);
 
-	var editor2 = CKEDITOR.replace( 'editor2', exportPdfUtils.getDefaultConfig( 'manual' ) );
+	var editor2 = CKEDITOR.replace('editor2', exportPdfUtils.getDefaultConfig('manual'));
 
-	editor2.on( 'exportPdf', function( evt ) {
-		if ( !evt.data.asyncDone ) {
-			setTimeout( function() {
+	editor2.on('exportPdf', function (evt) {
+		if (!evt.data.asyncDone) {
+			setTimeout(function () {
 				evt.data.html = '<p>Content filtered!</p>';
 				evt.data.asyncDone = true;
 
-				editor2.fire( 'exportPdf', evt.data );
-			}, 2000 );
+				editor2.fire('exportPdf', evt.data);
+			}, 2000);
 
 			evt.cancel();
 		} else {
 			delete evt.data.asyncDone;
 		}
-	}, null, null, 17 );
+	}, null, null, 17);
 </script>

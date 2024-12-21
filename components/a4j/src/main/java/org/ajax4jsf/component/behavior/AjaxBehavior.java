@@ -28,16 +28,16 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.el.ExpressionFactory;
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.component.behavior.ClientBehaviorHint;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.AjaxBehaviorListener;
-import javax.faces.event.BehaviorEvent;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.MethodExpression;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.behavior.ClientBehaviorHint;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.faces.event.AjaxBehaviorListener;
+import jakarta.faces.event.BehaviorEvent;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.richfaces.cdk.annotations.Attribute;
@@ -56,7 +56,7 @@ import org.richfaces.view.facelets.html.AjaxHandler;
  * <p>
  * The &lt;a4j:ajax&gt; behavior allows Ajax capability to be added to a non-Ajax component. The non-Ajax component must
  * implement the ClientBehaviorHolder interface for all the event attributes that support behavior rendering.
- * </p>
+ * </p><s
  * @author Anton Belevich
  */
 @JsfBehavior(id = "org.ajax4jsf.behavior.Ajax", tag = @Tag(name = "ajax", handlerClass = AjaxHandler.class, type = TagType.Facelets))
@@ -482,4 +482,5 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
 
         return state;
     }
+
 }

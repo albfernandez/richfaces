@@ -21,7 +21,7 @@
  */
 package org.richfaces.event;
 
-import javax.el.MethodExpression;
+import jakarta.el.MethodExpression;
 
 /**
  * @author abelevich

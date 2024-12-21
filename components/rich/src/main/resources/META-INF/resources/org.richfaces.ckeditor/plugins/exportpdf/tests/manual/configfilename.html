@@ -13,15 +13,15 @@
 <script>
 	exportPdfUtils.initManualTest();
 
-	CKEDITOR.replace( 'editor1', exportPdfUtils.getDefaultConfig( 'manual' ) );
+	CKEDITOR.replace('editor1', exportPdfUtils.getDefaultConfig('manual'));
 
-	CKEDITOR.replace( 'editor2', exportPdfUtils.getDefaultConfig( 'manual', {
+	CKEDITOR.replace('editor2', exportPdfUtils.getDefaultConfig('manual', {
 		exportPdf_fileName: 'different-name.pdf',
-	} ) );
+	}));
 
-	var editor3 = CKEDITOR.replace( 'editor3', exportPdfUtils.getDefaultConfig( 'manual', {
-		exportPdf_fileName: function() {
-			return editor3.editable().findOne( 'h1' ).getText() + '.pdf';
+	var editor3 = CKEDITOR.replace('editor3', exportPdfUtils.getDefaultConfig('manual', {
+		exportPdf_fileName: function () {
+			return editor3.editable().findOne('h1').getText() + '.pdf';
 		}
-	} ) );
+	}));
 </script>

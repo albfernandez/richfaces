@@ -26,12 +26,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.faces.context.FacesContext;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModelEvent;
-import javax.faces.model.DataModelListener;
+import jakarta.el.ELContext;
+import jakarta.el.ExpressionFactory;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.ArrayDataModel;
+import jakarta.faces.model.DataModelEvent;
+import jakarta.faces.model.DataModelListener;
 
 import org.junit.Assert;
 

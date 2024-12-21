@@ -24,8 +24,8 @@ package org.richfaces.application.push;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import javax.el.ELContext;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.el.util.ELUtils;

@@ -34,18 +34,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import javax.faces.FactoryFinder;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitContextFactory;
-import javax.faces.component.visit.VisitHint;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.PartialViewContextWrapper;
-import javax.faces.event.PhaseId;
+import jakarta.faces.FactoryFinder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitContextFactory;
+import jakarta.faces.component.visit.VisitHint;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialResponseWriter;
+import jakarta.faces.context.PartialViewContext;
+import jakarta.faces.context.PartialViewContextWrapper;
+import jakarta.faces.event.PhaseId;
 
 import org.ajax4jsf.component.AjaxOutput;
 import org.ajax4jsf.javascript.ScriptUtils;
@@ -200,7 +200,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.PartialViewContextWrapper#getWrapped()
+     * @see jakarta.faces.context.PartialViewContextWrapper#getWrapped()
      */
     @Override
     public PartialViewContext getWrapped() {
@@ -275,7 +275,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.PartialViewContextWrapper#getExecuteIds()
+     * @see jakarta.faces.context.PartialViewContextWrapper#getExecuteIds()
      */
     @Override
     public Collection<String> getExecuteIds() {
@@ -294,7 +294,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.PartialViewContextWrapper#getRenderIds()
+     * @see jakarta.faces.context.PartialViewContextWrapper#getRenderIds()
      */
     @Override
     public Collection<String> getRenderIds() {
@@ -316,7 +316,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.PartialViewContextWrapper#isExecuteAll()
+     * @see jakarta.faces.context.PartialViewContextWrapper#isExecuteAll()
      */
     @Override
     public boolean isExecuteAll() {
@@ -331,7 +331,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.PartialViewContextWrapper#isRenderAll()
+     * @see jakarta.faces.context.PartialViewContextWrapper#isRenderAll()
      */
     @Override
     public boolean isRenderAll() {
@@ -369,7 +369,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.PartialViewContextWrapper#setRenderAll(boolean)
+     * @see jakarta.faces.context.PartialViewContextWrapper#setRenderAll(boolean)
      */
     @Override
     public void setRenderAll(final boolean renderAll) {
@@ -480,7 +480,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /**
      * Set ups current visit mode to given value.
      *
-     * Works as a stack because {@link #processPartial(javax.faces.event.PhaseId)} methods that sets this flag may nest.
+     * Works as a stack because {@link #processPartial(jakarta.faces.event.PhaseId)} methods that sets this flag may nest.
      *
      * @see #resetVisitMode()
      */
@@ -491,7 +491,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /**
      * Resets current visit mode.
      *
-     * Works as a stack because {@link #processPartial(javax.faces.event.PhaseId)} methods that sets this flag may nest.
+     * Works as a stack because {@link #processPartial(jakarta.faces.event.PhaseId)} methods that sets this flag may nest.
      * Partial processing needs to {@link #resetVisitMode()} before returning.
      */
     private void resetVisitMode() {
@@ -774,7 +774,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
             Set<String> idsToVisit = Collections.singleton(componentActivatorId);
             setVisitMode(ExtendedVisitContextMode.EXECUTE);
             VisitContextFactory visitContextFactory = (VisitContextFactory) FactoryFinder
-                    .getFactory(javax.faces.FactoryFinder.VISIT_CONTEXT_FACTORY);
+                    .getFactory(jakarta.faces.FactoryFinder.VISIT_CONTEXT_FACTORY);
             VisitContext visitContext = visitContextFactory.getVisitContext(facesContext, idsToVisit, visitHints);
             return facesContext.getViewRoot().visitTree(visitContext, visitCallback);
         } finally {

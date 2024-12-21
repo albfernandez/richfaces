@@ -21,7 +21,7 @@
  */
 package org.richfaces.resource.optimizer.skin;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceFactory;
 import org.richfaces.skin.Skin;

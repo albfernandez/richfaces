@@ -26,9 +26,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponentBase;
-
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlScript;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
@@ -36,9 +36,8 @@ import org.junit.Test;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.w3c.dom.Element;
 
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponentBase;
 
 /**
  * @author Nick Belaevski
@@ -103,7 +102,7 @@ public class ResourceLibraryTest {
 
         uri = nextUri(itr);
         assertTrue(uri.contains("jsf.js"));
-        assertTrue(uri.contains("javax.faces"));
+        assertTrue(uri.contains("jakarta.faces"));
 
         uri = nextUri(itr);
         assertTrue(uri.contains("org.richfaces"));

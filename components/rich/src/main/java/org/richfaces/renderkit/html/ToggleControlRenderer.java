@@ -21,11 +21,11 @@
  */
 package org.richfaces.renderkit.html;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.render.ClientBehaviorRenderer;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.render.ClientBehaviorRenderer;
 
 import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
 import org.richfaces.component.behavior.ToggleControl;

@@ -23,9 +23,9 @@ package org.richfaces;
 
 import java.util.ArrayList;
 
-import javax.faces.component.StateHolder;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
 
 import com.google.common.collect.Lists;
 

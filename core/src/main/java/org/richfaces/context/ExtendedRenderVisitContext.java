@@ -24,13 +24,13 @@ package org.richfaces.context;
 import java.util.Collection;
 import java.util.Set;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitContextWrapper;
-import javax.faces.component.visit.VisitHint;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitContextWrapper;
+import jakarta.faces.component.visit.VisitHint;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxOutput;
 
@@ -67,7 +67,7 @@ public class ExtendedRenderVisitContext extends BaseExtendedVisitContext {
 
     /*
      * (non-Javadoc)
-     * @see org.richfaces.context.BaseExtendedVisitContext#hasImplicitSubtreeIdsToVisit(javax.faces.component.UIComponent)
+     * @see org.richfaces.context.BaseExtendedVisitContext#hasImplicitSubtreeIdsToVisit(jakarta.faces.component.UIComponent)
      */
     @Override
     protected boolean hasImplicitSubtreeIdsToVisit(UIComponent component) {
@@ -76,7 +76,7 @@ public class ExtendedRenderVisitContext extends BaseExtendedVisitContext {
 
     /*
      * (non-Javadoc)
-     * @see org.richfaces.context.BaseExtendedVisitContext#addDirectSubtreeIdsToVisitForImplicitComponents(javax.faces.component.UIComponent, java.util.Set)
+     * @see org.richfaces.context.BaseExtendedVisitContext#addDirectSubtreeIdsToVisitForImplicitComponents(jakarta.faces.component.UIComponent, java.util.Set)
      */
     protected void addDirectSubtreeIdsToVisitForImplicitComponents(UIComponent component, Set<String> result) {
         if (!limitRender) {
@@ -89,7 +89,7 @@ public class ExtendedRenderVisitContext extends BaseExtendedVisitContext {
 
     /*
      * (non-Javadoc)
-     * @see org.richfaces.context.BaseExtendedVisitContext#invokeVisitCallbackForImplicitComponent(javax.faces.component.UIComponent, javax.faces.component.visit.VisitCallback)
+     * @see org.richfaces.context.BaseExtendedVisitContext#invokeVisitCallbackForImplicitComponent(jakarta.faces.component.UIComponent, jakarta.faces.component.visit.VisitCallback)
      */
     @Override
     protected VisitResult invokeVisitCallbackForImplicitComponent(UIComponent component, VisitCallback callback) {

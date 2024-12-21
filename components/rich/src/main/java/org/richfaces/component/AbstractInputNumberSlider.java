@@ -48,7 +48,7 @@ import org.richfaces.component.attribute.InputProps;
         tag = @Tag(name = "inputNumberSlider"))
 public abstract class AbstractInputNumberSlider extends UIInputNumber implements AccesskeyProps, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps, InputProps {
     public static final String COMPONENT_TYPE = "org.richfaces.InputNumberSlider";
-    public static final String COMPONENT_FAMILY = "javax.faces.Input";
+    public static final String COMPONENT_FAMILY = "jakarta.faces.Input";
 
     @Attribute(hidden = true)
     public abstract boolean isReadonly();

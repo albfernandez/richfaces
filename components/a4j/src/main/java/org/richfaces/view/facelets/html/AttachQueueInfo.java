@@ -21,7 +21,7 @@
  */
 package org.richfaces.view.facelets.html;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import org.richfaces.component.AbstractAttachQueue;
 

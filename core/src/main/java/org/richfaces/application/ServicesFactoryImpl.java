@@ -74,12 +74,15 @@ public class ServicesFactoryImpl implements ServicesFactory {
      */
     @Override
     public void release() {
-        for (Object service : instances.values()) {
-            if (service instanceof Initializable) {
-                Initializable initializableService = (Initializable) service;
-                initializableService.release();
-            }
-        }
-        instances = null;
+    	//MZ TODO - why is this null?
+    	if (instances != null) {
+	        for (Object service : instances.values()) {
+	            if (service instanceof Initializable) {
+	                Initializable initializableService = (Initializable) service;
+	                initializableService.release();
+	            }
+	        }
+	        instances = null;
+    	}
     }
 }

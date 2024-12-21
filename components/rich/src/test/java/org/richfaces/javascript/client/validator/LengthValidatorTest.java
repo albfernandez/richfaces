@@ -6,8 +6,8 @@ package org.richfaces.javascript.client.validator;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.validator.LengthValidator;
-import javax.faces.validator.Validator;
+import jakarta.faces.validator.LengthValidator;
+import jakarta.faces.validator.Validator;
 
 import org.junit.runners.Parameterized.Parameters;
 import org.richfaces.javascript.client.RunParameters;

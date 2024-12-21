@@ -31,10 +31,10 @@ import static org.richfaces.application.CoreConfiguration.Items.resourceMappingF
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
 import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
 
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
-import javax.faces.application.Resource;
+import jakarta.el.ELContext;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.ValueExpression;
+import jakarta.faces.application.Resource;
 
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Test;

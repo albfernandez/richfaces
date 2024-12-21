@@ -27,8 +27,8 @@ import static org.mockito.Mockito.when;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
 import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
 
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.ValueExpression;
 
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Test;

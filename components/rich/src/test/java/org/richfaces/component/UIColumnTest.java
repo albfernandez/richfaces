@@ -25,7 +25,7 @@ import static org.easymock.EasyMock.expect;
 
 import java.util.Comparator;
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.junit.After;

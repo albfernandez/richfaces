@@ -20,160 +20,160 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-(function ($, rf) {
+(function($, rf) {
 
-    rf.ui = rf.ui || {};
+	rf.ui = rf.ui || {};
 
-    var ITEMS_SWITCHER = {
+	var ITEMS_SWITCHER = {
 
-        /**
-         * @param {TogglePanelItem} oldPanel
-         * @param {TogglePanelItem} newPanel
-         *
-         * @return {void}
-         * */
-        exec : function (oldPanel, newPanel) {
-            if (newPanel.switchMode == "server") {
-                return this.execServer(oldPanel, newPanel);
-            } else if (newPanel.switchMode == "ajax") {
-                return this.execAjax(oldPanel, newPanel);
-            } else if (newPanel.switchMode == "client") {
-                return this.execClient(oldPanel, newPanel);
-            } else {
-                rf.log.error("SwitchItems.exec : unknown switchMode (" + newPanel.switchMode + ")");
-            }
-        },
+		/**
+		 * @param {TogglePanelItem} oldPanel
+		 * @param {TogglePanelItem} newPanel
+		 *
+		 * @return {void}
+		 * */
+		exec: function(oldPanel, newPanel) {
+			if (newPanel.switchMode == "server") {
+				return this.execServer(oldPanel, newPanel);
+			} else if (newPanel.switchMode == "ajax") {
+				return this.execAjax(oldPanel, newPanel);
+			} else if (newPanel.switchMode == "client") {
+				return this.execClient(oldPanel, newPanel);
+			} else {
+				rf.log.error("SwitchItems.exec : unknown switchMode (" + newPanel.switchMode + ")");
+			}
+		},
 
-        /**
-         * @protected
-         * @param {TogglePanelItem} oldPanel
-         * @param {TogglePanelItem} newPanel
-         *
-         * @return {Boolean} false
-         * */
-        execServer : function (oldPanel, newPanel) {
-            if (oldPanel) {
-                var continueProcess = oldPanel.__leave();
-                if (!continueProcess) {
-                    return false;
-                }
-            }
+		/**
+		 * @protected
+		 * @param {TogglePanelItem} oldPanel
+		 * @param {TogglePanelItem} newPanel
+		 *
+		 * @return {Boolean} false
+		 * */
+		execServer: function(oldPanel, newPanel) {
+			if (oldPanel) {
+				var continueProcess = oldPanel.__leave();
+				if (!continueProcess) {
+					return false;
+				}
+			}
 
-            this.__setActiveItem(newPanel);
+			this.__setActiveItem(newPanel);
 
-            var params = {};
+			var params = {};
 
-            params[newPanel.getTogglePanel().id] = newPanel.name;
-            params[newPanel.id] = newPanel.id;
+			params[newPanel.getTogglePanel().id] = newPanel.name;
+			params[newPanel.id] = newPanel.id;
 
-            $.extend(params, newPanel.getTogglePanel().options["ajax"] || {});
+			$.extend(params, newPanel.getTogglePanel().options["ajax"] || {});
 
-            rf.submitForm(this.__getParentForm(newPanel), params);
+			rf.submitForm(this.__getParentForm(newPanel), params);
 
-            return false;
-        },
+			return false;
+		},
 
-        /**
-         * @protected
-         * @param {TogglePanelItem} oldPanel
-         * @param {TogglePanelItem} newPanel
-         *
-         * @return {Boolean} false
-         * */
-        execAjax : function (oldPanel, newPanel) {
-            var options = $.extend({}, newPanel.getTogglePanel().options["ajax"], oldPanel.options.ajax);
+		/**
+		 * @protected
+		 * @param {TogglePanelItem} oldPanel
+		 * @param {TogglePanelItem} newPanel
+		 *
+		 * @return {Boolean} false
+		 * */
+		execAjax: function(oldPanel, newPanel) {
+			var options = $.extend({}, newPanel.getTogglePanel().options["ajax"], oldPanel.options.ajax);
 
-            this.__setActiveItem(newPanel);
-            rf.ajax(newPanel.id, null, options);
+			this.__setActiveItem(newPanel);
+			rf.ajax(newPanel.id, null, options);
 
-            if (oldPanel) {
-                oldPanel.getTogglePanel().activeItem = oldPanel.getName();
-            }
+			if (oldPanel) {
+				oldPanel.getTogglePanel().activeItem = oldPanel.getName();
+			}
 
-            return false;
-        },
+			return false;
+		},
 
-        /**
-         * @protected
-         * @param {TogglePanelItem} oldPanel
-         * @param {TogglePanelItem} newPanel
-         *
-         * @return {undefined}
-         *             - false - if process has been terminated
-         *             - true  - in other cases
-         * */
-        execClient : function (oldPanel, newPanel) {
-            if (oldPanel) {
-                var continueProcess = oldPanel.__leave();
-                if (!continueProcess) {
-                    return false;
-                }
-            }
+		/**
+		 * @protected
+		 * @param {TogglePanelItem} oldPanel
+		 * @param {TogglePanelItem} newPanel
+		 *
+		 * @return {undefined}
+		 *             - false - if process has been terminated
+		 *             - true  - in other cases
+		 * */
+		execClient: function(oldPanel, newPanel) {
+			if (oldPanel) {
+				var continueProcess = oldPanel.__leave();
+				if (!continueProcess) {
+					return false;
+				}
+			}
 
-            this.__setActiveItem(newPanel);
+			this.__setActiveItem(newPanel);
 
-            newPanel.__enter();
-            newPanel.getTogglePanel().__fireItemChange(oldPanel, newPanel);
+			newPanel.__enter();
+			newPanel.getTogglePanel().__fireItemChange(oldPanel, newPanel);
 
-            return true;
-        },
+			return true;
+		},
 
-        /**
-         * @private
-         * */
-        __getParentForm : function (comp) {
-            return $(rf.getDomElement(comp.id)).parents('form:first');
-        },
+		/**
+		 * @private
+		 * */
+		__getParentForm: function(comp) {
+			return $(rf.getDomElement(comp.id)).parents('form:first');
+		},
 
-        /**
-         * @private
-         * */
-        __setActiveItem : function (item) {
-            rf.getDomElement(item.togglePanelId + "-value").value = item.getName(); // todo it is should be toogle panel method
-            item.getTogglePanel().activeItem = item.getName();
-        }
-    };
+		/**
+		 * @private
+		 * */
+		__setActiveItem: function(item) {
+			rf.getDomElement(item.togglePanelId + "-value").value = item.getName(); // todo it is should be toogle panel method
+			item.getTogglePanel().activeItem = item.getName();
+		}
+	};
 
 
-    rf.ui.TabPanel = rf.ui.TogglePanel.extendClass({
-            // class name
-            name:"TabPanel",
+	rf.ui.TabPanel = rf.ui.TogglePanel.extendClass({
+		// class name
+		name: "TabPanel",
 
-            /**
-             * Backing object for rich:tabPanel
-             * 
-             * @extends RichFaces.ui.TogglePanel
-             * @memberOf! RichFaces.ui
-             * @constructs RichFaces.ui.TabPanel
-             * 
-             * @param {string} componentId - component id
-             * @param {Object} options - params
-             * */
-            init : function (componentId, options) {
-                rf.ui.TogglePanel.call(this, componentId, options);
-                this.items = [];
+		/**
+		 * Backing object for rich:tabPanel
+		 * 
+		 * @extends RichFaces.ui.TogglePanel
+		 * @memberOf! RichFaces.ui
+		 * @constructs RichFaces.ui.TabPanel
+		 * 
+		 * @param {string} componentId - component id
+		 * @param {Object} options - params
+		 * */
+		init: function(componentId, options) {
+			rf.ui.TogglePanel.call(this, componentId, options);
+			this.items = [];
 
-                this.isKeepHeight = options["isKeepHeight"] || false;
+			this.isKeepHeight = options["isKeepHeight"] || false;
 
-                this.element = document.getElementById(componentId);
-                var $element = $(this.element);
+			this.element = document.getElementById(componentId);
+			var $element = $(this.element);
 
-                $element.on("click", ".rf-tab-hdr-act", $.proxy(this.__clickListener, this))
-                $element.on("click", ".rf-tab-hdr-inact", $.proxy(this.__clickListener, this))
-            },
+			$element.on("click", ".rf-tab-hdr-act", $.proxy(this.__clickListener, this))
+			$element.on("click", ".rf-tab-hdr-inact", $.proxy(this.__clickListener, this))
+		},
 
-            __clickListener: function(event) {
-                var header = $(event.target);
-                if (! header.hasClass("rf-tab-hdr")) {
-                    header = header.parents(".rf-tab-hdr").first();
-                }
-                var tabname = header.data('tabname');
-                this.switchToItem(tabname);
-            },
+		__clickListener: function(event) {
+			var header = $(event.target);
+			if (!header.hasClass("rf-tab-hdr")) {
+				header = header.parents(".rf-tab-hdr").first();
+			}
+			var tabname = header.data('tabname');
+			this.switchToItem(tabname);
+		},
 
-            __itemsSwitcher : function () {
-                return ITEMS_SWITCHER;
-            }
+		__itemsSwitcher: function() {
+			return ITEMS_SWITCHER;
+		}
 
-        });
+	});
 })(RichFaces.jQuery, RichFaces);

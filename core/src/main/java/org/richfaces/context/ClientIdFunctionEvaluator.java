@@ -25,8 +25,8 @@ import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.context.IdParser.Node;
 import org.richfaces.util.SeparatorChar;

@@ -21,28 +21,28 @@
  */
 package org.richfaces.application;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIInput;
-import javax.faces.component.UISelectMany;
-import javax.faces.component.UISelectOne;
-import javax.faces.convert.BigDecimalConverter;
-import javax.faces.convert.BigIntegerConverter;
-import javax.faces.convert.BooleanConverter;
-import javax.faces.convert.ByteConverter;
-import javax.faces.convert.CharacterConverter;
-import javax.faces.convert.DateTimeConverter;
-import javax.faces.convert.DoubleConverter;
-import javax.faces.convert.EnumConverter;
-import javax.faces.convert.FloatConverter;
-import javax.faces.convert.IntegerConverter;
-import javax.faces.convert.LongConverter;
-import javax.faces.convert.NumberConverter;
-import javax.faces.convert.ShortConverter;
-import javax.faces.validator.BeanValidator;
-import javax.faces.validator.DoubleRangeValidator;
-import javax.faces.validator.LengthValidator;
-import javax.faces.validator.LongRangeValidator;
-import javax.faces.validator.RegexValidator;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.UISelectMany;
+import jakarta.faces.component.UISelectOne;
+import jakarta.faces.convert.BigDecimalConverter;
+import jakarta.faces.convert.BigIntegerConverter;
+import jakarta.faces.convert.BooleanConverter;
+import jakarta.faces.convert.ByteConverter;
+import jakarta.faces.convert.CharacterConverter;
+import jakarta.faces.convert.DateTimeConverter;
+import jakarta.faces.convert.DoubleConverter;
+import jakarta.faces.convert.EnumConverter;
+import jakarta.faces.convert.FloatConverter;
+import jakarta.faces.convert.IntegerConverter;
+import jakarta.faces.convert.LongConverter;
+import jakarta.faces.convert.NumberConverter;
+import jakarta.faces.convert.ShortConverter;
+import jakarta.faces.validator.BeanValidator;
+import jakarta.faces.validator.DoubleRangeValidator;
+import jakarta.faces.validator.LengthValidator;
+import jakarta.faces.validator.LongRangeValidator;
+import jakarta.faces.validator.RegexValidator;
 
 import org.richfaces.l10n.MessageBundle;
 
@@ -74,7 +74,7 @@ public enum FacesMessages {
     DATE_TIME_CONVERTER_TIME_DETAIL(DateTimeConverter.TIME_ID, true),
     DATE_TIME_CONVERTER_DATETIME(DateTimeConverter.DATETIME_ID),
     DATE_TIME_CONVERTER_DATETIME_DETAIL(DateTimeConverter.DATETIME_ID, true),
-    DATE_TIME_CONVERTER_PATTERN_TYPE("javax.faces.converter.DateTimeConverter.PATTERN_TYPE"),
+    DATE_TIME_CONVERTER_PATTERN_TYPE("jakarta.faces.converter.DateTimeConverter.PATTERN_TYPE"),
     DOUBLE_CONVERTER_DOUBLE(DoubleConverter.DOUBLE_ID),
     DOUBLE_CONVERTER_DOUBLE_DETAIL(DoubleConverter.DOUBLE_ID, true),
     ENUM_CONVERTER_ENUM(EnumConverter.ENUM_ID),
@@ -97,7 +97,7 @@ public enum FacesMessages {
     NUMBER_CONVERTER_PATTERN_DETAIL(NumberConverter.PATTERN_ID, true),
     SHORT_CONVERTER_SHORT(ShortConverter.SHORT_ID),
     SHORT_CONVERTER_SHORT_DETAIL(ShortConverter.SHORT_ID, true),
-    CONVERTER_STRING("javax.faces.converter.STRING"),
+    CONVERTER_STRING("jakarta.faces.converter.STRING"),
     DOUBLE_RANGE_VALIDATOR_MAXIMUM(DoubleRangeValidator.MAXIMUM_MESSAGE_ID),
     DOUBLE_RANGE_VALIDATOR_MINIMUM(DoubleRangeValidator.MINIMUM_MESSAGE_ID),
     DOUBLE_RANGE_VALIDATOR_NOT_IN_RANGE(DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID),
@@ -108,7 +108,7 @@ public enum FacesMessages {
     LONG_RANGE_VALIDATOR_MINIMUM(LongRangeValidator.MINIMUM_MESSAGE_ID),
     LONG_RANGE_VALIDATOR_NOT_IN_RANGE(LongRangeValidator.NOT_IN_RANGE_MESSAGE_ID),
     LONG_RANGE_VALIDATOR_TYPE(LongRangeValidator.TYPE_MESSAGE_ID),
-    VALIDATOR_NOT_IN_RANGE("javax.faces.validator.NOT_IN_RANGE"),
+    VALIDATOR_NOT_IN_RANGE("jakarta.faces.validator.NOT_IN_RANGE"),
     REGEX_VALIDATOR_PATTERN_NOT_SET(RegexValidator.PATTERN_NOT_SET_MESSAGE_ID),
     REGEX_VALIDATOR_PATTERN_NOT_SET_DETAIL(RegexValidator.PATTERN_NOT_SET_MESSAGE_ID, true),
     REGEX_VALIDATOR_NOT_MATCHED(RegexValidator.NOT_MATCHED_MESSAGE_ID),

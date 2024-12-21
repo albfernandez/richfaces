@@ -35,7 +35,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 
 import org.richfaces.log.Logger;
 import org.richfaces.resource.ResourceKey;

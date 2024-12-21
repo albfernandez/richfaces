@@ -28,8 +28,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.application.Initializable;
 import org.richfaces.application.ServiceLoader;
@@ -100,7 +100,7 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.resource.external.ExternalStaticResourceFactory#createResource(javax.faces.context.FacesContext,
+     * @see org.richfaces.resource.external.ExternalStaticResourceFactory#createResource(jakarta.faces.context.FacesContext,
      * org.richfaces.resource.ResourceKey)
      */
     @Override

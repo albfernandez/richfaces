@@ -20,7 +20,7 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIPanel;
+import jakarta.faces.component.UIPanel;
 
 import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;

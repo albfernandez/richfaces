@@ -20,10 +20,10 @@
  */
 package org.richfaces.event;
 
-import javax.faces.component.UIComponent;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.FacesListener;
-import javax.faces.event.PhaseId;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.FacesListener;
+import jakarta.faces.event.PhaseId;
 
 /**
  * @author Wesley Hales

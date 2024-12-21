@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
-    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
-    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+	xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+	xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+	xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+	xmlns:javaee="http://java.sun.com/xml/ns/javaee">
 
-    <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.ListRenderer</cdk:class>
-        <cdk:superclass>org.richfaces.renderkit.ListRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.List</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.ListRenderer
-        </cdk:renderer-type>
-        <cdk:renders-children>true</cdk:renders-children>
+	<cc:interface>
+		<cdk:class>org.richfaces.renderkit.html.ListRenderer</cdk:class>
+		<cdk:superclass>org.richfaces.renderkit.ListRendererBase</cdk:superclass>
+		<cdk:component-family>org.richfaces.List</cdk:component-family>
+		<cdk:renderer-type>org.richfaces.ListRenderer
+		</cdk:renderer-type>
+		<cdk:renders-children>true</cdk:renders-children>
 
-        <!--
+		<!--
         <cc:attribute name="onclick" type="java.lang.String">
             <cc:clientBehavior event="click" />
         </cc:attribute>
@@ -74,31 +76,41 @@
             <cc:clientBehavior event="rowkeyup" />
         </cc:attribute>
         -->
-    </cc:interface>
+	</cc:interface>
 
-    <cc:implementation>
-        <cdk:object type="org.richfaces.component.ListType" name="listType" value="#{getType(component)}" />
+	<cc:implementation>
+		<cdk:object type="org.richfaces.component.ListType" name="listType"
+			value="#{getType(component)}" />
 
-        <cdk:object name="styleClass" value="#{getStyleClass(component, listType)}" />
-        <cdk:object name="elementId" value="#{getElementId(facesContext, component)}" />
+		<cdk:object name="styleClass"
+			value="#{getStyleClass(component, listType)}" />
+		<cdk:object name="elementId"
+			value="#{getElementId(facesContext, component)}" />
 
-        <cdk:switch key="#{listType}">
-            <cdk:case values="ordered">
-                <ol id="#{elementId}" class="#{styleClass}" start="#{getFirst(component)}" cdk:passThroughWithExclusions="type value">
-                    <cdk:call expression="encodeListItems(facesContext, component, listType)" />
-                </ol>
-            </cdk:case>
-            <cdk:case values="unordered">
-                <ul id="#{elementId}" class="#{styleClass}" cdk:passThroughWithExclusions="type value">
-                    <cdk:call expression="encodeListItems(facesContext, component, listType)" />
-                </ul>
-            </cdk:case>
-            <cdk:case values="definitions">
-                <dl id="#{elementId}" class="#{styleClass}" cdk:passThroughWithExclusions="type value">
-                    <cdk:call expression="encodeListItems(facesContext, component, listType)" />
-                </dl>
-            </cdk:case>
-        </cdk:switch>
-    </cc:implementation>
+		<cdk:switch key="#{listType}">
+			<cdk:case values="ordered">
+				<ol id="#{elementId}" class="#{styleClass}"
+					start="#{getFirst(component)}"
+					cdk:passThroughWithExclusions="type value">
+					<cdk:call
+						expression="encodeListItems(facesContext, component, listType)" />
+				</ol>
+			</cdk:case>
+			<cdk:case values="unordered">
+				<ul id="#{elementId}" class="#{styleClass}"
+					cdk:passThroughWithExclusions="type value">
+					<cdk:call
+						expression="encodeListItems(facesContext, component, listType)" />
+				</ul>
+			</cdk:case>
+			<cdk:case values="definitions">
+				<dl id="#{elementId}" class="#{styleClass}"
+					cdk:passThroughWithExclusions="type value">
+					<cdk:call
+						expression="encodeListItems(facesContext, component, listType)" />
+				</dl>
+			</cdk:case>
+		</cdk:switch>
+	</cc:implementation>
 
 </cdk:root>

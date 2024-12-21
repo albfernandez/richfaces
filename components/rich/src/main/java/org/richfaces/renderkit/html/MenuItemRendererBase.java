@@ -1,8 +1,8 @@
 package org.richfaces.renderkit.html;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractMenuContainer;
 import org.richfaces.component.AbstractMenuGroup;

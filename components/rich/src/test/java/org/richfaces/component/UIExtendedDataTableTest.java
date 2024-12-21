@@ -21,7 +21,7 @@
  */
 package org.richfaces.component;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;

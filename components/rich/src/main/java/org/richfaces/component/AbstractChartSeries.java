@@ -20,8 +20,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.component;
-import javax.el.MethodExpression;
-import javax.faces.component.UIComponentBase;
+import jakarta.el.MethodExpression;
+import jakarta.faces.component.UIComponentBase;
 
 import org.richfaces.model.ChartDataModel;
 import org.richfaces.model.SeriesHandler;

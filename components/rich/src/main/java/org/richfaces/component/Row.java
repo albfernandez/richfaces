@@ -23,8 +23,8 @@ package org.richfaces.component;
 
 import java.util.Iterator;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.model.DataVisitor;
 

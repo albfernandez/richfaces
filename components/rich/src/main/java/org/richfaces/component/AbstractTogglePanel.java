@@ -26,30 +26,30 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicReference;
 
-import javax.el.ELException;
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.faces.application.Application;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.ActionSource2;
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UpdateModelException;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.ExceptionQueuedEventContext;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PostValidateEvent;
-import javax.faces.event.PreValidateEvent;
+import jakarta.el.ELException;
+import jakarta.el.MethodExpression;
+import jakarta.el.ValueExpression;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.ActionSource2;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UpdateModelException;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitHint;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ExceptionQueuedEvent;
+import jakarta.faces.event.ExceptionQueuedEventContext;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.event.PostValidateEvent;
+import jakarta.faces.event.PreValidateEvent;
 
 import org.richfaces.application.FacesMessages;
 import org.richfaces.application.MessageFactory;
@@ -98,7 +98,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     public static final String META_NAME_NEXT = "@next";
     public static final String META_NAME_LAST = "@last";
     // TODO What is MessageId ?
-    public static final String UPDATE_MESSAGE_ID = "javax.faces.component.UIInput.UPDATE";
+    public static final String UPDATE_MESSAGE_ID = "jakarta.faces.component.UIInput.UPDATE";
 
     private static final Logger LOG = RichfacesLogger.RENDERKIT.getLogger();
 
@@ -270,7 +270,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     /**
      * <p>
      * Specialized decode behavior on top of that provided by the superclass. In addition to the standard
-     * <code>processDecodes</code> behavior inherited from {@link javax.faces.component.UIComponentBase}, calls
+     * <code>processDecodes</code> behavior inherited from {@link jakarta.faces.component.UIComponentBase}, calls
      * <code>processValue()</code> if the the <code>immediate</code> property is true; if the component is invalid afterwards or
      * a <code>RuntimeException</code> is thrown, calls {@link FacesContext#renderResponse}.
      * </p>
@@ -325,7 +325,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     /**
      * <p>
      * In addition to the standard <code>processValidators</code> behavior inherited from
-     * {@link javax.faces.component.UIComponentBase}, calls <code>processValue()</code> if the <code>immediate</code> property
+     * {@link jakarta.faces.component.UIComponentBase}, calls <code>processValue()</code> if the <code>immediate</code> property
      * is false (which is the default); if the component is invalid afterwards, calls {@link FacesContext#renderResponse}. If a
      * <code>RuntimeException</code> is thrown during validation processing, calls {@link FacesContext#renderResponse} and
      * re-throw the exception.
@@ -371,7 +371,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     /**
      * <p>
      * In addition to the standard <code>processUpdates</code> behavior inherited from
-     * {@link javax.faces.component.UIComponentBase}, calls <code>updateModel()</code>. If the component is invalid afterwards,
+     * {@link jakarta.faces.component.UIComponentBase}, calls <code>updateModel()</code>. If the component is invalid afterwards,
      * calls {@link FacesContext#renderResponse}. If a <code>RuntimeException</code> is thrown during update processing, calls
      * {@link FacesContext#renderResponse} and re-throw the exception.
      * </p>

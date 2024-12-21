@@ -101,7 +101,7 @@ More detail and specific examples can be found in the included HTML file.
 
 				if (options.series.pie.radius == "auto") {
 					if (options.series.pie.label.show) {
-						options.series.pie.radius = 3/4;
+						options.series.pie.radius = 3 / 4;
 					} else {
 						options.series.pie.radius = 1;
 					}
@@ -151,7 +151,7 @@ More detail and specific examples can be found in the included HTML file.
 		});
 
 		function processDatapoints(plot, series, datapoints) {
-			if (!processed)	{
+			if (!processed) {
 				processed = true;
 				canvas = plot.getCanvas();
 				target = $(canvas).parent();
@@ -182,7 +182,7 @@ More detail and specific examples can be found in the included HTML file.
 				// that the user may have stored in higher indexes.
 
 				if ($.isArray(value) && value.length == 1) {
-    				value = value[0];
+					value = value[0];
 				}
 
 				if ($.isArray(value)) {
@@ -287,7 +287,7 @@ More detail and specific examples can be found in the included HTML file.
 
 			// calculate maximum radius and center point
 
-			maxRadius =  Math.min(canvasWidth, canvasHeight / options.series.pie.tilt) / 2;
+			maxRadius = Math.min(canvasWidth, canvasHeight / options.series.pie.tilt) / 2;
 			centerTop = canvasHeight / 2 + options.series.pie.offset.top;
 			centerLeft = canvasWidth / 2;
 
@@ -353,13 +353,13 @@ More detail and specific examples can be found in the included HTML file.
 				}
 
 				ctx.save();
-				ctx.translate(shadowLeft,shadowTop);
+				ctx.translate(shadowLeft, shadowTop);
 				ctx.globalAlpha = alpha;
 				ctx.fillStyle = "#000";
 
 				// center and rotate to starting position
 
-				ctx.translate(centerLeft,centerTop);
+				ctx.translate(centerLeft, centerTop);
 				ctx.scale(1, options.series.pie.tilt);
 
 				//radius -= edge;
@@ -382,7 +382,7 @@ More detail and specific examples can be found in the included HTML file.
 				// center and rotate to starting position
 
 				ctx.save();
-				ctx.translate(centerLeft,centerTop);
+				ctx.translate(centerLeft, centerTop);
 				ctx.scale(1, options.series.pie.tilt);
 				//ctx.rotate(startAngle); // start at top; -- This doesn't work properly in Opera
 
@@ -439,8 +439,8 @@ More detail and specific examples can be found in the included HTML file.
 					}
 
 					//ctx.arc(0, 0, radius, 0, angle, false); // This doesn't work properly in Opera
-					ctx.arc(0, 0, radius,currentAngle, currentAngle + angle / 2, false);
-					ctx.arc(0, 0, radius,currentAngle + angle / 2, currentAngle + angle, false);
+					ctx.arc(0, 0, radius, currentAngle, currentAngle + angle / 2, false);
+					ctx.arc(0, 0, radius, currentAngle + angle / 2, currentAngle + angle, false);
 					ctx.closePath();
 					//ctx.rotate(angle); // This doesn't work properly in Opera
 					currentAngle += angle;
@@ -564,10 +564,10 @@ More detail and specific examples can be found in the included HTML file.
 		//-- Additional Interactive related functions --
 
 		function isPointInPoly(poly, pt) {
-			for(var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
-				((poly[i][1] <= pt[1] && pt[1] < poly[j][1]) || (poly[j][1] <= pt[1] && pt[1]< poly[i][1]))
-				&& (pt[0] < (poly[j][0] - poly[i][0]) * (pt[1] - poly[i][1]) / (poly[j][1] - poly[i][1]) + poly[i][0])
-				&& (c = !c);
+			for (var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
+				((poly[i][1] <= pt[1] && pt[1] < poly[j][1]) || (poly[j][1] <= pt[1] && pt[1] < poly[i][1]))
+					&& (pt[0] < (poly[j][0] - poly[i][0]) * (pt[1] - poly[i][1]) / (poly[j][1] - poly[i][1]) + poly[i][0])
+					&& (c = !c);
 			return c;
 		}
 
@@ -627,7 +627,7 @@ More detail and specific examples can be found in the included HTML file.
 
 			var offset = plot.offset();
 			var canvasX = parseInt(e.pageX - offset.left);
-			var canvasY =  parseInt(e.pageY - offset.top);
+			var canvasY = parseInt(e.pageY - offset.top);
 			var item = findNearbySlice(canvasX, canvasY);
 
 			if (options.grid.autoHighlight) {
@@ -742,7 +742,7 @@ More detail and specific examples can be found in the included HTML file.
 				show: false,
 				radius: "auto",	// actual radius of the visible pie (based on full calculated radius if <=1, or hard pixel value)
 				innerRadius: 0, /* for donut */
-				startAngle: 3/2,
+				startAngle: 3 / 2,
 				tilt: 1,
 				shadow: {
 					left: 5,	// shadow left offset

@@ -3,12 +3,12 @@ package org.richfaces.component.behavior;
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;
 
-import javax.faces.FacesException;
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.render.RenderKit;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.render.RenderKit;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.jboss.test.faces.mock.Mock;

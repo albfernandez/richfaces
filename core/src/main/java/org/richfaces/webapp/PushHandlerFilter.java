@@ -26,15 +26,15 @@ import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.Collections;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.atmosphere.cpr.BroadcastFilter;
 import org.atmosphere.cpr.Broadcaster.SCOPE;
@@ -99,7 +99,7 @@ public class PushHandlerFilter implements Filter, Serializable {
 
                 httpResp.setContentType("text/plain");
 
-                Meteor meteor = Meteor.build(httpReq, SCOPE.REQUEST, Collections.<BroadcastFilter>emptyList(), null);
+                /*MZ TODO Meteor meteor = Meteor.build(httpReq, SCOPE.REQUEST, Collections.<BroadcastFilter>emptyList(), null);
 
                 try {
                     Request pushRequest = new RequestImpl(meteor, session);
@@ -111,6 +111,7 @@ public class PushHandlerFilter implements Filter, Serializable {
                 } catch (Exception e) {
                     LOGGER.error(e.getMessage(), e);
                 }
+                */
             }
         }
     }

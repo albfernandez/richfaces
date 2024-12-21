@@ -22,9 +22,9 @@ package org.richfaces.renderkit.util;
 
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.ajax4jsf.javascript.JSFunctionDefinition;

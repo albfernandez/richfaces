@@ -29,12 +29,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.RollbackException;
-import javax.transaction.Status;
-import javax.transaction.SystemException;
-import javax.transaction.Transaction;
+import jakarta.transaction.HeuristicMixedException;
+import jakarta.transaction.HeuristicRollbackException;
+import jakarta.transaction.RollbackException;
+import jakarta.transaction.Status;
+import jakarta.transaction.SystemException;
+import jakarta.transaction.Transaction;
 
 import org.jboss.cache.Fqn;
 import org.jboss.cache.eviction.ExpirationAlgorithmConfig;
@@ -73,8 +73,9 @@ public class JBossCacheCache implements Cache {
         }
 
         cache.put(createFqn(key), map);
-
-        Transaction transaction = cache.getInvocationContext().getTransaction();
+        
+        							//MZ tODO dirty hack
+        Transaction transaction = (Transaction) cache.getInvocationContext().getTransaction();
 
         try {
 

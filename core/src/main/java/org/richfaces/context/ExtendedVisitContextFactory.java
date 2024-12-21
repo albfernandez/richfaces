@@ -3,10 +3,10 @@ package org.richfaces.context;
 import java.util.Collection;
 import java.util.Set;
 
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitContextFactory;
-import javax.faces.component.visit.VisitHint;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitContextFactory;
+import jakarta.faces.component.visit.VisitHint;
+import jakarta.faces.context.FacesContext;
 
 // TODO visitContext instanceof ExtendedVisitContext
 public class ExtendedVisitContextFactory extends VisitContextFactory {
@@ -29,7 +29,7 @@ public class ExtendedVisitContextFactory extends VisitContextFactory {
      * </p>
      *
      * <p>
-     * only if current view processing is inside of {@link ExtendedPartialViewContext#processPartial(javax.faces.event.PhaseId)}
+     * only if current view processing is inside of {@link ExtendedPartialViewContext#processPartial(jakarta.faces.event.PhaseId)}
      * processing
      * </p>
      *
@@ -39,7 +39,7 @@ public class ExtendedVisitContextFactory extends VisitContextFactory {
      *
      * <p>
      * Otherwise if {@link VisitContextFactory} is called outside of
-     * {@link ExtendedPartialViewContext#processPartial(javax.faces.event.PhaseId)} processing, a {@link VisitContext} created
+     * {@link ExtendedPartialViewContext#processPartial(jakarta.faces.event.PhaseId)} processing, a {@link VisitContext} created
      * by parent factory is used instead.
      */
     @Override

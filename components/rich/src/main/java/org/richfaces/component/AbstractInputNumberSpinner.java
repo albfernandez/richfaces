@@ -48,7 +48,7 @@ import org.richfaces.component.attribute.InputProps;
         tag = @Tag(name = "inputNumberSpinner"))
 public abstract class AbstractInputNumberSpinner extends UIInputNumber implements AccesskeyProps, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps, InputProps {
     public static final String COMPONENT_TYPE = "org.richfaces.InputNumberSpinner";
-    public static final String COMPONENT_FAMILY = "javax.faces.Input";
+    public static final String COMPONENT_FAMILY = "jakarta.faces.Input";
 
 
     @Attribute(hidden = true)

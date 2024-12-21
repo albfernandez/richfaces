@@ -13,26 +13,26 @@
 <script>
 	exportPdfUtils.initManualTest();
 
-	var editor1 = CKEDITOR.replace( 'editor1', exportPdfUtils.getDefaultConfig( 'manual', { height: 100 } ) ),
-		editor2 = CKEDITOR.replace( 'editor2', exportPdfUtils.getDefaultConfig( 'manual', { height: 100 } ) );
+	var editor1 = CKEDITOR.replace('editor1', exportPdfUtils.getDefaultConfig('manual', {height: 100})),
+		editor2 = CKEDITOR.replace('editor2', exportPdfUtils.getDefaultConfig('manual', {height: 100}));
 
-	editor1.on( 'instanceReady', function() {
-		if ( !CKEDITOR.config.exportPdf_tokenUrl ) {
+	editor1.on('instanceReady', function () {
+		if (!CKEDITOR.config.exportPdf_tokenUrl) {
 			bender.ignore();
 		}
-	} );
+	});
 
-	editor1.on( 'exportPdf', function( evt ) {
-		var value = CKEDITOR.document.findOne( '#tokenValue1' );
+	editor1.on('exportPdf', function (evt) {
+		var value = CKEDITOR.document.findOne('#tokenValue1');
 
-		value.setHtml( evt.data.token );
+		value.setHtml(evt.data.token);
 		evt.cancel();
-	}, null, null, 17 );
+	}, null, null, 17);
 
-	editor2.on( 'exportPdf', function( evt ) {
-		var value = CKEDITOR.document.findOne( '#tokenValue2' );
+	editor2.on('exportPdf', function (evt) {
+		var value = CKEDITOR.document.findOne('#tokenValue2');
 
-		value.setHtml( evt.data.token );
+		value.setHtml(evt.data.token);
 		evt.cancel();
-	}, null, null, 17 );
+	}, null, null, 17);
 </script>

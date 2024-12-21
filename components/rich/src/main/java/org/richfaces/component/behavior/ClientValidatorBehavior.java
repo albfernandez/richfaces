@@ -2,9 +2,9 @@ package org.richfaces.component.behavior;
 
 import java.util.Collection;
 
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.convert.Converter;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.convert.Converter;
 
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.ValidatorDescriptor;

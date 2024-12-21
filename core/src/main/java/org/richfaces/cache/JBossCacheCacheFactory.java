@@ -33,8 +33,8 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Map;
 
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.jboss.cache.Cache;

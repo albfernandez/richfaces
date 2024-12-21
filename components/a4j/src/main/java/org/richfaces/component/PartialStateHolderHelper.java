@@ -21,8 +21,8 @@
  */
 package org.richfaces.component;
 
-import static javax.faces.component.UIComponentBase.restoreAttachedState;
-import static javax.faces.component.UIComponentBase.saveAttachedState;
+import static jakarta.faces.component.UIComponentBase.restoreAttachedState;
+import static jakarta.faces.component.UIComponentBase.saveAttachedState;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,11 +30,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
-import javax.faces.component.PartialStateHolder;
-import javax.faces.component.StateHelper;
-import javax.faces.component.StateHolder;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.PartialStateHolder;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author akolonitsky
@@ -378,4 +379,13 @@ public class PartialStateHolderHelper implements StateHelper {
         }
         return ret;
     }
+
+	@Override
+	public Object eval(Serializable key, Supplier<Object> defaultValueSupplier) {
+		//MZ TODO Auto-generated method stub
+		
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MZ TODO");
+		
+		return null;
+	}
 }

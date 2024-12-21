@@ -30,13 +30,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.faces.application.ProjectStage;
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.application.ResourceHandlerWrapper;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.application.ResourceHandlerWrapper;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.richfaces.cache.Cache;
 import org.richfaces.log.Logger;
@@ -81,7 +81,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#isResourceRequest(javax.faces.context.FacesContext)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#isResourceRequest(jakarta.faces.context.FacesContext)
      */
     @Override
     public boolean isResourceRequest(FacesContext context) {
@@ -90,7 +90,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#handleResourceRequest(javax.faces.context.FacesContext)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#handleResourceRequest(jakarta.faces.context.FacesContext)
      */
     @Override
     public void handleResourceRequest(FacesContext context) throws IOException {
@@ -259,7 +259,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#createResource(java.lang.String, java.lang.String, java.lang.String)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#createResource(java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
     public Resource createResource(String resourceName, String libraryName, String contentType) {
@@ -273,7 +273,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#createResource(java.lang.String, java.lang.String)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#createResource(java.lang.String, java.lang.String)
      */
     @Override
     public Resource createResource(String resourceName, String libraryName) {
@@ -282,7 +282,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#createResource(java.lang.String)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#createResource(java.lang.String)
      */
     @Override
     public Resource createResource(String resourceName) {
@@ -291,13 +291,13 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#getRendererTypeForResourceName(java.lang.String)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#getRendererTypeForResourceName(java.lang.String)
      */
     @Override
     public String getRendererTypeForResourceName(String resourceName) {
 
         if (resourceName != null && resourceName.endsWith(".ecss")) {
-            return "javax.faces.resource.Stylesheet";
+            return "jakarta.faces.resource.Stylesheet";
         }
 
         if (resourceName != null && resourceName.endsWith(ResourceLibraryRenderer.RESOURCE_LIBRARY_EXTENSION)) {
@@ -309,7 +309,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#libraryExists(java.lang.String)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#libraryExists(java.lang.String)
      */
     @Override
     public boolean libraryExists(String libraryName) {
@@ -318,7 +318,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#getWrapped()
+     * @see jakarta.faces.application.ResourceHandlerWrapper#getWrapped()
      */
     @Override
     public ResourceHandler getWrapped() {

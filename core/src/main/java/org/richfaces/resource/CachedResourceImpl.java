@@ -35,8 +35,8 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.io.ByteBuffer;
 import org.ajax4jsf.io.FastBufferInputStream;

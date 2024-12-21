@@ -9,8 +9,8 @@ import static org.junit.Assert.assertSame;
 
 import java.util.Collections;
 
-import javax.faces.convert.Converter;
-import javax.faces.convert.NumberConverter;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.NumberConverter;
 
 import org.easymock.Capture;
 import org.easymock.EasyMock;

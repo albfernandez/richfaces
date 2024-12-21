@@ -23,10 +23,10 @@ package org.richfaces.component;
 
 import java.util.Iterator;
 
-import javax.faces.component.UIColumn;
-import javax.faces.component.UISelectItems;
-import javax.faces.component.UISelectMany;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UISelectItems;
+import jakarta.faces.component.UISelectMany;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsKeyProps;

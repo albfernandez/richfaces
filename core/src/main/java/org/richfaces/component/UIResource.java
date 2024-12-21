@@ -21,11 +21,11 @@
  */
 package org.richfaces.component;
 
-import javax.faces.application.ResourceHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.Renderer;
 
 /**
  * <p class="changed_added_4_0">
@@ -107,7 +107,7 @@ public class UIResource extends UITransient {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.component.UIComponent#getFamily()
+     * @see jakarta.faces.component.UIComponent#getFamily()
      */
     @Override
     public String getFamily() {

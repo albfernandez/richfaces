@@ -45,8 +45,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceDependency;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceDependency;
 
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;

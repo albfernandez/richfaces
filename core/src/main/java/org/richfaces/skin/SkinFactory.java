@@ -21,7 +21,7 @@
  */
 package org.richfaces.skin;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.application.ServiceTracker;
 

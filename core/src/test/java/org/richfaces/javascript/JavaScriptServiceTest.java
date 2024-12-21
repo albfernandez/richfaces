@@ -38,8 +38,8 @@ import org.richfaces.application.ServicesFactory;
 import org.richfaces.component.UIScripts;
 import org.richfaces.resource.ResourceKey;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 
 import java.util.Collection;
 

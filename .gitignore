@@ -30,3 +30,5 @@ arquillian.xml
 /core/lib/
 
 .mvn/wrapper/maven-wrapper.jar
+
+examples

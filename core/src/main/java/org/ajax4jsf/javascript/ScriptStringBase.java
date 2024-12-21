@@ -21,7 +21,7 @@
  */
 package org.ajax4jsf.javascript;
 
-import javax.faces.FacesException;
+import jakarta.faces.FacesException;
 import java.io.IOException;
 
 /**

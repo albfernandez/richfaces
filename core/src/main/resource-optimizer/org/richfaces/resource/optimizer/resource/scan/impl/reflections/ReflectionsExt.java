@@ -21,22 +21,20 @@
  */
 package org.richfaces.resource.optimizer.resource.scan.impl.reflections;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-
-import org.reflections.Configuration;
-import org.reflections.Reflections;
-import org.reflections.scanners.Scanner;
-
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Multimap;
+import org.reflections.Configuration;
+import org.reflections.Reflections;
+import org.reflections.scanners.Scanner;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class ReflectionsExt extends Reflections {
     private static final Function<String, Class<?>> CLASS_FOR_NAME = new Function<String, Class<?>>() {

@@ -21,8 +21,6 @@
  */
 package org.richfaces.showcase.contextMenu;
 
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -32,6 +30,8 @@ import org.richfaces.fragment.common.Locations;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.contextMenu.RichFacesContextMenu;
 import org.richfaces.showcase.AbstractWebDriverTest;
+
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -43,8 +43,8 @@ public class AbstractContextMenuTest extends AbstractWebDriverTest {
     public static final int TOLERANCE = 3;
 
     protected void checkContextMenuRenderedAtCorrectPosition(WebElement target, RichFacesContextMenu ctxMenuFragment,
-        Event showEvent, ExpectedCondition<Boolean> conditionTargetIsFocused, boolean selectingTargetTriggersAjax,
-        boolean invokingMenuTriggersAjax) {
+                                                             Event showEvent, ExpectedCondition<Boolean> conditionTargetIsFocused, boolean selectingTargetTriggersAjax,
+                                                             boolean invokingMenuTriggersAjax) {
 
         if (conditionTargetIsFocused != null) {
             if (selectingTargetTriggersAjax) {
@@ -73,7 +73,7 @@ public class AbstractContextMenuTest extends AbstractWebDriverTest {
 
         // check the top left corners are the same (with tolerance)
         Utils.tolerantAssertPointEquals(expected.getTopLeft(), actual.getTopLeft(), TOLERANCE, TOLERANCE,
-            "The context menu was not rendered on the correct position!");
+                "The context menu was not rendered on the correct position!");
     }
 
     public double getTargetWidth(WebElement target) {

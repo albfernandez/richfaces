@@ -21,11 +21,11 @@
  */
 package org.richfaces.cache;
 
-import java.util.Date;
-
 import com.opensymphony.oscache.base.EntryRefreshPolicy;
 import com.opensymphony.oscache.base.NeedsRefreshException;
 import com.opensymphony.oscache.web.filter.ExpiresRefreshPolicy;
+
+import java.util.Date;
 
 /**
  * @author Nick - mailto:nbelaevski@exadel.com created 01.05.2007

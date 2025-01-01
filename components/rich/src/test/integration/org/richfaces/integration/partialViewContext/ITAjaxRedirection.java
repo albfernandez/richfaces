@@ -72,15 +72,6 @@ public class ITAjaxRedirection {
         return deployment.getFinalArchive();
     }
 
-    @Test
-    public void test() {
-        browser.get(contextPath.toExternalForm());
-
-        button.click();
-
-        waitAjax().until().element(body).text().contains("Redirected");
-    }
-
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -103,5 +94,14 @@ public class ITAjaxRedirection {
         p.body("Redirected");
 
         deployment.archive().addAsWebResource(p, "redirected.xhtml");
+    }
+
+    @Test
+    public void test() {
+        browser.get(contextPath.toExternalForm());
+
+        button.click();
+
+        waitAjax().until().element(body).text().contains("Redirected");
     }
 }

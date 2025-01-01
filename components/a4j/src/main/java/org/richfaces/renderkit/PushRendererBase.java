@@ -21,14 +21,6 @@
  */
 package org.richfaces.renderkit;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.push.PushContext;
@@ -36,9 +28,15 @@ import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.component.AbstractPush;
 import org.richfaces.resource.PushResource;
 
+import javax.faces.application.Resource;
+import javax.faces.application.ResourceHandler;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Nick Belaevski
- *
  */
 public class PushRendererBase extends RendererBase {
     private static final String PUSH_URL_ENCODED_ATTRIBUTE = PushRendererBase.class.getName();

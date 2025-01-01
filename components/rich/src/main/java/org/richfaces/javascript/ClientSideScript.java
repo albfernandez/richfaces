@@ -35,7 +35,6 @@ import java.lang.annotation.Target;
  * This annotation describes client-side version of Converter/validator.
  *
  * @author asmirnov
- *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

@@ -21,19 +21,18 @@
  */
 package org.richfaces.component;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.FacesException;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.ToolbarGroupRenderer;
+
+import javax.faces.FacesException;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>The &lt;rich:toolbarGroup&gt; component is a child component of the &lt;rich:toolbar&gt; component. The
@@ -134,10 +133,10 @@ public abstract class AbstractToolbarGroup extends UIComponentBase {
         UIComponent component = this.getParent();
         if (component == null) {
             throw new FacesException("The component: " + this.getClientId(getFacesContext()) + " is not nested within "
-                + AbstractToolbar.class.getSimpleName());
+                    + AbstractToolbar.class.getSimpleName());
         } else if (!(component instanceof AbstractToolbar)) {
             throw new FacesException("The component: " + this.getClientId(getFacesContext()) + " is not a direct child of "
-                + AbstractToolbar.class.getSimpleName());
+                    + AbstractToolbar.class.getSimpleName());
         }
         return (AbstractToolbar) component;
     }

@@ -72,6 +72,16 @@ public class ITJsfAjaxScriptRendering {
         return deployment.getFinalArchive();
     }
 
+    private static void addIndexPage(A4JDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.form("<h:commandLink id='button' value='Click me '>");
+        p.form("    <a4j:ajax event='click' render='@form' />");
+        p.form("</h:commandLink>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
     @Test
     public void test_that_jsf_js_is_rendered_just_once() {
         browser.get(contextPath.toExternalForm());
@@ -83,16 +93,6 @@ public class ITJsfAjaxScriptRendering {
 
         guardAjax(button).click();
         assertEquals("there should be still just one jsf.js script on the page", 1, jsfJsScripts.size());
-    }
-
-    private static void addIndexPage(A4JDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.form("<h:commandLink id='button' value='Click me '>");
-        p.form("    <a4j:ajax event='click' render='@form' />");
-        p.form("</h:commandLink>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
 }

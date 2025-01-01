@@ -21,11 +21,6 @@
  */
 package org.richfaces.showcase.dataScroller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.page.Page;
@@ -34,6 +29,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.dataScroller.page.SimpleScrollingPage;
 import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -55,7 +55,7 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
 
         // check
         assertFalse("The data from table should be different, " + "when clicking on the on the the first page button",
-            carBeforeClick.equals(carAfterClick));
+                carBeforeClick.equals(carAfterClick));
         assertTrue("The first page button should be disabled", isElementPresent(page.getFirstPageButtonDis()));
         assertTrue("The fast previous page button should be disabled", isElementPresent(page.getFastPrevButtonDis()));
         assertTrue("The previous button should be disabled", isElementPresent(page.getPreviousButtonDis()));
@@ -74,7 +74,7 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
 
         // check
         assertFalse("The data from table should be different, " + "when clicking on the on the the last page button",
-            carBeforeClick.equals(carAfterClick));
+                carBeforeClick.equals(carAfterClick));
         assertTrue("The last page button should be disabled", isElementPresent(page.getLastPageButtonDis()));
         assertTrue("The fast next page button should be disabled", isElementPresent(page.getFastNextButtonDis()));
         assertTrue("The next button should be disabled", isElementPresent(page.getNextButtonDis()));
@@ -109,7 +109,7 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
      */
     private void checkNumberOfPagesButtons(int numberOfPage) {
         WebElement checkingButton = webDriver.findElement(ByJQuery.selector("a[class*='"
-            + page.CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + "']:contains('" + numberOfPage + "'):first"));
+                + page.CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + "']:contains('" + numberOfPage + "'):first"));
         Car carBeforeClicking = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
         Graphene.guardAjax(checkingButton).click();
 
@@ -124,8 +124,8 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
      *
      * @param nextButton
      * @param previousButton
-     * @param fast indicated whether it is fast step button or not
-     * @param step indicated how many pages are switched at a time
+     * @param fast           indicated whether it is fast step button or not
+     * @param step           indicated how many pages are switched at a time
      */
     private void testFastAndNormalButtons(WebElement nextButton, WebElement previousButton, boolean fast, int step) {
         // starting on the first page
@@ -137,21 +137,21 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
         // check
         // -- car
         assertNotEquals("The data from table should be different, " + "when clicking on the on the " + (fast ? "fast " : "")
-            + "next button", carBeforeClick, carAfterClick);
+                + "next button", carBeforeClick, carAfterClick);
         // -- page
         int numberOfPageAfterClickOnNext = page.getNumberOfCurrentPage();
         assertEquals("Previous button or " + (fast ? "fast " : "") + " previous button does not work",
-            numberOfPageAfterClickOnNext, numberOfPageAtBeginning + step);
+                numberOfPageAfterClickOnNext, numberOfPageAtBeginning + step);
         // click on the previous button
         Graphene.guardAjax(previousButton).click();
         // check
         // -- car
         carAfterClick = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
         assertEquals("The data from table should be the same as in the beginning, " + "when clicking on the on "
-            + (fast ? "fast " : "") + " the previous", carAfterClick, carBeforeClick);
+                + (fast ? "fast " : "") + " the previous", carAfterClick, carBeforeClick);
         // -- page
         int currentNumberOfPage = page.getNumberOfCurrentPage();
         assertEquals("The " + (fast ? "fast " : "") + " previous button does not work", numberOfPageAtBeginning,
-            currentNumberOfPage);
+                currentNumberOfPage);
     }
 }

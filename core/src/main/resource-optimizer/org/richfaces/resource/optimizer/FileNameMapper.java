@@ -23,7 +23,6 @@ package org.richfaces.resource.optimizer;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface FileNameMapper {
     String createName(String resourcePath);

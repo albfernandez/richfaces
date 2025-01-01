@@ -46,14 +46,6 @@ public abstract class AbstractRegionTest {
 
     @FindBy(id = "output")
     protected WebElement output;
-    
-    protected static class RegionTestDeployment extends A4JDeployment {
-
-        RegionTestDeployment(Class<?> baseClass) {
-            super(baseClass);
-            this.archive().addClasses(RegionBean.class);
-        }
-    }
 
     protected void openPage(String execute) {
         if (execute != null) {
@@ -69,5 +61,13 @@ public abstract class AbstractRegionTest {
     @After
     public void cleanUpSession() {
         browser.manage().deleteAllCookies();
+    }
+
+    protected static class RegionTestDeployment extends A4JDeployment {
+
+        RegionTestDeployment(Class<?> baseClass) {
+            super(baseClass);
+            this.archive().addClasses(RegionBean.class);
+        }
     }
 }

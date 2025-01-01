@@ -21,12 +21,12 @@
  */
 package org.richfaces.request;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import com.google.common.io.Files;
 import org.ajax4jsf.io.ByteBuffer;
 import org.ajax4jsf.io.FastBufferInputStream;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Nick Belaevski

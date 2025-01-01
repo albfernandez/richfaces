@@ -22,7 +22,6 @@
 package org.richfaces.javascript;
 
 import com.google.common.collect.Iterables;
-
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;
 import org.jboss.test.faces.mock.Mock;
@@ -40,7 +39,6 @@ import org.richfaces.resource.ResourceKey;
 
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
-
 import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
@@ -51,7 +49,6 @@ import static org.junit.Assert.assertSame;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 @RunWith(MockTestRunner.class)
 public class JavaScriptServiceTest {
@@ -59,7 +56,7 @@ public class JavaScriptServiceTest {
     protected UIScripts scriptResource;
     protected JavaScriptServiceImpl serviceImpl;
     @Mock()
-    @Environment({ Feature.APPLICATION, Feature.RENDER_KIT, Feature.EL_CONTEXT })
+    @Environment({Feature.APPLICATION, Feature.RENDER_KIT, Feature.EL_CONTEXT})
     protected MockFacesEnvironment environment;
     protected MockController controller;
     @Mock

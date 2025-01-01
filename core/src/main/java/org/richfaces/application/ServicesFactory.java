@@ -27,7 +27,6 @@ package org.richfaces.application;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public interface ServicesFactory {
     /**
@@ -35,7 +34,7 @@ public interface ServicesFactory {
      * Get service instance associated with given type, usually service interface or base abstract class.
      * </p>
      *
-     * @param <T> service type.
+     * @param <T>  service type.
      * @param type Base class implemented by service.
      * @return Current service implementation.
      * @throws ServiceException if factory cannot create requested service.
@@ -47,8 +46,8 @@ public interface ServicesFactory {
      * Associate concrete instance with service.
      * </p>
      *
-     * @param <T> service type.
-     * @param type Base class implemented by service.
+     * @param <T>      service type.
+     * @param type     Base class implemented by service.
      * @param instance service instance.
      */
     <T> void setInstance(Class<T> type, T instance);

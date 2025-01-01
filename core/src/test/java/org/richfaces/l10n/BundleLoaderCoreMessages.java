@@ -23,7 +23,6 @@ package org.richfaces.l10n;
 
 /**
  * @author Nick Belaevski
- *
  */
 @MessageBundle(baseName = "org.richfaces.l10n.BundleLoaderMessages")
 public enum BundleLoaderCoreMessages {

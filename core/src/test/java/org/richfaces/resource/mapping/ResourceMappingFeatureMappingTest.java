@@ -21,21 +21,20 @@
  */
 package org.richfaces.resource.mapping;
 
+import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import javax.faces.application.ProjectStage;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
 import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationCompressionStages;
 import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
 import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationPackagingStages;
-
-import java.util.Arrays;
-import java.util.List;
-
-import javax.faces.application.ProjectStage;
-
-import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>

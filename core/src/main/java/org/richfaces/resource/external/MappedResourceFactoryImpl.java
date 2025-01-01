@@ -21,16 +21,8 @@
  */
 package org.richfaces.resource.external;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
-
+import com.google.common.base.Strings;
+import com.google.common.collect.Sets;
 import org.richfaces.application.Initializable;
 import org.richfaces.application.ServiceLoader;
 import org.richfaces.resource.ResourceKey;
@@ -44,14 +36,19 @@ import org.richfaces.resource.mapping.ResourceServletMapping;
 import org.richfaces.services.ServiceUtils;
 import org.richfaces.webapp.ResourceServlet;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.Sets;
+import javax.faces.application.Resource;
+import javax.faces.context.FacesContext;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Creates resources pointing outside of standard JSF resource handler using {@link ResourceServlet}.
  *
  * @author Lukas Fryc
- *
  * @see ResourceServlet
  */
 public class MappedResourceFactoryImpl implements MappedResourceFactory, Initializable {
@@ -62,7 +59,7 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
             "com.jqueryui",
             "org.richfaces",
             "org.richfaces.ckeditor"
-        ));
+    ));
 
     /*
      * (non-Javadoc)

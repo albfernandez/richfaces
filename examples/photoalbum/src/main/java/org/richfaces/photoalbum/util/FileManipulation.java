@@ -21,6 +21,10 @@
  */
 package org.richfaces.photoalbum.util;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageInputStream;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
@@ -33,14 +37,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.zip.CRC32;
 
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.ImageWriter;
-import javax.imageio.stream.ImageInputStream;
-
 /**
  * Utility class for operations with file-system
- * 
  */
 
 public class FileManipulation {
@@ -53,8 +51,8 @@ public class FileManipulation {
 
     /**
      * Utility method for copying file
-     * 
-     * @param srcFile - source file
+     *
+     * @param srcFile  - source file
      * @param destFile - destination file
      */
     public static void copyFile(File srcFile, File destFile) throws IOException {
@@ -94,7 +92,7 @@ public class FileManipulation {
 
     /**
      * Utility method for copying directory
-     * 
+     *
      * @param srcDir - source directory
      * @param dstDir - destination directory
      */
@@ -119,8 +117,8 @@ public class FileManipulation {
 
     /**
      * Utility method for delete directory
-     * 
-     * @param dir - directory to delete
+     *
+     * @param dir             - directory to delete
      * @param isInitialDelete - determine if the deleting process running at startup or on destroy of application
      * @return true if directory succesfully deleted
      */
@@ -152,7 +150,7 @@ public class FileManipulation {
 
     /**
      * Utility method for concatenation names of collection of files
-     * 
+     *
      * @param files - array of strings to concatenate
      * @return concatenated string
      */
@@ -167,7 +165,7 @@ public class FileManipulation {
 
     /**
      * Utility method for delete file
-     * 
+     *
      * @param file - file to delete
      */
     public static void deleteFile(File file) {
@@ -178,11 +176,10 @@ public class FileManipulation {
 
     /**
      * Utility method to read image from disk and transform image to BufferedImage object
-     * 
-     * @param data - relative path to the image
+     *
+     * @param data   - relative path to the image
      * @param format - file prefix of the image
      * @return BufferedImage representation of the image
-     * 
      */
     public static BufferedImage bitmapToImage(InputStream is, String format) throws IOException {
         final ImageReader rdr = ImageIO.getImageReadersByFormatName(format).next();
@@ -195,12 +192,11 @@ public class FileManipulation {
 
     /**
      * Utility method to write BufferedImage object to disk
-     * 
-     * @param image - BufferedImage object to save.
-     * @param data - relative path to the image
+     *
+     * @param image  - BufferedImage object to save.
+     * @param data   - relative path to the image
      * @param format - file prefix of the image
      * @return BufferedImage representation of the image
-     * 
      */
     public static void imageToBitmap(BufferedImage image, String data, String format) throws IOException {
         final OutputStream inb = new FileOutputStream(data);
@@ -213,22 +209,22 @@ public class FileManipulation {
 
     /**
      * Convenience method that returns a scaled instance of the provided {@code BufferedImage}.
-     * 
-     * @param img the original image to be scaled
-     * @param targetWidth the desired width of the scaled instance, in pixels
-     * @param targetHeight the desired height of the scaled instance, in pixels
-     * @param hint one of the rendering hints that corresponds to {@code RenderingHints.KEY_INTERPOLATION} (e.g.
-     *        {@code RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR}, {@code RenderingHints.VALUE_INTERPOLATION_BILINEAR},
-     *        {@code RenderingHints.VALUE_INTERPOLATION_BICUBIC})
+     *
+     * @param img           the original image to be scaled
+     * @param targetWidth   the desired width of the scaled instance, in pixels
+     * @param targetHeight  the desired height of the scaled instance, in pixels
+     * @param hint          one of the rendering hints that corresponds to {@code RenderingHints.KEY_INTERPOLATION} (e.g.
+     *                      {@code RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR}, {@code RenderingHints.VALUE_INTERPOLATION_BILINEAR},
+     *                      {@code RenderingHints.VALUE_INTERPOLATION_BICUBIC})
      * @param higherQuality if true, this method will use a multi-step scaling technique that provides higher quality than the
-     *        usual one-step technique (only useful in downscaling cases, where {@code targetWidth} or {@code targetHeight} is
-     *        smaller than the original dimensions, and generally only when the {@code BILINEAR} hint is specified)
+     *                      usual one-step technique (only useful in downscaling cases, where {@code targetWidth} or {@code targetHeight} is
+     *                      smaller than the original dimensions, and generally only when the {@code BILINEAR} hint is specified)
      * @return a scaled version of the original {@code BufferedImage}
      */
     public static BufferedImage getScaledInstance(BufferedImage img, int targetWidth, int targetHeight, Object hint,
-        boolean higherQuality) {
+                                                  boolean higherQuality) {
         final int type = img.getTransparency() == Transparency.OPAQUE ? BufferedImage.TYPE_INT_RGB
-            : BufferedImage.TYPE_INT_ARGB;
+                : BufferedImage.TYPE_INT_ARGB;
         BufferedImage ret = (BufferedImage) img;
         int w;
         int h;
@@ -274,9 +270,8 @@ public class FileManipulation {
 
     /**
      * Utility method for creation of directory
-     * 
+     *
      * @param directory - directory to create
-     * 
      */
     public static void addDirectory(File directory) {
         if (directory.exists()) {

@@ -1,32 +1,31 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.component;
 
-import java.util.List;
-
-import javax.faces.component.UIComponent;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import javax.faces.component.UIComponent;
+import java.util.List;
 
 /**
  * @author akolonitsky
@@ -41,6 +40,13 @@ public class AbstractTogglePanelTest {
     private UITogglePanelItem item2;
     private UITogglePanelItem item3;
 
+    private static UITogglePanelItem createItem(String name) {
+        UITogglePanelItem item = new UITogglePanelItem();
+        item.setName(name);
+
+        return item;
+    }
+
     @Before
     public void setUp() {
         panel = new UITogglePanel();
@@ -54,15 +60,6 @@ public class AbstractTogglePanelTest {
 
         item3 = createItem(ITEM3);
         children.add(item3);
-    }
-
-    @Test
-    public void testDefaultActiveItem() {
-        Assert.assertNotNull(panel);
-        Assert.assertEquals(null, panel.getActiveItem());
-
-        panel.setActiveItem(ITEM2);
-        Assert.assertEquals(ITEM2, panel.getActiveItem());
     }
 
 //    @Test
@@ -137,12 +134,13 @@ public class AbstractTogglePanelTest {
 //        Assert.assertEquals(item3, panel.getLastItem());
 //    }
 
-    public void isActiveItem() {
-        panel.setActiveItem(ITEM1);
-        Assert.assertTrue(panel.isActiveItem(item1));
-        Assert.assertFalse(panel.isActiveItem(item2));
-        Assert.assertFalse(panel.isActiveItem(null));
-        Assert.assertFalse(panel.isActiveItem(panel));
+    @Test
+    public void testDefaultActiveItem() {
+        Assert.assertNotNull(panel);
+        Assert.assertEquals(null, panel.getActiveItem());
+
+        panel.setActiveItem(ITEM2);
+        Assert.assertEquals(ITEM2, panel.getActiveItem());
     }
 
 /*  Test commented out, as getName now requires an active FacesContext
@@ -157,10 +155,11 @@ public class AbstractTogglePanelTest {
     }
 */
 
-    private static UITogglePanelItem createItem(String name) {
-        UITogglePanelItem item = new UITogglePanelItem();
-        item.setName(name);
-
-        return item;
+    public void isActiveItem() {
+        panel.setActiveItem(ITEM1);
+        Assert.assertTrue(panel.isActiveItem(item1));
+        Assert.assertFalse(panel.isActiveItem(item2));
+        Assert.assertFalse(panel.isActiveItem(null));
+        Assert.assertFalse(panel.isActiveItem(panel));
     }
 }

@@ -43,6 +43,8 @@ import org.richfaces.fragment.panel.AbstractPanel;
  */
 public abstract class RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY> extends AbstractPanel<HEADER, BODY> implements PopupPanel<HEADER, HEADERCONTROLS, BODY>, AdvancedVisibleComponentIteractions<RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY>.AdvancedPopupPanelInteractions> {
 
+    private final AdvancedPopupPanelInteractions interactions = new AdvancedPopupPanelInteractions();
+    private final Class<HEADERCONTROLS> headerControlsClass = (Class<HEADERCONTROLS>) TypeResolver.resolveRawArguments(RichFacesPopupPanel.class, getClass())[1];
     @Drone
     private WebDriver driver;
     @FindBy(css = "div.rf-pp-hndlr-t")
@@ -73,10 +75,6 @@ public abstract class RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY> extends 
     private GrapheneElement contentElement;
     @FindBy(css = "div.rf-pp-shdw")
     private GrapheneElement shadowElement;
-
-    private final AdvancedPopupPanelInteractions interactions = new AdvancedPopupPanelInteractions();
-
-    private final Class<HEADERCONTROLS> headerControlsClass = (Class<HEADERCONTROLS>) TypeResolver.resolveRawArguments(RichFacesPopupPanel.class, getClass())[1];
 
     @Override
     public AdvancedPopupPanelInteractions advanced() {

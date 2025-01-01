@@ -21,13 +21,11 @@
  */
 package org.richfaces.demo.iteration.model.tree.adaptors;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlElement;
+import java.util.List;
 
 /**
  * @author Nick Belaevski mailto:nbelaevski@exadel.com created 24.07.2007
- *
  */
 public class Project extends Entry {
     @XmlElement(name = "sourceDirectory")

@@ -23,7 +23,6 @@ package org.ajax4jsf.model;
 
 /**
  * @author shura
- *
  */
 public class SequenceRange implements Range {
     private int firstRow = 0;
@@ -53,15 +52,15 @@ public class SequenceRange implements Range {
         return firstRow;
     }
 
+    protected void setFirstRow(int firstRow) {
+        this.firstRow = firstRow;
+    }
+
     /**
      * @return the rows
      */
     public int getRows() {
         return rows;
-    }
-
-    protected void setFirstRow(int firstRow) {
-        this.firstRow = firstRow;
     }
 
     protected void setRows(int rows) {

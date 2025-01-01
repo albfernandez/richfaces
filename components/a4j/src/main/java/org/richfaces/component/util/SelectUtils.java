@@ -1,28 +1,31 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.component.util;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
+import com.google.common.collect.AbstractIterator;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterators;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ProjectStage;
@@ -31,20 +34,35 @@ import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.renderkit.util.RendererUtils;
-
-import com.google.common.collect.AbstractIterator;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterators;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * @author Maksim Kaszynski
  */
 public final class SelectUtils {
     private static final Logger LOG = RichfacesLogger.APPLICATION.getLogger();
+
+    private SelectUtils() {
+    }
+
+    /**
+     * Gathers all select items from specified component's children
+     *
+     * @param context Faces context
+     * @param component UIComponent with UISelectItem or UISelectItems children
+     * @return list of {@link SelectItem} taken from f:selectItem and f:selectItems
+     */
+    public static Iterator<SelectItem> getSelectItems(FacesContext context, UIComponent component) {
+        Iterator<UIComponent> children = component.getChildren().iterator();
+        if (component instanceof SelectItemsInterface) {
+            Iterator<UIComponent> self = Iterators.singletonIterator(component);
+            children = Iterators.concat(self, children);
+        }
+        Iterator<SelectItem> iterator = new SelectItemsIterator(context, children);
+        return iterator;
+    }
 
     private static final class GenericObjectSelectItem extends SelectItem {
         private static final long serialVersionUID = -714217221281952395L;
@@ -180,14 +198,14 @@ public final class SelectUtils {
 
             if (value == null) {
                 result = new SelectItem(selectItem.getItemValue(), selectItem.getItemLabel(), selectItem.getItemDescription(),
-                    selectItem.isItemDisabled(), selectItem.isItemEscaped(), selectItem.isNoSelectionOption());
+                        selectItem.isItemDisabled(), selectItem.isItemEscaped(), selectItem.isNoSelectionOption());
             } else if (value instanceof SelectItem) {
                 result = (SelectItem) value;
             } else {
                 ValueExpression expression = selectItem.getValueExpression("value");
                 throw new IllegalArgumentException("ValueExpression '"
-                    + (expression == null ? null : expression.getExpressionString()) + "' of UISelectItem : "
-                    + RichfacesLogger.getComponentPath(selectItem) + " does not reference an Object of type SelectItem");
+                        + (expression == null ? null : expression.getExpressionString()) + "' of UISelectItem : "
+                        + RichfacesLogger.getComponentPath(selectItem) + " does not reference an Object of type SelectItem");
             }
 
             return Iterators.singletonIterator(result);
@@ -214,9 +232,9 @@ public final class SelectUtils {
                 if (LOG.isLogEnabled(level)) {
                     ValueExpression expression = component.getValueExpression("value");
                     LOG.log(level, String.format("ValueExpression %s of UISelectItems with component-path %s"
-                        + " does not reference an Object of type SelectItem," + " array, Iterable or Map, but of type: %s",
-                        (expression == null ? null : expression.getExpressionString()),
-                        RichfacesLogger.getComponentPath(component), (value == null ? null : value.getClass().getName())));
+                                    + " does not reference an Object of type SelectItem," + " array, Iterable or Map, but of type: %s",
+                            (expression == null ? null : expression.getExpressionString()),
+                            RichfacesLogger.getComponentPath(component), (value == null ? null : value.getClass().getName())));
                 }
             }
 
@@ -230,7 +248,7 @@ public final class SelectUtils {
         }
 
         private Iterator<SelectItem> createUISelectItemsInterfaceIterator(UIComponent component) {
-            Object value = ((SelectItemsInterface)component).getItemValues();
+            Object value = ((SelectItemsInterface) component).getItemValues();
             return createSelectItemsIterator(component, value);
         }
 
@@ -249,25 +267,5 @@ public final class SelectUtils {
 
             return ImmutableSet.<SelectItem>of().iterator();
         }
-    }
-
-    private SelectUtils() {
-    }
-
-    /**
-     * Gathers all select items from specified component's children
-     *
-     * @param context Faces context
-     * @param component UIComponent with UISelectItem or UISelectItems children
-     * @return list of {@link SelectItem} taken from f:selectItem and f:selectItems
-     */
-    public static Iterator<SelectItem> getSelectItems(FacesContext context, UIComponent component) {
-        Iterator<UIComponent> children = component.getChildren().iterator();
-        if (component instanceof SelectItemsInterface) {
-            Iterator<UIComponent> self = Iterators.singletonIterator(component);
-            children = Iterators.concat(self, children);
-        }
-        Iterator<SelectItem> iterator = new SelectItemsIterator(context, children);
-        return iterator;
     }
 }

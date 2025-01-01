@@ -21,10 +21,10 @@
  */
 package org.richfaces.fragment.notify;
 
-import java.util.List;
-
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.message.Message.MessageType;
+
+import java.util.List;
 
 public class NotifyShowcase {
 

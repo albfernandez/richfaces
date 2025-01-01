@@ -50,26 +50,20 @@ import com.google.common.base.Function;
 @RunWith(Arquillian.class)
 public class ITSkin extends AbstractSkinTestBase {
 
-    @Drone
-    private WebDriver browser;
-
-    @ArquillianResource
-    private URL contextPath;
-
     @FindBy(className = "rf-p-hdr")
     WebElement panel;
-
     @FindBy(id = "input")
     WebElement input;
-
     @FindBy(id = "buttonSkin1")
     WebElement buttonSkin1;
-
     @FindBy(id = "buttonSkin2")
     WebElement buttonSkin2;
-
     @FindBy(id = "buttonSkin3")
     WebElement buttonSkin3;
+    @Drone
+    private WebDriver browser;
+    @ArquillianResource
+    private URL contextPath;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -80,18 +74,30 @@ public class ITSkin extends AbstractSkinTestBase {
             public WebAppDescriptor apply(WebAppDescriptor input) {
 
                 input.getOrCreateContextParam()
-                    .paramName("org.richfaces.skin")
-                    .paramValue("#{skinBean.skin}");
+                        .paramName("org.richfaces.skin")
+                        .paramValue("#{skinBean.skin}");
 
                 return input;
             }
-        ;
+
+
         });
 
 
         addIndexPage(deployment);
 
         return deployment.getFinalArchive();
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+        p.form("<rich:panel id='panel' header='Header Text'>Some content ");
+        p.form("    <h:inputText id='input' /> ");
+        p.form("</rich:panel> ");
+        p.form("<h:commandButton id='buttonSkin1' actionListener='#{skinBean.setSkin(\"blueSky\")}' value = 'Select skin 1' /> ");
+        p.form("<h:commandButton id='buttonSkin2' actionListener='#{skinBean.setSkin(\"ruby\")}' value = 'Select skin 2' /> ");
+        p.form("<h:commandButton id='buttonSkin3' actionListener='#{skinBean.setSkin(\"plain\")}' value = 'Select skin 3' /> ");
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
     @Test
@@ -126,16 +132,5 @@ public class ITSkin extends AbstractSkinTestBase {
 
         Graphene.guardHttp(buttonSkin3).click();
         Assert.assertEquals("plain button background-url is incorrect", "none", buttonSkin1.getCssValue("background-image"));
-    }
-
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-        p.form("<rich:panel id='panel' header='Header Text'>Some content ");
-        p.form("    <h:inputText id='input' /> ");
-        p.form("</rich:panel> ");
-        p.form("<h:commandButton id='buttonSkin1' actionListener='#{skinBean.setSkin(\"blueSky\")}' value = 'Select skin 1' /> ");
-        p.form("<h:commandButton id='buttonSkin2' actionListener='#{skinBean.setSkin(\"ruby\")}' value = 'Select skin 2' /> ");
-        p.form("<h:commandButton id='buttonSkin3' actionListener='#{skinBean.setSkin(\"plain\")}' value = 'Select skin 3' /> ");
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

@@ -21,8 +21,11 @@
  */
 package org.richfaces.showcase.push;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.jboss.arquillian.graphene.Graphene;
+import org.junit.Test;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.richfaces.showcase.AbstractWebDriverTest;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,11 +33,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
-import org.jboss.arquillian.graphene.Graphene;
-import org.junit.Test;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.richfaces.showcase.AbstractWebDriverTest;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -59,14 +59,14 @@ public class ITestPushTopicsContext extends AbstractWebDriverTest {
         }
         Collections.sort(deviations);
         long median = checks % 2 == 0
-            ? (deviations.get(halfChecks - 1) + deviations.get(halfChecks)) / 2
-            : deviations.get(halfChecks);
+                ? (deviations.get(halfChecks - 1) + deviations.get(halfChecks)) / 2
+                : deviations.get(halfChecks);
         assertEquals("The median of " + checks + " measurements should be in range of (4600ms, 5400ms)", 5000, median, 400);
     }
 
     /**
      * Checks the deviation between two pushes, also checking that the uuid is changing
-     * 
+     *
      * @param uuidRetriever retriever which points to the uuid text
      * @return the deviation between two pushes
      */
@@ -74,7 +74,7 @@ public class ITestPushTopicsContext extends AbstractWebDriverTest {
         Long beforePush = System.currentTimeMillis();
         String uuidBefore = uuidElement.getText();
         Graphene.waitAjax(webDriver).withTimeout(10, TimeUnit.SECONDS).until().element(uuidElement).text().not()
-            .equalTo(uuidBefore);
+                .equalTo(uuidBefore);
         Long afterPush = System.currentTimeMillis();
         checkTheUuid(uuidElement.getText());
         return afterPush - beforePush;

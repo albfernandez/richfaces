@@ -21,21 +21,18 @@
  */
 package org.richfaces.component;
 
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
+import com.google.common.collect.Iterables;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.DeclarativeModelKey;
 import org.richfaces.model.SequenceRowKey;
 
-import com.google.common.collect.Iterables;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.util.Map;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class DeclarativeTreeDataModelWalker {
     private static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();

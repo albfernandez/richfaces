@@ -21,18 +21,17 @@
  */
 package org.richfaces.resource.optimizer.vfs.file;
 
+import org.richfaces.resource.optimizer.vfs.VFSRoot;
+import org.richfaces.resource.optimizer.vfs.VFSType;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.richfaces.resource.optimizer.vfs.VFSRoot;
-import org.richfaces.resource.optimizer.vfs.VFSType;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class FileVFSRoot extends FileVFSFile implements VFSRoot {
     public FileVFSRoot(File dir) {

@@ -32,13 +32,13 @@ public class MessagePage extends AbstractMessagePage {
 
     @FindByJQuery("span[id$=name]")
     private RichFacesMessage nameMessage;
-    
+
     @FindByJQuery("span[id$=job]")
     private RichFacesMessage jobMessage;
-    
+
     @FindByJQuery("span[id$=address]")
     private RichFacesMessage addressMessage;
-    
+
     @FindByJQuery("span[id$=zip]")
     private RichFacesMessage zipMessage;
 
@@ -60,11 +60,11 @@ public class MessagePage extends AbstractMessagePage {
 
     public boolean areAllMessagesPresent() {
         return nameMessage.advanced().isVisible() && jobMessage.advanced().isVisible()
-            && addressMessage.advanced().isVisible() && zipMessage.advanced().isVisible();
+                && addressMessage.advanced().isVisible() && zipMessage.advanced().isVisible();
     }
 
     public boolean isAnyMessagePresent() {
         return nameMessage.advanced().isVisible() || jobMessage.advanced().isVisible()
-            || addressMessage.advanced().isVisible() || zipMessage.advanced().isVisible();
+                || addressMessage.advanced().isVisible() || zipMessage.advanced().isVisible();
     }
 }

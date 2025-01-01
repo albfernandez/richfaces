@@ -27,7 +27,6 @@ import org.richfaces.log.RichfacesLogger;
 
 import javax.faces.FacesException;
 import javax.faces.context.ResponseWriter;
-
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -113,7 +112,7 @@ public final class ScriptUtils {
 
             boolean first = true;
 
-            for (Iterator<Object> iter = collection.iterator(); iter.hasNext();) {
+            for (Iterator<Object> iter = collection.iterator(); iter.hasNext(); ) {
                 Object element = iter.next();
 
                 if (!first) {
@@ -175,7 +174,7 @@ public final class ScriptUtils {
             }
 
             boolean ignorePropertyReadException = obj.getClass().getName().startsWith("java.sql.")
-                || obj.getClass().equals(SimpleTimeZone.class);
+                    || obj.getClass().equals(SimpleTimeZone.class);
             boolean first = true;
 
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
@@ -235,7 +234,7 @@ public final class ScriptUtils {
     public static String toScript(Object obj) {
         StringBuilder sb = new StringBuilder();
         if ((obj != null) && (obj instanceof String))
-            sb.ensureCapacity((int)(((String) obj).length() * 1.66));
+            sb.ensureCapacity((int) (((String) obj).length() * 1.66));
 
         try {
             appendScript(sb, obj, new IdentityHashMap<Object, Boolean>());
@@ -263,7 +262,7 @@ public final class ScriptUtils {
         int start = 0;
         int end = s.length();
 
-        for(int i = start; i < end; i++){
+        for (int i = start; i < end; i++) {
             char c = s.charAt(i);
 
             if (JSEncoder.compile(c))
@@ -274,11 +273,11 @@ public final class ScriptUtils {
 
             appendable.append(JSEncoder.encodeCharBuffer(c));
             start = i + 1;
-       }
+        }
 
-       if (start != end)
+        if (start != end)
             appendable.append(s, start, end);
-   }
+    }
 
 
     public static String getValidJavascriptName(String script) {

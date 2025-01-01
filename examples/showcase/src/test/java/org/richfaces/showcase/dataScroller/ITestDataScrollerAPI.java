@@ -21,9 +21,6 @@
  */
 package org.richfaces.showcase.dataScroller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.page.Page;
@@ -32,6 +29,9 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.dataScroller.page.DataScrollerAPIPage;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -63,7 +63,7 @@ public class ITestDataScrollerAPI extends AbstractWebDriverTest {
 
         int numberOfThePageAfterClicking = page.getNumberOfCurrentPage();
         assertEquals("The current number of the page should be higher", currentNumberOfThePage + 1,
-            numberOfThePageAfterClicking);
+                numberOfThePageAfterClicking);
 
         Graphene.guardAjax(page.getPreviousButton()).click();
         numberOfThePageAfterClicking = page.getNumberOfCurrentPage();
@@ -77,12 +77,12 @@ public class ITestDataScrollerAPI extends AbstractWebDriverTest {
         String imgSrcBeforeClick;
         try {
             WebElement checkingButton = webDriver.findElement(ByJQuery.selector("a[class*='"
-                + DataScrollerAPIPage.CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + "']:contains('" + numberOfPage + "')"));
+                    + DataScrollerAPIPage.CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + "']:contains('" + numberOfPage + "')"));
             imgSrcBeforeClick = getSrcOfFirstImage();
             Graphene.guardAjax(checkingButton).click();
         } catch (NoSuchElementException ignored) {
             WebElement inactiveButton = webDriver.findElement(ByJQuery.selector("a[class*='"
-                + DataScrollerAPIPage.CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + "']:first"));
+                    + DataScrollerAPIPage.CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + "']:first"));
             imgSrcBeforeClick = getSrcOfFirstImage();
             Graphene.guardAjax(inactiveButton).click();
             numberOfPage = page.getNumberOfCurrentPage();

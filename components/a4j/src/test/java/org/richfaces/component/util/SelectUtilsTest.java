@@ -1,24 +1,28 @@
 package org.richfaces.component.util;
 
-import java.util.Iterator;
-import java.util.List;
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Lists;
+import org.jboss.test.faces.AbstractFacesTest;
+import org.junit.Assert;
 
 import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectOne;
 import javax.faces.model.SelectItem;
-
-import org.jboss.test.faces.AbstractFacesTest;
-import org.junit.Assert;
-
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Gleb Galkin
  * @since 27.01.11
  */
 public class SelectUtilsTest extends AbstractFacesTest {
+    private static <T> List<T> asList(Iterator<T> itr) {
+        List<T> result = Lists.newArrayList();
+        Iterators.addAll(result, itr);
+        return result;
+    }
+
     @Override
     public void setUp() throws Exception {
         super.setUp();
@@ -28,12 +32,6 @@ public class SelectUtilsTest extends AbstractFacesTest {
     @Override
     public void tearDown() throws Exception {
         super.tearDown();
-    }
-
-    private static <T> List<T> asList(Iterator<T> itr) {
-        List<T> result = Lists.newArrayList();
-        Iterators.addAll(result, itr);
-        return result;
     }
 
     /**
@@ -108,7 +106,7 @@ public class SelectUtilsTest extends AbstractFacesTest {
 
     private class UISelectItemStub extends UISelectItem {
         public UISelectItemStub(Object itemValue, String itemLabel, String itemDescription, boolean itemDisabled,
-            boolean itemEscaped, boolean noSelectionOption) {
+                                boolean itemEscaped, boolean noSelectionOption) {
             super();
             setItemValue(itemValue);
             setItemLabel(itemLabel);

@@ -21,15 +21,13 @@
  */
 package org.richfaces.demo.iteration.model.tree.adaptors;
 
-import java.util.List;
+import com.google.common.collect.Lists;
 
 import javax.xml.bind.annotation.XmlElement;
-
-import com.google.common.collect.Lists;
+import java.util.List;
 
 /**
  * @author Nick Belaevski mailto:nbelaevski@exadel.com created 04.08.2007
- *
  */
 public class ArchiveFile extends File {
     @XmlElement(name = "archiveEntry")

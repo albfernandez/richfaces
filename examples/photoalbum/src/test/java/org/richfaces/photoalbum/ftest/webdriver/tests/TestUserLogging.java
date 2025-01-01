@@ -21,16 +21,15 @@
  */
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import static org.junit.Assert.assertEquals;
-
+import category.FailingOnPhantomJS;
+import category.Smoke;
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.richfaces.fragment.message.Message;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.LoginPanel;
 
-import category.FailingOnPhantomJS;
-import category.Smoke;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -61,7 +60,7 @@ public class TestUserLogging extends AbstractPhotoalbumTest {
     }
 
     @Test
-    @Category({ FailingOnPhantomJS.class })
+    @Category({FailingOnPhantomJS.class})
     public void testLogInAndOutWithFB() {
         getPage().openLoginPanel().loginWithFB();
         getPage().checkUserLogged("Tom", false, true, false);
@@ -70,7 +69,7 @@ public class TestUserLogging extends AbstractPhotoalbumTest {
     }
 
     @Test
-    @Category({ FailingOnPhantomJS.class })
+    @Category({FailingOnPhantomJS.class})
     public void testLogInAndOutWithGPlus() {
         getPage().openLoginPanel().loginWithGPlus();
         getPage().checkUserLogged("Rich", false, false, true);

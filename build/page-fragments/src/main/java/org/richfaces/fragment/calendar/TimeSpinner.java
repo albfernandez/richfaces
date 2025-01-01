@@ -31,8 +31,9 @@ import org.richfaces.fragment.common.Utils;
 
 /**
  * Abstract class for spinner component.
- * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
+ *
  * @param <T> type of value
+ * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public abstract class TimeSpinner<T> {
 
@@ -60,6 +61,7 @@ public abstract class TimeSpinner<T> {
 
     /**
      * Returns value set in this spinner
+     *
      * @return
      */
     public abstract T getValue();
@@ -87,12 +89,14 @@ public abstract class TimeSpinner<T> {
 
     /**
      * Sets spinner's value by clicking on the buttons
+     *
      * @param value value to be set
      */
     public abstract void setValueByButtons(T value);
 
     /**
      * Sets spinner value by direct input writing
+     *
      * @param value value to be set
      */
     public void setValueByTyping(T value) {
@@ -110,6 +114,12 @@ public abstract class TimeSpinner<T> {
      */
     protected WebElement getRootElement() {
         return root;
+    }
+
+    public static enum TimeSign {
+
+        AM,
+        PM;
     }
 
     public static class TimeSpinner60 extends TimeSpinner<Integer> {
@@ -188,11 +198,5 @@ public abstract class TimeSpinner<T> {
             }
         }
 
-    }
-
-    public static enum TimeSign {
-
-        AM,
-        PM;
     }
 }

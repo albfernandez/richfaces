@@ -21,19 +21,18 @@
  */
 package org.richfaces.resource;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getLongConfigurationValue;
-import static org.richfaces.resource.ResourceUtils.millisToSecond;
-import static org.richfaces.resource.ResourceUtils.secondToMillis;
-
-import java.util.Date;
-import java.util.Map;
-
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.application.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import java.util.Date;
+import java.util.Map;
+
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getLongConfigurationValue;
+import static org.richfaces.resource.ResourceUtils.millisToSecond;
+import static org.richfaces.resource.ResourceUtils.secondToMillis;
 
 /**
  * @author Nick Belaevski
@@ -43,15 +42,15 @@ public abstract class AbstractCacheableResource extends AbstractBaseResource imp
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
     private boolean cacheable = true;
 
-    public boolean isCacheable(FacesContext context) {
-        return cacheable;
-    }
-
     // TODO add getExpired(FacesContext) for HTTP matching headers?
     private static boolean isUserCopyActual(Date lastModified, Date modifiedCondition) {
 
         // 1000 ms due to round modification time to seconds.
         return (lastModified.getTime() - modifiedCondition.getTime()) <= 1000;
+    }
+
+    public boolean isCacheable(FacesContext context) {
+        return cacheable;
     }
 
     @Deprecated

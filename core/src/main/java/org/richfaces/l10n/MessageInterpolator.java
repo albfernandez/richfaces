@@ -28,7 +28,6 @@ import java.util.ResourceBundle;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class MessageInterpolator {
     private BundleLoader bundleLoader;

@@ -21,17 +21,14 @@
  */
 package org.richfaces.resource.optimizer;
 
-import java.util.concurrent.CompletionService;
-
-import javax.faces.application.Resource;
-
+import com.google.common.base.Predicate;
 import org.richfaces.resource.ResourceKey;
 
-import com.google.common.base.Predicate;
+import javax.faces.application.Resource;
+import java.util.concurrent.CompletionService;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface ResourceTaskFactory {
     void setSkins(String[] skins);

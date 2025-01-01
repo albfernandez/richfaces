@@ -26,7 +26,7 @@ package org.richfaces.showcase.mediaOutput.page;
  */
 public enum ImageState {
 
-    STATE0(Color.LEFT_RED, Color.RIGHT_DARK_BLUE,Color.TEXT_GREEN),
+    STATE0(Color.LEFT_RED, Color.RIGHT_DARK_BLUE, Color.TEXT_GREEN),
     STATE1(Color.LEFT_GREEN, Color.RIGHT_YELLOW, Color.TEXT_RED),
     STATE2(Color.LEFT_BLUE, Color.RIGHT_RED, Color.TEXT_DARK_BLUE);
 
@@ -74,6 +74,7 @@ public enum ImageState {
             this.value = value;
             this.name = name;
         }
+
         public int getIndex() {
             return index;
         }
@@ -81,6 +82,7 @@ public enum ImageState {
         public String getName() {
             return name;
         }
+
         public long getValue() {
             return value;
         }

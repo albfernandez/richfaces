@@ -21,19 +21,6 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.File;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-
 import org.richfaces.component.AbstractFileUpload;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.exception.FileUploadException;
@@ -43,6 +30,18 @@ import org.richfaces.request.MultipartRequest25;
 import org.richfaces.request.MultipartRequestParser;
 import org.richfaces.request.UploadedFile30;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * @author Konstantin Mishin
  * @author Nick Belaevski
@@ -51,6 +50,19 @@ import org.richfaces.request.UploadedFile30;
  * @author Michal Petrov
  */
 public class FileUploadRendererBase extends RendererBase {
+
+    public static long getMaxRequestSize(ServletContext servletContext) {
+        String param = servletContext.getInitParameter("org.richfaces.fileUpload.maxRequestSize");
+        if (param != null) {
+            return Long.parseLong(param);
+        }
+
+        return 0;
+    }
+
+    public static long getMaxRequestSize() {
+        return getMaxRequestSize((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext());
+    }
 
     private boolean isCreateTempFiles(ServletContext servletContext) {
         String param = servletContext.getInitParameter("org.richfaces.fileUpload.createTempFiles");
@@ -95,7 +107,7 @@ public class FileUploadRendererBase extends RendererBase {
                             encoding = "iso-8859-1";
                         }
                         files
-                            .add(new UploadedFile30(part.getName(), new String(filename.getBytes(encoding), "utf-8"), part));
+                                .add(new UploadedFile30(part.getName(), new String(filename.getBytes(encoding), "utf-8"), part));
                     }
                 }
             } else {
@@ -111,19 +123,6 @@ public class FileUploadRendererBase extends RendererBase {
             context.setResponseStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             throw new FileUploadException("couldn't parse request parts", e);
         }
-    }
-
-    public static long getMaxRequestSize(ServletContext servletContext) {
-        String param = servletContext.getInitParameter("org.richfaces.fileUpload.maxRequestSize");
-        if (param != null) {
-            return Long.parseLong(param);
-        }
-
-        return 0;
-    }
-
-    public static long getMaxRequestSize() {
-        return getMaxRequestSize((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext());
     }
 
     @Override
@@ -142,7 +141,7 @@ public class FileUploadRendererBase extends RendererBase {
                     long contentLength = Long.parseLong(httpRequest.getHeader("Content-Length"));
 
                     long maxRequestSize = fileUpload.getMaxFileSize() != 0 ? fileUpload.getMaxFileSize()
-                        : getMaxRequestSize(httpRequest.getServletContext());
+                            : getMaxRequestSize(httpRequest.getServletContext());
 
                     if (maxRequestSize != 0 && contentLength > maxRequestSize) {
                         externalContext.setResponseStatus(HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE);

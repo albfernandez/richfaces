@@ -26,7 +26,6 @@ import java.io.IOException;
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:58:32 $
- *
  */
 public interface ScriptString {
     /**

@@ -21,9 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIMessages;
-import javax.faces.context.FacesContext;
-
 import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -35,6 +32,9 @@ import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.OutputFormatProps;
+
+import javax.faces.component.UIMessages;
+import javax.faces.context.FacesContext;
 
 /**
  * <p> The &lt;rich:notifyMessages&gt; component is the same as the &lt;rich:notifyMessage&gt; component, but each of

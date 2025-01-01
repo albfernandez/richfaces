@@ -21,48 +21,46 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
-
-import java.io.IOException;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractAccordionItem;
 import org.richfaces.component.AbstractTogglePanelTitledItem;
 import org.richfaces.renderkit.RenderKitUtils;
 
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Map;
+
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+
 /**
- *
  * @author akolonitsky
  * @since 2010-08-05
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
-        @ResourceDependency(library = "org.richfaces", name = "accordionItem.js") })
+        @ResourceDependency(library = "org.richfaces", name = "accordionItem.js")})
 @JsfRenderer(type = "org.richfaces.AccordionItemRenderer", family = AbstractAccordionItem.COMPONENT_FAMILY)
 public class AccordionItemRenderer extends TogglePanelItemRenderer {
     private static final RenderKitUtils.Attributes HEADER_ATTRIBUTES = RenderKitUtils.attributes()
-        .generic("style", "headerStyle").generic("onclick", "onheaderclick", "headerclick")
-        .generic("ondblclick", "onheaderdblclick", "headerdblclick")
-        .generic("onmousedown", "onheadermousedown", "headermousedown")
-        .generic("onmousemove", "onheadermousemove", "headermousemove")
-        .generic("onmouseup", "onheadermouseup", "headermouseup");
+            .generic("style", "headerStyle").generic("onclick", "onheaderclick", "headerclick")
+            .generic("ondblclick", "onheaderdblclick", "headerdblclick")
+            .generic("onmousedown", "onheadermousedown", "headermousedown")
+            .generic("onmousemove", "onheadermousemove", "headermousemove")
+            .generic("onmouseup", "onheadermouseup", "headermouseup");
     private final TableIconsRendererHelper<AbstractAccordionItem> headerRenderer = new AccordionItemHeaderRenderer();
 
     public AccordionItemRenderer() {
@@ -114,7 +112,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         ResponseWriter writer = context.getResponseWriter();
         writer.startElement(DIV_ELEM, component);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-cnt", attributeAsString(component, "contentClass")),
-            null);
+                null);
         writer.writeAttribute("id", component.getClientId(context) + ":content", null);
 
         AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) component;
@@ -133,7 +131,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
 
         String stateCssClass = "rf-ac-itm-hdr-" + (component.isDisabled() ? "dis" : (component.isActive() ? "act" : "inact"));
         writer.writeAttribute(CLASS_ATTRIBUTE,
-            concatClasses("rf-ac-itm-hdr", stateCssClass, attributeAsString(component, "headerClass")), null);
+                concatClasses("rf-ac-itm-hdr", stateCssClass, attributeAsString(component, "headerClass")), null);
 
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":header", null);
         renderPassThroughAttributes(context, component, HEADER_ATTRIBUTES);
@@ -146,7 +144,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.AccordionItem", component.getClientId(context), getScriptObjectOptions(context,
-            component));
+                component));
     }
 
     @Override

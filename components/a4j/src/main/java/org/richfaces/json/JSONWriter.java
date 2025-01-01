@@ -40,7 +40,7 @@ import java.io.Writer;
  * <pre>
  * new JSONWriter(myWriter).object().key(&quot;JSON&quot;).value(&quot;Hello, World!&quot;).endObject();
  * </pre>
- *
+ * <p>
  * which writes
  *
  * <pre>
@@ -130,7 +130,7 @@ public class JSONWriter {
      *
      * @return this
      * @throws JSONException If the nesting is too deep, or if the object is started in the wrong place (for example as a key or
-     *         after the end of the outermost array or object).
+     *                       after the end of the outermost array or object).
      */
     public JSONWriter array() throws JSONException {
         if ((this.mode == 'i') || (this.mode == 'o') || (this.mode == 'a')) {
@@ -228,7 +228,7 @@ public class JSONWriter {
      *
      * @return this
      * @throws JSONException If the nesting is too deep, or if the object is started in the wrong place (for example as a key or
-     *         after the end of the outermost array or object).
+     *                       after the end of the outermost array or object).
      */
     public JSONWriter object() throws JSONException {
         if (this.mode == 'i') {
@@ -314,7 +314,7 @@ public class JSONWriter {
      * Append an object value.
      *
      * @param o The object to append. It can be null, or a Boolean, Number, String, JSONObject, or JSONArray, or an object with
-     *        a toJSONString() method.
+     *          a toJSONString() method.
      * @return this
      * @throws JSONException If the value is out of sequence.
      */

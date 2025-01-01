@@ -25,16 +25,14 @@
  */
 package org.richfaces.validator;
 
-import java.lang.annotation.Annotation;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.Validator;
 import javax.validation.metadata.ConstraintDescriptor;
+import java.lang.annotation.Annotation;
 
 /**
  * @author asmirnov
- *
  */
 public interface BeanValidatorFactory {
     Validator getValidator(FacesContext context);

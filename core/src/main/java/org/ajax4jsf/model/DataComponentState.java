@@ -26,7 +26,6 @@ package org.ajax4jsf.model;
  * expanded state
  *
  * @author shura
- *
  */
 public interface DataComponentState {
     /**

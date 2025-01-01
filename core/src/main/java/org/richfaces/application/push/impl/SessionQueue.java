@@ -21,6 +21,8 @@
  */
 package org.richfaces.application.push.impl;
 
+import org.richfaces.application.push.Session;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -28,13 +30,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.richfaces.application.push.Session;
-
 /**
  * Based on DelayQueue by Doug Lea: http://gee.cs.oswego.edu/
  *
  * @author Nick Belaevski
- *
  */
 // TODO - optimize algorithm
 // TODO - use BlockingQueue ?

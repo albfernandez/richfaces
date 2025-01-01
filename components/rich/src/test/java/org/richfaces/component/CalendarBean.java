@@ -1,10 +1,9 @@
 package org.richfaces.component;
 
+import javax.faces.event.ValueChangeEvent;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import javax.faces.event.ValueChangeEvent;
 
 public class CalendarBean {
     public static int CURRENT_YEAR = 2010;

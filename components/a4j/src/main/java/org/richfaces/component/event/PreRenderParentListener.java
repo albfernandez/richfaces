@@ -21,14 +21,13 @@
  */
 package org.richfaces.component.event;
 
-import java.io.Serializable;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.PreRenderComponentEvent;
+import java.io.Serializable;
 
 /**
  * <p>

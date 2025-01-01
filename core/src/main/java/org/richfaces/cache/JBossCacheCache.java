@@ -25,9 +25,10 @@
  */
 package org.richfaces.cache;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import org.jboss.cache.Fqn;
+import org.jboss.cache.eviction.ExpirationAlgorithmConfig;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
@@ -35,11 +36,9 @@ import javax.transaction.RollbackException;
 import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.Transaction;
-
-import org.jboss.cache.Fqn;
-import org.jboss.cache.eviction.ExpirationAlgorithmConfig;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Nick Belaevski

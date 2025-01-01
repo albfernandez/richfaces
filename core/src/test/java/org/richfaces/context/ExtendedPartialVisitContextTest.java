@@ -21,24 +21,12 @@
  */
 package org.richfaces.context;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import com.sun.faces.component.visit.PartialVisitContext;
+import org.jboss.test.faces.FacesEnvironment;
+import org.jboss.test.faces.FacesEnvironment.FacesRequest;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
@@ -55,14 +43,24 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-import org.jboss.test.faces.FacesEnvironment;
-import org.jboss.test.faces.FacesEnvironment.FacesRequest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.sun.faces.component.visit.PartialVisitContext;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Tested view structure:
@@ -98,33 +96,9 @@ import com.sun.faces.component.visit.PartialVisitContext;
  * &lt;/h:form&gt;
  * </pre>
  *
- *
  * @author Nick Belaevski
- *
  */
 public class ExtendedPartialVisitContextTest {
-    private class TrackingVisitCallback implements VisitCallback {
-        private List<String> visitedIds = new ArrayList<String>();
-
-        public VisitResult visit(VisitContext context, UIComponent target) {
-            if (context instanceof ExtendedVisitContext) {
-                visitedIds.add(((ExtendedVisitContext) context).buildExtendedClientId(target));
-            } else {
-                visitedIds.add(target.getClientId(context.getFacesContext()));
-            }
-
-            return VisitResult.REJECT;
-        }
-
-        public List<String> getVisitedIds() {
-            return visitedIds;
-        }
-
-        public void reset() {
-            visitedIds.clear();
-        }
-    }
-
     private FacesEnvironment environment;
     private FacesRequest facesRequest;
     private FacesContext facesContext;
@@ -462,7 +436,7 @@ public class ExtendedPartialVisitContextTest {
         renderingContext.getIdsToVisit().add("myForm:table:0:nestedTable:nestedFooter");
 
         Set<String> formClientIds = asSet("myForm:outerOutput", "myForm:table:0:nestedText", "myForm:table:1:nestedOutput",
-            "myForm:table:theHeader", "myForm:table:0:nestedTable:1:nestedTableText", "myForm:table:0:nestedTable:nestedFooter");
+                "myForm:table:theHeader", "myForm:table:0:nestedTable:1:nestedTableText", "myForm:table:0:nestedTable:nestedFooter");
 
         Set<String> formIds = asSet("table", "outerOutput");
 
@@ -470,7 +444,7 @@ public class ExtendedPartialVisitContextTest {
         assertEqualSets(formIds, renderingContext.getDirectSubtreeIdsToVisit(form));
 
         Set<String> tableClientIds = asSet("myForm:table:0:nestedText", "myForm:table:1:nestedOutput",
-            "myForm:table:theHeader", "myForm:table:0:nestedTable:1:nestedTableText", "myForm:table:0:nestedTable:nestedFooter");
+                "myForm:table:theHeader", "myForm:table:0:nestedTable:1:nestedTableText", "myForm:table:0:nestedTable:nestedFooter");
         Set<String> tableIds = asSet("0", "1", "theHeader");
 
         assertEqualSets(tableClientIds, renderingContext.getSubtreeIdsToVisit(table));
@@ -479,7 +453,7 @@ public class ExtendedPartialVisitContextTest {
         table.setRowIndex(0);
 
         Set<String> nestedTableClientIds = asSet("myForm:table:0:nestedTable:1:nestedTableText",
-            "myForm:table:0:nestedTable:nestedFooter");
+                "myForm:table:0:nestedTable:nestedFooter");
 
         Set<String> nestedTableIds = asSet("nestedFooter", "1");
         assertEqualSets(nestedTableClientIds, renderingContext.getSubtreeIdsToVisit(nestedTable));
@@ -495,7 +469,7 @@ public class ExtendedPartialVisitContextTest {
         viewRoot.visitTree(renderingContext, trackingVisitCallback);
 
         assertEquals(Arrays.asList("myForm:outerOutput", "myForm:table:0:nestedOutput", "myForm:table:1:nestedOutput"),
-            trackingVisitCallback.getVisitedIds());
+                trackingVisitCallback.getVisitedIds());
     }
 
     @Test
@@ -515,7 +489,7 @@ public class ExtendedPartialVisitContextTest {
         viewRoot.visitTree(renderingContext, trackingVisitCallback);
 
         assertEquals(Arrays.asList("myForm:table:0:nestedOutput", "myForm:table:1:nestedOutput"),
-            trackingVisitCallback.getVisitedIds());
+                trackingVisitCallback.getVisitedIds());
     }
 
     @Test
@@ -528,8 +502,8 @@ public class ExtendedPartialVisitContextTest {
         viewRoot.visitTree(renderingContext, trackingVisitCallback);
 
         assertEquals(Arrays.asList("myForm:outerOutput", "myForm:table:0:nestedOutput", "myForm:table:1:nestedOutput",
-            "myForm:table:1:nestedTable:nestedTableFooter", "myForm:table:1:nestedTable:1:nestedTableText"),
-            trackingVisitCallback.getVisitedIds());
+                        "myForm:table:1:nestedTable:nestedTableFooter", "myForm:table:1:nestedTable:1:nestedTableText"),
+                trackingVisitCallback.getVisitedIds());
     }
 
     @Test
@@ -551,7 +525,7 @@ public class ExtendedPartialVisitContextTest {
         Collection<String> formDirectIds = renderingContext.getDirectSubtreeIdsToVisit(form);
         assertNotSame(VisitContext.ALL_IDS, formDirectIds);
         ExtendedVisitContext formVisitContext = (ExtendedVisitContext) renderingContext.createNamingContainerVisitContext(form,
-            formDirectIds);
+                formDirectIds);
 
         assertFalse(formVisitContext.getIdsToVisit().isEmpty());
         assertSame(VisitContext.ALL_IDS, formVisitContext.getSubtreeIdsToVisit(form));
@@ -576,7 +550,7 @@ public class ExtendedPartialVisitContextTest {
         Collection<String> formDirectIds = renderingContext.getDirectSubtreeIdsToVisit(form);
         assertNotSame(VisitContext.ALL_IDS, formDirectIds);
         ExtendedVisitContext formVisitContext = (ExtendedVisitContext) renderingContext.createNamingContainerVisitContext(form,
-            formDirectIds);
+                formDirectIds);
 
         assertFalse(formVisitContext.getIdsToVisit().isEmpty());
         assertSame(VisitContext.ALL_IDS, formVisitContext.getSubtreeIdsToVisit(form));
@@ -600,7 +574,7 @@ public class ExtendedPartialVisitContextTest {
         Collection<String> formDirectIds = renderingContext.getDirectSubtreeIdsToVisit(form);
         assertNotSame(VisitContext.ALL_IDS, formDirectIds);
         ExtendedVisitContext formVisitContext = (ExtendedVisitContext) renderingContext.createNamingContainerVisitContext(form,
-            formDirectIds);
+                formDirectIds);
 
         assertFalse(formVisitContext.getIdsToVisit().isEmpty());
         assertSame(VisitContext.ALL_IDS, formVisitContext.getSubtreeIdsToVisit(form));
@@ -628,8 +602,8 @@ public class ExtendedPartialVisitContextTest {
         assertTrue(visitResult);
 
         assertEquals(
-            Arrays.asList("myForm:table:0:nestedTable:1:nestedTableText", "myForm:table:1:nestedTable:1:nestedTableText"),
-            trackingVisitCallback.getVisitedIds());
+                Arrays.asList("myForm:table:0:nestedTable:1:nestedTableText", "myForm:table:1:nestedTable:1:nestedTableText"),
+                trackingVisitCallback.getVisitedIds());
     }
 
     @Test
@@ -648,10 +622,10 @@ public class ExtendedPartialVisitContextTest {
         viewRoot.visitTree(renderingContext, trackingVisitCallback);
 
         assertEquals(Arrays.asList("myForm:table:0:nestedTable@footer", "myForm:table:0:nestedTable:0:nestedTableText",
-            "myForm:table:0:nestedTable:1:nestedTableText",
+                        "myForm:table:0:nestedTable:1:nestedTableText",
 
-            "myForm:table:1:nestedTable:0:nestedTableText", "myForm:table:1:nestedTable:1:nestedTableText"),
-            trackingVisitCallback.getVisitedIds());
+                        "myForm:table:1:nestedTable:0:nestedTableText", "myForm:table:1:nestedTable:1:nestedTableText"),
+                trackingVisitCallback.getVisitedIds());
     }
 
     // TODO nick - add alike tests
@@ -680,5 +654,27 @@ public class ExtendedPartialVisitContextTest {
 
         assertTrue(result);
         assertEquals(Arrays.asList("myForm"), trackingVisitCallback.getVisitedIds());
+    }
+
+    private class TrackingVisitCallback implements VisitCallback {
+        private List<String> visitedIds = new ArrayList<String>();
+
+        public VisitResult visit(VisitContext context, UIComponent target) {
+            if (context instanceof ExtendedVisitContext) {
+                visitedIds.add(((ExtendedVisitContext) context).buildExtendedClientId(target));
+            } else {
+                visitedIds.add(target.getClientId(context.getFacesContext()));
+            }
+
+            return VisitResult.REJECT;
+        }
+
+        public List<String> getVisitedIds() {
+            return visitedIds;
+        }
+
+        public void reset() {
+            visitedIds.clear();
+        }
     }
 }

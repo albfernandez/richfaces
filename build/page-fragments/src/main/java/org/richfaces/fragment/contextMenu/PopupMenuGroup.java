@@ -49,7 +49,7 @@ public interface PopupMenuGroup {
     /**
      * Selects the menu item from this menu or menu group according to its index in the list of all menu items.
      * Opens menu or sub menu from visible menu, if it is not visible.
-     *
+     * <p>
      * Items are indexed from 0. A top menu item (the one which is the closest to the root of the popup menu component) has index 0.
      *
      * @param index zero based index of the item to be selected
@@ -62,8 +62,8 @@ public interface PopupMenuGroup {
      * Opens menu or sub menu from visible menu, if it is not visible.
      *
      * @param picker object to define which group should be expanded
-     * @throws IllegalArgumentException if there is no such element which satisfies the rules given by <code>picker</code>
      * @return the group which was expanded
+     * @throws IllegalArgumentException if there is no such element which satisfies the rules given by <code>picker</code>
      */
     PopupMenuGroup expandGroup(ChoicePicker picker);
 
@@ -72,8 +72,8 @@ public interface PopupMenuGroup {
      * Opens menu or sub menu from visible menu, if it is not visible.
      *
      * @param header the header of the group which should be expanded
-     * @throws IllegalArgumentException if there is no such element with text representation matching the given <code>header</code>
      * @return the group which was expanded
+     * @throws IllegalArgumentException if there is no such element with text representation matching the given <code>header</code>
      */
     PopupMenuGroup expandGroup(String header);
 
@@ -82,8 +82,8 @@ public interface PopupMenuGroup {
      * Opens menu or sub menu from visible menu, if it is not visible.
      *
      * @param index zero based index of the group to expand
-     * @throws IllegalArgumentException if there is no such element with index <code>index</code>
      * @return the group which was expanded
+     * @throws IllegalArgumentException if there is no such element with index <code>index</code>
      */
     PopupMenuGroup expandGroup(int index);
 }

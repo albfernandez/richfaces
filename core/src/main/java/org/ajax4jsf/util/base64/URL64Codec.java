@@ -180,36 +180,10 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
     }
 
     /**
-     * Decodes an Object using the base64 algorithm. This method is provided in order to satisfy the requirements of the Decoder
-     * interface, and will throw a DecoderException if the supplied object is not of type byte[].
-     *
-     * @param pObject Object to decode
-     * @return An object (of type byte[]) containing the binary data which corresponds to the byte[] supplied.
-     * @throws DecoderException if the parameter supplied is not of type byte[]
-     */
-    public Object decode(Object pObject) throws DecoderException {
-        if (!(pObject instanceof byte[])) {
-            throw new DecoderException(Messages.getMessage(Messages.NO_BYTE_ARRAY_ERROR));
-        }
-
-        return decode((byte[]) pObject);
-    }
-
-    /**
-     * Decodes a byte[] containing containing characters in the Base64 alphabet.
-     *
-     * @param pArray A byte array containing Base64 character data
-     * @return a byte array containing binary data
-     */
-    public byte[] decode(byte[] pArray) {
-        return decodeBase64(pArray);
-    }
-
-    /**
      * Encodes binary data using the base64 algorithm, optionally chunking the output into 76 character blocks.
      *
      * @param binaryData Array containing binary data to encode.
-     * @param isChunked if isChunked is true this encoder will chunk the base64 output into 76 character blocks
+     * @param isChunked  if isChunked is true this encoder will chunk the base64 output into 76 character blocks
      * @return Base64-encoded data.
      */
     public static byte[] encodeBase64(byte[] binaryData, boolean isChunked) {
@@ -324,7 +298,7 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
             // we also add a separator to the end of the final chunk.
             if (chunksSoFar < nbrChunks) {
                 System.arraycopy(CHUNK_SEPARATOR, 0, encodedData, encodedDataLength - CHUNK_SEPARATOR.length,
-                    CHUNK_SEPARATOR.length);
+                        CHUNK_SEPARATOR.length);
             }
         }
 
@@ -457,6 +431,32 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
         System.arraycopy(groomedData, 0, packedData, 0, bytesCopied);
 
         return packedData;
+    }
+
+    /**
+     * Decodes an Object using the base64 algorithm. This method is provided in order to satisfy the requirements of the Decoder
+     * interface, and will throw a DecoderException if the supplied object is not of type byte[].
+     *
+     * @param pObject Object to decode
+     * @return An object (of type byte[]) containing the binary data which corresponds to the byte[] supplied.
+     * @throws DecoderException if the parameter supplied is not of type byte[]
+     */
+    public Object decode(Object pObject) throws DecoderException {
+        if (!(pObject instanceof byte[])) {
+            throw new DecoderException(Messages.getMessage(Messages.NO_BYTE_ARRAY_ERROR));
+        }
+
+        return decode((byte[]) pObject);
+    }
+
+    /**
+     * Decodes a byte[] containing containing characters in the Base64 alphabet.
+     *
+     * @param pArray A byte array containing Base64 character data
+     * @return a byte array containing binary data
+     */
+    public byte[] decode(byte[] pArray) {
+        return decodeBase64(pArray);
     }
 
     // Implementation of the Encoder Interface

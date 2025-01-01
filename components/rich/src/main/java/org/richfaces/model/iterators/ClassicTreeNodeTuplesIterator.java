@@ -21,14 +21,13 @@
  */
 package org.richfaces.model.iterators;
 
-import java.util.Iterator;
-
 import org.richfaces.model.SequenceRowKey;
 import org.richfaces.model.TreeNode;
 
+import java.util.Iterator;
+
 /**
  * @author Nick Belaevski
- *
  */
 public class ClassicTreeNodeTuplesIterator extends BaseTupleIterator {
     private TreeNode treeNode;

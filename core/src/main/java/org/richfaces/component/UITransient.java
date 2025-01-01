@@ -22,13 +22,9 @@
 
 package org.richfaces.component;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import org.richfaces.renderkit.html.ScriptsRenderer;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -42,16 +38,18 @@ import javax.faces.event.FacesListener;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 import javax.faces.render.Renderer;
-
-import org.richfaces.renderkit.html.ScriptsRenderer;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class UITransient extends UIComponentBase {
+    private final Map<String, Object> attributesMap = new AttributesMap();
     private String id;
     private UIComponent parent;
-    private final Map<String, Object> attributesMap = new AttributesMap();
     private String clientId;
 
     public UITransient() {
@@ -328,6 +326,17 @@ public abstract class UITransient extends UIComponentBase {
         return result;
     }
 
+    @Override
+    public List<SystemEventListener> getListenersForEventClass(Class<? extends SystemEvent> eventClass) {
+        return Collections.EMPTY_LIST;
+    }
+
+    protected abstract boolean hasAttribute(Object key);
+
+    protected abstract Object setAttribute(String key, Object value);
+
+    protected abstract Object getAttribute(Object key);
+
     final class AttributesMap implements Map<String, Object> {
         @Override
         public void clear() {
@@ -403,15 +412,4 @@ public abstract class UITransient extends UIComponentBase {
             return ImmutableList.<Object>of(getId(), getClientId());
         }
     }
-
-    @Override
-    public List<SystemEventListener> getListenersForEventClass(Class<? extends SystemEvent> eventClass) {
-        return Collections.EMPTY_LIST;
-    }
-
-    protected abstract boolean hasAttribute(Object key);
-
-    protected abstract Object setAttribute(String key, Object value);
-
-    protected abstract Object getAttribute(Object key);
 }

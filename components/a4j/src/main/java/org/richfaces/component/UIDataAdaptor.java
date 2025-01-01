@@ -21,14 +21,17 @@
  */
 package org.richfaces.component;
 
-import static org.richfaces.resource.ResourceUtils.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
-
-import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Stack;
+import org.ajax4jsf.component.IterationStateHolder;
+import org.ajax4jsf.model.DataComponentState;
+import org.ajax4jsf.model.DataVisitResult;
+import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.ExtendedDataModel;
+import org.ajax4jsf.model.Range;
+import org.richfaces.JsfVersion;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
@@ -65,18 +68,14 @@ import javax.faces.event.PreRenderViewEvent;
 import javax.faces.event.PreValidateEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
+import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Stack;
 
-import org.ajax4jsf.component.IterationStateHolder;
-import org.ajax4jsf.model.DataComponentState;
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.Range;
-import org.richfaces.JsfVersion;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import static org.richfaces.resource.ResourceUtils.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
 
 /**
  * Base class for iterable components, like dataTable, Tomahawk dataList, Facelets repeat, tree etc., with support for partial
@@ -99,9 +98,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * </p>
      */
     public static final String COMPONENT_TYPE = "org.richfaces.Data";
-
-    private String PRE_RENDER_VIEW_EVENT_REGISTERED = UIDataAdaptor.class.getName() + ":preRenderViewEventRegistered";
-
     private static final VisitCallback STUB_CALLBACK = new VisitCallback() {
         public VisitResult visit(VisitContext context, UIComponent target) {
             return VisitResult.ACCEPT;
@@ -135,95 +131,14 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             c.processUpdates(context);
         }
     };
+    Stack<Object> originalVarValues = new Stack<Object>();
+    private String PRE_RENDER_VIEW_EVENT_REGISTERED = UIDataAdaptor.class.getName() + ":preRenderViewEventRegistered";
     // TODO nick - PSH support?
     private DataComponentState componentState = null;
     private ExtendedDataModel<?> extendedDataModel = null;
     private Object rowKey = null;
     private String containerClientId;
-    Stack<Object> originalVarValues = new Stack<Object>();
     private Converter rowKeyConverter;
-
-    /**
-     * @author Nick Belaevski
-     */
-    private final class DataVisitorForVisitTree implements DataVisitor {
-        /**
-         *
-         */
-        private final VisitCallback callback;
-        /**
-         *
-         */
-        private final VisitContext visitContext;
-        /**
-         *
-         */
-        private boolean visitResult;
-
-        /**
-         * @param callback
-         * @param visitContext
-         */
-        private DataVisitorForVisitTree(VisitCallback callback, VisitContext visitContext) {
-            this.callback = callback;
-            this.visitContext = visitContext;
-        }
-
-        public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
-            setRowKey(context, rowKey);
-
-            if (isRowAvailable()) {
-                VisitResult result = VisitResult.ACCEPT;
-
-                if (visitContext instanceof ExtendedVisitContext) {
-                    result = visitContext.invokeVisitCallback(UIDataAdaptor.this, callback);
-                    if (VisitResult.COMPLETE.equals(result)) {
-                        visitResult = true;
-
-                        return DataVisitResult.STOP;
-                    }
-
-                    if (result == VisitResult.ACCEPT) {
-                        result = visitDataChildrenMetaComponents((ExtendedVisitContext) visitContext, callback);
-                        if (VisitResult.COMPLETE.equals(result)) {
-                            visitResult = true;
-
-                            return DataVisitResult.STOP;
-                        }
-                    }
-                }
-
-                if (VisitResult.ACCEPT.equals(result)) {
-                    Iterator<UIComponent> dataChildrenItr = dataChildren();
-
-                    while (dataChildrenItr.hasNext()) {
-                        UIComponent dataChild = dataChildrenItr.next();
-
-                        if (!dataChild.getParent().isRendered() && visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED)) {
-                            // skip unrendered columns
-                            continue;
-                        }
-
-                        if (dataChild.visitTree(visitContext, callback)) {
-                            visitResult = true;
-
-                            return DataVisitResult.STOP;
-                        }
-                    }
-                }
-            }
-
-            return DataVisitResult.CONTINUE;
-        }
-
-        public boolean getVisitResult() {
-            return visitResult;
-        }
-    }
-
-    private enum PropertyKeys {
-        lastId, var, rowKeyVar, stateVar, childState, rowKeyConverter, rowKeyConverterSet, keepSaved
-    }
 
     public UIDataAdaptor() {
         super();
@@ -265,12 +180,16 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return rowKey;
     }
 
+    public void setRowKey(Object rowKey) {
+        setRowKey(getFacesContext(), rowKey);
+    }
+
     /**
      * Setup current row by key. Perform same functionality as {@link javax.faces.component.UIData#setRowIndex(int)}, but for
      * key object - it may be not only row number in sequence data, but, for example - path to current node in tree.
      *
      * @param facesContext - current FacesContext
-     * @param rowKey new key value.
+     * @param rowKey       new key value.
      */
     public void setRowKey(FacesContext facesContext, Object rowKey) {
         this.saveChildState(facesContext);
@@ -350,7 +269,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (getChildCount() > 0) {
             return getChildren().iterator();
         } else {
-            return Collections.<UIComponent> emptyList().iterator();
+            return Collections.<UIComponent>emptyList().iterator();
         }
     }
 
@@ -358,7 +277,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (getFacetCount() > 0) {
             return getFacets().values().iterator();
         } else {
-            return Collections.<UIComponent> emptyList().iterator();
+            return Collections.<UIComponent>emptyList().iterator();
         }
     }
 
@@ -366,7 +285,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (getFacetCount() > 0) {
             return getFacets().values().iterator();
         } else {
-            return Collections.<UIComponent> emptyList().iterator();
+            return Collections.<UIComponent>emptyList().iterator();
         }
     }
 
@@ -430,10 +349,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
-    public void setRowKey(Object rowKey) {
-        setRowKey(getFacesContext(), rowKey);
-    }
-
     protected FacesEvent wrapEvent(FacesEvent event) {
         return new RowKeyContextEventWrapper(this, event, getRowKey());
     }
@@ -470,17 +385,17 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return extendedDataModel;
     }
 
-    protected abstract ExtendedDataModel<?> createExtendedDataModel();
-
-    public void clearExtendedDataModel() {
-        setExtendedDataModel(null);
-    }
-
     /**
      * @param extendedDataModel the extendedDataModel to set
      */
     protected void setExtendedDataModel(ExtendedDataModel<?> extendedDataModel) {
         this.extendedDataModel = extendedDataModel;
+    }
+
+    protected abstract ExtendedDataModel<?> createExtendedDataModel();
+
+    public void clearExtendedDataModel() {
+        setExtendedDataModel(null);
     }
 
     @Attribute
@@ -551,7 +466,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * <p/>
      * Changed: does not check for row availability now
      *
-     * @param faces current faces context
+     * @param faces       current faces context
      * @param rowSelected
      */
     protected void setupVariable(FacesContext faces, boolean rowSelected) {
@@ -1007,7 +922,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             converterState = saveAttachedState(context, rowKeyConverter);
         }
 
-        return new Object[] { parentState, savedComponentState, converterHasPartialState, converterState };
+        return new Object[]{parentState, savedComponentState, converterHasPartialState, converterState};
     }
 
     /*
@@ -1396,7 +1311,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     private boolean requiresRowIteration(VisitContext context) {
         // The VisitHint.SKIP_ITERATION enum is only available as of JSF 2.1.
         if (JsfVersion.getCurrent() == JsfVersion.JSF_2_0) {
-            return ! Boolean.TRUE.equals(context.getFacesContext().getAttributes().get("javax.faces.visit.SKIP_ITERATION"));
+            return !Boolean.TRUE.equals(context.getFacesContext().getAttributes().get("javax.faces.visit.SKIP_ITERATION"));
         }
 
         return !context.getHints().contains(VisitHint.SKIP_ITERATION);
@@ -1416,37 +1331,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         } else {
             return substring.substring(0, separatorIndex);
         }
-    }
-
-    /**
-     * Base class for visit data model at phases decode, validation and update model
-     *
-     * @author shura
-     */
-    protected abstract class ComponentVisitor implements DataVisitor {
-        public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
-            setRowKey(context, rowKey);
-
-            if (isRowAvailable()) {
-                Iterator<UIComponent> childIterator = dataChildren();
-
-                while (childIterator.hasNext()) {
-                    UIComponent component = childIterator.next();
-
-                    UIComponent parent = component.getParent();
-
-                    if (!parent.isRendered()) { // skip if parent column is not rendered
-                        continue;
-                    }
-
-                    processComponent(context, component, argument);
-                }
-            }
-
-            return DataVisitResult.CONTINUE;
-        }
-
-        public abstract void processComponent(FacesContext context, UIComponent c, Object argument);
     }
 
     private void subscribeToEvents() {
@@ -1504,5 +1388,118 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     protected DataComponentState getLocalComponentState() {
         return componentState;
+    }
+
+    private enum PropertyKeys {
+        lastId, var, rowKeyVar, stateVar, childState, rowKeyConverter, rowKeyConverterSet, keepSaved
+    }
+
+    /**
+     * @author Nick Belaevski
+     */
+    private final class DataVisitorForVisitTree implements DataVisitor {
+        /**
+         *
+         */
+        private final VisitCallback callback;
+        /**
+         *
+         */
+        private final VisitContext visitContext;
+        /**
+         *
+         */
+        private boolean visitResult;
+
+        /**
+         * @param callback
+         * @param visitContext
+         */
+        private DataVisitorForVisitTree(VisitCallback callback, VisitContext visitContext) {
+            this.callback = callback;
+            this.visitContext = visitContext;
+        }
+
+        public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
+            setRowKey(context, rowKey);
+
+            if (isRowAvailable()) {
+                VisitResult result = VisitResult.ACCEPT;
+
+                if (visitContext instanceof ExtendedVisitContext) {
+                    result = visitContext.invokeVisitCallback(UIDataAdaptor.this, callback);
+                    if (VisitResult.COMPLETE.equals(result)) {
+                        visitResult = true;
+
+                        return DataVisitResult.STOP;
+                    }
+
+                    if (result == VisitResult.ACCEPT) {
+                        result = visitDataChildrenMetaComponents((ExtendedVisitContext) visitContext, callback);
+                        if (VisitResult.COMPLETE.equals(result)) {
+                            visitResult = true;
+
+                            return DataVisitResult.STOP;
+                        }
+                    }
+                }
+
+                if (VisitResult.ACCEPT.equals(result)) {
+                    Iterator<UIComponent> dataChildrenItr = dataChildren();
+
+                    while (dataChildrenItr.hasNext()) {
+                        UIComponent dataChild = dataChildrenItr.next();
+
+                        if (!dataChild.getParent().isRendered() && visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED)) {
+                            // skip unrendered columns
+                            continue;
+                        }
+
+                        if (dataChild.visitTree(visitContext, callback)) {
+                            visitResult = true;
+
+                            return DataVisitResult.STOP;
+                        }
+                    }
+                }
+            }
+
+            return DataVisitResult.CONTINUE;
+        }
+
+        public boolean getVisitResult() {
+            return visitResult;
+        }
+    }
+
+    /**
+     * Base class for visit data model at phases decode, validation and update model
+     *
+     * @author shura
+     */
+    protected abstract class ComponentVisitor implements DataVisitor {
+        public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
+            setRowKey(context, rowKey);
+
+            if (isRowAvailable()) {
+                Iterator<UIComponent> childIterator = dataChildren();
+
+                while (childIterator.hasNext()) {
+                    UIComponent component = childIterator.next();
+
+                    UIComponent parent = component.getParent();
+
+                    if (!parent.isRendered()) { // skip if parent column is not rendered
+                        continue;
+                    }
+
+                    processComponent(context, component, argument);
+                }
+            }
+
+            return DataVisitResult.CONTINUE;
+        }
+
+        public abstract void processComponent(FacesContext context, UIComponent c, Object argument);
     }
 }

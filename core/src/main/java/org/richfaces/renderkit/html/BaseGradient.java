@@ -21,6 +21,17 @@
  */
 package org.richfaces.renderkit.html;
 
+import org.richfaces.renderkit.html.images.GradientType;
+import org.richfaces.renderkit.html.images.GradientType.BiColor;
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.DynamicUserResource;
+import org.richfaces.resource.PostConstructResource;
+import org.richfaces.resource.ResourceParameter;
+import org.richfaces.resource.StateHolderResource;
+import org.richfaces.skin.Skin;
+import org.richfaces.skin.SkinFactory;
+
+import javax.faces.context.FacesContext;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
@@ -31,18 +42,6 @@ import java.awt.geom.Rectangle2D;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-
-import org.richfaces.renderkit.html.images.GradientType;
-import org.richfaces.renderkit.html.images.GradientType.BiColor;
-import org.richfaces.resource.AbstractJava2DUserResource;
-import org.richfaces.resource.DynamicUserResource;
-import org.richfaces.resource.PostConstructResource;
-import org.richfaces.resource.ResourceParameter;
-import org.richfaces.resource.StateHolderResource;
-import org.richfaces.skin.Skin;
-import org.richfaces.skin.SkinFactory;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com created 02.02.2007
@@ -137,21 +136,6 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
         this.headerGradientColor = skin.getColorParameter(context, gradientColor);
     }
 
-    @ResourceParameter(defaultValue = "30")
-    public final void setWidth(Integer width) {
-        this.width = width;
-    }
-
-    @ResourceParameter(defaultValue = "50")
-    public final void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    @ResourceParameter(defaultValue = "20")
-    public final void setGradientHeight(Integer gradientHeight) {
-        this.gradientHeight = gradientHeight;
-    }
-
     @ResourceParameter(defaultValue = Skin.HEADER_BACKGROUND_COLOR)
     public final void setBaseColorParam(String paramName) {
         this.baseColor = paramName;
@@ -160,11 +144,6 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
     @ResourceParameter(defaultValue = Skin.HEADER_GRADIENT_COLOR)
     public final void setGradientColorParam(String paramName) {
         this.gradientColor = paramName;
-    }
-
-    @ResourceParameter(defaultValue = "false")
-    public final void setHorizontal(boolean horizontal) {
-        this.horizontal = horizontal;
     }
 
     public final void setGradientType(GradientType gradientType) {
@@ -182,12 +161,27 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
         return gradientHeight;
     }
 
+    @ResourceParameter(defaultValue = "20")
+    public final void setGradientHeight(Integer gradientHeight) {
+        this.gradientHeight = gradientHeight;
+    }
+
     protected Integer getHeight() {
         return height;
     }
 
+    @ResourceParameter(defaultValue = "50")
+    public final void setHeight(Integer height) {
+        this.height = height;
+    }
+
     protected Integer getWidth() {
         return width;
+    }
+
+    @ResourceParameter(defaultValue = "30")
+    public final void setWidth(Integer width) {
+        this.width = width;
     }
 
     protected Integer getSafeGradientHeight() {
@@ -221,6 +215,11 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
      */
     protected boolean isHorizontal() {
         return horizontal;
+    }
+
+    @ResourceParameter(defaultValue = "false")
+    public final void setHorizontal(boolean horizontal) {
+        this.horizontal = horizontal;
     }
 
     protected void drawGradient(Graphics2D g2d, Shape shape, BiColor colors, int height) {

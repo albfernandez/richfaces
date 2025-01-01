@@ -3,17 +3,8 @@
  */
 package org.richfaces.javascript;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-
-import java.util.Map;
-
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
-import javax.validation.constraints.Max;
-
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Iterables;
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;
 import org.jboss.test.faces.mock.Mock;
@@ -28,12 +19,18 @@ import org.junit.runner.RunWith;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.validator.ValidatorWithFacesResource;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Iterables;
+import javax.faces.application.Resource;
+import javax.faces.application.ResourceHandler;
+import javax.faces.context.FacesContext;
+import javax.validation.constraints.Max;
+import java.util.Map;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 /**
  * @author asmirnov
- *
  */
 @RunWith(MockTestRunner.class)
 public class ClientScriptServiceTest {
@@ -41,7 +38,7 @@ public class ClientScriptServiceTest {
     private static final String ORG_RICHFACES_CSV = "org.richfaces.csv";
     private static final String RESOURCE_NAME = ValidatorWithFacesResource.class.getSimpleName() + ".js";
     @Mock
-    @Environment({ Feature.APPLICATION })
+    @Environment({Feature.APPLICATION})
     private MockFacesEnvironment environment;
     @Mock
     private ResourceHandler resourceHandler;
@@ -106,7 +103,7 @@ public class ClientScriptServiceTest {
     @Test
     public void testGetScriptOverrideAnnotation() throws Exception {
         Map<Class<?>, LibraryFunction> defaultMapping = ImmutableMap.<Class<?>, LibraryFunction>of(
-            ValidatorWithFacesResource.class, function);
+                ValidatorWithFacesResource.class, function);
         serviceImpl = new ClientScriptServiceImpl(defaultMapping);
         LibraryFunction script = getScript(null, ValidatorWithFacesResource.class);
         assertSame(function, script);

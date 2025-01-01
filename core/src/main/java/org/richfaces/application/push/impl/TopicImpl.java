@@ -21,6 +21,13 @@
  */
 package org.richfaces.application.push.impl;
 
+import org.richfaces.application.push.MessageException;
+import org.richfaces.application.push.Session;
+import org.richfaces.application.push.SessionSubscriptionEvent;
+import org.richfaces.application.push.SessionUnsubscriptionEvent;
+import org.richfaces.application.push.TopicEvent;
+import org.richfaces.application.push.TopicKey;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
@@ -28,13 +35,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import org.richfaces.application.push.MessageException;
-import org.richfaces.application.push.Session;
-import org.richfaces.application.push.SessionSubscriptionEvent;
-import org.richfaces.application.push.SessionUnsubscriptionEvent;
-import org.richfaces.application.push.TopicEvent;
-import org.richfaces.application.push.TopicKey;
 
 /**
  * @author Nick Belaevski
@@ -128,6 +128,23 @@ public class TopicImpl extends AbstractTopic {
     }
 
     /**
+     * A task used for scheduling publishing of messages on given {@link TopicsContext}.
+     */
+    private static final class PublishTask implements Runnable {
+        private final PublishingContext topicContext;
+
+        public PublishTask(PublishingContext topicContext) {
+            super();
+            this.topicContext = topicContext;
+        }
+
+        @Override
+        public void run() {
+            topicContext.publishMessages();
+        }
+    }
+
+    /**
      * Binds a {@link TopicKey} with list of {@link Session}s subscribed to given topic.
      */
     private final class PublishingContext {
@@ -166,7 +183,7 @@ public class TopicImpl extends AbstractTopic {
 
         /**
          * Publishes messages that are scheduled for publishing.
-         *
+         * <p>
          * If there are any messages in the queue once finished publishing,
          * a new round of publishing is scheduled.
          */
@@ -197,23 +214,6 @@ public class TopicImpl extends AbstractTopic {
 
                 topicsContext.getPublisherService().submit(new PublishTask(this));
             }
-        }
-    }
-
-    /**
-     * A task used for scheduling publishing of messages on given {@link TopicsContext}.
-     */
-    private static final class PublishTask implements Runnable {
-        private final PublishingContext topicContext;
-
-        public PublishTask(PublishingContext topicContext) {
-            super();
-            this.topicContext = topicContext;
-        }
-
-        @Override
-        public void run() {
-            topicContext.publishMessages();
         }
     }
 }

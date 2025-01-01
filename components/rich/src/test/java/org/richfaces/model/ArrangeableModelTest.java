@@ -21,10 +21,17 @@
  */
 package org.richfaces.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import org.ajax4jsf.model.DataVisitResult;
+import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.ExtendedDataModel;
+import org.ajax4jsf.model.SequenceDataModel;
+import org.ajax4jsf.model.SequenceRange;
+import org.jboss.test.faces.AbstractFacesTest;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.richfaces.component.SortOrder;
 
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
@@ -32,49 +39,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModelEvent;
 import javax.faces.model.DataModelListener;
-
-import org.junit.Assert;
-
-import org.jboss.test.faces.AbstractFacesTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.richfaces.component.SortOrder;
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.SequenceDataModel;
-import org.ajax4jsf.model.SequenceRange;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author Konstantin Mishin
- *
  */
 public class ArrangeableModelTest extends AbstractFacesTest {
-    public class User {
-        private String fname;
-        private String lname;
-
-        public User(String fname, String lname) {
-            super();
-            this.fname = fname;
-            this.lname = lname;
-        }
-
-        public String getFname() {
-            return fname;
-        }
-
-        public String getLname() {
-            return lname;
-        }
-    }
-
     private static final int ROWS = 2;
     private static final int ROW_KEY = 4;
     private static final List<Integer> FILTERD_AND_SORTED_ROW_KEYS = Arrays.asList(5, 3, 2, 0);
-    private User[] users = { new User("C", "A"), new User("a", "a"), new User("B", "B"), new User("B", "C"),
-            new User("b", "b"), new User("A", "A") };
+    private User[] users = {new User("C", "A"), new User("a", "a"), new User("B", "B"), new User("B", "C"),
+            new User("b", "b"), new User("A", "A")};
     private ExtendedDataModel<User> extendedDataModel;
     private ArrangeableModel arrangeableModel;
 
@@ -93,16 +71,16 @@ public class ArrangeableModelTest extends AbstractFacesTest {
                     }
                 }, null),
                 new FilterField(expressionFactory.createValueExpression(elContext, "#{var.lname != filterVar}", Object.class),
-                    null, "b") };
+                        null, "b")};
         SortField[] sortFields = {
                 new SortField(expressionFactory.createValueExpression(elContext, "#{var.fname}", Object.class), null,
-                    SortOrder.ascending), new SortField(null, new Comparator<User>() {
-                    public int compare(User o1, User o2) {
-                        return o1.getLname().compareTo(o2.getLname());
-                    }
-                }, SortOrder.descending) };
+                        SortOrder.ascending), new SortField(null, new Comparator<User>() {
+            public int compare(User o1, User o2) {
+                return o1.getLname().compareTo(o2.getLname());
+            }
+        }, SortOrder.descending)};
         arrangeableModel.arrange(facesContext,
-            new ArrangeableStateDefaultImpl(Arrays.asList(filterFields), Arrays.asList(sortFields), null));
+                new ArrangeableStateDefaultImpl(Arrays.asList(filterFields), Arrays.asList(sortFields), null));
     }
 
     @After
@@ -246,5 +224,24 @@ public class ArrangeableModelTest extends AbstractFacesTest {
         Object[] objects = new Object[0];
         arrangeableModel.setWrappedData(objects);
         Assert.assertSame(objects, arrangeableModel.getWrappedData());
+    }
+
+    public class User {
+        private String fname;
+        private String lname;
+
+        public User(String fname, String lname) {
+            super();
+            this.fname = fname;
+            this.lname = lname;
+        }
+
+        public String getFname() {
+            return fname;
+        }
+
+        public String getLname() {
+            return lname;
+        }
     }
 }

@@ -14,7 +14,7 @@ public class Person {
     private String surname;
     private String email;
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Person() {

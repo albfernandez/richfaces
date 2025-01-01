@@ -21,22 +21,20 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.Iterator;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractColumnGroup;
+import org.richfaces.component.UIDataTableBase;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
-
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractColumnGroup;
-import org.richfaces.component.UIDataTableBase;
+import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * @author Anton Belevich
- *
  */
 @JsfRenderer(type = "org.richfaces.ColumnGroupRenderer", family = AbstractColumnGroup.COMPONENT_FAMILY)
 public class ColumnGroupRenderer extends AbstractTableBaseRenderer {

@@ -25,7 +25,6 @@ import org.junit.Test;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class DummyQueueTest extends AbstractQueueComponentTest {
     @Test

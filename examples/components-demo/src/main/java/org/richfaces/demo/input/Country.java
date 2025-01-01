@@ -21,14 +21,13 @@
  */
 package org.richfaces.demo.input;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import com.google.common.base.MoreObjects;
 import com.google.common.base.MoreObjects.ToStringHelper;
 
+import javax.xml.bind.annotation.XmlElement;
+
 /**
  * @author nick
- *
  */
 public class Country {
     public static final String NAMESPACE = "http://richfaces.org/demos/countries";
@@ -36,13 +35,13 @@ public class Country {
     private String iso;
     private String domain;
 
+    public String getName() {
+        return name;
+    }
+
     @XmlElement(namespace = Country.NAMESPACE)
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getIso() {

@@ -31,23 +31,10 @@ import javax.faces.event.ActionListener;
 
 /**
  * @author Nick Belaevski
- *
  */
 @ManagedBean
 @NoneScoped
 public class ActionListenerBean {
-    public static final class ActionListenerImpl implements ActionListener {
-        public void processAction(ActionEvent event) throws AbortProcessingException {
-            addFacesMessage("Implementation of ActionListener created and called: " + this);
-        }
-    }
-
-    private static final class BoundActionListener implements ActionListener {
-        public void processAction(ActionEvent event) throws AbortProcessingException {
-            addFacesMessage("Bound listener called");
-        }
-    }
-
     private ActionListener actionListener = new BoundActionListener();
 
     private static void addFacesMessage(String messageText) {
@@ -65,5 +52,17 @@ public class ActionListenerBean {
 
     public ActionListener getActionListener() {
         return actionListener;
+    }
+
+    public static final class ActionListenerImpl implements ActionListener {
+        public void processAction(ActionEvent event) throws AbortProcessingException {
+            addFacesMessage("Implementation of ActionListener created and called: " + this);
+        }
+    }
+
+    private static final class BoundActionListener implements ActionListener {
+        public void processAction(ActionEvent event) throws AbortProcessingException {
+            addFacesMessage("Bound listener called");
+        }
     }
 }

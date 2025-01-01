@@ -21,7 +21,6 @@
  */
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.component.attribute.BypassProps;
 
 import javax.faces.component.UICommand;
@@ -31,7 +30,6 @@ import javax.faces.event.PhaseId;
 
 /**
  * @author Nick Belaevski
- *
  */
 public abstract class AbstractActionComponent extends UICommand implements BypassProps {
 

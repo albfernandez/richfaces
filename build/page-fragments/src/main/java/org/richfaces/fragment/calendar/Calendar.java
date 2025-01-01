@@ -26,16 +26,16 @@ import org.joda.time.DateTime;
 public interface Calendar {
 
     /**
-     * Selects the passed date into the calendar component.
-     *
-     * @param d the date to be selected
-     */
-    void setDate(DateTime d);
-
-    /**
      * Gets the selected date.
      *
      * @return the date which is currently set into the calendar component
      */
     DateTime getDate();
+
+    /**
+     * Selects the passed date into the calendar component.
+     *
+     * @param d the date to be selected
+     */
+    void setDate(DateTime d);
 }

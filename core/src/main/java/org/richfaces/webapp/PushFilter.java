@@ -21,10 +21,10 @@
  */
 package org.richfaces.webapp;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Set;
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Sets;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -36,15 +36,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Sets;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Set;
 
 /**
- *
  * @author Nick Belaevski
  */
 public class PushFilter implements Filter {
@@ -77,13 +74,13 @@ public class PushFilter implements Filter {
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
-        ServletException {
+            ServletException {
         if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpServletResponse httpResp = (HttpServletResponse) response;
 
             if ("GET".equals(httpReq.getMethod()) && httpReq.getQueryString() != null
-                && httpReq.getQueryString().contains("__richfacesPushAsync")) {
+                    && httpReq.getQueryString().contains("__richfacesPushAsync")) {
                 if (pushServlet == null) {
                     pushServlet = new PushServlet();
                     pushServlet.init(servletConfig);

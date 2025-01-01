@@ -21,32 +21,34 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.AbstractNotifyMessage;
 import org.richfaces.component.AbstractNotifyMessages;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.util.RendererUtils;
-import org.richfaces.application.ServiceTracker;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMap.Builder;
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class NotifyMessageRendererBase extends MessageRendererBase {
+    private static String escapeValue(String value, boolean escape) {
+        return escape ? HtmlUtil.escapeHtml(value) : value;
+    }
+
     @Override
     protected String getJSClassName() {
         return "RichFaces.ui.NotifyMessage";
@@ -105,7 +107,7 @@ public class NotifyMessageRendererBase extends MessageRendererBase {
     }
 
     private void addMessageSpecificAttributes(MessageForRender message, FacesContext facesContext, UIComponent component,
-            Map<String, Object> options) {
+                                              Map<String, Object> options) {
         Boolean showSummary = (Boolean) component.getAttributes().get("showSummary");
         Boolean showDetail = (Boolean) component.getAttributes().get("showDetail");
         String stackId = NotifyRendererUtils.getStackId(facesContext, component);
@@ -132,9 +134,5 @@ public class NotifyMessageRendererBase extends MessageRendererBase {
         if (stackId != null && !stackId.isEmpty()) {
             options.put("stackId", stackId);
         }
-    }
-
-    private static String escapeValue(String value, boolean escape) {
-        return escape ? HtmlUtil.escapeHtml(value) : value;
     }
 }

@@ -45,9 +45,8 @@ public class PanelToggleEvent extends FacesEvent {
      * The default {@link javax.faces.event.PhaseId} for this event is {@link javax.faces.event.PhaseId#ANY_PHASE}.
      * </p>
      *
-     * @param component Source {@link UIComponent} for this event
+     * @param component  Source {@link UIComponent} for this event
      * @param isExpanded
-     *
      * @throws IllegalArgumentException if <code>component</code> is <code>null</code>
      */
     public PanelToggleEvent(UIComponent component, Boolean isExpanded) {

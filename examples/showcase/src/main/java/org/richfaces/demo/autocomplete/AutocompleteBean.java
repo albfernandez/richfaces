@@ -1,15 +1,14 @@
 package org.richfaces.demo.autocomplete;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import org.richfaces.demo.tables.model.capitals.Capital;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-
-import org.richfaces.demo.tables.model.capitals.Capital;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @ManagedBean
 @RequestScoped
@@ -41,7 +40,7 @@ public class AutocompleteBean {
             while (iterator.hasNext()) {
                 Capital elem = ((Capital) iterator.next());
                 if ((elem.getState() != null && elem.getState().toLowerCase().indexOf(prefix.toLowerCase()) == 0)
-                    || "".equals(prefix)) {
+                        || "".equals(prefix)) {
                     result.add(elem.getState());
                 }
             }

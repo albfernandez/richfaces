@@ -21,19 +21,6 @@
  */
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.FacesException;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
@@ -51,25 +38,58 @@ import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.renderkit.util.FormUtil;
 import org.richfaces.renderkit.util.HandlersChain;
 
+import javax.faces.FacesException;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author akolonitsky
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "togglePanel.js") })
+        @ResourceDependency(library = "org.richfaces", name = "togglePanel.js")})
 @JsfRenderer(type = "org.richfaces.TogglePanelRenderer", family = AbstractTogglePanel.COMPONENT_FAMILY)
 public class TogglePanelRenderer extends DivPanelRenderer implements MetaComponentRenderer {
     public static final String VALUE_POSTFIX = "-value";
     protected static final String ITEM_CHANGE = "itemchange";
     protected static final String BEFORE_ITEM_CHANGE = "beforeitemchange";
     private static final String ON = "on";
-        // execute event handler only on the proper target, RF-12054
+    // execute event handler only on the proper target, RF-12054
     private static final String EVENT_TARGET_CHECKER = "if (event.target != event.currentTarget) {return;}";
+
+    static String getValueRequestParamName(FacesContext context, UIComponent component) {
+        return component.getClientId(context) + VALUE_POSTFIX;
+    }
+
+    public static void addEventOption(FacesContext context, UIComponent component, Map<String, Object> options, String eventName) {
+
+        HandlersChain handlersChain = new HandlersChain(context, component);
+        handlersChain.addInlineHandlerFromAttribute(ON + eventName);
+        handlersChain.addBehaviors(eventName);
+        // handlersChain.addAjaxSubmitFunction();
+
+        String handler = handlersChain.toScript();
+        if (handler != null) {
+            options.put(ON + eventName, new JSFunctionDefinition(JSReference.EVENT).addToBody(EVENT_TARGET_CHECKER).addToBody(handler));
+        }
+    }
+
+    public static AjaxOptions getAjaxOptions(FacesContext context, UIComponent panel) {
+        return AjaxRendererUtils.buildEventOptions(context, panel);
+    }
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -86,8 +106,8 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
                 PartialViewContext pvc = context.getPartialViewContext();
 
                 pvc.getRenderIds().add(
-                    component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
-                        + AbstractTogglePanel.ACTIVE_ITEM_META_COMPONENT);
+                        component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                                + AbstractTogglePanel.ACTIVE_ITEM_META_COMPONENT);
             }
         }
     }
@@ -95,10 +115,6 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
     protected boolean isSubmitted(FacesContext context, AbstractTogglePanel panel) {
         Map<String, String> parameterMap = context.getExternalContext().getRequestParameterMap();
         return parameterMap.get(panel.getClientId(context)) != null;
-    }
-
-    static String getValueRequestParamName(FacesContext context, UIComponent component) {
-        return component.getClientId(context) + VALUE_POSTFIX;
     }
 
     @Override
@@ -137,7 +153,7 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.TogglePanel", component.getClientId(context), getScriptObjectOptions(context,
-            component));
+                component));
     }
 
     @Override
@@ -153,23 +169,6 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
         addEventOption(context, panel, options, BEFORE_ITEM_CHANGE);
 
         return options;
-    }
-
-    public static void addEventOption(FacesContext context, UIComponent component, Map<String, Object> options, String eventName) {
-
-        HandlersChain handlersChain = new HandlersChain(context, component);
-        handlersChain.addInlineHandlerFromAttribute(ON + eventName);
-        handlersChain.addBehaviors(eventName);
-        // handlersChain.addAjaxSubmitFunction();
-
-        String handler = handlersChain.toScript();
-        if (handler != null) {
-            options.put(ON + eventName, new JSFunctionDefinition(JSReference.EVENT).addToBody(EVENT_TARGET_CHECKER).addToBody(handler));
-        }
-    }
-
-    public static AjaxOptions getAjaxOptions(FacesContext context, UIComponent panel) {
-        return AjaxRendererUtils.buildEventOptions(context, panel);
     }
 
     @Override

@@ -25,7 +25,6 @@ import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.richfaces.fragment.autocomplete.RichFacesAutocomplete;
 
 /**
- *
  * @author <a href="mailto:pmensik@redhat.com">Petr Mensik</a>
  */
 public class ClientFilterPage {

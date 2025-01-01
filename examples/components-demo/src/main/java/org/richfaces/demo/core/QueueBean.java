@@ -26,7 +26,6 @@ import javax.faces.bean.SessionScoped;
 
 /**
  * @author Konstantin Mishin
- *
  */
 @ManagedBean
 @SessionScoped

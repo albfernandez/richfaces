@@ -28,7 +28,6 @@ import java.net.URL;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface VFSRoot extends Closeable, VirtualFile {
     void initialize() throws IOException;

@@ -21,19 +21,9 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.IOException;
-
-import javax.faces.application.ViewHandler;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
-
 import com.gargoylesoftware.htmlunit.html.DomElement;
-
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
@@ -42,12 +32,18 @@ import org.junit.Test;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.component.AbstractPanel;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import javax.faces.application.ViewHandler;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewDeclarationLanguage;
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Andrey Markhel
- *
  */
 public class PanelRendererTest {
     private HtmlUnitEnvironment environment;
@@ -87,7 +83,7 @@ public class PanelRendererTest {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         AbstractPanel component = (AbstractPanel) facesContext.getViewRoot().findComponent("panelWithFacet");
         PanelBaseRenderer renderer = (PanelBaseRenderer) FacesContext.getCurrentInstance().getRenderKit()
-            .getRenderer(component.getFamily(), component.getRendererType());
+                .getRenderer(component.getFamily(), component.getRendererType());
         assertEquals(AbstractPanel.class, renderer.getComponentClass());
         facesRequest.release();
     }
@@ -105,9 +101,9 @@ public class PanelRendererTest {
         HtmlElement panelWithFacet = page.getHtmlElementById("panelWithFacet");
         assertEquals("rf-p panel", panelWithFacet.getAttribute("class"));
         assertEquals("Write your own custom rich components with built-in AJAX support",
-            page.getElementById("panelWithFacet_header").getTextContent().trim());
+                page.getElementById("panelWithFacet_header").getTextContent().trim());
         assertEquals("The CDK includes", page.getElementById("panelWithFacet_body").getTextContent().trim()
-            .substring(0, 16));
+                .substring(0, 16));
         HtmlElement simplePanel = page.getHtmlElementById("simplePanel");
         assertEquals("rf-p ", simplePanel.getAttribute("class"));
         try {
@@ -116,16 +112,16 @@ public class PanelRendererTest {
             assertTrue(true);
         }
         assertEquals("RichFaces is a l", page.getElementById("simplePanel_body").getTextContent().trim()
-            .substring(0, 16));
+                .substring(0, 16));
         HtmlElement simplePanelBody = page.getHtmlElementById("simplePanel_body");
         assertEquals("rf-p-b rich-laguna-panel-no-header", simplePanelBody.getAttribute("class"));
         HtmlElement simplePanel2 = page.getHtmlElementById("simplePanelWithTextHeader");
         assertEquals("rf-p ", simplePanel2.getAttribute("class"));
         assertNotNull(page.getElementById("simplePanelWithTextHeader_header"));
         assertEquals("rich-laguna-panel-no-header", page.getElementById("simplePanelWithTextHeader_header")
-            .getTextContent().trim());
+                .getTextContent().trim());
         assertEquals("RichFaces is a l", page.getElementById("simplePanelWithTextHeader_body").getTextContent().trim()
-            .substring(0, 16));
+                .substring(0, 16));
 
         HtmlElement nestedPanelContainer = page.getHtmlElementById("nestedPanelContainer");
         assertEquals("rf-p ", nestedPanelContainer.getAttribute("class"));
@@ -134,7 +130,7 @@ public class PanelRendererTest {
         HtmlElement nestedPanelContainerHeader = page.getHtmlElementById("nestedPanelContainer_header");
         assertEquals("rf-p-hdr outpanelHeader", nestedPanelContainerHeader.getAttribute("class"));
         assertEquals("Benefits of Usin", page.getElementById("nestedPanelContainer_body").getTextContent()
-            .trim().substring(0, 16));
+                .trim().substring(0, 16));
         DomElement nestedPanel1 = page.getElementById("nestedPanel1");
         assertEquals("rf-p ", nestedPanel1.getAttribute("class"));
         HtmlElement nestedPanel1Body = page.getHtmlElementById("nestedPanel1_body");

@@ -21,21 +21,20 @@
  */
 package org.richfaces.l10n;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.util.Locale;
-import java.util.MissingResourceException;
-
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Locale;
+import java.util.MissingResourceException;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 /**
  * @author Nick Belaevski
- *
  */
 public class BundleLoaderTest {
     private MockFacesEnvironment facesEnvironment;
@@ -66,7 +65,7 @@ public class BundleLoaderTest {
 
         assertEquals("Hello", bundleLoader.getBundle(BundleLoaderCoreMessages.message, Locale.US).getString("message"));
         assertEquals("Zdravstvujte", bundleLoader.getBundle(BundleLoaderCoreMessages.message, new Locale("ru", "RU"))
-            .getString("message"));
+                .getString("message"));
 
         try {
             bundleLoader.getBundle(BundleLoaderCoreMessages.message, new Locale("by", "BY"));
@@ -83,16 +82,16 @@ public class BundleLoaderTest {
         facesEnvironment.replay();
 
         assertEquals("Welcome to app",
-            bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message, Locale.US)
-                .getString("message"));
+                bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message, Locale.US)
+                        .getString("message"));
         assertEquals(
-            "Dobro pozhalovat'",
-            bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message,
-                new Locale("by", "BY")).getString("message"));
+                "Dobro pozhalovat'",
+                bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message,
+                        new Locale("by", "BY")).getString("message"));
 
         try {
             bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message, new Locale(
-                "ru", "RU"));
+                    "ru", "RU"));
             fail();
         } catch (MissingResourceException e) {
             // ok

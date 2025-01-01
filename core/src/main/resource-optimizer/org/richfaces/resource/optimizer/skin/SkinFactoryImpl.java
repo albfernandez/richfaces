@@ -21,15 +21,14 @@
  */
 package org.richfaces.resource.optimizer.skin;
 
-import javax.faces.context.FacesContext;
-
 import org.richfaces.skin.AbstractSkinFactory;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.Theme;
 
+import javax.faces.context.FacesContext;
+
 /**
  * @author Nick Belaevski
- *
  */
 public class SkinFactoryImpl extends AbstractSkinFactory {
     private static ThreadLocal<String> skinNames = new ThreadLocal<String>();

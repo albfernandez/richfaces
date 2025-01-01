@@ -25,15 +25,14 @@ package org.richfaces.fragment.switchable;
  * Represents a container for various components. The purpose is to easily get initialized content dynamically.
  *
  * @author jhuska
- *
  */
 public interface ComponentContainer {
 
     /**
      * Gets initialized content of the container.
      *
-     * @param  clazz class of the page object which will be correctly initialized
-     * @return       initialized object representing the content of the container
+     * @param clazz class of the page object which will be correctly initialized
+     * @return initialized object representing the content of the container
      */
     <T> T getContent(Class<T> clazz);
 }

@@ -21,22 +21,19 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-
-import javax.faces.model.SelectItem;
-
 import org.ajax4jsf.javascript.ScriptString;
 import org.ajax4jsf.javascript.ScriptUtils;
+
+import javax.faces.model.SelectItem;
+import java.io.IOException;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public final class ClientSelectItem implements ScriptString {
-    private String clientId;
     private final String label;
     private final String convertedValue;
     private final SelectItem selectItem;
-
     /**
      * The initial selection status of the SelectItem
      */
@@ -45,6 +42,7 @@ public final class ClientSelectItem implements ScriptString {
      * The initial sort order of the SelectItem
      */
     private final Integer sortOrder;
+    private String clientId;
 
     public ClientSelectItem(SelectItem selectItem, String convertedValue, String label, String clientId) {
         this.selectItem = selectItem;
@@ -106,10 +104,10 @@ public final class ClientSelectItem implements ScriptString {
 
     public String toScript() {
         return "{ \"id\" : " + ScriptUtils.toScript(clientId)
-            + " , \"label\" : " + ScriptUtils.toScript(label)
-            + ", \"value\" : " + ScriptUtils.toScript(convertedValue)
-            + ", \"disabled\" : " + ScriptUtils.toScript(selectItem.isDisabled())
-            + "}";
+                + " , \"label\" : " + ScriptUtils.toScript(label)
+                + ", \"value\" : " + ScriptUtils.toScript(convertedValue)
+                + ", \"disabled\" : " + ScriptUtils.toScript(selectItem.isDisabled())
+                + "}";
     }
 
     public boolean isSelected() {

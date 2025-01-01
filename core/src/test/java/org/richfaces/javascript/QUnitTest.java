@@ -21,26 +21,24 @@
  */
 package org.richfaces.javascript;
 
-import static org.junit.Assert.fail;
-
-import java.net.URL;
-import java.util.Iterator;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlListItem;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.net.URL;
+import java.util.Iterator;
+
+import static org.junit.Assert.fail;
 
 /**
- *
- * @version $Revision$
  * @author Konstantin Mishin
+ * @version $Revision$
  */
 public class QUnitTest {
     private WebClient webClient_;
@@ -80,7 +78,7 @@ public class QUnitTest {
 
             if (testNode.getAttribute("class").contains("fail")) {
                 sb.append(i).append(".  ")
-                    .append(testNode.<HtmlElement>getFirstByXPath("./strong").getFirstChild().getTextContent()).append("\n");
+                        .append(testNode.<HtmlElement>getFirstByXPath("./strong").getFirstChild().getTextContent()).append("\n");
 
                 int j = 1;
 
@@ -155,7 +153,7 @@ public class QUnitTest {
     @Test
     public void testBaseComponent() throws Exception {
         runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"),
-            "?module=richfaces-base-component");
+                "?module=richfaces-base-component");
     }
 
     @Test

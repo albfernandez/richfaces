@@ -26,7 +26,6 @@ import javax.faces.event.FacesListener;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface TreeToggleListener extends FacesListener {
     void processTreeToggle(TreeToggleEvent event) throws AbortProcessingException;

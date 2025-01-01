@@ -21,13 +21,13 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIComponentBase;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+
+import javax.faces.component.UIComponentBase;
 
 /**
  * <p>The &lt;rich:jQuery&gt; component applies styles and custom behavior to both JSF (JavaServer Faces) objects and
@@ -57,7 +57,7 @@ public abstract class AbstractJQuery extends UIComponentBase {
 
     /**
      * The jQuery selector (subset of CSS selectors defined by W3C) of the element to which the jQuery function should be applied.
-     *
+     * <p>
      * ID selectors starting with hash sign (#) will be expanded from componentId to clientId form. (e.g. #component is expanded to #form:component in case that component is nested in form)
      */
     @Attribute

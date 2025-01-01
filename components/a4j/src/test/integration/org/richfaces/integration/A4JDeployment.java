@@ -39,8 +39,8 @@ public class A4JDeployment extends BaseDeployment {
     private void addCurrentProjectClasses() {
         JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces-a4j.jar");
         jar.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
-            .importDirectory("target/classes/").as(GenericArchive.class),
-            "/", Filters.includeAll());
+                        .importDirectory("target/classes/").as(GenericArchive.class),
+                "/", Filters.includeAll());
         archive().addAsLibrary(jar);
     }
 

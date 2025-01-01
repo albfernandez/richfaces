@@ -22,15 +22,14 @@
 
 package org.richfaces.demo.common.navigation;
 
-import java.io.Serializable;
+import org.richfaces.el.util.ELUtils;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-
-import org.richfaces.el.util.ELUtils;
+import java.io.Serializable;
 
 public class BaseDescriptor implements Serializable {
     private static final long serialVersionUID = 5614594358147757458L;

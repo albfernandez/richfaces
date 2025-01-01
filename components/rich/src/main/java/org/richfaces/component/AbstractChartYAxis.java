@@ -20,11 +20,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.component;
+
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
  * The &lt;rich:chartYAxis&gt; tag
+ *
  * @author Lukas Macko
  */
 @JsfComponent(tag = @Tag(name = "chartYAxis"))

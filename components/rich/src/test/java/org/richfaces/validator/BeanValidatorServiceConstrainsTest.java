@@ -1,18 +1,7 @@
 package org.richfaces.validator;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.lang.annotation.Annotation;
-import java.util.Collection;
-import java.util.Locale;
-
-import javax.el.ValueExpression;
-import javax.faces.component.UIViewRoot;
-import javax.validation.constraints.Size;
-import javax.validation.groups.Default;
-
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;
 import org.jboss.test.faces.mock.Mock;
@@ -27,8 +16,17 @@ import org.richfaces.el.ValueDescriptor;
 import org.richfaces.el.ValueExpressionAnalayser;
 import org.richfaces.el.model.Bean;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
+import javax.el.ValueExpression;
+import javax.faces.component.UIViewRoot;
+import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
+import java.lang.annotation.Annotation;
+import java.util.Collection;
+import java.util.Locale;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(MockTestRunner.class)
 public class BeanValidatorServiceConstrainsTest {
@@ -81,7 +79,7 @@ public class BeanValidatorServiceConstrainsTest {
 
     private void forProperty(Class<?> beanClass, String property) {
         expect(analayser.getPropertyDescriptor(environment.getFacesContext(), expression)).andReturn(
-            new ValueDescriptor(beanClass, property));
+                new ValueDescriptor(beanClass, property));
     }
 
     private void expectValidatorWithParameter(Class<? extends Annotation> validator, String param, Object value) {
@@ -92,16 +90,17 @@ public class BeanValidatorServiceConstrainsTest {
     }
 
     /**
+     *
      */
     private Collection<ValidatorDescriptor> expectValidators(Class<? extends Annotation>... validators) {
         return expectValidatorsWithGroups(new Class<?>[0], validators);
     }
 
     private Collection<ValidatorDescriptor> expectValidatorsWithGroups(Class<?>[] groups,
-        Class<? extends Annotation>... validators) {
+                                                                       Class<? extends Annotation>... validators) {
         controller.replay();
         Collection<ValidatorDescriptor> constrains = validatorService.getConstrains(environment.getFacesContext(), expression,
-            null, groups);
+                null, groups);
         controller.verify();
         assertEquals(validators.length, constrains.size());
         for (final Class<? extends Annotation> class1 : validators) {
@@ -117,7 +116,7 @@ public class BeanValidatorServiceConstrainsTest {
     @Test
     public void testGetConstrainsWithDefaulGroup() throws Exception {
         forProperty(Bean.class, "string");
-        expectValidatorsWithGroups(new Class<?>[] { Default.class }, Size.class);
+        expectValidatorsWithGroups(new Class<?>[]{Default.class}, Size.class);
     }
 
     @Test
@@ -129,6 +128,6 @@ public class BeanValidatorServiceConstrainsTest {
     @Test
     public void testGetConstrainsWithCustomGroup() throws Exception {
         forProperty(Bean.class, "string");
-        expectValidatorsWithGroups(new Class<?>[] { CustomGroup.class });
+        expectValidatorsWithGroups(new Class<?>[]{CustomGroup.class});
     }
 }

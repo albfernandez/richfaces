@@ -21,22 +21,21 @@
  */
 package org.richfaces.context;
 
+import org.richfaces.component.MetaComponentProcessor;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.component.MetaComponentProcessor;
-
 /**
  * Wraps {@link VisitCallback} in order to be able execute own logic during {@link #visit(VisitContext, UIComponent)}
  * processing.
- *
+ * <p>
  * This wrapper allows to process {@link MetaComponentProcessor} components.
  *
  * @author Nick Belaevski
- *
  */
 final class MetaComponentProcessingVisitCallback implements VisitCallback {
     private FacesContext facesContext;
@@ -52,7 +51,7 @@ final class MetaComponentProcessingVisitCallback implements VisitCallback {
      * If context contains a {@link ExtendedVisitContext#META_COMPONENT_ID} a given target component will be treated as
      * {@link MetaComponentProcessor} and its {@link MetaComponentProcessor#processMetaComponent(FacesContext, String)} is
      * called.
-     *
+     * <p>
      * Otherwise the processor delegates to wrapped {@link VisitCallback} instance.
      */
     public VisitResult visit(VisitContext context, UIComponent target) {

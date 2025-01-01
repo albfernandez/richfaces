@@ -21,15 +21,14 @@
  */
 package org.richfaces.application.push.impl;
 
-import java.io.IOException;
-import java.util.Iterator;
-
 import org.ajax4jsf.javascript.ScriptStringBase;
 import org.richfaces.application.push.MessageData;
 
+import java.io.IOException;
+import java.util.Iterator;
+
 /**
  * @author Nick Belaevski
- *
  */
 public class MessageDataScriptString extends ScriptStringBase {
     private final Iterable<MessageData> messages;

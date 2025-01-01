@@ -21,8 +21,7 @@
  */
 package org.richfaces.fragment.collapsiblePanel;
 
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.base.Predicate;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.wait.FluentWait;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -37,16 +36,16 @@ import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.panel.AbstractPanel;
 
-import com.google.common.base.Predicate;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public abstract class RichFacesCollapsiblePanel<HEADER, BODY> extends AbstractPanel<HEADER, BODY> implements CollapsiblePanel<HEADER, BODY>, AdvancedVisibleComponentIteractions<RichFacesCollapsiblePanel<HEADER, BODY>.AdvancedCollapsiblePanelInteractions> {
 
+    private final AdvancedCollapsiblePanelInteractions interactions = new AdvancedCollapsiblePanelInteractions();
     @ArquillianResource
     private WebDriver browser;
-
     @FindBy(className = "rf-cp-hdr")
     private GrapheneElement headerElement;
     @FindBy(className = "rf-cp-ico")
@@ -55,13 +54,10 @@ public abstract class RichFacesCollapsiblePanel<HEADER, BODY> extends AbstractPa
     private Icon rightIconElement;
     @FindBy(className = "rf-cp-lbl")
     private GrapheneElement labelElement;
-
     @FindBy(className = "rf-cp-b")
     private GrapheneElement bodyElement;
     @FindBy(className = "rf-cp-empty")
     private GrapheneElement emptyBodyElement;
-
-    private final AdvancedCollapsiblePanelInteractions interactions = new AdvancedCollapsiblePanelInteractions();
 
     @Override
     public AdvancedCollapsiblePanelInteractions advanced() {
@@ -126,10 +122,6 @@ public abstract class RichFacesCollapsiblePanel<HEADER, BODY> extends AbstractPa
             return _timeoutForPanelIsSwitched == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForPanelIsSwitched;
         }
 
-        public boolean isCollapsed() {
-            return getHeaderElement().getAttribute("class").contains(getCollapsedHeaderClass());
-        }
-
         /**
          * Set timeout for panel to collapse or expand
          *
@@ -137,6 +129,10 @@ public abstract class RichFacesCollapsiblePanel<HEADER, BODY> extends AbstractPa
          */
         public void setTimeoutForPanelIsSwitched(long timeoutInMillis) {
             this._timeoutForPanelIsSwitched = timeoutInMillis;
+        }
+
+        public boolean isCollapsed() {
+            return getHeaderElement().getAttribute("class").contains(getCollapsedHeaderClass());
         }
 
         public WaitingWrapper waitUntilPanelIsCollapsed() {
@@ -151,7 +147,7 @@ public abstract class RichFacesCollapsiblePanel<HEADER, BODY> extends AbstractPa
                     });
                 }
             }.withMessage("Waiting for panel to collapse.")
-                .withTimeout(getTimeoutForPanelIsSwitched(), TimeUnit.MILLISECONDS);
+                    .withTimeout(getTimeoutForPanelIsSwitched(), TimeUnit.MILLISECONDS);
         }
 
         public WaitingWrapper waitUntilPanelIsExpanded() {
@@ -166,7 +162,7 @@ public abstract class RichFacesCollapsiblePanel<HEADER, BODY> extends AbstractPa
                     });
                 }
             }.withMessage("Waiting for panel to expand.")
-                .withTimeout(getTimeoutForPanelIsSwitched(), TimeUnit.MILLISECONDS);
+                    .withTimeout(getTimeoutForPanelIsSwitched(), TimeUnit.MILLISECONDS);
         }
 
         @Override

@@ -21,9 +21,9 @@
  */
 package org.richfaces.fragment.common.picker;
 
-import java.util.List;
-
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -34,6 +34,7 @@ public interface ChoicePicker {
 
     /**
      * Picks the first WebElement from the @options, that meets all requirements depending on implementation.
+     *
      * @param options options to be picked from.
      * @return null or WebElement that meets all requirements.
      */

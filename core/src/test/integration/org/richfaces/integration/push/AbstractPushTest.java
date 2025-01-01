@@ -45,10 +45,8 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 @RunAsClient
 public class AbstractPushTest {
 
-    private static final String MESSAGE_RECEIVED = "message-received:";
-
     public static final String TOPIC = "testingTopic";
-
+    private static final String MESSAGE_RECEIVED = "message-received:";
     @ArquillianResource
     private URL contextPath;
     @Drone

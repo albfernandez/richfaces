@@ -29,7 +29,6 @@ import javax.validation.constraints.Max;
 
 /**
  * @author asmirnov
- *
  */
 public class MaxBean extends Validable<Integer> {
     @Max(10)

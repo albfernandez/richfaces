@@ -21,9 +21,6 @@
  *******************************************************************************/
 package org.richfaces.showcase.extendedDataTable.page;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.By;
@@ -33,12 +30,15 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars.Car;
 import org.richfaces.showcase.dataTable.page.TableFilteringPage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
  */
 public class EDTFilteringPage extends TableFilteringPage {
 
-    @FindBy(css="*.rf-edt-b")
+    @FindBy(css = "*.rf-edt-b")
     private WebElement tBody;
 
     @FindByJQuery("*.rf-edt-b td div *.rf-edt-tbl")
@@ -50,7 +50,7 @@ public class EDTFilteringPage extends TableFilteringPage {
         try {
             browser.findElement(ByJQuery.selector("div.rf-edt-ndt:contains('Nothing found')"));
             return true;
-        } catch(NoSuchElementException ignored) {
+        } catch (NoSuchElementException ignored) {
             return false;
         }
     }
@@ -62,17 +62,17 @@ public class EDTFilteringPage extends TableFilteringPage {
         List<String> model = new ArrayList<String>();
         List<String> mileage = new ArrayList<String>();
         List<String> vin = new ArrayList<String>();
-        for (WebElement row: tableParts.get(0).findElements(By.tagName("tr"))) {
+        for (WebElement row : tableParts.get(0).findElements(By.tagName("tr"))) {
             List<WebElement> cells = row.findElements(By.cssSelector("td > div > div"));
             vendor.add(cells.get(0).getText());
             model.add(cells.get(1).getText());
         }
-        for (WebElement row: tableParts.get(1).findElements(By.tagName("tr"))) {
+        for (WebElement row : tableParts.get(1).findElements(By.tagName("tr"))) {
             List<WebElement> cells = row.findElements(By.cssSelector("td > div > div"));
             mileage.add(cells.get(0).getText());
             vin.add(cells.get(1).getText());
         }
-        for (int i=0; i < vendor.size(); i++) {
+        for (int i = 0; i < vendor.size(); i++) {
             result.add(new Car(vendor.get(i), model.get(i), null, mileage.get(i), vin.get(i), null));
         }
         return result;

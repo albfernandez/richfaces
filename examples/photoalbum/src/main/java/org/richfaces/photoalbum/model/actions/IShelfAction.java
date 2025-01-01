@@ -21,12 +21,11 @@
  */
 package org.richfaces.photoalbum.model.actions;
 
-import java.util.List;
-
-import javax.ejb.Local;
-
 import org.richfaces.photoalbum.model.Shelf;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
+
+import javax.ejb.Local;
+import java.util.List;
 
 /**
  * Interface for manipulating with shelf entity

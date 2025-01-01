@@ -21,8 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIComponentBase;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -30,6 +28,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.ErrorProps;
+
+import javax.faces.component.UIComponentBase;
 
 /**
  * <p>
@@ -60,18 +60,18 @@ public abstract class AbstractPush extends UIComponentBase implements ErrorProps
     /**
      * The client-side script method to be called when a push notification is received
      */
-    @Attribute(events = { @EventName("dataavailable") })
+    @Attribute(events = {@EventName("dataavailable")})
     public abstract String getOndataavailable();
 
     /**
      * The client-side script method to be called when push is subscribed successfully to the topic.
      */
-    @Attribute(events = { @EventName("subscribed") })
+    @Attribute(events = {@EventName("subscribed")})
     public abstract String getOnsubscribed();
 
     /**
      * The client-side script method to be called when an error has occurred with the push notifications
      */
-    @Attribute(events = { @EventName("error") })
+    @Attribute(events = {@EventName("error")})
     public abstract String getOnerror();
 }

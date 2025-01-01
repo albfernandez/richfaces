@@ -21,10 +21,9 @@
  */
 package org.richfaces.validator;
 
-import java.io.Serializable;
-import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.Locale;
+import com.google.common.base.Strings;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.cdk.annotations.JsfValidator;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -35,17 +34,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-
-import org.richfaces.cdk.annotations.JsfValidator;
-import org.richfaces.application.ServiceTracker;
-
-import com.google.common.base.Strings;
+import java.io.Serializable;
+import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.Locale;
 
 /**
  * Implementation of the JSF validator to use with Bean Validation / Hibernate validator TODO - implement partial state saving.
  *
  * @author asmirnov
- *
  */
 @JsfValidator(id = FacesBeanValidator.BEAN_VALIDATOR_TYPE)
 public class FacesBeanValidator implements Serializable, Validator, GraphValidator {
@@ -61,6 +58,26 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
     private boolean validateFields = true;
 
     public FacesBeanValidator() {
+    }
+
+    static String formatMessage(String msg, Locale locale, Object... messageParams) {
+        if (msg.contains("{")) {
+            try {
+                MessageFormat messageFormat = new MessageFormat(msg, locale);
+                msg = messageFormat.format(messageParams);
+            } catch (IllegalArgumentException e) {
+                // Do nothing, use original string unchanged.
+            }
+        }
+        return msg;
+    }
+
+    static Object getLabel(FacesContext context, UIComponent component) {
+        Object label = component.getAttributes().get("label");
+        if (null == label || 0 == label.toString().length()) {
+            label = component.getClientId(context);
+        }
+        return label;
     }
 
     /**
@@ -105,7 +122,7 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
                 if (null != valueExpression) {
                     BeanValidatorService validatorService = ServiceTracker.getService(BeanValidatorService.class);
                     Collection<String> messages = validatorService.validateExpression(context, valueExpression, convertedValue,
-                        getGroups());
+                            getGroups());
                     if (isValidateFields() && !messages.isEmpty()) {
                         input.setValid(false);
                         Object label = getLabel(context, component);
@@ -115,12 +132,12 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
                             // https://jira.jboss.org/jira/browse/RF-7636 -
                             // format values.
                             String formattedMessage = formatMessage(msg, locale, label, convertedValue); // create Summary
-                                                                                                         // message ?
+                            // message ?
                             String summary = getSummary();
                             String formattedSummary = Strings.isNullOrEmpty(summary) ? formattedMessage : formatMessage(
-                                summary, locale, label, convertedValue);
+                                    summary, locale, label, convertedValue);
                             context.addMessage(component.getClientId(context), new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                formattedSummary, formattedMessage));
+                                    formattedSummary, formattedMessage));
                         }
                     }
                 }
@@ -130,28 +147,8 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
         }
     }
 
-    static String formatMessage(String msg, Locale locale, Object... messageParams) {
-        if (msg.contains("{")) {
-            try {
-                MessageFormat messageFormat = new MessageFormat(msg, locale);
-                msg = messageFormat.format(messageParams);
-            } catch (IllegalArgumentException e) {
-                // Do nothing, use original string unchanged.
-            }
-        }
-        return msg;
-    }
-
-    static Object getLabel(FacesContext context, UIComponent component) {
-        Object label = component.getAttributes().get("label");
-        if (null == label || 0 == label.toString().length()) {
-            label = component.getClientId(context);
-        }
-        return label;
-    }
-
     public Collection<String> validateGraph(FacesContext context, UIComponent component, Object value, Class<?>[] groups)
-        throws ValidatorException {
+            throws ValidatorException {
         BeanValidatorService validatorService = ServiceTracker.getService(BeanValidatorService.class);
         Collection<String> messages = validatorService.validateObject(context, value, groups);
         return messages;

@@ -21,6 +21,13 @@
  */
 package org.richfaces.resource.mapping;
 
+import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -28,13 +35,6 @@ import static org.junit.Assert.assertTrue;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
 import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
-
-import java.util.Arrays;
-import java.util.List;
-
-import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>

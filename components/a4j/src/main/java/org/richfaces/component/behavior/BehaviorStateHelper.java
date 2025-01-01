@@ -21,14 +21,13 @@
  */
 package org.richfaces.component.behavior;
 
+import org.richfaces.component.PartialStateHolderHelper;
+
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.component.PartialStateHolderHelper;
-
 /**
  * @author Anton Belevich
- *
  */
 public class BehaviorStateHelper extends PartialStateHolderHelper {
     private ClientBehavior behavior;

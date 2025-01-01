@@ -39,17 +39,6 @@ public class ITAjax {
         return deployment.getFinalArchive();
     }
 
-    @Test
-    public void listener_with_parameter() throws InterruptedException {
-        // given
-        browser.get(contextPath.toExternalForm());
-        WebElement cell = browser.findElement(By.id("myForm:input"));
-        cell.sendKeys("123");
-        Graphene.guardAjax(cell).sendKeys(Keys.TAB);
-        cell = browser.findElement(By.id("myForm:input"));
-        Assert.assertEquals("4", cell.getAttribute("value"));
-    }
-
     private static void addIndexPage(A4JDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -60,6 +49,17 @@ public class ITAjax {
         p.body("</h:form> ");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    @Test
+    public void listener_with_parameter() throws InterruptedException {
+        // given
+        browser.get(contextPath.toExternalForm());
+        WebElement cell = browser.findElement(By.id("myForm:input"));
+        cell.sendKeys("123");
+        Graphene.guardAjax(cell).sendKeys(Keys.TAB);
+        cell = browser.findElement(By.id("myForm:input"));
+        Assert.assertEquals("4", cell.getAttribute("value"));
     }
 
 }

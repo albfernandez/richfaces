@@ -21,31 +21,12 @@
  */
 package org.richfaces.component;
 
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UpdateModelException;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.ExceptionQueuedEventContext;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-
+import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Maps;
 import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
@@ -87,12 +68,29 @@ import org.richfaces.model.TreeNode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.view.facelets.TreeHandler;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Maps;
+import javax.el.ELContext;
+import javax.el.ELException;
+import javax.el.ValueExpression;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UpdateModelException;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ExceptionQueuedEvent;
+import javax.faces.event.ExceptionQueuedEventContext;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * <p>The &lt;rich:tree&gt; component provides a hierarchical tree control. Each &lt;rich:tree&gt; component typically
@@ -113,39 +111,11 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     public static final String DEFAULT_TREE_NODE_FACET_NAME = "defaultNode";
     private static final String COMPONENT_FOR_MODEL_UNAVAILABLE = "Component is not available for model {0}";
     private static final String CONVERTER_FOR_MODEL_UNAVAILABLE = "Row key converter is not available for model {0}";
-
-    private static final class MatchingTreeNodePredicate implements Predicate<UIComponent> {
-        private String type;
-
-        public MatchingTreeNodePredicate(String type) {
-            super();
-            this.type = type;
-        }
-
-        public boolean apply(UIComponent input) {
-            if (!(input instanceof AbstractTreeNode)) {
-                return false;
-            }
-
-            String nodeType = ((AbstractTreeNode) input).getType();
-            if (type == null && nodeType == null) {
-                return true;
-            }
-
-            return type != null && type.equals(nodeType);
-        }
-    }
-
-    ;
-
-    private enum PropertyKeys {
-        selection
-    }
-
     private transient TreeRange treeRange;
+
+
     private transient UIComponent currentComponent = this;
     private transient Map<String, UIComponent> declatariveModelsMap = null;
-
     public AbstractTree() {
         setKeepSaved(true);
         setRendererType("org.richfaces.TreeRenderer");
@@ -289,7 +259,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
                     return !newSelection.contains(input);
                 }
 
-                ;
+
             });
 
             if (!newSelection.isEmpty()) {
@@ -386,7 +356,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     protected Iterator<UIComponent> dataChildren() {
         AbstractTreeNode treeNodeComponent = findTreeNodeComponent();
         if (treeNodeComponent != null) {
-            return Iterators.<UIComponent> singletonIterator(treeNodeComponent);
+            return Iterators.<UIComponent>singletonIterator(treeNodeComponent);
         } else {
             return ImmutableSet.<UIComponent>of().iterator();
         }
@@ -614,6 +584,32 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             throw e;
         } catch (Exception e) {
             throw new ConverterException(e.getMessage(), e);
+        }
+    }
+
+    private enum PropertyKeys {
+        selection
+    }
+
+    private static final class MatchingTreeNodePredicate implements Predicate<UIComponent> {
+        private String type;
+
+        public MatchingTreeNodePredicate(String type) {
+            super();
+            this.type = type;
+        }
+
+        public boolean apply(UIComponent input) {
+            if (!(input instanceof AbstractTreeNode)) {
+                return false;
+            }
+
+            String nodeType = ((AbstractTreeNode) input).getType();
+            if (type == null && nodeType == null) {
+                return true;
+            }
+
+            return type != null && type.equals(nodeType);
         }
     }
 }

@@ -51,6 +51,26 @@ public class ITTabPanelItemChangeEventTest {
         return archive;
     }
 
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+        p.body("<h:form id='myForm'>");
+        p.body("    <rich:tabPanel id='tabPanel' binding='#{tabPanelItemChangeEventBean.tabPanel}' itemChangeListener='#{tabPanelItemChangeEventBean.itemChangeListener}'>");
+        p.body("        <rich:tab id='tab0' name='tab0' header='tab0 header' render='invoked'>");
+        p.body("            content of tab 1");
+        p.body("        </rich:tab>");
+        p.body("        <rich:tab id='tab1' name='tab1' header='tab1 header' render='invoked'>");
+        p.body("            content of tab 2");
+        p.body("        </rich:tab>");
+        p.body("    </rich:tabPanel>");
+        p.body("    <br/>");
+        p.body("    invoked: <h:outputText id='invoked' value='#{tabPanelItemChangeEventBean.invoked}' />");
+        p.body("    <br/>");
+        p.body("    <a4j:commandButton id='reset' action='#{tabPanelItemChangeEventBean.reset}' value='clear events' render='invoked' />");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
     @Test
     public void test() {
         browser.get(contextPath.toExternalForm());
@@ -78,25 +98,5 @@ public class ITTabPanelItemChangeEventTest {
 
     private boolean isInvoked() {
         return parseBoolean(invokedElement.getText());
-    }
-
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-        p.body("<h:form id='myForm'>");
-        p.body("    <rich:tabPanel id='tabPanel' binding='#{tabPanelItemChangeEventBean.tabPanel}' itemChangeListener='#{tabPanelItemChangeEventBean.itemChangeListener}'>");
-        p.body("        <rich:tab id='tab0' name='tab0' header='tab0 header' render='invoked'>");
-        p.body("            content of tab 1");
-        p.body("        </rich:tab>");
-        p.body("        <rich:tab id='tab1' name='tab1' header='tab1 header' render='invoked'>");
-        p.body("            content of tab 2");
-        p.body("        </rich:tab>");
-        p.body("    </rich:tabPanel>");
-        p.body("    <br/>");
-        p.body("    invoked: <h:outputText id='invoked' value='#{tabPanelItemChangeEventBean.invoked}' />");
-        p.body("    <br/>");
-        p.body("    <a4j:commandButton id='reset' action='#{tabPanelItemChangeEventBean.reset}' value='clear events' render='invoked' />");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

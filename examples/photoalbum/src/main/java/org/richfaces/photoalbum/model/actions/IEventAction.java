@@ -22,13 +22,12 @@
 
 package org.richfaces.photoalbum.model.actions;
 
-import java.util.List;
-
-import javax.ejb.Local;
-
 import org.richfaces.photoalbum.model.Event;
 import org.richfaces.photoalbum.model.EventCategory;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
+
+import javax.ejb.Local;
+import java.util.List;
 
 @Local
 public interface IEventAction {
@@ -40,18 +39,18 @@ public interface IEventAction {
     void editEvent(Event event) throws PhotoAlbumException;
 
     void resetEvent(Event event);
-    
+
     List<Event> getAllEvents();
-    
+
     List<EventCategory> getEventCategories();
-    
+
     Event getEventById(long id);
-    
+
     Event getEventByName(String name);
-    
+
     EventCategory getEventCategoryById(long id);
-    
+
     List<Event> getEventsByCategory(EventCategory ec);
-    
-    
+
+
 }

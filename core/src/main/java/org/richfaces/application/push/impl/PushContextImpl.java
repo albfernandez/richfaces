@@ -21,7 +21,16 @@
  */
 package org.richfaces.application.push.impl;
 
-import java.util.concurrent.ThreadFactory;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.richfaces.application.CoreConfiguration;
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
+import org.richfaces.application.push.PushContext;
+import org.richfaces.application.push.SessionFactory;
+import org.richfaces.application.push.SessionManager;
+import org.richfaces.application.push.TopicsContext;
+import org.richfaces.application.push.impl.jms.JMSTopicsContextImpl;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
@@ -29,24 +38,12 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.PreDestroyApplicationEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
-
-import org.richfaces.application.configuration.ConfigurationServiceHelper;
-import org.richfaces.application.push.PushContext;
-import org.richfaces.application.push.SessionFactory;
-import org.richfaces.application.push.SessionManager;
-import org.richfaces.application.push.TopicsContext;
-import org.richfaces.application.push.impl.jms.JMSTopicsContextImpl;
-import org.richfaces.application.CoreConfiguration;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import java.util.concurrent.ThreadFactory;
 
 /**
  * {@inheritDoc}
  *
  * @author Nick Belaevski
- *
  * @see PushContext
  */
 public class PushContextImpl implements PushContext, SystemEventListener {

@@ -34,7 +34,6 @@ import java.util.List;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public class UIScripts extends UITransient implements ScriptsHolder {
     public static final String COMPONENT_TYPE = "org.richfaces.Scripts";
@@ -68,12 +67,12 @@ public class UIScripts extends UITransient implements ScriptsHolder {
         return UIScripts.COMPONENT_FAMILY;
     }
 
-    public void setTarget(String target) {
-        this.target = target;
-    }
-
     public String getTarget() {
         return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
     }
 
     @Override

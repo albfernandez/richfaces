@@ -21,10 +21,7 @@
  */
 package org.richfaces.fragment.autocomplete;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.base.Predicate;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -46,7 +43,9 @@ import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
-import com.google.common.base.Predicate;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -54,16 +53,13 @@ import com.google.common.base.Predicate;
  */
 public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleComponentIteractions<RichFacesAutocomplete.AdvancedAutocompleteInteractions> {
 
+    private final AdvancedAutocompleteInteractions advancedInteractions = new AdvancedAutocompleteInteractions();
     @Drone
     private WebDriver driver;
-
     @Root
     private WebElement root;
-
     @FindBy(css = "input[type='text']")
     private TextInputComponentImpl input;
-
-    private final AdvancedAutocompleteInteractions advancedInteractions = new AdvancedAutocompleteInteractions();
 
     public AdvancedAutocompleteInteractions advanced() {
         return advancedInteractions;
@@ -100,7 +96,7 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
          * Clears the value of autocomplete's input field.
          *
          * @param clearType defines how the input should be cleared, e.g. by using backspace key, by delete key, by JavaScript,
-         *        etc.
+         *                  etc.
          * @return input component
          */
         public TextInputComponentImpl clear(ClearType clearType) {
@@ -117,6 +113,10 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
 
         protected ScrollingType getScrollingType() {
             return scrollingType;
+        }
+
+        public void setScrollingType(ScrollingType type) {
+            scrollingType = type;
         }
 
         protected String getSuggestionsSelectorTemplate() {
@@ -139,20 +139,16 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
             return token;
         }
 
-        public void setToken() {
-            token = DEFAULT_TOKEN;
-        }
-
         public void setToken(String value) {
             token = value;
         }
 
-        public void setScrollingType() {
-            scrollingType = DEFAULT_SCROLLING_TYPE;
+        public void setToken() {
+            token = DEFAULT_TOKEN;
         }
 
-        public void setScrollingType(ScrollingType type) {
-            scrollingType = type;
+        public void setScrollingType() {
+            scrollingType = DEFAULT_SCROLLING_TYPE;
         }
 
         public WaitingWrapper waitForSuggestionsToBeNotVisible() {
@@ -168,7 +164,7 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
                     });
                 }
             }.withMessage("Waiting for suggestions to be not visible")
-                .withTimeout(getTimeoutForSuggestionsToBeNotVisible(), TimeUnit.MILLISECONDS);
+                    .withTimeout(getTimeoutForSuggestionsToBeNotVisible(), TimeUnit.MILLISECONDS);
         }
 
         public WaitingWrapper waitForSuggestionsToBeVisible() {
@@ -184,23 +180,23 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
                     });
                 }
             }.withMessage("Waiting for suggestions to be visible")
-                .withTimeout(getTimeoutForSuggestionsToBeVisible(), TimeUnit.MILLISECONDS);
-        }
-
-        public void setTimeoutForSuggestionsToBeNotVisible(long timeoutInMilliseconds) {
-            _timeoutForSuggestionsToBeNotVisible = timeoutInMilliseconds;
-        }
-
-        public void setTimeoutForSuggestionsToBeVisible(long timeoutInMilliseconds) {
-            _timeoutForSuggestionsToBeVisible = timeoutInMilliseconds;
+                    .withTimeout(getTimeoutForSuggestionsToBeVisible(), TimeUnit.MILLISECONDS);
         }
 
         public long getTimeoutForSuggestionsToBeNotVisible() {
             return (_timeoutForSuggestionsToBeNotVisible == -1L) ? Utils.getWaitAjaxDefaultTimeout(driver) : _timeoutForSuggestionsToBeNotVisible;
         }
 
+        public void setTimeoutForSuggestionsToBeNotVisible(long timeoutInMilliseconds) {
+            _timeoutForSuggestionsToBeNotVisible = timeoutInMilliseconds;
+        }
+
         public long getTimeoutForSuggestionsToBeVisible() {
             return (_timeoutForSuggestionsToBeVisible == -1L) ? Utils.getWaitAjaxDefaultTimeout(driver) : _timeoutForSuggestionsToBeVisible;
+        }
+
+        public void setTimeoutForSuggestionsToBeVisible(long timeoutInMilliseconds) {
+            _timeoutForSuggestionsToBeVisible = timeoutInMilliseconds;
         }
 
         protected boolean isSelectFirst() {

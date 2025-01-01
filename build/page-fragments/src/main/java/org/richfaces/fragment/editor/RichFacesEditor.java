@@ -21,8 +21,6 @@
  */
 package org.richfaces.fragment.editor;
 
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -43,27 +41,24 @@ import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.editor.toolbar.RichFacesEditorToolbar;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteractions<RichFacesEditor.AdvancedEditorInteractions> {
 
+    private final AdvancedEditorInteractions advancedInteractions = new AdvancedEditorInteractions();
     @Root
     private WebElement root;
-
     @Drone
     private WebDriver browser;
-
     @ArquillianResource
     private JavascriptExecutor executor;
-
     @FindBy(tagName = "iframe")
     private WebElement frameElement;
-
     @FindBy(css = ".cke_toolbox")
     private RichFacesEditorToolbar toolbar;
-
-    private final AdvancedEditorInteractions advancedInteractions = new AdvancedEditorInteractions();
 
     @Override
     public AdvancedEditorInteractions advanced() {
@@ -167,6 +162,10 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
             return (_timeoutForFrameElementToBeVisible == -1L) ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForFrameElementToBeVisible;
         }
 
+        public void setTimeoutForFrameElementToBeVisible(long timeoutInMilliseconds) {
+            _timeoutForFrameElementToBeVisible = timeoutInMilliseconds;
+        }
+
         public RichFacesEditorToolbar getToolbar() {
             return toolbar;
         }
@@ -174,10 +173,6 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
         @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
-        }
-
-        public void setTimeoutForFrameElementToBeVisible(long timeoutInMilliseconds) {
-            _timeoutForFrameElementToBeVisible = timeoutInMilliseconds;
         }
 
         public WaitingWrapper waitForFrameElementToBeVisible() {
@@ -188,8 +183,8 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
                     wait.until().element(getFrameElement()).is().visible();
                 }
             }
-                .withMessage("Waiting for inner frame element to be visible.")
-                .withTimeout(getTimeoutForFrameElementToBeVisible(), TimeUnit.MILLISECONDS);
+                    .withMessage("Waiting for inner frame element to be visible.")
+                    .withTimeout(getTimeoutForFrameElementToBeVisible(), TimeUnit.MILLISECONDS);
         }
     }
 }

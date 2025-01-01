@@ -21,18 +21,16 @@
  */
 package org.richfaces.demo.iteration;
 
+import com.google.common.collect.Iterators;
+
+import javax.swing.tree.TreeNode;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.swing.tree.TreeNode;
-
-import com.google.common.collect.Iterators;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class LazyTreeNode implements TreeNode, Serializable {
     private static final long serialVersionUID = 7222747310505408841L;

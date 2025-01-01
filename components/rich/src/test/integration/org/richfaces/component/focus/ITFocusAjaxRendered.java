@@ -54,19 +54,6 @@ public class ITFocusAjaxRendered {
         return deployment.getFinalArchive();
     }
 
-    @Test
-    public void when_the_focus_is_not_ajaxRendered_then_no_element_should_have_focus_after_ajax() {
-        browser.get(contextPath.toExternalForm());
-        waitGui().until(new ElementIsFocused(input1));
-
-        // when
-        input2.click();
-
-        // then
-        guardAjax(ajax).click();
-        waitAjax().until(new ElementIsFocused(null));
-    }
-
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -80,5 +67,18 @@ public class ITFocusAjaxRendered {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    @Test
+    public void when_the_focus_is_not_ajaxRendered_then_no_element_should_have_focus_after_ajax() {
+        browser.get(contextPath.toExternalForm());
+        waitGui().until(new ElementIsFocused(input1));
+
+        // when
+        input2.click();
+
+        // then
+        guardAjax(ajax).click();
+        waitAjax().until(new ElementIsFocused(null));
     }
 }

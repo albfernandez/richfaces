@@ -21,12 +21,6 @@
  *******************************************************************************/
 package org.richfaces.showcase.ajax;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.junit.Test;
@@ -34,8 +28,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.richfaces.showcase.AbstractWebDriverTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
- * 
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
  * @version $Revision$
@@ -87,7 +86,7 @@ public class ITestSelectsUpdates extends AbstractWebDriverTest {
         assertTrue("Second select should be dispayed", secondSelect.isDisplayed());
 
         assertEquals("When selected fruits in first select, in the second " + "should be some examples of Fruits",
-            fruitsExpected, fruitsActual);
+                fruitsExpected, fruitsActual);
 
         Graphene.guardAjax(new Select(firstSelect)).selectByVisibleText("Vegetables");
 
@@ -98,7 +97,7 @@ public class ITestSelectsUpdates extends AbstractWebDriverTest {
         }
 
         assertEquals("When selected vegetables in first select, in the second " + "should be some examples of vegetables",
-            vegetablesExpected, vegetablesActual);
+                vegetablesExpected, vegetablesActual);
 
     }
 

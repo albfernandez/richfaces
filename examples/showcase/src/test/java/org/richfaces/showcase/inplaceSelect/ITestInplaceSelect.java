@@ -21,14 +21,14 @@
  */
 package org.richfaces.showcase.inplaceSelect;
 
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
-
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.inplaceSelect.RichFacesInplaceSelect;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.inplaceSelect.page.SimplePage;
+
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

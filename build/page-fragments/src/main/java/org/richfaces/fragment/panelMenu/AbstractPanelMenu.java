@@ -21,9 +21,7 @@
  */
 package org.richfaces.fragment.panelMenu;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.base.Predicate;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
@@ -42,7 +40,8 @@ import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
-import com.google.common.base.Predicate;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, AdvancedVisibleComponentIteractions<AbstractPanelMenu.AdvancedAbstractPanelMenuInteractions> {
 
@@ -134,6 +133,41 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
 
     public abstract AdvancedAbstractPanelMenuInteractions advanced();
 
+    private boolean isGroupExpanded(WebElement groupHeader) {
+        return groupHeader.getAttribute("class").contains(advanced().getCssExpandedSuffix());
+    }
+
+    private void ensureElementIsEnabledAndVisible(WebElement element) {
+        checkElementIsVisible(element);
+        if (isDisabled(element)) {
+            throw new IllegalArgumentException("Element " + element + " can not be interacted with, as it is disabled.");
+        }
+    }
+
+    private boolean isDisabled(WebElement group) {
+        return group.getAttribute("class").contains(advanced().getCssDisabledSuffix());
+    }
+
+    private void checkElementIsVisible(WebElement element) {
+        if (!new WebElementConditionFactory(element).isVisible().apply(browser)) {
+            throw new IllegalArgumentException("Element: " + element + " must be visible before interacting with it!");
+        }
+    }
+
+    private void executeEventOn(Event event, WebElement element) {
+        Utils.triggerJQ(executor, event.getEventName(), element);
+    }
+
+    private WebElement getHeaderElementDynamically(WebElement element) {
+        return element.findElement(By.cssSelector(advanced().getHeaderSelectorToInovkeEventOn()));
+    }
+
+    private void ensureElementExist(WebElement element) {
+        if (element == null) {
+            throw new IllegalArgumentException("Group/item must exist!");
+        }
+    }
+
     public abstract class AdvancedAbstractPanelMenuInteractions implements VisibleComponentInteractions {
 
         private static final String CSS_EXPANDED_SUFFIX = "-exp";
@@ -181,12 +215,12 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
             return expandEvent;
         }
 
-        protected Event getCollapseEvent() {
-            return collapseEvent;
-        }
-
         public void setExpandEvent(Event event) {
             expandEvent = event;
+        }
+
+        protected Event getCollapseEvent() {
+            return collapseEvent;
         }
 
         public void setCollapseEvent(Event event) {
@@ -203,15 +237,15 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
                     wait.ignoring(org.openqa.selenium.remote.ErrorHandler.UnknownServerException.class).until(
-                        new Predicate<WebDriver>() {
-                            @Override
-                            public boolean apply(WebDriver input) {
-                                return AbstractPanelMenu.this.isGroupExpanded(groupHeader);
-                            }
-                        });
+                            new Predicate<WebDriver>() {
+                                @Override
+                                public boolean apply(WebDriver input) {
+                                    return AbstractPanelMenu.this.isGroupExpanded(groupHeader);
+                                }
+                            });
                 }
             }.withMessage("Waiting for Panel Menu group to be expanded!")
-                .withTimeout(getTimoutForMenuGroupToBeExpanded(), TimeUnit.MILLISECONDS);
+                    .withTimeout(getTimoutForMenuGroupToBeExpanded(), TimeUnit.MILLISECONDS);
         }
 
         public WaitingWrapper waitUntilMenuGroupCollapsed(final WebElement groupHeader) {
@@ -220,31 +254,31 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
                     wait.ignoring(org.openqa.selenium.remote.ErrorHandler.UnknownServerException.class).until(
-                        new Predicate<WebDriver>() {
-                            @Override
-                            public boolean apply(WebDriver input) {
-                                return !AbstractPanelMenu.this.isGroupExpanded(groupHeader);
-                            }
-                        });
+                            new Predicate<WebDriver>() {
+                                @Override
+                                public boolean apply(WebDriver input) {
+                                    return !AbstractPanelMenu.this.isGroupExpanded(groupHeader);
+                                }
+                            });
                 }
             }.withMessage("Waiting for Panel Menu group to be expanded!")
-                .withTimeout(getTimeoutForMenuGroupToBeCollapsed(), TimeUnit.MILLISECONDS);
-        }
-
-        public void setTimoutForMenuGroupToBeExpanded(long timeoutInMilliseconds) {
-            _timoutForMenuGroupToBeExpanded = timeoutInMilliseconds;
+                    .withTimeout(getTimeoutForMenuGroupToBeCollapsed(), TimeUnit.MILLISECONDS);
         }
 
         public long getTimoutForMenuGroupToBeExpanded() {
             return _timoutForMenuGroupToBeExpanded == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timoutForMenuGroupToBeExpanded;
         }
 
-        public void setTimeoutForMenuGroupToBeCollapsed(long timeoutInMilliseconds) {
-            _timeoutForMenuGroupToBeCollapsed = timeoutInMilliseconds;
+        public void setTimoutForMenuGroupToBeExpanded(long timeoutInMilliseconds) {
+            _timoutForMenuGroupToBeExpanded = timeoutInMilliseconds;
         }
 
         public long getTimeoutForMenuGroupToBeCollapsed() {
             return _timeoutForMenuGroupToBeCollapsed == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForMenuGroupToBeCollapsed;
+        }
+
+        public void setTimeoutForMenuGroupToBeCollapsed(long timeoutInMilliseconds) {
+            _timeoutForMenuGroupToBeCollapsed = timeoutInMilliseconds;
         }
 
         protected abstract WebElement getRootElement();
@@ -252,41 +286,6 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
         @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
-        }
-    }
-
-    private boolean isGroupExpanded(WebElement groupHeader) {
-        return groupHeader.getAttribute("class").contains(advanced().getCssExpandedSuffix());
-    }
-
-    private void ensureElementIsEnabledAndVisible(WebElement element) {
-        checkElementIsVisible(element);
-        if (isDisabled(element)) {
-            throw new IllegalArgumentException("Element " + element + " can not be interacted with, as it is disabled.");
-        }
-    }
-
-    private boolean isDisabled(WebElement group) {
-        return group.getAttribute("class").contains(advanced().getCssDisabledSuffix());
-    }
-
-    private void checkElementIsVisible(WebElement element) {
-        if (!new WebElementConditionFactory(element).isVisible().apply(browser)) {
-            throw new IllegalArgumentException("Element: " + element + " must be visible before interacting with it!");
-        }
-    }
-
-    private void executeEventOn(Event event, WebElement element) {
-        Utils.triggerJQ(executor, event.getEventName(), element);
-    }
-
-    private WebElement getHeaderElementDynamically(WebElement element) {
-        return element.findElement(By.cssSelector(advanced().getHeaderSelectorToInovkeEventOn()));
-    }
-
-    private void ensureElementExist(WebElement element) {
-        if (element == null) {
-            throw new IllegalArgumentException("Group/item must exist!");
         }
     }
 }

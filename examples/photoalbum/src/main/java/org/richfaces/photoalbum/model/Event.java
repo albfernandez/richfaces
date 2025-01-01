@@ -22,11 +22,9 @@
 
 package org.richfaces.photoalbum.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.richfaces.photoalbum.util.converters.ListConverter;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -41,10 +39,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.richfaces.photoalbum.util.converters.ListConverter;
+import static javax.persistence.GenerationType.IDENTITY;
 
 //import org.jboss.errai.common.client.api.annotations.Portable;
 
@@ -144,7 +143,6 @@ public class Event implements Serializable {
      * <p>
      * Adding a media item is optional, and the view layer will adapt if none is provided.
      * </p>
-     *
      */
     @ManyToOne
     private MediaItem mediaItem;
@@ -171,7 +169,7 @@ public class Event implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Shelf shelf;
 
-    @ElementCollection(fetch=FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> remoteAlbumIds = new ArrayList<String>();
 
     /* Boilerplate getters and setters */
@@ -228,25 +226,25 @@ public class Event implements Serializable {
     private List<String> getFilteredAlbumIds(String prefix) {
         List<String> filteredIds = new ArrayList<String>();
         int prefLength = prefix.length();
-        
+
         for (String id : remoteAlbumIds) {
             if (id.startsWith(prefix)) {
                 filteredIds.add(id.substring(prefLength));
             }
         }
-        
+
         return filteredIds;
     }
-    
+
     public List<String> getFacebookAlbumIds() {
         return getFilteredAlbumIds("F");
     }
-    
+
     public List<String> getGooglePlusAlbumIds() {
         return getFilteredAlbumIds("G");
     }
-    
-    
+
+
     public String getFbAlbumIdString() {
         return ListConverter.sListToString(getFacebookAlbumIds());
     }

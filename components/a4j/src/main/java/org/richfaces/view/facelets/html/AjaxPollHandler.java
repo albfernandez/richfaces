@@ -21,6 +21,9 @@
  */
 package org.richfaces.view.facelets.html;
 
+import org.richfaces.component.AbstractPoll;
+import org.richfaces.view.facelets.MethodMetadata;
+
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 import javax.faces.event.MethodExpressionActionListener;
@@ -32,9 +35,6 @@ import javax.faces.view.facelets.MetaRuleset;
 import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
-
-import org.richfaces.component.AbstractPoll;
-import org.richfaces.view.facelets.MethodMetadata;
 
 public class AjaxPollHandler extends ComponentHandler {
     private static final AjaxPollHandlerMetaRule META_RULE = new AjaxPollHandlerMetaRule();

@@ -22,27 +22,26 @@
 
 package org.richfaces.photoalbum.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.io.Serializable;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import static javax.persistence.GenerationType.IDENTITY;
 //import org.jboss.errai.common.client.api.annotations.Portable;
 
 /**
  * <p>
  * Categories of event.
  * </p>
- * 
+ *
  * <p>
  * {@link EventCategory} is a simple entity, used to easier filtering of information by users.
  * </p>
- * 
+ *
  * @author Shane Bryzak
  * @author Pete Muir
  */
@@ -56,7 +55,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class EventCategory implements Serializable {
 
     /* Declaration of fields */
-    
+
     /**
      * The synthetic id of the object.
      */
@@ -68,21 +67,21 @@ public class EventCategory implements Serializable {
      * <p>
      * A description of the event category.
      * </p>
-     * 
+     *
      * <p>
      * The description of an event category forms it's natural id and cannot be shared between event categories
      * </p>
-     * 
+     *
      * <p>
      * The <code>@NotEmpty<code> Bean Validation constraint means that the event category descripton must be least 1 character and cannot be null.
      * </p>
      */
-    @Column(unique=true)
+    @Column(unique = true)
     @NotEmpty
     private String description;
 
     /* Boilerplate getters and setters */
-    
+
     public Long getId() {
         return id;
     }
@@ -96,7 +95,7 @@ public class EventCategory implements Serializable {
     }
 
     /* toString(), equals() and hashCode() for EventCategory, using the natural identity of the object */
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o)

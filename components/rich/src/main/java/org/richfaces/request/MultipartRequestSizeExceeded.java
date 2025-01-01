@@ -21,15 +21,13 @@
  */
 package org.richfaces.request;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.google.common.collect.Lists;
 import org.richfaces.model.UploadedFile;
 
-import com.google.common.collect.Lists;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class MultipartRequestSizeExceeded extends BaseMultipartRequest {
     public MultipartRequestSizeExceeded(HttpServletRequest request, String uploadId) {

@@ -21,104 +21,24 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.SequenceRange;
 import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.UIDataTableBase;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+
 /**
  * @author Konstantin Mishin
- *
  */
 public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
-    private class ClientSelection {
-        // TODO nick - use enum instead of constant
-        public static final String FLAG_RESET = "x";
-        public static final String FLAG_ALL = "a";
-        public static final String FLAG_AFTER_RANGE = "d";
-        public static final String FLAG_BEFORE_RANGE = "u";
-        // TODO nick - add special class that will express selection range
-        private int[][] ranges;
-        private int activeIndex;
-        private int shiftIndex;
-        private String selectionFlag;
-        private int index;
-
-        public ClientSelection(String selectionString) {
-            // TODO nick - this code is not readable at all - lacks comments, has lot of arrays operation
-            String[] strings = selectionString.split("\\|", -1);
-            String[] rangeStrings = strings[0].split(";");
-            if (strings[0].length() > 0) {
-                ranges = new int[rangeStrings.length][2];
-                for (int i = 0; i < rangeStrings.length; i++) {
-                    String[] rangeString = rangeStrings[i].split(",");
-                    ranges[i][0] = Integer.parseInt(rangeString[0]);
-                    ranges[i][1] = Integer.parseInt(rangeString[1]);
-                }
-            } else {
-                ranges = new int[0][0];
-            }
-            if (strings[1].matches("\\d+")) {
-                activeIndex = Integer.parseInt(strings[1]);
-            } else {
-                activeIndex = -1;
-            }
-            if (strings[2].matches("\\d+")) {
-                shiftIndex = Integer.parseInt(strings[2]);
-            } else if (strings[2].length() > 0) {
-                shiftIndex = -1;
-            } else {
-                shiftIndex = -2;
-            }
-            if (strings[3].length() > 0) {
-                selectionFlag = strings[3];
-            }
-            index = 0;
-        }
-
-        public boolean isSelected(int index) {
-            int i = 0;
-            while (i < ranges.length && index >= ranges[i][0]) {
-                if (index >= ranges[i][0] && index <= ranges[i][1]) {
-                    return true;
-                } else {
-                    i++;
-                }
-            }
-            return false;
-        }
-
-        public boolean isActiveIndex(int index) {
-            return activeIndex == index;
-        }
-
-        public boolean isShiftIndex(int index) {
-            return shiftIndex == index;
-        }
-
-        public boolean isCleanShiftIndex() {
-            return shiftIndex == -2;
-        }
-
-        public String getSelectionFlag() {
-            return selectionFlag;
-        }
-
-        public int nextIndex() {
-            return index++;
-        }
-    }
-
     protected void encodeSelectionInput(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.INPUT_ELEM, component);
         // TODO nick - selection input id should use constants/be a method
@@ -206,8 +126,8 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
     }
 
     private void encodeSelectionOutsideCurrentRange(FacesContext context, AbstractExtendedDataTable table, String selectionFlag) { // TODO
-                                                                                                                                   // Rename
-                                                                                                                                   // method
+        // Rename
+        // method
         Object key = table.getRowKey();
         table.captureOrigValue(context);
         SequenceRange range = (SequenceRange) table.getComponentState().getRange();
@@ -243,6 +163,84 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
                     return DataVisitResult.CONTINUE;
                 }
             }, newRange, null);
+        }
+    }
+
+    private class ClientSelection {
+        // TODO nick - use enum instead of constant
+        public static final String FLAG_RESET = "x";
+        public static final String FLAG_ALL = "a";
+        public static final String FLAG_AFTER_RANGE = "d";
+        public static final String FLAG_BEFORE_RANGE = "u";
+        // TODO nick - add special class that will express selection range
+        private int[][] ranges;
+        private int activeIndex;
+        private int shiftIndex;
+        private String selectionFlag;
+        private int index;
+
+        public ClientSelection(String selectionString) {
+            // TODO nick - this code is not readable at all - lacks comments, has lot of arrays operation
+            String[] strings = selectionString.split("\\|", -1);
+            String[] rangeStrings = strings[0].split(";");
+            if (strings[0].length() > 0) {
+                ranges = new int[rangeStrings.length][2];
+                for (int i = 0; i < rangeStrings.length; i++) {
+                    String[] rangeString = rangeStrings[i].split(",");
+                    ranges[i][0] = Integer.parseInt(rangeString[0]);
+                    ranges[i][1] = Integer.parseInt(rangeString[1]);
+                }
+            } else {
+                ranges = new int[0][0];
+            }
+            if (strings[1].matches("\\d+")) {
+                activeIndex = Integer.parseInt(strings[1]);
+            } else {
+                activeIndex = -1;
+            }
+            if (strings[2].matches("\\d+")) {
+                shiftIndex = Integer.parseInt(strings[2]);
+            } else if (strings[2].length() > 0) {
+                shiftIndex = -1;
+            } else {
+                shiftIndex = -2;
+            }
+            if (strings[3].length() > 0) {
+                selectionFlag = strings[3];
+            }
+            index = 0;
+        }
+
+        public boolean isSelected(int index) {
+            int i = 0;
+            while (i < ranges.length && index >= ranges[i][0]) {
+                if (index >= ranges[i][0] && index <= ranges[i][1]) {
+                    return true;
+                } else {
+                    i++;
+                }
+            }
+            return false;
+        }
+
+        public boolean isActiveIndex(int index) {
+            return activeIndex == index;
+        }
+
+        public boolean isShiftIndex(int index) {
+            return shiftIndex == index;
+        }
+
+        public boolean isCleanShiftIndex() {
+            return shiftIndex == -2;
+        }
+
+        public String getSelectionFlag() {
+            return selectionFlag;
+        }
+
+        public int nextIndex() {
+            return index++;
         }
     }
 }

@@ -28,7 +28,7 @@ public interface BinaryDecoder extends Decoder {
      * @param pArray A byte array which has been encoded with the appropriate encoder
      * @return a byte array that contains decoded content
      * @throws DecoderException A decoder exception is thrown if a Decoder encounters a failure condition during the decode
-     *         process.
+     *                          process.
      */
     byte[] decode(byte[] pArray) throws DecoderException;
 }

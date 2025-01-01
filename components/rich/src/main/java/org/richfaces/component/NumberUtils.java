@@ -1,9 +1,9 @@
 package org.richfaces.component;
 
-import java.math.BigDecimal;
-
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+
+import java.math.BigDecimal;
 
 public final class NumberUtils {
     private static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
@@ -27,9 +27,9 @@ public final class NumberUtils {
                 } else {
                     Number n = (Number) v;
                     if ((n instanceof BigDecimal) || (n instanceof Double) // Double
-                        // or
-                        // BigDecimal
-                        || (n instanceof Float)) {
+                            // or
+                            // BigDecimal
+                            || (n instanceof Float)) {
                         result = n.floatValue();
                     } else if (n instanceof Integer || n instanceof Long) { // Integer
                         result = n.longValue();

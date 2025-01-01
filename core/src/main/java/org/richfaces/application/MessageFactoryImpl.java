@@ -21,30 +21,23 @@
  */
 package org.richfaces.application;
 
-import java.text.MessageFormat;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import com.google.common.base.Strings;
+import org.richfaces.l10n.BundleLoader;
+import org.richfaces.l10n.MessageBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.l10n.BundleLoader;
-import org.richfaces.l10n.MessageBundle;
-
-import com.google.common.base.Strings;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class MessageFactoryImpl implements MessageFactory {
-    protected interface Factory<T> {
-        T create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException;
-    }
-
     private static final Factory<FacesMessage> MESSAGE_FACTORY = new Factory<FacesMessage>() {
         public FacesMessage create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException {
 
@@ -87,7 +80,6 @@ public class MessageFactoryImpl implements MessageFactory {
         }
     };
     private BundleLoader bundleLoader;
-
     public MessageFactoryImpl(BundleLoader bundleLoader) {
         super();
         this.bundleLoader = bundleLoader;
@@ -193,5 +185,9 @@ public class MessageFactoryImpl implements MessageFactory {
         }
 
         return result;
+    }
+
+    protected interface Factory<T> {
+        T create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException;
     }
 }

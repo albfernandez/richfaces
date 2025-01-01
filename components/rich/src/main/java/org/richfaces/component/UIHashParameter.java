@@ -21,19 +21,18 @@
  */
 package org.richfaces.component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIParameter;
 import javax.faces.view.facelets.ComponentHandler;
-
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.Tag;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>The &lt;r:hashParam&gt; component allows client-side parameters to be grouped into a hash map. The hash map can
@@ -45,10 +44,6 @@ import org.richfaces.cdk.annotations.Tag;
 public class UIHashParameter extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.HashParameter";
     public static final String COMPONENT_FAMILY = "org.richfaces.HashParameter";
-
-    enum PropertyKeys {
-        name
-    }
 
     public UIHashParameter() {
         super();
@@ -106,5 +101,9 @@ public class UIHashParameter extends UIComponentBase {
     @Override
     public String getFamily() {
         return (COMPONENT_FAMILY);
+    }
+
+    enum PropertyKeys {
+        name
     }
 }

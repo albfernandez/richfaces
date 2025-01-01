@@ -21,7 +21,17 @@
  */
 package org.richfaces.demo.jpa;
 
-import java.util.List;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.ExtendedDataModel;
+import org.ajax4jsf.model.Range;
+import org.ajax4jsf.model.SequenceRange;
+import org.richfaces.component.SortOrder;
+import org.richfaces.model.Arrangeable;
+import org.richfaces.model.ArrangeableState;
+import org.richfaces.model.FilterField;
+import org.richfaces.model.SortField;
 
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
@@ -32,19 +42,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
-
-import org.richfaces.model.Arrangeable;
-import org.richfaces.model.ArrangeableState;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.richfaces.model.FilterField;
-import org.ajax4jsf.model.Range;
-import org.ajax4jsf.model.SequenceRange;
-import org.richfaces.model.SortField;
-import org.richfaces.component.SortOrder;
-
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
+import java.util.List;
 
 public abstract class JPADataModel<T> extends ExtendedDataModel<T> implements Arrangeable {
     private EntityManager entityManager;
@@ -64,13 +62,13 @@ public abstract class JPADataModel<T> extends ExtendedDataModel<T> implements Ar
     }
 
     @Override
-    public void setRowKey(Object key) {
-        rowKey = key;
+    public Object getRowKey() {
+        return rowKey;
     }
 
     @Override
-    public Object getRowKey() {
-        return rowKey;
+    public void setRowKey(Object key) {
+        rowKey = key;
     }
 
     private CriteriaQuery<Long> createCountCriteriaQuery() {
@@ -148,7 +146,7 @@ public abstract class JPADataModel<T> extends ExtendedDataModel<T> implements Ar
     }
 
     protected Expression<Boolean> createFilterCriteriaForField(String propertyName, Object filterValue, Root<T> root,
-            CriteriaBuilder criteriaBuilder) {
+                                                               CriteriaBuilder criteriaBuilder) {
         String stringFilterValue = (String) filterValue;
         if (Strings.isNullOrEmpty(stringFilterValue)) {
             return null;

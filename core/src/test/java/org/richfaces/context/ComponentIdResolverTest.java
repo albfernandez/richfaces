@@ -21,19 +21,6 @@
  */
 package org.richfaces.context;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
-
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
@@ -42,9 +29,20 @@ import org.junit.Test;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.renderkit.AjaxConstants;
 
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewDeclarationLanguage;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+
 /**
  * @author Nick Belaevski
- *
  */
 public class ComponentIdResolverTest {
     static final String META_COMPONENT_ID = "testId";
@@ -58,14 +56,14 @@ public class ComponentIdResolverTest {
     @Before
     public void setUp() throws Exception {
         ComponentIdResolver.setMetaComponentSubstitutions(Collections.singletonMap(META_COMPONENT_ID,
-            META_COMPONENT_ID_SUBSTITUTION));
+                META_COMPONENT_ID_SUBSTITUTION));
 
         environment = FacesEnvironment.createEnvironment();
 
         environment.withResource("/test.xhtml", getClass().getResource("/org/richfaces/context/ComponentIdResolver.xhtml"));
 
         environment.withResource("/WEB-INF/faces-config.xml",
-            getClass().getResource("/org/richfaces/context/ComponentIdResolver.config.xml"));
+                getClass().getResource("/org/richfaces/context/ComponentIdResolver.config.xml"));
 
         environment.start();
 

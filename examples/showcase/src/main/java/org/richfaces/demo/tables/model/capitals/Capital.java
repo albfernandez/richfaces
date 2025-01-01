@@ -1,8 +1,7 @@
 package org.richfaces.demo.tables.model.capitals;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlElement;
+import java.io.Serializable;
 
 public class Capital implements Serializable {
     /**

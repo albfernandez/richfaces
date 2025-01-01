@@ -21,24 +21,6 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.el.ValueExpression;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.application.ServiceTracker;
@@ -54,10 +36,27 @@ import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
+import javax.el.ValueExpression;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.component.ValueHolder;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Nick Belaevski
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -66,7 +65,7 @@ import org.richfaces.log.RichfacesLogger;
         @ResourceDependency(library = "org.richfaces", name = "richfaces-utils.js"), @ResourceDependency(library = "org.richfaces", name = "richfaces-selection.js"),
         @ResourceDependency(library = "org.richfaces", name = "AutocompleteBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "Autocomplete.js"),
-        @ResourceDependency(library = "org.richfaces", name = "Autocomplete.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "Autocomplete.ecss")})
 public abstract class AutocompleteRendererBase extends InputRendererBase implements MetaComponentRenderer {
     private static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
 
@@ -147,13 +146,13 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
     }
 
     private void encodeFetchValues(FacesContext facesContext, UIComponent component, List<Object> fetchValues)
-        throws IOException {
+            throws IOException {
         if (!fetchValues.isEmpty()) {
             ResponseWriter writer = facesContext.getResponseWriter();
             writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
             writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", null);
             JSObject script = new JSObject("RichFaces.ui.Autocomplete.setData", component.getClientId(facesContext) + "Items",
-                fetchValues);
+                    fetchValues);
             writer.writeText(script, null);
             writer.endElement(HtmlConstants.SCRIPT_ELEM);
         }
@@ -173,7 +172,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
     }
 
     public void encodeItem(FacesContext facesContext, AbstractAutocomplete comboBox, Object item,
-        AutocompleteEncodeStrategy strategy) throws IOException {
+                           AutocompleteEncodeStrategy strategy) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
         if (getLayoutChildCount(comboBox) > 0) {
             strategy.encodeItem(facesContext, comboBox);
@@ -218,8 +217,8 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         if (requestParameters.get(component.getClientId(context) + ".ajax") != null) {
             PartialViewContext pvc = context.getPartialViewContext();
             pvc.getRenderIds().add(
-                component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
-                    + AbstractAutocomplete.ITEMS_META_COMPONENT_ID);
+                    component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                            + AbstractAutocomplete.ITEMS_META_COMPONENT_ID);
 
             context.renderResponse();
         }
@@ -266,7 +265,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
             if (expression != null) {
                 Class<?> containerClass = ServiceTracker.getService(context, GenericsIntrospectionService.class)
-                    .getContainerClass(context, expression);
+                        .getContainerClass(context, expression);
 
                 converter = InputUtils.getConverterForType(context, containerClass);
             }

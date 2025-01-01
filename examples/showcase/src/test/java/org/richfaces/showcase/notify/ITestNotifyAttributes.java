@@ -21,12 +21,7 @@
  */
 package org.richfaces.showcase.notify;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.base.Predicate;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -38,7 +33,11 @@ import org.richfaces.fragment.notify.NotifyMessage;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.notify.page.NotifyAttributesPage;
 
-import com.google.common.base.Predicate;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -90,7 +89,7 @@ public class ITestNotifyAttributes extends AbstractWebDriverTest {
         page.showNotification();
 
         assertTrue("The shadow should be presented!", isElementPresent(page.getNotify().getItem(0).advanced()
-            .getShadowElement()));
+                .getShadowElement()));
 
         page.waitUntilThereIsNoNotify();
 
@@ -98,7 +97,7 @@ public class ITestNotifyAttributes extends AbstractWebDriverTest {
         page.showNotification();
 
         assertFalse("The shadow should not be presented!", isElementPresent(page.getNotify().getItem(0).advanced()
-            .getShadowElement()));
+                .getShadowElement()));
     }
 
     @Test
@@ -133,17 +132,17 @@ public class ITestNotifyAttributes extends AbstractWebDriverTest {
         actions.moveToElement(message.advanced().getSummaryElement()).perform();
 
         Graphene.waitAjax().withMessage("The notify should has opacity " + opacity + ".")
-            .pollingEvery(50, TimeUnit.MILLISECONDS).until(new Predicate<WebDriver>() {
-                @Override
-                public boolean apply(WebDriver input) {
-                    double actualOpacity = Double.valueOf(message.advanced().getRootElement().getCssValue("opacity"));
-                    boolean succcess = Math.abs(opacity - actualOpacity) <= 0.2;
-                    if (!succcess) {
-                        Utils.triggerJQ("mouseover", message.advanced().getSummaryElement());
+                .pollingEvery(50, TimeUnit.MILLISECONDS).until(new Predicate<WebDriver>() {
+                    @Override
+                    public boolean apply(WebDriver input) {
+                        double actualOpacity = Double.valueOf(message.advanced().getRootElement().getCssValue("opacity"));
+                        boolean succcess = Math.abs(opacity - actualOpacity) <= 0.2;
+                        if (!succcess) {
+                            Utils.triggerJQ("mouseover", message.advanced().getSummaryElement());
+                        }
+                        return succcess;
                     }
-                    return succcess;
-                }
-            });
+                });
     }
 
     private void checkStayTime(long stayTime) {
@@ -163,7 +162,7 @@ public class ITestNotifyAttributes extends AbstractWebDriverTest {
         long lessThan = stayTime + NotifyAttributesPage.NOTIFY_DISAPPEAR_DELAY;
 
         assertTrue("The notify message should stay on the screen more than: " + moreThan + " and less than: " + lessThan
-            + " milisec, but was: " + delta + " milisec", (delta > moreThan) && (delta < lessThan));
+                + " milisec, but was: " + delta + " milisec", (delta > moreThan) && (delta < lessThan));
     }
 
 }

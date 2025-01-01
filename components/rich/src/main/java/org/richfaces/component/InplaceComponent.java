@@ -23,7 +23,6 @@ package org.richfaces.component;
 
 /**
  * @author Anton Belevich
- *
  */
 public interface InplaceComponent {
     boolean isDisabled();

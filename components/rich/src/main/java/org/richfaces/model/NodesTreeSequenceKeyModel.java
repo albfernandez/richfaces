@@ -23,7 +23,6 @@ package org.richfaces.model;
 
 /**
  * @author Nick Belaevski
- *
  */
 public abstract class NodesTreeSequenceKeyModel<V> extends TreeSequenceKeyModel<V> {
     private V rootNode;

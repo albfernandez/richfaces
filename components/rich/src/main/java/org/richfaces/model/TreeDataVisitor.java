@@ -23,7 +23,6 @@ package org.richfaces.model;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface TreeDataVisitor {
     // TODO make it possible to stop when visit complete

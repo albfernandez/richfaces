@@ -1,9 +1,7 @@
 package org.richfaces.demo.common.navigation;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.ConfigurableNavigationHandler;
@@ -13,16 +11,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @ManagedBean
 @SessionScoped
 public class DemoNavigator implements Serializable {
-    private static final long serialVersionUID = 3970933260901989658L;
-
     public static final String MOBILE_SUPPORT_PARAM = "org.richfaces.request.mobile";
+    private static final long serialVersionUID = 3970933260901989658L;
     private static final String DEMO_VIEW_PARAMETER = "demo";
     private static final String SAMPLE_VIEW_PARAMETER = "sample";
     private static final String SEPARATOR = "/";
@@ -127,7 +125,7 @@ public class DemoNavigator implements Serializable {
 
     /**
      * @return actual sample inclusion src Consider that: 1) all the samples should be placed in "samples" subfolder of the
-     *         actual sample 2) all the samples pages should use the same name as main sample page with "-sample" prefix
+     * actual sample 2) all the samples pages should use the same name as main sample page with "-sample" prefix
      */
     public String getSampleIncludeURI() {
         String sampleURI = getSampleURI();

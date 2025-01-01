@@ -21,16 +21,15 @@
  */
 package org.richfaces.photoalbum.ui.search;
 
-import java.util.List;
-
 import org.richfaces.photoalbum.search.ISearchAction;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
+
+import java.util.List;
 
 /**
  * Abstract class, that represent base functionality for particular search option(album, shelf, etc..)
  *
  * @author Andrey Markavtsov
- *
  */
 public abstract class ISearchOption {
 
@@ -57,14 +56,14 @@ public abstract class ISearchOption {
     /**
      * Abstract method, that perform search in given option. Must be implemented in sub-classes
      *
-     * @param action - action will be performed
-     * @param searchQuery - query to search
+     * @param action           - action will be performed
+     * @param searchQuery      - query to search
      * @param searchInMyAlbums - is search in users albums will be performed
-     * @param searchInShared - is search in shared albums will be performed
+     * @param searchInShared   - is search in shared albums will be performed
      * @throws PhotoAlbumException - in case of wrong search parameters
      */
     public abstract void search(ISearchAction action, String searchQuery, boolean searchInMyAlbums, boolean searchInShared)
-        throws PhotoAlbumException;
+            throws PhotoAlbumException;
 
     public boolean getSelected() {
         return selected;

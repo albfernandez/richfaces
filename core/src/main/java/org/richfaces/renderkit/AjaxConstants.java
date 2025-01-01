@@ -23,7 +23,6 @@ package org.richfaces.renderkit;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface AjaxConstants {
     String ALL = "@all";

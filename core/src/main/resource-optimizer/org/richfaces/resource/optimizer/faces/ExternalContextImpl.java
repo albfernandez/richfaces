@@ -21,6 +21,10 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
+import com.google.common.collect.Sets;
+
+import javax.activation.MimetypesFileTypeMap;
+import javax.faces.context.ExternalContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,14 +39,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.activation.MimetypesFileTypeMap;
-import javax.faces.context.ExternalContext;
-
-import com.google.common.collect.Sets;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class ExternalContextImpl extends ExternalContext {
     private String webRoot;
@@ -455,7 +453,7 @@ public class ExternalContextImpl extends ExternalContext {
      *
      * @param file the full name of file
      * @return mime-type for known resorce file types
-     *
+     * <p>
      * TODO load supported mime-types from mime.types file in this project
      */
     @Override

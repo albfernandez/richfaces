@@ -21,9 +21,10 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
-
-import java.util.List;
+import org.richfaces.application.CommonComponentsConfiguration;
+import org.richfaces.component.QueueRegistry;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import javax.faces.application.Application;
 import javax.faces.application.ResourceDependencies;
@@ -39,11 +40,9 @@ import javax.faces.event.ListenersFor;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRemoveFromViewEvent;
 import javax.faces.render.Renderer;
+import java.util.List;
 
-import org.richfaces.application.CommonComponentsConfiguration;
-import org.richfaces.component.QueueRegistry;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
 /**
  * @author Nick Belaevski Base class for rendering Queue
@@ -54,8 +53,8 @@ import org.richfaces.log.RichfacesLogger;
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")
 })
-@ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class),
-        @ListenerFor(systemEventClass = PreRemoveFromViewEvent.class) })
+@ListenersFor({@ListenerFor(systemEventClass = PostAddToViewEvent.class),
+        @ListenerFor(systemEventClass = PreRemoveFromViewEvent.class)})
 public abstract class QueueRendererBase extends Renderer implements ComponentSystemEventListener {
     protected static final String QUEUE_ID_ATTRIBBUTE = "queueId";
     protected static final String NAME_ATTRIBBUTE = "name";

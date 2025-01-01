@@ -21,22 +21,20 @@
  */
 package org.richfaces.demo.input;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.AjaxBehaviorEvent;
-
-import org.richfaces.model.UploadedFile;
-import org.richfaces.event.FileUploadEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Konstantin Mishin
- *
  */
 @ManagedBean
 @SessionScoped
@@ -88,28 +86,28 @@ public class FileUploadBean {
         files.add(file);
     }
 
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
-    }
-
     public boolean isDisabled() {
         return disabled;
     }
 
-    public void setNoDuplicate(boolean noDuplicate) {
-        this.noDuplicate = noDuplicate;
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 
     public boolean isNoDuplicate() {
         return noDuplicate;
     }
 
-    public void setAcceptedTypes(String acceptedTypes) {
-        this.acceptedTypes = acceptedTypes;
+    public void setNoDuplicate(boolean noDuplicate) {
+        this.noDuplicate = noDuplicate;
     }
 
     public String getAcceptedTypes() {
         return acceptedTypes;
+    }
+
+    public void setAcceptedTypes(String acceptedTypes) {
+        this.acceptedTypes = acceptedTypes;
     }
 
     public String getOntyperejected() {

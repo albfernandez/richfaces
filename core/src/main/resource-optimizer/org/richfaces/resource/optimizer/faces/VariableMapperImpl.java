@@ -21,16 +21,15 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
+import org.richfaces.skin.SkinFactory;
+
 import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.el.VariableMapper;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.skin.SkinFactory;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class VariableMapperImpl extends VariableMapper {
     private static final ValueExpression SKIN_VALUE_EXPRESSION = new ReadOnlyValueExpression() {

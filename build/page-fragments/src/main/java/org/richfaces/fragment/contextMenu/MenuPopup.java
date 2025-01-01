@@ -21,12 +21,12 @@
  */
 package org.richfaces.fragment.contextMenu;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>

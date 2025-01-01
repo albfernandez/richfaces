@@ -21,78 +21,26 @@
  */
 package org.richfaces.component;
 
-import static org.junit.Assert.assertEquals;
-
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class RepeatTest {
     private static final int TEST_DATA_SIZE = 40;
-
-    public static class TestBean {
-        private List<String> data = new ArrayList<String>();
-        private int first;
-        private int rows;
-        private int switchedFirst;
-        private int switchedRows;
-
-        public List<String> getData() {
-            return data;
-        }
-
-        public void setFirst(int first) {
-            this.first = first;
-        }
-
-        public int getFirst() {
-            return first;
-        }
-
-        public void setRows(int rows) {
-            this.rows = rows;
-        }
-
-        public int getRows() {
-            return rows;
-        }
-
-        public int getSwitchedFirst() {
-            return switchedFirst;
-        }
-
-        public void setSwitchedFirst(int switchedFirst) {
-            this.switchedFirst = switchedFirst;
-        }
-
-        public int getSwitchedRows() {
-            return switchedRows;
-        }
-
-        public void setSwitchedRows(int switchedRows) {
-            this.switchedRows = switchedRows;
-        }
-
-        public void switchFirstAndRows() {
-            first = switchedFirst;
-            rows = switchedRows;
-        }
-    }
-
     private TestBean testBean;
     private HtmlUnitEnvironment environment;
 
@@ -111,7 +59,7 @@ public class RepeatTest {
         environment = new CustomizedHtmlUnitEnvironment();
 
         environment.withResource("/WEB-INF/classes/faces-config.xml",
-            getClass().getResource("/org/richfaces/component/RepeatTest.faces-config.xml"));
+                getClass().getResource("/org/richfaces/component/RepeatTest.faces-config.xml"));
 
         environment.withResource("/test.xhtml", getClass().getResource("/org/richfaces/component/RepeatTest.xhtml"));
 
@@ -149,13 +97,13 @@ public class RepeatTest {
             int key = i + first;
             assertEquals(MessageFormat.format("form:repeat:{0}:child", key), element.getId());
             assertEquals(testData.get(key), element.<HtmlElement>getFirstByXPath("*[contains(@id, ':item')]").getTextContent()
-                .trim());
+                    .trim());
 
             String iterationStatusString = MessageFormat.format("begin: {0}, end: {1}, index: {2}, rowCount: {3}", first, first
-                + rows - 1, key, testData.size());
+                    + rows - 1, key, testData.size());
 
             assertEquals(iterationStatusString, element.<HtmlElement>getFirstByXPath("*[contains(@id, ':iterationStatus')]")
-                .getTextContent().trim());
+                    .getTextContent().trim());
         }
     }
 
@@ -194,5 +142,54 @@ public class RepeatTest {
 
         assertEquals(15, testBean.getFirst());
         assertEquals(7, testBean.getRows());
+    }
+
+    public static class TestBean {
+        private List<String> data = new ArrayList<String>();
+        private int first;
+        private int rows;
+        private int switchedFirst;
+        private int switchedRows;
+
+        public List<String> getData() {
+            return data;
+        }
+
+        public int getFirst() {
+            return first;
+        }
+
+        public void setFirst(int first) {
+            this.first = first;
+        }
+
+        public int getRows() {
+            return rows;
+        }
+
+        public void setRows(int rows) {
+            this.rows = rows;
+        }
+
+        public int getSwitchedFirst() {
+            return switchedFirst;
+        }
+
+        public void setSwitchedFirst(int switchedFirst) {
+            this.switchedFirst = switchedFirst;
+        }
+
+        public int getSwitchedRows() {
+            return switchedRows;
+        }
+
+        public void setSwitchedRows(int switchedRows) {
+            this.switchedRows = switchedRows;
+        }
+
+        public void switchFirstAndRows() {
+            first = switchedFirst;
+            rows = switchedRows;
+        }
     }
 }

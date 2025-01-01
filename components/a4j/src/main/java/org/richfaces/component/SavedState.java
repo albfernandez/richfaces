@@ -21,13 +21,13 @@
  */
 package org.richfaces.component;
 
+import org.ajax4jsf.component.IterationStateHolder;
+
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.component.IterationStateHolder;
 
 
 //from RI
@@ -124,7 +124,7 @@ public final class SavedState implements StateHolder {
             return "iterationState: " + iterationState;
         } else {
             return "submittedValue: " + submittedValue + " value: " + value + " localValueSet: " + localValueSet
-                + " submitted: " + submitted;
+                    + " submitted: " + submitted;
         }
     }
 
@@ -155,10 +155,6 @@ public final class SavedState implements StateHolder {
         return false;
     }
 
-    public void setTransient(boolean newTransientValue) {
-        throw new UnsupportedOperationException();
-    }
-
     public boolean isTransient() {
         if (iterationState != null) {
             return isObjectTransient(iterationState);
@@ -175,17 +171,21 @@ public final class SavedState implements StateHolder {
         return isObjectTransient(submittedValue) && isObjectTransient(value);
     }
 
+    public void setTransient(boolean newTransientValue) {
+        throw new UnsupportedOperationException();
+    }
+
     public Object saveState(FacesContext context) {
         if (isTransient()) {
             return null;
         }
 
         if (iterationState != null) {
-            return new Object[] { UIComponentBase.saveAttachedState(context, iterationState) };
+            return new Object[]{UIComponentBase.saveAttachedState(context, iterationState)};
         } else {
-            return new Object[] { valid ? Boolean.TRUE : Boolean.FALSE, localValueSet ? Boolean.TRUE : Boolean.FALSE,
+            return new Object[]{valid ? Boolean.TRUE : Boolean.FALSE, localValueSet ? Boolean.TRUE : Boolean.FALSE,
                     submitted ? Boolean.TRUE : Boolean.FALSE, UIComponentBase.saveAttachedState(context, submittedValue),
-                    UIComponentBase.saveAttachedState(context, value) };
+                    UIComponentBase.saveAttachedState(context, value)};
         }
     }
 

@@ -24,11 +24,7 @@ package org.richfaces.demo.input;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import org.richfaces.demo.model.person.Person;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -36,8 +32,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-
-import org.richfaces.demo.model.person.Person;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @ManagedBean
 @ViewScoped
@@ -51,7 +49,7 @@ public class SelectBean implements Serializable {
     @PostConstruct
     public void init() {
         values = new ArrayList<SelectItem>();
-        for (String s : new String[] { "a", "b", "c", "d" }) {
+        for (String s : new String[]{"a", "b", "c", "d"}) {
             values.add(new SelectItem(s));
         }
     }

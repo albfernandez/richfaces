@@ -25,7 +25,6 @@ package org.richfaces.resource;
  * A factory used to create {@link ResourceLibrary} from given resource name and library
  *
  * @author Nick Belaevski
- *
  * @see ResourceLibrary
  */
 public interface ResourceLibraryFactory {

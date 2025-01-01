@@ -22,14 +22,13 @@
 
 package org.richfaces.component.attribute;
 
-import java.util.Collection;
-
-import javax.el.MethodExpression;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.component.SwitchType;
+
+import javax.el.MethodExpression;
+import java.util.Collection;
 
 /**
  * Interface defining the methods for tree-props.xml
@@ -62,7 +61,7 @@ public interface TreeProps {
     String getOnselectionchange();
 
     /**
-     *  The client-side script method to be called before the node is toggled.
+     * The client-side script method to be called before the node is toggled.
      */
     @Attribute(events = @EventName("beforenodetoggle"), description = @Description(value = "The client-side script method to be called before the node is toggled."))
     String getOnbeforenodetoggle();
@@ -86,7 +85,7 @@ public interface TreeProps {
     Collection getSelection();
 
     /**
-     *The type of type of the selection - ajax (default), client, server.
+     * The type of type of the selection - ajax (default), client, server.
      */
     @Attribute(description = @Description(value = "The type of type of the selection - ajax (default), client, server."))
     SwitchType getSelectionType();

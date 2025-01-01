@@ -23,7 +23,6 @@ package org.richfaces.demo.input.picklist;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ import java.util.List;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @RequestScoped
-@ManagedBean(name="richBean")
+@ManagedBean(name = "richBean")
 public class RichBean implements Serializable {
 
     private static final long serialVersionUID = -2403138958014741653L;

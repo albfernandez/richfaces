@@ -21,21 +21,6 @@
  */
 package org.richfaces.resource.mapping;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
-import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
-import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
-
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
-import javax.faces.application.Resource;
-
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,6 +30,21 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.richfaces.resource.ResourceFactory;
 import org.richfaces.resource.ResourceFactoryImpl;
+
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
+import javax.faces.application.Resource;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
+import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
+import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
@@ -175,10 +175,6 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
         configure(resourceMappingFile, mappingFiles.toString());
     }
 
-    private interface Location {
-        String getRequestPath();
-    }
-
     private Resource resource(String library, String name, final Location location) {
         Resource resource = Mockito.mock(Resource.class);
         when(resource.getLibraryName()).thenReturn(library);
@@ -224,5 +220,9 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
                 return valueExpression;
             }
         });
+    }
+
+    private interface Location {
+        String getRequestPath();
     }
 }

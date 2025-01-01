@@ -3,23 +3,26 @@
  * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
- *
+ * <p>
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- *
+ * <p>
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  **/
 package org.richfaces.util;
+
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,9 +37,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
 
 /**
  * When deserializing objects, first check that the class being deserialized is in the allowed whitelist.
@@ -88,6 +88,38 @@ public class LookAheadObjectInputStream extends ObjectInputStream {
     }
 
     /**
+     * Load the whitelist from the properties file
+     */
+    static void loadWhitelist() {
+        Properties whitelistProperties = new Properties();
+        InputStream stream = null;
+        try {
+            stream = LookAheadObjectInputStream.class.getResourceAsStream("/org/richfaces/resource/resource-serialization.properties");
+            whitelistProperties.load(stream);
+        } catch (IOException e) {
+            throw new RuntimeException("Error loading the resource-serialization.properties file", e);
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    throw new RuntimeException("Error closing the resource-serialization.properties file", e);
+                }
+            }
+        }
+        for (String baseClassName : whitelistProperties.getProperty("whitelist").split(",")) {
+            try {
+                Class<?> baseClass = Class.forName(baseClassName);
+                whitelistBaseClasses.add(baseClass);
+            } catch (ClassNotFoundException e) {
+                if (LOGGER.isInfoEnabled()) {
+                    LOGGER.debug(e);
+                }
+            }
+        }
+    }
+
+    /**
      * Only deserialize primitive or whitelisted classes
      */
     @Override
@@ -111,7 +143,7 @@ public class LookAheadObjectInputStream extends ObjectInputStream {
         }
         try {
             Class<?> requestedClass = Class.forName(requestedClassName);
-            for (Class baseClass : whitelistBaseClasses ) {
+            for (Class baseClass : whitelistBaseClasses) {
                 if (baseClass.isAssignableFrom(requestedClass)) {
                     whitelistClassNameCache.add(requestedClassName);
                     return true;
@@ -121,37 +153,5 @@ public class LookAheadObjectInputStream extends ObjectInputStream {
             return false;
         }
         return false;
-    }
-
-    /**
-     * Load the whitelist from the properties file
-     */
-    static void loadWhitelist() {
-        Properties whitelistProperties = new Properties();
-        InputStream stream = null;
-        try {
-            stream =  LookAheadObjectInputStream.class.getResourceAsStream("/org/richfaces/resource/resource-serialization.properties");
-            whitelistProperties.load(stream);
-        } catch (IOException e) {
-            throw new RuntimeException("Error loading the resource-serialization.properties file", e);
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    throw new RuntimeException("Error closing the resource-serialization.properties file", e);
-                }
-            }
-        }
-        for (String baseClassName : whitelistProperties.getProperty("whitelist").split(",")) {
-            try {
-                Class<?> baseClass = Class.forName(baseClassName);
-                whitelistBaseClasses.add(baseClass);
-            } catch (ClassNotFoundException e) {
-                if (LOGGER.isInfoEnabled()) {
-                    LOGGER.debug(e);
-                }
-            }
-        }
     }
 }

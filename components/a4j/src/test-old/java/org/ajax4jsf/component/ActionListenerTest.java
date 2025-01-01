@@ -1,19 +1,19 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
@@ -40,9 +40,9 @@ import org.richfaces.test.AbstractFacesTest;
  */
 public class ActionListenerTest extends AbstractFacesTest {
     /*
-    *  (non-Javadoc)
-    * @see junit.framework.TestCase#setUp()
-    */
+     *  (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     public void setUp() throws Exception {
         super.setUp();
         setupFacesRequest();
@@ -140,9 +140,9 @@ public class ActionListenerTest extends AbstractFacesTest {
 
     static class TestConverter implements Converter {
         /*
-        *  (non-Javadoc)
-        * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
-        */
+         *  (non-Javadoc)
+         * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
+         */
         public Object getAsObject(FacesContext context, UIComponent comp, String str) {
             Bean bean = new Bean();
             String[] values = str.split(";");

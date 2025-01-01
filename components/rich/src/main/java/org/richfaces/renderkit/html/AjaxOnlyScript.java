@@ -1,10 +1,9 @@
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-
+import com.google.common.collect.ImmutableSet;
 import org.richfaces.resource.ResourceKey;
 
-import com.google.common.collect.ImmutableSet;
+import java.io.IOException;
 
 public class AjaxOnlyScript extends ValidatorScriptBase {
 

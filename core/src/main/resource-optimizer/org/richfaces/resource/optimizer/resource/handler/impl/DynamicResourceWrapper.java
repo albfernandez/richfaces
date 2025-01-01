@@ -21,23 +21,21 @@
  */
 package org.richfaces.resource.optimizer.resource.handler.impl;
 
-import static org.richfaces.resource.optimizer.strings.Constants.SLASH_JOINER;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.resource.ResourceSkinUtils;
+import org.richfaces.resource.optimizer.FileNameMapper;
 
+import javax.faces.application.Resource;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
-
-import org.richfaces.resource.ResourceSkinUtils;
-import org.richfaces.resource.optimizer.FileNameMapper;
-import org.richfaces.application.ServiceTracker;
+import static org.richfaces.resource.optimizer.strings.Constants.SLASH_JOINER;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class DynamicResourceWrapper extends Resource {
     /**

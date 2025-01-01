@@ -21,18 +21,17 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import org.richfaces.photoalbum.model.Image;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.util.Constants;
+import org.richfaces.photoalbum.util.Preferred;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-
-import org.richfaces.photoalbum.model.Image;
-import org.richfaces.photoalbum.model.User;
-import org.richfaces.photoalbum.util.Constants;
-import org.richfaces.photoalbum.util.Preferred;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * Convenience UI class for 'directLink' functionality.
@@ -57,7 +56,7 @@ public class DirectLinkHelper {
     /**
      * Convenience method to paint full-sized image in new tab or window
      *
-     * @param out - OutputStream to write image
+     * @param out  - OutputStream to write image
      * @param data - relative path of the image
      */
     public void paintImage(OutputStream out, Object data) throws IOException {
@@ -75,8 +74,8 @@ public class DirectLinkHelper {
     }
 
     private boolean isImageSharedOrBelongsToUser(Image im) {
-        return  im.getAlbum() != null &&  (im.getAlbum().getShelf().isShared()
-            || (user != null) && im.getAlbum().getOwner().getLogin()
+        return im.getAlbum() != null && (im.getAlbum().getShelf().isShared()
+                || (user != null) && im.getAlbum().getOwner().getLogin()
                 .equals(user.getLogin()));
     }
 

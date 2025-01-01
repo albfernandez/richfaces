@@ -22,9 +22,6 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIMessages;
-import javax.faces.context.FacesContext;
-
 import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -34,6 +31,9 @@ import org.richfaces.component.attribute.AjaxOutputProps;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.OutputFormatProps;
+
+import javax.faces.component.UIMessages;
+import javax.faces.context.FacesContext;
 
 /**
  * <p>The &lt;rich:messages&gt; components works similarly to the &lt;rich:message&gt; component, but can display all

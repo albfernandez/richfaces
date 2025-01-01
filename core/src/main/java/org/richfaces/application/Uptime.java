@@ -28,7 +28,6 @@ import java.util.Date;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public class Uptime {
     private Date startTime;

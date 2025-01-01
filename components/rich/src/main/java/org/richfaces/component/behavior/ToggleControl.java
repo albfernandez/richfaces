@@ -21,12 +21,6 @@
  */
 package org.richfaces.component.behavior;
 
-import javax.el.ExpressionFactory;
-import javax.faces.FacesException;
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
@@ -36,6 +30,12 @@ import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.ComponentIterators;
 import org.richfaces.renderkit.util.RendererUtils;
 import org.richfaces.view.facelets.html.CustomBehaviorHandler;
+
+import javax.el.ExpressionFactory;
+import javax.faces.FacesException;
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.context.FacesContext;
 
 /**
  * <p> The &lt;rich:toggleControl&gt; behavior can be attached to any interface component, whether inside or outside the
@@ -49,11 +49,18 @@ public class ToggleControl extends ClientBehavior {
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.ToggleControl";
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
-    private enum PropertyKeys {
-        event,
-        targetItem,
-        targetPanel,
-        disableDefault
+    public static AbstractTogglePanel getEnclosedPanel(UIComponent comp) {
+        if (comp == null) {
+            return null;
+        }
+
+        AbstractTogglePanel panel = ComponentIterators.getParent(comp, AbstractTogglePanel.class);
+        if (panel == null) {
+            throw new FacesException("Parent panel for control (id=" + comp.getClientId(FacesContext.getCurrentInstance())
+                    + ") has not been found.");
+        }
+
+        return panel;
     }
 
     /**
@@ -92,16 +99,16 @@ public class ToggleControl extends ClientBehavior {
         getStateHelper().put(PropertyKeys.targetPanel, selector);
     }
 
+    public Boolean getDisableDefault() {
+        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.disableDefault, true)));
+    }
+
     /**
      * If "true", disable the default action of the parent component
      */
     @Attribute
     public void setDisableDefault(Boolean disableDefault) {
         getStateHelper().put(PropertyKeys.disableDefault, disableDefault);
-    }
-
-    public Boolean getDisableDefault() {
-        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.disableDefault, true)));
     }
 
     public String getPanelId(ClientBehaviorContext behaviorContext) throws FacesException {
@@ -119,25 +126,11 @@ public class ToggleControl extends ClientBehavior {
                 return (AbstractTogglePanel) targetComponent;
             } else {
                 throw new FacesException("Parent panel for control (id=" + comp.getClientId(getFacesContext())
-                    + ") has not been found.");
+                        + ") has not been found.");
             }
         } else {
             return getEnclosedPanel(comp);
         }
-    }
-
-    public static AbstractTogglePanel getEnclosedPanel(UIComponent comp) {
-        if (comp == null) {
-            return null;
-        }
-
-        AbstractTogglePanel panel = ComponentIterators.getParent(comp, AbstractTogglePanel.class);
-        if (panel == null) {
-            throw new FacesException("Parent panel for control (id=" + comp.getClientId(FacesContext.getCurrentInstance())
-                + ") has not been found.");
-        }
-
-        return panel;
     }
 
     @Override
@@ -155,5 +148,12 @@ public class ToggleControl extends ClientBehavior {
             ExpressionFactory expFactory = getFacesContext().getApplication().getExpressionFactory();
             setDisableDefault((Boolean) expFactory.coerceToType(value, Boolean.class));
         }
+    }
+
+    private enum PropertyKeys {
+        event,
+        targetItem,
+        targetPanel,
+        disableDefault
     }
 }

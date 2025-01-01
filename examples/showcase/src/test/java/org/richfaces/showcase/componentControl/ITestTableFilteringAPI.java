@@ -21,14 +21,14 @@
  */
 package org.richfaces.showcase.componentControl;
 
-import static org.junit.Assert.assertEquals;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.componentControl.page.TableFilteringAPIPage;
 import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -47,7 +47,7 @@ public class ITestTableFilteringAPI extends AbstractDataIterationWithCars {
 
                 String expectedVendor = page.getFilterValue(i).getText();
                 assertEquals("The table should contain cars with vendors " + expectedVendor, expectedVendor,
-                    carFromRow.getVendor());
+                        carFromRow.getVendor());
             }
         }
     }

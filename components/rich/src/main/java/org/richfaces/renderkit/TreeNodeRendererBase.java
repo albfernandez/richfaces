@@ -21,33 +21,29 @@
  */
 package org.richfaces.renderkit;
 
-import static org.richfaces.renderkit.RenderKitUtils.getFirstNonEmptyAttribute;
-import static org.richfaces.renderkit.TreeRendererBase.getToggleTypeOrDefault;
-
-import java.io.IOException;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-
+import com.google.common.base.Strings;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.SwitchType;
 import org.richfaces.event.TreeToggleEvent;
 
-import com.google.common.base.Strings;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Map;
+
+import static org.richfaces.renderkit.RenderKitUtils.getFirstNonEmptyAttribute;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class TreeNodeRendererBase extends RendererBase implements MetaComponentRenderer {
     static final String AJAX_TOGGLED_NODE_ATTRIBUTE = TreeNodeRendererBase.class.getName() + ":AJAX_TOGGLED_NODE_ATTRIBUTE";
     static final String AJAX_TOGGLED_NODE_STATE_ATTRIBUTE = TreeNodeRendererBase.class.getName()
-        + ":AJAX_TOGGLED_NODE_STATE_ATTRIBUTE";
+            + ":AJAX_TOGGLED_NODE_STATE_ATTRIBUTE";
     private static final String NEW_NODE_TOGGLE_STATE = "__NEW_NODE_TOGGLE_STATE";
     private static final String TRIGGER_NODE_AJAX_UPDATE = "__TRIGGER_NODE_AJAX_UPDATE";
     private static final String HANDLE_LOADING_FACET_NAME = "handleLoading";
@@ -69,12 +65,12 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
             PartialViewContext pvc = context.getPartialViewContext();
             if (pvc.isAjaxRequest() && map.get(component.getClientId(context) + TRIGGER_NODE_AJAX_UPDATE) != null) {
                 pvc.getRenderIds().add(
-                    component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
-                        + AbstractTreeNode.SUBTREE_META_COMPONENT_ID);
+                        component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                                + AbstractTreeNode.SUBTREE_META_COMPONENT_ID);
 
                 context.getAttributes().put(AJAX_TOGGLED_NODE_ATTRIBUTE, component.getClientId(context));
                 context.getAttributes().put(AJAX_TOGGLED_NODE_STATE_ATTRIBUTE,
-                    initialState ? TreeNodeState.expanded : TreeNodeState.collapsed);
+                        initialState ? TreeNodeState.expanded : TreeNodeState.collapsed);
             }
         }
     }
@@ -110,7 +106,7 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
     }
 
     protected void encodeCustomIcon(FacesContext context, UIComponent component, String styleClass, String iconSource)
-        throws IOException {
+            throws IOException {
         ResponseWriter writer = context.getResponseWriter();
 
         writer.startElement(HtmlConstants.IMG_ELEMENT, component);
@@ -144,7 +140,7 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
                 }
 
                 if (toggleType == SwitchType.client || nodeState == TreeNodeState.expanded
-                    || nodeState == TreeNodeState.expandedNoChildren) {
+                        || nodeState == TreeNodeState.expandedNoChildren) {
                     encodeIconForNodeState(context, tree, treeNode, TreeNodeState.expanded, iconExpanded);
                 }
             }
@@ -152,19 +148,19 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
     }
 
     protected void encodeIconForNodeState(FacesContext context, AbstractTree tree, AbstractTreeNode treeNode,
-        TreeNodeState nodeState, String customIcon) throws IOException {
+                                          TreeNodeState nodeState, String customIcon) throws IOException {
         if (Strings.isNullOrEmpty(customIcon)) {
             encodeDefaultIcon(
-                context,
-                treeNode,
-                concatClasses(nodeState.getIconClass(), treeNode.getAttributes().get("iconClass"),
-                    tree.getAttributes().get("iconClass")));
+                    context,
+                    treeNode,
+                    concatClasses(nodeState.getIconClass(), treeNode.getAttributes().get("iconClass"),
+                            tree.getAttributes().get("iconClass")));
         } else {
             encodeCustomIcon(
-                context,
-                treeNode,
-                concatClasses(nodeState.getCustomIconClass(), treeNode.getAttributes().get("iconClass"), tree.getAttributes()
-                    .get("iconClass")), customIcon);
+                    context,
+                    treeNode,
+                    concatClasses(nodeState.getCustomIconClass(), treeNode.getAttributes().get("iconClass"), tree.getAttributes()
+                            .get("iconClass")), customIcon);
         }
     }
 

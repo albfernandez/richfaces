@@ -1,18 +1,7 @@
 package org.richfaces.component.behavior;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Collection;
-import java.util.Collections;
-
-import javax.el.ValueExpression;
-import javax.faces.validator.BeanValidator;
-import javax.faces.validator.Validator;
-import javax.validation.groups.Default;
-
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.jboss.test.faces.mock.Stub;
@@ -26,8 +15,17 @@ import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.FacesValidatorService;
 import org.richfaces.validator.ValidatorDescriptor;
 
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
+import javax.el.ValueExpression;
+import javax.faces.validator.BeanValidator;
+import javax.faces.validator.Validator;
+import javax.validation.groups.Default;
+import java.util.Collection;
+import java.util.Collections;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 /**
  * <p class="changed_added_4_0">
@@ -36,12 +34,11 @@ import com.google.common.collect.Lists;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 @RunWith(MockTestRunner.class)
 public class BehaviorGetValidatorTest extends BehaviorTestBase {
     private static final Message VALIDATION_ERROR = new Message(3, "Error", "Validation Error");
-    private static final Class<?>[] DEFAULT_GROUP = { Default.class };
+    private static final Class<?>[] DEFAULT_GROUP = {Default.class};
     @Mock
     private Validator validator;
     @Mock
@@ -91,9 +88,9 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
     }
 
     private void setupBeanValidator(ValidatorDescriptor... validators) {
-        expect(input.getValidators()).andStubReturn(new Validator[] { new BeanValidator() });
+        expect(input.getValidators()).andStubReturn(new Validator[]{new BeanValidator()});
         expect(validatorService.getConstrains(environment.getFacesContext(), expression, null, DEFAULT_GROUP)).andStubReturn(
-            Lists.newArrayList(validators));
+                Lists.newArrayList(validators));
     }
 
     private void setupComponentValidator(Validator... validators) {
@@ -103,7 +100,7 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
             expect((Class) validatorDescriptor.getImplementationClass()).andStubReturn(validator.getClass());
             expect(validatorDescriptor.getMessage()).andStubReturn(VALIDATION_ERROR);
             expect(facesValidatorService.getValidatorDescription(environment.getFacesContext(), input, validator, null))
-                .andStubReturn(validatorDescriptor);
+                    .andStubReturn(validatorDescriptor);
         }
     }
 

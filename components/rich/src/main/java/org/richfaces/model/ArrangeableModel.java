@@ -21,8 +21,17 @@
  */
 package org.richfaces.model;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import org.ajax4jsf.model.DataVisitResult;
+import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.ExtendedDataModel;
+import org.ajax4jsf.model.Range;
+import org.ajax4jsf.model.SequenceRange;
+import org.richfaces.application.IterationComponentsConfiguration;
+import org.richfaces.component.SortOrder;
 
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
+import javax.faces.model.DataModelListener;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,21 +41,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-import javax.faces.model.DataModelListener;
-
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.Range;
-import org.ajax4jsf.model.SequenceRange;
-import org.richfaces.application.IterationComponentsConfiguration;
-import org.richfaces.component.SortOrder;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
 /**
  * @author Konstantin Mishin
- *
  */
 public class ArrangeableModel extends ExtendedDataModel<Object> implements Arrangeable {
     private ArrangeableState state;
@@ -148,24 +146,6 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#getWrappedData()
-     */
-    public Object getWrappedData() {
-        return originalModel.getWrappedData();
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.faces.model.DataModel#isRowAvailable()
-     */
-    public boolean isRowAvailable() {
-        return originalModel.isRowAvailable();
-    }
-
-    /*
-     * (non-Javadoc)
-     *
      * @see javax.faces.model.DataModel#setRowIndex(int)
      */
     public void setRowIndex(int rowIndex) {
@@ -179,10 +159,28 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
+     * @see javax.faces.model.DataModel#getWrappedData()
+     */
+    public Object getWrappedData() {
+        return originalModel.getWrappedData();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
      * @see javax.faces.model.DataModel#setWrappedData(java.lang.Object)
      */
     public void setWrappedData(Object data) {
         originalModel.setWrappedData(data);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see javax.faces.model.DataModel#isRowAvailable()
+     */
+    public boolean isRowAvailable() {
+        return originalModel.isRowAvailable();
     }
 
     /*
@@ -285,7 +283,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
         originalModel.setRowKey(rowKey2);
         Object object2 = originalModel.getRowData();
         int result = 0;
-        for (Iterator<SortField> iterator = state.getSortFields().iterator(); iterator.hasNext() && result == 0;) {
+        for (Iterator<SortField> iterator = state.getSortFields().iterator(); iterator.hasNext() && result == 0; ) {
             SortField sortField = iterator.next();
             SortOrder sortOrder = sortField.getSortOrder();
             if (sortOrder != null && !SortOrder.unsorted.equals(sortOrder)) {
@@ -331,7 +329,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
         Comparator<? super String> comparator = null;
         Locale locale = state.getLocale();
         if (locale != null
-            && getBooleanConfigurationValue(context, IterationComponentsConfiguration.Items.datatableUsesViewLocale)) {
+                && getBooleanConfigurationValue(context, IterationComponentsConfiguration.Items.datatableUsesViewLocale)) {
             comparator = Collator.getInstance(locale);
         } else {
             comparator = new Comparator<String>() {

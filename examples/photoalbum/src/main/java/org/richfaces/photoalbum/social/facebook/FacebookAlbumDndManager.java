@@ -22,12 +22,6 @@
 
 package org.richfaces.photoalbum.social.facebook;
 
-import java.io.Serializable;
-
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
 import org.richfaces.json.JSONException;
@@ -40,6 +34,11 @@ import org.richfaces.photoalbum.model.event.ErrorEvent;
 import org.richfaces.photoalbum.model.event.EventType;
 import org.richfaces.photoalbum.model.event.Events;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
 
 @Named("fbDndManager")
 @SessionScoped

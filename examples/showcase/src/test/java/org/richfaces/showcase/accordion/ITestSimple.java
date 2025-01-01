@@ -21,12 +21,13 @@
  *******************************************************************************/
 package org.richfaces.showcase.accordion;
 
-import static org.junit.Assert.assertFalse;
-
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.accordion.page.SimplePage;
 import org.richfaces.showcase.panel.AbstractPanelTest;
+
+import static org.junit.Assert.assertFalse;
+
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @version $Revision$

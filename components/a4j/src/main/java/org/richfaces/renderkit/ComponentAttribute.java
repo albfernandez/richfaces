@@ -28,23 +28,26 @@ import java.util.TreeMap;
  * @author Nick Belaevski
  */
 public class ComponentAttribute implements Comparable<ComponentAttribute> {
-    public enum Kind {
-        BOOL,
-        GENERIC,
-        URI
-    }
-
     private final String htmlAttributeName;
     private String componentAttributeName;
     private Object defaultValue;
     private String[] eventNames = {};
     private Kind kind = Kind.GENERIC;
-
-    // TODO handling for aliases: "styleClass" -> "class"
-
     public ComponentAttribute(String htmlAttributeName) {
         super();
         this.htmlAttributeName = htmlAttributeName;
+    }
+
+    // TODO handling for aliases: "styleClass" -> "class"
+
+    public static final Map<String, ComponentAttribute> createMap(ComponentAttribute... attributes) {
+        Map<String, ComponentAttribute> result = new TreeMap<String, ComponentAttribute>();
+
+        for (ComponentAttribute componentAttribute : attributes) {
+            result.put(componentAttribute.getComponentAttributeName(), componentAttribute);
+        }
+
+        return result;
     }
 
     /**
@@ -85,16 +88,6 @@ public class ComponentAttribute implements Comparable<ComponentAttribute> {
      */
     public void setKind(Kind kind) {
         this.kind = kind;
-    }
-
-    public static final Map<String, ComponentAttribute> createMap(ComponentAttribute... attributes) {
-        Map<String, ComponentAttribute> result = new TreeMap<String, ComponentAttribute>();
-
-        for (ComponentAttribute componentAttribute : attributes) {
-            result.put(componentAttribute.getComponentAttributeName(), componentAttribute);
-        }
-
-        return result;
     }
 
     /**
@@ -140,5 +133,11 @@ public class ComponentAttribute implements Comparable<ComponentAttribute> {
 
     public int compareTo(ComponentAttribute o) {
         return getHtmlAttributeName().compareTo(o.getHtmlAttributeName());
+    }
+
+    public enum Kind {
+        BOOL,
+        GENERIC,
+        URI
     }
 }

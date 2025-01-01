@@ -21,11 +21,6 @@
  */
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import java.io.File;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.util.Arrays;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -41,6 +36,11 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.photoalbum.ftest.webdriver.pages.PhotoalbumPage;
+
+import java.io.File;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.util.Arrays;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -61,20 +61,17 @@ public abstract class AbstractPhotoalbumTest {
 
     public static final String NO_OWNER = "-1";
     public static final String UNKNOWN_IMG_SRC = "-1";
+    @Drone
+    private WebDriver browser;
+    @ArquillianResource
+    private URL contextPath;
+    @Page
+    private PhotoalbumPage page;
 
     @Deployment(testable = false)
     public static WebArchive createTestArchive() {
         return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/richfaces-photoalbum.war"));
     }
-
-    @Drone
-    private WebDriver browser;
-
-    @ArquillianResource
-    private URL contextPath;
-
-    @Page
-    private PhotoalbumPage page;
 
     public void deleteCookies() {
         Assume.assumeNotNull(browser);

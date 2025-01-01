@@ -27,7 +27,6 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface MessageFactory {
     FacesMessage createMessage(FacesContext facesContext, Enum<?> messageKey, Object... args);

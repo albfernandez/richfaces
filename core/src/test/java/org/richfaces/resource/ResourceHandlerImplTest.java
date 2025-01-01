@@ -21,8 +21,25 @@
  */
 package org.richfaces.resource;
 
-import static org.easymock.EasyMock.expect;
+import com.gargoylesoftware.htmlunit.Cache;
+import com.gargoylesoftware.htmlunit.WebRequest;
+import com.gargoylesoftware.htmlunit.WebResponse;
+import org.easymock.classextension.EasyMock;
+import org.jboss.test.faces.AbstractFacesTest;
+import org.jboss.test.faces.htmlunit.LocalWebClient;
+import org.richfaces.application.DependencyInjector;
+import org.richfaces.application.DependencyInjectorImpl;
+import org.richfaces.application.Module;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.application.ServicesFactory;
+import org.richfaces.application.ServicesFactoryImpl;
+import org.richfaces.application.Uptime;
+import org.richfaces.application.configuration.ConfigurationService;
+import org.richfaces.application.configuration.ConfigurationServiceImpl;
 
+import javax.faces.application.ResourceHandler;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -34,26 +51,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
-
-import org.easymock.classextension.EasyMock;
-import org.jboss.test.faces.AbstractFacesTest;
-import org.jboss.test.faces.htmlunit.LocalWebClient;
-import org.richfaces.application.DependencyInjector;
-import org.richfaces.application.DependencyInjectorImpl;
-import org.richfaces.application.Module;
-import org.richfaces.application.ServicesFactory;
-import org.richfaces.application.ServicesFactoryImpl;
-import org.richfaces.application.Uptime;
-import org.richfaces.application.configuration.ConfigurationService;
-import org.richfaces.application.configuration.ConfigurationServiceImpl;
-import org.richfaces.application.ServiceTracker;
-
-import com.gargoylesoftware.htmlunit.Cache;
-import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.WebResponse;
+import static org.easymock.EasyMock.expect;
 
 /**
  * @author Nick Belaevski
@@ -61,12 +59,12 @@ import com.gargoylesoftware.htmlunit.WebResponse;
  */
 public class ResourceHandlerImplTest extends AbstractFacesTest {
     protected static final String ECHO_HEADER = "RichFaces-Echo";
-    private static final String IF_MODIFIED_SINCE = "If-Modified-Since";
-    private static final String RESOURCES_FOLDER_PATH = "resources/";
-    private static final String TEST_RESOURCE_NAME = RESOURCES_FOLDER_PATH + "defaultResourceHandlerResource.js";
     protected static final Date currentTime;
     protected static final Date expires;
     protected static final Date lastModified;
+    private static final String IF_MODIFIED_SINCE = "If-Modified-Since";
+    private static final String RESOURCES_FOLDER_PATH = "resources/";
+    private static final String TEST_RESOURCE_NAME = RESOURCES_FOLDER_PATH + "defaultResourceHandlerResource.js";
 
     static {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
@@ -78,19 +76,23 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
         expires = calendar.getTime();
     }
 
-    private class DisabledCache extends Cache {
-        /**
-         *
-         */
-        private static final long serialVersionUID = -1788422188914461469L;
-
-        @Override
-        protected boolean isCacheable(WebRequest request, WebResponse response) {
-            return false;
-        }
-    }
-
     private LocalWebClient webClient;
+
+    private static String readFileAsString(String filePath) throws java.io.IOException {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        File testResourceFile = new File(classLoader.getResource(RESOURCES_FOLDER_PATH + "/" + filePath).getFile());
+        StringBuffer fileData = new StringBuffer(1000);
+        BufferedReader reader = new BufferedReader(new FileReader(testResourceFile));
+        char[] buf = new char[1024];
+        int numRead = 0;
+        while ((numRead = reader.read(buf)) != -1) {
+            String readData = String.valueOf(buf, 0, numRead);
+            fileData.append(readData);
+            buf = new char[1024];
+        }
+        reader.close();
+        return fileData.toString();
+    }
 
     private void addClasspathResources() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -121,7 +123,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
     public void testReadCacheableResource() throws Exception {
         WebRequest webRequest = new WebRequest(new URL(
-            "http://localhost/rfRes/org.richfaces.resource.CacheableResourceImpl.jsf"));
+                "http://localhost/rfRes/org.richfaces.resource.CacheableResourceImpl.jsf"));
 
         webRequest.getAdditionalHeaders().put(ECHO_HEADER, "ping?");
 
@@ -134,7 +136,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
         assertEquals("max-age=1209600", webResponse.getResponseHeaderValue("Cache-Control"));
         assertTrue(webResponse.getResponseHeaderValue("Content-Type").startsWith("text/plain"));
         assertEquals("W/\"" + "ping?".length() + "-" + lastModified.getTime() + "\"",
-            webResponse.getResponseHeaderValue("ETag"));
+                webResponse.getResponseHeaderValue("ETag"));
         assertNull(webResponse.getResponseHeaderValue("Pragma"));
         assertEquals("ping?", webResponse.getContentAsString("US-ASCII"));
         webRequest.getAdditionalHeaders().put(ECHO_HEADER, "pong");
@@ -152,7 +154,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
     public void testReadNonCacheableResource() throws Exception {
         WebRequest webRequest = new WebRequest(new URL(
-            "http://localhost/rfRes/org.richfaces.resource.NonCacheableResourceImpl.jsf"));
+                "http://localhost/rfRes/org.richfaces.resource.NonCacheableResourceImpl.jsf"));
 
         webRequest.getAdditionalHeaders().put(ECHO_HEADER, "ping?");
 
@@ -189,7 +191,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
     public void testDefaultMojarraResource() throws Exception {
         WebRequest mojarraWebRequest = new WebRequest(new URL(
-            "http://localhost/javax.faces.resource/defaultResourceHandlerResource.js.jsf"));
+                "http://localhost/javax.faces.resource/defaultResourceHandlerResource.js.jsf"));
         WebResponse mojarraResourceNameResponse = webClient.loadWebResponse(mojarraWebRequest);
 
         assertEquals(HttpServletResponse.SC_OK, mojarraResourceNameResponse.getStatusCode());
@@ -200,19 +202,19 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
         assertNotNull(Class.forName("org.richfaces.resource.MarkerFileResourceImpl", true, contextClassLoader));
         assertNotNull(contextClassLoader
-            .getResource("META-INF/org.richfaces.resource.MarkerFileResourceImpl.resource.properties"));
+                .getResource("META-INF/org.richfaces.resource.MarkerFileResourceImpl.resource.properties"));
 
         WebRequest markerFileWebRequest = new WebRequest(new URL(
-            "http://localhost/rfRes/org.richfaces.resource.MarkerFileResourceImpl.jsf"));
+                "http://localhost/rfRes/org.richfaces.resource.MarkerFileResourceImpl.jsf"));
         WebResponse markerFileResponse = webClient.loadWebResponse(markerFileWebRequest);
 
         assertEquals(HttpServletResponse.SC_OK, markerFileResponse.getStatusCode());
         assertNotNull(Class.forName("org.richfaces.resource.NoMarkerFileResourceImpl", true, contextClassLoader));
         assertNull(contextClassLoader
-            .getResource("META-INF/org.richfaces.resource.NoMarkerFileResourceImpl.resource.properties"));
+                .getResource("META-INF/org.richfaces.resource.NoMarkerFileResourceImpl.resource.properties"));
 
         WebRequest noMarkerFileRequestSettings = new WebRequest(new URL(
-            "http://localhost/rfRes/org.richfaces.resource.NoMarkerFileResourceImpl.jsf"));
+                "http://localhost/rfRes/org.richfaces.resource.NoMarkerFileResourceImpl.jsf"));
         WebResponse noMarkerResponse = webClient.loadWebResponse(noMarkerFileRequestSettings);
 
         assertEquals(HttpServletResponse.SC_NOT_FOUND, noMarkerResponse.getStatusCode());
@@ -232,7 +234,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
         expect(resourceCodecData.getResourceKey()).andStubReturn("StateHolderResource.jsf?db=1");
 
         EasyMock.expect(mockedCodec.decodeResource(EasyMock.<FacesContext>notNull(), EasyMock.eq("StateHolderResource")))
-            .andReturn(resourceCodecData);
+                .andReturn(resourceCodecData);
         EasyMock.replay(mockedCodec, resourceCodecData, mockCache);
 
         ServicesFactoryImpl injector = new ServicesFactoryImpl();
@@ -258,16 +260,16 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
     public void testVersionedResource() throws Exception {
         WebRequest webRequest = new WebRequest(new URL(
-            "http://localhost/rfRes/org.richfaces.resource.VersionedResourceImpl.jsf"));
+                "http://localhost/rfRes/org.richfaces.resource.VersionedResourceImpl.jsf"));
         WebResponse resourceResponse = webClient.loadWebResponse(webRequest);
 
         assertEquals(HttpServletResponse.SC_OK, resourceResponse.getStatusCode());
         webRequest = new WebRequest(new URL(
-            "http://localhost/rfRes/org.richfaces.resource.VersionedResourceImpl.jsf?v=1_0_2"));
+                "http://localhost/rfRes/org.richfaces.resource.VersionedResourceImpl.jsf?v=1_0_2"));
         resourceResponse = webClient.loadWebResponse(webRequest);
         assertEquals(HttpServletResponse.SC_OK, resourceResponse.getStatusCode());
         webRequest = new WebRequest(new URL(
-            "http://localhost/rfRes/org.richfaces.resource.VersionedResourceImpl.jsf?v=1_0_3"));
+                "http://localhost/rfRes/org.richfaces.resource.VersionedResourceImpl.jsf?v=1_0_3"));
         resourceResponse = webClient.loadWebResponse(webRequest);
         assertEquals(HttpServletResponse.SC_NOT_FOUND, resourceResponse.getStatusCode());
     }
@@ -311,29 +313,13 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
     private String unifyWhitespace(String source) {
         String result = source.replaceAll("(\n|\r)", "").replaceAll("\\t", " ").replaceAll(" {2,}", " ");
 
-        String[] chars = new String[] { ",", "\\{", "\\}" };
+        String[] chars = new String[]{",", "\\{", "\\}"};
         for (String c : chars) {
             result = result.replaceAll(" ?" + c + " ?", c);
         }
 
         return result;
 
-    }
-
-    private static String readFileAsString(String filePath) throws java.io.IOException {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        File testResourceFile = new File(classLoader.getResource(RESOURCES_FOLDER_PATH + "/" + filePath).getFile());
-        StringBuffer fileData = new StringBuffer(1000);
-        BufferedReader reader = new BufferedReader(new FileReader(testResourceFile));
-        char[] buf = new char[1024];
-        int numRead = 0;
-        while ((numRead = reader.read(buf)) != -1) {
-            String readData = String.valueOf(buf, 0, numRead);
-            fileData.append(readData);
-            buf = new char[1024];
-        }
-        reader.close();
-        return fileData.toString();
     }
 
     private List<String> populateResourcesToCheck() {
@@ -356,5 +342,17 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
     private String getResourceExpectedOutputFileName(String name) {
         return name.replaceAll("ecss", "css");
+    }
+
+    private class DisabledCache extends Cache {
+        /**
+         *
+         */
+        private static final long serialVersionUID = -1788422188914461469L;
+
+        @Override
+        protected boolean isCacheable(WebRequest request, WebResponse response) {
+            return false;
+        }
     }
 }

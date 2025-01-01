@@ -36,28 +36,21 @@ import org.richfaces.fragment.common.VisibleComponentInteractions;
 
 public class RichFacesInplaceInput implements InplaceInput, AdvancedVisibleComponentIteractions<RichFacesInplaceInput.AdvancedInplaceInputInteractions> {
 
+    private final AdvancedInplaceInputInteractions advancedInteractions = new AdvancedInplaceInputInteractions();
     @FindBy(className = "rf-ii-fld")
     private TextInputComponentImpl textInput;
-
     @FindByJQuery(".rf-ii-btn:eq(0)")
     private WebElement confirmButton;
-
     @FindByJQuery(".rf-ii-btn:eq(1)")
     private WebElement cancelButton;
-
     @FindBy(className = "rf-ii-lbl")
     private WebElement label;
-
     @FindBy(css = "span[id$=Edit] > input[id$=Input]")
     private WebElement editInputElement;
-
     @Root
     private WebElement root;
-
     @Drone
     private WebDriver browser;
-
-    private final AdvancedInplaceInputInteractions advancedInteractions = new AdvancedInplaceInputInteractions();
 
     @Override
     public AdvancedInplaceInputInteractions advanced() {
@@ -74,7 +67,7 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedVisibleCompo
         advanced().switchToEditingState();
         if (!advanced().isInState(InplaceComponentState.ACTIVE)) {
             throw new IllegalStateException("You should set correct editBy event. Current: " + advanced().getEditByEvent()
-                + " did not changed the inplace input for editing!");
+                    + " did not changed the inplace input for editing!");
         }
         getTextInput().clear().sendKeys(text);
         return new ConfirmOrCancelImpl();
@@ -126,12 +119,12 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedVisibleCompo
             return editByEvent;
         }
 
-        public void setEditByEvent() {
-            editByEvent = DEFAULT_EDIT_EVENT;
-        }
-
         public void setEditByEvent(Event event) {
             editByEvent = event;
+        }
+
+        public void setEditByEvent() {
+            editByEvent = DEFAULT_EDIT_EVENT;
         }
 
         public WebElement getRootElement() {
@@ -184,7 +177,7 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedVisibleCompo
         public void switchToEditingState() {
             if (!isInState(InplaceComponentState.ACTIVE)) {
                 new Actions(browser).moveToElement(getLabelInputElement()).triggerEventByWDOtherwiseByJS(getEditByEvent(),
-                    getLabelInputElement()).perform();
+                        getLabelInputElement()).perform();
             }
         }
     }

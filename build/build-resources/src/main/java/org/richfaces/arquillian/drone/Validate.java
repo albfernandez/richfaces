@@ -25,7 +25,6 @@ import java.util.logging.Logger;
 
 /**
  * @author <a href="kpiwko@redhat.com>Karel Piwko</a>
- *
  */
 class Validate {
 
@@ -94,7 +93,6 @@ class Validate {
     /**
      * Checker if a file can be executed. It requires Java 6 to do that. If anything goes wrong, it supposes that a file can be
      * executed.
-     *
      */
     private static final class FileExecutableChecker {
         private static final Logger log = Logger.getLogger(FileExecutableChecker.class.getName());

@@ -22,7 +22,6 @@
 package org.richfaces.application.push;
 
 /**
- *
  * Thrown when Push message is failed to be delivered
  *
  * @author Nick Belaevski

@@ -23,6 +23,10 @@ public class TabPanelItemChangeEventBean implements Serializable {
         return tabPanel;
     }
 
+    public void setTabPanel(AbstractTabPanel tabPanel) {
+        this.tabPanel = tabPanel;
+    }
+
     public boolean isInvoked() {
         return invoked;
     }
@@ -33,9 +37,5 @@ public class TabPanelItemChangeEventBean implements Serializable {
 
     public void reset() {
         invoked = DEFAULT;
-    }
-
-    public void setTabPanel(AbstractTabPanel tabPanel) {
-        this.tabPanel = tabPanel;
     }
 }

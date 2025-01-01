@@ -27,14 +27,6 @@ package org.richfaces.photoalbum.util;
  *
  * @author Andrey Markhel
  */
-import java.io.Serializable;
-import java.util.List;
-
-import javax.annotation.PreDestroy;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 import org.richfaces.photoalbum.manager.LoggedUserTracker;
 import org.richfaces.photoalbum.model.Comment;
@@ -44,6 +36,14 @@ import org.richfaces.photoalbum.model.event.EventType;
 import org.richfaces.photoalbum.model.event.Events;
 import org.richfaces.photoalbum.model.event.SimpleEvent;
 
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import java.io.Serializable;
+import java.util.List;
+
 @SessionScoped
 public class SessionListener implements Serializable {
 
@@ -51,20 +51,17 @@ public class SessionListener implements Serializable {
      *
      */
     private static final long serialVersionUID = 1L;
-
+    @Inject
+    LoggedUserTracker userTracker;
+    @Inject
+    @EventType(Events.USER_DELETED_EVENT)
+    Event<SimpleEvent> event;
     @Inject
     private User user;
-
     @Inject
     private IImageAction imageAction;
     @Inject
     private EntityManager em;
-    @Inject
-    LoggedUserTracker userTracker;
-
-    @Inject
-    @EventType(Events.USER_DELETED_EVENT)
-    Event<SimpleEvent> event;
 
     @PreDestroy
     public void onDestroy() {

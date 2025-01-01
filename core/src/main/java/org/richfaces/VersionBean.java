@@ -21,6 +21,10 @@
  */
 package org.richfaces;
 
+import org.ajax4jsf.resource.util.URLToStreamHelper;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.JarURLConnection;
@@ -35,10 +39,6 @@ import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 
-import org.ajax4jsf.resource.util.URLToStreamHelper;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-
 /**
  * Vendor and version information for A4J project
  *
@@ -47,6 +47,27 @@ import org.richfaces.log.RichfacesLogger;
  */
 public final class VersionBean {
     public static final Version VERSION = new Version();
+
+    public String getVendor() {
+        return VERSION.getImplementationVendor();
+    }
+
+    public String getTitle() {
+        return VERSION.getImplementationTitle();
+    }
+
+    public String getTimestamp() {
+        return VERSION.getScmTimestamp();
+    }
+
+    public Version getVersion() {
+        return VERSION;
+    }
+
+    @Override
+    public String toString() {
+        return VERSION.toString();
+    }
 
     /**
      * Class for incapsulate version info.
@@ -158,7 +179,7 @@ public final class VersionBean {
                             }
                         } catch (IOException e) {
                             LOGGER.error(MessageFormat.format("Error reading META-INF/MANIFEST.MF file: {0}", e.getMessage()),
-                                e);
+                                    e);
                         } finally {
                             if (jis != null) {
                                 try {
@@ -207,26 +228,5 @@ public final class VersionBean {
                 return getVersion();
             }
         }
-    }
-
-    public String getVendor() {
-        return VERSION.getImplementationVendor();
-    }
-
-    public String getTitle() {
-        return VERSION.getImplementationTitle();
-    }
-
-    public String getTimestamp() {
-        return VERSION.getScmTimestamp();
-    }
-
-    public Version getVersion() {
-        return VERSION;
-    }
-
-    @Override
-    public String toString() {
-        return VERSION.toString();
     }
 }

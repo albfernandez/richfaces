@@ -40,12 +40,6 @@ public class ITCellWidthWithMaxTableWidth {
         return deployment.getFinalArchive();
     }
 
-    @Test
-    public void setting_column_width() {
-        browser.get(contextPath.toExternalForm());
-        Assert.assertEquals("101px", firstRow.findElement(By.cssSelector("td")).getCssValue("width"));
-    }
-
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -62,5 +56,11 @@ public class ITCellWidthWithMaxTableWidth {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    @Test
+    public void setting_column_width() {
+        browser.get(contextPath.toExternalForm());
+        Assert.assertEquals("101px", firstRow.findElement(By.cssSelector("td")).getCssValue("width"));
     }
 }

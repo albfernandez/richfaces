@@ -20,6 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.model;
+
 import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
@@ -27,6 +28,7 @@ import javax.faces.event.FacesListener;
 /**
  * The class represents plotclick event fired by the chart component, when user
  * clicks a point in a chart.
+ *
  * @author Lukas Macko
  */
 public class PlotClickEvent extends FacesEvent {
@@ -51,7 +53,7 @@ public class PlotClickEvent extends FacesEvent {
     private Number y;
 
     public PlotClickEvent(UIComponent component, int seriesIndex,
-            int pointIndex, String x, Number y) {
+                          int pointIndex, String x, Number y) {
         super(component);
         this.seriesIndex = seriesIndex;
         this.pointIndex = pointIndex;

@@ -1,20 +1,20 @@
 package org.richfaces.renderkit.html;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.behavior.ClientBehaviorContext;
-
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.behavior.ClientValidatorBehavior;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.application.ServiceTracker;
+
+import javax.faces.component.UIViewRoot;
+import javax.faces.component.behavior.ClientBehaviorContext;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(MockTestRunner.class)
 public class RendererBuildScriptTest extends ValidatorRendererTestBase {
@@ -42,11 +42,11 @@ public class RendererBuildScriptTest extends ValidatorRendererTestBase {
     public void buildAndStoreScript() throws Exception {
         ClientValidatorRenderer renderer = new ClientValidatorRenderer() {
             ComponentValidatorScript createValidatorScript(ClientBehaviorContext behaviorContext,
-                ClientValidatorBehavior behavior) {
+                                                           ClientValidatorBehavior behavior) {
                 return validatorScript;
             }
 
-            ;
+
         };
         setupBehaviorContext(input);
         expect(behaviorContext.getSourceId()).andStubReturn(SOURCE_ID);

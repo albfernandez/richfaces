@@ -52,15 +52,13 @@ public class ItemChangeEvent extends FacesEvent {
      * The default {@link javax.faces.event.PhaseId} for this event is {@link javax.faces.event.PhaseId#ANY_PHASE}.
      * </p>
      *
-     * @param component Source {@link UIComponent} for this event
-     *
+     * @param component   Source {@link UIComponent} for this event
      * @param oldItemName
      * @param newItemName
-     *
      * @throws IllegalArgumentException if <code>component</code> is <code>null</code>
      */
     public ItemChangeEvent(UIComponent component, String oldItemName, UIComponent oldItem, String newItemName,
-        UIComponent newItem) {
+                           UIComponent newItem) {
         super(component);
         this.oldItemName = oldItemName;
         this.newItemName = newItemName;

@@ -21,13 +21,13 @@
  *******************************************************************************/
 package org.richfaces.showcase.tabPanel.page;
 
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
-
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.tabPanel.RichFacesTabPanel;
+
+import java.util.concurrent.TimeUnit;
+
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -35,17 +35,15 @@ import org.richfaces.fragment.tabPanel.RichFacesTabPanel;
  */
 public class DynamicTabsPage {
 
+    public static final int NUM_OF_TABS = 8;
     @FindByJQuery(".rf-tbp:eq(1)")
     private RichFacesTabPanel tabPanel;
+    @FindByJQuery("input[type='submit']:visible")
+    private WebElement submitButton;
 
     public RichFacesTabPanel getTabPanel() {
         return tabPanel;
     }
-
-    @FindByJQuery("input[type='submit']:visible")
-    private WebElement submitButton;
-
-    public static final int NUM_OF_TABS = 8;
 
     public void iterateOverTabsAndAssert() {
         for (int i = 1; i < tabPanel.getNumberOfTabs(); i++) {

@@ -21,7 +21,11 @@
  */
 package org.richfaces.view.facelets.html;
 
-import java.io.Serializable;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeListener;
+import org.richfaces.event.ItemChangeSource;
+import org.richfaces.view.facelets.EventListenerHandler;
+import org.richfaces.view.facelets.TagHandlerUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -29,32 +33,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagConfig;
-
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeListener;
-import org.richfaces.event.ItemChangeSource;
-import org.richfaces.view.facelets.EventListenerHandler;
-import org.richfaces.view.facelets.TagHandlerUtils;
+import java.io.Serializable;
 
 /**
- *
  * @author akolonitsky
  * @version 1.0
  */
 public final class ItemChangeListenerHandler extends EventListenerHandler {
-    private static class LazyItemChangeListener extends LazyEventListener<ItemChangeListener> implements ItemChangeListener,
-        Serializable {
-        private static final long serialVersionUID = 7715606467989165179L;
-
-        LazyItemChangeListener(String type, ValueExpression binding) {
-            super(type, binding);
-        }
-
-        public void processItemChange(ItemChangeEvent event) throws AbortProcessingException {
-            processEvent(event);
-        }
-    }
-
     public ItemChangeListenerHandler(TagConfig config) {
         super(config);
     }
@@ -73,5 +58,18 @@ public final class ItemChangeListenerHandler extends EventListenerHandler {
     @Override
     public boolean isEventSource(UIComponent comp) {
         return comp instanceof ItemChangeSource;
+    }
+
+    private static class LazyItemChangeListener extends LazyEventListener<ItemChangeListener> implements ItemChangeListener,
+            Serializable {
+        private static final long serialVersionUID = 7715606467989165179L;
+
+        LazyItemChangeListener(String type, ValueExpression binding) {
+            super(type, binding);
+        }
+
+        public void processItemChange(ItemChangeEvent event) throws AbortProcessingException {
+            processEvent(event);
+        }
     }
 }

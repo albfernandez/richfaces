@@ -20,6 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.model;
+
 import java.util.Date;
 
 /**
@@ -30,12 +31,12 @@ public class DateChartDataModel extends ChartDataModel<Date, Number> {
     public DateChartDataModel(ChartType type) {
         super(type);
         switch (type) {
-        case line:
-            strategy = new DateLineStrategy();
-            break;
-        default:
-            throw new IllegalArgumentException(type
-                    + "not supported by StringChartDataModel");
+            case line:
+                strategy = new DateLineStrategy();
+                break;
+            default:
+                throw new IllegalArgumentException(type
+                        + "not supported by StringChartDataModel");
 
         }
     }

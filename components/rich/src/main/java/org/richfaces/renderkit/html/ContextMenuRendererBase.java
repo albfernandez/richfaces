@@ -1,16 +1,5 @@
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.component.AbstractContextMenu;
 import org.richfaces.component.AbstractMenuGroup;
 import org.richfaces.component.AbstractMenuItem;
@@ -22,7 +11,17 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.RendererUtils;
 
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -36,7 +35,7 @@ import org.richfaces.renderkit.util.RendererUtils;
         @ResourceDependency(library = "org.richfaces", name = "menugroup.js"),
         @ResourceDependency(library = "org.richfaces", name = "menuitem.js"),
         @ResourceDependency(library = "org.richfaces", name = "contextmenu.js"),
-        @ResourceDependency(library = "org.richfaces", name = "contextmenu.ecss", target = "head") })
+        @ResourceDependency(library = "org.richfaces", name = "contextmenu.ecss", target = "head")})
 public abstract class ContextMenuRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.ContextMenuRenderer";
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
@@ -50,7 +49,7 @@ public abstract class ContextMenuRendererBase extends RendererBase {
         for (UIComponent child : contextMenu.getChildren()) {
             if (child.isRendered()
                     && (child instanceof AbstractMenuGroup || child instanceof AbstractMenuItem
-                        || child instanceof AbstractMenuSeparator || UIComponent.isCompositeComponent(child))) {
+                    || child instanceof AbstractMenuSeparator || UIComponent.isCompositeComponent(child))) {
 
                 child.encodeAll(facesContext);
             }

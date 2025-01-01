@@ -21,17 +21,15 @@
  */
 package org.richfaces.l10n;
 
+import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class BundleLoader {
     private ClassLoader getClassLoader() {
@@ -43,21 +41,21 @@ public class BundleLoader {
 
         if (bundleAnnotation == null) {
             throw new IllegalArgumentException(MessageFormat.format("Cannot detect baseName for enumeration {0} in class {1}",
-                messageKey.toString(), messageKey.getClass().getName()));
+                    messageKey.toString(), messageKey.getClass().getName()));
         }
 
         return bundleAnnotation;
     }
 
     public ResourceBundle getBundle(Enum<?> messageKey, Locale locale) throws MissingResourceException,
-        IllegalArgumentException {
+            IllegalArgumentException {
         MessageBundle bundleAnnotation = asMessageBundle(messageKey);
 
         return ResourceBundle.getBundle(bundleAnnotation.baseName(), locale, getClassLoader());
     }
 
     public ResourceBundle getApplicationBundle(FacesContext facesContext, Enum<?> messageKey, Locale locale)
-        throws MissingResourceException {
+            throws MissingResourceException {
 
         if (facesContext == null) {
             throw new MissingResourceException("FacesContext is null", getClass().getName(), messageKey.toString());
@@ -67,7 +65,7 @@ public class BundleLoader {
 
         if (application == null || application.getMessageBundle() == null) {
             throw new MissingResourceException("Cannot read message bundle name from application", getClass().getName(),
-                messageKey.toString());
+                    messageKey.toString());
         }
 
         return ResourceBundle.getBundle(application.getMessageBundle(), locale, getClassLoader());

@@ -22,14 +22,13 @@
 
 package org.richfaces.demo.validator;
 
-import java.io.Serializable;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @ManagedBean
 @SessionScoped
@@ -53,19 +52,19 @@ public class PasswordValidationBean implements Cloneable, Serializable {
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Succesfully changed!", "Succesfully changed!"));
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setConfirm(String confirm) {
-        this.confirm = confirm;
-    }
-
     public String getPassword() {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getConfirm() {
         return confirm;
+    }
+
+    public void setConfirm(String confirm) {
+        this.confirm = confirm;
     }
 }

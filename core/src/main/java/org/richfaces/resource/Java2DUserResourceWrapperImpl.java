@@ -21,18 +21,6 @@
  */
 package org.richfaces.resource;
 
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.Map;
-
-import javax.faces.context.FacesContext;
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
-
 import org.ajax4jsf.io.ByteBuffer;
 import org.ajax4jsf.io.FastBufferInputStream;
 import org.ajax4jsf.io.FastBufferOutputStream;
@@ -42,6 +30,17 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.HtmlDimensions;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
+
+import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * @author Nick Belaevski

@@ -29,7 +29,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author asmirnov
- *
  */
 public class NotEmptyBean extends Validable<String> {
     @NotEmpty

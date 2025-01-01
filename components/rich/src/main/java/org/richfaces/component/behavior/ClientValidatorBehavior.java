@@ -1,13 +1,12 @@
 package org.richfaces.component.behavior;
 
-import java.util.Collection;
+import org.richfaces.validator.ConverterDescriptor;
+import org.richfaces.validator.ValidatorDescriptor;
 
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.convert.Converter;
-
-import org.richfaces.validator.ConverterDescriptor;
-import org.richfaces.validator.ValidatorDescriptor;
+import java.util.Collection;
 
 /**
  * <p class="changed_added_4_0">
@@ -15,7 +14,6 @@ import org.richfaces.validator.ValidatorDescriptor;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public interface ClientValidatorBehavior extends ClientBehavior {
     String BEHAVIOR_TYPE = "org.richfaces.behavior.ClientValidator";
@@ -51,7 +49,6 @@ public interface ClientValidatorBehavior extends ClientBehavior {
      * <p class="changed_added_4_0">
      * Returns array of classes that represents JSR-303 validation groups.
      * </p>
-     *
      */
     Class<?>[] getGroups();
 

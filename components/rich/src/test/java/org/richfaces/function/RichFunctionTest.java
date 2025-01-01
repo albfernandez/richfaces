@@ -21,6 +21,21 @@
  */
 package org.richfaces.function;
 
+import org.easymock.EasyMock;
+import org.jboss.test.faces.mock.MockFacesEnvironment;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.richfaces.function.RichFunction.ComponentLocator;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.same;
@@ -30,55 +45,10 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
-import org.easymock.EasyMock;
-import org.jboss.test.faces.mock.MockFacesEnvironment;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.richfaces.function.RichFunction.ComponentLocator;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class RichFunctionTest {
-    private static final class StubComponentLocator implements ComponentLocator {
-        private UIComponent locatedComponent;
-
-        public StubComponentLocator(UIComponent locatedComponent) {
-            super();
-            this.locatedComponent = locatedComponent;
-        }
-
-        public UIComponent findComponent(FacesContext facesContext, UIComponent contextComponent, String id) {
-            if (facesContext == null) {
-                throw new NullPointerException("context");
-            }
-
-            if (contextComponent == null) {
-                throw new NullPointerException("contextComponent");
-            }
-
-            if (EXISTING_TEST_ID.equals(id)) {
-                return locatedComponent;
-            } else if (NONEXISTING_TEST_ID.equals(id)) {
-                return null;
-            } else {
-                fail(id);
-                return null;
-            }
-        }
-    }
-
     private static final String TEST_CLIENT_ID = "table:0:testId";
     private static final String TEST_JQUERY_SELECTOR = "#table\\\\:0\\\\:testId";
     private static final String EXISTING_TEST_ID = "testId";
@@ -221,5 +191,33 @@ public class RichFunctionTest {
         assertFalse(RichFunction.isUserInRole("auditor"));
 
         assertFalse(RichFunction.isUserInRole(null));
+    }
+
+    private static final class StubComponentLocator implements ComponentLocator {
+        private UIComponent locatedComponent;
+
+        public StubComponentLocator(UIComponent locatedComponent) {
+            super();
+            this.locatedComponent = locatedComponent;
+        }
+
+        public UIComponent findComponent(FacesContext facesContext, UIComponent contextComponent, String id) {
+            if (facesContext == null) {
+                throw new NullPointerException("context");
+            }
+
+            if (contextComponent == null) {
+                throw new NullPointerException("contextComponent");
+            }
+
+            if (EXISTING_TEST_ID.equals(id)) {
+                return locatedComponent;
+            } else if (NONEXISTING_TEST_ID.equals(id)) {
+                return null;
+            } else {
+                fail(id);
+                return null;
+            }
+        }
     }
 }

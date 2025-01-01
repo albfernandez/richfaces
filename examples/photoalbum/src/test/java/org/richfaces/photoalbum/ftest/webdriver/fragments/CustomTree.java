@@ -21,13 +21,13 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.tree.RichFacesTree;
 import org.richfaces.fragment.tree.RichFacesTreeNode;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Custom tree
@@ -36,32 +36,22 @@ import org.richfaces.fragment.tree.RichFacesTreeNode;
  */
 public class CustomTree extends RichFacesTree {
 
+    private final AdvancedOwnTreeInteractionsImpl interactions = new AdvancedOwnTreeInteractionsImpl();
     @FindByJQuery("> .rf-tr-nd")
     private List<CustomNode> childNodes;
-
-    private final AdvancedOwnTreeInteractionsImpl interactions = new AdvancedOwnTreeInteractionsImpl();
 
     @Override
     public AdvancedTreeInteractionsImpl advanced() {
         return interactions;
     }
 
-    private class AdvancedOwnTreeInteractionsImpl extends AdvancedTreeInteractionsImpl {
-
-        @Override
-        protected List<? extends TreeNode> getChildNodes() {
-            return Collections.unmodifiableList(childNodes);
-        }
-    }
-
     public static class CustomNode extends RichFacesTreeNode {
 
+        private final AdvancedOwnNodeInteractions interactions = new AdvancedOwnNodeInteractions();
         @FindByJQuery(".rf-trn > .rf-trn-cnt > .rf-trn-lbl >*[onclick]")
         private WebElement elementForInteraction;
         @FindByJQuery("> .rf-tr-nd")
         private List<CustomNode> childNodes;
-
-        private final AdvancedOwnNodeInteractions interactions = new AdvancedOwnNodeInteractions();
 
         @Override
         public AdvancedNodeInteractionsImpl advanced() {
@@ -79,6 +69,14 @@ public class CustomTree extends RichFacesTree {
             protected WebElement getCorrectElementForInteraction() {
                 return elementForInteraction;
             }
+        }
+    }
+
+    private class AdvancedOwnTreeInteractionsImpl extends AdvancedTreeInteractionsImpl {
+
+        @Override
+        protected List<? extends TreeNode> getChildNodes() {
+            return Collections.unmodifiableList(childNodes);
         }
     }
 }

@@ -21,17 +21,16 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
+import org.richfaces.skin.SkinPropertiesELResolver;
+
 import javax.el.CompositeELResolver;
 import javax.el.ELContext;
 import javax.el.ELResolver;
 import javax.el.FunctionMapper;
 import javax.el.VariableMapper;
 
-import org.richfaces.skin.SkinPropertiesELResolver;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class ELContextImpl extends ELContext {
     private VariableMapper variableMapper = createVariableMapper();

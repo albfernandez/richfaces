@@ -48,18 +48,6 @@ public class ITSelectMouseSelection {
         return deployment.getFinalArchive();
     }
 
-    @Test
-    public void test() {
-        browser.get(contextPath.toExternalForm());
-
-        selectInput.sendKeys("t");
-        waitAjax().until().element(tampaBayOption).is().visible();
-
-        tampaBayOption.click();
-
-        assertEquals("Tampa Bay", selectInput.getAttribute("value"));
-    }
-
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -70,5 +58,17 @@ public class ITSelectMouseSelection {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    @Test
+    public void test() {
+        browser.get(contextPath.toExternalForm());
+
+        selectInput.sendKeys("t");
+        waitAjax().until().element(tampaBayOption).is().visible();
+
+        tampaBayOption.click();
+
+        assertEquals("Tampa Bay", selectInput.getAttribute("value"));
     }
 }

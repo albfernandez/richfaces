@@ -21,18 +21,18 @@
  *******************************************************************************/
 package org.richfaces.showcase.messages;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.util.List;
-
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.fragment.message.Message;
 import org.richfaces.fragment.message.Message.MessageType;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.messages.page.MessagesPage;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

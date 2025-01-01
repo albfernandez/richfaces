@@ -21,17 +21,17 @@
  */
 package org.richfaces.io.io;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-
 import org.ajax4jsf.io.FastBufferInputStream;
 import org.ajax4jsf.io.FastBufferOutputStream;
 import org.ajax4jsf.io.FastBufferReader;
 import org.ajax4jsf.io.FastBufferWriter;
 import org.junit.Ignore;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 @Ignore
 public final class Test {

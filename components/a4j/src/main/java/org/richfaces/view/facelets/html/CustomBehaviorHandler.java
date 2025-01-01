@@ -21,6 +21,8 @@
  */
 package org.richfaces.view.facelets.html;
 
+import org.richfaces.view.facelets.tag.BehaviorRule;
+
 import javax.faces.view.facelets.BehaviorConfig;
 import javax.faces.view.facelets.BehaviorHandler;
 import javax.faces.view.facelets.CompositeFaceletHandler;
@@ -28,11 +30,8 @@ import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.TagHandler;
 import javax.faces.view.facelets.TagHandlerDelegate;
 
-import org.richfaces.view.facelets.tag.BehaviorRule;
-
 /**
  * @author Anton Belevich
- *
  */
 public class CustomBehaviorHandler extends BehaviorHandler {
     TagHandlerDelegate helper;
@@ -50,7 +49,7 @@ public class CustomBehaviorHandler extends BehaviorHandler {
     }
 
     public MetaRule[] getMetaRules() {
-        return new MetaRule[] { BehaviorRule.INSTANCE };
+        return new MetaRule[]{BehaviorRule.INSTANCE};
     }
 
     @Override

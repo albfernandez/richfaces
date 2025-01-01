@@ -21,15 +21,6 @@
  */
 package org.richfaces.context;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.fail;
-import static org.richfaces.context.IdParser.parse;
-
-import java.util.HashMap;
-
-import javax.faces.context.FacesContext;
-
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockFacesEnvironment;
@@ -39,14 +30,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.context.IdParser.Node;
 
+import javax.faces.context.FacesContext;
+import java.util.HashMap;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.fail;
+import static org.richfaces.context.IdParser.parse;
+
 /**
  * @author Nick Belaevski
- *
  */
 @RunWith(MockTestRunner.class)
 public class IdParserTest {
     @Mock
-    @Environment({ Environment.Feature.EXTERNAL_CONTEXT })
+    @Environment({Environment.Feature.EXTERNAL_CONTEXT})
     private MockFacesEnvironment environment;
 
     @Before
@@ -60,8 +58,8 @@ public class IdParserTest {
     @Test
     public void testSimpleId() throws Exception {
         assertArrayEquals(new Node[0], parse(""));
-        assertArrayEquals(new Node[] { new Node("test") }, parse("test"));
-        assertArrayEquals(new Node[] { new Node("form"), new Node("table") }, parse("form:table"));
+        assertArrayEquals(new Node[]{new Node("test")}, parse("test"));
+        assertArrayEquals(new Node[]{new Node("form"), new Node("table")}, parse("form:table"));
     }
 
     @Test
@@ -80,14 +78,14 @@ public class IdParserTest {
             // ignore
         }
 
-        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("", "rows"), new Node("@row") },
-            parse("form:table:@rows():@row"));
-        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("12", "rows") },
-            parse("form:table:@rows(12)"));
-        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("", "rows"), new Node("subtable") },
-            parse("form:table:@rows():subtable"));
+        assertArrayEquals(new Node[]{new Node("form"), new Node("table"), new Node("", "rows"), new Node("@row")},
+                parse("form:table:@rows():@row"));
+        assertArrayEquals(new Node[]{new Node("form"), new Node("table"), new Node("12", "rows")},
+                parse("form:table:@rows(12)"));
+        assertArrayEquals(new Node[]{new Node("form"), new Node("table"), new Node("", "rows"), new Node("subtable")},
+                parse("form:table:@rows():subtable"));
 
-        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("12", "rows"), new Node("subtable"),
-                new Node("a", "rows"), new Node("cell") }, parse("form:table:@rows(12):subtable:@rows(a):cell"));
+        assertArrayEquals(new Node[]{new Node("form"), new Node("table"), new Node("12", "rows"), new Node("subtable"),
+                new Node("a", "rows"), new Node("cell")}, parse("form:table:@rows(12):subtable:@rows(a):cell"));
     }
 }

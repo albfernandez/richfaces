@@ -21,14 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -44,36 +36,27 @@ import org.richfaces.event.PanelToggleListener;
 import org.richfaces.event.PanelToggleSource;
 import org.richfaces.view.facelets.html.CollapsiblePanelTagHandler;
 
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+
 /**
  * <p>
- *     The &lt;rich:collapsiblePanel&gt; component is a collapsible panel that shows or hides content when the header bar is activated.
- *     It is a simplified version of &lt;rich:togglePanel&gt; component.
+ * The &lt;rich:collapsiblePanel&gt; component is a collapsible panel that shows or hides content when the header bar is activated.
+ * It is a simplified version of &lt;rich:togglePanel&gt; component.
  * </p>
+ *
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = CollapsiblePanelTagHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer") )
+        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"))
 public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource, CoreProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsiblePanel";
-
-    public enum States {
-        expanded("exp"),
-        collapsed("colps");
-        private final String abbreviation;
-
-        States(String abbreviation) {
-            this.abbreviation = abbreviation;
-        }
-
-        public String abbreviation() {
-            return abbreviation;
-        }
-    }
-
-    public enum Properties {
-        expanded
-    }
 
     protected AbstractCollapsiblePanel() {
         setRendererType("org.richfaces.CollapsiblePanelRenderer");
@@ -150,8 +133,6 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
         super.queueEvent(event != null ? event : facesEvent);
     }
 
-    // ------------------------------------------------ Component Attributes
-
     /**
      * <p>
      * Provides the text on the panel header. The panel header is all that is visible when the panel is collapsed.
@@ -170,10 +151,10 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     @Attribute
     public abstract MethodExpression getToggleListener();
 
+    // ------------------------------------------------ Component Attributes
+
     @Attribute(hidden = true)
     public abstract MethodExpression getItemChangeListener();
-
-    // ------------------------------------------------ Html Attributes
 
     /**
      * The icon displayed on the left of the panel header when the panel is collapsed
@@ -186,6 +167,8 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
      */
     @Attribute
     public abstract String getLeftExpandedIcon();
+
+    // ------------------------------------------------ Html Attributes
 
     /**
      * The icon displayed on the right of the panel header when the panel is collapsed
@@ -231,8 +214,6 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     @Attribute(events = @EventName("itemchange"), hidden = true)
     public abstract String getOnitemchange();
 
-    // ------------------------------------------------ Event Processing Methods
-
     public void addPanelToggleListener(PanelToggleListener listener) {
         addFacesListener(listener);
     }
@@ -240,6 +221,8 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     public PanelToggleListener[] getPanelToggleListeners() {
         return (PanelToggleListener[]) getFacesListeners(PanelToggleListener.class);
     }
+
+    // ------------------------------------------------ Event Processing Methods
 
     public void removePanelToggleListener(PanelToggleListener listener) {
         removeFacesListener(listener);
@@ -266,5 +249,23 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
             }
         }
         super.broadcast(event);
+    }
+
+    public enum States {
+        expanded("exp"),
+        collapsed("colps");
+        private final String abbreviation;
+
+        States(String abbreviation) {
+            this.abbreviation = abbreviation;
+        }
+
+        public String abbreviation() {
+            return abbreviation;
+        }
+    }
+
+    public enum Properties {
+        expanded
     }
 }

@@ -25,6 +25,12 @@
  */
 package org.richfaces.example;
 
+import javax.annotation.PostConstruct;
+import javax.faces.FacesException;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,13 +43,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.annotation.PostConstruct;
-import javax.faces.FacesException;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
 /**
  * @author leo
@@ -70,7 +69,7 @@ public class Pages {
         pageFolderMap = new HashMap<String, List<PageDescriptionBean>>();
         Set<String> resourcePaths = getExternalContext().getResourcePaths(EXAMPLE_PATH);
         indexPages = new ArrayList<PageDescriptionBean>(resourcePaths.size());
-        for (Iterator<String> iterator = resourcePaths.iterator(); iterator.hasNext();) {
+        for (Iterator<String> iterator = resourcePaths.iterator(); iterator.hasNext(); ) {
             String folderPath = iterator.next();
             if (FOLDER_PATTERN.matcher(folderPath).matches() || new File(folderPath).isDirectory()) {
                 String resourcePath = resourcePath(folderPath);
@@ -133,7 +132,7 @@ public class Pages {
     private List<PageDescriptionBean> getPagesByPattern(Pattern pattern, String path) {
         List<PageDescriptionBean> pageList = new ArrayList<PageDescriptionBean>();
         Set<String> resourcePaths = getExternalContext().getResourcePaths(path);
-        for (Iterator<String> iterator = resourcePaths.iterator(); iterator.hasNext();) {
+        for (Iterator<String> iterator = resourcePaths.iterator(); iterator.hasNext(); ) {
             String page = resourcePath(iterator.next());
             if (pattern.matcher(page).matches() && !page.endsWith("/index.xhtml")) {
                 InputStream pageInputStream = getExternalContext().getResourceAsStream(page);
@@ -168,16 +167,16 @@ public class Pages {
     }
 
     /**
-     * @param titlePattern the titlePattern to set
-     */
-    public void setTitlePattern(String titlePattern) {
-        this.titlePattern = compilePattern(titlePattern);
-    }
-
-    /**
      * @return the titlePattern
      */
     public String getTitlePattern() {
         return titlePattern.toString();
+    }
+
+    /**
+     * @param titlePattern the titlePattern to set
+     */
+    public void setTitlePattern(String titlePattern) {
+        this.titlePattern = compilePattern(titlePattern);
     }
 }

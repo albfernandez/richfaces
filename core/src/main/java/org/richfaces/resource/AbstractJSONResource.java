@@ -21,16 +21,14 @@
  */
 package org.richfaces.resource;
 
-import java.io.IOException;
+import org.ajax4jsf.javascript.ScriptUtils;
 
 import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.javascript.ScriptUtils;
+import java.io.IOException;
 
 
 /**
  * @author Nick Belaevski
- *
  */
 @DynamicResource
 public abstract class AbstractJSONResource extends AbstractUserResource {

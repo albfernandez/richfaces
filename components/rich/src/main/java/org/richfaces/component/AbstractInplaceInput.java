@@ -21,8 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIInput;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -33,6 +31,8 @@ import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.FocusProps;
+
+import javax.faces.component.UIInput;
 
 /**
  * <p> The &lt;rich:inplaceInput&gt; component allows information to be entered in-line in blocks of text, improving
@@ -56,7 +56,7 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     public abstract String getDefaultLabel();
 
     /**
-     *  Defines whether the changes should apply when the focus is lost. Default value - "true".
+     * Defines whether the changes should apply when the focus is lost. Default value - "true".
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isSaveOnBlur();

@@ -21,14 +21,9 @@
  */
 package org.richfaces.resource;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Iterator;
-
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponentBase;
-
+import com.gargoylesoftware.htmlunit.html.HtmlLink;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlScript;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
@@ -36,30 +31,18 @@ import org.junit.Test;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.w3c.dom.Element;
 
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponentBase;
+import java.util.Iterator;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class ResourceLibraryTest {
-    @ResourceDependency(library = "org.richfaces", name = "static.reslib")
-    public static class StaticLibraryComponent extends UIComponentBase {
-        @Override
-        public String getFamily() {
-            return null;
-        }
-    }
-
-    @ResourceDependency(library = "org.richfaces", name = "dynamic.reslib")
-    public static class DynamicLibraryComponent extends UIComponentBase {
-        @Override
-        public String getFamily() {
-            return null;
-        }
-    }
+    private HtmlUnitEnvironment environment;
 
     private String nextUri(Iterator<?> itr) {
         assertTrue(itr.hasNext());
@@ -74,8 +57,6 @@ public class ResourceLibraryTest {
 
         throw new UnsupportedOperationException(elt.toString());
     }
-
-    private HtmlUnitEnvironment environment;
 
     @Before
     public void setUp() throws Exception {
@@ -136,5 +117,21 @@ public class ResourceLibraryTest {
         assertTrue(uri.contains("jquery.js"));
 
         assertFalse(itr.hasNext());
+    }
+
+    @ResourceDependency(library = "org.richfaces", name = "static.reslib")
+    public static class StaticLibraryComponent extends UIComponentBase {
+        @Override
+        public String getFamily() {
+            return null;
+        }
+    }
+
+    @ResourceDependency(library = "org.richfaces", name = "dynamic.reslib")
+    public static class DynamicLibraryComponent extends UIComponentBase {
+        @Override
+        public String getFamily() {
+            return null;
+        }
     }
 }

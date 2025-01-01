@@ -21,9 +21,8 @@
  */
 package org.richfaces.context;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
+import org.ajax4jsf.component.AjaxClientBehavior;
+import org.richfaces.util.Sets;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
@@ -32,9 +31,9 @@ import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.component.AjaxClientBehavior;
-import org.richfaces.util.Sets;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 /**
  * User: akolonitsky Date: Oct 13, 2009

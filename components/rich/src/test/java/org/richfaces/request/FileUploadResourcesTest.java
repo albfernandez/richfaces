@@ -21,13 +21,10 @@
  */
 package org.richfaces.request;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.richfaces.util.StreamUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -37,15 +34,16 @@ import java.io.InputStream;
 import java.util.Random;
 import java.util.UUID;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import org.richfaces.util.StreamUtils;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class FileUploadResourcesTest {
     private FileUploadMemoryResource memoryResource;

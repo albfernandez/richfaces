@@ -21,9 +21,7 @@
  */
 package org.richfaces.fragment.select;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.base.Predicate;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
@@ -46,27 +44,24 @@ import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
-import com.google.common.base.Predicate;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class RichFacesSelect implements Select, AdvancedVisibleComponentIteractions<RichFacesSelect.AdvancedSelectInteractions> {
 
+    private static final ByJQuery GLOBAL_POPUP = ByJQuery.selector("div.rf-sel-shdw:visible");
+    private final AdvancedSelectInteractions interactions = new AdvancedSelectInteractions();
+    private final SelectSuggestionsImpl selectSuggestions = new SelectSuggestionsImpl();
     @Drone
     private WebDriver driver;
-
     @Root
     private WebElement root;
-
     @FindBy(className = "rf-sel-inp")
     private TextInputComponentImpl input;
     @FindBy(className = "rf-sel-btn-arrow")
     private WebElement showButton;
     @FindBy(className = "rf-sel-shdw")
     private GrapheneElement localPopup;
-
-    private static final ByJQuery GLOBAL_POPUP = ByJQuery.selector("div.rf-sel-shdw:visible");
-
-    private final AdvancedSelectInteractions interactions = new AdvancedSelectInteractions();
-    private final SelectSuggestionsImpl selectSuggestions = new SelectSuggestionsImpl();
 
     @Override
     public AdvancedSelectInteractions advanced() {
@@ -136,8 +131,8 @@ public class RichFacesSelect implements Select, AdvancedVisibleComponentIteracti
 
     public class AdvancedSelectInteractions implements VisibleComponentInteractions {
 
-        private final ScrollingType DEFAULT_SCROLLING_TYPE = ScrollingType.BY_MOUSE;
         private static final boolean DEFAULT_OPEN_BY_INPUT_CLICK = true;
+        private final ScrollingType DEFAULT_SCROLLING_TYPE = ScrollingType.BY_MOUSE;
         private ScrollingType scrollingType = DEFAULT_SCROLLING_TYPE;
         private Boolean openByInputClick = DEFAULT_OPEN_BY_INPUT_CLICK;
 
@@ -150,6 +145,16 @@ public class RichFacesSelect implements Select, AdvancedVisibleComponentIteracti
 
         protected boolean getOpenByInputClick() {
             return openByInputClick;
+        }
+
+        /**
+         * Sets opening of select. Default open method is by clicking on the input.
+         *
+         * @param openByClickOnInput if true, select will be opened by input clicking (default). If false, the select will be opened by
+         *                           'show' button of the select.
+         */
+        public void setOpenByInputClick(boolean openByClickOnInput) {
+            openByInputClick = openByClickOnInput;
         }
 
         protected GrapheneElement getLocalPopup() {
@@ -166,6 +171,15 @@ public class RichFacesSelect implements Select, AdvancedVisibleComponentIteracti
 
         protected ScrollingType getScrollingType() {
             return scrollingType;
+        }
+
+        /**
+         * Sets scrolling type. Default value is By_MOUSE.
+         *
+         * @param type type of scrolling through the list of options and selecting on of them.
+         */
+        public void setScrollingType(ScrollingType type) {
+            scrollingType = type;
         }
 
         public WebElement getShowButtonElement() {
@@ -189,29 +203,8 @@ public class RichFacesSelect implements Select, AdvancedVisibleComponentIteracti
             openByInputClick = DEFAULT_OPEN_BY_INPUT_CLICK;
         }
 
-        /**
-         * Sets opening of select. Default open method is by clicking on the input.
-         *
-         * @param openByClickOnInput
-         *            if true, select will be opened by input clicking (default). If false, the select will be opened by
-         *            'show' button of the select.
-         */
-        public void setOpenByInputClick(boolean openByClickOnInput) {
-            openByInputClick = openByClickOnInput;
-        }
-
         public void setScrollingType() {
             scrollingType = DEFAULT_SCROLLING_TYPE;
-        }
-
-        /**
-         * Sets scrolling type. Default value is By_MOUSE.
-         *
-         * @param type
-         *            type of scrolling through the list of options and selecting on of them.
-         */
-        public void setScrollingType(ScrollingType type) {
-            scrollingType = type;
         }
 
         public WaitingWrapper waitUntilSuggestionsAreNotVisible() {
@@ -222,7 +215,7 @@ public class RichFacesSelect implements Select, AdvancedVisibleComponentIteracti
                     wait.until().element(getLocalPopup()).is().present();
                 }
             }.withMessage("Waiting for popup to be not visible")
-                .withTimeout(getTimeoutForSuggestionsToBeNotVisible(), TimeUnit.MILLISECONDS);
+                    .withTimeout(getTimeoutForSuggestionsToBeNotVisible(), TimeUnit.MILLISECONDS);
         }
 
         public WaitingWrapper waitUntilSuggestionsAreVisible() {
@@ -239,25 +232,25 @@ public class RichFacesSelect implements Select, AdvancedVisibleComponentIteracti
                     });
                 }
             }.withMessage("Waiting for popup to be visible")
-                .withTimeout(getTimeoutForSuggestionsToBeVisible(), TimeUnit.MILLISECONDS);
+                    .withTimeout(getTimeoutForSuggestionsToBeVisible(), TimeUnit.MILLISECONDS);
+        }
+
+        public long getTimeoutForSuggestionsToBeNotVisible() {
+            return _timeoutForSuggestionsToBeNotVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(driver)
+                    : _timeoutForSuggestionsToBeNotVisible;
         }
 
         public void setTimeoutForSuggestionsToBeNotVisible(long timeoutInMilliseconds) {
             _timeoutForSuggestionsToBeNotVisible = timeoutInMilliseconds;
         }
 
-        public long getTimeoutForSuggestionsToBeNotVisible() {
-            return _timeoutForSuggestionsToBeNotVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(driver)
-                : _timeoutForSuggestionsToBeNotVisible;
+        public long getTimeoutForSuggestionsToBeVisible() {
+            return _timeoutForSuggestionsToBeVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(driver)
+                    : _timeoutForSuggestionsToBeVisible;
         }
 
         public void setTimeoutForSuggestionsToBeVisible(long timeoutInMilliseconds) {
             _timeoutForSuggestionsToBeVisible = timeoutInMilliseconds;
-        }
-
-        public long getTimeoutForSuggestionsToBeVisible() {
-            return _timeoutForSuggestionsToBeVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(driver)
-                : _timeoutForSuggestionsToBeVisible;
         }
     }
 }

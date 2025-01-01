@@ -21,17 +21,10 @@
  */
 package org.richfaces.resource.optimizer.resource.writer.impl;
 
-import java.io.*;
-import java.text.MessageFormat;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Set;
-
-import javax.faces.application.Resource;
-
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.google.common.io.ByteSource;
 import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
@@ -44,34 +37,28 @@ import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 import org.richfaces.resource.optimizer.strings.Constants;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
+import javax.faces.application.Resource;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * @author Nick Belaevski
  */
 public class ResourceWriterImpl implements ResourceWriter {
-    private static final class ResourceInputStreamSupplier extends ByteSource {
-        private Resource resource;
-
-        public ResourceInputStreamSupplier(Resource resource) {
-            super();
-            this.resource = resource;
-        }
-
-        @Override
-        public InputStream openStream() throws IOException {
-            return resource.getInputStream();
-        }
-    }
-
     /*
      * packed output stream by extension
      */
     private final Map<String, OutputStream> PACKED = new LinkedHashMap<String, OutputStream>();
-
     private File resourceContentsDir;
     private Map<String, String> processedResources = Maps.newConcurrentMap();
     private Iterable<ResourceProcessor> resourceProcessors;
@@ -79,7 +66,6 @@ public class ResourceWriterImpl implements ResourceWriter {
     private long currentTime;
     private Set<ResourceKey> resourcesWithKnownOrder;
     private Set<ResourceKey> packedResources = Sets.newHashSet();
-
     public ResourceWriterImpl(File resourceContentsDir, Iterable<ResourceProcessor> resourceProcessors, Logger log,
                               Set<ResourceKey> resourcesWithKnownOrder) {
         this.resourceContentsDir = resourceContentsDir;
@@ -229,6 +215,20 @@ public class ResourceWriterImpl implements ResourceWriter {
             } catch (IOException e) {
                 // Swallow
             }
+        }
+    }
+
+    private static final class ResourceInputStreamSupplier extends ByteSource {
+        private Resource resource;
+
+        public ResourceInputStreamSupplier(Resource resource) {
+            super();
+            this.resource = resource;
+        }
+
+        @Override
+        public InputStream openStream() throws IOException {
+            return resource.getInputStream();
         }
     }
 }

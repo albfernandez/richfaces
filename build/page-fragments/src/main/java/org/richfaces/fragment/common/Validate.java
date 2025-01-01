@@ -40,8 +40,8 @@ public final class Validate {
      * <p>For performance reasons, the long value is passed as a separate parameter and
      * appended to the exception message only in the case of an error.</p>
      *
-     * @param expression  the boolean expression to check
-     * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
+     * @param expression       the boolean expression to check
+     * @param message          the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param messageArguments the arguments for formatting the message when invalid
      * @throws IllegalArgumentException if expression is {@code false}
      */

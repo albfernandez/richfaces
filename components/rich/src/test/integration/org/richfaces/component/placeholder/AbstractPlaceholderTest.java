@@ -209,7 +209,7 @@ public abstract class AbstractPlaceholderTest {
         assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
         assertEquals(DEFAULT_PLACEHOLDER_COLOR, input().getTextColor());
         assertTrue("placeholder does not contain default class",
-            input().getStyleClass().contains(PLACEHOLDER_CLASS));
+                input().getStyleClass().contains(PLACEHOLDER_CLASS));
     }
 
     @Test

@@ -21,13 +21,12 @@
  */
 package org.richfaces.resource.external;
 
-import java.util.Set;
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.resource.mapping.ResourcePath;
 
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.resource.ResourceKey;
-import org.richfaces.resource.mapping.ResourcePath;
+import java.util.Set;
 
 /**
  * Creates resources pointing outside of JSF resource handler.
@@ -40,7 +39,7 @@ public interface MappedResourceFactory {
      * Creates external resource
      *
      * @param facesContext {@link FacesContext}
-     * @param resourceKey the resource key
+     * @param resourceKey  the resource key
      * @return external resource for given resource key
      */
     Resource createResource(FacesContext facesContext, ResourceKey resourceKey);

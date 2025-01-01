@@ -28,7 +28,6 @@ import javax.faces.bean.SessionScoped;
 
 /**
  * @author Nick Belaevski
- *
  */
 @ManagedBean
 @SessionScoped

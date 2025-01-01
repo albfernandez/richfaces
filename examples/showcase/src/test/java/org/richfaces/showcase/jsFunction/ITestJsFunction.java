@@ -21,8 +21,6 @@
  */
 package org.richfaces.showcase.jsFunction;
 
-import java.util.Map.Entry;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -32,6 +30,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.jsFunction.page.JsFunctionPage;
+
+import java.util.Map.Entry;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -62,7 +62,7 @@ public class ITestJsFunction extends AbstractWebDriverTest {
             WebElement element = entry.getValue();
             activate(element);
             Graphene.waitGui().until("The text in output should be same as in the active td!").element(page.getOutput()).text()
-                .equalTo(name);
+                    .equalTo(name);
         }
     }
 

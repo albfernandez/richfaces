@@ -25,7 +25,6 @@ import java.awt.Dimension;
 
 /**
  * @author Konstantin Mishin
- *
  */
 public abstract class SliderArrowBase extends ArrowBase {
     private static final Dimension DIMENSION = new Dimension(7, 7);

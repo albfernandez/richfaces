@@ -1,20 +1,18 @@
 package org.richfaces.renderkit.focus;
 
-import java.util.Iterator;
-import java.util.Map;
+import com.google.common.base.Joiner;
+import com.google.common.base.Predicate;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Iterators;
+import org.richfaces.component.AbstractFocus;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.component.AbstractFocus;
-import org.richfaces.renderkit.util.RendererUtils;
-
-import com.google.common.base.Joiner;
-import com.google.common.base.Predicate;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterators;
+import java.util.Iterator;
+import java.util.Map;
 
 public abstract class AbstractFocusRenderStrategy implements FocusRenderStrategy {
 
@@ -45,14 +43,14 @@ public abstract class AbstractFocusRenderStrategy implements FocusRenderStrategy
         UIComponent submittedFocus = getSubmittedFocus(context, component);
 
         if (component.isPreserve() && submittedFocus != null) {
-            return new String[] { submittedFocus.getClientId(context) };
+            return new String[]{submittedFocus.getClientId(context)};
         }
 
         if (component.isValidationAware()) {
             return getClientIdsWithMessages(context, form);
         }
 
-        return new String[] { form.getClientId(context) };
+        return new String[]{form.getClientId(context)};
     }
 
     /**
@@ -60,7 +58,7 @@ public abstract class AbstractFocusRenderStrategy implements FocusRenderStrategy
      * there is no invalid component or none of invalid components won't be focusable on the client).
      */
     private String[] getClientIdsWithMessages(FacesContext context, UIForm form) {
-         Iterator<String> clientIdsWithMessages = Iterators.filter(context.getClientIdsWithMessages(), new Predicate<String>() {
+        Iterator<String> clientIdsWithMessages = Iterators.filter(context.getClientIdsWithMessages(), new Predicate<String>() {
             @Override
             public boolean apply(String input) {
                 return input != null;

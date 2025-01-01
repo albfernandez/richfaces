@@ -21,12 +21,10 @@
  */
 package org.richfaces.resource.optimizer.resource.scan.impl;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Modifier;
-import java.net.URL;
-import java.util.Collection;
-
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Sets;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ConfigurationBuilder;
@@ -39,14 +37,14 @@ import org.richfaces.resource.optimizer.resource.scan.impl.reflections.Reflectio
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
 import org.richfaces.resource.optimizer.vfs.VFSType;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Sets;
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Modifier;
+import java.net.URL;
+import java.util.Collection;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class DynamicResourcesScanner implements ResourcesScanner {
     private static final Function<Class<?>, ResourceKey> RESOURCE_LOCATOR_FUNCTION = new Function<Class<?>, ResourceKey>() {
@@ -107,7 +105,7 @@ public class DynamicResourcesScanner implements ResourcesScanner {
     }
 
     private void addAnnotatedClasses(Class<? extends Annotation> annotationClass, ReflectionsExt refl,
-            Collection<Class<?>> allClasses) {
+                                     Collection<Class<?>> allClasses) {
         // TODO - reflections library doesn't handle @Inherited correctly
         for (Class<?> annotatedClass : refl.getTypesAnnotatedWith(annotationClass)) {
             allClasses.add(annotatedClass);

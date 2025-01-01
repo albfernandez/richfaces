@@ -25,7 +25,75 @@ public class MediaReader {
     private byte[] lengthBytes = new byte[4];
     private byte[] chunkTypeBytes = new byte[4];
     private Color[] colors;
-    
+
+    private void transformColors(byte[] data, int offset, int length) {
+        float[] intensities = new float[3];
+
+        for (int i = offset; i < length + offset; i += 3) {
+            float weight = 0;
+            for (int j = 0; j < intensities.length; j++) {
+                intensities[j] = ((float) (data[i + j] & 0xFF)) / 255;
+                weight += intensities[j];
+            }
+
+            float r = 0;
+            float g = 0;
+            float b = 0;
+
+            for (int j = 0; j < intensities.length; j++) {
+                r += intensities[j] * colors[j].getRed();
+                g += intensities[j] * colors[j].getGreen();
+                b += intensities[j] * colors[j].getBlue();
+            }
+
+            data[i] = (byte) (r);
+            data[i + 1] = (byte) (g);
+            data[i + 2] = (byte) (b);
+        }
+    }
+
+    ;
+
+    private Section readNextSection(InputStream inChannel) throws IOException {
+        int read = inChannel.read(lengthBytes);
+        if (read != -1) {
+            if (read < lengthBytes.length) {
+                throw new IllegalArgumentException();
+            }
+
+            if (inChannel.read(chunkTypeBytes) < chunkTypeBytes.length) {
+                throw new IllegalArgumentException();
+            }
+
+            IntBuffer lengthBuffer = ByteBuffer.wrap(lengthBytes).order(ByteOrder.BIG_ENDIAN).asIntBuffer();
+            sectionLength = lengthBuffer.get(0);
+            String chunkTypeString = new String(chunkTypeBytes, asciiCharset);
+
+            if ("IHDR".equals(chunkTypeString)) {
+                return new HeaderSection();
+            } else if ("PLTE".equals(chunkTypeString)) {
+                return new PaletteSection();
+            } else if ("IDAT".equals(chunkTypeString)) {
+                return new DataSection();
+            } else {
+                return new Section();
+            }
+        } else {
+            return null;
+        }
+    }
+
+    ;
+
+    public void write(Color[] colors, OutputStream os, InputStream is) throws IOException {
+        this.colors = colors;
+
+        Section section = null;
+        while ((section = readNextSection(is)) != null) {
+            section.write(is, os);
+        }
+    }
+
     private class Section {
         protected void writeHeaderSectionData(OutputStream outChannel) throws IOException {
             outChannel.write(lengthBytes);
@@ -109,32 +177,6 @@ public class MediaReader {
     }
 
     ;
-
-    private void transformColors(byte[] data, int offset, int length) {
-        float[] intensities = new float[3];
-
-        for (int i = offset; i < length + offset; i += 3) {
-            float weight = 0;
-            for (int j = 0; j < intensities.length; j++) {
-                intensities[j] = ((float) (data[i + j] & 0xFF)) / 255;
-                weight += intensities[j];
-            }
-
-            float r = 0;
-            float g = 0;
-            float b = 0;
-
-            for (int j = 0; j < intensities.length; j++) {
-                r += intensities[j] * colors[j].getRed();
-                g += intensities[j] * colors[j].getGreen();
-                b += intensities[j] * colors[j].getBlue();
-            }
-
-            data[i] = (byte) (r);
-            data[i + 1] = (byte) (g);
-            data[i + 2] = (byte) (b);
-        }
-    }
 
     private class PaletteSection extends Section {
         @Override
@@ -243,8 +285,6 @@ public class MediaReader {
         }
     }
 
-    ;
-
     private class DataSection extends Section {
         private byte paeth(byte a, byte b, byte c) {
             int p = (a & 0xFF) + (b & 0xFF) - (c & 0xFF);
@@ -266,68 +306,6 @@ public class MediaReader {
         }
 
         ;
-
-        private class Filter {
-            protected int idx;
-            byte a = 0;
-            byte b = 0;
-            byte c = 0;
-            byte oa = 0;
-            byte ob = 0;
-            byte oc = 0;
-            int step = 3;
-            byte[] bs;
-            byte[] ps;
-
-            public void setIdx(int idx) {
-                this.idx = idx;
-
-                oa = a;
-                ob = b;
-                oc = c;
-
-                b = ps[idx];
-                if (idx > step) {
-                    a = bs[idx - step];
-                    c = ps[idx - step];
-                }
-            }
-
-            public void next() {
-                idx = idx + step;
-                setIdx(idx);
-            }
-        }
-
-        ;
-
-        private class SubFilter extends Filter {
-            @Override
-            public void next() {
-                bs[idx] = (byte) ((bs[idx] & 0xFF) + (a & 0xFF) - (oa & 0xFF));
-                setIdx(idx + step);
-            }
-        }
-
-        ;
-
-        private class UpFilter extends Filter {
-            @Override
-            public void next() {
-                bs[idx] = (byte) ((bs[idx] & 0xFF) + (b & 0xFF) - (ob & 0xFF));
-                setIdx(idx + step);
-            }
-        }
-
-        ;
-
-        private class PaethFilter extends Filter {
-            @Override
-            public void next() {
-                bs[idx] = (byte) (paeth(a, b, c) - paeth(oa, ob, oc) + (bs[idx] & 0xFF));
-                setIdx(idx + step);
-            }
-        }
 
         private void reconstruct(byte[] bs, byte[] ps) {
             Filter[] filters = new Filter[3];
@@ -366,6 +344,8 @@ public class MediaReader {
 
             bs[0] = 0;
         }
+
+        ;
 
         @Override
         public void write(InputStream inChannel, OutputStream outChannel) throws IOException {
@@ -413,45 +393,65 @@ public class MediaReader {
                 writeInt(outChannel, (int) crc32.getValue());
             }
         }
-    }
 
-    ;
+        ;
 
-    private Section readNextSection(InputStream inChannel) throws IOException {
-        int read = inChannel.read(lengthBytes);
-        if (read != -1) {
-            if (read < lengthBytes.length) {
-                throw new IllegalArgumentException();
+        private class Filter {
+            protected int idx;
+            byte a = 0;
+            byte b = 0;
+            byte c = 0;
+            byte oa = 0;
+            byte ob = 0;
+            byte oc = 0;
+            int step = 3;
+            byte[] bs;
+            byte[] ps;
+
+            public void setIdx(int idx) {
+                this.idx = idx;
+
+                oa = a;
+                ob = b;
+                oc = c;
+
+                b = ps[idx];
+                if (idx > step) {
+                    a = bs[idx - step];
+                    c = ps[idx - step];
+                }
             }
 
-            if (inChannel.read(chunkTypeBytes) < chunkTypeBytes.length) {
-                throw new IllegalArgumentException();
+            public void next() {
+                idx = idx + step;
+                setIdx(idx);
             }
-
-            IntBuffer lengthBuffer = ByteBuffer.wrap(lengthBytes).order(ByteOrder.BIG_ENDIAN).asIntBuffer();
-            sectionLength = lengthBuffer.get(0);
-            String chunkTypeString = new String(chunkTypeBytes, asciiCharset);
-
-            if ("IHDR".equals(chunkTypeString)) {
-                return new HeaderSection();
-            } else if ("PLTE".equals(chunkTypeString)) {
-                return new PaletteSection();
-            } else if ("IDAT".equals(chunkTypeString)) {
-                return new DataSection();
-            } else {
-                return new Section();
-            }
-        } else {
-            return null;
         }
-    }
-    
-    public void write(Color[] colors, OutputStream os, InputStream is) throws IOException {
-        this.colors = colors;
 
-        Section section = null;
-        while ((section = readNextSection(is)) != null) {
-            section.write(is, os);
+        ;
+
+        private class SubFilter extends Filter {
+            @Override
+            public void next() {
+                bs[idx] = (byte) ((bs[idx] & 0xFF) + (a & 0xFF) - (oa & 0xFF));
+                setIdx(idx + step);
+            }
+        }
+
+        private class UpFilter extends Filter {
+            @Override
+            public void next() {
+                bs[idx] = (byte) ((bs[idx] & 0xFF) + (b & 0xFF) - (ob & 0xFF));
+                setIdx(idx + step);
+            }
+        }
+
+        private class PaethFilter extends Filter {
+            @Override
+            public void next() {
+                bs[idx] = (byte) (paeth(a, b, c) - paeth(oa, ob, oc) + (bs[idx] & 0xFF));
+                setIdx(idx + step);
+            }
         }
     }
 }

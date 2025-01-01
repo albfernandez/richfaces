@@ -1,35 +1,34 @@
 /**
  * License Agreement.
- *
- *  JBoss RichFaces - Ajax4jsf Component Library
- *
+ * <p>
+ * JBoss RichFaces - Ajax4jsf Component Library
+ * <p>
  * Copyright (C) 2007  Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.function;
 
-import java.util.Set;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.cdk.annotations.Function;
 import org.richfaces.renderkit.util.RendererUtils;
 import org.richfaces.util.Sets;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import java.util.Set;
 
 /**
  * Created 20.03.2008
@@ -42,12 +41,6 @@ public final class RichFunction {
      *
      */
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
-
-    // EasyMock requires at least protected access for the interface for calls to be delegated to
-    protected interface ComponentLocator {
-        UIComponent findComponent(FacesContext facesContext, UIComponent contextComponent, String id);
-    }
-
     private static ComponentLocator locator = new ComponentLocator() {
         public UIComponent findComponent(FacesContext context, UIComponent contextComponent, String id) {
             return RENDERER_UTILS.findComponentFor(contextComponent, id);
@@ -229,5 +222,10 @@ public final class RichFunction {
     @Function
     public static String toScript(Object o) {
         return ScriptUtils.toScript(o);
+    }
+
+    // EasyMock requires at least protected access for the interface for calls to be delegated to
+    protected interface ComponentLocator {
+        UIComponent findComponent(FacesContext facesContext, UIComponent contextComponent, String id);
     }
 }

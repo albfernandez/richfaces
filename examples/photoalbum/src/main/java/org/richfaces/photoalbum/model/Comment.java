@@ -21,8 +21,10 @@
  */
 package org.richfaces.photoalbum.model;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.Column;
@@ -36,11 +38,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Class for representing Comment Entity. EJB3 Entity Bean
@@ -137,8 +136,8 @@ public class Comment implements Serializable {
         final Comment comment = (Comment) obj;
 
         return (id == null ? comment.getId() == null : id.equals(comment.getId()))
-            && (author == null ? comment.getAuthor() == null : author.equals(comment.getAuthor()))
-            && image.equals(comment.getImage()) && message.equals(comment.getMessage());
+                && (author == null ? comment.getAuthor() == null : author.equals(comment.getAuthor()))
+                && image.equals(comment.getImage()) && message.equals(comment.getMessage());
     }
 
     @Override

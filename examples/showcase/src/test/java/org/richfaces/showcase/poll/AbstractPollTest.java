@@ -21,16 +21,16 @@
  *******************************************************************************/
 package org.richfaces.showcase.poll;
 
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.junit.Assert.assertTrue;
+import org.openqa.selenium.WebElement;
+import org.richfaces.showcase.AbstractWebDriverTest;
 
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.WebElement;
-import org.richfaces.showcase.AbstractWebDriverTest;
+import static org.jboss.arquillian.graphene.Graphene.waitAjax;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -39,7 +39,7 @@ public class AbstractPollTest extends AbstractWebDriverTest {
 
     /**
      * Initialize GregorianCalendar with time which is give from dateRetriever
-     * 
+     *
      * @param dateRetriever TextRetriever from which the calendar with specific time will be inicialized
      */
     public GregorianCalendar initializeCalendarFromDateRetriever(String date) {
@@ -56,8 +56,8 @@ public class AbstractPollTest extends AbstractWebDriverTest {
 
     /**
      * Computes deviation between two times, consider possibility of minute changing
-     * 
-     * @param calendarInitial the calendar with specific time which was before calendarAfterPool
+     *
+     * @param calendarInitial           the calendar with specific time which was before calendarAfterPool
      * @param calendarAfterServerAction the calendar with specific time which was after calendarInitial
      */
     public Integer computeDeviation(GregorianCalendar calendarInitial, GregorianCalendar calendarAfterServerAction) {
@@ -84,7 +84,7 @@ public class AbstractPollTest extends AbstractWebDriverTest {
     /**
      * Waits for particular server action, gets the deviation between two states(before particular server action and after),
      * checks that the deviation is not zero or bigger than one hour or one minute
-     * 
+     *
      * @param dateRetriever retriever which points to the server date
      * @return deviation between two states of rendered server date(before particular server action and after)
      */
@@ -96,10 +96,10 @@ public class AbstractPollTest extends AbstractWebDriverTest {
 
         GregorianCalendar calendarAfterPush = initializeCalendarFromDateRetriever(dateElement.getText());
         assertTrue("The time after " + whatServerAction + "is before the initial time! You are returning to the past!",
-            calendarAfterPush.after(calendarInitial));
+                calendarAfterPush.after(calendarInitial));
         Integer deviation = computeDeviation(calendarInitial, calendarAfterPush);
         assertTrue("Deviaton: " + deviation + " between two " + whatServerAction + "s/es is either too "
-            + "big (more than one minute/hour) or too small(zero)", deviation > 0);
+                + "big (more than one minute/hour) or too small(zero)", deviation > 0);
         return deviation;
     }
 }

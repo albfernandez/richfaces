@@ -21,27 +21,24 @@
  */
 package org.richfaces.renderkit;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
+import com.google.common.base.Strings;
 import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractDragSource;
 import org.richfaces.javascript.DnDScript;
 import org.richfaces.javascript.DragScript;
 
-import com.google.common.base.Strings;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author abelevich
- *
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
@@ -52,7 +49,7 @@ import com.google.common.base.Strings;
         @ResourceDependency(library = "com.jqueryui", name = "mouse.js"),
         @ResourceDependency(library = "com.jqueryui", name = "draggable.js"),
         @ResourceDependency(library = "com.jqueryui", name = "droppable.js"),
-        @ResourceDependency(library = "org.richfaces", name = "dnd-draggable.js") })
+        @ResourceDependency(library = "org.richfaces", name = "dnd-draggable.js")})
 @JsfRenderer(type = "org.richfaces.DragSourceRenderer", family = AbstractDragSource.COMPONENT_FAMILY)
 public class DragSourceRenderer extends DnDRenderBase {
     @Override

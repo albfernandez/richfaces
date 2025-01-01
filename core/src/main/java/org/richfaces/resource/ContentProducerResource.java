@@ -21,13 +21,11 @@
  */
 package org.richfaces.resource;
 
-import java.io.IOException;
-
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface ContentProducerResource {
     void encode(FacesContext context) throws IOException;

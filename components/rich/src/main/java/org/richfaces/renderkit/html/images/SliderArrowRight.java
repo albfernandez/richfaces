@@ -25,7 +25,6 @@ import java.awt.Graphics2D;
 
 /**
  * @author Konstantin Mishin
- *
  */
 public class SliderArrowRight extends SliderArrowBase {
     @Override

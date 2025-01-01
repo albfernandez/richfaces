@@ -21,11 +21,11 @@
  */
 package org.richfaces.fragment.configuration;
 
-import java.lang.annotation.Annotation;
-
 import org.jboss.arquillian.config.descriptor.api.ArquillianDescriptor;
-import org.jboss.arquillian.drone.spi.DroneConfiguration;
 import org.jboss.arquillian.drone.configuration.ConfigurationMapper;
+import org.jboss.arquillian.drone.spi.DroneConfiguration;
+
+import java.lang.annotation.Annotation;
 
 public class RichFacesPageFragmentsConfiguration implements DroneConfiguration<RichFacesPageFragmentsConfiguration> {
 

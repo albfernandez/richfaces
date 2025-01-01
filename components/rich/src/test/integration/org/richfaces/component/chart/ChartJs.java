@@ -31,7 +31,6 @@ public interface ChartJs {
     double pointX(String id, int seriesIndex, int pointIndex);
 
     /**
-     *
      * @param id
      * @param seriesIndex
      * @param pointIndex

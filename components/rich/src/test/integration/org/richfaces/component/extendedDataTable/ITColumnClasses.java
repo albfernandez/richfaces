@@ -37,21 +37,6 @@ public class ITColumnClasses {
         return deployment.getFinalArchive();
     }
 
-    @Test
-    public void check_column_classes() throws InterruptedException {
-        browser.get(contextPath.toExternalForm());
-
-        WebElement body = browser.findElement(By.id("myForm:edt:body"));
-        List<WebElement> cells = body.findElements(By.cssSelector("#myForm\\:edt\\:0\\:n td"));
-
-        Assert.assertTrue(cells.get(0).getAttribute("class").contains("c1"));
-        Assert.assertTrue(cells.get(0).getAttribute("class").contains("d1"));
-        Assert.assertTrue(cells.get(1).getAttribute("class").contains("c2"));
-        Assert.assertTrue(cells.get(1).getAttribute("class").contains("d2"));
-        Assert.assertTrue(cells.get(2).getAttribute("class").contains("c3"));
-        Assert.assertTrue(cells.get(2).getAttribute("class").contains("d3"));
-    }
-
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -65,7 +50,7 @@ public class ITColumnClasses {
         p.body("            <f:facet name='header'>Column 2</f:facet> ");
         p.body("            <h:outputText value='#{bean}' /> ");
         p.body("        </rich:column> ");
-        p.body("        <rich:column id='column3' styleClass='d3'>" );
+        p.body("        <rich:column id='column3' styleClass='d3'>");
         p.body("            <f:facet name='header'>Column 3</f:facet> ");
         p.body("            <h:outputText value='Row #{bean}, Column 3' /> ");
         p.body("        </rich:column> ");
@@ -73,6 +58,21 @@ public class ITColumnClasses {
         p.body("</h:form> ");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    @Test
+    public void check_column_classes() throws InterruptedException {
+        browser.get(contextPath.toExternalForm());
+
+        WebElement body = browser.findElement(By.id("myForm:edt:body"));
+        List<WebElement> cells = body.findElements(By.cssSelector("#myForm\\:edt\\:0\\:n td"));
+
+        Assert.assertTrue(cells.get(0).getAttribute("class").contains("c1"));
+        Assert.assertTrue(cells.get(0).getAttribute("class").contains("d1"));
+        Assert.assertTrue(cells.get(1).getAttribute("class").contains("c2"));
+        Assert.assertTrue(cells.get(1).getAttribute("class").contains("d2"));
+        Assert.assertTrue(cells.get(2).getAttribute("class").contains("c3"));
+        Assert.assertTrue(cells.get(2).getAttribute("class").contains("d3"));
     }
 
 }

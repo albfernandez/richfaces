@@ -20,14 +20,14 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.component;
-import javax.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 
+import javax.faces.component.UIComponentBase;
+
 /**
- *
  * @author Lukas Macko
  */
 @JsfComponent(tag = @Tag(name = "chartLegend"))
@@ -62,7 +62,9 @@ public abstract class AbstractChartLegend extends UIComponentBase {
 
     public enum PositionType {
         nw, sw, ne, se
-    };
+    }
+
+
 
     public enum SortingType {
         ascending, descending, reverse

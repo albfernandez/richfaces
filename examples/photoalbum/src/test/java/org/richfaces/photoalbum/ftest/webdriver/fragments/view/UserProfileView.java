@@ -21,12 +21,12 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -52,7 +52,7 @@ public class UserProfileView {
     private WebElement email;
 
     public void checkAll(String imgName, String loginName, String firstName, String secondName, String Sex, String birthday,
-        String email) {
+                         String email) {
         checkAvatarImage(imgName);
         checkBirthday(birthday);
         checkEmail(email);

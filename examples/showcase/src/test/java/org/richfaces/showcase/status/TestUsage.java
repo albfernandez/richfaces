@@ -21,15 +21,7 @@
  */
 package org.richfaces.showcase.status;
 
-import static java.text.MessageFormat.format;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import com.google.common.base.Predicate;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.javascript.Dependency;
 import org.jboss.arquillian.graphene.javascript.JavaScript;
@@ -39,7 +31,13 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.richfaces.showcase.AbstractWebDriverTest;
 
-import com.google.common.base.Predicate;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.text.MessageFormat.format;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author pmensik
@@ -55,7 +53,7 @@ public abstract class TestUsage extends AbstractWebDriverTest {
 
     /**
      * @param actionTriggeringStatusToShow
-     * @param statusIndex 0 for first status, 1 for second status (only in ITestReferencedUsage)
+     * @param statusIndex                  0 for first status, 1 for second status (only in ITestReferencedUsage)
      */
     protected void assertProgressPictureAppearsOnAjaxRequest(Action actionTriggeringStatusToShow, int statusIndex) {
         assertTrue(statusIndex == 0 || statusIndex == 1);

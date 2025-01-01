@@ -34,14 +34,14 @@ import java.util.List;
  * record </p>
  *
  * <p>Note 1: Grid does not take into account <b>pagination</b>. Thus one has to
- *  switch to a different page manually in order to access all records.
- *  All indexes used by methods are relative to one page.</p>
+ * switch to a different page manually in order to access all records.
+ * All indexes used by methods are relative to one page.</p>
  *
  * <p>Note 2: that one can use <tt>org.richfaces.fragment.common.NullFragment</tt>
  * as a Null Object pattern for RECORD generic type.</p>
  *
- * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @param <RECORD> the smallest data unit of this data grid
+ * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 public interface DataGrid<RECORD> {
 

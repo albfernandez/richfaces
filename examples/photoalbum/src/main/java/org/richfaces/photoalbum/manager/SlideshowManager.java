@@ -26,13 +26,6 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
-import java.io.Serializable;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.richfaces.json.JSONObject;
 import org.richfaces.photoalbum.model.Image;
@@ -42,42 +35,38 @@ import org.richfaces.photoalbum.model.event.Events;
 import org.richfaces.photoalbum.model.event.SimpleEvent;
 import org.richfaces.photoalbum.social.facebook.FacebookAlbumCache;
 import org.richfaces.photoalbum.social.gplus.GooglePlusAlbumCache;
+import org.richfaces.photoalbum.util.ApplicationUtils;
 import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.ImageHandler;
-import org.richfaces.photoalbum.util.ApplicationUtils;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
 
 @ApplicationScoped
 @Named("slideshow")
 public class SlideshowManager implements Serializable {
 
     private static final long serialVersionUID = 7801877176558409702L;
-
-    private Integer slideshowIndex;
-
-    private Integer startSlideshowIndex;
-
-    private ImageHandler selectedImage;
-
-    private boolean active;
-
-    private boolean errorDetected;
-
     @Inject
     Model model;
-
     @Inject
     FileManager fileManager;
-
     @Inject
     GooglePlusAlbumCache gpac;
-
     @Inject
     FacebookAlbumCache fac;
-
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
     Event<ErrorEvent> error;
-
+    private Integer slideshowIndex;
+    private Integer startSlideshowIndex;
+    private ImageHandler selectedImage;
+    private boolean active;
+    private boolean errorDetected;
     private int interval = Constants.INITIAL_DELAY;
 
     public int getInterval() {
@@ -99,7 +88,6 @@ public class SlideshowManager implements Serializable {
     /**
      * This method invoked after user click on 'Start slideshow' button and no image is selected. After execution of this method
      * slideshow will be activated.
-     * 
      */
     public void startSlideshow() {
         if (!this.active) {
@@ -123,7 +111,7 @@ public class SlideshowManager implements Serializable {
     /**
      * This method invoked after user click on 'Start slideshow' button. After execution of this method slideshow will be
      * activated starting from selected image.
-     * 
+     *
      * @param selectedImage - first image to show during slideshow
      */
     public void startSlideshow(Image selectedImage) {
@@ -134,11 +122,11 @@ public class SlideshowManager implements Serializable {
 
         startSlideshow();
     }
-    
+
     public void startSlideshow(JSONObject remoteImage) {
         initSlideshow();
         this.selectedImage = new ImageHandler(remoteImage);
-        switch(selectedImage.getType()) {
+        switch (selectedImage.getType()) {
             case ImageHandler.FACEBOOK:
                 this.slideshowIndex = fac.getCurrentImages().indexOf(remoteImage);
                 break;
@@ -149,24 +137,23 @@ public class SlideshowManager implements Serializable {
 
         startSlideshow();
     }
-    
+
     public void startSlideshowRemote(int kind) {
         this.slideshowIndex = this.startSlideshowIndex = 0;
-        switch(kind) {
+        switch (kind) {
             case ImageHandler.FACEBOOK:
                 this.selectedImage = new ImageHandler(fac.getCurrentImages().get(0));
                 break;
             case ImageHandler.GOOGLE:
                 this.selectedImage = new ImageHandler(gpac.getCurrentImages().get(0));
         }
-        
+
         startSlideshow();
     }
 
     /**
      * This method invoked after user click on 'Stop slideshow' button. After execution of this method slideshow will be
      * de-activated.
-     * 
      */
     public void stopSlideshow(@Observes @EventType(Events.STOP_SLIDESHOW_EVENT) SimpleEvent se) {
         active = false;
@@ -198,7 +185,6 @@ public class SlideshowManager implements Serializable {
 
     /**
      * This method used to prepare next image to show during slideshow
-     * 
      */
     public void showNextImage() {
         if (!active) {
@@ -219,10 +205,10 @@ public class SlideshowManager implements Serializable {
         // Check if that image was recently deleted. If yes, stopping slideshow
         checkIsFileRecentlyDeleted();
     }
-    
+
     private boolean isLastImage() {
-        switch(selectedImage.getType()) {
-            case ImageHandler.LOCAL: 
+        switch (selectedImage.getType()) {
+            case ImageHandler.LOCAL:
                 return slideshowIndex == model.getImages().size() - 1;
             case ImageHandler.FACEBOOK:
                 return slideshowIndex == fac.getCurrentImages().size() - 1;
@@ -232,10 +218,10 @@ public class SlideshowManager implements Serializable {
                 return true;
         }
     }
-    
+
     private void setNextImage() {
-        switch(selectedImage.getType()) {
-            case ImageHandler.LOCAL: 
+        switch (selectedImage.getType()) {
+            case ImageHandler.LOCAL:
                 selectedImage.setImage(model.getImages().get(slideshowIndex));
                 ((Image) this.selectedImage.getImage()).setVisited(true);
                 break;
@@ -294,7 +280,7 @@ public class SlideshowManager implements Serializable {
             errorDetected = true;
             ApplicationUtils.addToRerender(Constants.MAINAREA_ID);
             model.resetModel(NavigationEnum.ALBUM_IMAGE_PREVIEW, image.getAlbum().getOwner(), image.getAlbum().getShelf(),
-                image.getAlbum(), null, image.getAlbum().getImages());
+                    image.getAlbum(), null, image.getAlbum().getImages());
             return;
         }
     }

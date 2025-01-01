@@ -21,6 +21,18 @@
  */
 package org.richfaces.component;
 
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.AjaxProps;
+import org.richfaces.component.attribute.BypassProps;
+import org.richfaces.component.attribute.ImmediateProps;
+import org.richfaces.event.DropEvent;
+import org.richfaces.event.DropListener;
+import org.richfaces.view.facelets.DropHandler;
+
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
@@ -28,24 +40,12 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.event.DropEvent;
-import org.richfaces.event.DropListener;
-import org.richfaces.component.attribute.AjaxProps;
-import org.richfaces.component.attribute.BypassProps;
-import org.richfaces.component.attribute.ImmediateProps;
-import org.richfaces.view.facelets.DropHandler;
-
 /**
  * <p>
- *     The &lt;rich:dropTarget&gt; component can be added to a component so that the component can accept dragged items.
- *     The dragged items must be defined with a compatible drop type for the &lt;rich:dragSource&gt; component.
+ * The &lt;rich:dropTarget&gt; component can be added to a component so that the component can accept dragged items.
+ * The dragged items must be defined with a compatible drop type for the &lt;rich:dragSource&gt; component.
  * </p>
+ *
  * @author abelevich
  */
 @JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY,

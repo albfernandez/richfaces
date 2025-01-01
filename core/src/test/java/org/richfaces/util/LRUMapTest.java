@@ -21,14 +21,13 @@
  */
 package org.richfaces.util;
 
+import junit.framework.TestCase;
+
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import junit.framework.TestCase;
-
 /**
  * @author asmirnov
- *
  */
 public class LRUMapTest extends TestCase {
     /**

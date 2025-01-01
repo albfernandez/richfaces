@@ -21,10 +21,6 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import javax.el.ELContext;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
@@ -34,10 +30,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class FacesContextImpl extends FacesContext {
     private Map<Object, Object> attributes = new HashMap<Object, Object>();

@@ -21,13 +21,11 @@
  */
 package org.richfaces.model;
 
-import java.io.Serializable;
-
 import javax.el.ValueExpression;
+import java.io.Serializable;
 
 /**
  * @author Konstantin Mishin
- *
  */
 public abstract class Field implements Serializable {
     private static final long serialVersionUID = 1448767072411366177L;

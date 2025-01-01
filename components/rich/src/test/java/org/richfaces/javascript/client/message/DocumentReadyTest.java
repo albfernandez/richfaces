@@ -22,17 +22,15 @@
  */
 package org.richfaces.javascript.client.message;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Event;
 import org.jboss.test.qunit.Qunit.Builder;
 import org.junit.Test;
-
-import com.gargoylesoftware.htmlunit.javascript.host.Event;
 
 /**
  * <p class="changed_added_4_0">
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public class DocumentReadyTest extends MessageTestBase {
     @Override

@@ -23,7 +23,6 @@ package org.ajax4jsf.model;
 
 /**
  * @author Nick Belaevski
- *
  */
 public enum DataVisitResult {
     CONTINUE,

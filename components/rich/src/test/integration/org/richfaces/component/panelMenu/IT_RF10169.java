@@ -124,24 +124,24 @@ public class IT_RF10169 {
         for (String att : IT_RF10169_PagesGenerator.ALL_ATTRIBUTES) {
             if (p.getSample().contains(att)) {
                 String selector = p.isClassCheck()
-                    ? "." + IT_RF10169_PagesGenerator.DEFAULT_CLASS
-                    : "[class*=" + IT_RF10169_PagesGenerator.DEFAULT_ICON + ']';
+                        ? "." + IT_RF10169_PagesGenerator.DEFAULT_CLASS
+                        : "[class*=" + IT_RF10169_PagesGenerator.DEFAULT_ICON + ']';
 
                 int count = p.isGroupClassOrItemClass()
-                    ? p.isGroupCheck()
+                        ? p.isGroupCheck()
                         ? IT_RF10169_PagesGenerator.COUNT_ALL_DISABLED_GROUPS + IT_RF10169_PagesGenerator.COUNT_ALL_NOT_DISABLED_GROUPS
                         : IT_RF10169_PagesGenerator.COUNT_ALL_DISABLED_ITEMS + IT_RF10169_PagesGenerator.COUNT_ALL_NOT_DISABLED_ITEMS
-                    : p.isDisabled()
+                        : p.isDisabled()
                         ? p.isGroupCheck()
-                            ? IT_RF10169_PagesGenerator.COUNT_ALL_DISABLED_GROUPS
-                            : IT_RF10169_PagesGenerator.COUNT_ALL_DISABLED_ITEMS
+                        ? IT_RF10169_PagesGenerator.COUNT_ALL_DISABLED_GROUPS
+                        : IT_RF10169_PagesGenerator.COUNT_ALL_DISABLED_ITEMS
                         : p.isGroupCheck()
-                            ? IT_RF10169_PagesGenerator.COUNT_ALL_NOT_DISABLED_GROUPS
-                            : IT_RF10169_PagesGenerator.COUNT_ALL_NOT_DISABLED_ITEMS;
+                        ? IT_RF10169_PagesGenerator.COUNT_ALL_NOT_DISABLED_GROUPS
+                        : IT_RF10169_PagesGenerator.COUNT_ALL_NOT_DISABLED_ITEMS;
                 assertEquals("Count of all checked items should match with expected.", count, all.size());
                 assertEquals("Count of all items found by JQuery selector (\"" + selector + "\") is not equal to expected count.",
-                    p.isDisabledGroupIconCheck() ? count * 2 : count,
-                    browser.findElements(ByJQuery.selector(selector)).size()
+                        p.isDisabledGroupIconCheck() ? count * 2 : count,
+                        browser.findElements(ByJQuery.selector(selector)).size()
                 );
                 return;
             }
@@ -155,57 +155,57 @@ public class IT_RF10169 {
         for (String att : IT_RF10169_PagesGenerator.ALL_ATTRIBUTES) {
             if (p.getSample().contains(att)) {
                 String selector = p.isClassCheck()
-                    ? "." + IT_RF10169_PagesGenerator.DEFAULT_CLASS
-                    : "[class*=" + IT_RF10169_PagesGenerator.DEFAULT_ICON + ']';
+                        ? "." + IT_RF10169_PagesGenerator.DEFAULT_CLASS
+                        : "[class*=" + IT_RF10169_PagesGenerator.DEFAULT_ICON + ']';
 
                 int count = p.isDisabled()
-                    ? p.isGroupCheck()
+                        ? p.isGroupCheck()
                         ? IT_RF10169_PagesGenerator.COUNT_INNER_DISABLED_GROUPS
                         : IT_RF10169_PagesGenerator.COUNT_INNER_DISABLED_ITEMS
-                    : p.isGroupCheck()
+                        : p.isGroupCheck()
                         ? IT_RF10169_PagesGenerator.COUNT_INNER_NOT_DISABLED_GROUPS
                         : IT_RF10169_PagesGenerator.COUNT_INNER_NOT_DISABLED_ITEMS;
                 count += p.isGroupClassOrItemClass()
-                    ? p.isGroupCheck()
+                        ? p.isGroupCheck()
                         ? IT_RF10169_PagesGenerator.COUNT_INNER_DISABLED_GROUPS
                         : IT_RF10169_PagesGenerator.COUNT_INNER_DISABLED_ITEMS
-                    : 0;
+                        : 0;
                 assertEquals("Count of all inner items should match with expected.", count, inner.size());
                 assertEquals("Count of all inner items found by JQuery selector (\"" + selector + "\") is not equal to expected count.",
-                    p.isDisabledGroupIconCheck() ? count * 2 : count,
-                    browser.findElements(ByJQuery.selector(selector)).size()
+                        p.isDisabledGroupIconCheck() ? count * 2 : count,
+                        browser.findElements(ByJQuery.selector(selector)).size()
                 );
 
                 selector = p.isClassCheck()
-                    ? "." + IT_RF10169_PagesGenerator.DEFAULT_TOP_CLASS
-                    : "[class*=" + IT_RF10169_PagesGenerator.DEFAULT_TOP_ICON + ']';
+                        ? "." + IT_RF10169_PagesGenerator.DEFAULT_TOP_CLASS
+                        : "[class*=" + IT_RF10169_PagesGenerator.DEFAULT_TOP_ICON + ']';
 
                 count = p.isDisabled()
-                    ? p.isGroupCheck()
+                        ? p.isGroupCheck()
                         ? IT_RF10169_PagesGenerator.COUNT_TOP_DISABLED_GROUPS
                         : IT_RF10169_PagesGenerator.COUNT_TOP_DISABLED_ITEMS
-                    : p.isGroupCheck()
+                        : p.isGroupCheck()
                         ? IT_RF10169_PagesGenerator.COUNT_TOP_NOT_DISABLED_GROUPS
                         : IT_RF10169_PagesGenerator.COUNT_TOP_NOT_DISABLED_ITEMS;
                 count += p.isGroupClassOrItemClass()
-                    ? p.isGroupCheck()
+                        ? p.isGroupCheck()
                         ? IT_RF10169_PagesGenerator.COUNT_TOP_DISABLED_GROUPS
                         : IT_RF10169_PagesGenerator.COUNT_TOP_DISABLED_ITEMS
-                    : 0;
+                        : 0;
                 if (p.isEmptyTopClass()) {
                     assertEquals("Count of all top items should match with expected.", count, top.size());
                     assertEquals("Count of all top items found by JQuery selector (\"" + selector + "\") is not equal to expected count.",
-                        0,
-                        browser.findElements(ByJQuery.selector(selector)).size()
+                            0,
+                            browser.findElements(ByJQuery.selector(selector)).size()
                     );
                 } else {
                     assertEquals("Count of all top items should match with expected.", count, top.size());
                     assertEquals("Count of all top items found by JQuery selector (\"" + selector + "\") is not equal to expected count.",
-                        p.isDisabledGroupIconCheck() ? count * 2 : count,
-                        browser.findElements(p.isClassCheck()
-                                ? By.className(IT_RF10169_PagesGenerator.DEFAULT_TOP_CLASS)
-                                : ByJQuery.selector("[class*=" + IT_RF10169_PagesGenerator.DEFAULT_TOP_ICON + ']')
-                        ).size()
+                            p.isDisabledGroupIconCheck() ? count * 2 : count,
+                            browser.findElements(p.isClassCheck()
+                                    ? By.className(IT_RF10169_PagesGenerator.DEFAULT_TOP_CLASS)
+                                    : ByJQuery.selector("[class*=" + IT_RF10169_PagesGenerator.DEFAULT_TOP_ICON + ']')
+                            ).size()
                     );
                 }
                 return;

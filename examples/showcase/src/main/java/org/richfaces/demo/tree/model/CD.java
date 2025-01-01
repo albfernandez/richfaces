@@ -1,8 +1,7 @@
 package org.richfaces.demo.tree.model;
 
-import java.util.Enumeration;
-
 import javax.swing.tree.TreeNode;
+import java.util.Enumeration;
 
 public class CD extends NamedNode implements TreeNode {
     private Company company;

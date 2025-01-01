@@ -21,6 +21,10 @@
  */
 package org.richfaces.view.facelets.html;
 
+import org.richfaces.component.AbstractCollapsiblePanel;
+import org.richfaces.event.MethodExpressionPanelToggleListener;
+import org.richfaces.event.PanelToggleEvent;
+
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
@@ -29,10 +33,6 @@ import javax.faces.view.facelets.MetaRuleset;
 import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
-
-import org.richfaces.component.AbstractCollapsiblePanel;
-import org.richfaces.event.MethodExpressionPanelToggleListener;
-import org.richfaces.event.PanelToggleEvent;
 
 /**
  * @author akolonitsky
@@ -65,7 +65,7 @@ public class CollapsiblePanelTagHandler extends ComponentHandler {
     }
 
     private static final class PanelToggleExpressionMetadata extends Metadata {
-        private static final Class<?>[] CHANGE_EXPAND_SIG = new Class[] { PanelToggleEvent.class };
+        private static final Class<?>[] CHANGE_EXPAND_SIG = new Class[]{PanelToggleEvent.class};
         private final TagAttribute attr;
 
         PanelToggleExpressionMetadata(TagAttribute attr) {
@@ -75,7 +75,7 @@ public class CollapsiblePanelTagHandler extends ComponentHandler {
         @Override
         public void applyMetadata(FaceletContext ctx, Object instance) {
             ((AbstractCollapsiblePanel) instance).addPanelToggleListener(new MethodExpressionPanelToggleListener(this.attr
-                .getMethodExpression(ctx, null, CHANGE_EXPAND_SIG)));
+                    .getMethodExpression(ctx, null, CHANGE_EXPAND_SIG)));
         }
     }
 }

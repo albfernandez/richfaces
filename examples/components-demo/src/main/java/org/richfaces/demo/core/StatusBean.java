@@ -26,7 +26,6 @@ import javax.faces.bean.RequestScoped;
 
 /**
  * @author Nick Belaevski
- *
  */
 @ManagedBean(name = "statusBean")
 @RequestScoped

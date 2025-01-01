@@ -1,25 +1,34 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.renderkit.html.images;
 
+import org.richfaces.resource.DynamicUserResource;
+import org.richfaces.resource.ImageType;
+import org.richfaces.resource.Java2DUserResource;
+import org.richfaces.resource.PostConstructResource;
+import org.richfaces.resource.StateHolderResource;
+import org.richfaces.skin.Skin;
+import org.richfaces.skin.SkinFactory;
+
+import javax.faces.context.FacesContext;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -29,16 +38,6 @@ import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
-
-import javax.faces.context.FacesContext;
-
-import org.richfaces.resource.DynamicUserResource;
-import org.richfaces.resource.ImageType;
-import org.richfaces.resource.Java2DUserResource;
-import org.richfaces.resource.PostConstructResource;
-import org.richfaces.resource.StateHolderResource;
-import org.richfaces.skin.Skin;
-import org.richfaces.skin.SkinFactory;
 
 @DynamicUserResource
 public class MenuNodeImage implements Java2DUserResource, StateHolderResource {

@@ -22,9 +22,6 @@
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
 
-
-import static org.junit.Assert.assertTrue;
-
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebDriver;
@@ -32,8 +29,9 @@ import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.notify.RichFacesNotifyMessage;
 
+import static org.junit.Assert.assertTrue;
+
 /**
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class ErrorPanel extends RichFacesNotifyMessage {

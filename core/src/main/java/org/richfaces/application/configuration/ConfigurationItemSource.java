@@ -23,7 +23,6 @@ package org.richfaces.application.configuration;
 
 /**
  * @author Nick Belaevski
- *
  */
 public enum ConfigurationItemSource {
 

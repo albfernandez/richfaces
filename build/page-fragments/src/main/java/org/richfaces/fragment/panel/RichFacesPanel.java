@@ -30,20 +30,18 @@ import org.richfaces.fragment.common.VisibleComponentInteractions;
 
 /**
  * Add to the final doc that there is example implementation in TextualRichFacesPanel, as the most used panel.
- * @author jhuska
  *
  * @param <HEADER>
  * @param <BODY>
+ * @author jhuska
  */
 public abstract class RichFacesPanel<HEADER, BODY> extends AbstractPanel<HEADER, BODY> implements AdvancedVisibleComponentIteractions<RichFacesPanel<HEADER, BODY>.AdvancedRichPanelInteractions> {
 
+    private final AdvancedRichPanelInteractions advancedInteractions = new AdvancedRichPanelInteractions();
     @FindBy(css = "div.rf-p-hdr")
     private GrapheneElement header;
-
     @FindBy(css = "div.rf-p-b")
     private GrapheneElement body;
-
-    private final AdvancedRichPanelInteractions advancedInteractions = new AdvancedRichPanelInteractions();
 
     @Override
     public AdvancedRichPanelInteractions advanced() {

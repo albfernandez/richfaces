@@ -27,18 +27,17 @@ import org.richfaces.fragment.common.picker.ChoicePicker;
  * Represents a switchable component. That is component which consists from multiple panels,
  * and it is possible to switch among them. For example: tabPanel, accordion etc.
  *
- * @author jhuska
- *
  * @param <T> the container type, for example TabPanel has Tabs etc.
  *            Its purpose is to hold the actual content of the panel
  *            and provide it in form of initialized page object.
+ * @author jhuska
  */
 public interface SwitchableComponent<T extends ComponentContainer> {
 
     /**
      * Switches to the container according to the given <code>picker</code> rules.
      *
-     * @param  picker
+     * @param picker
      * @return initialized container of this switchable component, which was switched into
      * @throws IllegalArgumentException if there is no container which satisfies picker rules
      */
@@ -47,7 +46,7 @@ public interface SwitchableComponent<T extends ComponentContainer> {
     /**
      * Switches to the container which text representation of header equals to given <code>header</code>.
      *
-     * @param  header
+     * @param header
      * @return initialized container of this switchable component, which was switched into
      * @throws IllegalArgumentException if there is no container with such a <code>header</code>
      */

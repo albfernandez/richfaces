@@ -21,6 +21,10 @@
  */
 package org.richfaces.view.facelets.tag;
 
+import org.ajax4jsf.component.AjaxClientBehavior;
+import org.ajax4jsf.component.behavior.AjaxBehavior;
+import org.ajax4jsf.component.behavior.MethodExpressionAjaxBehaviorListener;
+
 import javax.el.MethodExpression;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.facelets.FaceletContext;
@@ -28,21 +32,16 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.ajax4jsf.component.AjaxClientBehavior;
-import org.ajax4jsf.component.behavior.AjaxBehavior;
-import org.ajax4jsf.component.behavior.MethodExpressionAjaxBehaviorListener;
-
 /**
  * @author Anton Belevich
- *
  */
 public class AjaxBehaviorRule extends BehaviorRule {
-    public static final Class<?>[] AJAX_BEHAVIOR_LISTENER_SIG = new Class[] { AjaxBehaviorEvent.class };
-    private static final Class<?>[] AJAX_BEHAVIOR_ZEROARG_SIG = new Class[] {};
+    public static final Class<?>[] AJAX_BEHAVIOR_LISTENER_SIG = new Class[]{AjaxBehaviorEvent.class};
     public static final AjaxBehaviorRule INSTANCE = new AjaxBehaviorRule();
     public static final String EXECUTE = "execute";
     public static final String RENDER = "render";
     public static final String LISTENER = "listener";
+    private static final Class<?>[] AJAX_BEHAVIOR_ZEROARG_SIG = new Class[]{};
 
     @Override
     public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
@@ -83,7 +82,7 @@ public class AjaxBehaviorRule extends BehaviorRule {
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
             MethodExpression methodExpressionOneArg = this.attr
-                .getMethodExpression(ctx, null, AjaxBehaviorRule.AJAX_BEHAVIOR_LISTENER_SIG);
+                    .getMethodExpression(ctx, null, AjaxBehaviorRule.AJAX_BEHAVIOR_LISTENER_SIG);
             MethodExpression methodExpressionZeroArg = this.attr
                     .getMethodExpression(ctx, null, AjaxBehaviorRule.AJAX_BEHAVIOR_ZEROARG_SIG);
             ((AjaxClientBehavior) instance).addAjaxBehaviorListener(new MethodExpressionAjaxBehaviorListener(methodExpressionOneArg, methodExpressionZeroArg));

@@ -65,7 +65,7 @@ public class XMLTokener extends JSONTokener {
         int i;
         StringBuffer sb = new StringBuffer();
 
-        for (;;) {
+        for (; ; ) {
             c = next();
 
             if (c == 0) {
@@ -83,13 +83,13 @@ public class XMLTokener extends JSONTokener {
         }
     }
 
-/**
+    /**
      * Get the next XML outer token, trimming whitespace. There are two kinds
      * of tokens: the '<' character which begins a markup tag, and the content
      * text between markup tags.
      *
      * @return A string, or a '<' Character, or null if there is no more
-     *         source text.
+     * source text.
      * @throws JSONException
      */
     public Object nextContent() throws JSONException {
@@ -110,7 +110,7 @@ public class XMLTokener extends JSONTokener {
 
         sb = new StringBuffer();
 
-        for (;;) {
+        for (; ; ) {
             if ((c == '<') || (c == 0)) {
                 back();
 
@@ -137,7 +137,7 @@ public class XMLTokener extends JSONTokener {
     public Object nextEntity(char a) throws JSONException {
         StringBuffer sb = new StringBuffer();
 
-        for (;;) {
+        for (; ; ) {
             char c = next();
 
             if (Character.isLetterOrDigit(c) || (c == '#')) {
@@ -159,7 +159,7 @@ public class XMLTokener extends JSONTokener {
      * Returns the next XML meta token. This is used for skipping over <!...> and <?...?> structures.
      *
      * @return Syntax characters (<code>< > / = ! ?</code>) are returned as Character, and strings and names are returned as
-     *         Boolean. We don't care what the values actually are.
+     * Boolean. We don't care what the values actually are.
      * @throws JSONException If a string is not properly closed or if the XML is badly structured.
      */
     public Object nextMeta() throws JSONException {
@@ -196,7 +196,7 @@ public class XMLTokener extends JSONTokener {
             case '\'':
                 q = c;
 
-                for (;;) {
+                for (; ; ) {
                     c = next();
 
                     if (c == 0) {
@@ -208,7 +208,7 @@ public class XMLTokener extends JSONTokener {
                     }
                 }
             default:
-                for (;;) {
+                for (; ; ) {
                     c = next();
 
                     if (Character.isWhitespace(c)) {
@@ -275,13 +275,13 @@ public class XMLTokener extends JSONTokener {
             case '?':
                 return XML.QUEST;
 
-                // Quoted string
+            // Quoted string
             case '"':
             case '\'':
                 q = c;
                 sb = new StringBuffer();
 
-                for (;;) {
+                for (; ; ) {
                     c = next();
 
                     if (c == 0) {
@@ -303,7 +303,7 @@ public class XMLTokener extends JSONTokener {
                 // Name
                 sb = new StringBuffer();
 
-                for (;;) {
+                for (; ; ) {
                     sb.append(c);
                     c = next();
 

@@ -27,10 +27,9 @@ package org.ajax4jsf.component;
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:57:40 $
- *
  */
 public interface JavaScriptParameter {
-    void setNoEscape(boolean noEscape);
-
     boolean isNoEscape();
+
+    void setNoEscape(boolean noEscape);
 }

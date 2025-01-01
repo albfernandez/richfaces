@@ -21,24 +21,6 @@
  */
 package org.ajax4jsf.component.behavior;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.el.ExpressionFactory;
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.component.behavior.ClientBehaviorHint;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.AjaxBehaviorListener;
-import javax.faces.event.BehaviorEvent;
-
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
@@ -52,38 +34,35 @@ import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
 import org.richfaces.util.Sets;
 import org.richfaces.view.facelets.html.AjaxHandler;
 
+import javax.el.ExpressionFactory;
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
+import javax.faces.FacesException;
+import javax.faces.component.behavior.ClientBehaviorHint;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.AjaxBehaviorListener;
+import javax.faces.event.BehaviorEvent;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * <p>
  * The &lt;a4j:ajax&gt; behavior allows Ajax capability to be added to a non-Ajax component. The non-Ajax component must
  * implement the ClientBehaviorHolder interface for all the event attributes that support behavior rendering.
  * </p>
+ *
  * @author Anton Belevich
  */
 @JsfBehavior(id = "org.ajax4jsf.behavior.Ajax", tag = @Tag(name = "ajax", handlerClass = AjaxHandler.class, type = TagType.Facelets))
 public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, AjaxProps {
     public static final String BEHAVIOR_ID = "org.ajax4jsf.behavior.Ajax";
     private static final Set<ClientBehaviorHint> HINTS = Collections.unmodifiableSet(EnumSet.of(ClientBehaviorHint.SUBMITTING));
-
-    enum PropertyKeys {
-        data,
-        event,
-        execute,
-        onbeforedomupdate,
-        onbegin,
-        oncomplete,
-        onerror,
-        queueId,
-        render,
-        status,
-        disabled,
-        limitRender,
-        listener,
-        immediate,
-        bypassUpdates,
-        onbeforesubmit,
-        resetValues
-    }
-
     private Set<String> execute;
     private Set<String> render;
     @SuppressWarnings("unused")
@@ -141,8 +120,8 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
 
         if (result == null) {
             throw new FacesException(
-                propertyName.toString()
-                    + "' attribute value must be Collection, List, array, String, comma-separated String, whitespace-separate String'");
+                    propertyName.toString()
+                            + "' attribute value must be Collection, List, array, String, comma-separated String, whitespace-separate String'");
         }
 
         return result;
@@ -469,7 +448,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
         if (initialStateMarked()) {
 
             if (parentState != null) {
-                state = new Object[] { parentState };
+                state = new Object[]{parentState};
             }
         } else {
             Object[] values = new Object[3];
@@ -481,5 +460,25 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
         }
 
         return state;
+    }
+
+    enum PropertyKeys {
+        data,
+        event,
+        execute,
+        onbeforedomupdate,
+        onbegin,
+        oncomplete,
+        onerror,
+        queueId,
+        render,
+        status,
+        disabled,
+        limitRender,
+        listener,
+        immediate,
+        bypassUpdates,
+        onbeforesubmit,
+        resetValues
     }
 }

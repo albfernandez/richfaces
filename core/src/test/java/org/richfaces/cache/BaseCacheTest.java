@@ -21,15 +21,15 @@
  */
 package org.richfaces.cache;
 
+import org.jboss.test.faces.AbstractFacesTest;
+import org.junit.Assert;
+import org.richfaces.application.CoreConfiguration;
+
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.jboss.test.faces.AbstractFacesTest;
-import org.junit.Assert;
-import org.richfaces.application.CoreConfiguration;
 
 /**
  * @author Nick Belaevski

@@ -32,9 +32,8 @@ import javax.faces.convert.Converter;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public interface FacesConverterService {
     ConverterDescriptor getConverterDescription(FacesContext context, EditableValueHolder input, Converter converter,
-        String converterMessage);
+                                                String converterMessage);
 }

@@ -28,7 +28,6 @@ import javax.faces.model.SelectItem;
 
 /**
  * @author Nick Belaevski
- *
  */
 @ManagedBean(name = "requestBean")
 @RequestScoped

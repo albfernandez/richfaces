@@ -62,6 +62,16 @@ public enum ImageDimension {
         }
     }
 
+    public static ImageDimension getInstance(int x) {
+        ImageDimension[] all = values();
+        for (int i = 0; i < all.length; i++) {
+            if (all[i].x == x) {
+                return all[i];
+            }
+        }
+        return values()[Constants.DEFAULT_IMAGE_SIZEVALUE];
+    }
+
     public int getX() {
         return x;
     }
@@ -80,15 +90,5 @@ public enum ImageDimension {
 
     public String getFilePostfix() {
         return filePostfix;
-    }
-
-    public static ImageDimension getInstance(int x) {
-        ImageDimension[] all = values();
-        for (int i = 0; i < all.length; i++) {
-            if (all[i].x == x) {
-                return all[i];
-            }
-        }
-        return values()[Constants.DEFAULT_IMAGE_SIZEVALUE];
     }
 }

@@ -1,11 +1,11 @@
 package org.richfaces.component.behavior;
 
+import org.ajax4jsf.javascript.ScriptStringBase;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.ajax4jsf.javascript.ScriptStringBase;
 
 public class AnonymousFunctionCall extends ScriptStringBase {
 

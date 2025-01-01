@@ -1,5 +1,7 @@
 package org.richfaces.renderkit.html.images;
 
+import org.richfaces.resource.DynamicUserResource;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
@@ -8,8 +10,6 @@ import java.awt.RenderingHints;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
-
-import org.richfaces.resource.DynamicUserResource;
 
 @DynamicUserResource
 public class SquareSeparatorImage extends ToolbarSeparatorImage {
@@ -26,7 +26,7 @@ public class SquareSeparatorImage extends ToolbarSeparatorImage {
         Color gradientColorEnd = new Color(this.getHeaderBackgroundColor());
         Rectangle2D inSquare = new Rectangle2D.Double(2, 2, DIMENSIONS.getWidth() - 4, DIMENSIONS.getHeight() - 4);
         GradientPaint paint = new GradientPaint((float) 2, (float) 2, gradientColorStart, (float) DIMENSIONS.getWidth() - 2,
-            (float) DIMENSIONS.getHeight() - 2, gradientColorEnd);
+                (float) DIMENSIONS.getHeight() - 2, gradientColorEnd);
         g2d.setPaint(paint);
         g2d.fill(inSquare);
 

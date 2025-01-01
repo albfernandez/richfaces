@@ -25,7 +25,6 @@ import org.ajax4jsf.model.Range;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class TreeRange implements Range {
     private AbstractTree tree;

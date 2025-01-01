@@ -21,14 +21,14 @@
  */
 package org.richfaces.showcase.inplaceInput;
 
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
-
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.inplaceInput.RichFacesInplaceInput;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.inplaceInput.page.SimplePage;
+
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
 
 /**
  * Test case for page faces/components/richInplaceInput/simple.xhtml.

@@ -21,20 +21,18 @@
  */
 package org.richfaces.skin;
 
-import java.awt.Color;
-
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
-
 import org.ajax4jsf.util.HtmlColor;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.HtmlDimensions;
 import org.richfaces.resource.ResourceKey;
 
+import javax.faces.application.Resource;
+import javax.faces.context.FacesContext;
+import java.awt.Color;
+
 /**
  * @author Nick Belaevski
- *
  */
 public abstract class AbstractSkin implements Skin {
 
@@ -85,7 +83,7 @@ public abstract class AbstractSkin implements Skin {
     }
 
     public String imageUrl(String resourceName) {
-        if ("plain".equals(getName())){
+        if ("plain".equals(getName())) {
             return "none";
         }
         FacesContext facesContext = FacesContext.getCurrentInstance();

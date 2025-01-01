@@ -21,10 +21,9 @@
  */
 package org.richfaces.util;
 
+import javax.faces.context.FacesContext;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
@@ -34,25 +33,6 @@ public final class RequestStateManager {
     private static final String CONTEXT_ATTRIBUTE_NAME = RequestStateManager.class.getName();
 
     private RequestStateManager() {
-    }
-
-    // TODO remove this stuff
-    public static enum BooleanRequestStateVariable {
-        LegacyResourceRequest("org.richfaces.LEGACY_RESOURCE_REQUEST"),
-        ResourceRequest("org.richfaces.RESOURCE_REQUEST");
-        private String attributeName;
-
-        private BooleanRequestStateVariable(String attributeName) {
-            this.attributeName = attributeName;
-        }
-
-        public Boolean get(FacesContext context) {
-            return (Boolean) RequestStateManager.get(context, this.attributeName);
-        }
-
-        public void set(FacesContext context, Boolean value) {
-            RequestStateManager.set(context, this.attributeName, value);
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -123,6 +103,25 @@ public final class RequestStateManager {
             if (stateMap != null) {
                 stateMap.remove(key);
             }
+        }
+    }
+
+    // TODO remove this stuff
+    public static enum BooleanRequestStateVariable {
+        LegacyResourceRequest("org.richfaces.LEGACY_RESOURCE_REQUEST"),
+        ResourceRequest("org.richfaces.RESOURCE_REQUEST");
+        private String attributeName;
+
+        private BooleanRequestStateVariable(String attributeName) {
+            this.attributeName = attributeName;
+        }
+
+        public Boolean get(FacesContext context) {
+            return (Boolean) RequestStateManager.get(context, this.attributeName);
+        }
+
+        public void set(FacesContext context, Boolean value) {
+            RequestStateManager.set(context, this.attributeName, value);
         }
     }
 }

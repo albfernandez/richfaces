@@ -21,10 +21,10 @@
  */
 package org.richfaces.photoalbum.model.actions;
 
-import javax.ejb.Local;
-
 import org.richfaces.photoalbum.model.User;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
+
+import javax.ejb.Local;
 
 /**
  * Interface for manipulating with user entity

@@ -21,8 +21,6 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import static org.junit.Assert.assertEquals;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -34,9 +32,11 @@ import org.richfaces.photoalbum.ftest.webdriver.fragments.ConfirmationPanel;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
- * 
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
@@ -44,17 +44,17 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
     private static final String GROUP_NAME = "New Album group";
 
     /**
-     * Helper method used to add album group. 
+     * Helper method used to add album group.
      * Firstly logs in and then checks whether album was already added.
      */
     private void addGroup() {
         login();
-        
+
         RichFacesTree myGroupsTree = getPage().getLeftPanel().getMyGroupsTree();
-        
+
         // if album exists, do not add anything
         if (myGroupsTree.advanced().getNodes().size() != 3) {
-         // create group
+            // create group
             AddAlbumGroupPanel panel = getPage().getAddAlbumGroupPanel();
             Graphene.guardAjax(getPage().getHeaderPanel().getToolbar().getAddAlbumGroupLink()).click();
             panel = getPage().getAddAlbumGroupPanel();
@@ -88,7 +88,7 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
         assertEquals(0, myGroupsTree.advanced().getLeafNodes().size());
 
         addGroup();
-        
+
         // check changed state in left panel
         myGroupsTree = getPage().getLeftPanel().getMyGroupsTree();
         assertEquals(3, myGroupsTree.advanced().getNodes().size());
@@ -98,17 +98,17 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
         GroupsView ownAlbumGroups = getPage().getLeftPanel().openOwnGroups(3);
         ownAlbumGroups.checkHeader("My album groups (3)");
         ownAlbumGroups
-            .getGroups()
-            .get(2)
-            .checkAll(GROUP_NAME,
-                "Created " + dt.toString(pattern) + ".*" + dt.getYear() + ", contains 0 images into 0 albums", "", true);
+                .getGroups()
+                .get(2)
+                .checkAll(GROUP_NAME,
+                        "Created " + dt.toString(pattern) + ".*" + dt.getYear() + ", contains 0 images into 0 albums", "", true);
 
         // open group
         GroupView groupView = getPage().getLeftPanel().openOwnGroup(GROUP_NAME);
 
         // check data
         groupView.checkGroupHeader(GROUP_NAME, "Created " + dt.toString(pattern) + ".*" + dt.getYear()
-            + ", contains 0 images into 0 albums");
+                + ", contains 0 images into 0 albums");
         assertEquals(0, groupView.getAlbumPreviews().size());
         groupView.checkUserOwnsGroup(true);
     }
@@ -121,14 +121,14 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
         // navigate to newly created group
         getPage().getLeftPanel().openOwnGroups(3);
         getPage().getLeftPanel().openOwnGroup(GROUP_NAME);
-        
+
         GroupView groupView = getView(GroupView.class);
         // cancel before delete
         Graphene.guardAjax(groupView.getGroupHeader().getDeleteAlbumGroupLink()).click();
         ConfirmationPanel confirmationPanel = getPage().getConfirmationPanel();
         confirmationPanel.advanced().waitUntilPopupIsVisible().perform();
         confirmationPanel
-            .check("Are You sure? All nested albums and images will also be dropped! Click OK to proceed, otherwise click Cancel.");
+                .check("Are You sure? All nested albums and images will also be dropped! Click OK to proceed, otherwise click Cancel.");
         confirmationPanel.cancel();
 
         // close before delete

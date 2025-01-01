@@ -21,14 +21,14 @@
  *******************************************************************************/
 package org.richfaces.showcase.inputNumberSpinner;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
-
 import org.junit.Test;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.inputNumberSpinner.RichFacesInputNumberSpinner;
 import org.richfaces.showcase.AbstractWebDriverTest;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -83,12 +83,13 @@ public class ITestSpinners extends AbstractWebDriverTest {
      * Help methods **************************************************************
      * ************************************************************
      */
+
     /**
      * Decrease by step via decrease spinner
-     * 
-     * @param input which value will be decreased
+     *
+     * @param input           which value will be decreased
      * @param increaseSpinner the decrease spinner which will be clicked on
-     * @param step the step by which will be the value decreased
+     * @param step            the step by which will be the value decreased
      */
     private void decreaseByStep(RichFacesInputNumberSpinner spinner, int step) {
 
@@ -99,7 +100,7 @@ public class ITestSpinners extends AbstractWebDriverTest {
             spinner.decrease();
 
             assertEquals("The value should be decreased by " + step, currentValueOfInput - step, spinner.advanced().getInput()
-                .getIntValue());
+                    .getIntValue());
 
             currentValueOfInput = spinner.advanced().getInput().getIntValue();
         }
@@ -113,9 +114,9 @@ public class ITestSpinners extends AbstractWebDriverTest {
 
     /**
      * Increase by step via increase spinner
-     * 
+     *
      * @param spinner
-     * @param step the step by which will be the value increased
+     * @param step    the step by which will be the value increased
      */
     private void increaseByStep(RichFacesInputNumberSpinner spinner, int step) {
 
@@ -126,7 +127,7 @@ public class ITestSpinners extends AbstractWebDriverTest {
             spinner.increase();
 
             assertEquals("The value should be increased by " + step, currentValueOfInput + step, spinner.advanced().getInput()
-                .getIntValue());
+                    .getIntValue());
 
             currentValueOfInput = spinner.advanced().getInput().getIntValue();
         }

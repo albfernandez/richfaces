@@ -21,20 +21,18 @@
  */
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
-
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.UIRepeat;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.render.Renderer;
+import java.io.IOException;
+
 /**
  * @author Nick Belaevski
- *
  */
 @JsfRenderer(type = "org.richfaces.RepeatRenderer", family = UIRepeat.COMPONENT_FAMILY)
 public class RepeatRenderer extends Renderer {

@@ -21,15 +21,13 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import java.io.IOException;
 
 /**
  * @author Anton Belevich
- *
  */
 public interface EncodeStrategy {
     void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException;

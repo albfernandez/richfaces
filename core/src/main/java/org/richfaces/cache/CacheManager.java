@@ -21,6 +21,12 @@
  */
 package org.richfaces.cache;
 
+import org.ajax4jsf.resource.util.URLToStreamHelper;
+import org.richfaces.cache.lru.LRUMapCacheFactory;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
+import javax.faces.context.FacesContext;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,24 +38,61 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.resource.util.URLToStreamHelper;
-import org.richfaces.cache.lru.LRUMapCacheFactory;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-
 /**
  * TODO stop caches on application stop CacheManager is used in J2SE environments for looking up named caches.
  */
 public class CacheManager {
     public static final String CACHE_MANAGER_FACTORY_CLASS = "org.richfaces.cache.CACHE_MANAGER_FACTORY_CLASS";
-    private static final String[] DEFAULT_FACTORIES_CHAIN = { "org.richfaces.cache.JBossCacheCacheFactory",
-            "org.richfaces.cache.EhCacheCacheFactory" };
+    private static final String[] DEFAULT_FACTORIES_CHAIN = {"org.richfaces.cache.JBossCacheCacheFactory",
+            "org.richfaces.cache.EhCacheCacheFactory"};
     private static final String FACTORY_PROPERTY_NAME = "org.richfaces.cache.CacheFactory";
     private static final Logger LOG = RichfacesLogger.CACHE.getLogger();
-    private CacheFactory cacheFactory;
     private final Map<String, Cache> caches = new ConcurrentHashMap<String, Cache>(1, 0.75f, 1);
+    private CacheFactory cacheFactory;
+
+    private static boolean isEmptyString(String s) {
+        return (s == null) || "".equals(s);
+    }
+
+    private static String searchInJcacheProperties(String factoryId) {
+        try {
+            String configFile = System.getProperty("java.home") + File.separator + "lib" + File.separator + "jcache.properties";
+            File file = new File(configFile);
+
+            if (file.exists()) {
+                InputStream in = new FileInputStream(file);
+
+                try {
+                    Properties props = new Properties();
+
+                    props.load(in);
+
+                    return props.getProperty(factoryId);
+                } finally {
+                    in.close();
+                }
+            }
+        } catch (SecurityException ignore) {
+
+            // TODO Refactoring
+        } catch (IOException ignore) {
+
+            // TODO Refactoring
+        }
+
+        return null;
+    }
+
+    private static String searchInSystemProperty(String factoryId) {
+        try {
+            return System.getProperty(factoryId);
+        } catch (SecurityException ignore) {
+
+            // TODO Refactoring
+        }
+
+        return null;
+    }
 
     public Cache getCache(String cacheName) {
         return caches.get(cacheName);
@@ -81,7 +124,7 @@ public class CacheManager {
 
         if (configuredFactoryName != null) {
             LOG.info(MessageFormat.format("Configured to use [{0}] cache factory", configuredFactoryName));
-            factories = new String[] { configuredFactoryName };
+            factories = new String[]{configuredFactoryName};
         } else {
             factories = DEFAULT_FACTORIES_CHAIN;
         }
@@ -121,10 +164,6 @@ public class CacheManager {
         }
 
         return cl;
-    }
-
-    private static boolean isEmptyString(String s) {
-        return (s == null) || "".equals(s);
     }
 
     String findFactory(String factoryId, Map<?, ?> env) {
@@ -173,46 +212,6 @@ public class CacheManager {
                 }
             }
         } catch (IOException ignore) {
-
-            // TODO Refactoring
-        }
-
-        return null;
-    }
-
-    private static String searchInJcacheProperties(String factoryId) {
-        try {
-            String configFile = System.getProperty("java.home") + File.separator + "lib" + File.separator + "jcache.properties";
-            File file = new File(configFile);
-
-            if (file.exists()) {
-                InputStream in = new FileInputStream(file);
-
-                try {
-                    Properties props = new Properties();
-
-                    props.load(in);
-
-                    return props.getProperty(factoryId);
-                } finally {
-                    in.close();
-                }
-            }
-        } catch (SecurityException ignore) {
-
-            // TODO Refactoring
-        } catch (IOException ignore) {
-
-            // TODO Refactoring
-        }
-
-        return null;
-    }
-
-    private static String searchInSystemProperty(String factoryId) {
-        try {
-            return System.getProperty(factoryId);
-        } catch (SecurityException ignore) {
 
             // TODO Refactoring
         }

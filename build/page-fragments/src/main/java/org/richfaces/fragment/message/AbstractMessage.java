@@ -21,6 +21,7 @@
  */
 package org.richfaces.fragment.message;
 
+import com.google.common.base.Predicate;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.graphene.wait.FluentWait;
@@ -30,10 +31,9 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 
-import com.google.common.base.Predicate;
-
 /**
  * Abstract base for message component.
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public abstract class AbstractMessage implements Message, AdvancedInteractions<Message.AdvancedMessageInteractions> {

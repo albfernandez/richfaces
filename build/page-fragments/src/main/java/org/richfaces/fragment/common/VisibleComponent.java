@@ -30,18 +30,21 @@ public interface VisibleComponent {
 
     /**
      * Condition for not-visibility of this component,
+     *
      * @return
      */
     ExpectedCondition<Boolean> isNotVisibleCondition();
 
     /**
      * Checks if this component is visible.
+     *
      * @return
      */
     boolean isVisible();
 
     /**
      * Condition for visibility of this component,
+     *
      * @return
      */
     ExpectedCondition<Boolean> isVisibleCondition();

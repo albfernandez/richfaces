@@ -21,10 +21,6 @@
  */
 package org.richfaces.fragment.inplaceSelect;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -47,38 +43,32 @@ import org.richfaces.fragment.inplaceInput.AbstractConfirmOrCancel;
 import org.richfaces.fragment.inplaceInput.ConfirmOrCancel;
 import org.richfaces.fragment.inplaceInput.InplaceComponentState;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleComponentIteractions<RichFacesInplaceSelect.AdvancedInplaceSelectInteractions> {
 
+    private static final String OPTIONS_CLASS = "rf-is-opt";
+    private final AdvancedInplaceSelectInteractions advancedInteractions = new AdvancedInplaceSelectInteractions();
     @FindBy(css = "input[id$=Okbtn]")
     private WebElement confirmButton;
-
     @FindBy(css = "input[id$=Cancelbtn]")
     private WebElement cancelButton;
-
     @FindBy(className = "rf-is-fld")
     private TextInputComponentImpl textInput;
-
     @FindBy(className = "rf-is-lbl")
     private WebElement label;
-
     @FindBy(css = "span[id$=Edit] > input[id$=Input]")
     private WebElement editInputElement;
-
     @FindBy(className = "rf-is-lst-cord")
     private WebElement localList;
-
     @FindBy(xpath = "//body/span[contains(@class, rf-is-lst-cord)]")// whole page search
     private WebElement globalList;
-
-    private static final String OPTIONS_CLASS = "rf-is-opt";
-
     @Root
     private WebElement root;
-
     @Drone
     private WebDriver browser;
-
-    private final AdvancedInplaceSelectInteractions advancedInteractions = new AdvancedInplaceSelectInteractions();
 
     @Override
     public AdvancedInplaceSelectInteractions advanced() {
@@ -95,7 +85,7 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
         advanced().switchToEditingState();
         if (!advanced().isInState(InplaceComponentState.ACTIVE)) {
             throw new IllegalStateException("You should set correct editBy event. Current: " + advanced().getEditByEvent()
-                + " did not changed the inplace select for editing!");
+                    + " did not changed the inplace select for editing!");
         }
         WebElement optionToBeSelected = picker.pick(advanced().getOptions());
         if (optionToBeSelected == null) {
@@ -116,6 +106,10 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
     @Override
     public ConfirmOrCancel select(String text) {
         return select(ChoicePickerHelper.byVisibleText().match(text));
+    }
+
+    private boolean isShowControlls() {
+        return new WebElementConditionFactory(advanced().getCancelButtonElement()).isPresent().apply(browser);
     }
 
     public class ConfirmOrCancelImpl extends AbstractConfirmOrCancel {
@@ -148,12 +142,11 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
 
     public class AdvancedInplaceSelectInteractions implements VisibleComponentInteractions {
 
+        private static final String RF_IS_CHNG_CLASS = "rf-is-chng";
+        private static final String RF_IS_ACT_CLASS = "rf-is-act";
         private final Event DEFAULT_EDIT_EVENT = Event.CLICK;
         private Event editByEvent = DEFAULT_EDIT_EVENT;
         private boolean saveOnSelect = false;
-
-        private static final String RF_IS_CHNG_CLASS = "rf-is-chng";
-        private static final String RF_IS_ACT_CLASS = "rf-is-act";
         private long _timeoutForPopupToHide = -1;
         private long _timeoutForPopupToShow = -1;
 
@@ -169,20 +162,16 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
             return editByEvent;
         }
 
+        public void setEditByEvent(Event event) {
+            editByEvent = event;
+        }
+
         protected String getOptionsClass() {
             return OPTIONS_CLASS;
         }
 
         public void setEditByEvent() {
             editByEvent = DEFAULT_EDIT_EVENT;
-        }
-
-        public void setEditByEvent(Event event) {
-            editByEvent = event;
-        }
-
-        public void setSaveOnSelect(boolean saveOnSelect) {
-            this.saveOnSelect = saveOnSelect;
         }
 
         protected WebElement getGlobalList() {
@@ -203,17 +192,9 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
         public void switchToEditingState() {
             if (!isInState(InplaceComponentState.ACTIVE)) {
                 new Actions(browser).moveToElement(getLabelInputElement()).triggerEventByWDOtherwiseByJS(getEditByEvent(),
-                    getLabelInputElement()).perform();
+                        getLabelInputElement()).perform();
                 waitForPopupToShow().perform();
             }
-        }
-
-        public void setTimeoutForPopupToHide(long timeoutInMilliseconds) {
-            _timeoutForPopupToHide = timeoutInMilliseconds;
-        }
-
-        public void setTimeoutForPopupToShow(long timeoutInMilliseconds) {
-            _timeoutForPopupToShow = timeoutInMilliseconds;
         }
 
         public List<WebElement> getOptions() {
@@ -268,12 +249,24 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
             return (_timeoutForPopupToHide == -1L) ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForPopupToHide;
         }
 
+        public void setTimeoutForPopupToHide(long timeoutInMilliseconds) {
+            _timeoutForPopupToHide = timeoutInMilliseconds;
+        }
+
         public long getTimeoutForPopupToShow() {
             return (_timeoutForPopupToShow == -1L) ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForPopupToShow;
         }
 
+        public void setTimeoutForPopupToShow(long timeoutInMilliseconds) {
+            _timeoutForPopupToShow = timeoutInMilliseconds;
+        }
+
         public boolean isSaveOnSelect() {
             return saveOnSelect;
+        }
+
+        public void setSaveOnSelect(boolean saveOnSelect) {
+            this.saveOnSelect = saveOnSelect;
         }
 
         public WaitingWrapper waitForPopupToHide() {
@@ -285,7 +278,7 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
                     wait.until().element(getGlobalList()).is().not().visible();
                 }
             }.withMessage("Waiting for popup to hide.")
-                .withTimeout(getTimeoutForPopupToHide(), TimeUnit.MILLISECONDS);
+                    .withTimeout(getTimeoutForPopupToHide(), TimeUnit.MILLISECONDS);
         }
 
         public WaitingWrapper waitForPopupToShow() {
@@ -296,16 +289,12 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
                     wait.until().element(getGlobalList()).is().visible();
                 }
             }.withMessage("Waiting for popup to show.")
-                .withTimeout(getTimeoutForPopupToShow(), TimeUnit.MILLISECONDS);
+                    .withTimeout(getTimeoutForPopupToShow(), TimeUnit.MILLISECONDS);
         }
 
         @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
         }
-    }
-
-    private boolean isShowControlls() {
-        return new WebElementConditionFactory(advanced().getCancelButtonElement()).isPresent().apply(browser);
     }
 }

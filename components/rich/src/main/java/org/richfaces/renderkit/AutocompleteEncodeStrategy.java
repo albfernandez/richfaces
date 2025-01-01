@@ -1,9 +1,8 @@
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 public interface AutocompleteEncodeStrategy {
     void encodeItemsContainerBegin(FacesContext facesContext, UIComponent component) throws IOException;

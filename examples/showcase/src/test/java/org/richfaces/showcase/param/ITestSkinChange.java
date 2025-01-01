@@ -21,13 +21,13 @@
  */
 package org.richfaces.showcase.param;
 
-import static org.junit.Assert.assertEquals;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.param.page.SkinChangePage;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

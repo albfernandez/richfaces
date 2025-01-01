@@ -22,14 +22,13 @@
  */
 package org.richfaces.renderkit.html;
 
-import java.util.Map;
-
+import com.google.common.collect.ImmutableSet;
 import org.richfaces.javascript.LibraryFunction;
 import org.richfaces.javascript.Message;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
 
-import com.google.common.collect.ImmutableSet;
+import java.util.Map;
 
 /**
  * <p class="changed_added_4_0">
@@ -37,7 +36,6 @@ import com.google.common.collect.ImmutableSet;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public class LibraryScriptFunction implements ResourceLibrary {
     private final ImmutableSet<ResourceKey> resources;

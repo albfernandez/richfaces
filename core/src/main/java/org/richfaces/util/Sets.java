@@ -21,13 +21,13 @@
  */
 package org.richfaces.util;
 
+import com.google.common.base.Strings;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
-
-import com.google.common.base.Strings;
 
 /**
  * Coercing object as a set
@@ -38,6 +38,7 @@ public final class Sets {
 
     private static final Pattern ID_SPLIT_PATTERN = Pattern.compile("\\s*(\\s|,)\\s*");
     private static final String BRACKETS = "\\[.*\\]";
+
     private Sets() {
     }
 

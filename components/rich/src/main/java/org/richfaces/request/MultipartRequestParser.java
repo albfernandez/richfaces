@@ -21,6 +21,18 @@
  */
 package org.richfaces.request;
 
+import com.google.common.base.Strings;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
+import org.richfaces.exception.FileUploadException;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.model.UploadedFile;
+import org.richfaces.request.ByteSequenceMatcher.BytesHandler;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -33,34 +45,19 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.richfaces.exception.FileUploadException;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.model.UploadedFile;
-import org.richfaces.request.ByteSequenceMatcher.BytesHandler;
-
-import com.google.common.base.Strings;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
-
 /**
  * @author Nick Belaevski
- *
  */
 public final class MultipartRequestParser {
+    public static final String UID_KEY = "rf_fu_uid";
     static final String PARAM_NAME = "name";
     static final String PARAM_FILENAME = "filename";
     static final String PARAM_CONTENT_TYPE = "Content-Type";
-    public static final String UID_KEY = "rf_fu_uid";
     private static final Pattern AMPERSAND = Pattern.compile("&+");
     private static final byte CR = 0x0d;
     private static final byte LF = 0x0a;
-    private static final byte[] CR_LF = { CR, LF };
-    private static final byte[] HYPHENS = { 0x2d, 0x2d }; // '--'
+    private static final byte[] CR_LF = {CR, LF};
+    private static final byte[] HYPHENS = {0x2d, 0x2d}; // '--'
     private static final int BUFFER_SIZE = 2048;
     private static final int CHUNK_SIZE = 1024;
     private static final int MAX_HEADER_SIZE = 32768;
@@ -72,37 +69,6 @@ public final class MultipartRequestParser {
             // do nothing
         }
     };
-
-    private class HeadersHandler implements BytesHandler {
-        private ByteArrayOutputStream baos = new ByteArrayOutputStream(BUFFER_SIZE);
-
-        public void handle(byte[] bytes, int length) throws IOException {
-            if (length != 0) {
-                if (baos.size() + length > MAX_HEADER_SIZE) {
-                    throw new IOException("Header section is too big");
-                }
-
-                baos.write(bytes, 0, length);
-            }
-        }
-
-        public boolean dataEquals(byte[] bytes) {
-            return (baos.size() == bytes.length) && Arrays.equals(HYPHENS, baos.toByteArray());
-        }
-
-        public String asString() throws UnsupportedEncodingException {
-            if (request.getCharacterEncoding() != null) {
-                return baos.toString(request.getCharacterEncoding());
-            } else {
-                return baos.toString();
-            }
-        }
-
-        public void reset() {
-            baos.reset();
-        }
-    }
-
     private HttpServletRequest request;
     private boolean createTempFiles;
     private String tempFilesDirectory;
@@ -111,7 +77,6 @@ public final class MultipartRequestParser {
     private byte[] boundaryMarker;
     private ByteSequenceMatcher sequenceMatcher;
     private HeadersHandler headersHandler;
-
     /**
      * @param request
      * @param createTempFiles
@@ -123,6 +88,71 @@ public final class MultipartRequestParser {
         this.request = request;
         this.createTempFiles = createTempFiles;
         this.tempFilesDirectory = tempFilesDirectory;
+    }
+
+    public static String getParameterValueFromQueryString(String queryString) {
+        if (queryString != null) {
+            String[] nvPairs = AMPERSAND.split(queryString);
+            for (String nvPair : nvPairs) {
+                if (nvPair.length() == 0) {
+                    continue;
+                }
+
+                int eqIdx = nvPair.indexOf('=');
+                if (eqIdx >= 0) {
+                    try {
+                        String name = URLDecoder.decode(nvPair.substring(0, eqIdx), "UTF-8");
+
+                        if (UID_KEY.equals(name)) {
+                            return URLDecoder.decode(nvPair.substring(eqIdx + 1), "UTF-8");
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        // log warning and skip this parameter
+                        LOGGER.debug(e.getMessage(), e);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    // TODO - URI decoder?
+    private static String decodeFileName(String name) {
+        String fileName = null;
+        try {
+            StringBuilder builder = new StringBuilder();
+            String[] codes = name.split(";");
+            if (codes != null) {
+                for (String code : codes) {
+                    if (code.startsWith("&")) {
+                        String sCode = code.replaceAll("[&#]*", "");
+                        Integer iCode = Integer.parseInt(sCode);
+                        builder.append(Character.toChars(iCode));
+                    } else {
+                        builder.append(code);
+                    }
+                }
+                fileName = builder.toString();
+            }
+        } catch (Exception e) {
+            fileName = name;
+        }
+
+        return fileName;
+    }
+
+    public static String parseFileName(String parseStr) {
+        Matcher m = FILE_NAME_PATTERN.matcher(parseStr);
+        if (m.matches()) {
+            String name = m.group(1);
+            if (name.startsWith("&")) {
+                return decodeFileName(name);
+            } else {
+                return name;
+            }
+        }
+        return null;
     }
 
     private void cancel() {
@@ -223,71 +253,6 @@ public final class MultipartRequestParser {
                 }
             }
         }
-    }
-
-    public static String getParameterValueFromQueryString(String queryString) {
-        if (queryString != null) {
-            String[] nvPairs = AMPERSAND.split(queryString);
-            for (String nvPair : nvPairs) {
-                if (nvPair.length() == 0) {
-                    continue;
-                }
-
-                int eqIdx = nvPair.indexOf('=');
-                if (eqIdx >= 0) {
-                    try {
-                        String name = URLDecoder.decode(nvPair.substring(0, eqIdx), "UTF-8");
-
-                        if (UID_KEY.equals(name)) {
-                            return URLDecoder.decode(nvPair.substring(eqIdx + 1), "UTF-8");
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        // log warning and skip this parameter
-                        LOGGER.debug(e.getMessage(), e);
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-
-    // TODO - URI decoder?
-    private static String decodeFileName(String name) {
-        String fileName = null;
-        try {
-            StringBuilder builder = new StringBuilder();
-            String[] codes = name.split(";");
-            if (codes != null) {
-                for (String code : codes) {
-                    if (code.startsWith("&")) {
-                        String sCode = code.replaceAll("[&#]*", "");
-                        Integer iCode = Integer.parseInt(sCode);
-                        builder.append(Character.toChars(iCode));
-                    } else {
-                        builder.append(code);
-                    }
-                }
-                fileName = builder.toString();
-            }
-        } catch (Exception e) {
-            fileName = name;
-        }
-
-        return fileName;
-    }
-
-    public static String parseFileName(String parseStr) {
-        Matcher m = FILE_NAME_PATTERN.matcher(parseStr);
-        if (m.matches()) {
-            String name = m.group(1);
-            if (name.startsWith("&")) {
-                return decodeFileName(name);
-            } else {
-                return name;
-            }
-        }
-        return null;
     }
 
     private void readProlog() throws IOException {
@@ -392,5 +357,35 @@ public final class MultipartRequestParser {
         }
 
         return null;
+    }
+
+    private class HeadersHandler implements BytesHandler {
+        private ByteArrayOutputStream baos = new ByteArrayOutputStream(BUFFER_SIZE);
+
+        public void handle(byte[] bytes, int length) throws IOException {
+            if (length != 0) {
+                if (baos.size() + length > MAX_HEADER_SIZE) {
+                    throw new IOException("Header section is too big");
+                }
+
+                baos.write(bytes, 0, length);
+            }
+        }
+
+        public boolean dataEquals(byte[] bytes) {
+            return (baos.size() == bytes.length) && Arrays.equals(HYPHENS, baos.toByteArray());
+        }
+
+        public String asString() throws UnsupportedEncodingException {
+            if (request.getCharacterEncoding() != null) {
+                return baos.toString(request.getCharacterEncoding());
+            } else {
+                return baos.toString();
+            }
+        }
+
+        public void reset() {
+            baos.reset();
+        }
     }
 }

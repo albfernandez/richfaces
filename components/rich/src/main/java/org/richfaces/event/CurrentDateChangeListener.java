@@ -25,7 +25,6 @@ import javax.faces.event.FacesListener;
 
 /**
  * @author Alexej Kushunin - akushunin@exadel.com
- *
  */
 public interface CurrentDateChangeListener extends FacesListener {
     void processCurrentDateChange(CurrentDateChangeEvent event);

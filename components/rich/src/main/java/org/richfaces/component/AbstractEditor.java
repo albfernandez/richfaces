@@ -21,9 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
@@ -34,6 +31,9 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.FocusProps;
 import org.richfaces.renderkit.EditorRendererBase;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 
 /**
  * <p> The &lt;rich:editor&gt; component is used for creating a WYSIWYG editor on a page. </p>

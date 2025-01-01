@@ -21,14 +21,14 @@
  *******************************************************************************/
 package org.richfaces.showcase.param;
 
-import static org.junit.Assert.assertEquals;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.javascript.JavaScript;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.param.page.ClientParamPage;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -73,9 +73,9 @@ public class ITestClientParam extends AbstractWebDriverTest {
         long heightExpected = screen.getHeight();
 
         assertEquals("The width returned from website can not be " + "different from width returned from this code",
-            widthExpected, widthActual);
+                widthExpected, widthActual);
         assertEquals("The height returned from website can not be " + "different from height returned from this code",
-            heightExpected, heightActual);
+                heightExpected, heightActual);
     }
 
     @JavaScript("window.screen")

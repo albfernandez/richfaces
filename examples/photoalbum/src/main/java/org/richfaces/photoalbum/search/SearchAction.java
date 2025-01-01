@@ -23,13 +23,6 @@
 
 package org.richfaces.photoalbum.search;
 
-import java.util.List;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
 import org.richfaces.photoalbum.model.Album;
 import org.richfaces.photoalbum.model.Image;
 import org.richfaces.photoalbum.model.MetaTag;
@@ -37,6 +30,12 @@ import org.richfaces.photoalbum.model.Shelf;
 import org.richfaces.photoalbum.model.User;
 import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
 
 /**
  * This class is entry point to retrieve search result EJB3 Bean
@@ -60,14 +59,14 @@ public class SearchAction implements ISearchAction {
     /**
      * Return List of albums, founded by query Search albums by name and description(like)
      *
-     * @param searchQuery - string to search
+     * @param searchQuery      - string to search
      * @param searchInMyAlbums - determine is search will be making by only user's albums
-     * @param searchInShared - determine is search will be making in only shared albums
+     * @param searchInShared   - determine is search will be making in only shared albums
      * @return list of founded albums
      * @throws PhotoAlbumException if search parameter is wrong
      */
     public List<Album> searchByAlbum(String searchQuery, boolean searchInMyAlbums, boolean searchInShared)
-        throws PhotoAlbumException {
+            throws PhotoAlbumException {
         Query query = searchQueryFactory.getQuery(SearchEntityEnum.ALBUM, user, searchInShared, searchInMyAlbums, searchQuery);
         if (null == query) {
             throw new PhotoAlbumException(Constants.WRONG_SEARCH_PARAMETERS_ERROR);
@@ -78,14 +77,14 @@ public class SearchAction implements ISearchAction {
     /**
      * Return List of images, founded by query Search images by name and description(like)
      *
-     * @param searchQuery - string to search
+     * @param searchQuery      - string to search
      * @param searchInMyAlbums - determine is search will be making by only user's images
-     * @param searchInShared - determine is search will be making in only shared images
+     * @param searchInShared   - determine is search will be making in only shared images
      * @return list of founded images
      * @throws PhotoAlbumException if search parameter is wrong
      */
     public List<Image> searchByImage(String searchQuery, boolean searchInMyAlbums, boolean searchInShared)
-        throws PhotoAlbumException {
+            throws PhotoAlbumException {
         Query query = searchQueryFactory.getQuery(SearchEntityEnum.IMAGE, user, searchInShared, searchInMyAlbums, searchQuery);
         if (null == query) {
             throw new PhotoAlbumException(Constants.WRONG_SEARCH_PARAMETERS_ERROR);
@@ -96,14 +95,14 @@ public class SearchAction implements ISearchAction {
     /**
      * Return List of users, founded by query Search users by login, firstname and secondname(like)
      *
-     * @param searchQuery - string to search
+     * @param searchQuery      - string to search
      * @param searchInMyAlbums - unused
-     * @param searchInShared - unused
+     * @param searchInShared   - unused
      * @return list of founded users
      * @throws PhotoAlbumException if search parameter is wrong
      */
     public List<User> searchByUsers(String searchQuery, boolean searchInMyAlbums, boolean searchInShared)
-        throws PhotoAlbumException {
+            throws PhotoAlbumException {
         Query query = searchQueryFactory.getQuery(SearchEntityEnum.USER, user, searchInShared, searchInMyAlbums, searchQuery);
         if (null == query) {
             throw new PhotoAlbumException(Constants.WRONG_SEARCH_PARAMETERS_ERROR);
@@ -114,16 +113,16 @@ public class SearchAction implements ISearchAction {
     /**
      * Return List of metatags, founded by query Search users by tagname(like)
      *
-     * @param searchQuery - string to search
+     * @param searchQuery      - string to search
      * @param searchInMyAlbums - unused
-     * @param searchInShared - unused
+     * @param searchInShared   - unused
      * @return list of founded metatags
      * @throws PhotoAlbumException if search parameter is wrong
      */
     public List<MetaTag> searchByTags(String searchQuery, boolean searchInMyAlbums, boolean searchInShared)
-        throws PhotoAlbumException {
+            throws PhotoAlbumException {
         Query query = searchQueryFactory
-            .getQuery(SearchEntityEnum.METATAG, user, searchInShared, searchInMyAlbums, searchQuery);
+                .getQuery(SearchEntityEnum.METATAG, user, searchInShared, searchInMyAlbums, searchQuery);
         if (null == query) {
             throw new PhotoAlbumException(Constants.WRONG_SEARCH_PARAMETERS_ERROR);
         }
@@ -133,14 +132,14 @@ public class SearchAction implements ISearchAction {
     /**
      * Return List of shelves, founded by query Search images by name and description(like)
      *
-     * @param searchQuery - string to search
+     * @param searchQuery      - string to search
      * @param searchInMyAlbums - determine is search will be making by only user's shelves
-     * @param searchInShared - determine is search will be making in only shared shelves
+     * @param searchInShared   - determine is search will be making in only shared shelves
      * @return list of founded images
      * @throws PhotoAlbumException if search parameter is wrong
      */
     public List<Shelf> searchByShelves(String searchQuery, boolean searchInMyAlbums, boolean searchInShared)
-        throws PhotoAlbumException {
+            throws PhotoAlbumException {
         Query query = searchQueryFactory.getQuery(SearchEntityEnum.SHELF, user, searchInShared, searchInMyAlbums, searchQuery);
         if (null == query) {
             throw new PhotoAlbumException(Constants.WRONG_SEARCH_PARAMETERS_ERROR);

@@ -21,24 +21,12 @@
  */
 package org.richfaces.renderkit;
 
-import static org.easymock.EasyMock.eq;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.expectLastCall;
-import static org.easymock.EasyMock.same;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import com.google.common.collect.Maps;
+import org.easymock.EasyMock;
+import org.jboss.test.faces.mock.MockFacesEnvironment;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
@@ -50,18 +38,27 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
-import org.easymock.EasyMock;
-import org.jboss.test.faces.mock.MockFacesEnvironment;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.google.common.collect.Maps;
+import static org.easymock.EasyMock.eq;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.easymock.EasyMock.same;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class RenderKitUtilsMocksTest {
     /**
@@ -168,11 +165,11 @@ public class RenderKitUtilsMocksTest {
 
     @Test
     public void testBehaviors() throws Exception {
-        knownAttributes.put("onclick", new ComponentAttribute("onclick").setEventNames(new String[] { "click", "action" }));
-        knownAttributes.put("onmousemove", new ComponentAttribute("onmousemove").setEventNames(new String[] { "mousemove" }));
-        knownAttributes.put("onkeypress", new ComponentAttribute("onkeypress").setEventNames(new String[] { "keypress" }));
+        knownAttributes.put("onclick", new ComponentAttribute("onclick").setEventNames(new String[]{"click", "action"}));
+        knownAttributes.put("onmousemove", new ComponentAttribute("onmousemove").setEventNames(new String[]{"mousemove"}));
+        knownAttributes.put("onkeypress", new ComponentAttribute("onkeypress").setEventNames(new String[]{"keypress"}));
         knownAttributes.put("oncontextmenu",
-                new ComponentAttribute("oncontextmenu").setEventNames(new String[] { "contextmenu" }));
+                new ComponentAttribute("oncontextmenu").setEventNames(new String[]{"contextmenu"}));
 
         componentAttributes.put("onkeypress", "alert(keypress)");
         componentAttributes.put("onmousemove", "alert(mousemove)");
@@ -209,8 +206,8 @@ public class RenderKitUtilsMocksTest {
 
     private UIComponent setupBehaviorsTestForDisabledComponent() throws IOException {
         knownAttributes.put("style", new ComponentAttribute("style"));
-        knownAttributes.put("onclick", new ComponentAttribute("onclick").setEventNames(new String[] { "click", "action" }));
-        knownAttributes.put("onmousemove", new ComponentAttribute("onmousemove").setEventNames(new String[] { "mousemove" }));
+        knownAttributes.put("onclick", new ComponentAttribute("onclick").setEventNames(new String[]{"click", "action"}));
+        knownAttributes.put("onmousemove", new ComponentAttribute("onmousemove").setEventNames(new String[]{"mousemove"}));
 
         componentAttributes.put("onmousemove", "alert(mousemove)");
         componentAttributes.put("onclick", "alert(click)");

@@ -19,7 +19,7 @@ public class AbstractWebDriverTest extends AbstractShowcaseTest {
         this.contextRoot = getContextRoot();
         if (runInPortalEnv) {
             webDriver.get(String.format("%s://%s:%s/%s", contextRoot.getProtocol(), contextRoot.getHost(),
-                contextRoot.getPort(), "portal/classic/showcase"));
+                    contextRoot.getPort(), "portal/classic/showcase"));
             JavascriptExecutor js = (JavascriptExecutor) webDriver;
             String setTextQuery = "document.querySelector(\"input[id$='portalForm:%s']\").value = '%s';";
             js.executeScript(String.format(setTextQuery, "seleniumTestDemo", getDemoName()));
@@ -39,6 +39,25 @@ public class AbstractWebDriverTest extends AbstractShowcaseTest {
         fireEventAction(element, event).perform();
     }
 
+    /**
+     * Works only with injected elements.
+     */
+    public boolean isElementPresent(WebElement element) {
+        try {
+            element.isDisplayed();
+            return true;
+        } catch (NoSuchElementException ignored) {
+            return false;
+        }
+    }
+
+    public void waitFor(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException ex) {
+        }
+    }
+
     public static class EventAction implements Action {
 
         private final WebDriver driver;
@@ -56,25 +75,6 @@ public class AbstractWebDriverTest extends AbstractShowcaseTest {
             String jQueryCmd = String.format("jQuery(arguments[0]).trigger('%s')", event);
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript(jQueryCmd, element);
-        }
-    }
-
-    /**
-     * Works only with injected elements.
-     */
-    public boolean isElementPresent(WebElement element) {
-        try {
-            element.isDisplayed();
-            return true;
-        } catch (NoSuchElementException ignored) {
-            return false;
-        }
-    }
-
-    public void waitFor(long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException ex) {
         }
     }
 }

@@ -1,10 +1,9 @@
 package org.richfaces.demo.poll;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Ilya Shaikovsky

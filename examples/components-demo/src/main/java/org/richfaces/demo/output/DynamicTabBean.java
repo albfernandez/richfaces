@@ -39,7 +39,7 @@ public class DynamicTabBean implements Serializable {
     public DynamicTabBean() {
         System.out.println("post construct: initialize");
         name = "John";
-        names = Arrays.asList(new String[] {"Dynamic Tab 1", "Dynamic Tab 2"});
+        names = Arrays.asList(new String[]{"Dynamic Tab 1", "Dynamic Tab 2"});
     }
 
     public String getName() {

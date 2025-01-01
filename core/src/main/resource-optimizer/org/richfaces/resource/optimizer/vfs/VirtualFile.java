@@ -27,7 +27,6 @@ import java.util.Collection;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface VirtualFile {
     boolean isFile();

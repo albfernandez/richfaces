@@ -21,27 +21,19 @@
  */
 package org.richfaces.component;
 
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.component.attribute.AjaxCommandProps;
+import org.richfaces.util.Sets;
+
+import javax.el.ValueExpression;
+import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
-
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.component.attribute.AjaxCommandProps;
-import org.richfaces.component.attribute.AjaxProps;
-import org.richfaces.component.attribute.ErrorProps;
-import org.richfaces.util.Sets;
-
 public class BasicActionComponent extends AbstractActionComponent implements AjaxCommandProps {
-
-    enum PropertyKeys {
-        render,
-        execute
-    }
 
     private Set<String> copyToSet(Object collection) {
         return Collections.unmodifiableSet(Sets.asSet(collection));
@@ -55,8 +47,8 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
 
         if (result == null) {
             throw new FacesException(
-                propertyName.toString()
-                    + "' attribute value must be Collection, List, array, String, comma-separated String, whitespace-separate String'");
+                    propertyName.toString()
+                            + "' attribute value must be Collection, List, array, String, comma-separated String, whitespace-separate String'");
         }
 
         return result;
@@ -163,6 +155,11 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
     @Override
     public boolean isResetValues() {
         return false;
+    }
+
+    enum PropertyKeys {
+        render,
+        execute
     }
 
 }

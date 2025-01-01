@@ -32,14 +32,10 @@ import org.richfaces.view.facelets.TreeModelRecursiveAdaptorHandler;
  *
  * @author Nick Belaevski
  */
-@JsfComponent(type = UITreeModelRecursiveAdaptor.COMPONENT_TYPE, family = UITreeModelRecursiveAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelRecursiveAdaptor", handlerClass = TreeModelRecursiveAdaptorHandler.class), attributes = { "tree-model-props.xml" })
+@JsfComponent(type = UITreeModelRecursiveAdaptor.COMPONENT_TYPE, family = UITreeModelRecursiveAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelRecursiveAdaptor", handlerClass = TreeModelRecursiveAdaptorHandler.class), attributes = {"tree-model-props.xml"})
 public class UITreeModelRecursiveAdaptor extends AbstractTreeModelAdaptor implements TreeModelRecursiveAdaptor {
     public static final String COMPONENT_TYPE = "org.richfaces.TreeModelRecursiveAdaptor";
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelRecursiveAdaptor";
-
-    private enum PropertyKeys {
-        roots, nodes, leaf
-    }
 
     @Override
     public String getFamily() {
@@ -83,5 +79,9 @@ public class UITreeModelRecursiveAdaptor extends AbstractTreeModelAdaptor implem
 
     public void setLeaf(boolean leaf) {
         getStateHelper().put(PropertyKeys.leaf, leaf);
+    }
+
+    private enum PropertyKeys {
+        roots, nodes, leaf
     }
 }

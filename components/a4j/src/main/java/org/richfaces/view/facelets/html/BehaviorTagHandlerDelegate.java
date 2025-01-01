@@ -21,7 +21,7 @@
  */
 package org.richfaces.view.facelets.html;
 
-import java.io.IOException;
+import org.richfaces.component.behavior.ClientBehavior;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -32,12 +32,10 @@ import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.MetaRuleset;
 import javax.faces.view.facelets.TagHandlerDelegate;
-
-import org.richfaces.component.behavior.ClientBehavior;
+import java.io.IOException;
 
 /**
  * @author Anton Belevich
- *
  */
 public class BehaviorTagHandlerDelegate extends TagHandlerDelegate implements AttachedObjectHandler {
     TagHandlerDelegate wrappedHandlerDelegate;

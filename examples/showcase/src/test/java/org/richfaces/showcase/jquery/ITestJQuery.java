@@ -21,15 +21,15 @@
  *******************************************************************************/
 package org.richfaces.showcase.jquery;
 
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
-import static org.junit.Assert.assertEquals;
-
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.richfaces.showcase.AbstractWebDriverTest;
+
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -52,13 +52,13 @@ public class ITestJQuery extends AbstractWebDriverTest {
 
             actions.moveToElement(image).build().perform();
             waitModel().until("The width of image after hovering is wrong!").element(image).attribute("width")
-                .equalTo(WIDTH_OF_IMG_AFTER_HOVER);
+                    .equalTo(WIDTH_OF_IMG_AFTER_HOVER);
         }
     }
 
     /**
      * Gets the width of image element without the border
-     * 
+     *
      * @param img the particular image which width will be returned
      * @return the width of image with width of image's borders
      */

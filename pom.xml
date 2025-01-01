@@ -318,11 +318,11 @@
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${version.jacoco.plugin}</version>
                 </plugin>
-                <plugin>
-                    <groupId>org.richfaces.cdk</groupId>
-                    <artifactId>richfaces-cdk-maven-plugin</artifactId>
-                    <version>${version.cdk}</version>
-                </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>org.richfaces.cdk</groupId>-->
+<!--                    <artifactId>richfaces-cdk-maven-plugin</artifactId>-->
+<!--                    <version>${version.cdk}</version>-->
+<!--                </plugin>-->
                 <plugin>
                     <groupId>com.google.code.maven-replacer-plugin</groupId>
                     <artifactId>replacer</artifactId>
@@ -342,21 +342,21 @@
                     <configuration>
                         <lifecycleMappingMetadata>
                             <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.richfaces.cdk</groupId>
-                                        <artifactId>richfaces-cdk-maven-plugin</artifactId>
-                                        <versionRange>[4.5.2.Final,)</versionRange>
-                                        <goals>
-                                            <goal>generate</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <execute>
-                                            <runOnIncremental>false</runOnIncremental>
-                                        </execute>
-                                    </action>
-                                </pluginExecution>
+<!--                                <pluginExecution>-->
+<!--                                    <pluginExecutionFilter>-->
+<!--                                        <groupId>org.richfaces.cdk</groupId>-->
+<!--                                        <artifactId>richfaces-cdk-maven-plugin</artifactId>-->
+<!--                                        <versionRange>[4.5.2.Final,)</versionRange>-->
+<!--                                        <goals>-->
+<!--                                            <goal>generate</goal>-->
+<!--                                        </goals>-->
+<!--                                    </pluginExecutionFilter>-->
+<!--                                    <action>-->
+<!--                                        <execute>-->
+<!--                                            <runOnIncremental>false</runOnIncremental>-->
+<!--                                        </execute>-->
+<!--                                    </action>-->
+<!--                                </pluginExecution>-->
                                 <pluginExecution>
                                     <pluginExecutionFilter>
                                         <groupId>org.richfaces.cdk</groupId>

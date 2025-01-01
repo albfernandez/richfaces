@@ -131,10 +131,10 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.richfaces.cdk</groupId>
-                <artifactId>richfaces-cdk-maven-plugin</artifactId>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.richfaces.cdk</groupId>-->
+<!--                <artifactId>richfaces-cdk-maven-plugin</artifactId>-->
+<!--            </plugin>-->
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>

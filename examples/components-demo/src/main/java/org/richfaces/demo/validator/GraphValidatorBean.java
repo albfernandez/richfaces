@@ -32,7 +32,6 @@ import javax.validation.constraints.Min;
 
 /**
  * @author asmirnov
- *
  */
 @ManagedBean
 @RequestScoped

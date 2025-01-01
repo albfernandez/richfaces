@@ -21,6 +21,12 @@
  */
 package org.richfaces.view.facelets.html;
 
+import org.richfaces.event.PanelToggleEvent;
+import org.richfaces.event.PanelToggleListener;
+import org.richfaces.event.PanelToggleSource;
+import org.richfaces.view.facelets.EventListenerHandler;
+import org.richfaces.view.facelets.TagHandlerUtils;
+
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -28,30 +34,11 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagConfig;
 
-import org.richfaces.event.PanelToggleEvent;
-import org.richfaces.event.PanelToggleListener;
-import org.richfaces.event.PanelToggleSource;
-import org.richfaces.view.facelets.EventListenerHandler;
-import org.richfaces.view.facelets.TagHandlerUtils;
-
 /**
- *
  * @author akolonitsky
  * @version 1.0
  */
 public final class PanelToggleListenerHandler extends EventListenerHandler {
-    private static class LazyPanelToggleListener extends LazyEventListener<PanelToggleListener> implements PanelToggleListener {
-        private static final long serialVersionUID = -391020876192823200L;
-
-        LazyPanelToggleListener(String type, ValueExpression binding) {
-            super(type, binding);
-        }
-
-        public void processPanelToggle(PanelToggleEvent event) throws AbortProcessingException {
-            processEvent(event);
-        }
-    }
-
     public PanelToggleListenerHandler(TagConfig config) {
         super(config);
     }
@@ -70,5 +57,17 @@ public final class PanelToggleListenerHandler extends EventListenerHandler {
     @Override
     public boolean isEventSource(UIComponent comp) {
         return comp instanceof PanelToggleSource;
+    }
+
+    private static class LazyPanelToggleListener extends LazyEventListener<PanelToggleListener> implements PanelToggleListener {
+        private static final long serialVersionUID = -391020876192823200L;
+
+        LazyPanelToggleListener(String type, ValueExpression binding) {
+            super(type, binding);
+        }
+
+        public void processPanelToggle(PanelToggleEvent event) throws AbortProcessingException {
+            processEvent(event);
+        }
     }
 }

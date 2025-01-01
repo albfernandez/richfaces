@@ -21,16 +21,6 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.Map;
-
-import javax.faces.FacesException;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.model.DataVisitResult;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractDataGrid;
@@ -39,22 +29,30 @@ import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.attribute.ColumnProps;
 import org.richfaces.component.util.HtmlUtil;
 
+import javax.faces.FacesException;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Map;
+
 /**
  * @author Anton Belevich
- *
  */
 @JsfRenderer(type = "org.richfaces.DataGridRenderer", family = AbstractDataGrid.COMPONENT_FAMILY)
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "datagrid.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "datagrid.ecss")})
 public class DataGridRenderer extends AbstractRowsRenderer implements MetaComponentRenderer {
     private static final EncodeStrategy THEAD = new EncodeStrategy() {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
-            throws IOException {
+                throws IOException {
             String clientId = component.getClientId(context) + ":h";
 
             boolean partial = (Boolean) (Boolean) params[0];
@@ -89,7 +87,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     };
     private static final EncodeStrategy TFOOT = new EncodeStrategy() {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
-            throws IOException {
+                throws IOException {
 
             String clientId = component.getClientId(context) + ":f";
 
@@ -125,7 +123,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     };
     private static final EncodeStrategy CAPTION = new EncodeStrategy() {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
-            throws IOException {
+                throws IOException {
             writer.startElement(HtmlConstants.CAPTION_ELEMENT, component);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-cap", null);
         }
@@ -136,7 +134,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     };
     private static final EncodeStrategy NODATA = new EncodeStrategy() {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
-            throws IOException {
+                throws IOException {
             writer.startElement(HtmlConstants.TR_ELEMENT, component);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-nd", null);
             writer.startElement(HtmlConstants.TD_ELEM, component);
@@ -179,15 +177,15 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     }
 
     public void encodeHeader(ResponseWriter writer, FacesContext facesContext, AbstractDataGrid dataGrid, boolean partial)
-        throws IOException {
+            throws IOException {
         UIComponent headerFacet = dataGrid.getHeader();
-        encodeFacet(writer, facesContext, headerFacet, THEAD, dataGrid, new Object[] { partial });
+        encodeFacet(writer, facesContext, headerFacet, THEAD, dataGrid, new Object[]{partial});
     }
 
     public void encodeFooter(ResponseWriter writer, FacesContext facesContext, AbstractDataGrid dataGrid, boolean partial)
-        throws IOException {
+            throws IOException {
         UIComponent footerFacet = dataGrid.getFooter();
-        encodeFacet(writer, facesContext, footerFacet, TFOOT, dataGrid, new Object[] { partial });
+        encodeFacet(writer, facesContext, footerFacet, TFOOT, dataGrid, new Object[]{partial});
     }
 
     public void encodeCaption(ResponseWriter writer, FacesContext facesContext, AbstractDataGrid dataGrid) throws IOException {
@@ -201,7 +199,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     }
 
     public void encodeFacet(ResponseWriter writer, FacesContext facesContext, UIComponent facet, EncodeStrategy strategy,
-        AbstractDataGrid dataGrid, Object[] params) throws IOException {
+                            AbstractDataGrid dataGrid, Object[] params) throws IOException {
         if (facet != null && facet.isRendered()) {
             strategy.begin(writer, facesContext, dataGrid, params);
             facet.encodeAll(facesContext);
@@ -210,7 +208,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     }
 
     public void encodeTBody(ResponseWriter writer, FacesContext facesContext, AbstractDataGrid dataGrid, boolean partial)
-        throws IOException {
+            throws IOException {
 
         String clientId = dataGrid.getClientId(facesContext) + ":dgb";
         if (partial) {
@@ -241,7 +239,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, classes, null);
         RenderKitUtils.renderAttribute(facesContext, "style", attributes.get(HtmlConstants.STYLE_ATTRIBUTE));
         RenderKitUtils.renderAttribute(facesContext, HtmlConstants.TITLE_ATTRIBUTE,
-            attributes.get(HtmlConstants.TITLE_ATTRIBUTE));
+                attributes.get(HtmlConstants.TITLE_ATTRIBUTE));
         encodeCaption(writer, facesContext, dataGrid);
         encodeHeader(writer, facesContext, dataGrid, false);
         encodeFooter(writer, facesContext, dataGrid, false);

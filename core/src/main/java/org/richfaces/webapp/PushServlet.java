@@ -21,18 +21,16 @@
  */
 package org.richfaces.webapp;
 
-import java.util.Map;
-
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-
+import com.google.common.collect.Maps;
 import org.atmosphere.cpr.ApplicationConfig;
 import org.atmosphere.cpr.AtmosphereHandler;
 import org.atmosphere.cpr.AtmosphereServlet;
 import org.atmosphere.handler.ReflectorServletProcessor;
 import org.richfaces.application.push.impl.PushContextFactoryImpl;
 
-import com.google.common.collect.Maps;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import java.util.Map;
 
 /**
  * Push servlet wraps {@link AtmosphereServlet} and during initialization it adds pre-initialized {@link AtmosphereHandler} for

@@ -21,6 +21,9 @@
  */
 package org.richfaces.request;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Multimap;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -28,12 +31,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Locale;
 
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Multimap;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class UploadedFile25 extends BaseUploadedFile {
     private FileUploadResource uploadResource;

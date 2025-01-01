@@ -64,19 +64,19 @@
                         </execution>
                     </executions>
                 </plugin>
-                <plugin>
-                    <groupId>org.richfaces.cdk</groupId>
-                    <artifactId>richfaces-cdk-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>cdk-generate-sources</id>
-                            <phase>process-sources</phase>
-                            <goals>
-                                <goal>generate</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>org.richfaces.cdk</groupId>-->
+<!--                    <artifactId>richfaces-cdk-maven-plugin</artifactId>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <id>cdk-generate-sources</id>-->
+<!--                            <phase>process-sources</phase>-->
+<!--                            <goals>-->
+<!--                                <goal>generate</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                </plugin>-->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
@@ -107,8 +107,7 @@
                 <configuration>
                     <rules>
                         <requirePluginVersions>
-                            <!-- During development SNAPSHOT versions of the CDK plugin are used.
-                                 This setting ignores the no SNAPSHOT rule for the CDK  -->
+                            <!-- During development SNAPSHOT versions of the CDK plugin are used. This setting ignores the no SNAPSHOT rule for the CDK  -->
                             <unCheckedPluginList>org.richfaces.cdk:richfaces-cdk-maven-plugin, org.richfaces:richfaces-resource-optimizer-maven-plugin</unCheckedPluginList>
                         </requirePluginVersions>
                     </rules>
@@ -344,4 +343,3 @@
         </profile>
     </profiles>
 </project>
-

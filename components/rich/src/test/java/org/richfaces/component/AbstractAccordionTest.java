@@ -21,19 +21,18 @@
  */
 package org.richfaces.component;
 
-import static org.easymock.EasyMock.createNiceMock;
-import static org.easymock.EasyMock.expect;
-
-import java.util.List;
-
-import javax.el.MethodExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.convert.Converter;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import javax.el.MethodExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.convert.Converter;
+import java.util.List;
+
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
 
 /**
  * @author akolonitsky
@@ -47,6 +46,13 @@ public class AbstractAccordionTest {
     private AbstractAccordionItem item1;
     private AbstractAccordionItem item2;
     private AbstractAccordionItem item3;
+
+    private static AbstractAccordionItem createItem(String name) {
+        AbstractAccordionItem item = createNiceMock(AbstractAccordionItem.class);
+        expect(item.getName()).andReturn(name);
+
+        return item;
+    }
 
     @Before
     public void setUp() {
@@ -246,12 +252,5 @@ public class AbstractAccordionTest {
 
         accordion.setActiveItem(ITEM2);
         Assert.assertEquals(ITEM2, accordion.getActiveItem());
-    }
-
-    private static AbstractAccordionItem createItem(String name) {
-        AbstractAccordionItem item = createNiceMock(AbstractAccordionItem.class);
-        expect(item.getName()).andReturn(name);
-
-        return item;
     }
 }

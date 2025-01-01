@@ -21,15 +21,14 @@
  */
 package org.richfaces.resource;
 
+import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
 import java.io.ByteArrayInputStream;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
@@ -57,16 +56,16 @@ public class StateHolderResourceImpl extends AbstractCacheableResource implement
         return false;
     }
 
+    public void setTransient(boolean newTransientValue) {
+        throw new UnsupportedOperationException();
+    }
+
     public void restoreState(FacesContext context, Object state) {
         this.state = state;
     }
 
     public Object saveState(FacesContext context) {
         return state;
-    }
-
-    public void setTransient(boolean newTransientValue) {
-        throw new UnsupportedOperationException();
     }
 
     public void readState(FacesContext context, DataInput dataInput) throws IOException {

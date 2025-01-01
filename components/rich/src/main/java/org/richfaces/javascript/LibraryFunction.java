@@ -29,7 +29,6 @@ import org.richfaces.resource.ResourceLibrary;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public interface LibraryFunction extends ResourceLibrary {
     /**

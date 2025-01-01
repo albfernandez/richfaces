@@ -20,10 +20,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.model;
-import java.io.IOException;
 
 import org.richfaces.json.JSONObject;
 import org.richfaces.renderkit.ChartRendererBase;
+
+import java.io.IOException;
 
 
 /**

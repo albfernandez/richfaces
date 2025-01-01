@@ -21,18 +21,17 @@
  */
 package org.richfaces.model;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Nick Belaevski
- *
  */
 public class TreeNodeImpl implements TreeNode {
     private List<Object> keysList = null;

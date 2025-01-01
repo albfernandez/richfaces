@@ -1,9 +1,8 @@
 package org.richfaces.demo.inplaces;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import org.richfaces.demo.tables.model.capitals.Capital;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -12,10 +11,9 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import org.richfaces.demo.tables.model.capitals.Capital;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @ManagedBean
 @RequestScoped

@@ -32,7 +32,7 @@ public class GridPage extends AbstractDataScrollerPage {
 
     @FindByJQuery("td.rf-dg-c:first")
     private WebElement firstPanelGridOnThePage;
-    
+
     @FindByJQuery("td.rf-dg-c:contains('Price'):last")
     private WebElement lastPanelGridOnThePage;
 

@@ -21,16 +21,14 @@
  */
 package org.richfaces.resource.optimizer.resource.writer.impl;
 
-import java.text.MessageFormat;
-
+import com.google.common.base.Strings;
 import org.mozilla.javascript.ErrorReporter;
 import org.mozilla.javascript.EvaluatorException;
 
-import com.google.common.base.Strings;
+import java.text.MessageFormat;
 
 /**
  * @author Nick Belaevski
- *
  */
 final class MavenLogErrorReporter implements ErrorReporter {
     private String resourceName;

@@ -21,24 +21,22 @@
  */
 package org.richfaces.request;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.richfaces.exception.FileUploadException;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.model.UploadedFile;
-
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
+import org.richfaces.exception.FileUploadException;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.model.UploadedFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Map;
 
 public class MultipartRequest25 extends BaseMultipartRequest {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
@@ -84,7 +82,7 @@ public class MultipartRequest25 extends BaseMultipartRequest {
         }
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
     public Enumeration getParameterNames() {
         Collection<Object> result = Sets.newHashSet();
@@ -137,7 +135,7 @@ public class MultipartRequest25 extends BaseMultipartRequest {
         return values.toArray(new String[values.size()]);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public Map getParameterMap() {
         Map parameterMap = Maps.newHashMap(super.getParameterMap());

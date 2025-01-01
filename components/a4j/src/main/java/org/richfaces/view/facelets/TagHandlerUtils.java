@@ -21,26 +21,29 @@
  */
 package org.richfaces.view.facelets;
 
+import javax.faces.component.UIComponent;
+import javax.faces.view.AttachedObjectHandler;
+import javax.faces.view.facelets.FaceletContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.view.AttachedObjectHandler;
-import javax.faces.view.facelets.FaceletContext;
-
 /**
  * @author Nick Belaevski
- *
  */
 public final class TagHandlerUtils {
 
     /**
      * Constant that is obtained by reflection from {@link FaceletContext#FACELET_CONTEXT_KEY} to ensure that the constant isn't inlined.
-     *
+     * <p>
      * Prevents RF-13472.
      */
     public static final String FACELET_CONTEXT_KEY;
+    // TODO - is that implementation dependency? - yes, it is: RF-13518
+    // Mojarra 2.1
+    private static final String JAVAX_FACES_RETARGETABLE_HANDLERS = "javax.faces.RetargetableHandlers";
+    // Mojarra 2.2
+    private static final String JAVAX_FACES_ATTACHED_OBJECT_HANDLERS = "javax.faces.view.AttachedObjectHandlers";
 
     static {
         try {
@@ -51,17 +54,11 @@ public final class TagHandlerUtils {
         }
     }
 
-    // TODO - is that implementation dependency? - yes, it is: RF-13518
-    // Mojarra 2.1
-    private static final String JAVAX_FACES_RETARGETABLE_HANDLERS = "javax.faces.RetargetableHandlers";
-    // Mojarra 2.2
-    private static final String JAVAX_FACES_ATTACHED_OBJECT_HANDLERS = "javax.faces.view.AttachedObjectHandlers";
-
     private TagHandlerUtils() {
         // utility class constructor
     }
 
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     public static List<AttachedObjectHandler> getOrCreateRetargetableHandlersList(UIComponent component) {
         Map<String, Object> attrs = component.getAttributes();
         List<AttachedObjectHandler> list = (List<AttachedObjectHandler>) attrs.get(JAVAX_FACES_ATTACHED_OBJECT_HANDLERS);
@@ -79,7 +76,7 @@ public final class TagHandlerUtils {
     }
 
     public static <T> Class<? extends T> loadClass(String className, Class<T> type) throws ClassNotFoundException,
-        ClassCastException {
+            ClassCastException {
 
         ClassLoader ccl = Thread.currentThread().getContextClassLoader();
         Class<?> loadedClass = Class.forName(className, false, ccl);

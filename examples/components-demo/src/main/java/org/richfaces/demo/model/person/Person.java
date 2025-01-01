@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* Created by bleathem on 15/08/14.
-*/
+ * Created by bleathem on 15/08/14.
+ */
 public class Person {
 
     public static List<Person> people = Arrays.asList(
@@ -60,14 +60,12 @@ public class Person {
             new Person("Yankee", 27),
             new Person("Zod", 27)
     );
-    private static volatile int SEQUENCE = 0;
-
     public static Map<String, Person> peopleMap = Maps.uniqueIndex(people, new Function<Person, String>() {
         public String apply(Person from) {
             return String.valueOf(from.getId()); // or something else
         }
     });
-
+    private static volatile int SEQUENCE = 0;
     private final int id = SEQUENCE++;
     private String name;
     private int age;

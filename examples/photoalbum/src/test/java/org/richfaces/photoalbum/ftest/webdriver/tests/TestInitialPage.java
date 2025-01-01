@@ -22,17 +22,15 @@
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
 
-import static org.junit.Assert.assertEquals;
-
+import category.Smoke;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.richfaces.fragment.common.Utils;
 
-import category.Smoke;
+import static org.junit.Assert.assertEquals;
 
 /**
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class TestInitialPage extends AbstractPhotoalbumTest {

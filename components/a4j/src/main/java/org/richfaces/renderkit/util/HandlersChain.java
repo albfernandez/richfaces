@@ -32,7 +32,6 @@ import javax.faces.component.behavior.ClientBehaviorContext.Parameter;
 import javax.faces.component.behavior.ClientBehaviorHint;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -77,7 +76,7 @@ public final class HandlersChain {
     }
 
     public HandlersChain(FacesContext facesContext, UIComponent component, Collection<Parameter> parameters,
-        boolean includeClientId) {
+                         boolean includeClientId) {
         this.facesContext = facesContext;
         this.component = component;
         this.parameters = parameters;
@@ -86,6 +85,16 @@ public final class HandlersChain {
 
     private static boolean isNotEmpty(String s) {
         return (s != null) && (s.length() != 0);
+    }
+
+    public static List<Parameter> createParametersList(Map<String, Object> parametersMap) {
+        List<Parameter> parameters = new ArrayList<Parameter>(parametersMap.size());
+
+        for (Entry<String, Object> entry : parametersMap.entrySet()) {
+            parameters.add(new Parameter(entry.getKey(), entry.getValue()));
+        }
+
+        return parameters;
     }
 
     private List<ClientBehavior> getBehaviorsList(String behaviorName) {
@@ -145,7 +154,7 @@ public final class HandlersChain {
         }
 
         ClientBehaviorContext behaviorContext = ClientBehaviorContext.createClientBehaviorContext(facesContext, component,
-            name, includeClientId ? component.getClientId(facesContext) : null, getParameters());
+                name, includeClientId ? component.getClientId(facesContext) : null, getParameters());
 
         for (ClientBehavior clientBehavior : behaviorsList) {
             String behaviorScript = clientBehavior.getScript(behaviorContext);
@@ -187,15 +196,5 @@ public final class HandlersChain {
         }
 
         return result;
-    }
-
-    public static List<Parameter> createParametersList(Map<String, Object> parametersMap) {
-        List<Parameter> parameters = new ArrayList<Parameter>(parametersMap.size());
-
-        for (Entry<String, Object> entry : parametersMap.entrySet()) {
-            parameters.add(new Parameter(entry.getKey(), entry.getValue()));
-        }
-
-        return parameters;
     }
 }

@@ -21,16 +21,16 @@
  *******************************************************************************/
 package org.richfaces.showcase.focus.page;
 
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
-
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.showcase.focus.ITestFocus;
 import org.richfaces.utils.focus.ElementIsFocused;
+
+import java.util.concurrent.TimeUnit;
+
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

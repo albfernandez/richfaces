@@ -22,14 +22,6 @@
 
 package org.richfaces.component;
 
-import java.util.List;
-
-import javax.el.MethodExpression;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.Event;
@@ -46,6 +38,13 @@ import org.richfaces.model.PlotClickListener;
 import org.richfaces.renderkit.ChartRendererBase;
 import org.richfaces.view.facelets.html.ChartTagHandler;
 
+import javax.el.MethodExpression;
+import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import java.util.List;
+
 
 /**
  * A component used to generate visual charts.
@@ -53,12 +52,12 @@ import org.richfaces.view.facelets.html.ChartTagHandler;
  * @author Lukas Macko
  */
 @JsfComponent(
-        type= AbstractChart.COMPONENT_TYPE,
+        type = AbstractChart.COMPONENT_TYPE,
         family = AbstractChart.COMPONENT_FAMILY,
-        tag = @Tag(name="chart",handlerClass=ChartTagHandler.class,type = TagType.Facelets),
+        tag = @Tag(name = "chart", handlerClass = ChartTagHandler.class, type = TagType.Facelets),
         facets = @Facet(name = "hooks", description = @Description("A set of JavaScript functions to modify the plotting process.")),
         renderer = @JsfRenderer(type = ChartRendererBase.RENDERER_TYPE),
-        fires = { @Event(value = PlotClickEvent.class, listener = PlotClickListener.class) })
+        fires = {@Event(value = PlotClickEvent.class, listener = PlotClickListener.class)})
 public abstract class AbstractChart extends UIComponentBase implements CoreProps {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Chart";
@@ -117,17 +116,17 @@ public abstract class AbstractChart extends UIComponentBase implements CoreProps
 
             if (expression != null) {
                 expression.invoke(context.getELContext(),
-                        new Object[] { event });
+                        new Object[]{event});
             }
 
             //particular series listener
             int seriesId = ((PlotClickEvent) event).getSeriesIndex();
             List<MethodExpression> particularSeriesListeners = (List<MethodExpression>) getAttributes().get("particularSeriesListeners");
 
-            if(particularSeriesListeners!=null){
-                if(seriesId >= 0 && seriesId < particularSeriesListeners.size()){
+            if (particularSeriesListeners != null) {
+                if (seriesId >= 0 && seriesId < particularSeriesListeners.size()) {
                     MethodExpression expr = particularSeriesListeners.get(seriesId);
-                    if(expr!=null){
+                    if (expr != null) {
                         expr.invoke(context.getELContext(), new Object[]{event});
                     }
                 }

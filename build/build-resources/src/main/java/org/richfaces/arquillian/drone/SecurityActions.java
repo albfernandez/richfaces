@@ -25,13 +25,11 @@ import java.security.PrivilegedExceptionAction;
 
 /**
  * SecurityActions
- *
+ * <p>
  * A set of privileged actions that are not to leak out of this package
- *
  *
  * @author <a href="mailto:andrew.rubinger@jboss.org">ALR</a>
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
- *
  * @version $Revision: $
  */
 final class SecurityActions {
@@ -114,17 +112,17 @@ final class SecurityActions {
      * Create a new instance by finding a constructor that matches the argumentTypes signature using the arguments for
      * instantiation.
      *
-     * @param className Full classname of class to create
+     * @param className     Full classname of class to create
      * @param argumentTypes The constructor argument types
-     * @param arguments The constructor arguments
+     * @param arguments     The constructor arguments
      * @return a new instance
      * @throws IllegalArgumentException if className, argumentTypes, or arguments are null
-     * @throws RuntimeException if any exceptions during creation
+     * @throws RuntimeException         if any exceptions during creation
      * @author <a href="mailto:aslak@conduct.no">Aslak Knutsen</a>
      * @author <a href="mailto:andrew.rubinger@jboss.org">ALR</a>
      */
     static <T> T newInstance(final String className, final Class<?>[] argumentTypes, final Object[] arguments,
-            final Class<T> expectedType) {
+                             final Class<T> expectedType) {
         if (className == null) {
             throw new IllegalArgumentException("ClassName must be specified");
         }
@@ -159,8 +157,8 @@ final class SecurityActions {
         } catch (InvocationTargetException e) {
             throw new RuntimeException(
                     String.format("Unable to instantiate Drone via %s: %s",
-                    getConstructorName(className, argumentTypes),
-                    e.getCause()), // this provides the message of the ITE cause, which is also important!
+                            getConstructorName(className, argumentTypes),
+                            e.getCause()), // this provides the message of the ITE cause, which is also important!
                     e.getCause()); // this provides stack trace of the ITE cause
         }
 

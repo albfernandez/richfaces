@@ -21,13 +21,10 @@
  */
 package org.richfaces.renderkit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
-import static org.richfaces.renderkit.RenderKitUtils.toScriptArgs;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.junit.Test;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,16 +34,22 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.junit.Test;
-import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import static org.richfaces.renderkit.RenderKitUtils.toScriptArgs;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class RenderKitUtilsTest {
+    private static String dehydrate(String s) {
+        return s.replaceAll("\\s+", "");
+    }
+
     @Test
     public void testEscape() throws Exception {
         assertEquals("", RenderKitUtils.escape(""));
@@ -119,10 +122,6 @@ public class RenderKitUtilsTest {
 
         assertTrue(RenderKitUtils.shouldRenderAttribute(Boolean.TRUE));
         assertFalse(RenderKitUtils.shouldRenderAttribute(Boolean.FALSE));
-    }
-
-    private static String dehydrate(String s) {
-        return s.replaceAll("\\s+", "");
     }
 
     @Test
@@ -234,7 +233,7 @@ public class RenderKitUtilsTest {
 
     @Test
     public void testAsArray1() {
-        String[] strings = new String[] { "a", "b" };
+        String[] strings = new String[]{"a", "b"};
         String[] array = RenderKitUtils.asArray(strings);
 
         assertSame(strings, array);
@@ -242,9 +241,9 @@ public class RenderKitUtilsTest {
 
     @Test
     public void testAsArray2() {
-        Object[] objects = new Object[] { Integer.valueOf(12), null, Integer.valueOf(22), Integer.valueOf(42) };
+        Object[] objects = new Object[]{Integer.valueOf(12), null, Integer.valueOf(22), Integer.valueOf(42)};
         String[] array = RenderKitUtils.asArray(objects);
-        String[] etalon = new String[] { "12", null, "22", "42" };
+        String[] etalon = new String[]{"12", null, "22", "42"};
 
         assertTrue(Arrays.equals(etalon, array));
     }
@@ -259,7 +258,7 @@ public class RenderKitUtilsTest {
         list.add(new Integer(42));
 
         String[] array = RenderKitUtils.asArray(list);
-        String[] etalon = new String[] { "12", null, "22", "42" };
+        String[] etalon = new String[]{"12", null, "22", "42"};
 
         assertTrue(Arrays.equals(etalon, array));
     }
@@ -273,7 +272,7 @@ public class RenderKitUtilsTest {
         set.add(new Integer(42));
 
         String[] array = RenderKitUtils.asArray(set);
-        String[] etalon = new String[] { "12", "22", "42" };
+        String[] etalon = new String[]{"12", "22", "42"};
 
         assertTrue(Arrays.equals(etalon, array));
     }
@@ -282,7 +281,7 @@ public class RenderKitUtilsTest {
     public void testAsArray4() {
         String string = " a , \t\n b  \n , c ";
         String[] strings = RenderKitUtils.asArray(string);
-        String[] etalon = new String[] { "a", "b", "c" };
+        String[] etalon = new String[]{"a", "b", "c"};
 
         assertTrue(Arrays.equals(etalon, strings));
     }

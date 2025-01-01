@@ -18,35 +18,35 @@ public class GraphValidatorBean implements Serializable, Cloneable {
     @NotNull
     @NotEmpty
     private String inputText = "";
-    private Class<?>[] validationGroups = new Class[] { AlwaysPassingGroup.class };
+    private Class<?>[] validationGroups = new Class[]{AlwaysPassingGroup.class};
 
     public String getInputText() {
         return inputText;
-    }
-
-    public Class<?>[] getValidationGroups() {
-        return validationGroups;
-    }
-
-    @AssertTrue(message = "group-failure", groups = { AlwaysPassingGroup.class })
-    public boolean isGroupValid() {
-        return Boolean.TRUE;
-    }
-
-    public void setAlwaysPassingValidationGroup() {
-        setValidationGroups(new Class<?>[] { AlwaysPassingGroup.class });
-    }
-
-    public void setEmptyValidationGroup() {
-        setValidationGroups(new Class<?>[] {});
     }
 
     public void setInputText(String inputText) {
         this.inputText = inputText;
     }
 
+    public Class<?>[] getValidationGroups() {
+        return validationGroups;
+    }
+
     public void setValidationGroups(Class<?>[] validationGroups) {
         this.validationGroups = validationGroups;
+    }
+
+    @AssertTrue(message = "group-failure", groups = {AlwaysPassingGroup.class})
+    public boolean isGroupValid() {
+        return Boolean.TRUE;
+    }
+
+    public void setAlwaysPassingValidationGroup() {
+        setValidationGroups(new Class<?>[]{AlwaysPassingGroup.class});
+    }
+
+    public void setEmptyValidationGroup() {
+        setValidationGroups(new Class<?>[]{});
     }
 
     public interface AlwaysPassingGroup {

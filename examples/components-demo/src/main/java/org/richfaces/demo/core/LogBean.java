@@ -28,12 +28,11 @@ import javax.faces.bean.SessionScoped;
 
 /**
  * @author Nick Belaevski
- *
  */
 @ManagedBean
 @SessionScoped
 public class LogBean {
-    private static final LogMode[] LOG_MODES = new LogMode[] { LogMode.inline, LogMode.popup };
+    private static final LogMode[] LOG_MODES = new LogMode[]{LogMode.inline, LogMode.popup};
     private LogMode mode = LogMode.inline;
     private Character hotkey = 'l';
 

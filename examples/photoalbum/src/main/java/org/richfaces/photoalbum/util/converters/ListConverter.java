@@ -30,18 +30,18 @@ public class ListConverter {
         if (sList == null || sList.size() == 0) {
             return "";
         }
-        
+
         StringBuilder sb = new StringBuilder();
 
-        for(String s : sList) {
-           sb.append('\'').append(s).append("',");
+        for (String s : sList) {
+            sb.append('\'').append(s).append("',");
         }
 
-        sb.deleteCharAt(sb.length()-1);
-        
+        sb.deleteCharAt(sb.length() - 1);
+
         return sb.toString();
     }
-    
+
     public static List<String> StringToSList(String s) {
         if (s == null) {
             return null;

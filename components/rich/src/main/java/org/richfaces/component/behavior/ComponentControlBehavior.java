@@ -21,34 +21,30 @@
  */
 package org.richfaces.component.behavior;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.component.UIComponent;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.taglib.ComponentControlHandler;
 
+import javax.faces.component.UIComponent;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
- *     The &lt;rich:componentControl&gt; behavior allows JavaScript API functions to be called on target components.
- *     The functions are called after defined events are triggered on the component to with the
- *     &lt;rich:componentControl&gt; behavior is attached. Initialization variants and activation events can be
- *     customized, and parameters can be passed to the target component.
+ * The &lt;rich:componentControl&gt; behavior allows JavaScript API functions to be called on target components.
+ * The functions are called after defined events are triggered on the component to with the
+ * &lt;rich:componentControl&gt; behavior is attached. Initialization variants and activation events can be
+ * customized, and parameters can be passed to the target component.
  * </p>
+ *
  * @author Anton Belevich
  */
 @JsfBehavior(id = "org.richfaces.behavior.ComponentControlBehavior", tag = @Tag(name = "componentControl", handlerClass = ComponentControlHandler.class, type = TagType.Facelets))
 public class ComponentControlBehavior extends ClientBehavior {
     public static final String BEHAVIOR_ID = "org.richfaces.behavior.ComponentControlBehavior";
     private List<UIComponent> children;
-
-    enum PropertyKeys {
-        target, selector, operation, onbeforeoperation, event
-    }
 
     public List<UIComponent> getChildren() {
         if (children == null) {
@@ -137,5 +133,9 @@ public class ComponentControlBehavior extends ClientBehavior {
         } else if (compare(PropertyKeys.onbeforeoperation, name)) {
             setOnbeforeoperation((String) value);
         }
+    }
+
+    enum PropertyKeys {
+        target, selector, operation, onbeforeoperation, event
     }
 }

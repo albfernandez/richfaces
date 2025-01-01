@@ -21,8 +21,8 @@
  *******************************************************************************/
 package org.richfaces.showcase.extendedDataTable;
 
-import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 

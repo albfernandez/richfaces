@@ -21,12 +21,26 @@
  */
 package org.richfaces.component;
 
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.AutocompleteProps;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.DisabledProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.FocusProps;
+import org.richfaces.component.attribute.StyleClassProps;
+import org.richfaces.component.attribute.StyleProps;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.view.facelets.AutocompleteHandler;
 
 import javax.el.ELException;
 import javax.el.ExpressionFactory;
@@ -44,28 +58,11 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.ResultDataModel;
 import javax.faces.model.ResultSetDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
-
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.attribute.AutocompleteProps;
-import org.richfaces.component.attribute.CoreProps;
-import org.richfaces.component.attribute.DisabledProps;
-import org.richfaces.component.attribute.ErrorProps;
-import org.richfaces.component.attribute.EventsKeyProps;
-import org.richfaces.component.attribute.EventsMouseProps;
-import org.richfaces.component.attribute.FocusProps;
-import org.richfaces.component.attribute.StyleClassProps;
-import org.richfaces.component.attribute.StyleProps;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.renderkit.MetaComponentRenderer;
-import org.richfaces.view.facelets.AutocompleteHandler;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * <p>The &lt;rich:autocomplete&gt; component is an auto-completing input-box with built-in Ajax capabilities. It
@@ -81,6 +78,61 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
     private static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
+
+    public static DataModel<Object> getItems(FacesContext facesContext, UIComponent component, String value) {
+        if (!(component instanceof AutocompleteProps)) {
+            return null;
+        }
+        AutocompleteProps autocomplete = (AutocompleteProps) component;
+        Object itemsObject = null;
+
+        MethodExpression autocompleteMethod = autocomplete.getAutocompleteMethod();
+        if (autocompleteMethod != null) {
+            try {
+                try {
+                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[]{facesContext,
+                            component, value});
+                } catch (MethodNotFoundException e1) {
+                    try {
+                        // fall back to evaluating an expression assuming there is just one parameter (RF-11469)
+                        itemsObject = autocomplete.getAutocompleteMethodWithOneParameter().invoke(facesContext.getELContext(), new Object[]{value});
+                    } catch (MethodNotFoundException e2) {
+                        ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+                        autocompleteMethod = expressionFactory.createMethodExpression(facesContext.getELContext(),
+                                autocompleteMethod.getExpressionString(), Object.class, new Class[]{String.class});
+                        itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[]{value});
+                    }
+                }
+            } catch (ELException ee) {
+                LOGGER.error(ee.getMessage(), ee);
+            }
+        } else {
+            itemsObject = autocomplete.getAutocompleteList();
+        }
+
+        DataModel result;
+
+        if (itemsObject instanceof Object[]) {
+            result = new ArrayDataModel((Object[]) itemsObject);
+        } else if (itemsObject instanceof List) {
+            result = new ListDataModel((List<Object>) itemsObject);
+        } else if (itemsObject instanceof Result) {
+            result = new ResultDataModel((Result) itemsObject);
+        } else if (itemsObject instanceof ResultSet) {
+            result = new ResultSetDataModel((ResultSet) itemsObject);
+        } else if (itemsObject != null) {
+            List<Object> temp = new ArrayList<Object>();
+            Iterator<Object> iterator = ((Iterable<Object>) itemsObject).iterator();
+            while (iterator.hasNext()) {
+                temp.add(iterator.next());
+            }
+            result = new ListDataModel(temp);
+        } else {
+            result = new ListDataModel();
+        }
+
+        return result;
+    }
 
     /**
      * A value to set in the target input element on a choice suggestion that isn't shown in the suggestion table.
@@ -159,6 +211,8 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(defaultValue = "true")
     public abstract boolean isSelectFirst();
 
+    // ----------- Event Attributes
+
     /**
      * <p>
      * A javascript function used to filter the result list returned from the ajax call to the server.
@@ -171,21 +225,19 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute
     public abstract String getClientFilterFunction();
 
-    // ----------- Event Attributes
-
     /**
      * Javascript code executed when an item is selected
      */
     @Attribute(events = @EventName("selectitem"))
     public abstract String getOnselectitem();
 
+    // ----------- List events
+
     /**
      * Javascript code executed when this element loses focus and its value has been modified since gaining focus.
      */
     @Attribute(events = @EventName(value = "change", defaultEvent = true))
     public abstract String getOnchange();
-
-    // ----------- List events
 
     /**
      * Javascript code executed when a pointer button is clicked over the popup list element.
@@ -251,63 +303,6 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
         return getItems(facesContext, this, value);
     }
 
-    public static DataModel<Object> getItems(FacesContext facesContext, UIComponent component, String value) {
-        if (!(component instanceof AutocompleteProps)) {
-            return null;
-        }
-        AutocompleteProps autocomplete = (AutocompleteProps) component;
-        Object itemsObject = null;
-
-        MethodExpression autocompleteMethod = autocomplete.getAutocompleteMethod();
-        if (autocompleteMethod != null) {
-            try {
-                try {
-                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { facesContext,
-                            component, value });
-                } catch (MethodNotFoundException e1) {
-                    try {
-                        // fall back to evaluating an expression assuming there is just one parameter (RF-11469)
-                        itemsObject = autocomplete.getAutocompleteMethodWithOneParameter().invoke(facesContext.getELContext(), new Object[] { value });
-                    } catch (MethodNotFoundException e2) {
-                        ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
-                        autocompleteMethod = expressionFactory.createMethodExpression(facesContext.getELContext(),
-                                autocompleteMethod.getExpressionString(), Object.class, new Class[] { String.class });
-                        itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { value });
-                    }
-                }
-            } catch (ELException ee) {
-                LOGGER.error(ee.getMessage(), ee);
-            }
-        } else {
-            itemsObject = autocomplete.getAutocompleteList();
-        }
-
-        DataModel result;
-
-        if (itemsObject instanceof Object[]) {
-            result = new ArrayDataModel((Object[]) itemsObject);
-        } else if (itemsObject instanceof List) {
-            result = new ListDataModel((List<Object>) itemsObject);
-        } else if (itemsObject instanceof Result) {
-            result = new ResultDataModel((Result) itemsObject);
-        } else if (itemsObject instanceof ResultSet) {
-            result = new ResultSetDataModel((ResultSet) itemsObject);
-        } else if (itemsObject != null) {
-            List<Object> temp = new ArrayList<Object>();
-            Iterator<Object> iterator = ((Iterable<Object>) itemsObject).iterator();
-            while (iterator.hasNext()) {
-                temp.add(iterator.next());
-            }
-            result = new ListDataModel(temp);
-        } else {
-            result = new ListDataModel();
-        }
-
-        return result;
-    }
-
-
-
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         if (ITEMS_META_COMPONENT_ID.equals(metaComponentId)) {
             return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
@@ -328,7 +323,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
             if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
 
                 VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
-                    ITEMS_META_COMPONENT_ID);
+                        ITEMS_META_COMPONENT_ID);
                 if (result == VisitResult.COMPLETE) {
                     return true;
                 } else if (result == VisitResult.REJECT) {

@@ -22,15 +22,13 @@
  */
 package org.richfaces.component.util;
 
-import java.util.NoSuchElementException;
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
+import org.richfaces.util.FastJoiner;
 
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.util.FastJoiner;
-
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
+import java.util.NoSuchElementException;
 
 /**
  * <p class="changed_added_4_0">
@@ -42,15 +40,6 @@ import com.google.common.base.Splitter;
 public final class Strings {
     public static final Joiner DOT_JOINER = Joiner.on('.');
 
-    public static final class NamingContainerDataHolder {
-        public static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
-        public static final FastJoiner SEPARATOR_CHAR_JOINER = FastJoiner.on(SEPARATOR_CHAR);
-        public static final Splitter SEPARATOR_CHAR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
-
-        private NamingContainerDataHolder() {
-        }
-    }
-
     private Strings() {
 
         // this is utility class with static methods only.
@@ -61,7 +50,7 @@ public final class Strings {
      * Remove characters from string end
      * </p>
      *
-     * @param in input string
+     * @param in   input string
      * @param size number of characters to remove.
      */
     public static String cut(String in, int size) {
@@ -132,5 +121,14 @@ public final class Strings {
         }
 
         throw new NoSuchElementException();
+    }
+
+    public static final class NamingContainerDataHolder {
+        public static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
+        public static final FastJoiner SEPARATOR_CHAR_JOINER = FastJoiner.on(SEPARATOR_CHAR);
+        public static final Splitter SEPARATOR_CHAR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
+
+        private NamingContainerDataHolder() {
+        }
     }
 }

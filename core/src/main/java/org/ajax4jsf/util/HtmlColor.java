@@ -21,11 +21,11 @@
  */
 package org.ajax4jsf.util;
 
+import org.ajax4jsf.Messages;
+
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.ajax4jsf.Messages;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
@@ -78,7 +78,7 @@ public final class HtmlColor {
                 c = Color.decode(color.trim());
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException(Messages.getMessage(Messages.DECODE_COLOR_PARAMETER_ERROR, color,
-                    e.getMessage()));
+                        e.getMessage()));
             }
         }
 

@@ -21,11 +21,10 @@
  */
 package org.richfaces.resource.external;
 
-import java.util.Map;
+import org.richfaces.resource.ResourceKey;
 
 import javax.faces.context.FacesContext;
-
-import org.richfaces.resource.ResourceKey;
+import java.util.Map;
 
 /**
  * Tracks what external resources are renderered to the page (specific for Mojarra)
@@ -77,7 +76,7 @@ public class ResourceTrackerForMojarra implements ResourceTracker {
      * Put resource key to contextMap to avoid rendering that multiple times per request
      *
      * @param contextMap contextMap as provided by current {@link FacesContext}
-     * @param key the resource key to be stored in contextMap
+     * @param key        the resource key to be stored in contextMap
      */
     private void putToContext(Map<Object, Object> contextMap, String key) {
         if (!contextMap.containsKey(key)) {

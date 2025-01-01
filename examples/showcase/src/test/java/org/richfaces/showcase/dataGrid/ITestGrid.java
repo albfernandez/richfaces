@@ -21,10 +21,6 @@
  */
 package org.richfaces.showcase.dataGrid;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
@@ -32,6 +28,10 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.dataGrid.page.GridPage;
 import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

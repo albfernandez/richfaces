@@ -39,9 +39,7 @@ package org.richfaces.resource;
  * </ul>
  *
  * @author Nick Belaevski
- *
  * @see ResourceLibraryFactory
- *
  */
 public interface ResourceLibrary {
 

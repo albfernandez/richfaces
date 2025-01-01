@@ -26,6 +26,7 @@ package org.ajax4jsf.javascript;
  *
  * @author shura
  */
+
 import java.nio.CharBuffer;
 
 public class JSEncoder {
@@ -74,7 +75,7 @@ public class JSEncoder {
      * <p>
      * This method will return true for the following character range: <br />
      * <code>
-     *   <nobr>\b | \f | \t | \r | \n | " | \ | / | [#x20-#xD7FF] | [#xE000-#xFFFD]</nobr>
+     * <nobr>\b | \f | \t | \r | \n | " | \ | / | [#x20-#xD7FF] | [#xE000-#xFFFD]</nobr>
      * </code>
      * </p>
      *
@@ -83,13 +84,13 @@ public class JSEncoder {
      */
     public static boolean compile(char c) {
         if ((c == '\b') || (c == '\f') | (c == '\t') || (c == '\n') || (c == '\r') || (c == '"') || (c == '\\') || (c == '/')
-            || (c == ']') || // ] - to avoid conflicts in CDATA
-            (c == '<') || // - escape HTML markup characters
-            (c == '>') || // - HTML
-            (c == '&') || // - HTML
-            (c == '-') || // - HTML comments
-            (c < 0x20) || // See <http://www.w3.org/TR/REC-xml#charsets>
-            ((c > 0xd7ff) && (c < 0xe000)) || (c > 0xfffd) || (c > 0xff)) {
+                || (c == ']') || // ] - to avoid conflicts in CDATA
+                (c == '<') || // - escape HTML markup characters
+                (c == '>') || // - HTML
+                (c == '&') || // - HTML
+                (c == '-') || // - HTML comments
+                (c < 0x20) || // See <http://www.w3.org/TR/REC-xml#charsets>
+                ((c > 0xd7ff) && (c < 0xe000)) || (c > 0xfffd) || (c > 0xff)) {
             return false;
         }
 
@@ -135,8 +136,8 @@ public class JSEncoder {
                 return ENCODE_GT_CB;
 
             default: {
-                char[] ret = { '\\', 'u', ENCODE_HEX[c >> 0xc & 0xf], ENCODE_HEX[c >> 0x8 & 0xf],
-                     ENCODE_HEX[c >> 0x4 & 0xf], ENCODE_HEX[c & 0xf] };
+                char[] ret = {'\\', 'u', ENCODE_HEX[c >> 0xc & 0xf], ENCODE_HEX[c >> 0x8 & 0xf],
+                        ENCODE_HEX[c >> 0x4 & 0xf], ENCODE_HEX[c & 0xf]};
 
                 return CharBuffer.wrap(ret);
             }
@@ -185,8 +186,8 @@ public class JSEncoder {
                 return ENCODE_GT;
 
             default: {
-                char[] ret = { '\\', 'u', ENCODE_HEX[c >> 0xc & 0xf], ENCODE_HEX[c >> 0x8 & 0xf], ENCODE_HEX[c >> 0x4 & 0xf],
-                        ENCODE_HEX[c & 0xf] };
+                char[] ret = {'\\', 'u', ENCODE_HEX[c >> 0xc & 0xf], ENCODE_HEX[c >> 0x8 & 0xf], ENCODE_HEX[c >> 0x4 & 0xf],
+                        ENCODE_HEX[c & 0xf]};
 
                 return ret;
             }

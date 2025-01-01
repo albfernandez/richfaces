@@ -65,6 +65,21 @@ public class ITViewScoped {
         return deployment.getFinalArchive();
     }
 
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
+
+        p.body("<h:form id='form'>");
+        p.body("    <h:inputText value='#{viewScope.value}' />");
+        p.body("    <h:commandButton value='Submit' execute='@form' render='@form' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;' />");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
     @Test
     public void test() {
         // given
@@ -82,22 +97,5 @@ public class ITViewScoped {
         form.submit();
         assertEquals("text", form.getInput());
         assertEquals(viewState, form.getViewState());
-    }
-
-
-
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
-        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
-        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
-
-        p.body("<h:form id='form'>");
-        p.body("    <h:inputText value='#{viewScope.value}' />");
-        p.body("    <h:commandButton value='Submit' execute='@form' render='@form' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;' />");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

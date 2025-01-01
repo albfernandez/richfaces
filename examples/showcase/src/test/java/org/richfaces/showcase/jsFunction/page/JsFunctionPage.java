@@ -21,11 +21,12 @@
  *******************************************************************************/
 package org.richfaces.showcase.jsFunction.page;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 /**
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>

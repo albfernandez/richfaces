@@ -21,32 +21,32 @@
  */
 package org.richfaces.context;
 
-import static org.richfaces.renderkit.AjaxConstants.ALL;
-import static org.richfaces.renderkit.AjaxConstants.FORM;
-import static org.richfaces.renderkit.AjaxConstants.NONE;
-import static org.richfaces.renderkit.AjaxConstants.THIS;
+import org.richfaces.component.MetaComponentResolver;
 
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIForm;
+import javax.faces.context.FacesContext;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.context.FacesContext;
-
-import org.richfaces.component.MetaComponentResolver;
+import static org.richfaces.renderkit.AjaxConstants.ALL;
+import static org.richfaces.renderkit.AjaxConstants.FORM;
+import static org.richfaces.renderkit.AjaxConstants.NONE;
+import static org.richfaces.renderkit.AjaxConstants.THIS;
 
 /**
  * Util class for common render operations - render passthru html attributes, iterate over child components etc.
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.6 $ $Date: 2007/02/08 19:07:16 $
- *
  */
 final class ContextUtils {
     public static final Set<String> GLOBAL_META_COMPONENTS;
+    // we'd better use this instance multithreadly quickly
+    static final ContextUtils INSTANCE = new ContextUtils();
 
     static {
         GLOBAL_META_COMPONENTS = Collections.unmodifiableSet(new HashSet<String>(2) {
@@ -57,35 +57,7 @@ final class ContextUtils {
         });
     }
 
-    // we'd better use this instance multithreadly quickly
-    static final ContextUtils INSTANCE = new ContextUtils();
-
     private ContextUtils() {
-    }
-
-    public String getPredefinedMetaComponentId(FacesContext facesContext, UIComponent component, String id) {
-
-        if (ALL.equals(id)) {
-            return ALL;
-        } else if (NONE.equals(id)) {
-            return NONE;
-        } else if (THIS.equals(id)) {
-            String metaComponentId = (String) facesContext.getAttributes().get(ExtendedVisitContext.META_COMPONENT_ID);
-            if (metaComponentId != null) {
-                return component.getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
-                    + metaComponentId;
-            }
-            return component.getClientId(facesContext);
-        } else if (FORM.equals(id)) {
-            UIComponent nestingForm = getNestingForm(facesContext, component);
-            if (nestingForm != null) {
-                return nestingForm.getClientId(facesContext);
-            } else {
-                // TODO nick - log warning for missing form
-            }
-        }
-
-        return null;
     }
 
     /**
@@ -106,12 +78,37 @@ final class ContextUtils {
         return false;
     }
 
+    public String getPredefinedMetaComponentId(FacesContext facesContext, UIComponent component, String id) {
+
+        if (ALL.equals(id)) {
+            return ALL;
+        } else if (NONE.equals(id)) {
+            return NONE;
+        } else if (THIS.equals(id)) {
+            String metaComponentId = (String) facesContext.getAttributes().get(ExtendedVisitContext.META_COMPONENT_ID);
+            if (metaComponentId != null) {
+                return component.getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                        + metaComponentId;
+            }
+            return component.getClientId(facesContext);
+        } else if (FORM.equals(id)) {
+            UIComponent nestingForm = getNestingForm(facesContext, component);
+            if (nestingForm != null) {
+                return nestingForm.getClientId(facesContext);
+            } else {
+                // TODO nick - log warning for missing form
+            }
+        }
+
+        return null;
+    }
+
     /**
      * @param context
      * @param component
      * @param shortIds
-     * @since 4.0
      * @return
+     * @since 4.0
      */
     public Collection<String> findComponentsFor(FacesContext context, UIComponent component, Collection<String> shortIds) {
         Set<String> result = new LinkedHashSet<String>(shortIds.size());

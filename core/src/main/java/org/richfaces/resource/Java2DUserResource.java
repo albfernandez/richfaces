@@ -28,7 +28,6 @@ import java.util.Map;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface Java2DUserResource {
     Map<String, String> getResponseHeaders();

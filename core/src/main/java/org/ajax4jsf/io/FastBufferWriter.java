@@ -21,11 +21,10 @@
  */
 package org.ajax4jsf.io;
 
+import javax.servlet.ServletOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-
-import javax.servlet.ServletOutputStream;
 
 /**
  * Class for writing to chain of char arrays extending Writer.

@@ -21,13 +21,8 @@
  */
 package org.richfaces.demo.jpa;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.google.common.collect.Lists;
+import org.w3c.dom.Node;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -40,10 +35,13 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Node;
-
-import com.google.common.collect.Lists;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Nick Belaevski

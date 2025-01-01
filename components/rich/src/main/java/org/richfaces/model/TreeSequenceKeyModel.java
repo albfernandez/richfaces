@@ -21,15 +21,14 @@
  */
 package org.richfaces.model;
 
-import javax.faces.context.FacesContext;
-
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
 
+import javax.faces.context.FacesContext;
+
 /**
  * @author Nick Belaevski
- *
  */
 public abstract class TreeSequenceKeyModel<V> extends ExtendedDataModel<V> implements TreeDataModel<V> {
     private V data;
@@ -47,10 +46,6 @@ public abstract class TreeSequenceKeyModel<V> extends ExtendedDataModel<V> imple
         }
     }
 
-    protected void setData(V data) {
-        this.data = data;
-    }
-
     protected void setRowKeyAndData(SequenceRowKey key, V data) {
         this.rowKey = key;
         this.data = data;
@@ -66,6 +61,10 @@ public abstract class TreeSequenceKeyModel<V> extends ExtendedDataModel<V> imple
         }
 
         return data;
+    }
+
+    protected void setData(V data) {
+        this.data = data;
     }
 
     protected abstract void setupKey(SequenceRowKey key);

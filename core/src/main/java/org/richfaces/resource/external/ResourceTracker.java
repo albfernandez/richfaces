@@ -21,15 +21,14 @@
  */
 package org.richfaces.resource.external;
 
-import javax.faces.context.FacesContext;
-
 import org.richfaces.resource.ResourceKey;
+
+import javax.faces.context.FacesContext;
 
 /**
  * Tracks what external resources are renderered to the page
  *
  * @author Lukas Fryc
- *
  */
 public interface ResourceTracker {
 

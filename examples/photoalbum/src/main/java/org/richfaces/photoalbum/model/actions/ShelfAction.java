@@ -21,16 +21,15 @@
  */
 package org.richfaces.photoalbum.model.actions;
 
-import java.util.List;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-
 import org.richfaces.photoalbum.model.Shelf;
 import org.richfaces.photoalbum.model.User;
 import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
  * Class for manipulating with shelf entity. Analogous to DAO pattern. EJB3 Bean

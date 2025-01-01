@@ -1,7 +1,5 @@
 package org.richfaces;
 
-import javax.el.ValueExpression;
-
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;
 import org.jboss.test.faces.mock.Mock;
@@ -11,9 +9,11 @@ import org.jboss.test.faces.mock.Stub;
 import org.junit.After;
 import org.richfaces.application.ServicesFactory;
 
+import javax.el.ValueExpression;
+
 public class ValidatorTestBase {
     @Mock()
-    @Environment({ Feature.APPLICATION, Feature.RENDER_KIT, Feature.EL_CONTEXT })
+    @Environment({Feature.APPLICATION, Feature.RENDER_KIT, Feature.EL_CONTEXT})
     protected MockFacesEnvironment environment;
     protected MockController controller;
     @Mock

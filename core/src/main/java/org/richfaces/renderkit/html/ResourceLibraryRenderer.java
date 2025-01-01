@@ -21,23 +21,21 @@
  */
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
 import org.richfaces.resource.ResourceLibraryFactory;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.util.FastJoiner;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class ResourceLibraryRenderer extends ResourceRenderer {
     public static final String RENDERER_TYPE = "org.richfaces.renderkit.ResourceLibraryRenderer";

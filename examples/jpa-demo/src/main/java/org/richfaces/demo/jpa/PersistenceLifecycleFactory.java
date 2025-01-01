@@ -21,15 +21,13 @@
  */
 package org.richfaces.demo.jpa;
 
-import java.util.Iterator;
-
 import javax.faces.FacesWrapper;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.lifecycle.LifecycleFactory;
+import java.util.Iterator;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class PersistenceLifecycleFactory extends LifecycleFactory implements FacesWrapper<LifecycleFactory> {
     private LifecycleFactory lifecycleFactory;

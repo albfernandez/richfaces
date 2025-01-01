@@ -3,18 +3,16 @@
  */
 package org.richfaces.javascript.client.validator;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.validator.RegexValidator;
-import javax.faces.validator.Validator;
-
 import org.junit.runners.Parameterized.Parameters;
 import org.richfaces.javascript.client.RunParameters;
 
+import javax.faces.validator.RegexValidator;
+import javax.faces.validator.Validator;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author asmirnov
- *
  */
 public class RegexValidatorTest extends ValidatorTestBase {
     private static final String PATTERN = "pattern";
@@ -24,6 +22,12 @@ public class RegexValidatorTest extends ValidatorTestBase {
      */
     public RegexValidatorTest(RunParameters criteria) {
         super(criteria);
+    }
+
+    @Parameters
+    public static List<RunParameters[]> parameters() {
+        return options(/* pass(""),pass("aaa"),pass("123"), */
+                pass("", PATTERN, ".*"), pass("vv", PATTERN, "\\S*"), pass("123", PATTERN, "\\d+"));
     }
 
     /*
@@ -49,11 +53,5 @@ public class RegexValidatorTest extends ValidatorTestBase {
     @Override
     protected String getJavaScriptFunctionName() {
         return "validateRegex";
-    }
-
-    @Parameters
-    public static List<RunParameters[]> parameters() {
-        return options(/* pass(""),pass("aaa"),pass("123"), */
-        pass("", PATTERN, ".*"), pass("vv", PATTERN, "\\S*"), pass("123", PATTERN, "\\d+"));
     }
 }

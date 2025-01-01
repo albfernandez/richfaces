@@ -79,7 +79,7 @@ public class ITFocusDefaults {
 
         assertEquals("Component is ajaxRenderer='true' by default", ajaxRendered.getText(), Boolean.TRUE.toString());
         assertEquals("Component is validationAware='true' by default", validationAware.getText(),
-            Boolean.TRUE.toString());
+                Boolean.TRUE.toString());
         assertEquals("Component is preserve='false' by default", preserve.getText(), Boolean.FALSE.toString());
         assertEquals("Component is delayed='false' by default", delayed.getText(), Boolean.FALSE.toString());
     }

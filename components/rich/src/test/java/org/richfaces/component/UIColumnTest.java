@@ -21,12 +21,6 @@
  */
 package org.richfaces.component;
 
-import static org.easymock.EasyMock.expect;
-
-import java.util.Comparator;
-
-import javax.el.ValueExpression;
-
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.junit.After;
 import org.junit.Assert;
@@ -36,9 +30,13 @@ import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
 
+import javax.el.ValueExpression;
+import java.util.Comparator;
+
+import static org.easymock.EasyMock.expect;
+
 /**
  * @author Konstantin Mishin
- *
  */
 public class UIColumnTest {
     private MockFacesEnvironment environment;

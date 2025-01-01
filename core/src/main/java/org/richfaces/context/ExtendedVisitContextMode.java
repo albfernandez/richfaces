@@ -25,7 +25,6 @@ package org.richfaces.context;
  * Denotes a current visit mode
  *
  * @author Nick Belaevski
- *
  */
 public enum ExtendedVisitContextMode {
 

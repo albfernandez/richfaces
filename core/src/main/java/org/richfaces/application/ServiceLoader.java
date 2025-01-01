@@ -21,6 +21,8 @@
  */
 package org.richfaces.application;
 
+import com.google.common.collect.Iterables;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,15 +39,12 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import com.google.common.collect.Iterables;
-
 /**
  * <p class="changed_added_4_0">
  * This class loads services from files placed to the META-INF/services in classpath.
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public final class ServiceLoader {
     private static final String META_INF_SERVICES = "META-INF/services/";
@@ -201,7 +200,7 @@ public final class ServiceLoader {
     }
 
     private static <S> Class<? extends S> loadClass(Class<S> serviceClass, ClassLoader classLoader, String className)
-        throws ServiceException {
+            throws ServiceException {
         try {
             Class<?> implementationClass = classLoader.loadClass(className);
             if (serviceClass.isAssignableFrom(implementationClass)) {

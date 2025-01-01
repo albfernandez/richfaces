@@ -1,24 +1,27 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.view.facelets.html;
+
+import org.ajax4jsf.Messages;
+import org.richfaces.component.AbstractParameter;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
@@ -33,15 +36,42 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 import javax.faces.view.facelets.TagAttributeException;
 
-import org.ajax4jsf.Messages;
-import org.richfaces.component.AbstractParameter;
-
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/02/01 15:31:23 $
  */
 public class ParameterHandler extends ComponentHandler {
     private static final ActionParamMetaRule ACTION_PARAM_META_RULE = new ActionParamMetaRule();
+    private TagAttribute assignTo;
+
+    /**
+     * @param config
+     */
+    public ParameterHandler(ComponentConfig config) {
+        super(config);
+        assignTo = getAttribute("assignTo");
+
+        if (null != assignTo) {
+            if (assignTo.isLiteral()) {
+                throw new TagAttributeException(this.tag, this.assignTo, Messages.getMessage(Messages.MUST_BE_EXPRESSION_ERROR));
+            }
+        }
+    }
+
+    public void onComponentCreated(FaceletContext ctx, UIComponent c, UIComponent parent) {
+        if (parent instanceof ActionSource) {
+            if (assignTo != null) {
+                AbstractParameter al = (AbstractParameter) c;
+                ((ActionSource) parent).addActionListener(al);
+            }
+        }
+    }
+
+    protected MetaRuleset createMetaRuleset(Class type) {
+        MetaRuleset metaRules = super.createMetaRuleset(type);
+        metaRules.addRule(ACTION_PARAM_META_RULE);
+        return metaRules;
+    }
 
     /**
      * @author shura (latest modification by $Author: alexsmirnov $)
@@ -82,9 +112,15 @@ public class ParameterHandler extends ComponentHandler {
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
             ((AbstractParameter) instance).setConverter(ctx.getFacesContext().getApplication()
-                .createConverter(this.converterId));
+                    .createConverter(this.converterId));
         }
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.sun.facelets.FaceletHandler#apply(com.sun.facelets.FaceletContext, javax.faces.component.UIComponent)
+     */
 
     static final class DynamicConverterMetadata extends Metadata {
         private final TagAttribute attr;
@@ -98,6 +134,12 @@ public class ParameterHandler extends ComponentHandler {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.ajax4jsf.tag.AjaxComponentHandler#createMetaRuleset(java.lang.Class)
+     */
+
     static final class AssignToValueExpressionMetadata extends Metadata {
         private final TagAttribute attr;
 
@@ -108,48 +150,5 @@ public class ParameterHandler extends ComponentHandler {
         public void applyMetadata(FaceletContext ctx, Object instance) {
             ((AbstractParameter) instance).setAssignToExpression(attr.getValueExpression(ctx, Object.class));
         }
-    }
-
-    private TagAttribute assignTo;
-
-    /**
-     * @param config
-     */
-    public ParameterHandler(ComponentConfig config) {
-        super(config);
-        assignTo = getAttribute("assignTo");
-
-        if (null != assignTo) {
-            if (assignTo.isLiteral()) {
-                throw new TagAttributeException(this.tag, this.assignTo, Messages.getMessage(Messages.MUST_BE_EXPRESSION_ERROR));
-            }
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.sun.facelets.FaceletHandler#apply(com.sun.facelets.FaceletContext, javax.faces.component.UIComponent)
-     */
-
-    public void onComponentCreated(FaceletContext ctx, UIComponent c, UIComponent parent) {
-        if (parent instanceof ActionSource) {
-            if (assignTo != null) {
-                AbstractParameter al = (AbstractParameter) c;
-                ((ActionSource) parent).addActionListener(al);
-            }
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.ajax4jsf.tag.AjaxComponentHandler#createMetaRuleset(java.lang.Class)
-     */
-
-    protected MetaRuleset createMetaRuleset(Class type) {
-        MetaRuleset metaRules = super.createMetaRuleset(type);
-        metaRules.addRule(ACTION_PARAM_META_RULE);
-        return metaRules;
     }
 }

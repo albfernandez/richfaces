@@ -23,7 +23,6 @@ package org.richfaces.model;
 
 /**
  * @author Alexej Kushunin created 19.06.2007
- *
  */
 public interface CalendarDataModelItem {
     /**
@@ -33,13 +32,13 @@ public interface CalendarDataModelItem {
 
     /**
      * @return String that will be appended to style class for that date span. For example it may be �relevant holyday� � that
-     *         mean class will be like �rich-cal-day relevant holyday�. Default implementation return empty string.
-     * */
+     * mean class will be like �rich-cal-day relevant holyday�. Default implementation return empty string.
+     */
     String getStyleClass();
 
     /**
      * @return any additional payload that must be JSON-serialazable object. May be used in custom date representation on
-     *         calendar (inside custom facet).
+     * calendar (inside custom facet).
      */
     Object getData();
 

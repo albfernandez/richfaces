@@ -26,6 +26,7 @@ import org.richfaces.skin.Skin;
 import javax.faces.context.FacesContext;
 
 /**
+ *
  */
 public class ButtonHoverBackgroundImage extends BaseControlBackgroundImage {
     @Override

@@ -20,6 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.model;
+
 /**
  * @author Lukas Macko
  */
@@ -28,18 +29,18 @@ public class StringChartDataModel extends ChartDataModel<String, Number> {
     public StringChartDataModel(ChartType type) {
         super(type);
         switch (type) {
-        case bar:
-            strategy = new CategoryBarStrategy();
-            break;
-        case pie:
-            strategy = new PieStrategy();
-            break;
-        case line:
-            strategy = new LineStrategy();
-            break;
-        default:
-            throw new IllegalArgumentException(type
-                    + "not supported by StringChartDataModel");
+            case bar:
+                strategy = new CategoryBarStrategy();
+                break;
+            case pie:
+                strategy = new PieStrategy();
+                break;
+            case line:
+                strategy = new LineStrategy();
+                break;
+            default:
+                throw new IllegalArgumentException(type
+                        + "not supported by StringChartDataModel");
 
         }
     }

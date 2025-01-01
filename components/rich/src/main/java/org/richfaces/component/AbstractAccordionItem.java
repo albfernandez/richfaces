@@ -21,13 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -36,8 +29,13 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
-import org.richfaces.renderkit.html.DivPanelRenderer;
 
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
 import java.util.Iterator;
 
 /**
@@ -51,22 +49,6 @@ import java.util.Iterator;
 public abstract class AbstractAccordionItem extends AbstractTogglePanelItem implements AbstractTogglePanelTitledItem, ClientBehaviorHolder, CoreProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.AccordionItem";
     public static final String COMPONENT_FAMILY = "org.richfaces.AccordionItem";
-
-    enum Properties {
-        header,
-        contentClass,
-        leftActiveIcon,
-        leftInactiveIcon,
-        leftDisabledIcon,
-        rightActiveIcon,
-        rightDisabledIcon,
-        rightInactiveIcon,
-        headerActiveClass,
-        headerDisabledClass,
-        headerInactiveClass,
-        headerClass,
-        switchType
-    }
 
     public AbstractAccordionItem() {
         setRendererType("org.richfaces.AccordionItemRenderer");
@@ -85,8 +67,6 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         return AbstractTab.getHeaderFacet(this, state);
     }
 
-    // ------------------------------------------------ Component Attributes
-
     /**
      * <p>
      * Provides the text on the panel header. The panel header is all that is visible when the accordion item is collapsed.
@@ -100,6 +80,8 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
     public String getHeader() {
         return (String) getStateHelper().eval(Properties.header, getName());
     }
+
+    // ------------------------------------------------ Component Attributes
 
     public void setHeader(String header) {
         getStateHelper().put(Properties.header, header);
@@ -277,18 +259,33 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
                 // Do not render the non-active children, but always render the visible header facets.
                 Iterator<UIComponent> kids = AbstractTab.getVisitableChildren(this, context);
 
-                while(kids.hasNext()) {
+                while (kids.hasNext()) {
                     boolean done = kids.next().visitTree(context, callback);
 
                     if (done)
                         return true;
                 }
             }
-        }
-        finally {
+        } finally {
             popComponentFromEL(facesContext);
         }
 
         return false;
+    }
+
+    enum Properties {
+        header,
+        contentClass,
+        leftActiveIcon,
+        leftInactiveIcon,
+        leftDisabledIcon,
+        rightActiveIcon,
+        rightDisabledIcon,
+        rightInactiveIcon,
+        headerActiveClass,
+        headerDisabledClass,
+        headerInactiveClass,
+        headerClass,
+        switchType
     }
 }

@@ -21,15 +21,6 @@
  */
 package org.richfaces.renderkit.html.images;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-
 import org.richfaces.resource.AbstractJava2DUserResource;
 import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.PostConstructResource;
@@ -37,9 +28,16 @@ import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 
+import javax.faces.context.FacesContext;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
+
 /**
  * @author Nick Belaevski
- *
  */
 @DynamicUserResource
 public class TreeLineImage extends AbstractJava2DUserResource implements StateHolderResource {

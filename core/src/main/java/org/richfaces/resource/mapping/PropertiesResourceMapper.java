@@ -21,25 +21,23 @@
  */
 package org.richfaces.resource.mapping;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import javax.faces.context.FacesContext;
-
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import org.richfaces.application.Initializable;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceSkinUtils;
 import org.richfaces.services.Prioritizable;
-import org.richfaces.webapp.ResourceServlet;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.util.PropertiesUtil;
+import org.richfaces.webapp.ResourceServlet;
 
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
+import javax.faces.context.FacesContext;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Maps resources according to properties configuration of Resource Mapping and Resource Optimization
@@ -138,9 +136,14 @@ public class PropertiesResourceMapper implements ResourceMapper, ResourceAggrega
         return PropertiesMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION.equals(location);
     }
 
+    @Override
+    public int getPriority() {
+        return 100;
+    }
+
     /**
      * Maps resources according to properties file configuration to absolute URL resources or {@link ResourceServlet}-mapped resources.
-     *
+     * <p>
      * Configured URLs can be parametrized by skin name: %skin%
      *
      * @author Lukas Fryc
@@ -178,11 +181,6 @@ public class PropertiesResourceMapper implements ResourceMapper, ResourceAggrega
             return new ResourceServletMapping(location).getResourcePath(context);
         }
 
-    }
-
-    @Override
-    public int getPriority() {
-        return 100;
     }
 
 }

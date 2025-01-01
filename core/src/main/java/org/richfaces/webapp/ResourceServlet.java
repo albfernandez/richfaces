@@ -21,7 +21,9 @@
  */
 package org.richfaces.webapp;
 
-import java.io.IOException;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.resource.ResourceHandlerImpl;
 
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.Servlet;
@@ -31,10 +33,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.resource.ResourceHandlerImpl;
+import java.io.IOException;
 
 /**
  * <p>
@@ -55,14 +54,75 @@ import org.richfaces.resource.ResourceHandlerImpl;
  */
 public class ResourceServlet implements Servlet {
 
-    private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
-
-    private static final String JAVAX_FACES_RESOURCE_IDENTIFIER = "/javax.faces.resource/";
-
     public static final String RESOURCE_SERVLET_REQUEST_FLAG = ResourceServlet.class.getName();
-
+    private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
+    private static final String JAVAX_FACES_RESOURCE_IDENTIFIER = "/javax.faces.resource/";
     private ServletConfig servletConfig;
     private FacesServlet facesServlet;
+
+    private static String getResourcePathFromRequest(HttpServletRequest request) {
+        String resourceName = decodeResourceURL(request);
+
+        if (resourceName != null) {
+            if (resourceName.startsWith(JAVAX_FACES_RESOURCE_IDENTIFIER)) {
+                return resourceName.substring(JAVAX_FACES_RESOURCE_IDENTIFIER.length());
+            }
+            if (resourceName.startsWith(ResourceHandlerImpl.RICHFACES_RESOURCE_IDENTIFIER)) {
+                return resourceName;
+            }
+        }
+        return null;
+    }
+
+    private static String decodeResourceURL(HttpServletRequest request) {
+        String resourceName = null;
+        String facesMapping = getMappingForRequest(request);
+
+        if (facesMapping != null) {
+            if (facesMapping.startsWith("/")) {
+
+                // prefix mapping
+                resourceName = request.getPathInfo();
+
+            } else {
+                String requestServletPath = request.getServletPath();
+
+                resourceName = requestServletPath.substring(0, requestServletPath.length() - facesMapping.length());
+            }
+        }
+
+        return resourceName;
+    }
+
+    private static void sendResourceNotFound(HttpServletResponse response) {
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    }
+
+    private static String getMappingForRequest(HttpServletRequest request) {
+        String servletPath = request.getServletPath();
+
+        if (servletPath == null) {
+            return null;
+        }
+
+        if (servletPath.length() == 0) {
+            return "/";
+        }
+
+        String pathInfo = request.getPathInfo();
+
+        if (pathInfo != null) {
+            return servletPath;
+        }
+
+        int idx = servletPath.lastIndexOf('.');
+
+        if (idx < 0) {
+            return servletPath;
+        } else {
+            return servletPath.substring(idx);
+        }
+    }
 
     /*
      * (non-Javadoc)
@@ -142,69 +202,5 @@ public class ResourceServlet implements Servlet {
 
         // when resource path found in the request path, then we can handle the request
         return true;
-    }
-
-    private static String getResourcePathFromRequest(HttpServletRequest request) {
-        String resourceName = decodeResourceURL(request);
-
-        if (resourceName != null) {
-            if (resourceName.startsWith(JAVAX_FACES_RESOURCE_IDENTIFIER)) {
-                return resourceName.substring(JAVAX_FACES_RESOURCE_IDENTIFIER.length());
-            }
-            if (resourceName.startsWith(ResourceHandlerImpl.RICHFACES_RESOURCE_IDENTIFIER)) {
-                return resourceName;
-            }
-        }
-        return null;
-    }
-
-    private static String decodeResourceURL(HttpServletRequest request) {
-        String resourceName = null;
-        String facesMapping = getMappingForRequest(request);
-
-        if (facesMapping != null) {
-            if (facesMapping.startsWith("/")) {
-
-                // prefix mapping
-                resourceName = request.getPathInfo();
-
-            } else {
-                String requestServletPath = request.getServletPath();
-
-                resourceName = requestServletPath.substring(0, requestServletPath.length() - facesMapping.length());
-            }
-        }
-
-        return resourceName;
-    }
-
-    private static void sendResourceNotFound(HttpServletResponse response) {
-        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-    }
-
-    private static String getMappingForRequest(HttpServletRequest request) {
-        String servletPath = request.getServletPath();
-
-        if (servletPath == null) {
-            return null;
-        }
-
-        if (servletPath.length() == 0) {
-            return "/";
-        }
-
-        String pathInfo = request.getPathInfo();
-
-        if (pathInfo != null) {
-            return servletPath;
-        }
-
-        int idx = servletPath.lastIndexOf('.');
-
-        if (idx < 0) {
-            return servletPath;
-        } else {
-            return servletPath.substring(idx);
-        }
     }
 }

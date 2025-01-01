@@ -21,8 +21,7 @@
  */
 package org.richfaces.context;
 
-import java.util.Collection;
-import java.util.Set;
+import org.ajax4jsf.component.AjaxOutput;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
@@ -31,8 +30,8 @@ import javax.faces.component.visit.VisitContextWrapper;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.component.AjaxOutput;
+import java.util.Collection;
+import java.util.Set;
 
 
 /**
@@ -49,10 +48,30 @@ public class ExtendedRenderVisitContext extends BaseExtendedVisitContext {
     private boolean limitRender;
 
     public ExtendedRenderVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
-        boolean limitRender) {
+                                      boolean limitRender) {
         super(visitContextToWrap, facesContext, clientIds, hints, ExtendedVisitContextMode.RENDER);
 
         this.limitRender = limitRender;
+    }
+
+    /**
+     * Determine if the VisitContext is, or wraps, the RenderExtendedVisitContext
+     *
+     * @param visitContext The VisitContext of the component tree visit.
+     */
+    public static boolean isExtendedRenderVisitContext(VisitContext visitContext) {
+        if (visitContext instanceof ExtendedRenderVisitContext) {
+            return true;
+        } else {
+            VisitContext wrapped = visitContext;
+            while (wrapped instanceof VisitContextWrapper) {
+                wrapped = ((VisitContextWrapper) wrapped).getWrapped();
+                if (wrapped instanceof ExtendedRenderVisitContext) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -113,24 +132,5 @@ public class ExtendedRenderVisitContext extends BaseExtendedVisitContext {
     @Override
     protected boolean shouldCompleteOnEmptyIds() {
         return limitRender;
-    }
-
-    /**
-     * Determine if the VisitContext is, or wraps, the RenderExtendedVisitContext
-     * @param visitContext The VisitContext of the component tree visit.
-     */
-    public static boolean isExtendedRenderVisitContext(VisitContext visitContext) {
-        if  (visitContext instanceof ExtendedRenderVisitContext) {
-            return true;
-        } else {
-            VisitContext wrapped = visitContext;
-            while (wrapped instanceof VisitContextWrapper) {
-                wrapped = ((VisitContextWrapper) wrapped).getWrapped();
-                if  (wrapped instanceof ExtendedRenderVisitContext) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }

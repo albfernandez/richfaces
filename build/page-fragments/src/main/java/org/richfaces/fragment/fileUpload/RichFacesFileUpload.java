@@ -21,13 +21,8 @@
  */
 package org.richfaces.fragment.fileUpload;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-
-import java.io.File;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -46,17 +41,20 @@ import org.richfaces.fragment.list.AbstractListComponent;
 import org.richfaces.fragment.list.ListComponent;
 import org.richfaces.fragment.list.RichFacesListItem;
 
-import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
+import java.io.File;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponentIteractions<RichFacesFileUpload.AdvancedFileUploadInteractions> {
 
+    private final AdvancedFileUploadInteractions interactions = new AdvancedFileUploadInteractions();
     @Root
     private WebElement rootElement;
-
     @FindBy(className = "rf-fu-lst")
     private RichFacesFileUploadList items;
-
     @FindBy(className = "rf-fu-btn-cnt-add")
     private WebElement addButtonElement;
     @FindBy(className = "rf-fu-btn-cnt-add-dis")
@@ -71,11 +69,8 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
     private List<WebElement> fileInputElements;
     @FindBy(css = ".rf-fu-btn-add > span")
     private WebElement inputContainer;
-
     @Drone
     private WebDriver browser;
-
-    private final AdvancedFileUploadInteractions interactions = new AdvancedFileUploadInteractions();
 
     @Override
     public boolean addFile(File file) {
@@ -86,7 +81,7 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
         if (browser instanceof PhantomJSDriver) {
             // workaround for PhantomJS where usual upload does not work
             ((PhantomJSDriver) browser).executePhantomJS("var page = this; page.uploadFile('input[type=file]', '"
-                + file.getAbsolutePath() + "');");
+                    + file.getAbsolutePath() + "');");
         } else {
             // for all other browsers
             advanced().getFileInputElement().sendKeys(file.getAbsolutePath());
@@ -127,6 +122,9 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
     public FileUpload upload() {
         advanced().getUploadButtonElement().click();
         return this;
+    }
+
+    public static class RichFacesFileUploadList extends AbstractListComponent<FileUploadItemImpl> {
     }
 
     public class FileUploadItemImpl extends RichFacesListItem implements FileUploadItem {
@@ -177,9 +175,6 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
         }
     }
 
-    public static class RichFacesFileUploadList extends AbstractListComponent<FileUploadItemImpl> {
-    }
-
     public class AdvancedFileUploadInteractions implements VisibleComponentInteractions {
 
         private static final String DEFAULT_DONE_LABEL = "Done";
@@ -221,6 +216,10 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
             return Optional.fromNullable(doneLabel).or(DEFAULT_DONE_LABEL);
         }
 
+        public void setDoneLabel(String doneLabel) {
+            this.doneLabel = doneLabel;
+        }
+
         public ListComponent<? extends FileUploadItem> getItems() {
             return items;
         }
@@ -239,10 +238,6 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
 
         public void setDoneLabel() {
             this.doneLabel = DEFAULT_DONE_LABEL;
-        }
-
-        public void setDoneLabel(String doneLabel) {
-            this.doneLabel = doneLabel;
         }
 
         @Override

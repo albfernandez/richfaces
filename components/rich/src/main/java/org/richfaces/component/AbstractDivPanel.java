@@ -21,8 +21,6 @@
  */
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
@@ -30,6 +28,6 @@ import org.richfaces.component.attribute.I18nProps;
 /**
  * @author akolonitsky
  * @version 1.0
- *
  */
-public interface AbstractDivPanel extends CoreProps, EventsMouseProps, I18nProps {}
+public interface AbstractDivPanel extends CoreProps, EventsMouseProps, I18nProps {
+}

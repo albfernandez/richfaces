@@ -21,16 +21,7 @@
  */
 package org.richfaces.component;
 
-import java.util.Iterator;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
-
+import com.google.common.collect.ImmutableSet;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -45,7 +36,14 @@ import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.context.ExtendedRenderVisitContext;
 import org.richfaces.renderkit.html.DivPanelRenderer;
 
-import com.google.common.collect.ImmutableSet;
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.render.Renderer;
+import java.util.Iterator;
 
 /**
  * <p>The &lt;rich:tab&gt; component represents an individual tab inside a &lt;rich:tabPanel&gt; component, including
@@ -64,9 +62,40 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         setRendererType("org.richfaces.TabRenderer");
     }
 
-    // ------------------------------------------------ Html Attributes
-    enum Properties {
-        headerDisabledClass, headerInactiveClass, headerClass, contentClass, execute, headerActiveClass, header, switchType
+    public static UIComponent getHeaderFacet(UIComponent component, Enum<?> state) {
+        UIComponent headerFacet = null;
+        if (state != null) {
+            headerFacet = component.getFacet("header" + DivPanelRenderer.capitalize(state.toString()));
+        }
+
+        if (headerFacet == null) {
+            headerFacet = component.getFacet("header");
+        }
+        return headerFacet;
+    }
+
+    /**
+     * If the VisitContext is not the RenderExtendedVisitContext, return the usual FacetsAndChildren iterator.
+     * Otherwise return only the Facet iterator when a child visit is not required.
+     * <p>
+     * This is useful to not render the tab contents when an item is not visible, while still visiting the header facets.
+     *
+     * @param visitContext The VisitContext of the component tree visit.
+     */
+    public static Iterator<UIComponent> getVisitableChildren(UIComponent component, VisitContext visitContext) {
+        Iterator<UIComponent> kids;
+        if (ExtendedRenderVisitContext.isExtendedRenderVisitContext(visitContext)
+                && component instanceof VisitChildrenRejectable
+                && !((VisitChildrenRejectable) component).shouldVisitChildren()) {
+            if (component.getFacetCount() > 0) {
+                kids = component.getFacets().values().iterator();
+            } else {
+                kids = ImmutableSet.<UIComponent>of().iterator();
+            }
+        } else {
+            kids = component.getFacetsAndChildren();
+        }
+        return kids;
     }
 
     /**
@@ -169,53 +198,15 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         return execute + " " + getTabPanel().getId();
     }
 
+    // ///////////////////////////////////////////////////////////////////////
+
     public void setExecute(Object execute) {
         getStateHelper().put(Properties.execute, execute);
     }
 
-    // ///////////////////////////////////////////////////////////////////////
-
     public UIComponent getHeaderFacet(Enum<?> state) {
         return getHeaderFacet(this, state);
     }
-
-    public static UIComponent getHeaderFacet(UIComponent component, Enum<?> state) {
-        UIComponent headerFacet = null;
-        if (state != null) {
-            headerFacet = component.getFacet("header" + DivPanelRenderer.capitalize(state.toString()));
-        }
-
-        if (headerFacet == null) {
-            headerFacet = component.getFacet("header");
-        }
-        return headerFacet;
-    }
-
-    /**
-     * If the VisitContext is not the RenderExtendedVisitContext, return the usual FacetsAndChildren iterator.
-     * Otherwise return only the Facet iterator when a child visit is not required.
-     * <p>
-     * This is useful to not render the tab contents when an item is not visible, while still visiting the header facets.
-     *
-     * @param visitContext The VisitContext of the component tree visit.
-     */
-    public static Iterator<UIComponent> getVisitableChildren(UIComponent component, VisitContext visitContext) {
-        Iterator<UIComponent> kids;
-        if (ExtendedRenderVisitContext.isExtendedRenderVisitContext(visitContext)
-                && component instanceof VisitChildrenRejectable
-                && !((VisitChildrenRejectable) component).shouldVisitChildren()) {
-            if (component.getFacetCount() > 0) {
-                kids = component.getFacets().values().iterator();
-            } else {
-                kids = ImmutableSet.<UIComponent>of().iterator();
-            }
-        } else {
-            kids = component.getFacetsAndChildren();
-        }
-        return kids;
-    }
-
-    // ------------------------------------------------ Component Attributes
 
     /**
      * The header label of the tab
@@ -225,16 +216,18 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         return (String) getStateHelper().eval(Properties.header, getName());
     }
 
+    // ------------------------------------------------ Component Attributes
+
     public void setHeader(String header) {
         getStateHelper().put(Properties.header, header);
     }
-
-    // ------------------------------------------------ AbstractTogglePanelItemInterface
 
     @Override
     public AbstractTabPanel getParentPanel() {
         return ComponentIterators.getParent(this, AbstractTabPanel.class);
     }
+
+    // ------------------------------------------------ AbstractTogglePanelItemInterface
 
     @Override
     public boolean isDynamicPanelItem() {
@@ -334,5 +327,10 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         }
 
         return false;
+    }
+
+    // ------------------------------------------------ Html Attributes
+    enum Properties {
+        headerDisabledClass, headerInactiveClass, headerClass, contentClass, execute, headerActiveClass, header, switchType
     }
 }

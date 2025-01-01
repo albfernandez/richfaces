@@ -1,26 +1,42 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.component;
 
-import static org.junit.Assert.assertEquals;
+import com.gargoylesoftware.htmlunit.ScriptPreProcessor;
+import com.gargoylesoftware.htmlunit.ScriptResult;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.javascript.host.WindowProxy;
+import net.sourceforge.htmlunit.corejs.javascript.FunctionObject;
+import net.sourceforge.htmlunit.corejs.javascript.NativeArray;
+import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
+import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
+import net.sourceforge.htmlunit.corejs.javascript.Undefined;
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.jboss.test.faces.ApplicationServer;
+import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
+import org.junit.After;
+import org.junit.Before;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -30,34 +46,15 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.sourceforge.htmlunit.corejs.javascript.FunctionObject;
-import net.sourceforge.htmlunit.corejs.javascript.NativeArray;
-import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
-import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
-import net.sourceforge.htmlunit.corejs.javascript.Undefined;
-import net.sourceforge.htmlunit.corejs.javascript.UniqueTag;
-
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.jboss.test.faces.ApplicationServer;
-import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
-import org.junit.After;
-import org.junit.Before;
-import org.richfaces.CustomizedHtmlUnitEnvironment;
-
-import com.gargoylesoftware.htmlunit.ScriptPreProcessor;
-import com.gargoylesoftware.htmlunit.ScriptResult;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.javascript.host.WindowProxy;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Nick Belaevski
  * @since 3.3.0
  */
 public abstract class AbstractQueueComponentTest {
-    private static final String AJAX_SUBMIT = "ajaxSubmit";
     public static final int DEFAULT_REQUEST_TIME = 1000;
+    private static final String AJAX_SUBMIT = "ajaxSubmit";
     private static final String SIMULATION_SCRIPT_NAME = "simulation.js";
     private static final String QUEUEAJAX_SCRIPT_NAME = "queue-ajax.js";
     private static final ScriptableObject systemOut = new ScriptableObject() {
@@ -80,7 +77,7 @@ public abstract class AbstractQueueComponentTest {
     static {
         try {
             systemOut.defineProperty("println", new FunctionObject(null, systemOut.getClass()
-                .getMethod("println", String.class), systemOut), ScriptableObject.READONLY);
+                    .getMethod("println", String.class), systemOut), ScriptableObject.READONLY);
         } catch (SecurityException e) {
             throw new IllegalStateException(e.getMessage(), e);
         } catch (NoSuchMethodException e) {
@@ -143,7 +140,7 @@ public abstract class AbstractQueueComponentTest {
 
     protected void executeOnTime(int time, String expression) {
         JSFunction function = new JSFunction("simulationContext.executeOnTime", time,
-            new JSFunctionDefinition().addToBody(expression));
+                new JSFunctionDefinition().addToBody(expression));
 
         executeJavaScriptLogged(function.toScript());
     }
@@ -154,7 +151,7 @@ public abstract class AbstractQueueComponentTest {
 
     protected void clickOnTime(int time, String id) {
         JSFunction function = new JSFunction("simulationContext.executeOnTime", time,
-            new JSFunctionDefinition().addToBody(buildClickExpression(id)));
+                new JSFunctionDefinition().addToBody(buildClickExpression(id)));
 
         executeJavaScriptLogged(function.toScript());
     }
@@ -219,9 +216,9 @@ public abstract class AbstractQueueComponentTest {
             }
 
             Object startTimeObject = object.get("startTime", object);
-            Double startTime =  startTimeObject instanceof Double ? (Double) startTimeObject : Double.NaN;
+            Double startTime = startTimeObject instanceof Double ? (Double) startTimeObject : Double.NaN;
             Object endTimeObject = object.get("endTime", object);
-            Double endTime =  endTimeObject instanceof Double ? (Double) endTimeObject : Double.NaN;
+            Double endTime = endTimeObject instanceof Double ? (Double) endTimeObject : Double.NaN;
             Object aborted = object.get("aborted", object);
             boolean abortedBoolean = aborted instanceof Boolean && (Boolean) aborted;
 
@@ -414,12 +411,12 @@ public abstract class AbstractQueueComponentTest {
             return dataList;
         }
 
-        public void setCurrentTime(double number) {
-            this.currentTime = number;
-        }
-
         public double getCurrentTime() {
             return currentTime;
+        }
+
+        public void setCurrentTime(double number) {
+            this.currentTime = number;
         }
 
         @Override

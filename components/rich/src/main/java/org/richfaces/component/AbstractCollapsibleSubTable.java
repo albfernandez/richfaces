@@ -21,12 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-
 import org.richfaces.StateHolderArray;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -43,6 +37,12 @@ import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.event.CollapsibleSubTableToggleListener;
 import org.richfaces.taglib.CollapsibleSubTableHandler;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+
 /**
  * <p>
  * The &lt;rich:collapsibleSubTable&gt; component acts as a child element to a &lt;rich:dataTable&gt; component. The
@@ -57,7 +57,7 @@ import org.richfaces.taglib.CollapsibleSubTableHandler;
         renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"),
         tag = @Tag(name = "collapsibleSubTable", handlerClass = CollapsibleSubTableHandler.class, type = TagType.Facelets))
 public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable, EventsRowProps,
-    RowsProps, StyleProps, SequenceProps, IterationProps, TableStyleProps {
+        RowsProps, StyleProps, SequenceProps, IterationProps, TableStyleProps {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String MODE_AJAX = "ajax";
@@ -65,10 +65,6 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
     public static final String MODE_CLIENT = "client";
     public static final int EXPANDED_STATE = 1;
     public static final int COLLAPSED_STATE = 0;
-
-    enum PropertyKeys {
-        expanded
-    }
 
     /**
      * Determines the state of sub table: true (expanded), false (collapsed)
@@ -146,6 +142,15 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
         return (CollapsibleSubTableToggleListener[]) getFacesListeners(CollapsibleSubTableToggleListener.class);
     }
 
+    public Object getIterationState() {
+        StateHolderArray holderList = new StateHolderArray();
+
+        holderList.add(super.getIterationState());
+        holderList.add(getStateHelper().get(PropertyKeys.expanded));
+
+        return holderList;
+    }
+
     public void setIterationState(Object stateObject) {
         StateHolderArray stateHolderList = (StateHolderArray) stateObject;
 
@@ -158,16 +163,11 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
         }
     }
 
-    public Object getIterationState() {
-        StateHolderArray holderList = new StateHolderArray();
-
-        holderList.add(super.getIterationState());
-        holderList.add(getStateHelper().get(PropertyKeys.expanded));
-
-        return holderList;
-    }
-
     public String getSortingAndFilteringRenderTargetId(FacesContext facesContext) {
         return getClientId(facesContext) + "@" + BODY;
+    }
+
+    enum PropertyKeys {
+        expanded
     }
 }

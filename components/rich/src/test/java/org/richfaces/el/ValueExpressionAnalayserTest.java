@@ -1,15 +1,6 @@
 package org.richfaces.el;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import java.util.HashMap;
-
-import javax.el.ELException;
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-
+import com.google.common.collect.Maps;
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;
 import org.jboss.test.faces.mock.FacesMock;
@@ -23,7 +14,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.el.model.Bean;
 
-import com.google.common.collect.Maps;
+import javax.el.ELException;
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
+import java.util.HashMap;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @Ignore
 @RunWith(MockTestRunner.class)

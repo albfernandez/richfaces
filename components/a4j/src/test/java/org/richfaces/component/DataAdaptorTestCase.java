@@ -21,13 +21,10 @@
  */
 package org.richfaces.component;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.ajax4jsf.component.IterationStateHolder;
+import org.ajax4jsf.model.ExtendedDataModel;
+import org.ajax4jsf.model.SequenceDataModel;
+import org.jboss.test.faces.AbstractFacesTest;
 
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
@@ -46,39 +43,19 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.event.ValueChangeListener;
 import javax.faces.model.ListDataModel;
-
-import org.ajax4jsf.component.IterationStateHolder;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.SequenceDataModel;
-import org.jboss.test.faces.AbstractFacesTest;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class DataAdaptorTestCase extends AbstractFacesTest {
     private static final String VAR_NAME = "item";
-
-    private static class TestCallback {
-        private int value;
-
-        public void handle() {
-
-        }
-
-        public void reset() {
-            value = 0;
-        }
-
-        public int getAndIncrement() {
-            return value++;
-        }
-
-        public int get() {
-            return value;
-        }
-    }
-
     private MockDataAdaptor mockDataAdaptor;
     private List<String> data;
 
@@ -88,7 +65,7 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
 
     private Object getVarValue() {
         return facesContext.getApplication().evaluateExpressionGet(facesContext, MessageFormat.format("#'{'{0}'}'", VAR_NAME),
-            Object.class);
+                Object.class);
     }
 
     @Override
@@ -361,20 +338,20 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
 
         final char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
         invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "_facet",
-            new ContextCallback() {
-                public void invokeContextCallback(FacesContext context, UIComponent target) {
-                    callback.getAndIncrement();
-                    assertEquals(facet, target);
-                    assertEquals("_data" + separatorChar + "_facet", target.getClientId());
-                }
-            });
+                new ContextCallback() {
+                    public void invokeContextCallback(FacesContext context, UIComponent target) {
+                        callback.getAndIncrement();
+                        assertEquals(facet, target);
+                        assertEquals("_data" + separatorChar + "_facet", target.getClientId());
+                    }
+                });
 
         assertTrue(invocationResult);
         assertEquals(1, callback.get());
         callback.reset();
 
         invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "2" + separatorChar
-            + "_child", new ContextCallback() {
+                + "_child", new ContextCallback() {
             public void invokeContextCallback(FacesContext context, UIComponent target) {
                 callback.getAndIncrement();
                 assertEquals(child, target);
@@ -388,7 +365,7 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
         callback.reset();
 
         invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "100" + separatorChar
-            + "_child", new ContextCallback() {
+                + "_child", new ContextCallback() {
             public void invokeContextCallback(FacesContext context, UIComponent target) {
                 fail();
             }
@@ -396,11 +373,11 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
         assertFalse(invocationResult);
 
         invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "nonExistentComponent",
-            new ContextCallback() {
-                public void invokeContextCallback(FacesContext context, UIComponent target) {
-                    fail();
-                }
-            });
+                new ContextCallback() {
+                    public void invokeContextCallback(FacesContext context, UIComponent target) {
+                        fail();
+                    }
+                });
         assertFalse(invocationResult);
     }
 
@@ -424,7 +401,7 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
         idsToVisit.add("_data" + separatorChar + "2" + separatorChar + "_child");
 
         VisitContext partialVisitContext = VisitContext.createVisitContext(facesContext, idsToVisit,
-            EnumSet.of(VisitHint.SKIP_UNRENDERED));
+                EnumSet.of(VisitHint.SKIP_UNRENDERED));
 
         final TestCallback callback = new TestCallback();
         mockDataAdaptor.visitTree(fullVisitContext, new VisitCallback() {
@@ -436,7 +413,7 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
             }
         });
 
-        assertEquals(1 /* adaptor itself */+ 1 /* facet */+ data.size(), callback.get());
+        assertEquals(1 /* adaptor itself */ + 1 /* facet */ + data.size(), callback.get());
 
         callback.reset();
 
@@ -458,7 +435,7 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
                 callback.getAndIncrement();
 
                 if (child.equals(target)
-                    && child.getClientId().equals("_data" + separatorChar + "1" + separatorChar + "_child")) {
+                        && child.getClientId().equals("_data" + separatorChar + "1" + separatorChar + "_child")) {
                     return VisitResult.COMPLETE;
                 }
 
@@ -466,7 +443,27 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
             }
         });
 
-        assertEquals(1 /* data adaptor */+ 1 /* facet */+ 2 /* [0..1] children */, callback.get());
+        assertEquals(1 /* data adaptor */ + 1 /* facet */ + 2 /* [0..1] children */, callback.get());
+    }
+
+    private static class TestCallback {
+        private int value;
+
+        public void handle() {
+
+        }
+
+        public void reset() {
+            value = 0;
+        }
+
+        public int getAndIncrement() {
+            return value++;
+        }
+
+        public int get() {
+            return value;
+        }
     }
 }
 

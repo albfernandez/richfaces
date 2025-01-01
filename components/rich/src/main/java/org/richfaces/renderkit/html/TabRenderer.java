@@ -21,21 +21,7 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-
-import java.io.IOException;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionEvent;
-
+import com.google.common.base.Predicate;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -49,22 +35,42 @@ import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
-import com.google.common.base.Predicate;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
+import java.io.IOException;
+import java.util.Map;
+
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
 
 /**
  * @author akolonitsky
  * @since 2010-08-24
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
-        @ResourceDependency(library = "org.richfaces", name = "tab.js") })
+        @ResourceDependency(library = "org.richfaces", name = "tab.js")})
 @JsfRenderer(type = "org.richfaces.TabRenderer", family = AbstractTab.COMPONENT_FAMILY)
 public class TabRenderer extends TogglePanelItemRenderer {
+    private static AbstractTabPanel getParentTabPanel(AbstractTab menuItem) {
+        return (AbstractTabPanel) ComponentIterators.getParent(menuItem, new Predicate<UIComponent>() {
+            public boolean apply(UIComponent component) {
+                return component instanceof AbstractTabPanel;
+            }
+        });
+    }
+
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
 
@@ -80,7 +86,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
         if (pvc.isPartialRequest()) {
             // encode the tabPanel headers when the tab is encoded
             String headerMetaComponentId = parentTabPanel.getClientId(context)
-                + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + AbstractTabPanel.HEADER_META_COMPONENT;
+                    + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + AbstractTabPanel.HEADER_META_COMPONENT;
             pvc.getRenderIds().add(headerMetaComponentId);
         }
 
@@ -165,13 +171,5 @@ public class TabRenderer extends TogglePanelItemRenderer {
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractTab.class;
-    }
-
-    private static AbstractTabPanel getParentTabPanel(AbstractTab menuItem) {
-        return (AbstractTabPanel) ComponentIterators.getParent(menuItem, new Predicate<UIComponent>() {
-            public boolean apply(UIComponent component) {
-                return component instanceof AbstractTabPanel;
-            }
-        });
     }
 }

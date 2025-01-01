@@ -21,15 +21,7 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.richfaces.photoalbum.ftest.webdriver.tests.AbstractPhotoalbumTest.NO_OWNER;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import com.google.common.collect.Lists;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -41,7 +33,14 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.inplaceInput.RichFacesInplaceInput;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
-import com.google.common.collect.Lists;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.richfaces.photoalbum.ftest.webdriver.tests.AbstractPhotoalbumTest.NO_OWNER;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -62,7 +61,7 @@ public class GroupView {
 
     public void checkUserOwnsGroup(boolean owns) {
         ArrayList<WebElement> ownGroupLinks = Lists.newArrayList(groupHeader.getDeleteAlbumGroupLink(),
-            groupHeader.getEditAlbumGroupPropertiesLink());
+                groupHeader.getEditAlbumGroupPropertiesLink());
         if (owns) {
             PhotoalbumUtils.checkVisible(ownGroupLinks);
         } else {

@@ -26,7 +26,6 @@ import java.util.Map;
 
 /**
  * @author Nick Belaevski
- *
  */
 public abstract class AbstractUserResource implements UserResource {
     public Map<String, String> getResponseHeaders() {

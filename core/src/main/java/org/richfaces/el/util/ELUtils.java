@@ -21,16 +21,15 @@
  */
 package org.richfaces.el.util;
 
-import java.beans.PropertyEditor;
-import java.beans.PropertyEditorManager;
-import java.text.MessageFormat;
+import com.google.common.primitives.Primitives;
 
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
-
-import com.google.common.primitives.Primitives;
+import java.beans.PropertyEditor;
+import java.beans.PropertyEditorManager;
+import java.text.MessageFormat;
 
 /**
  * @author asmirnov
@@ -79,7 +78,7 @@ public final class ELUtils {
     /**
      * Creates value expression from string and stores expression's expected type
      *
-     * @param expression string with EL expressions
+     * @param expression   string with EL expressions
      * @param expectedType the type expected from expression after evaluation
      * @return value expression from string and stores expression's expected type
      */
@@ -106,14 +105,14 @@ public final class ELUtils {
      * If the literal is provided, constant value expression is used instead.
      * </p>
      *
-     * @param context current {@link FacesContext}
-     * @param expression string with EL expressions
-     * @param literal determined if the literal value is required
+     * @param context      current {@link FacesContext}
+     * @param expression   string with EL expressions
+     * @param literal      determined if the literal value is required
      * @param expectedType the type expected from expression after evaluation
      * @return value expression from string and stores expression's expected type
      */
     public static ValueExpression createValueExpression(FacesContext context, String expression, boolean literal,
-            Class<?> expectedType) {
+                                                        Class<?> expectedType) {
 
         ValueExpression result = null;
 
@@ -138,7 +137,7 @@ public final class ELUtils {
     /**
      * Coerce the given object to targetType.
      *
-     * @param value object to be coerced
+     * @param value      object to be coerced
      * @param targetType which should be object coerced into
      * @return the given value coerced to targetType
      */

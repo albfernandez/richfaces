@@ -1,24 +1,5 @@
 package org.richfaces.validator;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.HashMap;
-import java.util.Locale;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.LengthValidator;
-import javax.faces.validator.RequiredValidator;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
-
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;
 import org.jboss.test.faces.mock.Mock;
@@ -30,10 +11,28 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.LengthValidator;
+import javax.faces.validator.RequiredValidator;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
+import java.util.HashMap;
+import java.util.Locale;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 @RunWith(MockTestRunner.class)
 public class FacesValidatorServiceTest {
     @Mock()
-    @Environment({ Feature.APPLICATION })
+    @Environment({Feature.APPLICATION})
     protected MockFacesEnvironment environment;
     protected FacesValidatorService serviceImpl;
     @Mock

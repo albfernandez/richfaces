@@ -25,7 +25,6 @@ import java.awt.Graphics2D;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class TreeMinusImage extends TreePlusImage {
     public void paint(Graphics2D g2d) {

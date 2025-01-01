@@ -22,13 +22,12 @@
 
 package org.richfaces.demo.core;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
+import java.io.Serializable;
+import java.util.Date;
 
 @ManagedBean(name = "commandBean")
 @SessionScoped
@@ -45,12 +44,12 @@ public class CommandBean implements Serializable {
         this.pollEnabled = pollEnabled;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void submit() {

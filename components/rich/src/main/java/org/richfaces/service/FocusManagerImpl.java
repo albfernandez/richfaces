@@ -1,12 +1,5 @@
 package org.richfaces.service;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
 import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.focus.FocusManager;
@@ -16,13 +9,19 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.RendererUtils;
 import org.richfaces.util.SeparatorChar;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class FocusManagerImpl implements FocusManager {
 
-        // find first text input among children or self
+    // find first text input among children or self
     private static final String SCRIPT = "var element = document.getElementById('%1$s');\n"
-                                       + "if (!element) { RichFaces.log.warn(\"rich:focus - Component with ID '%1$s' was not found\"); return; }\n"
-                                       + "RichFaces.jQuery(element)"
-                                       + ".find(':text:visible:first').addBack().focus();";
+            + "if (!element) { RichFaces.log.warn(\"rich:focus - Component with ID '%1$s' was not found\"); return; }\n"
+            + "RichFaces.jQuery(element)"
+            + ".find(':text:visible:first').addBack().focus();";
     private static final Logger LOG = RichfacesLogger.APPLICATION.getLogger();
     private static final String ROW_ID = SeparatorChar.SEPARATOR_CHAR + "\\d+" + SeparatorChar.SEPARATOR_CHAR;
     private static final String ROW_PATTERN = "(" + ROW_ID + ")(.+)";
@@ -93,4 +92,3 @@ public class FocusManagerImpl implements FocusManager {
         context.addMessage(null, new FacesMessage(message));
     }
 }
-

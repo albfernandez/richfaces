@@ -28,13 +28,6 @@ package org.richfaces.log;
  * @author shura
  */
 public interface Logger {
-    public enum Level {
-        DEBUG,
-        INFO,
-        WARNING,
-        ERROR
-    }
-
     /**
      * <p class="changed_added_4_0">
      * </p>
@@ -85,13 +78,14 @@ public interface Logger {
      *
      * @param error
      */
+    void debug(Throwable error);
+
     /**
      * <p class="changed_added_4_0">
      * </p>
      *
      * @param error
      */
-    void debug(Throwable error);
 
     /**
      * <p class="changed_added_4_0">
@@ -306,4 +300,11 @@ public interface Logger {
      * @param args
      */
     void log(Level level, Throwable error, Enum<?> messageKey, Object... args);
+
+    public enum Level {
+        DEBUG,
+        INFO,
+        WARNING,
+        ERROR
+    }
 }

@@ -21,18 +21,16 @@
  */
 package org.richfaces.request;
 
-import java.util.Locale;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import java.util.Locale;
+import java.util.Map;
+
 /**
  * @author Nick Belaevski
- *
  */
 abstract class BaseMultipartRequest extends HttpServletRequestWrapper implements MultipartRequest {
     static final String CONTENT_TYPE = "application/x-www-form-urlencoded";

@@ -28,5 +28,5 @@ import javax.faces.validator.Validator;
 
 public interface FacesValidatorService {
     ValidatorDescriptor getValidatorDescription(FacesContext context, EditableValueHolder component, Validator validator,
-        String message);
+                                                String message);
 }

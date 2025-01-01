@@ -25,7 +25,6 @@ package org.richfaces.fragment.switchable;
  * Represents the types of the interaction when switching among various panels in the switchable components.
  *
  * @author jhuska
- *
  */
 public enum SwitchType {
 

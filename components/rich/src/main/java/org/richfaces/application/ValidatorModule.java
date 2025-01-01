@@ -22,8 +22,6 @@
  */
 package org.richfaces.application;
 
-import java.util.Map;
-
 import org.richfaces.el.ValueExpressionAnalayserImpl;
 import org.richfaces.javascript.ClientScriptService;
 import org.richfaces.javascript.ClientScriptServiceImpl;
@@ -39,13 +37,14 @@ import org.richfaces.validator.FacesValidatorServiceImpl;
 import org.richfaces.validator.InitializationException;
 import org.richfaces.validator.RichFacesBeanValidatorFactory;
 
+import java.util.Map;
+
 /**
  * <p class="changed_added_4_0">
  * This class initializes validator-related services
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public class ValidatorModule implements Module {
     /*

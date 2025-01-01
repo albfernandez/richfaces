@@ -1,17 +1,16 @@
 package org.richfaces.demo.tables;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import org.richfaces.component.AbstractExtendedDataTable;
+import org.richfaces.demo.tables.model.cars.InventoryItem;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
-
-import org.richfaces.component.AbstractExtendedDataTable;
-import org.richfaces.demo.tables.model.cars.InventoryItem;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @ManagedBean
 @ViewScoped

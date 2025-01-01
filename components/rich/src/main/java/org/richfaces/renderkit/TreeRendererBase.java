@@ -21,21 +21,8 @@
  */
 package org.richfaces.renderkit;
 
-import static org.richfaces.component.AbstractTree.SELECTION_META_COMPONENT_ID;
-
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.faces.component.ContextCallback;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-
+import com.google.common.base.Strings;
+import com.google.common.collect.Sets;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractTree;
@@ -48,12 +35,22 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.Sets;
+import javax.faces.component.ContextCallback;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
+
+import static org.richfaces.component.AbstractTree.SELECTION_META_COMPONENT_ID;
 
 /**
  * @author Nick Belaevski
- *
  */
 public abstract class TreeRendererBase extends RendererBase implements MetaComponentRenderer {
     static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
@@ -62,21 +59,20 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
     private static final JSReference COMPLETE_JS_REF = new JSReference("complete");
     private static final String SELECTION_STATE = "__SELECTION_STATE";
 
-    /**
-     * @author Nick Belaevski
-     *
-     */
-    private final class RowKeyContextCallback implements ContextCallback {
-        private Object rowKey;
-
-        public void invokeContextCallback(FacesContext context, UIComponent target) {
-            AbstractTreeNode treeNode = (AbstractTreeNode) target;
-            rowKey = treeNode.findTreeComponent().getRowKey();
+    static SwitchType getSelectionTypeOrDefault(AbstractTree tree) {
+        SwitchType selectionType = tree.getSelectionType();
+        if (selectionType == null) {
+            selectionType = SwitchType.client;
         }
+        return selectionType;
+    }
 
-        public Object getRowKey() {
-            return rowKey;
+    static SwitchType getToggleTypeOrDefault(AbstractTree tree) {
+        SwitchType toggleType = tree.getToggleType();
+        if (toggleType == null) {
+            toggleType = SwitchType.DEFAULT;
         }
+        return toggleType;
     }
 
     public void encodeTree(FacesContext context, UIComponent component) throws IOException {
@@ -221,8 +217,8 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         PartialViewContext pvc = context.getPartialViewContext();
         if (pvc.isAjaxRequest()) {
             pvc.getRenderIds().add(
-                tree.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
-                    + AbstractTree.SELECTION_META_COMPONENT_ID);
+                    tree.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                            + AbstractTree.SELECTION_META_COMPONENT_ID);
         }
     }
 
@@ -239,19 +235,19 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         TreeRenderingContext.delete(context);
     }
 
-    static SwitchType getSelectionTypeOrDefault(AbstractTree tree) {
-        SwitchType selectionType = tree.getSelectionType();
-        if (selectionType == null) {
-            selectionType = SwitchType.client;
-        }
-        return selectionType;
-    }
+    /**
+     * @author Nick Belaevski
+     */
+    private final class RowKeyContextCallback implements ContextCallback {
+        private Object rowKey;
 
-    static SwitchType getToggleTypeOrDefault(AbstractTree tree) {
-        SwitchType toggleType = tree.getToggleType();
-        if (toggleType == null) {
-            toggleType = SwitchType.DEFAULT;
+        public void invokeContextCallback(FacesContext context, UIComponent target) {
+            AbstractTreeNode treeNode = (AbstractTreeNode) target;
+            rowKey = treeNode.findTreeComponent().getRowKey();
         }
-        return toggleType;
+
+        public Object getRowKey() {
+            return rowKey;
+        }
     }
 }

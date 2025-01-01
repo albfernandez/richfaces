@@ -21,15 +21,13 @@
  */
 package org.richfaces.resource;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
-
-import java.util.Collections;
-
-import javax.faces.context.FacesContext;
-
+import com.google.common.collect.ImmutableList;
 import org.richfaces.application.CommonComponentsConfiguration;
 
-import com.google.common.collect.ImmutableList;
+import javax.faces.context.FacesContext;
+import java.util.Collections;
+
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
 /**
  * This is a modified version of {@link AjaxResourceLibrary} that renders just richfaces-queue.js resource when it is configured.
@@ -39,7 +37,7 @@ import com.google.common.collect.ImmutableList;
  */
 public class QueueResourceLibrary implements ResourceLibrary {
     private static final ImmutableList<ResourceKey> AJAX_WITH_QUEUE_KEYS = ImmutableList.<ResourceKey>builder()
-        .add(ResourceKey.create("richfaces-queue.js", "org.richfaces")).build();
+            .add(ResourceKey.create("richfaces-queue.js", "org.richfaces")).build();
 
     public Iterable<ResourceKey> getResources() {
         if (getBooleanConfigurationValue(FacesContext.getCurrentInstance(), CommonComponentsConfiguration.Items.queueEnabled)) {

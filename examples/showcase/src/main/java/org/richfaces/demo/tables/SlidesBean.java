@@ -1,13 +1,12 @@
 package org.richfaces.demo.tables;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import org.richfaces.demo.tables.model.slides.Picture;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
-import org.richfaces.demo.tables.model.slides.Picture;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ilya Shaikovsky

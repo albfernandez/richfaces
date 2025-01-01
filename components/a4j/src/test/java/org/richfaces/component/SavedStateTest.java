@@ -21,15 +21,6 @@
  */
 package org.richfaces.component;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import javax.faces.component.UIForm;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
-
 import org.ajax4jsf.component.IterationStateHolder;
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
@@ -38,9 +29,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.faces.component.UIForm;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Nick Belaevski
- *
  */
 @RunWith(MockTestRunner.class)
 public class SavedStateTest {
@@ -52,12 +51,12 @@ public class SavedStateTest {
     @Before
     public void setUp() throws Exception {
         iterationStateHolder = new IterationStateHolder() {
-            public void setIterationState(Object state) {
-                iterationState = (String) state;
-            }
-
             public Object getIterationState() {
                 return iterationState;
+            }
+
+            public void setIterationState(Object state) {
+                iterationState = (String) state;
             }
         };
     }

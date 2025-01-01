@@ -1,28 +1,25 @@
 package org.richfaces.demo.tables;
 
+import org.richfaces.component.SortOrder;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
-
-import org.richfaces.component.SortOrder;
-
 @ManagedBean
 @ViewScoped
 public class CarsSortingBean implements Serializable {
     private static final long serialVersionUID = 1L;
+    private static final String SORT_PROPERTY_PARAMETER = "sortProperty";
     private Map<String, SortOrder> sortsOrders;
     private List<String> sortPriorities;
-
     private boolean multipleSorting = false;
-
-    private static final String SORT_PROPERTY_PARAMETER = "sortProperty";
 
     public CarsSortingBean() {
         sortsOrders = new HashMap<String, SortOrder>();
@@ -31,7 +28,7 @@ public class CarsSortingBean implements Serializable {
 
     public void sort() {
         String property = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
-            .get(SORT_PROPERTY_PARAMETER);
+                .get(SORT_PROPERTY_PARAMETER);
         if (property != null) {
             SortOrder currentPropertySortOrder = sortsOrders.get(property);
             if (multipleSorting) {

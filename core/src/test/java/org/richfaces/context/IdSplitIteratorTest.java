@@ -21,18 +21,6 @@
  */
 package org.richfaces.context;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.HashMap;
-import java.util.NoSuchElementException;
-
-import javax.faces.context.FacesContext;
-
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockFacesEnvironment;
@@ -41,14 +29,24 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.faces.context.FacesContext;
+import java.util.HashMap;
+import java.util.NoSuchElementException;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 /**
  * @author Nick Belaevski
- *
  */
 @RunWith(MockTestRunner.class)
 public class IdSplitIteratorTest {
     @Mock
-    @Environment({ Environment.Feature.EXTERNAL_CONTEXT })
+    @Environment({Environment.Feature.EXTERNAL_CONTEXT})
     private MockFacesEnvironment environment;
 
     @Before

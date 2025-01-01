@@ -21,17 +21,9 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.renderkit.ComponentAttribute.Kind;
 
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
@@ -46,14 +38,20 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.renderkit.ComponentAttribute.Kind;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author Nick Belaevski
- *
  */
 public final class RenderKitUtils {
     /**
@@ -74,69 +72,12 @@ public final class RenderKitUtils {
     private static final String XHTML_CONTENT_TYPE = "application/xhtml+xml";
     // TODO - check what's in MyFaces
     private static final String ATTRIBUTES_THAT_ARE_SET = UIComponentBase.class.getName() + ".attributesThatAreSet";
-    private static final String[] BOOLEAN_ATTRIBUTE_NAMES = { "checked", "compact", "declare", "defer", "disabled", "ismap",
-            "multiple", "nohref", "noshade", "nowrap", "readonly", "selected" };
-    private static final String[] URI_ATTRIBUTE_NAMES = { "action", "background", "cite", "classid", "codebase", "data",
-            "href", "longdesc", "profile", "src", "usemap" };
-    private static final String[] XHTML_ATTRIBUTE_NAMES = { "lang" };
+    private static final String[] BOOLEAN_ATTRIBUTE_NAMES = {"checked", "compact", "declare", "defer", "disabled", "ismap",
+            "multiple", "nohref", "noshade", "nowrap", "readonly", "selected"};
+    private static final String[] URI_ATTRIBUTE_NAMES = {"action", "background", "cite", "classid", "codebase", "data",
+            "href", "longdesc", "profile", "src", "usemap"};
+    private static final String[] XHTML_ATTRIBUTE_NAMES = {"lang"};
     private static final String DISABLED_ATTRIBUTE_NAME = "disabled";
-
-    /**
-     * Wrapper class around object value used to transform values into particular JS objects
-     *
-     * @author Nick Belaevski
-     * @since 3.3.2
-     */
-    public enum ScriptHashVariableWrapper {
-
-        /**
-         * No-op default wrapper
-         */
-        noop {
-            @Override
-            Object wrap(Object o) {
-                return o;
-            }
-        },
-        /**
-         * Convert parameter to array of srings.
-         */
-        asArray {
-            @Override
-            Object wrap(Object o) {
-                return asArray(o);
-            }
-        },
-        /**
-         * Event handler functions wrapper. Wraps
-         *
-         * <pre>
-         * functionCode
-         * </pre>
-         *
-         * object into:
-         *
-         * <pre>
-         * function(event) {
-         *   functionCode
-         * }
-         * </pre>
-         */
-        eventHandler {
-            @Override
-            Object wrap(Object o) {
-                return new JSFunctionDefinition("event").addToBody(o);
-            }
-        };
-
-        /**
-         * Method that does the wrapping
-         *
-         * @param o object to wrap
-         * @return wrapped object
-         */
-        abstract Object wrap(Object o);
-    }
 
     private RenderKitUtils() {
         // utility constructor
@@ -273,7 +214,7 @@ public final class RenderKitUtils {
     }
 
     private static Object createBehaviorsChain(Object inlineHandlerValue, ClientBehaviorContext behaviorContext,
-            List<ClientBehavior> behaviors) {
+                                               List<ClientBehavior> behaviors) {
 
         boolean isChained = false;
         StringBuilder result = new StringBuilder();
@@ -380,7 +321,7 @@ public final class RenderKitUtils {
     // TODO - create special method for event handlers that will return String?
     // TODO - add check for 'disabled'?
     public static Object getAttributeAndBehaviorsValue(FacesContext facesContext, UIComponent component,
-            ComponentAttribute componentAttribute) {
+                                                       ComponentAttribute componentAttribute) {
         if (facesContext == null) {
             throw new NullPointerException("facesContext");
         }
@@ -418,13 +359,13 @@ public final class RenderKitUtils {
     }
 
     public static void renderAttributeAndBehaviors(FacesContext facesContext, UIComponent component,
-            ComponentAttribute componentAttribute) throws IOException {
+                                                   ComponentAttribute componentAttribute) throws IOException {
         Object attributeValue = getAttributeAndBehaviorsValue(facesContext, component, componentAttribute);
         renderAttribute(facesContext, componentAttribute.getHtmlAttributeName(), attributeValue);
     }
 
     public static void renderPassThroughAttributesOptimized(FacesContext context, UIComponent component,
-            Map<String, ComponentAttribute> knownAttributesMap) throws IOException {
+                                                            Map<String, ComponentAttribute> knownAttributesMap) throws IOException {
 
         Object attributesThatAreSetObject = component.getAttributes().get(ATTRIBUTES_THAT_ARE_SET);
         if (attributesThatAreSetObject instanceof Collection<?>) {
@@ -467,14 +408,14 @@ public final class RenderKitUtils {
     }
 
     public static void renderPassThroughAttributes(FacesContext context, UIComponent component,
-            Map<String, ComponentAttribute> knownAttributesMap) throws IOException {
+                                                   Map<String, ComponentAttribute> knownAttributesMap) throws IOException {
         Collection<ComponentAttribute> attributes = knownAttributesMap.values();
 
         renderPassThroughAttributes(context, component, attributes);
     }
 
     public static void renderPassThroughAttributes(FacesContext context, UIComponent component,
-            Collection<ComponentAttribute> attributes) throws IOException {
+                                                   Collection<ComponentAttribute> attributes) throws IOException {
         boolean disabled = isDisabled(component);
         for (ComponentAttribute knownAttribute : attributes) {
             if (!disabled || knownAttribute.getEventNames().length == 0) {
@@ -545,14 +486,14 @@ public final class RenderKitUtils {
     /**
      * Checks if the argument passed in is empty or not. Object is empty if it is: <br />
      * - <code>null<code><br />
-     *  - zero-length string<br />
-     *  - empty collection<br />
-     *  - empty map<br />
-     *  - zero-length array<br />
+     * - zero-length string<br />
+     * - empty collection<br />
+     * - empty map<br />
+     * - zero-length array<br />
      *
      * @param o object to check for emptiness
-     * @since 3.3.2
      * @return <code>true</code> if the argument is empty, <code>false</code> otherwise
+     * @since 3.3.2
      */
     private static boolean isEmpty(Object o) {
         if (null == o) {
@@ -591,11 +532,10 @@ public final class RenderKitUtils {
      * @param value
      * @param defaultValue
      * @param wrapper
-     *
      * @since 3.3.2
      */
     public static void addToScriptHash(Map<String, Object> hash, String name, Object value, Object defaultValue,
-            ScriptHashVariableWrapper wrapper) {
+                                       ScriptHashVariableWrapper wrapper) {
 
         ScriptHashVariableWrapper wrapperOrDefault = wrapper != null ? wrapper : ScriptHashVariableWrapper.noop;
 
@@ -613,7 +553,7 @@ public final class RenderKitUtils {
     }
 
     public static void addToScriptHash(Map<String, Object> hash, FacesContext facesContext, UIComponent component,
-            Attributes attributes, ScriptHashVariableWrapper wrapper) {
+                                       Attributes attributes, ScriptHashVariableWrapper wrapper) {
 
         boolean disabled = isDisabled(component);
         for (ComponentAttribute knownAttribute : attributes) {
@@ -720,6 +660,95 @@ public final class RenderKitUtils {
         return null;
     }
 
+    public static String getBehaviorSourceId(FacesContext facesContext) {
+        return facesContext.getExternalContext().getRequestParameterMap().get(BEHAVIOR_SOURCE_ID);
+    }
+
+    public static boolean hasFacet(UIComponent component, String facetName) {
+        return component.getFacet(facetName) != null && component.getFacet(facetName).isRendered();
+    }
+
+    /**
+     * Tries to evaluate an attribute as {@link ValueExpression}. If the attribute doesn't hold {@link ValueExpression} or the
+     * expression evaluates to <tt>null</tt>, the value of the attribute is returned.
+     *
+     * @param attribute the name of a component's attribute
+     * @param component the component
+     * @param context   the context
+     * @return the evaluated {@link ValueExpression} for a given attribute or the value of the attribute (in case the attribute
+     * isn't {@link ValueExpression} or it evaluates to null)
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T evaluateAttribute(String attribute, UIComponent component, FacesContext context) {
+        ValueExpression valueExpression = component.getValueExpression(attribute);
+
+        if (valueExpression != null) {
+            T evaluatedValue = (T) valueExpression.getValue(context.getELContext());
+            if (evaluatedValue != null) {
+                return evaluatedValue;
+            }
+        }
+
+        return (T) component.getAttributes().get(attribute);
+    }
+
+    /**
+     * Wrapper class around object value used to transform values into particular JS objects
+     *
+     * @author Nick Belaevski
+     * @since 3.3.2
+     */
+    public enum ScriptHashVariableWrapper {
+
+        /**
+         * No-op default wrapper
+         */
+        noop {
+            @Override
+            Object wrap(Object o) {
+                return o;
+            }
+        },
+        /**
+         * Convert parameter to array of srings.
+         */
+        asArray {
+            @Override
+            Object wrap(Object o) {
+                return asArray(o);
+            }
+        },
+        /**
+         * Event handler functions wrapper. Wraps
+         *
+         * <pre>
+         * functionCode
+         * </pre>
+         * <p>
+         * object into:
+         *
+         * <pre>
+         * function(event) {
+         *   functionCode
+         * }
+         * </pre>
+         */
+        eventHandler {
+            @Override
+            Object wrap(Object o) {
+                return new JSFunctionDefinition("event").addToBody(o);
+            }
+        };
+
+        /**
+         * Method that does the wrapping
+         *
+         * @param o object to wrap
+         * @return wrapped object
+         */
+        abstract Object wrap(Object o);
+    }
+
     @SuppressWarnings("serial")
     public static final class Attributes extends TreeSet<ComponentAttribute> {
         private ComponentAttribute last;
@@ -759,39 +788,5 @@ public final class RenderKitUtils {
             last.setDefaultValue(value);
             return this;
         }
-    }
-
-    public static String getBehaviorSourceId(FacesContext facesContext) {
-        return facesContext.getExternalContext().getRequestParameterMap().get(BEHAVIOR_SOURCE_ID);
-    }
-
-    public static boolean hasFacet(UIComponent component, String facetName) {
-        return component.getFacet(facetName) != null && component.getFacet(facetName).isRendered();
-    }
-
-
-
-    /**
-     * Tries to evaluate an attribute as {@link ValueExpression}. If the attribute doesn't hold {@link ValueExpression} or the
-     * expression evaluates to <tt>null</tt>, the value of the attribute is returned.
-     *
-     * @param attribute the name of a component's attribute
-     * @param component the component
-     * @param context the context
-     * @return the evaluated {@link ValueExpression} for a given attribute or the value of the attribute (in case the attribute
-     *         isn't {@link ValueExpression} or it evaluates to null)
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> T evaluateAttribute(String attribute, UIComponent component, FacesContext context) {
-        ValueExpression valueExpression = component.getValueExpression(attribute);
-
-        if (valueExpression != null) {
-            T evaluatedValue = (T) valueExpression.getValue(context.getELContext());
-            if (evaluatedValue != null) {
-                return evaluatedValue;
-            }
-        }
-
-        return (T) component.getAttributes().get(attribute);
     }
 }

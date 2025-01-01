@@ -34,71 +34,71 @@ import java.util.List;
  * encapsulated filtering or sorting table services.
  *
  * <p>Note 1: Table does not take into account pagination. Thus one has to
- *  switch to a different page manually in order to access all rows. All indexes
- *  used by methods are relative to one page.</p>
+ * switch to a different page manually in order to access all rows. All indexes
+ * used by methods are relative to one page.</p>
  *
  * <p>Note 2: that one can use <tt>org.richfaces.fragment.common.NullFragment</tt>
  * as a Null Object pattern for any of the generic types.</p>
  *
- * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @param <HEADER>
  * @param <ROW>
  * @param <FOOTER>
+ * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 public interface DataTable<HEADER, ROW, FOOTER> {
 
     /**
-    * Returns a <tt>ROW</tt> page fragment with index <tt>n</tt>.
-    *
-    * All indexes are relative to one page. It does not take into account
-    * table pagination.
-    *
-    * @param n zero based index of the row to be returned
-    * @return
-    */
+     * Returns a <tt>ROW</tt> page fragment with index <tt>n</tt>.
+     * <p>
+     * All indexes are relative to one page. It does not take into account
+     * table pagination.
+     *
+     * @param n zero based index of the row to be returned
+     * @return
+     */
     ROW getRow(int n);
 
     /**
-    * Returns the first <tt>ROW</tt> page fragment.
-    *
-    * All indexes are relative to one page. It does not take into account
-    * table pagination.
-    *
-    * @return
-    */
+     * Returns the first <tt>ROW</tt> page fragment.
+     * <p>
+     * All indexes are relative to one page. It does not take into account
+     * table pagination.
+     *
+     * @return
+     */
     ROW getFirstRow();
 
     /**
-    * Returns the last <tt>ROW</tt> page fragment.
-    *
-    * All indexes are relative to one page. It does not take into account
-    * table pagination.
-    *
-    * @return
-    */
+     * Returns the last <tt>ROW</tt> page fragment.
+     * <p>
+     * All indexes are relative to one page. It does not take into account
+     * table pagination.
+     *
+     * @return
+     */
     ROW getLastRow();
 
     /**
-    * Returns a list of <tt>ROW</tt> page fragments.
-    *
-    * All indexes are relative to one page. It does not take into account
-    * table pagination.
-    *
-    * @return
-    */
+     * Returns a list of <tt>ROW</tt> page fragments.
+     * <p>
+     * All indexes are relative to one page. It does not take into account
+     * table pagination.
+     *
+     * @return
+     */
     List<ROW> getAllRows();
 
     /**
-    * Returns a <tt>HEADER</tt> page fragment of this table.
-    *
-    * @return
-    */
+     * Returns a <tt>HEADER</tt> page fragment of this table.
+     *
+     * @return
+     */
     HEADER getHeader();
 
     /**
-    * Returns a <tt>FOOTER</tt> page fragment of this table.
-    *
-    * @return
-    */
+     * Returns a <tt>FOOTER</tt> page fragment of this table.
+     *
+     * @return
+     */
     FOOTER getFooter();
 }

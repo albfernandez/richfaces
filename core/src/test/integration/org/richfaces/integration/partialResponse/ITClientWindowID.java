@@ -49,7 +49,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
 /**
- *
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 @RunWith(Arquillian.class)
@@ -76,10 +75,10 @@ public class ITClientWindowID {
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
                 return webXml
-                    .createContextParam()
-                    .paramName("javax.faces.CLIENT_WINDOW_MODE")
-                    .paramValue("url")
-                    .up();
+                        .createContextParam()
+                        .paramName("javax.faces.CLIENT_WINDOW_MODE")
+                        .paramValue("url")
+                        .up();
             }
         });
 
@@ -87,6 +86,22 @@ public class ITClientWindowID {
         addIndexPage(deployment);
 
         return deployment.getFinalArchive();
+    }
+
+    private static void addIndexPage(CoreDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.form("<h:inputText id='inputText' value='#{simpleBean.test}'>");
+        p.form("    <a4j:ajax event='keyup' render='out checkClientWindowIdIsNotEmptyResultElement' listener='#{simpleBean.checkClientWindowIdIsNotEmpty}' />");
+        p.form("</h:inputText>");
+        p.form("<br/>");
+        p.body("<a4j:outputPanel id='out'>");
+        p.body("  <a id='link' href='/foo.html'>#{simpleBean.test}</a>");
+        p.body("</a4j:outputPanel>");
+        p.form("<br/>");
+        p.form("check of not empty client window id: <h:outputText id='checkClientWindowIdIsNotEmptyResultElement' value='#{simpleBean.checkClientWindowIdIsNotEmptyResult}' />");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
     @Test
@@ -113,21 +128,5 @@ public class ITClientWindowID {
         browser.get(contextPath.toString());
         guardAjax(inputText).sendKeys("RichFaces");
         assertEquals(SimpleBean.PASSED, checkClientWindowIdIsNotEmptyResultElement.getText());
-    }
-
-    private static void addIndexPage(CoreDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.form("<h:inputText id='inputText' value='#{simpleBean.test}'>");
-        p.form("    <a4j:ajax event='keyup' render='out checkClientWindowIdIsNotEmptyResultElement' listener='#{simpleBean.checkClientWindowIdIsNotEmpty}' />");
-        p.form("</h:inputText>");
-        p.form("<br/>");
-        p.body("<a4j:outputPanel id='out'>");
-        p.body("  <a id='link' href='/foo.html'>#{simpleBean.test}</a>");
-        p.body("</a4j:outputPanel>");
-        p.form("<br/>");
-        p.form("check of not empty client window id: <h:outputText id='checkClientWindowIdIsNotEmptyResultElement' value='#{simpleBean.checkClientWindowIdIsNotEmptyResult}' />");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

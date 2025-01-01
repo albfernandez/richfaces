@@ -25,7 +25,6 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface Faces {
     void start();

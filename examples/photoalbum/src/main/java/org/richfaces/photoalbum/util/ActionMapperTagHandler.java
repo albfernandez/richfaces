@@ -20,8 +20,6 @@
 
 package org.richfaces.photoalbum.util;
 
-import java.io.IOException;
-
 import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.ExpressionFactory;
@@ -36,20 +34,21 @@ import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.FaceletException;
 import javax.faces.view.facelets.TagConfig;
 import javax.faces.view.facelets.TagHandler;
+import java.io.IOException;
 
 public class ActionMapperTagHandler extends TagHandler {
 
     private static final Class<?>[] ACTION_PARAM_TYPES = new Class[0];
 
-    private static final Class<?>[] ACTION_LISTENER_PARAM_TYPES = new Class[] { ActionEvent.class };
+    private static final Class<?>[] ACTION_LISTENER_PARAM_TYPES = new Class[]{ActionEvent.class};
 
     private static final MethodInfo NOOP_ACTION_INFO = new MethodInfo("$$$noOpAction", String.class, ACTION_PARAM_TYPES);
 
     private static final MethodExpression NOOP_ACTION_EXPRESSION = new MethodExpression() {
 
         /**
-		 *
-		 */
+         *
+         */
         private static final long serialVersionUID = 8901807727474303033L;
 
         @Override
@@ -86,13 +85,13 @@ public class ActionMapperTagHandler extends TagHandler {
     };
 
     private static final MethodInfo NOOP_ACTION_LISTENER_INFO = new MethodInfo("$$$noOpActionListener", Void.class,
-        ACTION_LISTENER_PARAM_TYPES);
+            ACTION_LISTENER_PARAM_TYPES);
 
     private static final MethodExpression NOOP_ACTION_LISTENER_EXPRESSION = new MethodExpression() {
 
         /**
-		 *
-		 */
+         *
+         */
         private static final long serialVersionUID = 6246200728401095532L;
 
         @Override
@@ -140,7 +139,7 @@ public class ActionMapperTagHandler extends TagHandler {
     }
 
     private MethodExpression remap(FaceletContext faceletContext, String varName, Class<?> expectedReturnType,
-        Class<?>[] expectedParamTypes) {
+                                   Class<?>[] expectedParamTypes) {
 
         MethodExpression result = null;
 
@@ -151,7 +150,7 @@ public class ActionMapperTagHandler extends TagHandler {
             ELContext elContext = faceletContext.getFacesContext().getELContext();
 
             result = ef.createMethodExpression(elContext, valueExpression.getExpressionString(), expectedReturnType,
-                expectedParamTypes);
+                    expectedParamTypes);
         }
 
         return result;
@@ -169,14 +168,14 @@ public class ActionMapperTagHandler extends TagHandler {
             }
 
             initialVarMapper.setVariable(MAPPED_ACTION,
-                ctx.getExpressionFactory().createValueExpression(actionExpression, MethodExpression.class));
+                    ctx.getExpressionFactory().createValueExpression(actionExpression, MethodExpression.class));
 
             if (actionListenerExpression == null) {
                 actionListenerExpression = NOOP_ACTION_LISTENER_EXPRESSION;
             }
 
             initialVarMapper.setVariable(MAPPED_ACTION_LISTENER,
-                ctx.getExpressionFactory().createValueExpression(actionListenerExpression, MethodExpression.class));
+                    ctx.getExpressionFactory().createValueExpression(actionListenerExpression, MethodExpression.class));
 
             ctx.setVariableMapper(initialVarMapper);
 

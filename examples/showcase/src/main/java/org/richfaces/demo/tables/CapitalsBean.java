@@ -1,13 +1,12 @@
 package org.richfaces.demo.tables;
 
-import java.io.Serializable;
-import java.util.List;
+import org.richfaces.demo.tables.model.capitals.Capital;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-
-import org.richfaces.demo.tables.model.capitals.Capital;
+import java.io.Serializable;
+import java.util.List;
 
 @ManagedBean
 @SessionScoped

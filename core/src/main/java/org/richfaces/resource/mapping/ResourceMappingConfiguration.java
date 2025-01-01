@@ -21,10 +21,10 @@
  */
 package org.richfaces.resource.mapping;
 
+import org.richfaces.el.util.ELUtils;
+
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.el.util.ELUtils;
 
 /**
  * <p>
@@ -35,12 +35,25 @@ import org.richfaces.el.util.ELUtils;
  */
 public class ResourceMappingConfiguration {
 
+    static final String DEFAULT_LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/";
+    private static final String KEY = ResourceMappingConfiguration.class.getName() + ".location";
+
     public ResourceMappingConfiguration() {
     }
 
-    private static final String KEY = ResourceMappingConfiguration.class.getName() + ".location";
-
-    static final String DEFAULT_LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/";
+    /**
+     * Returns the configured location of static resources as string with EL expressions, either from configuration option or
+     * predefined location corresponding to current application stage.
+     *
+     * @return the configured location of static resources as string with EL expressions
+     */
+    private static String getLocationAsExpression() {
+        String location = PropertiesMappingConfiguration.getLocation();
+        if (location == null) {
+            return DEFAULT_LOCATION;
+        }
+        return location;
+    }
 
     /**
      * Returns the configured location of static resources as string evaluated against EL expressions in current context, either
@@ -60,20 +73,6 @@ public class ResourceMappingConfiguration {
             context.getAttributes().put(KEY, location);
         }
 
-        return location;
-    }
-
-    /**
-     * Returns the configured location of static resources as string with EL expressions, either from configuration option or
-     * predefined location corresponding to current application stage.
-     *
-     * @return the configured location of static resources as string with EL expressions
-     */
-    private static String getLocationAsExpression() {
-        String location = PropertiesMappingConfiguration.getLocation();
-        if (location == null) {
-            return DEFAULT_LOCATION;
-        }
         return location;
     }
 }

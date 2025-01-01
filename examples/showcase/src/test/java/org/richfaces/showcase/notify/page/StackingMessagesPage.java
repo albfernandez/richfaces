@@ -22,11 +22,11 @@
 package org.richfaces.showcase.notify.page;
 
 
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
@@ -52,8 +52,8 @@ public class StackingMessagesPage extends NotifyPage {
     @Override
     public void waitUntilThereIsNoNotify() {
         getNotify().advanced().waitUntilMessagesAreNotVisible()
-            .withTimeout(11, TimeUnit.SECONDS)
-            .withMessage("waiting for notify to hide.")
-            .perform();
+                .withTimeout(11, TimeUnit.SECONDS)
+                .withMessage("waiting for notify to hide.")
+                .perform();
     }
 }

@@ -74,44 +74,72 @@ public class CoreServicesEnricher {
     }
 
     public static class ConfigurationServiceProvider extends AbstractProvider<ConfigurationService> {
-    };
+    }
+
+    ;
 
     public static class SkinFactoryProvider extends AbstractProvider<SkinFactory> {
-    };
+    }
+
+    ;
 
     public static class AjaxDataSerializerProvider extends AbstractProvider<AjaxDataSerializer> {
-    };
+    }
+
+    ;
 
     public static class ResourceCodecProvider extends AbstractProvider<ResourceCodec> {
-    };
+    }
+
+    ;
 
     public static class CacheProvider extends AbstractProvider<Cache> {
-    };
+    }
+
+    ;
 
     public static class UptimeProvider extends AbstractProvider<Uptime> {
-    };
+    }
+
+    ;
 
     public static class DependencyInjectorProvider extends AbstractProvider<DependencyInjector> {
-    };
+    }
+
+    ;
 
     public static class MessageFactoryProvider extends AbstractProvider<MessageFactory> {
-    };
+    }
+
+    ;
 
     public static class ResourceLibraryFactoryProvider extends AbstractProvider<ResourceLibraryFactory> {
-    };
+    }
+
+    ;
 
     public static class PushContextFactoryProvider extends AbstractProvider<PushContextFactory> {
-    };
+    }
+
+    ;
 
     public static class JavaScriptServiceProvider extends AbstractProvider<JavaScriptService> {
-    };
+    }
+
+    ;
 
     public static class GenericsIntrospectionServiceProvider extends AbstractProvider<GenericsIntrospectionService> {
-    };
+    }
+
+    ;
 
     public static class ExternalResourceTrackerProvider extends AbstractProvider<ResourceTracker> {
-    };
+    }
+
+    ;
 
     public static class ExternalStaticResourceFactoryProvider extends AbstractProvider<MappedResourceFactory> {
-    };
+    }
+
+    ;
 }

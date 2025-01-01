@@ -21,14 +21,12 @@
  */
 package org.richfaces.demo.misc;
 
-import java.security.Principal;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import java.security.Principal;
 
 /**
  * @author Nick Belaevski
- *
  */
 @ManagedBean
 @SessionScoped

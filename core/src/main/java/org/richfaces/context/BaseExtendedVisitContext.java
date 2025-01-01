@@ -21,14 +21,12 @@
  */
 package org.richfaces.context;
 
-import static org.richfaces.component.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
-
-import java.util.AbstractCollection;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.SetMultimap;
+import com.google.common.collect.Sets;
+import org.richfaces.util.SeparatorChar;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -37,14 +35,14 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+import java.util.AbstractCollection;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
-import org.richfaces.util.SeparatorChar;
-
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ListMultimap;
-import com.google.common.collect.SetMultimap;
-import com.google.common.collect.Sets;
+import static org.richfaces.component.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
 
 /**
  * {@link ExtendedVisitContext} that allows track visit of implicitly processed subtrees and adds support for shortIds
@@ -58,18 +56,50 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
     private Collection<String> shortIds;
     private SetMultimap<String, String> subtreeIds;
     private ListMultimap<String, String> directSubtreeIds;
+    /**
+     * Tracking strategy that adds a node to the list of tracked subtree/shortIds
+     */
+    protected final ClientIdTrackingStrategy addNode = new ClientIdTrackingStrategy() {
+        public void visitSubtreeId(String baseId, String clientId) {
+            subtreeIds.put(baseId, clientId);
+        }
+
+        public void visitDirectSubtreeId(String baseId, String shortId) {
+            directSubtreeIds.put(baseId, shortId);
+        }
+
+        public void visitShortId(String shortId) {
+            shortIds.add(shortId);
+        }
+    };
+    /**
+     * Tracking strategy that removes a node from the list of tracked subtree/shortIds
+     */
+    protected final ClientIdTrackingStrategy removeNode = new ClientIdTrackingStrategy() {
+        public void visitSubtreeId(String baseId, String clientId) {
+            subtreeIds.remove(baseId, clientId);
+        }
+
+        public void visitShortId(String shortId) {
+            // do nothing
+        }
+
+        public void visitDirectSubtreeId(String baseId, String shortId) {
+            directSubtreeIds.remove(baseId, shortId);
+        }
+    };
     private CollectionProxy proxiedClientIds;
 
     /**
      * Creates a PartialVisitorContext instance with the specified hints.
      *
      * @param facesContext the FacesContext for the current request
-     * @param clientIds the client ids of the components to visit
-     * @param hints a the VisitHints for this visit
+     * @param clientIds    the client ids of the components to visit
+     * @param hints        a the VisitHints for this visit
      * @throws NullPointerException if {@code facesContext} is {@code null}
      */
     public BaseExtendedVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
-        ExtendedVisitContextMode contextMode) {
+                                    ExtendedVisitContextMode contextMode) {
 
         super(visitContextToWrap, facesContext, contextMode);
 
@@ -254,8 +284,23 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
         return true;
     }
 
+    // Little proxy collection implementation. We proxy the id
+    // collection so that we can detect modifications and update
+    // our internal state when ids to visit are added or removed.
+
     public VisitContext createNamingContainerVisitContext(UIComponent component, Collection<String> directIds) {
         return new NamingContainerVisitContext(this, getFacesContext(), getVisitMode(), component, directIds);
+    }
+
+    /**
+     * Allows to track what subtrees and shortIds were visited
+     */
+    protected interface ClientIdTrackingStrategy {
+        void visitSubtreeId(String baseId, String clientId);
+
+        void visitDirectSubtreeId(String baseId, String shortId);
+
+        void visitShortId(String shortId);
     }
 
     private final class CollectionProxy extends AbstractCollection<String> {
@@ -282,10 +327,6 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
             return addNode(o);
         }
     }
-
-    // Little proxy collection implementation. We proxy the id
-    // collection so that we can detect modifications and update
-    // our internal state when ids to visit are added or removed.
 
     // Little proxy iterator implementation used by CollectionProxy
     // so that we can catch removes.
@@ -317,49 +358,4 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
             wrapped.remove();
         }
     }
-
-    /**
-     * Allows to track what subtrees and shortIds were visited
-     */
-    protected interface ClientIdTrackingStrategy {
-        void visitSubtreeId(String baseId, String clientId);
-
-        void visitDirectSubtreeId(String baseId, String shortId);
-
-        void visitShortId(String shortId);
-    }
-
-    /**
-     * Tracking strategy that adds a node to the list of tracked subtree/shortIds
-     */
-    protected final ClientIdTrackingStrategy addNode = new ClientIdTrackingStrategy() {
-        public void visitSubtreeId(String baseId, String clientId) {
-            subtreeIds.put(baseId, clientId);
-        }
-
-        public void visitDirectSubtreeId(String baseId, String shortId) {
-            directSubtreeIds.put(baseId, shortId);
-        }
-
-        public void visitShortId(String shortId) {
-            shortIds.add(shortId);
-        }
-    };
-
-    /**
-     * Tracking strategy that removes a node from the list of tracked subtree/shortIds
-     */
-    protected final ClientIdTrackingStrategy removeNode = new ClientIdTrackingStrategy() {
-        public void visitSubtreeId(String baseId, String clientId) {
-            subtreeIds.remove(baseId, clientId);
-        }
-
-        public void visitShortId(String shortId) {
-            // do nothing
-        }
-
-        public void visitDirectSubtreeId(String baseId, String shortId) {
-            directSubtreeIds.remove(baseId, shortId);
-        }
-    };
 }

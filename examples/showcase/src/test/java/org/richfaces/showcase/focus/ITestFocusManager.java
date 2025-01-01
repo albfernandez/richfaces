@@ -21,13 +21,13 @@
  *******************************************************************************/
 package org.richfaces.showcase.focus;
 
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.focus.page.FocusManagerPage;
+
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

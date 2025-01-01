@@ -1,10 +1,9 @@
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import java.io.IOException;
 
 public class AutocompleteListLayoutStrategy extends AbstractAutocompleteLayoutStrategy implements AutocompleteEncodeStrategy {
     public void encodeFakeItem(FacesContext facesContext, UIComponent component) throws IOException {

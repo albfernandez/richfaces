@@ -38,7 +38,6 @@ import javax.xml.bind.Unmarshaller.Listener;
 
 /**
  * @author Nick Belaevski mailto:nbelaevski@exadel.com created 25.07.2007
- *
  */
 @ManagedBean
 @ApplicationScoped

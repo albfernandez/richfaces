@@ -51,20 +51,6 @@ public class ITJsFunction {
         return deployment.getFinalArchive();
     }
 
-    /**
-     * {@link https://issues.jboss.org/browse/RF-12761}
-     */
-    @Test
-    @Category(Failing.class)
-    public void listener_with_parameter() throws InterruptedException {
-        // given
-        browser.get(contextPath.toExternalForm());
-        WebElement button1 = browser.findElement(By.id("myForm:jsFunction"));
-        Graphene.guardAjax(button1).click();
-        WebElement button2 = browser.findElement(By.id("myForm2:ajax2"));
-        Graphene.guardAjax(button2).click();
-    }
-
     // from RF-12761
     private static void addIndexPage(A4JDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
@@ -84,15 +70,6 @@ public class ITJsFunction {
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
-    @Test
-    public void js_function_with_param() throws InterruptedException {
-        browser.get(contextPath.toExternalForm() + "param.jsf");
-        for (int i : new int[] { 4, 1, 3 }) {
-            Graphene.guardAjax(browser.findElement(By.id(format(JS_FUNCTION_WITH_PARAM_TEMPLATE, i)))).click();
-            Assert.assertEquals(i, Integer.parseInt(output.getText()));
-        }
-    }
-
     private static void addParamPage(A4JDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -110,6 +87,29 @@ public class ITJsFunction {
         p.body("    <rich:messages /> ");
         p.body("</h:form> ");
         deployment.archive().addAsWebResource(p, "param.xhtml");
+    }
+
+    /**
+     * {@link https://issues.jboss.org/browse/RF-12761}
+     */
+    @Test
+    @Category(Failing.class)
+    public void listener_with_parameter() throws InterruptedException {
+        // given
+        browser.get(contextPath.toExternalForm());
+        WebElement button1 = browser.findElement(By.id("myForm:jsFunction"));
+        Graphene.guardAjax(button1).click();
+        WebElement button2 = browser.findElement(By.id("myForm2:ajax2"));
+        Graphene.guardAjax(button2).click();
+    }
+
+    @Test
+    public void js_function_with_param() throws InterruptedException {
+        browser.get(contextPath.toExternalForm() + "param.jsf");
+        for (int i : new int[]{4, 1, 3}) {
+            Graphene.guardAjax(browser.findElement(By.id(format(JS_FUNCTION_WITH_PARAM_TEMPLATE, i)))).click();
+            Assert.assertEquals(i, Integer.parseInt(output.getText()));
+        }
     }
 
 }

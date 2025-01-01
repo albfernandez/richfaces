@@ -21,20 +21,47 @@
  */
 package org.richfaces.resource.optimizer.resource.handler.impl;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.resource.ResourceFactory;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceRequestData;
 import org.richfaces.resource.ResourceUtils;
 
+import javax.faces.application.Resource;
+import javax.faces.application.ResourceHandler;
+import javax.faces.context.FacesContext;
+
 /**
  * @author Nick Belaevski
- *
  */
 public class DynamicResourceHandler extends AbstractResourceHandler {
+    private ResourceFactory resourceFactory;
+    private ResourceHandler staticResourceHandler;
+    public DynamicResourceHandler(ResourceHandler staticResourceHandler, ResourceFactory resourceFactory) {
+        this.staticResourceHandler = staticResourceHandler;
+        this.resourceFactory = resourceFactory;
+    }
+
+    @Override
+    public Resource createResource(String resourceName, String libraryName, String contentType) {
+        ResourceKey resourceKey = new ResourceKey(resourceName, libraryName);
+        Resource result = resourceFactory.createResource(resourceName, libraryName, contentType);
+
+        if (result != null) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Object state = ResourceUtils.saveResourceState(context, result);
+            Resource newResource = resourceFactory.createResource(context, new ResourceRequestDataImpl(resourceKey, state));
+            if (newResource != null) {
+                result = new DynamicResourceWrapper(newResource);
+            }
+        }
+
+        if (result == null) {
+            result = staticResourceHandler.createResource(resourceName, libraryName, contentType);
+        }
+
+        return result;
+    }
+
     private static final class ResourceRequestDataImpl implements ResourceRequestData {
         private ResourceKey resourceKey;
         private Object resourceData;
@@ -69,34 +96,5 @@ public class DynamicResourceHandler extends AbstractResourceHandler {
         public String getVersion() {
             return null;
         }
-    }
-
-    private ResourceFactory resourceFactory;
-    private ResourceHandler staticResourceHandler;
-
-    public DynamicResourceHandler(ResourceHandler staticResourceHandler, ResourceFactory resourceFactory) {
-        this.staticResourceHandler = staticResourceHandler;
-        this.resourceFactory = resourceFactory;
-    }
-
-    @Override
-    public Resource createResource(String resourceName, String libraryName, String contentType) {
-        ResourceKey resourceKey = new ResourceKey(resourceName, libraryName);
-        Resource result = resourceFactory.createResource(resourceName, libraryName, contentType);
-
-        if (result != null) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            Object state = ResourceUtils.saveResourceState(context, result);
-            Resource newResource = resourceFactory.createResource(context, new ResourceRequestDataImpl(resourceKey, state));
-            if (newResource != null) {
-                result = new DynamicResourceWrapper(newResource);
-            }
-        }
-
-        if (result == null) {
-            result = staticResourceHandler.createResource(resourceName, libraryName, contentType);
-        }
-
-        return result;
     }
 }

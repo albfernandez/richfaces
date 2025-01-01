@@ -71,7 +71,7 @@ public class ITPanelMenu {
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITPanelMenu.class);
         deployment.archive()
-            .addClasses(PanelMenuBean.class);
+                .addClasses(PanelMenuBean.class);
         addDisabledMenuItemPage(deployment);
         addDisabledMenuGroupPage(deployment);
         addDisabledMenuGroupPageClient(deployment);
@@ -79,108 +79,6 @@ public class ITPanelMenu {
         addDisabledMenuPage(deployment);
 
         return deployment.getFinalArchive();
-    }
-
-    /**
-     * RF-13358
-     */
-    @Test
-    public void test_disabled_menu() {
-        browser.get(contextPath.toString() + "disabled-menu.jsf");
-        waitUntilOnLoadJavaScriptIsExecuted();
-
-        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
-        Graphene.guardAjax(disabledMenu).click();
-        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
-    }
-
-    /**
-     * RF-12813
-     */
-    @Test
-    public void test_disabled_menu_item() {
-        browser.get(contextPath.toString() + "disabled-menu-item.jsf");
-        waitUntilOnLoadJavaScriptIsExecuted();
-
-        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
-        Graphene.guardAjax(disabledMenu).click();
-        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
-    }
-
-    @Test
-    public void test_enabled_menu() {
-        browser.get(contextPath.toString() + "disabled-menu.jsf");
-        waitUntilOnLoadJavaScriptIsExecuted();
-
-        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
-        Graphene.guardAjax(enabledMenu).click();
-        assertEquals(PanelMenuBean.ITEM_CHANGED, currentItemElement.getText());
-    }
-
-    @Test
-    public void test_enabled_menu_group() {
-        browser.get(contextPath.toString() + "disabled-menu-group-expanded.jsf");
-        waitUntilOnLoadJavaScriptIsExecuted();
-
-        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
-        Graphene.guardAjax(enabledMenu).click();
-        assertEquals(PanelMenuBean.ITEM_CHANGED, currentItemElement.getText());
-    }
-
-    @Test
-    public void test_enabled_menu_item() {
-        browser.get(contextPath.toString() + "disabled-menu-item.jsf");
-        waitUntilOnLoadJavaScriptIsExecuted();
-
-        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
-        Graphene.guardAjax(enabledMenu).click();
-        assertEquals(PanelMenuBean.ITEM_CHANGED, currentItemElement.getText());
-    }
-
-    @Test
-    public void test_expansion_of_client_mode_disabled_menu_group() {
-        browser.get(contextPath.toString() + "disabled-menu-group-client.jsf");
-        waitUntilOnLoadJavaScriptIsExecuted();
-
-        Graphene.guardNoRequest(disabledGroupHeader).click();
-        assertNotEquals("disabled menu group in client mode should have menu item children", 0, disabledGroup.findElements(By.className("rf-pm-itm")).size());
-    }
-
-    /**
-     * RF-13358
-     */
-    @Test
-    public void test_expansion_of_disabled_menu_group() {
-        browser.get(contextPath.toString() + "disabled-menu-group.jsf");
-        waitUntilOnLoadJavaScriptIsExecuted();
-
-        Graphene.guardAjax(disabledGroupHeader).click();
-        assertEquals("disabled menu group should have no menu item children", 0, disabledGroup.findElements(By.className("rf-pm-itm")).size());
-    }
-
-    /**
-     * RF-13358
-     */
-    @Test
-    public void test_item_in_expanded_disabled_menu_group() {
-        browser.get(contextPath.toString() + "disabled-menu-group-expanded.jsf");
-        waitUntilOnLoadJavaScriptIsExecuted();
-
-        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
-        Graphene.guardAjax(disabledMenu).click();
-        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
-    }
-
-    /**
-     * Wait until JS function (hack for enabling the disabled menu) binded to 'onload' event is executed
-     */
-    private void waitUntilOnLoadJavaScriptIsExecuted() {
-        Graphene.waitAjax().until(new Predicate<WebDriver>() {
-            @Override
-            public boolean apply(WebDriver t) {
-                return (Boolean) executor.executeScript("return enableMenuWasCalled;");
-            }
-        });
     }
 
     private static void addDisabledMenuGroupPage(RichDeployment deployment) {
@@ -323,5 +221,107 @@ public class ITPanelMenu {
         p.form("current item: <h:outputText id='current' value='#{panelMenuBean.current}' />");
 
         deployment.archive().addAsWebResource(p, "disabled-menu.xhtml");
+    }
+
+    /**
+     * RF-13358
+     */
+    @Test
+    public void test_disabled_menu() {
+        browser.get(contextPath.toString() + "disabled-menu.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
+        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
+        Graphene.guardAjax(disabledMenu).click();
+        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
+    }
+
+    /**
+     * RF-12813
+     */
+    @Test
+    public void test_disabled_menu_item() {
+        browser.get(contextPath.toString() + "disabled-menu-item.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
+        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
+        Graphene.guardAjax(disabledMenu).click();
+        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
+    }
+
+    @Test
+    public void test_enabled_menu() {
+        browser.get(contextPath.toString() + "disabled-menu.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
+        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
+        Graphene.guardAjax(enabledMenu).click();
+        assertEquals(PanelMenuBean.ITEM_CHANGED, currentItemElement.getText());
+    }
+
+    @Test
+    public void test_enabled_menu_group() {
+        browser.get(contextPath.toString() + "disabled-menu-group-expanded.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
+        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
+        Graphene.guardAjax(enabledMenu).click();
+        assertEquals(PanelMenuBean.ITEM_CHANGED, currentItemElement.getText());
+    }
+
+    @Test
+    public void test_enabled_menu_item() {
+        browser.get(contextPath.toString() + "disabled-menu-item.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
+        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
+        Graphene.guardAjax(enabledMenu).click();
+        assertEquals(PanelMenuBean.ITEM_CHANGED, currentItemElement.getText());
+    }
+
+    @Test
+    public void test_expansion_of_client_mode_disabled_menu_group() {
+        browser.get(contextPath.toString() + "disabled-menu-group-client.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
+        Graphene.guardNoRequest(disabledGroupHeader).click();
+        assertNotEquals("disabled menu group in client mode should have menu item children", 0, disabledGroup.findElements(By.className("rf-pm-itm")).size());
+    }
+
+    /**
+     * RF-13358
+     */
+    @Test
+    public void test_expansion_of_disabled_menu_group() {
+        browser.get(contextPath.toString() + "disabled-menu-group.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
+        Graphene.guardAjax(disabledGroupHeader).click();
+        assertEquals("disabled menu group should have no menu item children", 0, disabledGroup.findElements(By.className("rf-pm-itm")).size());
+    }
+
+    /**
+     * RF-13358
+     */
+    @Test
+    public void test_item_in_expanded_disabled_menu_group() {
+        browser.get(contextPath.toString() + "disabled-menu-group-expanded.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
+        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
+        Graphene.guardAjax(disabledMenu).click();
+        assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
+    }
+
+    /**
+     * Wait until JS function (hack for enabling the disabled menu) binded to 'onload' event is executed
+     */
+    private void waitUntilOnLoadJavaScriptIsExecuted() {
+        Graphene.waitAjax().until(new Predicate<WebDriver>() {
+            @Override
+            public boolean apply(WebDriver t) {
+                return (Boolean) executor.executeScript("return enableMenuWasCalled;");
+            }
+        });
     }
 }

@@ -21,18 +21,16 @@
  */
 package org.richfaces.component;
 
-import java.util.Iterator;
-
-import javax.faces.component.UIComponent;
-
 import com.google.common.base.Predicate;
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;
 
+import javax.faces.component.UIComponent;
+import java.util.Iterator;
+
 /**
  * @author Nick Belaevski
- *
  */
 public final class ComponentIterators {
     private ComponentIterators() {
@@ -86,7 +84,7 @@ public final class ComponentIterators {
     /**
      * Finds a parent of given UI <code>component</code>.
      *
-     * @param component <code>UIComponent</code>
+     * @param component   <code>UIComponent</code>
      * @param parentClass <code>Class</code> of desired parent
      * @return <code>UIComponent</code>
      */

@@ -21,18 +21,26 @@
  */
 package org.richfaces.skin;
 
+import javax.faces.context.FacesContext;
 import java.nio.ByteBuffer;
 import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.Set;
-
-import javax.faces.context.FacesContext;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:59:40 $
  */
 public class SkinBean extends AbstractMap implements Skin {
+    /* Static methods for manipulate skins */
+    public static Object skinHashCode() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        int hashCode = SkinFactory.getInstance(context).getSkin(context).hashCode(context);
+        byte[] bs = ByteBuffer.allocate(4).putInt(hashCode).array();
+
+        return bs;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -126,15 +134,6 @@ public class SkinBean extends AbstractMap implements Skin {
      */
     public boolean containsProperty(String name) {
         return getSkin().containsProperty(name);
-    }
-
-    /* Static methods for manipulate skins */
-    public static Object skinHashCode() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        int hashCode = SkinFactory.getInstance(context).getSkin(context).hashCode(context);
-        byte[] bs = ByteBuffer.allocate(4).putInt(hashCode).array();
-
-        return bs;
     }
 
     /*

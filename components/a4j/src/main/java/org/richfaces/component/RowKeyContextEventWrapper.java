@@ -21,15 +21,15 @@
  */
 package org.richfaces.component;
 
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 import javax.faces.event.PhaseId;
-
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski

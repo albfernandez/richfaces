@@ -26,7 +26,6 @@ package org.richfaces.renderkit;
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.6 $ $Date: 2007/02/08 19:07:16 $
- *
  */
 public interface HtmlConstants {
     // elements
@@ -144,21 +143,21 @@ public interface HtmlConstants {
             "accesskey", "alt", "cols", "height", "lang", "longdesc", "maxlength", "rows", "size", "tabindex", "title",
             "width", "dir", "rules", "frame", "border", "cellspacing", "cellpadding", "summary", "bgcolor", "usemap",
             "enctype", "accept-charset", "accept", "target", "charset", "coords", "hreflang", "rel", "rev", "shape",
-            "disabled", "readonly", "ismap", "align", "type" };
+            "disabled", "readonly", "ismap", "align", "type"};
     /**
      * HTML attributes allowed boolean-values only
      */
-    String[] PASS_THRU_BOOLEAN = { "disabled", "declare", "readonly", "compact", "ismap", "selected", "checked", "nowrap",
-            "noresize", "nohref", "noshade", "multiple" };
-    String[] PASS_THRU_EVENTS = { "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress",
+    String[] PASS_THRU_BOOLEAN = {"disabled", "declare", "readonly", "compact", "ismap", "selected", "checked", "nowrap",
+            "noresize", "nohref", "noshade", "multiple"};
+    String[] PASS_THRU_EVENTS = {"onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress",
             "onkeyup", "onload", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onreset", "onselect",
-            "onsubmit", "onunload" };
-    String[] PASS_THRU_STYLES = { "style", "class", };
+            "onsubmit", "onunload"};
+    String[] PASS_THRU_STYLES = {"style", "class",};
     /**
      * all HTML attributes with URI value.
      */
-    String[] PASS_THRU_URI = { "usemap", "background", "codebase", "cite", "data", "classid", "href", "longdesc", "profile",
-            "src" };
+    String[] PASS_THRU_URI = {"usemap", "background", "codebase", "cite", "data", "classid", "href", "longdesc", "profile",
+            "src"};
     String TEXT_JAVASCRIPT_TYPE = "text/javascript";
     String REL_STYLESHEET = "stylesheet";
     String CSS_TYPE = "text/css";

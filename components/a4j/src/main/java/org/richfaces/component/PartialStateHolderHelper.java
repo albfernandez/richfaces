@@ -21,9 +21,10 @@
  */
 package org.richfaces.component;
 
-import static javax.faces.component.UIComponentBase.restoreAttachedState;
-import static javax.faces.component.UIComponentBase.saveAttachedState;
-
+import javax.faces.component.PartialStateHolder;
+import javax.faces.component.StateHelper;
+import javax.faces.component.StateHolder;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,21 +32,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.component.PartialStateHolder;
-import javax.faces.component.StateHelper;
-import javax.faces.component.StateHolder;
-import javax.faces.context.FacesContext;
+import static javax.faces.component.UIComponentBase.restoreAttachedState;
+import static javax.faces.component.UIComponentBase.saveAttachedState;
 
 /**
  * @author akolonitsky
  * @since Feb 2, 2010
- *
- *        A base implementation for maps which implement the PartialStateHolder interface.
- *        <p/>
- *        This can be used as a base-class for all state-holder implementations in components, converters and validators and
- *        other implementations of the StateHolder interface.
+ * <p>
+ * A base implementation for maps which implement the PartialStateHolder interface.
+ * <p/>
+ * This can be used as a base-class for all state-holder implementations in components, converters and validators and
+ * other implementations of the StateHolder interface.
  */
-@SuppressWarnings({ "unchecked" })
+@SuppressWarnings({"unchecked"})
 public class PartialStateHolderHelper implements StateHelper {
     private PartialStateHolder stateHolder;
     private boolean isTransient;
@@ -225,7 +224,7 @@ public class PartialStateHolderHelper implements StateHelper {
      * One and only implementation of restore state. Makes all other implementations unnecessary.
      *
      * @param context FacesContext
-     * @param state the state to be restored.
+     * @param state   the state to be restored.
      */
     public void restoreState(FacesContext context, Object state) {
 
@@ -302,7 +301,7 @@ public class PartialStateHolderHelper implements StateHelper {
                 // delta tracking has been disabled. We're assuming that
                 // the VDL will reset the status when the view is reconstructed,
                 // so no need to save the state if the saved state is the default.
-                return new Object[] { stateHolder.initialStateMarked() };
+                return new Object[]{stateHolder.initialStateMarked()};
             }
             return null;
         }

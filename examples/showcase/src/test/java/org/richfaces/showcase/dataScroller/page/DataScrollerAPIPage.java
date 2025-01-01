@@ -41,12 +41,12 @@ public class DataScrollerAPIPage extends AbstractDataScrollerPage {
     public WebElement getFirstImgOnThePage() {
         return firstImgOnThePage;
     }
-    
+
     @Override
     public WebElement getPreviousButton() {
         return previousButton;
     }
-    
+
     @Override
     public WebElement getNextButton() {
         return nextButton;

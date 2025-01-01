@@ -3,18 +3,16 @@
  */
 package org.richfaces.javascript.client.validator;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.validator.RequiredValidator;
-import javax.faces.validator.Validator;
-
 import org.junit.runners.Parameterized.Parameters;
 import org.richfaces.javascript.client.RunParameters;
 
+import javax.faces.validator.RequiredValidator;
+import javax.faces.validator.Validator;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author asmirnov
- *
  */
 public class RequiredValidatorTest extends ValidatorTestBase {
     /**
@@ -22,6 +20,11 @@ public class RequiredValidatorTest extends ValidatorTestBase {
      */
     public RequiredValidatorTest(RunParameters criteria) {
         super(criteria);
+    }
+
+    @Parameters
+    public static List<RunParameters[]> parameters() {
+        return options(pass(""), pass("aaa"), pass("123"), pass(null));
     }
 
     /*
@@ -44,10 +47,5 @@ public class RequiredValidatorTest extends ValidatorTestBase {
     @Override
     protected String getJavaScriptFunctionName() {
         return "validateRequired";
-    }
-
-    @Parameters
-    public static List<RunParameters[]> parameters() {
-        return options(pass(""), pass("aaa"), pass("123"), pass(null));
     }
 }

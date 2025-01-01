@@ -21,8 +21,7 @@
  */
 package org.richfaces.fragment.calendar;
 
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.base.Predicate;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.graphene.wait.FluentWait;
@@ -36,10 +35,9 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 
-import com.google.common.base.Predicate;
+import java.util.concurrent.TimeUnit;
 
 /**
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class RichFacesAdvancedInlineCalendar {
@@ -106,20 +104,20 @@ public class RichFacesAdvancedInlineCalendar {
         }
     }
 
-    public void setTimeoutForPopupToBeNotVisible(long timeoutInMilliseconds) {
-        this._timeoutForPopupToBeNotVisible = timeoutInMilliseconds;
-    }
-
     public long getTimeoutForPopupToBeNotVisible() {
         return _timeoutForPopupToBeNotVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForPopupToBeNotVisible;
     }
 
-    public void setTimeoutForPopupToBeVisible(long timeoutInMilliseconds) {
-        this._timeoutPopupToBeVisible = timeoutInMilliseconds;
+    public void setTimeoutForPopupToBeNotVisible(long timeoutInMilliseconds) {
+        this._timeoutForPopupToBeNotVisible = timeoutInMilliseconds;
     }
 
     public long getTimeoutForPopupToBeVisible() {
-        return _timeoutPopupToBeVisible == - 1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutPopupToBeVisible;
+        return _timeoutPopupToBeVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutPopupToBeVisible;
+    }
+
+    public void setTimeoutForPopupToBeVisible(long timeoutInMilliseconds) {
+        this._timeoutPopupToBeVisible = timeoutInMilliseconds;
     }
 
     public WaitingWrapper waitUntilIsNotVisible() {

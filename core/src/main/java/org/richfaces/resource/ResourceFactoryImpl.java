@@ -21,6 +21,21 @@
  */
 package org.richfaces.resource;
 
+import com.google.common.base.Function;
+import com.google.common.base.Strings;
+import org.richfaces.application.DependencyInjector;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.resource.external.MappedResourceFactory;
+import org.richfaces.resource.external.ResourceTracker;
+import org.richfaces.resource.mapping.ResourcePath;
+import org.richfaces.webapp.ResourceServlet;
+
+import javax.faces.application.ProjectStage;
+import javax.faces.application.Resource;
+import javax.faces.application.ResourceHandler;
+import javax.faces.context.FacesContext;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Collection;
@@ -31,26 +46,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.faces.application.ProjectStage;
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
-
-import org.richfaces.application.DependencyInjector;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.resource.external.MappedResourceFactory;
-import org.richfaces.resource.external.ResourceTracker;
-import org.richfaces.resource.mapping.ResourcePath;
-import org.richfaces.webapp.ResourceServlet;
-import org.richfaces.application.ServiceTracker;
-
-import com.google.common.base.Function;
-import com.google.common.base.Strings;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class ResourceFactoryImpl implements ResourceFactory {
 

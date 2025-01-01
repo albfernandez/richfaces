@@ -1,9 +1,8 @@
 package org.richfaces.demo.progressBar;
 
-import java.io.Serializable;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
 
 /**
  * @author Ilya Shaikovsky

@@ -31,7 +31,6 @@ import javax.validation.constraints.AssertTrue;
 
 /**
  * @author asmirnov
- *
  */
 @ManagedBean
 @RequestScoped

@@ -27,7 +27,6 @@ package org.ajax4jsf.component;
  *
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:57:39 $
- *
  */
 public interface AjaxOutput {
     /**

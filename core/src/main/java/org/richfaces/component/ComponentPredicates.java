@@ -27,22 +27,8 @@ import javax.faces.component.UIComponent;
 
 /**
  * @author Nick Belaevski
- *
  */
 public final class ComponentPredicates {
-    private static final class WithIdPredicate implements Predicate<UIComponent> {
-        private final String id;
-
-        public WithIdPredicate(String id) {
-            super();
-            this.id = id;
-        }
-
-        public boolean apply(UIComponent input) {
-            return id.equals(input.getId());
-        }
-    }
-
     private static final Predicate<UIComponent> IS_RENDERED = new Predicate<UIComponent>() {
         public boolean apply(UIComponent input) {
             return input.isRendered();
@@ -64,5 +50,18 @@ public final class ComponentPredicates {
         }
 
         return new WithIdPredicate(id);
+    }
+
+    private static final class WithIdPredicate implements Predicate<UIComponent> {
+        private final String id;
+
+        public WithIdPredicate(String id) {
+            super();
+            this.id = id;
+        }
+
+        public boolean apply(UIComponent input) {
+            return id.equals(input.getId());
+        }
     }
 }

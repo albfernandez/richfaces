@@ -7,7 +7,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @SessionScoped
-@ManagedBean(name="graphBean")
+@ManagedBean(name = "graphBean")
 public class GraphBean {
     public static final String FOO_MSG = "Foo";
 

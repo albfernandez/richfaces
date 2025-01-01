@@ -21,35 +21,33 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
+import com.google.common.base.Strings;
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractCollapsibleSubTable;
 import org.richfaces.component.AbstractCollapsibleSubTableToggler;
 import org.richfaces.renderkit.util.RendererUtils;
 
-import com.google.common.base.Strings;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Anton Belevich
  */
 @JsfRenderer(type = "org.richfaces.CollapsibleSubTableTogglerRenderer", family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY)
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable-toggler.js"),
-        @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable.ecss")})
 public abstract class CollapsibleSubTableTogglerRendererBase extends RendererBase {
     /**
      *
@@ -97,7 +95,7 @@ public abstract class CollapsibleSubTableTogglerRendererBase extends RendererBas
     }
 
     protected void encodeControl(FacesContext context, ResponseWriter writer, AbstractCollapsibleSubTableToggler control,
-        boolean expanded, boolean visible) throws IOException {
+                                 boolean expanded, boolean visible) throws IOException {
         String state = getState(expanded);
         String styleClass = getStyleClass(context, control);
         String style = getStyle(context, control);
@@ -110,7 +108,7 @@ public abstract class CollapsibleSubTableTogglerRendererBase extends RendererBas
 
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, control.getClientId(context) + ":" + state, null);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
-            concatClasses(styleClass, expanded ? EXPANDED_CONTROL_CLASS : COLLAPSED_CONTROL_CLASS), null);
+                concatClasses(styleClass, expanded ? EXPANDED_CONTROL_CLASS : COLLAPSED_CONTROL_CLASS), null);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
 
         UIComponent controlFacet = control.getFacet(state);
@@ -159,7 +157,7 @@ public abstract class CollapsibleSubTableTogglerRendererBase extends RendererBas
     }
 
     public HashMap<String, Object> encodeOptions(FacesContext context, AbstractCollapsibleSubTableToggler toggleControl,
-        AbstractCollapsibleSubTable subTable) {
+                                                 AbstractCollapsibleSubTable subTable) {
         String forId = subTable.getClientId(context);
         String toggleControlId = toggleControl.getClientId(context);
 

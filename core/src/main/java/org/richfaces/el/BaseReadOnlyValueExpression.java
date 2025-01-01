@@ -27,7 +27,6 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- *
  */
 public abstract class BaseReadOnlyValueExpression extends ValueExpression {
     /**

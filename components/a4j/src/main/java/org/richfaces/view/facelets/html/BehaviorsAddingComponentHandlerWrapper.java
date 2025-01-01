@@ -21,8 +21,6 @@
  */
 package org.richfaces.view.facelets.html;
 
-import java.io.IOException;
-
 import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.FacesWrapper;
@@ -33,6 +31,7 @@ import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.Tag;
 import javax.faces.view.facelets.TagAttribute;
+import java.io.IOException;
 
 /**
  * @author Nick Belaevski

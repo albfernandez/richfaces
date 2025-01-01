@@ -23,7 +23,6 @@ package org.richfaces.component;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface AjaxContainer {
     String META_COMPONENT_ID = "region";

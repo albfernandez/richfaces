@@ -21,16 +21,15 @@
  */
 package org.richfaces.javascript;
 
+import org.ajax4jsf.javascript.ScriptWithDependencies;
+import org.richfaces.resource.ResourceKey;
+
 import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.ajax4jsf.javascript.ScriptWithDependencies;
-import org.richfaces.resource.ResourceKey;
-
 /**
  * @author abelevich
- *
  */
 public abstract class DnDScript implements ScriptWithDependencies {
     private static final Set<ResourceKey> BASE_RESOURCES = new LinkedHashSet<ResourceKey>();

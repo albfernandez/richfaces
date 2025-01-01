@@ -43,16 +43,6 @@ public class IT_RF12684 {
         return deployment.getFinalArchive();
     }
 
-    @Test
-    public void check_number_of_items_on_last_page() throws InterruptedException {
-        // given
-        browser.get(contextPath.toExternalForm());
-        Graphene.guardAjax(lastButton).click();
-        Thread.sleep(200);
-        List<WebElement> cells = browser.findElements(By.cssSelector(".rf-dt-c"));
-        Assert.assertEquals(1, cells.size());
-    }
-
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.form("<rich:dataTable id='tableId' value='#{iterationBean.values}' var='bean' rows='3'> ");
@@ -69,6 +59,16 @@ public class IT_RF12684 {
         p.form("</rich:dataTable> ");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    @Test
+    public void check_number_of_items_on_last_page() throws InterruptedException {
+        // given
+        browser.get(contextPath.toExternalForm());
+        Graphene.guardAjax(lastButton).click();
+        Thread.sleep(200);
+        List<WebElement> cells = browser.findElements(By.cssSelector(".rf-dt-c"));
+        Assert.assertEquals(1, cells.size());
     }
 
 }

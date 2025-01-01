@@ -1,17 +1,5 @@
 package org.richfaces.photoalbum.social;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.richfaces.json.JSONObject;
 import org.richfaces.photoalbum.manager.Model;
 import org.richfaces.photoalbum.model.Event;
@@ -22,6 +10,17 @@ import org.richfaces.photoalbum.model.event.SimpleEvent;
 import org.richfaces.photoalbum.social.facebook.FacebookAlbumCache;
 import org.richfaces.photoalbum.social.gplus.GooglePlusAlbumCache;
 import org.richfaces.photoalbum.util.ImageHandler;
+
+import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
 @Named
 @SessionScoped
@@ -47,7 +46,7 @@ public class EventAlbumsHelper implements Serializable {
     private List<String> emptyGoogleIds = new LinkedList<String>();
     private List<String> googleAlbumIds = new ArrayList<String>();
 
-    private List<ImageHandler> images  = new ArrayList<ImageHandler>();
+    private List<ImageHandler> images = new ArrayList<ImageHandler>();
 
     private boolean pollEnabled;
 

@@ -91,7 +91,7 @@ public class URLCodec implements BinaryEncoder, BinaryDecoder {
      * characters. Unsafe characters are escaped.
      *
      * @param urlsafe bitset of characters deemed URL safe
-     * @param bytes array of bytes to convert to URL safe characters
+     * @param bytes   array of bytes to convert to URL safe characters
      * @return array of bytes containing URL safe characters
      */
     public static final byte[] encodeUrl(BitSet urlsafe, byte[] bytes) {
@@ -211,10 +211,10 @@ public class URLCodec implements BinaryEncoder, BinaryDecoder {
      * @param pObject string to convert to a URL safe form
      * @return URL safe object
      * @throws EncoderException Thrown if URL encoding is not
-     *         <p/>
-     *         applicable to objects of this type or
-     *         <p/>
-     *         if encoding is unsuccessful
+     *                          <p/>
+     *                          applicable to objects of this type or
+     *                          <p/>
+     *                          if encoding is unsuccessful
      */
     public Object encode(Object pObject) throws EncoderException {
         if (pObject == null) {
@@ -236,10 +236,10 @@ public class URLCodec implements BinaryEncoder, BinaryDecoder {
      * @param pObject URL safe object to convert into its original form
      * @return original object
      * @throws DecoderException Thrown if URL decoding is not
-     *         <p/>
-     *         applicable to objects of this type
-     *         <p/>
-     *         if decoding is unsuccessful
+     *                          <p/>
+     *                          applicable to objects of this type
+     *                          <p/>
+     *                          if decoding is unsuccessful
      */
     public Object decode(Object pObject) throws DecoderException {
         if (pObject == null) {

@@ -21,11 +21,10 @@
  */
 package org.richfaces.demo.arrangeablemodel;
 
-import java.util.Iterator;
-
 import javax.faces.FacesWrapper;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.lifecycle.LifecycleFactory;
+import java.util.Iterator;
 
 /**
  * @author Nick Belaevski

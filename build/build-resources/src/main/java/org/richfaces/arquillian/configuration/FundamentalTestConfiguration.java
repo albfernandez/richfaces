@@ -1,10 +1,10 @@
 package org.richfaces.arquillian.configuration;
 
-import java.lang.annotation.Annotation;
-
 import org.jboss.arquillian.config.descriptor.api.ArquillianDescriptor;
 import org.jboss.arquillian.drone.configuration.ConfigurationMapper;
 import org.jboss.arquillian.drone.spi.DroneConfiguration;
+
+import java.lang.annotation.Annotation;
 
 public class FundamentalTestConfiguration implements DroneConfiguration<FundamentalTestConfiguration> {
 
@@ -25,7 +25,7 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
 
     /**
      * Get version of RichFaces dependencies to use with the test.
-     *
+     * <p>
      * By default, current project's version will be used.
      */
     public String getRichFacesVersion() {
@@ -67,6 +67,7 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
 
     /**
      * Get the name of the container profile as specified by -Dintegration={container} execution
+     *
      * @return
      */
     public String getContainer() {

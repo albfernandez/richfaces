@@ -21,13 +21,12 @@
  */
 package org.ajax4jsf.io;
 
-import java.io.IOException;
-
 import javax.faces.component.UIComponent;
+import java.io.IOException;
 
 /**
  * @author shura Class to implement state pattern for <code>ResponseWriter</code> Real states must extend this. By default,
- *         block any events, ignore output.
+ * block any events, ignore output.
  */
 class XMLResponseWriterState {
 

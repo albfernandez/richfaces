@@ -21,9 +21,6 @@
  */
 package org.richfaces.showcase.extendedDataTable.page;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -34,6 +31,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars;
 import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars.Car;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
@@ -96,12 +96,12 @@ public class EDTSelectionPage {
         List<WebElement> cells1 = tableParts.get(0).findElements(By.tagName("tr")).get(rowIndex).findElements(By.cssSelector("td > div > div"));
         List<WebElement> cells2 = tableParts.get(1).findElements(By.tagName("tr")).get(rowIndex).findElements(By.cssSelector("td > div > div"));
         return new AbstractDataIterationWithCars.Car(
-            cells1.get(0).getText(),
-            cells1.get(1).getText(),
-            cells2.get(0).getText(),
-            cells2.get(1).getText(),
-            cells2.get(2).getText(),
-            null);
+                cells1.get(0).getText(),
+                cells1.get(1).getText(),
+                cells2.get(0).getText(),
+                cells2.get(1).getText(),
+                cells2.get(2).getText(),
+                null);
     }
 
     public List<AbstractDataIterationWithCars.Car> getCars() {
@@ -156,6 +156,22 @@ public class EDTSelectionPage {
         void select(int... rows);
     }
 
+    private static class MultiSelectionModeWithMouse implements Selection {
+
+        private final List<WebElement> rowElements;
+
+        public MultiSelectionModeWithMouse(List<WebElement> rowElements) {
+            this.rowElements = rowElements;
+        }
+
+        @Override
+        public void select(int... rows) {
+            for (int index : rows) {
+                Graphene.guardAjax(rowElements.get(index)).click();
+            }
+        }
+    }
+
     private class MultiSelectionModeWithKeyboard extends MultiSelectionModeWithMouse {
 
         private final Actions actions;
@@ -172,22 +188,6 @@ public class EDTSelectionPage {
                 super.select(rows);
             } finally {
                 actions.keyUp(Keys.CONTROL).perform();
-            }
-        }
-    }
-
-    private static class MultiSelectionModeWithMouse implements Selection {
-
-        private final List<WebElement> rowElements;
-
-        public MultiSelectionModeWithMouse(List<WebElement> rowElements) {
-            this.rowElements = rowElements;
-        }
-
-        @Override
-        public void select(int... rows) {
-            for (int index : rows) {
-                Graphene.guardAjax(rowElements.get(index)).click();
             }
         }
     }

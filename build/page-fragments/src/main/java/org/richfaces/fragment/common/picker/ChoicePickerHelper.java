@@ -21,8 +21,15 @@
  */
 package org.richfaces.fragment.common.picker;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
+import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Range;
+import com.google.common.collect.Sets;
+import org.openqa.selenium.WebElement;
+import org.richfaces.fragment.common.picker.ChoicePickerHelper.WebElementPicking.WebElementPicker;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -31,16 +38,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import org.openqa.selenium.WebElement;
-import org.richfaces.fragment.common.picker.ChoicePickerHelper.WebElementPicking.WebElementPicker;
-
-import com.google.common.base.Function;
-import com.google.common.base.Preconditions;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Range;
-import com.google.common.collect.Sets;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -72,6 +71,43 @@ public final class ChoicePickerHelper {
         return new WebElementPickerImpl();
     }
 
+    public interface WebElementPicking {
+
+        ComparationBy text();
+
+        ComparationBy attribute(String attributeName);
+
+        public interface ComparationBy {
+
+            CanBeNegated endsWith(String str);
+
+            CanBeNegated equalTo(String str);
+
+            CanBeNegated contains(String str);
+
+            CanBeNegated matches(String str);
+
+            CanBeNegated starstWith(String str);
+        }
+
+        public interface CanBeNegated extends LogicalOperation {
+
+            LogicalOperation not();
+        }
+
+        public interface LogicalOperation extends ChoicePicker, MultipleChoicePicker {
+
+            WebElementPicking and();
+
+            WebElementPicking or();
+        }
+
+        public interface WebElementPicker extends ChoicePicker, MultipleChoicePicker, WebElementPicking {
+        }
+    }
+
+    ;
+
     public static class ByIndexChoicePicker implements ChoicePicker, MultipleChoicePicker {
 
         private final Set<Integer> reachableIndexes = new LinkedHashSet<Integer>();
@@ -100,8 +136,8 @@ public final class ChoicePickerHelper {
         /**
          * Picks every nth index from 0 (including).
          *
-         * @param  nth has to be greater than 1
-         * @return     same instance
+         * @param nth has to be greater than 1
+         * @return same instance
          */
         public ByIndexChoicePicker everyNth(final int nth) {
             return everyNth(nth, 0);
@@ -112,7 +148,7 @@ public final class ChoicePickerHelper {
          *
          * @param nth  has to be greater than 1 (the iteration step)
          * @param from has to be greater or equals to 0
-         * @return     same instance
+         * @return same instance
          */
         public ByIndexChoicePicker everyNth(final int nth, final int from) {
             Preconditions.checkArgument(nth > 1);
@@ -221,7 +257,9 @@ public final class ChoicePickerHelper {
 
             void prepare(List<WebElement> list);
         }
-    };
+    }
+
+    ;
 
     public static class ByVisibleTextChoicePicker implements ChoicePicker, MultipleChoicePicker {
 
@@ -241,6 +279,7 @@ public final class ChoicePickerHelper {
          * If true, then all rules/filters must pass to pick an element.
          * If false, then if at least one rule/filter passes, element will be picked.
          * Default value is true.
+         *
          * @param allRulesMustPass
          */
         public ByVisibleTextChoicePicker allRulesMustPass(boolean allRulesMustPass) {
@@ -331,7 +370,7 @@ public final class ChoicePickerHelper {
         /**
          * Sets a transformation function, that will be used to transform each WebElement from list of possible choices
          * to another WebElement.
-         *
+         * <p>
          * Example:
          * This picker will be picking and comparing text from such divs:
          * <code>
@@ -403,41 +442,6 @@ public final class ChoicePickerHelper {
                 }
             }
         }
-    };
-
-    public interface WebElementPicking {
-
-        ComparationBy text();
-
-        ComparationBy attribute(String attributeName);
-
-        public interface ComparationBy {
-
-            CanBeNegated endsWith(String str);
-
-            CanBeNegated equalTo(String str);
-
-            CanBeNegated contains(String str);
-
-            CanBeNegated matches(String str);
-
-            CanBeNegated starstWith(String str);
-        }
-
-        public interface CanBeNegated extends LogicalOperation {
-
-            LogicalOperation not();
-        }
-
-        public interface LogicalOperation extends ChoicePicker, MultipleChoicePicker {
-
-            WebElementPicking and();
-
-            WebElementPicking or();
-        }
-
-        public interface WebElementPicker extends ChoicePicker, MultipleChoicePicker, WebElementPicking {
-        }
     }
 
     public static class WebElementPickerImpl implements WebElementPicker {
@@ -451,24 +455,6 @@ public final class ChoicePickerHelper {
 
         private Function<WebElement, WebElement> transformationFunction;
         private Function<WebElement, String> webElementFunction;
-
-        private enum LogicalFunctions {
-
-            AND {
-                @Override
-                boolean apply(boolean b1, Predicate<WebElement> b2, WebElement e) {
-                    return b1 && b2.apply(e);
-                }
-            },
-            OR {
-                @Override
-                boolean apply(boolean b1, Predicate<WebElement> b2, WebElement e) {
-                    return b1 || b2.apply(e);
-                }
-            };
-
-            abstract boolean apply(boolean b1, Predicate<WebElement> b2, WebElement e);
-        }
 
         @Override
         public ComparationBy attribute(String attributeName) {
@@ -518,94 +504,22 @@ public final class ChoicePickerHelper {
             return (transformationFunction == null ? input : transformationFunction.apply(input));
         }
 
-        private class FinalPredicate implements Predicate<WebElement> {
+        private enum LogicalFunctions {
 
-            @Override
-            public boolean apply(WebElement input) {
-                WebElement transformed = transFormIfNeeded(input);
-                if (predicates.size() == 1) {
-                    return predicates.peekFirst().apply(input);
+            AND {
+                @Override
+                boolean apply(boolean b1, Predicate<WebElement> b2, WebElement e) {
+                    return b1 && b2.apply(e);
                 }
-                LinkedList<Predicate<WebElement>> predicatesCopy = new LinkedList<Predicate<WebElement>>(predicates);
-                LinkedList<LogicalFunctions> logicalFunctionsCopy = new LinkedList<LogicalFunctions>(logicalFunctions);
-                boolean previousResult = predicatesCopy.removeFirst().apply(transformed);
-                LogicalFunctions logicalFunction;
-                while (!logicalFunctionsCopy.isEmpty()) {
-                    logicalFunction = logicalFunctionsCopy.removeFirst();
-                    if (!previousResult && logicalFunction.equals(LogicalFunctions.AND)) {
-                        return previousResult;// return false if previous result was false and the function is AND
-                    }
-                    previousResult = logicalFunction.apply(previousResult, predicatesCopy.removeFirst(), transformed);
+            },
+            OR {
+                @Override
+                boolean apply(boolean b1, Predicate<WebElement> b2, WebElement e) {
+                    return b1 || b2.apply(e);
                 }
-                return previousResult;
-            }
-        }
+            };
 
-        private class ComparationByImpl implements ComparationBy {
-
-            @Override
-            public CanBeNegated contains(String str) {
-                predicates.add(new MergingPredicate(webElementFunction, new ContainsFunction(str)));
-                return canBeNegated;
-            }
-
-            @Override
-            public CanBeNegated endsWith(String str) {
-                predicates.add(new MergingPredicate(webElementFunction, new EndsWithFunction(str)));
-                return canBeNegated;
-            }
-
-            @Override
-            public CanBeNegated equalTo(String str) {
-                predicates.add(new MergingPredicate(webElementFunction, new EqualsToFunction(str)));
-                return canBeNegated;
-            }
-
-            @Override
-            public CanBeNegated matches(String str) {
-                predicates.add(new MergingPredicate(webElementFunction, new MatchesFunction(str)));
-                return canBeNegated;
-            }
-
-            @Override
-            public CanBeNegated starstWith(String str) {
-                predicates.add(new MergingPredicate(webElementFunction, new StartsWithFunction(str)));
-                return canBeNegated;
-            }
-        }
-
-        private class LogicalOperationImpl implements LogicalOperation {
-
-            @Override
-            public WebElementPicking and() {
-                logicalFunctions.add(LogicalFunctions.AND);
-                return WebElementPickerImpl.this;
-            }
-
-            @Override
-            public WebElementPicking or() {
-                logicalFunctions.add(LogicalFunctions.OR);
-                return WebElementPickerImpl.this;
-            }
-
-            @Override
-            public WebElement pick(List<WebElement> options) {
-                return WebElementPickerImpl.this.pick(options);
-            }
-
-            @Override
-            public List<WebElement> pickMultiple(List<WebElement> options) {
-                return WebElementPickerImpl.this.pickMultiple(options);
-            }
-        }
-
-        private class CanBeNegatedImpl extends LogicalOperationImpl implements CanBeNegated {
-
-            @Override
-            public LogicalOperation not() {
-                predicates.peekLast().negate();
-                return operation;
-            }
+            abstract boolean apply(boolean b1, Predicate<WebElement> b2, WebElement e);
         }
 
         private static class MergingPredicate implements Predicate<WebElement> {
@@ -632,19 +546,6 @@ public final class ChoicePickerHelper {
             @Override
             public String toString() {
                 return "MergingPredicate{" + "elementToString=" + elementToString + ", stringToBoolean=" + stringToBoolean + ", negate=" + negate + '}';
-            }
-        }
-
-        private class GetTextFunction implements Function<WebElement, String> {
-
-            @Override
-            public String apply(WebElement input) {
-                return input.getText();
-            }
-
-            @Override
-            public String toString() {
-                return "GetTextFunction()";
             }
         }
 
@@ -743,6 +644,109 @@ public final class ChoicePickerHelper {
             @Override
             public String toString() {
                 return getClass().getSimpleName() + '{' + compareTo + '}';
+            }
+        }
+
+        private class FinalPredicate implements Predicate<WebElement> {
+
+            @Override
+            public boolean apply(WebElement input) {
+                WebElement transformed = transFormIfNeeded(input);
+                if (predicates.size() == 1) {
+                    return predicates.peekFirst().apply(input);
+                }
+                LinkedList<Predicate<WebElement>> predicatesCopy = new LinkedList<Predicate<WebElement>>(predicates);
+                LinkedList<LogicalFunctions> logicalFunctionsCopy = new LinkedList<LogicalFunctions>(logicalFunctions);
+                boolean previousResult = predicatesCopy.removeFirst().apply(transformed);
+                LogicalFunctions logicalFunction;
+                while (!logicalFunctionsCopy.isEmpty()) {
+                    logicalFunction = logicalFunctionsCopy.removeFirst();
+                    if (!previousResult && logicalFunction.equals(LogicalFunctions.AND)) {
+                        return previousResult;// return false if previous result was false and the function is AND
+                    }
+                    previousResult = logicalFunction.apply(previousResult, predicatesCopy.removeFirst(), transformed);
+                }
+                return previousResult;
+            }
+        }
+
+        private class ComparationByImpl implements ComparationBy {
+
+            @Override
+            public CanBeNegated contains(String str) {
+                predicates.add(new MergingPredicate(webElementFunction, new ContainsFunction(str)));
+                return canBeNegated;
+            }
+
+            @Override
+            public CanBeNegated endsWith(String str) {
+                predicates.add(new MergingPredicate(webElementFunction, new EndsWithFunction(str)));
+                return canBeNegated;
+            }
+
+            @Override
+            public CanBeNegated equalTo(String str) {
+                predicates.add(new MergingPredicate(webElementFunction, new EqualsToFunction(str)));
+                return canBeNegated;
+            }
+
+            @Override
+            public CanBeNegated matches(String str) {
+                predicates.add(new MergingPredicate(webElementFunction, new MatchesFunction(str)));
+                return canBeNegated;
+            }
+
+            @Override
+            public CanBeNegated starstWith(String str) {
+                predicates.add(new MergingPredicate(webElementFunction, new StartsWithFunction(str)));
+                return canBeNegated;
+            }
+        }
+
+        private class LogicalOperationImpl implements LogicalOperation {
+
+            @Override
+            public WebElementPicking and() {
+                logicalFunctions.add(LogicalFunctions.AND);
+                return WebElementPickerImpl.this;
+            }
+
+            @Override
+            public WebElementPicking or() {
+                logicalFunctions.add(LogicalFunctions.OR);
+                return WebElementPickerImpl.this;
+            }
+
+            @Override
+            public WebElement pick(List<WebElement> options) {
+                return WebElementPickerImpl.this.pick(options);
+            }
+
+            @Override
+            public List<WebElement> pickMultiple(List<WebElement> options) {
+                return WebElementPickerImpl.this.pickMultiple(options);
+            }
+        }
+
+        private class CanBeNegatedImpl extends LogicalOperationImpl implements CanBeNegated {
+
+            @Override
+            public LogicalOperation not() {
+                predicates.peekLast().negate();
+                return operation;
+            }
+        }
+
+        private class GetTextFunction implements Function<WebElement, String> {
+
+            @Override
+            public String apply(WebElement input) {
+                return input.getText();
+            }
+
+            @Override
+            public String toString() {
+                return "GetTextFunction()";
             }
         }
     }

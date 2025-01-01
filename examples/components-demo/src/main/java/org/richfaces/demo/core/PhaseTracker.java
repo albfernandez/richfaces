@@ -21,18 +21,16 @@
  */
 package org.richfaces.demo.core;
 
-import java.text.MessageFormat;
+import org.richfaces.log.LogFactory;
+import org.richfaces.log.Logger;
 
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
-
-import org.richfaces.log.LogFactory;
-import org.richfaces.log.Logger;
+import java.text.MessageFormat;
 
 /**
  * @author Nick Belaevski
- *
  */
 
 public class PhaseTracker implements PhaseListener {

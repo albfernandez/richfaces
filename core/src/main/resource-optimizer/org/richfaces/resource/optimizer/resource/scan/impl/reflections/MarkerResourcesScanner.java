@@ -21,14 +21,12 @@
  */
 package org.richfaces.resource.optimizer.resource.scan.impl.reflections;
 
+import com.google.common.collect.Multimap;
 import org.reflections.scanners.AbstractScanner;
 import org.reflections.vfs.Vfs.File;
 
-import com.google.common.collect.Multimap;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class MarkerResourcesScanner extends AbstractScanner {
     static final String STORE_KEY = "org.richfaces.cdk.dynamicResourceNames";

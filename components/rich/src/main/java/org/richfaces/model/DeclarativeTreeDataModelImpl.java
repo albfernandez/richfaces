@@ -21,12 +21,9 @@
  */
 package org.richfaces.model;
 
-import java.util.Iterator;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.DeclarativeTreeDataModelWalker;
 import org.richfaces.component.TreeModelAdaptor;
@@ -34,18 +31,18 @@ import org.richfaces.component.TreeModelRecursiveAdaptor;
 import org.richfaces.convert.DeclarativeModelSequenceKeyConverter;
 import org.richfaces.model.iterators.DeclarativeTreeDataModelCompositeTuplesIterator;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterables;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import java.util.Iterator;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Object> implements DeclarativeTreeModel<Object> {
     private static final Converter DEFAULT_CONVERTER = new DeclarativeModelSequenceKeyConverter();
     private static final Predicate<Object> TREE_MODEL_ADAPTOR_INSTANCE_PREDICATE = Predicates
-        .instanceOf(TreeModelAdaptor.class);
+            .instanceOf(TreeModelAdaptor.class);
     private AbstractTree tree;
     private UIComponent currentComponent;
 

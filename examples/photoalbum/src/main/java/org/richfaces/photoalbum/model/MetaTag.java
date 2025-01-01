@@ -21,9 +21,11 @@
  */
 package org.richfaces.photoalbum.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.Column;
@@ -35,12 +37,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class for representing MetaTag Entity EJB3 Entity Bean
@@ -49,7 +48,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = "tag") })
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "tag")})
 @RequestScoped
 public class MetaTag implements Serializable {
 

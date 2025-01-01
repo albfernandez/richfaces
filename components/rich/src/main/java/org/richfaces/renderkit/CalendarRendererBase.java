@@ -21,6 +21,27 @@
  */
 package org.richfaces.renderkit;
 
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.component.AbstractCalendar;
+import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.component.Positioning;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.component.util.InputUtils;
+import org.richfaces.component.util.InputUtils.ConverterLookupStrategy;
+import org.richfaces.component.util.MessageUtil;
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.event.CurrentDateChangeEvent;
+import org.richfaces.utils.CalendarHelper;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+import javax.faces.convert.DateTimeConverter;
 import java.io.IOException;
 import java.text.DateFormatSymbols;
 import java.text.Format;
@@ -35,33 +56,10 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.DateTimeConverter;
-
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSReference;
-import org.richfaces.component.AbstractCalendar;
-import org.richfaces.component.MetaComponentResolver;
-import org.richfaces.component.Positioning;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.component.util.InputUtils;
-import org.richfaces.component.util.InputUtils.ConverterLookupStrategy;
-import org.richfaces.component.util.MessageUtil;
-import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.event.CurrentDateChangeEvent;
-import org.richfaces.utils.CalendarHelper;
-
 /**
  * @author amarkhel
- *
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -74,7 +72,7 @@ import org.richfaces.utils.CalendarHelper;
         @ResourceDependency(library = "org.richfaces", name = "JQuerySpinBtn.js"),
         @ResourceDependency(library = "org.richfaces", name = "calendar-utils.js"),
         @ResourceDependency(library = "org.richfaces", name = "calendar.js"),
-        @ResourceDependency(library = "org.richfaces", name = "calendar.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "calendar.ecss")})
 public class CalendarRendererBase extends InputRendererBase implements MetaComponentRenderer {
     public static final String CALENDAR_BUNDLE = "org.richfaces.renderkit.calendar";
     public static final String OPTION_DISABLED = "disabled";
@@ -88,41 +86,41 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     public static final String CALENDAR_DISABLE_ICON_RESOURCE_NAME = "disabledCalendarIcon.png";
     public static final String CURRENT_DATE_INPUT = "InputCurrentDate";
     protected static final Map<String, ComponentAttribute> CALENDAR_INPUT_HANDLER_ATTRIBUTES = Collections
-        .unmodifiableMap(ComponentAttribute.createMap(
-            new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("inputclick").setComponentAttributeName(
-                "oninputclick"),
-            new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("inputdblclick")
-                .setComponentAttributeName("oninputdblclick"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("inputmousedown")
-                .setComponentAttributeName("oninputmousedown"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("inputmouseup").setComponentAttributeName(
-                "oninputmouseup"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("inputmouseover")
-                .setComponentAttributeName("oninputmouseover"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("inputmousemove")
-                .setComponentAttributeName("oninputmousemove"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("inputmouseout")
-                .setComponentAttributeName("oninputmouseout"),
-            new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("inputkeypress")
-                .setComponentAttributeName("oninputkeypress"),
-            new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("inputkeydown").setComponentAttributeName(
-                "oninputkeydown"),
-            new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("inputkeyup").setComponentAttributeName(
-                "oninputkeyup"),
-            new ComponentAttribute(HtmlConstants.ONBLUR_ATTRIBUTE).setEventNames("inputblur").setComponentAttributeName(
-                "oninputblur"),
-            new ComponentAttribute(HtmlConstants.ONFOCUS_ATTRIBUTE).setEventNames("inputfocus").setComponentAttributeName(
-                "oninputfocus"),
-            new ComponentAttribute(HtmlConstants.ONCHANGE_ATTRIBUTE).setEventNames("inputchange").setComponentAttributeName(
-                "oninputchange"),
-            new ComponentAttribute(HtmlConstants.ONSELECT_ATTRIBUTE).setEventNames("inputselect").setComponentAttributeName(
-                "oninputselect")));
+            .unmodifiableMap(ComponentAttribute.createMap(
+                    new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("inputclick").setComponentAttributeName(
+                            "oninputclick"),
+                    new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("inputdblclick")
+                            .setComponentAttributeName("oninputdblclick"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("inputmousedown")
+                            .setComponentAttributeName("oninputmousedown"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("inputmouseup").setComponentAttributeName(
+                            "oninputmouseup"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("inputmouseover")
+                            .setComponentAttributeName("oninputmouseover"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("inputmousemove")
+                            .setComponentAttributeName("oninputmousemove"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("inputmouseout")
+                            .setComponentAttributeName("oninputmouseout"),
+                    new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("inputkeypress")
+                            .setComponentAttributeName("oninputkeypress"),
+                    new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("inputkeydown").setComponentAttributeName(
+                            "oninputkeydown"),
+                    new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("inputkeyup").setComponentAttributeName(
+                            "oninputkeyup"),
+                    new ComponentAttribute(HtmlConstants.ONBLUR_ATTRIBUTE).setEventNames("inputblur").setComponentAttributeName(
+                            "oninputblur"),
+                    new ComponentAttribute(HtmlConstants.ONFOCUS_ATTRIBUTE).setEventNames("inputfocus").setComponentAttributeName(
+                            "oninputfocus"),
+                    new ComponentAttribute(HtmlConstants.ONCHANGE_ATTRIBUTE).setEventNames("inputchange").setComponentAttributeName(
+                            "oninputchange"),
+                    new ComponentAttribute(HtmlConstants.ONSELECT_ATTRIBUTE).setEventNames("inputselect").setComponentAttributeName(
+                            "oninputselect")));
     private static final String HOURS_VALUE = "hours";
     private static final String MINUTES_VALUE = "minutes";
     private static final String SECONDS_VALUE = "seconds";
     protected final ConverterLookupStrategy calendarConverterLookupStrategy = new ConverterLookupStrategy() {
         public Converter getConverterByValue(FacesContext context, UIComponent component, Object value)
-            throws ConverterException {
+                throws ConverterException {
             AbstractCalendar calendar = (AbstractCalendar) component;
             Converter converter = calendar.getConverter();
 
@@ -155,6 +153,50 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         }
     };
 
+    public static Object formatSelectedDate(TimeZone timeZone, Date date) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        AbstractCalendar calendarInstance = (AbstractCalendar) AbstractCalendar.getCurrentComponent(facesContext);
+        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarInstance);
+
+        calendar.setTimeZone(timeZone);
+        calendar.setTime(date);
+
+        JSFunction result = new JSFunction("new Date");
+        result.addParameter(calendar.get(Calendar.YEAR));
+        result.addParameter(calendar.get(Calendar.MONTH));
+        result.addParameter(calendar.get(Calendar.DATE));
+        result.addParameter(calendar.get(Calendar.HOUR_OF_DAY));
+        result.addParameter(calendar.get(Calendar.MINUTE));
+        result.addParameter(0);
+
+        return result;
+    }
+
+    public static Object formatDate(Date date) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        AbstractCalendar calendarInstance = (AbstractCalendar) AbstractCalendar.getCurrentComponent(facesContext);
+        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarInstance);
+
+        calendar.setTime(date);
+        JSFunction result = new JSFunction("new Date");
+        result.addParameter(calendar.get(Calendar.YEAR));
+        result.addParameter(calendar.get(Calendar.MONTH));
+        result.addParameter(calendar.get(Calendar.DATE));
+
+        return result;
+    }
+
+    private static String[] shiftDates(int minimum, int maximum, String[] labels) {
+        if (minimum == 0 && (maximum - minimum == labels.length - 1)) {
+            return labels;
+        }
+
+        String[] shiftedLabels = new String[maximum - minimum + 1];
+        System.arraycopy(labels, minimum, shiftedLabels, 0, maximum - minimum + 1);
+
+        return shiftedLabels;
+    }
+
     protected void doDecode(FacesContext context, UIComponent component) {
         if (!(component instanceof AbstractCalendar)) {
             return;
@@ -181,8 +223,8 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         if (requestParameterMap.get(component.getClientId(context) + ".ajax") != null) {
             PartialViewContext pvc = context.getPartialViewContext();
             pvc.getRenderIds().add(
-                component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
-                    + AbstractCalendar.DAYSDATA_META_COMPONENT_ID);
+                    component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                            + AbstractCalendar.DAYSDATA_META_COMPONENT_ID);
 
             context.renderResponse();
         }
@@ -194,7 +236,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
 
     @Override
     public Object getConvertedValue(FacesContext facesContext, UIComponent component, Object submittedValue)
-        throws ConverterException {
+            throws ConverterException {
         if ((facesContext == null) || (component == null)) {
             throw new NullPointerException();
         }
@@ -246,25 +288,6 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         return returnValue;
     }
 
-    public static Object formatSelectedDate(TimeZone timeZone, Date date) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        AbstractCalendar calendarInstance = (AbstractCalendar) AbstractCalendar.getCurrentComponent(facesContext);
-        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarInstance);
-
-        calendar.setTimeZone(timeZone);
-        calendar.setTime(date);
-
-        JSFunction result = new JSFunction("new Date");
-        result.addParameter(calendar.get(Calendar.YEAR));
-        result.addParameter(calendar.get(Calendar.MONTH));
-        result.addParameter(calendar.get(Calendar.DATE));
-        result.addParameter(calendar.get(Calendar.HOUR_OF_DAY));
-        result.addParameter(calendar.get(Calendar.MINUTE));
-        result.addParameter(0);
-
-        return result;
-    }
-
     public Object getCurrentDate(FacesContext facesContext, UIComponent component) throws IOException {
         AbstractCalendar calendar = (AbstractCalendar) component;
         Date date = CalendarHelper.getCurrentDateOrDefault(facesContext, calendar);
@@ -277,20 +300,6 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
 
         Date currentDate = CalendarHelper.getCurrentDateOrDefault(facesContext, calendar);
         return formatter.format(currentDate);
-    }
-
-    public static Object formatDate(Date date) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        AbstractCalendar calendarInstance = (AbstractCalendar) AbstractCalendar.getCurrentComponent(facesContext);
-        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarInstance);
-
-        calendar.setTime(date);
-        JSFunction result = new JSFunction("new Date");
-        result.addParameter(calendar.get(Calendar.YEAR));
-        result.addParameter(calendar.get(Calendar.MONTH));
-        result.addParameter(calendar.get(Calendar.DATE));
-
-        return result;
     }
 
     public String getDayCellClass(FacesContext facesContext, UIComponent component) {
@@ -336,8 +345,8 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             // No external bundle was found, ignore this exception.
         }
 
-        ResourceBundle[] bundles = { bundle1, bundle2 };
-        String[] names = { "apply", "today", "clean", "cancel", "ok", "close" };
+        ResourceBundle[] bundles = {bundle1, bundle2};
+        String[] names = {"apply", "today", "clean", "cancel", "ok", "close"};
 
         return getCollectedLabels(bundles, names);
     }
@@ -389,17 +398,6 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         } else {
             return null;
         }
-    }
-
-    private static String[] shiftDates(int minimum, int maximum, String[] labels) {
-        if (minimum == 0 && (maximum - minimum == labels.length - 1)) {
-            return labels;
-        }
-
-        String[] shiftedLabels = new String[maximum - minimum + 1];
-        System.arraycopy(labels, minimum, shiftedLabels, 0, maximum - minimum + 1);
-
-        return shiftedLabels;
     }
 
     protected Map<String, Object> getLocaleOptions(FacesContext facesContext, UIComponent component) {
@@ -457,7 +455,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             RenderKitUtils.addToScriptHash(map, FIRST_DAY_WEEK, day);
         } else {
             throw new IllegalArgumentException(day + " value of firstWeekDay attribute is not a legal one for component: "
-                + MessageUtil.getLabel(facesContext, calendarComponent));
+                    + MessageUtil.getLabel(facesContext, calendarComponent));
         }
         return map;
     }

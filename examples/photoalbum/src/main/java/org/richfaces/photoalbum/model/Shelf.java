@@ -21,11 +21,13 @@
  */
 package org.richfaces.photoalbum.model;
 
-import java.io.File;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.OrderBy;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,14 +42,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.OrderBy;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Shelf implements Serializable {
@@ -70,7 +69,7 @@ public class Shelf implements Serializable {
     @ManyToOne
     @JoinColumn
     private User owner;
-    
+
     @OneToOne
     @JoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -245,7 +244,7 @@ public class Shelf implements Serializable {
         }
         return getOwner().getPath() + this.getId().toString() + File.separator;
     }
-    
+
     public Event getEvent() {
         return event;
     }
@@ -267,7 +266,7 @@ public class Shelf implements Serializable {
         final Shelf shelf = (Shelf) obj;
 
         return (id != null ? id.equals(shelf.getId()) : shelf.getId() == null)
-            && (owner != null ? owner.equals(shelf.getOwner()) : shelf.getOwner() == null) && name.equals(shelf.getName());
+                && (owner != null ? owner.equals(shelf.getOwner()) : shelf.getOwner() == null) && name.equals(shelf.getName());
     }
 
     @Override

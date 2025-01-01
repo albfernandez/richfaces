@@ -22,6 +22,13 @@
 
 package org.richfaces.resource;
 
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -35,14 +42,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
 public final class Xcss2EcssConverter {
     private Xcss2EcssConverter() {
@@ -379,7 +378,6 @@ public final class Xcss2EcssConverter {
          *
          * @param handler - DefaultHandler for the SAX parser
          * @throws javax.xml.parsers.ParserConfigurationException
-         *
          * @throws org.xml.sax.SAXException
          */
         public CreateParser(DefaultHandler handler) throws SAXException, ParserConfigurationException {

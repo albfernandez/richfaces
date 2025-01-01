@@ -21,19 +21,18 @@
  */
 package org.richfaces.component;
 
-import javax.faces.context.FacesContext;
-
+import org.ajax4jsf.model.DataVisitResult;
+import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.SequenceRange;
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.SequenceRange;
+
+import javax.faces.context.FacesContext;
 
 /**
  * @author Konstantin Mishin
- *
  */
 public class UIExtendedDataTableTest extends AbstractFacesTest {
     private UIExtendedDataTable table;
@@ -46,7 +45,7 @@ public class UIExtendedDataTableTest extends AbstractFacesTest {
         super.setUp();
         setupFacesRequest();
         table = new UIExtendedDataTable();
-        table.setValue(new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+        table.setValue(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9});
     }
 
     /**

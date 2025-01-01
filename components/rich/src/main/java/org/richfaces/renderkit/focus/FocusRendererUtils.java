@@ -1,12 +1,11 @@
 package org.richfaces.renderkit.focus;
 
+import org.richfaces.focus.FocusManager;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.focus.FocusManager;
-
 
 
 public final class FocusRendererUtils {

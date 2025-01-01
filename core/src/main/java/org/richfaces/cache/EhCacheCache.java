@@ -21,10 +21,10 @@
  */
 package org.richfaces.cache;
 
-import java.util.Date;
-
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
+
+import java.util.Date;
 
 /**
  * @author Nick Belaevski

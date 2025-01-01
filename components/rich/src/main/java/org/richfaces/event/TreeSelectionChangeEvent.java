@@ -21,15 +21,13 @@
  */
 package org.richfaces.event;
 
-import java.util.Collection;
-
 import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
+import java.util.Collection;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class TreeSelectionChangeEvent extends FacesEvent {
     private static final long serialVersionUID = 6292604445872458007L;

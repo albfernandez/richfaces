@@ -21,34 +21,12 @@
  */
 package org.richfaces.component;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PreRenderComponentEvent;
-
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
-
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
 import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.component.attribute.ColumnProps;
 import org.richfaces.component.attribute.EventsRowProps;
@@ -70,6 +48,25 @@ import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
+
+import javax.annotation.Nullable;
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PreRenderComponentEvent;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder, ColumnProps, EventsRowProps, RowColumnStyleProps, StyleProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.Data";
@@ -95,8 +92,8 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         SUPPORTED_META_COMPONENTS.add(BODY);
     }
 
-    protected enum PropertyKeys {
-        filterVar, sortPriority, sortMode, first, rows, noDataLabel, selection, header
+    public static Set<String> getSupportedMetaComponents() {
+        return SUPPORTED_META_COMPONENTS;
     }
 
     /**
@@ -213,7 +210,7 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         ArrangeableState state = null;
         List<FilterField> filterFields = new LinkedList<FilterField>();
         Map<Object, SortField> sortFieldsMap = new LinkedHashMap<Object, SortField>();
-        for (Iterator<UIComponent> iterator = columns(); iterator.hasNext();) {
+        for (Iterator<UIComponent> iterator = columns(); iterator.hasNext(); ) {
             UIComponent component = iterator.next();
             if (component instanceof AbstractColumn && component.isRendered()) {
                 AbstractColumn column = (AbstractColumn) component;
@@ -393,11 +390,11 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         super.queueEvent(event);
     }
 
-    public static Set<String> getSupportedMetaComponents() {
-        return SUPPORTED_META_COMPONENTS;
-    }
-
     public String getSortingAndFilteringRenderTargetId(FacesContext facesContext) {
         return getClientId(facesContext);
+    }
+
+    protected enum PropertyKeys {
+        filterVar, sortPriority, sortMode, first, rows, noDataLabel, selection, header
     }
 }

@@ -1,15 +1,14 @@
 package org.richfaces.utils.focus;
 
+import com.google.common.base.Predicate;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.google.common.base.Predicate;
-
 public class ElementIsFocused implements Predicate<WebDriver> {
 
-    private WebElement activeElement;
     private final WebElement element;
+    private WebElement activeElement;
 
     /**
      * Provide element to wait to gain focus or null if you want to fail for no element having focus

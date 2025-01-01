@@ -21,9 +21,9 @@
  */
 package org.richfaces.resource.mapping;
 
-import java.util.Set;
-
 import org.richfaces.resource.ResourceKey;
+
+import java.util.Set;
 
 /**
  * Determines what resources are mapped under same URL.

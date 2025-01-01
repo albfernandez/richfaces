@@ -21,17 +21,15 @@
  */
 package org.richfaces;
 
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
 
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
-
-import com.google.common.collect.Lists;
+import java.util.ArrayList;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class StateHolderArray implements StateHolder {
     private boolean tranzient = false;

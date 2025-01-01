@@ -21,6 +21,8 @@
  */
 package org.richfaces.application;
 
+import org.richfaces.l10n.MessageBundle;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectMany;
@@ -44,11 +46,8 @@ import javax.faces.validator.LengthValidator;
 import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.RegexValidator;
 
-import org.richfaces.l10n.MessageBundle;
-
 /**
  * @author Nick Belaevski
- *
  */
 @MessageBundle(baseName = FacesMessage.FACES_MESSAGES)
 public enum FacesMessages {

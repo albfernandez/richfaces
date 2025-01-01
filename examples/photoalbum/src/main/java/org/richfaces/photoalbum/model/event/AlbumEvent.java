@@ -23,29 +23,29 @@
 package org.richfaces.photoalbum.model.event;
 
 import org.richfaces.photoalbum.model.Album;
+
 /**
  * Album event, carries an album and its (relative) path.
  * Temporary solution before I figure out how to inject the properties.
- * 
- * @author mpetrov
  *
+ * @author mpetrov
  */
 public class AlbumEvent extends SimpleEvent {
     private Album album;
-    
+
     public AlbumEvent(Album album) {
         this(album, "");
     }
-    
+
     public AlbumEvent(Album album, String path) {
         super(path);
         this.album = album;
     }
-    
+
     public Album getAlbum() {
         return album;
     }
-    
+
     public String getPath() {
         return super.getMessage();
     }

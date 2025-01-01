@@ -21,13 +21,12 @@
  */
 package org.richfaces.renderkit;
 
-import javax.faces.context.FacesContext;
-
 import org.richfaces.component.AbstractTree;
+
+import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- *
  */
 class TreeEncoderFull extends TreeEncoderBase {
     public TreeEncoderFull(FacesContext context, AbstractTree tree) {

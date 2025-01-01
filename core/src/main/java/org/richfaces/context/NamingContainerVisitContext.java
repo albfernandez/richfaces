@@ -21,13 +21,6 @@
  */
 package org.richfaces.context;
 
-import java.util.AbstractCollection;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
@@ -35,33 +28,21 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+import java.util.AbstractCollection;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 final class NamingContainerVisitContext extends ExtendedVisitContext {
-    private final class IdsProxyCollection extends AbstractCollection<String> {
-        @Override
-        public Iterator<String> iterator() {
-            throw new UnsupportedOperationException("iterator() method is not supported by this collection implementation");
-        }
-
-        @Override
-        public int size() {
-            throw new UnsupportedOperationException("size() method is not supported by this collection implementation");
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return ids.isEmpty();
-        }
-    }
+    private Set<String> ids;
 
     ;
-
-    private Set<String> ids;
     private IdsProxyCollection idsToVisit;
     private UIComponent startingComponent;
-
     public NamingContainerVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, ExtendedVisitContextMode visitMode, UIComponent component,
-        Collection<String> ids) {
+                                       Collection<String> ids) {
 
         super(visitContextToWrap, facesContext, visitMode);
 
@@ -135,5 +116,22 @@ final class NamingContainerVisitContext extends ExtendedVisitContext {
 
     public VisitContext createNamingContainerVisitContext(UIComponent component, Collection<String> directIds) {
         return new NamingContainerVisitContext(getWrapped(), getFacesContext(), getVisitMode(), component, directIds);
+    }
+
+    private final class IdsProxyCollection extends AbstractCollection<String> {
+        @Override
+        public Iterator<String> iterator() {
+            throw new UnsupportedOperationException("iterator() method is not supported by this collection implementation");
+        }
+
+        @Override
+        public int size() {
+            throw new UnsupportedOperationException("size() method is not supported by this collection implementation");
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return ids.isEmpty();
+        }
     }
 }

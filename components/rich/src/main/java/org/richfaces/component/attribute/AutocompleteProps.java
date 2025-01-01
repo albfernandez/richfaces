@@ -14,7 +14,7 @@ import javax.faces.context.FacesContext;
  */
 public interface AutocompleteProps {
     /**
-     *  <p>Determine how the suggestion list is requested:</p>
+     * <p>Determine how the suggestion list is requested:</p>
      *  <dl>
      *      <dt>client</dt>
      *        <dd>pre-loads data to the client and uses the input to filter the possible suggestions</dd>
@@ -82,15 +82,17 @@ public interface AutocompleteProps {
     /**
      * A method which provides a list of suggestions according to a user-provided filtering value
      */
-    @Attribute(signature = @Signature(returnType = Object.class, parameters = { FacesContext.class, UIComponent.class,
-            String.class }))
+    @Attribute(signature = @Signature(returnType = Object.class, parameters = {FacesContext.class, UIComponent.class,
+            String.class}))
     MethodExpression getAutocompleteMethod();
+
     void setAutocompleteMethod(MethodExpression expression);
 
     /**
      * Workaround for RF-11469
      */
-    @Attribute(hidden = true, signature = @Signature(returnType = Object.class, parameters = { String.class }))
+    @Attribute(hidden = true, signature = @Signature(returnType = Object.class, parameters = {String.class}))
     MethodExpression getAutocompleteMethodWithOneParameter();
+
     void setAutocompleteMethodWithOneParameter(MethodExpression expression);
 }

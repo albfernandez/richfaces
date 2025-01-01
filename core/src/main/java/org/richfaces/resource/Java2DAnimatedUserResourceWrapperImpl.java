@@ -21,12 +21,7 @@
  */
 package org.richfaces.resource;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.Iterator;
+import org.w3c.dom.Node;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -36,12 +31,15 @@ import javax.imageio.ImageWriter;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataNode;
 import javax.imageio.stream.ImageOutputStream;
-
-import org.w3c.dom.Node;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Iterator;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWrapperImpl {
     public Java2DAnimatedUserResourceWrapperImpl(Java2DAnimatedUserResource resourceObject, boolean cacheable, boolean versioned) {
@@ -60,7 +58,7 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
         }
 
         throw new IllegalArgumentException(MessageFormat.format("Cannot find sequence-capable image writer for {0} format",
-            imageType.getFormatName()));
+                imageType.getFormatName()));
     }
 
     private static Node getOrCreateChild(Node root, String name) {
@@ -83,7 +81,7 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
     private static void checkSupportedFormat(ImageType imageType) {
         if (imageType != ImageType.GIF) {
             throw new IllegalArgumentException(MessageFormat.format("Image format {0} is not supported",
-                imageType.getFormatName()));
+                    imageType.getFormatName()));
         }
     }
 
@@ -109,7 +107,7 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
 
             ImageWriteParam defaultImageWriteParam = imageWriter.getDefaultWriteParam();
             IIOMetadata imageMetaData = imageWriter.getDefaultImageMetadata(
-                ImageTypeSpecifier.createFromBufferedImageType(BufferedImage.TYPE_INT_RGB), defaultImageWriteParam);
+                    ImageTypeSpecifier.createFromBufferedImageType(BufferedImage.TYPE_INT_RGB), defaultImageWriteParam);
             String metaFormatName = imageMetaData.getNativeMetadataFormatName();
             Node root = imageMetaData.getAsTree(metaFormatName);
             IIOMetadataNode graphicsControlExtensionNode = (IIOMetadataNode) getOrCreateChild(root, "GraphicControlExtension");
@@ -129,7 +127,7 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
 
             byte numLoops = (byte) (userResource.isLooped() ? 0x0 : 0x1);
 
-            netscapeExtension.setUserObject(new byte[] { 0x1, numLoops, 0x0 });
+            netscapeExtension.setUserObject(new byte[]{0x1, numLoops, 0x0});
             applicationExtensionsNode.appendChild(netscapeExtension);
             imageMetaData.setFromTree(metaFormatName, root);
 

@@ -21,60 +21,18 @@
  */
 package org.richfaces.context;
 
+import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.renderkit.AjaxConstants;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.component.MetaComponentResolver;
-import org.richfaces.renderkit.AjaxConstants;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class ComponentIdResolverTestBean {
-    private static class UIRegion extends UIComponentBase implements MetaComponentResolver {
-        public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
-            if (ComponentIdResolverTest.META_COMPONENT_ID.equals(metaComponentId)) {
-                return getClientId(facesContext);
-            }
-            return null;
-        }
-
-        public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-            String metaComponentId) {
-
-            return null;
-        }
-
-        @Override
-        public String getFamily() {
-            return null;
-        }
-    }
-
-    private static class UICommandLink extends UIComponentBase implements MetaComponentResolver {
-        public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
-            return null;
-        }
-
-        public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-            String metaComponentId) {
-
-            if (ComponentIdResolverTest.META_COMPONENT_ID.equals(metaComponentId)) {
-                return AjaxConstants.ALL;
-            }
-
-            return null;
-        }
-
-        @Override
-        public String getFamily() {
-            return null;
-        }
-    }
-
-    private String[] data = { "1", "2", "3" };
+    private String[] data = {"1", "2", "3"};
     private UIComponent table;
     private UIComponent firstRegion = new UIRegion();
     private UIComponent outputInRegion;
@@ -124,5 +82,46 @@ public class ComponentIdResolverTestBean {
 
     public UIComponent getLinkOutRegion() {
         return linkOutRegion;
+    }
+
+    private static class UIRegion extends UIComponentBase implements MetaComponentResolver {
+        public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
+            if (ComponentIdResolverTest.META_COMPONENT_ID.equals(metaComponentId)) {
+                return getClientId(facesContext);
+            }
+            return null;
+        }
+
+        public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
+                                                   String metaComponentId) {
+
+            return null;
+        }
+
+        @Override
+        public String getFamily() {
+            return null;
+        }
+    }
+
+    private static class UICommandLink extends UIComponentBase implements MetaComponentResolver {
+        public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
+            return null;
+        }
+
+        public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
+                                                   String metaComponentId) {
+
+            if (ComponentIdResolverTest.META_COMPONENT_ID.equals(metaComponentId)) {
+                return AjaxConstants.ALL;
+            }
+
+            return null;
+        }
+
+        @Override
+        public String getFamily() {
+            return null;
+        }
     }
 }

@@ -76,13 +76,38 @@ public class ITValidatorMessageWithLabel {
             @Override
             public WebFacesConfigDescriptor apply(@Nullable WebFacesConfigDescriptor input) {
                 return input.getOrCreateApplication()
-                    .messageBundle(messageBundle).up();
+                        .messageBundle(messageBundle).up();
             }
         });
 
         deployment.addHibernateValidatorWhenUsingServletContainer();
 
         return deployment.getFinalArchive();
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='myForm'>");
+        p.body("    <h:panelGrid columns='3'>");
+        p.body("        <h:outputLabel for='input1' value='String size, from 2 to 4' />");
+        p.body("        <h:inputText id='input1' value='#{validatorBean.value}' label='Input 1'>");
+        p.body("            <rich:validator/>");
+        p.body("        </h:inputText>");
+        p.body("        <rich:message id='msg1' for='input1' />");
+        p.body("        <h:outputLabel for='input2' value='String size, from 2 to 4' />");
+        p.body("        <h:inputText id='input2' value='#{validatorBean.value}' label='Input 2' />");
+        p.body("        <rich:message id='msg2' for='input2' />");
+        p.body("    </h:panelGrid>");
+        p.body("    <br />");
+        p.body("    <input id='blurButton' value='blur' type='button' />");
+        p.body("    <br />");
+        p.body("    <h:commandButton id='hButton' value='h:commandButton' style='margin-right: 10px;' />");
+        p.body("    <br />");
+        p.body("    <a4j:commandButton id='rButton' value='a4j:commandButton' />");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
     /**
@@ -136,30 +161,5 @@ public class ITValidatorMessageWithLabel {
 
         WebElement message = browser.findElement(By.id("myForm:msg2"));
         Assert.assertEquals("Validation message", "Input 2: max 4 characters", message.getText());
-    }
-
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form id='myForm'>");
-        p.body("    <h:panelGrid columns='3'>");
-        p.body("        <h:outputLabel for='input1' value='String size, from 2 to 4' />");
-        p.body("        <h:inputText id='input1' value='#{validatorBean.value}' label='Input 1'>");
-        p.body("            <rich:validator/>");
-        p.body("        </h:inputText>");
-        p.body("        <rich:message id='msg1' for='input1' />");
-        p.body("        <h:outputLabel for='input2' value='String size, from 2 to 4' />");
-        p.body("        <h:inputText id='input2' value='#{validatorBean.value}' label='Input 2' />");
-        p.body("        <rich:message id='msg2' for='input2' />");
-        p.body("    </h:panelGrid>");
-        p.body("    <br />");
-        p.body("    <input id='blurButton' value='blur' type='button' />");
-        p.body("    <br />");
-        p.body("    <h:commandButton id='hButton' value='h:commandButton' style='margin-right: 10px;' />");
-        p.body("    <br />");
-        p.body("    <a4j:commandButton id='rButton' value='a4j:commandButton' />");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

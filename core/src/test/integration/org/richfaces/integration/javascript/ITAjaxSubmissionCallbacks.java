@@ -27,85 +27,31 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 @RunAsClient
 public class ITAjaxSubmissionCallbacks {
 
+    private static final String FORM_ID = "form1";
+    private static final List<String> EVENT_CALLBACKS = Arrays.asList(new String[]{"ajaxsubmit", "ajaxbegin", "ajaxbeforedomupdate", "ajaxcomplete"});
     @Drone
     private WebDriver driver;
-
     @ArquillianResource
     private URL contextPath;
-
     @JavaScript
     private Callbacks callbacks;
-
     @FindByJQuery("input:visible")
     private WebElement input;
-
     @FindBy(id = "out")
     private WebElement output;
-
     @FindBy(tagName = "body")
     private WebElement body;
-
-    private static final String FORM_ID = "form1";
-    private static final List<String> EVENT_CALLBACKS = Arrays.asList(new String[]{ "ajaxsubmit", "ajaxbegin", "ajaxbeforedomupdate", "ajaxcomplete" });
 
     @Deployment(testable = false)
     public static WebArchive deployment() {
         CoreDeployment deployment = new CoreDeployment(ITAjaxSubmissionCallbacks.class);
         deployment.withA4jComponents();
-        
+
         deployment.archive().addAsWebResource(buildPage(true, true), "documentAndFormScoped.xhtml");
         deployment.archive().addAsWebResource(buildPage(true, false), "formScoped.xhtml");
         deployment.archive().addAsWebResource(buildPage(false, true), "documentScoped.xhtml");
 
         return deployment.getFinalArchive();
-    }
-
-    @Test
-    public void should_register_ajax_callbacks_both_on_form_and_document_object() {
-        // when
-        loadThePageAndWriteTextToInput("documentAndFormScoped.jsf");
-
-        // then
-        assertCorrectCallbacks(true, callbacks.getDocumentScopedCallbacksCalled());
-        assertCorrectCallbacks(true, callbacks.getFormScopedCallbacksCalled());
-    }
-
-    @Test
-    public void should_register_ajax_callbacks_on_form() {
-        // when
-        loadThePageAndWriteTextToInput("formScoped.jsf");
-
-        // then
-        assertCorrectCallbacks(false, callbacks.getDocumentScopedCallbacksCalled());
-        assertCorrectCallbacks(true, callbacks.getFormScopedCallbacksCalled());
-    }
-
-    @Test
-    public void should_register_ajax_callbacks_on_document_object() {
-        // when
-        loadThePageAndWriteTextToInput("documentScoped.jsf");
-
-        // then
-        assertCorrectCallbacks(true, callbacks.getDocumentScopedCallbacksCalled());
-        assertCorrectCallbacks(false, callbacks.getFormScopedCallbacksCalled());
-    }
-
-    private void loadThePageAndWriteTextToInput(String pageName) {
-        driver.get(contextPath.toExternalForm() + pageName);
-
-        String toWrite = "text";
-        for (char ch : toWrite.toCharArray()) {
-            resetCallbacks();
-            Graphene.guardAjax(input).sendKeys(Character.toString(ch));
-        }
-    }
-
-    private void assertCorrectCallbacks(boolean registered, String callbacksToControll) {
-        if (registered) {
-            assertEquals(Arrays.asList(callbacksToControll.trim().split(" ")), EVENT_CALLBACKS);
-        } else {
-            assertEquals("Event callback was called even when it was not registered: " + callbacksToControll, " ", callbacksToControll);
-        }
     }
 
     private static FaceletAsset buildPage(boolean formScopedRegistration, boolean pageScopedRegistration) {
@@ -158,6 +104,54 @@ public class ITAjaxSubmissionCallbacks {
         p.body("    });");
     }
 
+    @Test
+    public void should_register_ajax_callbacks_both_on_form_and_document_object() {
+        // when
+        loadThePageAndWriteTextToInput("documentAndFormScoped.jsf");
+
+        // then
+        assertCorrectCallbacks(true, callbacks.getDocumentScopedCallbacksCalled());
+        assertCorrectCallbacks(true, callbacks.getFormScopedCallbacksCalled());
+    }
+
+    @Test
+    public void should_register_ajax_callbacks_on_form() {
+        // when
+        loadThePageAndWriteTextToInput("formScoped.jsf");
+
+        // then
+        assertCorrectCallbacks(false, callbacks.getDocumentScopedCallbacksCalled());
+        assertCorrectCallbacks(true, callbacks.getFormScopedCallbacksCalled());
+    }
+
+    @Test
+    public void should_register_ajax_callbacks_on_document_object() {
+        // when
+        loadThePageAndWriteTextToInput("documentScoped.jsf");
+
+        // then
+        assertCorrectCallbacks(true, callbacks.getDocumentScopedCallbacksCalled());
+        assertCorrectCallbacks(false, callbacks.getFormScopedCallbacksCalled());
+    }
+
+    private void loadThePageAndWriteTextToInput(String pageName) {
+        driver.get(contextPath.toExternalForm() + pageName);
+
+        String toWrite = "text";
+        for (char ch : toWrite.toCharArray()) {
+            resetCallbacks();
+            Graphene.guardAjax(input).sendKeys(Character.toString(ch));
+        }
+    }
+
+    private void assertCorrectCallbacks(boolean registered, String callbacksToControll) {
+        if (registered) {
+            assertEquals(Arrays.asList(callbacksToControll.trim().split(" ")), EVENT_CALLBACKS);
+        } else {
+            assertEquals("Event callback was called even when it was not registered: " + callbacksToControll, " ", callbacksToControll);
+        }
+    }
+
     private void resetCallbacks() {
         callbacks.setDocumentScopedCallbacksCalled(" ");
         callbacks.setFormScopedCallbacksCalled(" ");
@@ -168,9 +162,9 @@ public class ITAjaxSubmissionCallbacks {
 
         String getFormScopedCallbacksCalled();
 
-        String getDocumentScopedCallbacksCalled();
-
         void setFormScopedCallbacksCalled(String s);
+
+        String getDocumentScopedCallbacksCalled();
 
         void setDocumentScopedCallbacksCalled(String s);
     }

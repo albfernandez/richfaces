@@ -21,14 +21,14 @@
  */
 package org.richfaces.showcase.progressBar;
 
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
-import static org.junit.Assert.assertTrue;
-
-import java.util.concurrent.TimeUnit;
-
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.concurrent.TimeUnit;
+
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -55,11 +55,11 @@ public class ITestClientProgressBar extends AbstractProgressBarTest {
         while (!width.equals(END_WIDTH)) {
             long currentTimeBeforeChange = System.currentTimeMillis();
             waitGui(webDriver).withTimeout(5, TimeUnit.SECONDS)
-                .until()
-                .element(progressBar)
-                .attribute(STYLE_NAME)
-                .not()
-                .equalTo(width);
+                    .until()
+                    .element(progressBar)
+                    .attribute(STYLE_NAME)
+                    .not()
+                    .equalTo(width);
             width = progressBar.getAttribute(STYLE_NAME).trim();
 
             long currentTimeAfterChange = System.currentTimeMillis();

@@ -21,14 +21,14 @@
  */
 package org.richfaces.photoalbum.model.actions;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-
 import org.richfaces.photoalbum.manager.UserBean;
 import org.richfaces.photoalbum.model.User;
 import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 /**
  * Class for manipulating with user entity. Analogous to DAO pattern. EJB3 Bean
@@ -95,9 +95,9 @@ public class UserAction implements IUserAction {
     /**
      * Refresh state of user entity with database
      *
-     * @Param user - user to refresh
      * @return user if success
      * @throws PhotoAlbumException
+     * @Param user - user to refresh
      */
     public User refreshUser() {
         User user = em.find(User.class, userBean.getUser().getId());
@@ -112,7 +112,7 @@ public class UserAction implements IUserAction {
      */
     public boolean isUserExist(String login) {
         return em.createNamedQuery(Constants.USER_EXIST_QUERY).setParameter(Constants.LOGIN_PARAMETER, login).getResultList()
-            .size() != 0;
+                .size() != 0;
     }
 
     /**
@@ -122,6 +122,6 @@ public class UserAction implements IUserAction {
      */
     public boolean isEmailExist(String email) {
         return em.createNamedQuery(Constants.EMAIL_EXIST_QUERY).setParameter(Constants.EMAIL_PARAMETER, email).getResultList()
-            .size() != 0;
+                .size() != 0;
     }
 }

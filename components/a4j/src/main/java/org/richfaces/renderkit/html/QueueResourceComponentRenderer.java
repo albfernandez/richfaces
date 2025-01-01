@@ -21,13 +21,11 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
-import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
-
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.application.CommonComponentsConfiguration;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.QueueRegistry;
+import org.richfaces.renderkit.HtmlConstants;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -36,16 +34,16 @@ import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.application.CommonComponentsConfiguration;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.QueueRegistry;
-import org.richfaces.renderkit.HtmlConstants;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
 
 /**
  * @author Nick Belaevski
- *
  */
 @JsfRenderer(type = QueueResourceComponentRenderer.TYPE, family = UIOutput.COMPONENT_FAMILY)
 @ResourceDependencies({
@@ -57,20 +55,6 @@ import org.richfaces.renderkit.HtmlConstants;
 public class QueueResourceComponentRenderer extends Renderer {
     static final String TYPE = "org.richfaces.QueueResourceComponentRenderer";
     private static final String FUNCTION_NAME = "RichFaces.queue.setQueueOptions";
-
-    private enum QueueOptions {
-        onbeforedomupdate,
-        oncomplete,
-        onerror,
-        onrequestdequeue,
-        onrequestqueue,
-        onsubmit,
-        requestDelay,
-        queueId,
-        ignoreDupResponses,
-        requestGroupingId,
-        status
-    }
 
     private void appendOptions(UIComponent queue, Map<String, Object> optionsHash) {
         Map<String, Object> attributes = queue.getAttributes();
@@ -131,5 +115,19 @@ public class QueueResourceComponentRenderer extends Renderer {
 
             writer.endElement(HtmlConstants.SCRIPT_ELEM);
         }
+    }
+
+    private enum QueueOptions {
+        onbeforedomupdate,
+        oncomplete,
+        onerror,
+        onrequestdequeue,
+        onrequestqueue,
+        onsubmit,
+        requestDelay,
+        queueId,
+        ignoreDupResponses,
+        requestGroupingId,
+        status
     }
 }

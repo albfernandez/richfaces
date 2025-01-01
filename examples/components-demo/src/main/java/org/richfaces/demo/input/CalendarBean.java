@@ -22,16 +22,15 @@
 
 package org.richfaces.demo.input;
 
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import org.richfaces.component.Positioning;
+import org.richfaces.event.CurrentDateChangeEvent;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
-
-import org.richfaces.component.Positioning;
-import org.richfaces.event.CurrentDateChangeEvent;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 @ManagedBean
 @SessionScoped
@@ -123,36 +122,36 @@ public class CalendarBean {
         this.showApply = showApply;
     }
 
-    public void setJointPoint(Positioning jointPoint) {
-        this.jointPoint = jointPoint;
-    }
-
     public Positioning getJointPoint() {
         return jointPoint;
     }
 
-    public void setDirection(Positioning direction) {
-        this.direction = direction;
+    public void setJointPoint(Positioning jointPoint) {
+        this.jointPoint = jointPoint;
     }
 
     public Positioning getDirection() {
         return direction;
     }
 
-    public void setHorizontalOffset(int horizontalOffset) {
-        this.horizontalOffset = horizontalOffset;
+    public void setDirection(Positioning direction) {
+        this.direction = direction;
     }
 
     public int getHorizontalOffset() {
         return horizontalOffset;
     }
 
-    public void setVerticalOffset(int verticalOffset) {
-        this.verticalOffset = verticalOffset;
+    public void setHorizontalOffset(int horizontalOffset) {
+        this.horizontalOffset = horizontalOffset;
     }
 
     public int getVerticalOffset() {
         return verticalOffset;
+    }
+
+    public void setVerticalOffset(int verticalOffset) {
+        this.verticalOffset = verticalOffset;
     }
 
     public void doValueChangeListener(ValueChangeEvent event) {
@@ -168,11 +167,11 @@ public class CalendarBean {
         return positioningValues;
     }
 
-    public void setTimeZone(TimeZone timeZone) {
-        this.timeZone = timeZone;
-    }
-
     public TimeZone getTimeZone() {
         return timeZone;
+    }
+
+    public void setTimeZone(TimeZone timeZone) {
+        this.timeZone = timeZone;
     }
 }

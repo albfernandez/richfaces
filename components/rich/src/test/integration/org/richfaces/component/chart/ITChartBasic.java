@@ -131,7 +131,7 @@ public class ITChartBasic {
         // asserts that the chart, canvas and title were rendered
         assertNotNull("Chart should be present.", browser.findElement(By.id("frm:chartChart")));
         assertNotNull("Canvas should be created.",
-            browser.findElement(By.xpath("//div[@id='frm:chartChart']/canvas[@class='flot-base']")));
+                browser.findElement(By.xpath("//div[@id='frm:chartChart']/canvas[@class='flot-base']")));
         assertEquals("ChartTitle", browser.findElement(By.xpath("//div[@id='frm:chart']/div[@class='chart-title']")).getText());
     }
 
@@ -170,10 +170,10 @@ public class ITChartBasic {
 
         // zoom some area
         new Actions(browser)
-            .moveToElement(chartCanvas, chtestjs.pointXPos("frm:chart", 1, 1), chtestjs.pointYPos("frm:chart", 1, 1))
-            .clickAndHold()
-            .moveToElement(chartCanvas, chtestjs.pointXPos("frm:chart", 2, 2), chtestjs.pointYPos("frm:chart", 2, 2)).release()
-            .build().perform();
+                .moveToElement(chartCanvas, chtestjs.pointXPos("frm:chart", 1, 1), chtestjs.pointYPos("frm:chart", 1, 1))
+                .clickAndHold()
+                .moveToElement(chartCanvas, chtestjs.pointXPos("frm:chart", 2, 2), chtestjs.pointYPos("frm:chart", 2, 2)).release()
+                .build().perform();
         // new Actions(browser).clickAndHold().moveByOffset(200, 50).release().build().perform();
 
         // get the coordinates after zooming, they should be different

@@ -21,25 +21,9 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.TooltipMode;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTooltip;
 import org.richfaces.component.Positioning;
@@ -47,14 +31,29 @@ import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.renderkit.util.RendererUtils;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 
 /**
  * @author amarkhel
  * @since 2010-10-24
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -62,7 +61,7 @@ import org.richfaces.renderkit.util.RendererUtils;
         @ResourceDependency(library = "org.richfaces", name = "jquery.position.js"), @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "tooltip.js"),
-        @ResourceDependency(library = "org.richfaces", name = "tooltip.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "tooltip.ecss")})
 @JsfRenderer(type = "org.richfaces.TooltipRenderer", family = AbstractTooltip.COMPONENT_FAMILY)
 public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRenderer {
     public static final String HIDE = "hide";
@@ -217,7 +216,7 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         if (verticalOffset == Integer.MIN_VALUE) {
             verticalOffset = 10;
         }
-        return new Integer[] { horizontalOffset, verticalOffset };
+        return new Integer[]{horizontalOffset, verticalOffset};
     }
 
     private void encodeContentEnd(ResponseWriter writer, FacesContext context, AbstractTooltip tooltip) throws IOException {

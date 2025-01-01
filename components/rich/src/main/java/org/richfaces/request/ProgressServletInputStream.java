@@ -21,9 +21,8 @@
  */
 package org.richfaces.request;
 
-import java.io.IOException;
-
 import javax.servlet.ServletInputStream;
+import java.io.IOException;
 
 class ProgressServletInputStream extends ServletInputStream {
     private ServletInputStream wrappedStream;

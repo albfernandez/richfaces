@@ -21,16 +21,6 @@
  */
 package org.richfaces.component;
 
-import java.io.IOException;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-
 import org.richfaces.TooltipLayout;
 import org.richfaces.TooltipMode;
 import org.richfaces.cdk.annotations.Attribute;
@@ -50,6 +40,15 @@ import org.richfaces.component.attribute.PositionProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import java.io.IOException;
 
 /**
  * <p>The &lt;rich:tooltip&gt; component provides an informational tool-tip. The tool-tip can be attached to any control
@@ -72,11 +71,6 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
         return COMPONENT_FAMILY;
     }
 
-    // ------------------------------------------------ Component Attributes
-    enum Properties {
-        target
-    }
-
     /**
      * Component ID of the target component or "null" if the component should be attached to the parent component.
      */
@@ -95,16 +89,16 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
         getStateHelper().put(Properties.target, target);
     }
 
-    /*
-     * @Attribute public abstract String getValue();
-     */
-
     /**
      * Block/inline mode flag. Possible value are: "inline" or "block". Default value is "inline". Tooltip will contain div/span
      * elements respectively.
      */
     @Attribute(defaultValue = "TooltipLayout.DEFAULT")
     public abstract TooltipLayout getLayout();
+
+    /*
+     * @Attribute public abstract String getValue();
+     */
 
     /**
      * If the value of the "attached" attribute is "true", a component is attached to the parent component; if "false",
@@ -214,5 +208,10 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
     public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
 
         return null;
+    }
+
+    // ------------------------------------------------ Component Attributes
+    enum Properties {
+        target
     }
 }

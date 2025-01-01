@@ -51,21 +51,6 @@ public class ITAutocompleteDestroy {
         return deployment.getFinalArchive();
     }
 
-    @Test
-    // RF-12481
-    public void when_suggestion_list_opened_and_autocomplete_is_rerendered_then_it_should_not_be_visible() {
-        // given
-        browser.get(contextPath.toExternalForm());
-        autocompleteInput.sendKeys("t");
-        waitGui().withMessage("suggestion list is visible").until().element(suggestionList).is().visible();
-
-        // when
-        guardAjax(renderButton).click();
-
-        // then
-        assertFalse("suggestion list is not displayed", browser.findElement(suggestionList).isDisplayed());
-    }
-
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -80,5 +65,20 @@ public class ITAutocompleteDestroy {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    @Test
+    // RF-12481
+    public void when_suggestion_list_opened_and_autocomplete_is_rerendered_then_it_should_not_be_visible() {
+        // given
+        browser.get(contextPath.toExternalForm());
+        autocompleteInput.sendKeys("t");
+        waitGui().withMessage("suggestion list is visible").until().element(suggestionList).is().visible();
+
+        // when
+        guardAjax(renderButton).click();
+
+        // then
+        assertFalse("suggestion list is not displayed", browser.findElement(suggestionList).isDisplayed());
     }
 }

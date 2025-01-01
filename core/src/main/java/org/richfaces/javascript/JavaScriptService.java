@@ -30,7 +30,6 @@ import javax.faces.context.FacesContext;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public interface JavaScriptService {
     /**

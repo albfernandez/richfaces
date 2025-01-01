@@ -27,7 +27,6 @@ import java.awt.Graphics2D;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class TreeLineLastImage extends TreeLineImage {
     private static final Dimension DIMENSION = new Dimension(16, 200);

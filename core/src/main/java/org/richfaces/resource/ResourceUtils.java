@@ -40,6 +40,24 @@
  */
 package org.richfaces.resource;
 
+import com.google.common.base.Function;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.collect.Maps;
+import org.ajax4jsf.Messages;
+import org.ajax4jsf.util.base64.Codec;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.util.FastJoiner;
+import org.richfaces.util.LookAheadObjectInputStream;
+import org.richfaces.util.PropertiesUtil;
+
+import javax.faces.FacesException;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.StateHolder;
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -48,7 +66,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.ObjectStreamClass;
 import java.io.OutputStream;
 import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
@@ -75,26 +92,6 @@ import java.util.regex.Pattern;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
-import javax.faces.FacesException;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.StateHolder;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.Messages;
-import org.ajax4jsf.util.base64.Codec;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.util.FastJoiner;
-import org.richfaces.util.LookAheadObjectInputStream;
-import org.richfaces.util.PropertiesUtil;
-
-import com.google.common.base.Function;
-import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
-
 /**
  * @author Nick Belaevski
  * @since 4.0
@@ -111,19 +108,10 @@ public final class ResourceUtils {
     private static final String QUESTION_SIGN = "?";
     private static final String EQUALS_SIGN = "=";
     private static final Pattern CHARSET_IN_CONTENT_TYPE_PATTERN = Pattern.compile(";\\s*charset\\s*=\\s*([^\\s;]+)",
-        Pattern.CASE_INSENSITIVE);
+            Pattern.CASE_INSENSITIVE);
     private static final long MILLISECOND_IN_SECOND = 1000L;
     private static final String QUOTED_STRING_REGEX = "(?:\\\\[\\x00-\\x7F]|[^\"\\\\])+";
     private static final Pattern ETAG_PATTERN = Pattern.compile("(?:W/)?\"(" + QUOTED_STRING_REGEX + ")\"(?:,\\s*)?");
-
-    public static final class NamingContainerDataHolder {
-        public static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
-        public static final FastJoiner SEPARATOR_CHAR_JOINER = FastJoiner.on(SEPARATOR_CHAR);
-        public static final Splitter SEPARATOR_CHAR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
-
-        private NamingContainerDataHolder() {
-        }
-    }
 
     static {
         SimpleDateFormat format = new SimpleDateFormat(RFC1123_DATE_PATTERN, Locale.US);
@@ -601,6 +589,15 @@ public final class ResourceUtils {
 
         result = Collections.unmodifiableMap(result);
         return result;
+    }
+
+    public static final class NamingContainerDataHolder {
+        public static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
+        public static final FastJoiner SEPARATOR_CHAR_JOINER = FastJoiner.on(SEPARATOR_CHAR);
+        public static final Splitter SEPARATOR_CHAR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
+
+        private NamingContainerDataHolder() {
+        }
     }
 
 }

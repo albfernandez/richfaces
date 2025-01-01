@@ -26,9 +26,9 @@ package org.richfaces.wait;
  * Implementation of immutable class with purpose of waiting with customizable timeout, interval, and failure behaviour and
  * delay on start of waiting.
  *
+ * @param <T> the end implementation of DefaultWaiting as the return type for setter methods
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  * @version $Revision$
- * @param <T> the end implementation of DefaultWaiting as the return type for setter methods
  */
 public class Wait implements Cloneable {
 
@@ -55,7 +55,7 @@ public class Wait implements Cloneable {
 
     /**
      * Failure indicates that waiting timeouted.
-     *
+     * <p>
      * If is set to null, no failure will be thrown after timeout.
      */
     private Object failure = "Waiting timed out";
@@ -141,7 +141,7 @@ public class Wait implements Cloneable {
      * </p>
      *
      * @param exception the instance of RuntimeException to be thrown or any other Exception when the WaitTimeoutException
-     *        should be thrown with this exception as cause
+     *                  should be thrown with this exception as cause
      * @return Waiting instance configured with given exception as cause of waiting timeout
      */
     public Wait failWith(Exception exception) {
@@ -169,8 +169,8 @@ public class Wait implements Cloneable {
      * </p>
      *
      * @param failureMessage character sequence that will be used as message of exception thrown in case of waiting timeout or
-     *        null if waiting timeout shouldn't result to failure
-     * @param arguments arguments to failureMessage which will be use in parametrization of failureMessage
+     *                       null if waiting timeout shouldn't result to failure
+     * @param arguments      arguments to failureMessage which will be use in parametrization of failureMessage
      * @return Waiting instance initialized with given failureMessage and arguments
      */
     public Wait failWith(CharSequence failureMessage, Object... arguments) {
@@ -182,7 +182,7 @@ public class Wait implements Cloneable {
 
     /**
      * Sets no failure after waiting timeout.
-     *
+     * <p>
      * Waiting timeout with this preset don't result to failure!
      *
      * @return Waiting instance initialized with no failure
@@ -211,7 +211,7 @@ public class Wait implements Cloneable {
      *
      * @param isDelayed true if start of condition testing should be delayed; false otherwise
      * @return Waiting instance initialized with the delay before start of testing conditions if isDelayed is set to true; with
-     *         no delay otherwise
+     * no delay otherwise
      */
     public Wait withDelay(boolean isDelayed) {
         if (isDelayed == this.isDelayed) {
@@ -252,10 +252,10 @@ public class Wait implements Cloneable {
 
     /**
      * Tries to fail by throwing 'failure' throwable.
-     *
+     * <p>
      * If failure is instance of RuntimeException, will be directly thrown. Otherwise will be failure clothe to
      * RuntimeException.
-     *
+     * <p>
      * If failure is null, method wont fail.
      */
     protected void fail() {

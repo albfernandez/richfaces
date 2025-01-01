@@ -21,17 +21,16 @@
  */
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractToolbar;
 import org.richfaces.component.AbstractToolbarGroup;
 import org.richfaces.renderkit.HtmlConstants;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.List;
 
 @JsfRenderer(type = ToolbarGroupRenderer.RENDERER_TYPE, family = AbstractToolbar.COMPONENT_FAMILY)
 public class ToolbarGroupRenderer extends ToolbarRendererBase {
@@ -60,7 +59,7 @@ public class ToolbarGroupRenderer extends ToolbarRendererBase {
     }
 
     private void renderChild(FacesContext facesContext, AbstractToolbarGroup toolbarGroup, ResponseWriter writer,
-        UIComponent child) throws IOException {
+                             UIComponent child) throws IOException {
         writer.startElement(HtmlConstants.TD_ELEM, toolbarGroup);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, encodeClientItemID(child), null);
         writeClassValue(toolbarGroup, writer);
@@ -74,7 +73,7 @@ public class ToolbarGroupRenderer extends ToolbarRendererBase {
      * inherit the value of the parent toolBar "style" attribute.
      *
      * @param toolbarGroup ToolBar Group to render
-     * @param writer just writer
+     * @param writer       just writer
      * @throws IOException if something goes wrong with attribute writing
      */
     private void writeStyleValue(AbstractToolbarGroup toolbarGroup, ResponseWriter writer) throws IOException {
@@ -100,7 +99,7 @@ public class ToolbarGroupRenderer extends ToolbarRendererBase {
      * inherit the value of the parent toolBar "class" attribute.
      *
      * @param toolbarGroup ToolBar Group to render
-     * @param writer just writer
+     * @param writer       just writer
      * @throws IOException if something goes wrong with attribute writing
      */
     private void writeClassValue(AbstractToolbarGroup toolbarGroup, ResponseWriter writer) throws IOException {

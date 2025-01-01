@@ -22,7 +22,6 @@
 package org.richfaces.fragment.select;
 
 /**
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface Select {

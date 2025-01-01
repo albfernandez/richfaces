@@ -21,12 +21,6 @@
  */
 package org.richfaces.component;
 
-import java.util.Iterator;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
-import javax.faces.context.FacesContext;
-
 import org.ajax4jsf.model.DataVisitor;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -34,6 +28,11 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.RowColumnStyleProps;
 import org.richfaces.renderkit.RowHolderBase;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
+import javax.faces.context.FacesContext;
+import java.util.Iterator;
 
 /**
  * <p>The &lt;rich:columnGroup&gt; component combines multiple columns in a single row to organize complex parts of a
@@ -66,11 +65,6 @@ public abstract class AbstractColumnGroup extends UIPanel implements Row, Column
         visitor.process(context, null, argument);
     }
 
-    enum Properties {
-        columnClasses,
-        rowClasses
-    }
-
     @Attribute(hidden = true)
     public String getColumnClasses() {
         return (String) getStateHelper().eval(Properties.columnClasses, getParentTable().getColumnClasses());
@@ -83,5 +77,10 @@ public abstract class AbstractColumnGroup extends UIPanel implements Row, Column
 
     public RowColumnStyleProps getParentTable() {
         return ComponentIterators.getParent(this, UIDataTableBase.class);
+    }
+
+    enum Properties {
+        columnClasses,
+        rowClasses
     }
 }

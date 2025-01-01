@@ -30,22 +30,22 @@ import org.richfaces.showcase.status.page.TestSimplePage;
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 public class ITestSimple extends TestUsage {
-    
+
     @Page
     private TestSimplePage page;
-    
+
     @Test
     public void testAddressAndAjaxRequestProgress() {
         assertProgressPictureAppearsOnAjaxRequest(sendKeysToInputAction(page.getAddressInput()));
     }
-    
+
     @Test
     public void testSubmitButtonAndAjaxRequestProgress() {
         Graphene.guardAjax(page.getUserNameInput()).sendKeys("a");
         assertProgressPictureAppearsOnAjaxRequest(clickButtonAction(page.getSubmitButton()));
         Graphene.waitAjax().until().element(page.getOutput()).text().equalTo("User a stored successfully");
     }
-    
+
     @Test
     public void testUserNameAndAjaxRequestProgress() {
         assertProgressPictureAppearsOnAjaxRequest(sendKeysToInputAction(page.getUserNameInput()));

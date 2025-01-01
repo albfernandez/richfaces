@@ -21,29 +21,26 @@
  */
 package org.richfaces.convert;
 
-import static org.richfaces.convert.SequenceRowKeyConverter.SEPARATOR_SPLITTER;
-import static org.richfaces.convert.TreeConverterUtil.escape;
-import static org.richfaces.convert.TreeConverterUtil.unescape;
-import static org.richfaces.model.TreeDataModel.SEPARATOR_CHAR;
-
-import java.util.Iterator;
-import java.util.List;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import org.richfaces.component.AbstractTree;
+import org.richfaces.model.DeclarativeModelKey;
+import org.richfaces.model.SequenceRowKey;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
+import java.util.Iterator;
+import java.util.List;
 
-import org.richfaces.component.AbstractTree;
-import org.richfaces.model.DeclarativeModelKey;
-import org.richfaces.model.SequenceRowKey;
-
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
+import static org.richfaces.convert.SequenceRowKeyConverter.SEPARATOR_SPLITTER;
+import static org.richfaces.convert.TreeConverterUtil.escape;
+import static org.richfaces.convert.TreeConverterUtil.unescape;
+import static org.richfaces.model.TreeDataModel.SEPARATOR_CHAR;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class DeclarativeModelSequenceKeyConverter implements Converter {
     public static final String CONVERTER_ID = "org.richfaces.DeclarativeModelSequenceKeyConverter";

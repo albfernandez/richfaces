@@ -21,12 +21,7 @@
  */
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.richfaces.fragment.dataScroller.DataScroller.DataScrollerSwitchButton.LAST;
-
-import java.util.EnumSet;
-import java.util.List;
-
+import com.google.common.collect.Lists;
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
 import org.openqa.selenium.support.FindBy;
@@ -42,7 +37,11 @@ import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.SearchView;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
-import com.google.common.collect.Lists;
+import java.util.EnumSet;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.richfaces.fragment.dataScroller.DataScroller.DataScrollerSwitchButton.LAST;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -50,7 +49,7 @@ import com.google.common.collect.Lists;
 public class TestSearch extends AbstractPhotoalbumTest {
 
     private static final List<String> TABNAMES = Lists.newArrayList("Album Group search result", "Albums search result",
-        "Images search result", "Users search result", "Tags search result");
+            "Images search result", "Users search result", "Tags search result");
     private static final List<String> ALL_CRITERIAS = Lists.newArrayList("Album Groups", "Albums", "Images", "Users", "Tags");
 
     @FindBy(className = "rf-ulst")
@@ -71,13 +70,13 @@ public class TestSearch extends AbstractPhotoalbumTest {
         getPage().getSearchPanel().searchFor("a", allExceptInShared);
         assertEquals(2, searchView().getTabPanel().getNumberOfTabs());
         assertEquals(Lists.newArrayList("Users search result", "Tags search result"),
-            PhotoalbumUtils.getStringsFromElements(searchView().getTabPanel().advanced().getAllVisibleHeadersElements()));
+                PhotoalbumUtils.getStringsFromElements(searchView().getTabPanel().advanced().getAllVisibleHeadersElements()));
 
         // users
         AlbumView albumView = searchView().getTabPanel().switchTo(TABNAMES.get(3)).getContent(AlbumView.class);
         PhotoalbumUtils.checkNotVisible(albumView.getSlider().advanced().getRootElement(), albumView.getAlbumInfo(),
-            albumView.getSlideShowLink(), albumView.getAlbumHeader().getRoot(), albumView.getDataScroller().advanced()
-            .getRootElement());
+                albumView.getSlideShowLink(), albumView.getAlbumHeader().getRoot(), albumView.getDataScroller().advanced()
+                        .getRootElement());
         List<AlbumView.PhotoInfo> users = albumView.getPhotos();
         assertEquals(3, users.size());
         users.get(0).checkAll(200, "Andrey Markhel", JAN_DATE_85, "4 albums | 21 images", "/img/shell/avatar_default.png");
@@ -112,8 +111,8 @@ public class TestSearch extends AbstractPhotoalbumTest {
         assertEquals(1, searchView().getTabPanel().getNumberOfTabs());
         AlbumView albumView = searchView().getTabPanel().switchTo(TABNAMES.get(3)).getContent(AlbumView.class);
         PhotoalbumUtils.checkNotVisible(albumView.getSlider().advanced().getRootElement(), albumView.getAlbumInfo(),
-            albumView.getSlideShowLink(), albumView.getAlbumHeader().getRoot(), albumView.getDataScroller().advanced()
-            .getRootElement());
+                albumView.getSlideShowLink(), albumView.getAlbumHeader().getRoot(), albumView.getDataScroller().advanced()
+                        .getRootElement());
         List<AlbumView.PhotoInfo> users = albumView.getPhotos();
         assertEquals(3, users.size());
         users.get(0).checkAll(200, "Andrey Markhel", JAN_DATE_85, "4 albums | 21 images", "/img/shell/avatar_default.png");
@@ -156,7 +155,7 @@ public class TestSearch extends AbstractPhotoalbumTest {
         AlbumView albumView = searchView().getTabPanel().switchTo(TABNAMES.get(2)).getContent(AlbumView.class);
         albumView.checkSliderVisible();
         PhotoalbumUtils.checkNotVisible(albumView.getAlbumInfo(), albumView.getSlideShowLink(), albumView.getAlbumHeader()
-            .getRoot());
+                .getRoot());
         assertEquals(4, albumView.getDataScroller().advanced().getCountOfVisiblePages());
         assertEquals(1, albumView.getDataScroller().getActivePageNumber());
         List<AlbumView.PhotoInfo> photos = albumView.getPhotos();
@@ -205,8 +204,8 @@ public class TestSearch extends AbstractPhotoalbumTest {
 
         AlbumView albumView = searchView().getTabPanel().switchTo(TABNAMES.get(3)).getContent(AlbumView.class);
         PhotoalbumUtils.checkNotVisible(albumView.getSlider().advanced().getRootElement(), albumView.getAlbumInfo(),
-            albumView.getSlideShowLink(), albumView.getAlbumHeader().getRoot(), albumView.getDataScroller().advanced()
-            .getRootElement());
+                albumView.getSlideShowLink(), albumView.getAlbumHeader().getRoot(), albumView.getDataScroller().advanced()
+                        .getRootElement());
         List<AlbumView.PhotoInfo> users = albumView.getPhotos();
         assertEquals(3, users.size());
         users.get(0).checkAll(200, "Andrey Markhel", JAN_DATE_85, "4 albums | 21 images", "/img/shell/avatar_default.png");

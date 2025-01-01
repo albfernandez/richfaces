@@ -24,9 +24,8 @@ package org.richfaces.photoalbum.model.event;
 
 /**
  * Simple event to be used in general situations, it may or may not carry a message
- * 
+ *
  * @author mpetrov
- * 
  */
 public class SimpleEvent {
     private String message;

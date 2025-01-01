@@ -21,15 +21,11 @@
  */
 package org.richfaces.component;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.richfaces.renderkit.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
-import static org.richfaces.renderkit.AjaxConstants.ALL;
-import static org.richfaces.renderkit.AjaxConstants.THIS;
-
-import java.util.Collection;
-import java.util.Iterator;
+import org.jboss.test.faces.FacesEnvironment;
+import org.jboss.test.faces.FacesEnvironment.FacesRequest;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
@@ -39,12 +35,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import java.util.Collection;
+import java.util.Iterator;
 
-import org.jboss.test.faces.FacesEnvironment;
-import org.jboss.test.faces.FacesEnvironment.FacesRequest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.richfaces.renderkit.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
+import static org.richfaces.renderkit.AjaxConstants.ALL;
+import static org.richfaces.renderkit.AjaxConstants.THIS;
 
 /**
  * Test page pseudo-code:
@@ -63,11 +62,10 @@ import org.junit.Test;
  *    &lt;/a4j:region&gt;
  * &lt;/h:form&gt;
  * </pre>
- *
+ * <p>
  * TestCommandComponent is assumed to have execute=@this by default
  *
  * @author Nick Belaevski
- *
  */
 public class RegionTest {
     private FacesEnvironment environment;
@@ -80,44 +78,6 @@ public class RegionTest {
     private String testCommandClientId;
     private String testCommandRegionClientId;
     private String regionClientId;
-
-    @SuppressWarnings("serial")
-    private abstract static class StringFieldValueExpression extends ValueExpression {
-        @Override
-        public Class<?> getExpectedType() {
-            return String.class;
-        }
-
-        @Override
-        public Class<?> getType(ELContext context) {
-            return String.class;
-        }
-
-        @Override
-        public boolean isReadOnly(ELContext context) {
-            return false;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return obj == this;
-        }
-
-        @Override
-        public String getExpressionString() {
-            return null;
-        }
-
-        @Override
-        public int hashCode() {
-            return 0;
-        }
-
-        @Override
-        public boolean isLiteralText() {
-            return false;
-        }
-    }
 
     @SuppressWarnings("serial")
     private ValueExpression createFirstLinkExecuteExpression() {
@@ -293,5 +253,43 @@ public class RegionTest {
 
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
         assertSingleElementCollection(regionClientId, executeIds);
+    }
+
+    @SuppressWarnings("serial")
+    private abstract static class StringFieldValueExpression extends ValueExpression {
+        @Override
+        public Class<?> getExpectedType() {
+            return String.class;
+        }
+
+        @Override
+        public Class<?> getType(ELContext context) {
+            return String.class;
+        }
+
+        @Override
+        public boolean isReadOnly(ELContext context) {
+            return false;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj == this;
+        }
+
+        @Override
+        public String getExpressionString() {
+            return null;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        @Override
+        public boolean isLiteralText() {
+            return false;
+        }
     }
 }

@@ -1,15 +1,5 @@
 package org.richfaces.component.behavior;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-
-import javax.faces.FacesException;
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.render.RenderKit;
-
 import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
@@ -19,6 +9,16 @@ import org.junit.runner.RunWith;
 import org.richfaces.renderkit.html.ClientValidatorRenderer;
 import org.richfaces.renderkit.html.FormClientValidatorRenderer;
 
+import javax.faces.FacesException;
+import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
+import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.render.RenderKit;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+
 /**
  * <p class="changed_added_4_0">
  * This class tests client validator behavior. as it described at https://community.jboss.org/wiki/ClientSideValidation #
@@ -26,7 +26,6 @@ import org.richfaces.renderkit.html.FormClientValidatorRenderer;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 @RunWith(MockTestRunner.class)
 public class GetScriptTest extends BehaviorTestBase {

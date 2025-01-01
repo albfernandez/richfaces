@@ -21,11 +21,7 @@
  */
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.EnumSet;
-import java.util.List;
-
+import com.google.common.collect.Lists;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -38,16 +34,19 @@ import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
-import com.google.common.collect.Lists;
+import java.util.EnumSet;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class SearchPanel {
 
+    private static final EnumSet<SearchOptionsEnum> IN = EnumSet.of(SearchOptionsEnum.IN_OWN, SearchOptionsEnum.IN_SHARED);
     @ArquillianResource
     private WebDriver browser;
-
     @FindBy(css = "div.search-div")
     private SearchDiv searchDiv;
     @FindBy(css = "div.search-options")
@@ -60,8 +59,6 @@ public class SearchPanel {
     private WebElement searchHideOptionsLink;
     @FindBy(css = "a.search-hide-options-link > img")
     private WebElement searchHideOptionsLinkImage;
-
-    private static final EnumSet<SearchOptionsEnum> IN = EnumSet.of(SearchOptionsEnum.IN_OWN, SearchOptionsEnum.IN_SHARED);
 
     public void check(boolean loggedIn) {
         searchDiv.check();
@@ -112,7 +109,6 @@ public class SearchPanel {
      * Search with all options.
      *
      * @param key
-     *
      */
     public void searchFor(String key) {
         searchFor(key, EnumSet.allOf(SearchOptionsEnum.class));

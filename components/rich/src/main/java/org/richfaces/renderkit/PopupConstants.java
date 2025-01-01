@@ -23,7 +23,6 @@ package org.richfaces.renderkit;
 
 /**
  * @author abelevich
- *
  */
 public interface PopupConstants {
     String OPTIONS_ITEM_CLASS = "itemCss";

@@ -21,19 +21,6 @@
  */
 package org.richfaces.event;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.SystemEvent;
-import javax.faces.event.SystemEventListener;
-
 import org.ajax4jsf.Messages;
 import org.richfaces.DataScrollerUtils;
 import org.richfaces.component.AbstractDataScroller;
@@ -44,15 +31,41 @@ import org.richfaces.component.util.MessageUtil;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.SystemEvent;
+import javax.faces.event.SystemEventListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 public class DataTablePreRenderListener implements SystemEventListener {
     private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
+
+    private static boolean same(Object o1, Object o2) {
+        if (o1 instanceof ValueExpression && o2 instanceof ValueExpression) {
+            ValueExpression ve1 = (ValueExpression) o1;
+            ValueExpression ve2 = (ValueExpression) o2;
+
+            if (same(ve1.getExpressionString(), ve2.getExpressionString())
+                    && same(ve1.getExpectedType(), ve2.getExpectedType())) {
+                return true;
+            }
+        }
+
+        return (o1 != null && o1.equals(o2)) || (o1 == null && o2 == null);
+    }
 
     public boolean isListenerForSource(Object source) {
         return ((source instanceof AbstractDataScroller) || (source instanceof UIDataAdaptor) || (source instanceof UIData));
     }
 
     public AbstractDataScroller processActiveDatascroller(FacesContext facesContext, List<AbstractDataScroller> dataScrollers,
-        UIComponent dataTable) {
+                                                          UIComponent dataTable) {
         AbstractDataScroller activeComponent = null;
         List<Object> values = new ArrayList<Object>(dataScrollers.size());
 
@@ -106,7 +119,7 @@ public class DataTablePreRenderListener implements SystemEventListener {
         UIComponent source = (UIComponent) event.getSource();
 
         if (((source instanceof UIDataAdaptor) || (source instanceof UIData)) &&
-            !(source instanceof AbstractTree)) {
+                !(source instanceof AbstractTree)) {
             dataTable = source;
             List<AbstractDataScroller> dataScrollers = DataScrollerUtils.findDataScrollers(dataTable);
             if (!dataScrollers.isEmpty()) {
@@ -136,8 +149,8 @@ public class DataTablePreRenderListener implements SystemEventListener {
 
             if (newPage != -1) {
                 Object label = MessageUtil.getLabel(facesContext, activeDataScroller);
-                String formattedMessage = Messages.getMessage(Messages.DATASCROLLER_PAGE_MISSING, new Object[] { label, page,
-                        pageCount, newPage });
+                String formattedMessage = Messages.getMessage(Messages.DATASCROLLER_PAGE_MISSING, new Object[]{label, page,
+                        pageCount, newPage});
 
                 LOG.warn(formattedMessage);
                 page = newPage;
@@ -150,7 +163,7 @@ public class DataTablePreRenderListener implements SystemEventListener {
             if (lastPageMode == null) {
                 lastPageMode = AbstractDataScroller.PAGEMODE_SHORT;
             } else if (!AbstractDataScroller.PAGEMODE_SHORT.equals(lastPageMode)
-                && !AbstractDataScroller.PAGEMODE_FULL.equals(lastPageMode)) {
+                    && !AbstractDataScroller.PAGEMODE_FULL.equals(lastPageMode)) {
                 throw new IllegalArgumentException("Illegal value of 'lastPageMode' attribute: '" + lastPageMode + "'");
             }
 
@@ -167,7 +180,7 @@ public class DataTablePreRenderListener implements SystemEventListener {
     }
 
     private String getPageDifferentMessage(FacesContext facesContext, AbstractDataScroller activeComponent,
-        List<AbstractDataScroller> dataScrollers, List<Object> values) {
+                                           List<AbstractDataScroller> dataScrollers, List<Object> values) {
         StringBuilder builder = new StringBuilder("\n[");
         Iterator<AbstractDataScroller> scrollerItr = dataScrollers.iterator();
         Iterator<Object> valueItr = values.iterator();
@@ -188,20 +201,6 @@ public class DataTablePreRenderListener implements SystemEventListener {
         }
 
         return Messages.getMessage(Messages.DATASCROLLER_PAGES_DIFFERENT,
-            new Object[] { MessageUtil.getLabel(facesContext, activeComponent), builder });
-    }
-
-    private static boolean same(Object o1, Object o2) {
-        if (o1 instanceof ValueExpression && o2 instanceof ValueExpression) {
-            ValueExpression ve1 = (ValueExpression) o1;
-            ValueExpression ve2 = (ValueExpression) o2;
-
-            if (same(ve1.getExpressionString(), ve2.getExpressionString())
-                && same(ve1.getExpectedType(), ve2.getExpectedType())) {
-                return true;
-            }
-        }
-
-        return (o1 != null && o1.equals(o2)) || (o1 == null && o2 == null);
+                new Object[]{MessageUtil.getLabel(facesContext, activeComponent), builder});
     }
 }

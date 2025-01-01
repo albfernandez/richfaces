@@ -44,37 +44,6 @@ public class ResponseWriterWrapperTest extends TestCase {
     private ResponseWriter mockWriter;
     private Writer writer;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        facesEnvironment = MockFacesEnvironment.createEnvironment();
-        mockWriter = facesEnvironment.createMock(ResponseWriter.class);
-        writer = new ResponseWriterWrapper(mockWriter);
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-
-        facesEnvironment.verify();
-        facesEnvironment.release();
-        facesEnvironment = null;
-
-        this.writer = null;
-        this.mockWriter = null;
-    }
-
-    public void testWrite1() throws Exception {
-        char[] cs = new char[] { 'a', 'b' };
-
-        mockWriter.writeText(cs, 0, 2);
-
-        facesEnvironment.replay();
-
-        writer.write(cs);
-    }
-
     private static char[] expectSingleChar(final char c) {
         reportMatcher(new IArgumentMatcher() {
             private String failureMessage;
@@ -127,7 +96,7 @@ public class ResponseWriterWrapperTest extends TestCase {
                         for (int i = 0; i < length; i++) {
                             if (argChars[i] != cs[i]) {
                                 failureMessage = "Char at offset [" + i + "] mismath: expected " + cs[i] + " but was "
-                                    + argChars[i];
+                                        + argChars[i];
 
                                 break;
                             }
@@ -140,6 +109,37 @@ public class ResponseWriterWrapperTest extends TestCase {
         });
 
         return null;
+    }
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        facesEnvironment = MockFacesEnvironment.createEnvironment();
+        mockWriter = facesEnvironment.createMock(ResponseWriter.class);
+        writer = new ResponseWriterWrapper(mockWriter);
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+
+        facesEnvironment.verify();
+        facesEnvironment.release();
+        facesEnvironment = null;
+
+        this.writer = null;
+        this.mockWriter = null;
+    }
+
+    public void testWrite1() throws Exception {
+        char[] cs = new char[]{'a', 'b'};
+
+        mockWriter.writeText(cs, 0, 2);
+
+        facesEnvironment.replay();
+
+        writer.write(cs);
     }
 
     public void testWrite2() throws Exception {

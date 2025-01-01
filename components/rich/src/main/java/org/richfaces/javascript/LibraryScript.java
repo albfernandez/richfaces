@@ -27,7 +27,6 @@ package org.richfaces.javascript;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public interface LibraryScript {
     LibraryResource getResource();

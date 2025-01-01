@@ -37,14 +37,14 @@ public interface FocusProps {
      * Javascript code executed when this element loses focus.
      */
     @Attribute(events = @EventName("blur"), passThrough = true,
-            description = @Description(value="Javascript code executed when this element loses focus.", displayName = "Focus Off Script"))
+            description = @Description(value = "Javascript code executed when this element loses focus.", displayName = "Focus Off Script"))
     String getOnblur();
 
     /**
      * Javascript code executed when this element receives focus.
      */
     @Attribute(events = @EventName("focus"), passThrough = true,
-            description = @Description(value="Javascript code executed when this element receives focus.", displayName = "Focus On Script"))
+            description = @Description(value = "Javascript code executed when this element receives focus.", displayName = "Focus On Script"))
     String getOnfocus();
 
     /**
@@ -53,7 +53,7 @@ public interface FocusProps {
      */
     @Attribute(passThrough = true,
             description = @Description(
-                    value="Position of this element in the tabbing order for the current document.  This value must be an integer between 0 and 32767.",
+                    value = "Position of this element in the tabbing order for the current document.  This value must be an integer between 0 and 32767.",
                     displayName = "Tab Index"))
     String getTabindex();
 }

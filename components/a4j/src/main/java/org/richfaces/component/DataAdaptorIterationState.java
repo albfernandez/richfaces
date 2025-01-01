@@ -21,13 +21,12 @@
  */
 package org.richfaces.component;
 
-import java.io.Serializable;
+import org.ajax4jsf.model.DataComponentState;
+import org.ajax4jsf.model.ExtendedDataModel;
 
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.model.DataComponentState;
-import org.ajax4jsf.model.ExtendedDataModel;
+import java.io.Serializable;
 
 public final class DataAdaptorIterationState implements StateHolder {
     private DataComponentState componentState;
@@ -64,10 +63,6 @@ public final class DataAdaptorIterationState implements StateHolder {
         }
     }
 
-    public void setTransient(boolean newTransientValue) {
-        throw new UnsupportedOperationException();
-    }
-
     public boolean isTransient() {
         if (componentState instanceof StateHolder) {
             return ((StateHolder) componentState).isTransient();
@@ -78,6 +73,10 @@ public final class DataAdaptorIterationState implements StateHolder {
         }
 
         return true;
+    }
+
+    public void setTransient(boolean newTransientValue) {
+        throw new UnsupportedOperationException();
     }
 
     public Object saveState(FacesContext context) {
@@ -97,7 +96,7 @@ public final class DataAdaptorIterationState implements StateHolder {
             localSavedComponentState = componentState;
         }
 
-        return new Object[] { localComponentStateIsHolder ? Boolean.TRUE : Boolean.FALSE, localSavedComponentState };
+        return new Object[]{localComponentStateIsHolder ? Boolean.TRUE : Boolean.FALSE, localSavedComponentState};
     }
 
     public void restoreState(FacesContext context, Object stateObject) {

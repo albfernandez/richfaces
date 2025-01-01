@@ -70,42 +70,42 @@ public class ITResourceMapping {
 //        deployment.withWholeCore();
 
         PropertiesAsset staticResourceMapping = new PropertiesAsset()
-            .key(":original.css").value("relocated.css")
-            .key(":part1.css").value("aggregated.css")
-            .key(":part2.css").value("aggregated.css")
-            .key("part1.js").value("aggregated.js")
-            .key("part2.js").value("aggregated.js");
+                .key(":original.css").value("relocated.css")
+                .key(":part1.css").value("aggregated.css")
+                .key(":part2.css").value("aggregated.css")
+                .key("part1.js").value("aggregated.js")
+                .key("part2.js").value("aggregated.js");
 
         EmptyAsset emptyResource = EmptyAsset.INSTANCE;
 
         FaceletAsset relocationPage = new FaceletAsset().head("<h:outputStylesheet name=\"original.css\" />");
 
         FaceletAsset aggregationPage = new FaceletAsset().head("<h:outputStylesheet name=\"part1.css\" />"
-            + "<h:outputStylesheet name=\"part2.css\" />");
+                + "<h:outputStylesheet name=\"part2.css\" />");
 
         FaceletAsset javaScriptAggregationPage = new FaceletAsset().head("<h:outputScript name=\"part1.js\" />"
-            + "<h:outputScript name=\"part2.js\" />");
+                + "<h:outputScript name=\"part2.js\" />");
 
         deployment.archive()
-            /** classes */
-            .addPackage(ResourceHandlerImpl.class.getPackage())
-            .addPackage(ResourceTracker.class.getPackage())
-            .addPackage(ResourceMapper.class.getPackage())
-            .addClasses(Codec.class)
-            /** META-INF */
-            .addAsResource(staticResourceMapping, "META-INF/richfaces/static-resource-mappings.properties")
-            /** ROOT */
-            .addAsWebResource(relocationPage, "relocation.xhtml")
-            .addAsWebResource(aggregationPage, "aggregation.xhtml")
-            .addAsWebResource(javaScriptAggregationPage, "javaScriptAggregation.xhtml")
-            .addAsWebResource(emptyResource, "resources/original.css")
-            .addAsWebResource(emptyResource, "resources/part1.css")
-            .addAsWebResource(emptyResource, "resources/part2.css")
-            .addAsWebResource(emptyResource, "resources/relocated.css")
-            .addAsWebResource(emptyResource, "resources/aggregated.css")
-            .addAsWebResource(emptyResource, "resources/part1.js")
-            .addAsWebResource(emptyResource, "resources/part2.js")
-            .addAsWebResource(emptyResource, "resources/aggregated.js");
+                /** classes */
+                .addPackage(ResourceHandlerImpl.class.getPackage())
+                .addPackage(ResourceTracker.class.getPackage())
+                .addPackage(ResourceMapper.class.getPackage())
+                .addClasses(Codec.class)
+                /** META-INF */
+                .addAsResource(staticResourceMapping, "META-INF/richfaces/static-resource-mappings.properties")
+                /** ROOT */
+                .addAsWebResource(relocationPage, "relocation.xhtml")
+                .addAsWebResource(aggregationPage, "aggregation.xhtml")
+                .addAsWebResource(javaScriptAggregationPage, "javaScriptAggregation.xhtml")
+                .addAsWebResource(emptyResource, "resources/original.css")
+                .addAsWebResource(emptyResource, "resources/part1.css")
+                .addAsWebResource(emptyResource, "resources/part2.css")
+                .addAsWebResource(emptyResource, "resources/relocated.css")
+                .addAsWebResource(emptyResource, "resources/aggregated.css")
+                .addAsWebResource(emptyResource, "resources/part1.js")
+                .addAsWebResource(emptyResource, "resources/part2.js")
+                .addAsWebResource(emptyResource, "resources/aggregated.js");
 
         return deployment.getFinalArchive();
     }

@@ -21,20 +21,36 @@
  */
 package org.richfaces.view.facelets.tag;
 
+import org.richfaces.component.behavior.ClientBehavior;
+
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.behavior.ClientBehavior;
-
 /**
  * @author Anton Belevich
- *
  */
 public class BehaviorRule extends MetaRule {
     public static final BehaviorRule INSTANCE = new BehaviorRule();
+
+    @Override
+    public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
+        if (meta.isTargetInstanceOf(ClientBehavior.class)) {
+            if (!attribute.isLiteral()) {
+                Class<?> type = meta.getPropertyType(name);
+                if (type == null) {
+                    type = Object.class;
+                }
+                return new ValueExpressionMetadata(name, type, attribute);
+            } else if (meta != null && meta.getWriteMethod(name) != null) {
+                return new LiteralAttributeMetadata(name, attribute.getValue());
+            }
+        }
+
+        return null;
+    }
 
     public static final class LiteralAttributeMetadata extends Metadata {
         private final String name;
@@ -64,22 +80,5 @@ public class BehaviorRule extends MetaRule {
         public void applyMetadata(FaceletContext ctx, Object instance) {
             ((ClientBehavior) instance).setValueExpression(this.name, this.attr.getValueExpression(ctx, this.type));
         }
-    }
-
-    @Override
-    public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
-        if (meta.isTargetInstanceOf(ClientBehavior.class)) {
-            if (!attribute.isLiteral()) {
-                Class<?> type = meta.getPropertyType(name);
-                if (type == null) {
-                    type = Object.class;
-                }
-                return new ValueExpressionMetadata(name, type, attribute);
-            } else if (meta != null && meta.getWriteMethod(name) != null) {
-                return new LiteralAttributeMetadata(name, attribute.getValue());
-            }
-        }
-
-        return null;
     }
 }

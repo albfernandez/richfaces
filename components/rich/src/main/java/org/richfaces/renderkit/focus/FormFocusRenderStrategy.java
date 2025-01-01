@@ -1,9 +1,9 @@
 package org.richfaces.renderkit.focus;
 
+import org.richfaces.component.AbstractFocus;
+
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.component.AbstractFocus;
 
 /**
  * Strategy for rendering Focus in {@link AbstractFocus.Mode#FORM}

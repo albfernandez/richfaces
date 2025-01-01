@@ -52,16 +52,6 @@ public class JSONTokener {
     }
 
     /**
-     * Back up one character. This provides a sort of lookahead capability, so that you can test for a digit or letter before
-     * attempting to parse the next number or identifier.
-     */
-    public void back() {
-        if (this.myIndex > 0) {
-            this.myIndex -= 1;
-        }
-    }
-
-    /**
      * Get the hex value of a character (base16).
      *
      * @param c A character between '0' and '9' or between 'A' and 'F' or between 'a' and 'f'.
@@ -81,6 +71,16 @@ public class JSONTokener {
         }
 
         return -1;
+    }
+
+    /**
+     * Back up one character. This provides a sort of lookahead capability, so that you can test for a digit or letter before
+     * attempting to parse the next number or identifier.
+     */
+    public void back() {
+        if (this.myIndex > 0) {
+            this.myIndex -= 1;
+        }
     }
 
     /**
@@ -153,7 +153,7 @@ public class JSONTokener {
      * @throws JSONException
      */
     public char nextClean() throws JSONException {
-        for (;;) {
+        for (; ; ) {
             char c = next();
 
             if (c == '/') {
@@ -166,7 +166,7 @@ public class JSONTokener {
                         break;
 
                     case '*':
-                        for (;;) {
+                        for (; ; ) {
                             c = next();
 
                             if (c == 0) {
@@ -204,7 +204,7 @@ public class JSONTokener {
      * allow strings in single quotes, but an implementation is allowed to accept them.
      *
      * @param quote The quoting character, either <code>"</code>&nbsp;<small>(double quote)</small> or <code>'</code>
-     *        &nbsp;<small>(single quote)</small>.
+     *              &nbsp;<small>(single quote)</small>.
      * @return A String.
      * @throws JSONException Unterminated string.
      */
@@ -212,7 +212,7 @@ public class JSONTokener {
         char c;
         StringBuffer sb = new StringBuffer();
 
-        for (;;) {
+        for (; ; ) {
             c = next();
 
             switch (c) {
@@ -285,7 +285,7 @@ public class JSONTokener {
     public String nextTo(char d) {
         StringBuffer sb = new StringBuffer();
 
-        for (;;) {
+        for (; ; ) {
             char c = next();
 
             if ((c == d) || (c == 0) || (c == '\n') || (c == '\r')) {
@@ -310,7 +310,7 @@ public class JSONTokener {
         char c;
         StringBuffer sb = new StringBuffer();
 
-        for (;;) {
+        for (; ; ) {
             c = next();
 
             if ((delimiters.indexOf(c) >= 0) || (c == 0) || (c == '\n') || (c == '\r')) {

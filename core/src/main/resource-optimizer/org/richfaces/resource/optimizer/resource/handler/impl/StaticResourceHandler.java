@@ -21,22 +21,19 @@
  */
 package org.richfaces.resource.optimizer.resource.handler.impl;
 
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
+import org.richfaces.resource.optimizer.vfs.VirtualFile;
+
+import javax.activation.MimetypesFileTypeMap;
+import javax.faces.application.Resource;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javax.activation.MimetypesFileTypeMap;
-import javax.faces.application.Resource;
-
-import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
-import org.richfaces.resource.optimizer.vfs.VirtualFile;
-
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class StaticResourceHandler extends AbstractResourceHandler {
     private Collection<VirtualFile> roots;

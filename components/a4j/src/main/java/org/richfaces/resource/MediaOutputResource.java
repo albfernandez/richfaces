@@ -1,31 +1,27 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.resource;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Pattern;
+import com.google.common.base.Strings;
+import org.richfaces.component.AbstractMediaOutput;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
@@ -33,10 +29,12 @@ import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.component.AbstractMediaOutput;
-
-import com.google.common.base.Strings;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * @author Nick Belaevski
@@ -44,12 +42,11 @@ import com.google.common.base.Strings;
  */
 @DynamicResource
 public class MediaOutputResource extends AbstractUserResource implements StateHolder, CacheableResource {
+    private static final String PARENTHESES = "[^\\(]*";
     private String contentType;
     private boolean cacheable;
     private MethodExpression contentProducer;
     private ValueExpression expiresExpression;
-
-    private static final String PARENTHESES = "[^\\(]*";
     /*
      * TODO: add handling for expressions:
      *
@@ -68,7 +65,7 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
             throw new IllegalArgumentException("Expression \"" + expr + "\" contains parentheses.");
         }
 
-        contentProducer.invoke(facesContext.getELContext(), new Object[] { outStream, userData });
+        contentProducer.invoke(facesContext.getELContext(), new Object[]{outStream, userData});
     }
 
     public boolean isTransient() {
@@ -106,7 +103,7 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
     @PostConstructResource
     public void initialize() {
         AbstractMediaOutput uiMediaOutput = (AbstractMediaOutput) UIComponent.getCurrentComponent(FacesContext
-            .getCurrentInstance());
+                .getCurrentInstance());
         this.setCacheable(uiMediaOutput.isCacheable());
         this.setContentType(uiMediaOutput.getMimeType());
         this.userData = uiMediaOutput.getValue();

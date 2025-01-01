@@ -20,6 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.model;
+
 /**
  * @author Lukas Macko
  */
@@ -28,15 +29,15 @@ public class NumberChartDataModel extends ChartDataModel<Number, Number> {
     public NumberChartDataModel(ChartType type) {
         super(type);
         switch (type) {
-        case line:
-            strategy = new LineStrategy();
-            break;
-        case bar:
-            strategy = new BarStrategy();
-            break;
-        default:
-            throw new IllegalArgumentException(type
-                    + "not supported by NumberChartDataModel");
+            case line:
+                strategy = new LineStrategy();
+                break;
+            case bar:
+                strategy = new BarStrategy();
+                break;
+            default:
+                throw new IllegalArgumentException(type
+                        + "not supported by NumberChartDataModel");
         }
     }
 

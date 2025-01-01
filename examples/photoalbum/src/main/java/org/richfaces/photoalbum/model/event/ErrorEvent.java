@@ -1,11 +1,9 @@
 package org.richfaces.photoalbum.model.event;
 
 /**
- * 
  * Event to be used for displaying error notification
- * 
- * @author mpetrov
  *
+ * @author mpetrov
  */
 
 public class ErrorEvent extends SimpleEvent {
@@ -15,7 +13,7 @@ public class ErrorEvent extends SimpleEvent {
         super(message);
         this.summary = summary;
     }
-    
+
     public ErrorEvent(String message) {
         this("", message);
     }
@@ -27,5 +25,5 @@ public class ErrorEvent extends SimpleEvent {
     public String getDetail() {
         return super.getMessage();
     }
-    
+
 }

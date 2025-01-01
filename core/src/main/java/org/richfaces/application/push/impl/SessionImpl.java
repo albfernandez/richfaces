@@ -21,17 +21,11 @@
  */
 package org.richfaces.application.push.impl;
 
-import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.atomic.AtomicLong;
-
-import javax.faces.context.FacesContext;
-
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.application.push.DestroyableSession;
 import org.richfaces.application.push.MessageData;
@@ -44,20 +38,23 @@ import org.richfaces.application.push.SubscriptionFailureException;
 import org.richfaces.application.push.Topic;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
-import org.richfaces.application.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
+import javax.faces.context.FacesContext;
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Session represents user’s subscription to a set of topics
  *
  * @author Nick Belaevski
- *
  * @see Session
  */
 public class SessionImpl implements Session, DestroyableSession {
@@ -65,12 +62,12 @@ public class SessionImpl implements Session, DestroyableSession {
     private final int maxInactiveInterval;
     private final String id;
     private final SessionManager sessionManager;
-    private volatile long lastAccessedTime;
-    private volatile Request request;
-    private volatile boolean active = true;
     private final Queue<MessageData> messagesQueue = new ConcurrentLinkedQueue<MessageData>();
     private final Set<TopicKey> successfulSubscriptions = Sets.newHashSet();
     private final Map<TopicKey, String> failedSubscriptions = Maps.newHashMap();
+    private volatile long lastAccessedTime;
+    private volatile Request request;
+    private volatile boolean active = true;
     private TopicsContext topicsContext;
     private AtomicLong sequenceCounter = new AtomicLong();
 

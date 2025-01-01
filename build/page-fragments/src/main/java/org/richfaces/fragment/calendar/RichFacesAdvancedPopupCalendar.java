@@ -48,12 +48,6 @@ public class RichFacesAdvancedPopupCalendar {
 
     private PopupCalendar calendarPopup;
 
-    public static enum OpenedBy {
-
-        INPUT_CLICKING,
-        OPEN_BUTTON_CLICKING,;
-    }
-
     public void closePopup() {
         closePopup(OpenedBy.OPEN_BUTTON_CLICKING);
     }
@@ -72,7 +66,7 @@ public class RichFacesAdvancedPopupCalendar {
             }
         }
         getPopup().waitUntilIsNotVisible()
-            .perform();
+                .perform();
     }
 
     public TextInputComponentImpl getInput() {
@@ -136,5 +130,12 @@ public class RichFacesAdvancedPopupCalendar {
 
     public void setDateTime(DateTime dt) {
         openPopup().setDateTime(dt);
+    }
+
+    public static enum OpenedBy {
+
+        INPUT_CLICKING,
+        OPEN_BUTTON_CLICKING,
+        ;
     }
 }

@@ -30,7 +30,6 @@ import javax.faces.context.FacesContext;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public interface ClientScriptService {
     /**
@@ -39,7 +38,7 @@ public interface ClientScriptService {
      * </p>
      *
      * @param facesContext TODO
-     * @param javaClass either Converter or Validator class.
+     * @param javaClass    either Converter or Validator class.
      * @return description of client-side script.
      * @throws ScriptNotFoundException if no JavaScript code associated with Java class.
      */

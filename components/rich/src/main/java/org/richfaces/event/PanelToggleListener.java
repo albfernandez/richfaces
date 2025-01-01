@@ -34,7 +34,6 @@ import javax.faces.event.FacesListener;
  * @author akolonitsky
  * @version 1.0
  * @since 2010-08-27
- *
  */
 public interface PanelToggleListener extends FacesListener {
     /**
@@ -43,9 +42,8 @@ public interface PanelToggleListener extends FacesListener {
      * </p>
      *
      * @param event The {@link PanelToggleEvent} that has occurred
-     *
      * @throws AbortProcessingException Signal the JavaServer Faces implementation that no further processing on the current
-     *         event should be performed
+     *                                  event should be performed
      */
     void processPanelToggle(PanelToggleEvent event) throws AbortProcessingException;
 }

@@ -21,15 +21,13 @@
  */
 package org.richfaces.cache.lru;
 
-import java.util.Date;
-
 import junit.framework.TestCase;
-
 import org.junit.Assert;
+
+import java.util.Date;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class CacheMapTest extends TestCase {
     private void addToCacheMap(CacheMap cacheMap, String key, String value) {

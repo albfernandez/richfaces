@@ -22,13 +22,12 @@
 
 package org.richfaces.context;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Map;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Map;
 
 /**
  * Wraps {@link PartialResponseWriter} and delegates all calls to wrapped writer by default.

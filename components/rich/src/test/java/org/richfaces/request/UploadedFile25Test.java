@@ -21,18 +21,10 @@
  */
 package org.richfaces.request;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Collection;
-
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
 import org.easymock.EasyMock;
 import org.easymock.IAnswer;
 import org.jboss.test.faces.mock.Environment;
@@ -44,16 +36,22 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.exception.FileUploadException;
-
-import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
 import org.richfaces.util.StreamUtils;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author Nick Belaevski
- *
  */
 @RunWith(MockTestRunner.class)
 public class UploadedFile25Test {
@@ -63,13 +61,11 @@ public class UploadedFile25Test {
             return new ByteArrayInputStream(TEST_DATA.getBytes());
         }
     };
-    private UploadedFile25 uploadedFile;
-    private MockUploadResource uploadResource;
-
-
     @Mock
     @Environment
     protected MockFacesEnvironment environment;
+    private UploadedFile25 uploadedFile;
+    private MockUploadResource uploadResource;
 
     @Before
     public void setUp() throws Exception {
@@ -167,7 +163,7 @@ public class UploadedFile25Test {
         }
     }
 
-    public abstract class MockUploadResource extends FileUploadResource  {
+    public abstract class MockUploadResource extends FileUploadResource {
         public MockUploadResource() {
             super("", "");
         }

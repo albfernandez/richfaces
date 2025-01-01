@@ -21,10 +21,6 @@
  */
 package org.richfaces.showcase.tooltip;
 
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -32,6 +28,10 @@ import org.junit.Test;
 import org.openqa.selenium.interactions.Actions;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.tooltip.page.TooltipPage;
+
+import java.util.concurrent.TimeUnit;
+
+import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -76,9 +76,9 @@ public class ITestTooltip extends AbstractWebDriverTest {
 
     private void waitForTooltipText(String message) {
         waitAjax(webDriver).withTimeout(5, TimeUnit.SECONDS)
-            .until("The tool tip text is different!")
-            .element(page.getTooltip())
-            .text()
-            .equalTo(message);
+                .until("The tool tip text is different!")
+                .element(page.getTooltip())
+                .text()
+                .equalTo(message);
     }
 }

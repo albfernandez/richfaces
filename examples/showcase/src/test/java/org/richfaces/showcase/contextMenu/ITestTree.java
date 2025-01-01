@@ -21,10 +21,7 @@
  */
 package org.richfaces.showcase.contextMenu;
 
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
-import static org.junit.Assert.assertTrue;
-
+import category.FailingOnPhantomJS;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -34,7 +31,9 @@ import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.contextMenu.RichFacesContextMenu;
 import org.richfaces.showcase.contextMenu.page.TreeContextMenuPage;
 
-import category.FailingOnPhantomJS;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -74,8 +73,8 @@ public class ITestTree extends AbstractContextMenuTest {
             String artistFromPopup = page.getArtistFromPopup().getText();
 
             assertTrue(
-                "The context menu was not invoked correctly! The popup contains different artist name than the node in the tree!",
-                artistFromTree.contains(artistFromPopup));
+                    "The context menu was not invoked correctly! The popup contains different artist name than the node in the tree!",
+                    artistFromTree.contains(artistFromPopup));
 
             page.getCloseButton().click();
             waitModel().until().element(page.getArtistFromPopup()).is().not().visible();
@@ -91,6 +90,6 @@ public class ITestTree extends AbstractContextMenuTest {
         waitModel().until().element(elementToTryOn).is().visible();
 
         checkContextMenuRenderedAtCorrectPosition(elementToTryOn, page.getContextMenu(),
-            Event.CONTEXTCLICK, page.getExpextedConditionOnNodeSelected(elementToTryOn), true, true);
+                Event.CONTEXTCLICK, page.getExpextedConditionOnNodeSelected(elementToTryOn), true, true);
     }
 }

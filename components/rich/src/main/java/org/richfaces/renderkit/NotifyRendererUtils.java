@@ -21,21 +21,20 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Map;
-
-import javax.faces.FacesException;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.richfaces.component.AbstractNotify;
 import org.richfaces.component.AbstractNotifyStack;
 import org.richfaces.component.NotifyAttributes;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.util.RendererUtils;
+
+import javax.faces.FacesException;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Map;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
@@ -69,7 +68,7 @@ public class NotifyRendererUtils {
     }
 
     public static void addFacetOrAttributeAsOption(String name, Map<String, Object> options, FacesContext facesContext,
-            UIComponent component) {
+                                                   UIComponent component) {
 
         UIComponent facet = component.getFacet(name);
         if (facet != null && facet.isRendered()) {

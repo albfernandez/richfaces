@@ -21,22 +21,20 @@
  */
 package org.richfaces.resource.optimizer;
 
+import javax.faces.application.Resource;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 
-import javax.faces.application.Resource;
-
 /**
  * @author Nick Belaevski
- *
  */
 public interface ResourceWriter extends Closeable {
     void writeResource(String skinName, Resource resource) throws IOException;
-    
+
     void writePackedResource(String packName, String skinName, Resource resource) throws IOException;
 
     void writeProcessedResourceMappings(File staticResourceMappingFile, String staticResourcePrefix) throws IOException;
-    
+
     void close();
 }

@@ -21,14 +21,12 @@
  */
 package org.richfaces.resource;
 
-import java.util.Collection;
-
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
+import java.util.Collection;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface ResourceFactory {
     String DYNAMIC_RESOURCE_MAPPINGS = "META-INF/richfaces/resource-mappings.properties";

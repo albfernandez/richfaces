@@ -21,6 +21,14 @@
  */
 package org.richfaces.application;
 
+import org.junit.Rule;
+import org.junit.Test;
+import org.richfaces.ContextInitParameter;
+import org.richfaces.ContextInitParameters;
+import org.richfaces.FacesRequestSetupRule;
+
+import javax.faces.context.FacesContext;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
@@ -30,28 +38,19 @@ import static org.richfaces.application.configuration.ConfigurationServiceHelper
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getLongConfigurationValue;
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getStringConfigurationValue;
 
-import javax.faces.context.FacesContext;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.richfaces.ContextInitParameter;
-import org.richfaces.ContextInitParameters;
-import org.richfaces.FacesRequestSetupRule;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class ConfigurationServiceImplTest {
     @Rule
     public FacesRequestSetupRule rule = new FacesRequestSetupRule();
 
     @Test
-    @ContextInitParameters({ @ContextInitParameter(name = "org.richfaces.LongValue", value = "223372036854775807"),
+    @ContextInitParameters({@ContextInitParameter(name = "org.richfaces.LongValue", value = "223372036854775807"),
             @ContextInitParameter(name = "org.richfaces.IntValue", value = "32768"),
             @ContextInitParameter(name = "org.richfaces.StringValue", value = "some string"),
             @ContextInitParameter(name = "org.richfaces.BooleanValue", value = "true"),
-            @ContextInitParameter(name = "org.richfaces.EnumValue", value = "bar") })
+            @ContextInitParameter(name = "org.richfaces.EnumValue", value = "bar")})
     public void testLiteralValues() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
 
@@ -74,7 +73,7 @@ public class ConfigurationServiceImplTest {
     }
 
     @Test
-    @ContextInitParameters({ @ContextInitParameter(name = "org.richfaces.MultiValue2", value = "test value") })
+    @ContextInitParameters({@ContextInitParameter(name = "org.richfaces.MultiValue2", value = "test value")})
     public void testMultiValues() throws Exception {
         assertEquals("test value", getStringConfigurationValue(FacesContext.getCurrentInstance(), Configuration.multiValue));
     }
@@ -82,7 +81,7 @@ public class ConfigurationServiceImplTest {
     @Test
     @ContextInitParameters({
             @ContextInitParameter(name = "org.richfaces.FacesContextReference", value = "#{facesContext}"),
-            @ContextInitParameter(name = "org.richfaces.DynamicValueWithDefault", value = "#{facesContext.attributes['dummyValue']}") })
+            @ContextInitParameter(name = "org.richfaces.DynamicValueWithDefault", value = "#{facesContext.attributes['dummyValue']}")})
     public void testDynamicValues() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
 
@@ -91,8 +90,8 @@ public class ConfigurationServiceImplTest {
     }
 
     @Test
-    @ContextInitParameters({ @ContextInitParameter(name = "org.richfaces.LiteralOnlyValue", value = "pure literal"),
-            @ContextInitParameter(name = "org.richfaces.LiteralOnlyWithEl", value = "#{someEl}") })
+    @ContextInitParameters({@ContextInitParameter(name = "org.richfaces.LiteralOnlyValue", value = "pure literal"),
+            @ContextInitParameter(name = "org.richfaces.LiteralOnlyWithEl", value = "#{someEl}")})
     public void testLiteral() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
 

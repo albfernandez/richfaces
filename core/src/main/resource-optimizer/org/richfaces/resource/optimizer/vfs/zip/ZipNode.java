@@ -74,12 +74,16 @@ final class ZipNode {
         return children.values();
     }
 
+    public boolean isDirectory() {
+        return directory;
+    }
+
     private void setDirectory(boolean directory) {
         this.directory = directory;
     }
 
-    public boolean isDirectory() {
-        return directory;
+    public ZipEntry getZipEntry() {
+        return zipEntry;
     }
 
     public void setZipEntry(ZipEntry zipEntry) {
@@ -87,10 +91,6 @@ final class ZipNode {
         setDirectory(zipEntry.isDirectory());
     }
 
-    public ZipEntry getZipEntry() {
-        return zipEntry;
-    }
-    
     @Override
     public String toString() {
         return "ZipNode[" + name + ", " + zipEntry.getName() + "]";

@@ -21,8 +21,7 @@
  */
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
-import static org.junit.Assert.assertEquals;
-
+import com.google.common.collect.Lists;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -37,7 +36,7 @@ import org.richfaces.photoalbum.ftest.webdriver.pages.GPlusLoginPage;
 import org.richfaces.photoalbum.ftest.webdriver.pages.SocialLoginPage;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
-import com.google.common.collect.Lists;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -58,20 +57,20 @@ public class HeaderPanel {
 
     private void checkAlwaysPresentElements() {
         PhotoalbumUtils.checkVisible(Lists.newArrayList(image, llm.getLoggedUserSpan(), links.getWikiPageLink(), links.getDownloadsLink(),
-            links.getCommunityLink()));
+                links.getCommunityLink()));
         Graphene.waitAjax()
-            .ignoring(StaleElementReferenceException.class)
-            .ignoring(NoSuchElementException.class)
-            .until().element(image).attribute("src").contains("img/shell/logo_top.gif");
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class)
+                .until().element(image).attribute("src").contains("img/shell/logo_top.gif");
     }
 
     public void checkIfUserNotLogged() {
         checkAlwaysPresentElements();
         PhotoalbumUtils.checkVisible(Lists.newArrayList(llm.getLoginLink(), llm.getRegisterLink()));
         PhotoalbumUtils.checkNotVisible(llm.getLoggedUserLink(), llm.getLogoutLink(), llm.getLoggedInWithFB(), llm.getLoggedInWithGPlus(), llm.getLoginToFBLink(),
-            llm.getLoginToGPlusLink(), llm.getFbLoggedUserImage());
+                llm.getLoginToGPlusLink(), llm.getFbLoggedUserImage());
         assertEquals("Welcome, guest! If you want access to full version of application, please register or login.",
-            llm.getLoggedUserSpan().getText().trim());
+                llm.getLoggedUserSpan().getText().trim());
         getToolbar().checkIfUserNotLoggedToolbar();
     }
 
@@ -128,7 +127,7 @@ public class HeaderPanel {
 
     private void loginToSocial(Class<? extends SocialLoginPage> pageClass) {
         PhotoalbumUtils.loginWithSocial(pageClass, driver, GPlusLoginPage.class.equals(pageClass) ? llm.getLoginToGPlusLink()
-            : llm.getLoginToFBLink());
+                : llm.getLoginToFBLink());
     }
 
     public static class LoginLogoutMenu {
@@ -217,13 +216,13 @@ public class HeaderPanel {
 
         public void checkIfUserLoggedToolbar(boolean hasOwnAlbums) {
             PhotoalbumUtils.checkVisible(hasOwnAlbums ? Lists.newArrayList(myAlbumGroupsLink, myAllAlbumsLink, myAllImagesLink,
-                addAlbumGroupLink, addAlbumLink, addImagesLink) : Lists.newArrayList(myAlbumGroupsLink, myAllAlbumsLink,
+                    addAlbumGroupLink, addAlbumLink, addImagesLink) : Lists.newArrayList(myAlbumGroupsLink, myAllAlbumsLink,
                     myAllImagesLink, addAlbumGroupLink, addAlbumLinkSpan, addImagesLinkSpan));
         }
 
         public void checkIfUserNotLoggedToolbar() {
             PhotoalbumUtils.checkNotVisible(Lists.newArrayList(myAlbumGroupsLink, myAllAlbumsLink, myAllImagesLink,
-                addAlbumGroupLink, addAlbumLink, addImagesLink, addAlbumLinkSpan, addImagesLinkSpan));
+                    addAlbumGroupLink, addAlbumLink, addImagesLink, addAlbumLinkSpan, addImagesLinkSpan));
         }
 
         public WebElement getAddAlbumLink() {

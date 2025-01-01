@@ -44,15 +44,15 @@ public class ITPushFilter extends AbstractPushTest {
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
                 return webXml
-                    .createFilter()
-                    .filterName(PushFilter.class.getSimpleName())
-                    .filterClass(PushFilter.class.getName())
-                    .asyncSupported(true)
-                    .up()
-                    .createFilterMapping()
-                    .filterName(PushFilter.class.getSimpleName())
-                    .servletName(FacesServlet.class.getSimpleName())
-                    .up();
+                        .createFilter()
+                        .filterName(PushFilter.class.getSimpleName())
+                        .filterClass(PushFilter.class.getName())
+                        .asyncSupported(true)
+                        .up()
+                        .createFilterMapping()
+                        .filterName(PushFilter.class.getSimpleName())
+                        .servletName(FacesServlet.class.getSimpleName())
+                        .up();
             }
         });
 

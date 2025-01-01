@@ -25,7 +25,6 @@ import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.list.ListItem;
 
 /**
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface FileUploadItem extends ListItem {

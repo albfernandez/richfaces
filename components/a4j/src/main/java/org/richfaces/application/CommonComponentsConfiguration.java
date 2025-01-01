@@ -25,7 +25,6 @@ import org.richfaces.application.configuration.ConfigurationItem;
 
 /**
  * @author Nick Belaevski
- *
  */
 public final class CommonComponentsConfiguration {
     private CommonComponentsConfiguration() {

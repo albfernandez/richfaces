@@ -25,11 +25,7 @@
  */
 package org.richfaces.el;
 
-import java.beans.FeatureDescriptor;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
+import org.richfaces.validator.GraphValidatorState;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
@@ -37,20 +33,22 @@ import javax.el.FunctionMapper;
 import javax.el.ValueExpression;
 import javax.el.VariableMapper;
 import javax.faces.el.CompositeComponentExpressionHolder;
-
-import org.richfaces.validator.GraphValidatorState;
+import java.beans.FeatureDescriptor;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * This class wraps original ELContext and capture whole call stack to the target object so it could be used to extract semantic
  * information like annotations or Jena Model properties.
  *
  * @author asmirnov
- *
  */
 public class CapturingELContext extends ELContext {
     private final ELContext parent;
-    private ValueReference reference = null;
     private final InterceptingResolver resolver;
+    private ValueReference reference = null;
 
     public CapturingELContext(ELContext parent, Map<Object, GraphValidatorState> states) {
         this.parent = parent;
@@ -119,6 +117,11 @@ public class CapturingELContext extends ELContext {
     }
 
     @Override
+    public void setLocale(Locale locale) {
+        parent.setLocale(locale);
+    }
+
+    @Override
     public VariableMapper getVariableMapper() {
         return parent.getVariableMapper();
     }
@@ -129,22 +132,16 @@ public class CapturingELContext extends ELContext {
         parent.putContext(key, contextObject);
     }
 
-    @Override
-    public void setLocale(Locale locale) {
-        parent.setLocale(locale);
-    }
-
     /**
      * This resolver records all intermediate objects from the EL-expression that can be used to detect Semantic Beans
      * annotations or Jena Model properties.
      *
      * @author asmirnov
-     *
      */
     private final class InterceptingResolver extends ELResolver {
         private final ELResolver delegate;
-        private boolean clonedObject;
         private final Map<Object, GraphValidatorState> states;
+        private boolean clonedObject;
 
         public InterceptingResolver(ELResolver delegate, Map<Object, GraphValidatorState> states) {
             this.delegate = delegate;

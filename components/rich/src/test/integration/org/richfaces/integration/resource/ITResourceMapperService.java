@@ -71,27 +71,27 @@ public class ITResourceMapperService {
         EmptyAsset emptyResource = EmptyAsset.INSTANCE;
 
         FaceletAsset page = new FaceletAsset().head("<h:outputStylesheet name='stylesheet.css' library='some.library' />"
-            + "<h:outputStylesheet name='stylesheet.css' library='another.library' />");
+                + "<h:outputStylesheet name='stylesheet.css' library='another.library' />");
 
         deployment.archive()
-            /** classes */
-            .addPackage(ResourceHandlerImpl.class.getPackage())
-            .addPackage(ResourceTracker.class.getPackage())
-            .addPackage(ResourceMapper.class.getPackage())
-            .addClasses(Codec.class)
-            /** ROOT */
-            .addAsWebResource(page, "index.xhtml")
-            .addAsWebResource(emptyResource, "resources/some.library/stylesheet.css")
-            .addAsWebResource(emptyResource, "resources/another.library/stylesheet.css")
-            .addAsWebResource(emptyResource, "resources/mapped.library/stylesheet.css")
-            .addClasses(Mapper.class)
-            .addAsServiceProvider(ResourceMapper.class, Mapper.class);
+                /** classes */
+                .addPackage(ResourceHandlerImpl.class.getPackage())
+                .addPackage(ResourceTracker.class.getPackage())
+                .addPackage(ResourceMapper.class.getPackage())
+                .addClasses(Codec.class)
+                /** ROOT */
+                .addAsWebResource(page, "index.xhtml")
+                .addAsWebResource(emptyResource, "resources/some.library/stylesheet.css")
+                .addAsWebResource(emptyResource, "resources/another.library/stylesheet.css")
+                .addAsWebResource(emptyResource, "resources/mapped.library/stylesheet.css")
+                .addClasses(Mapper.class)
+                .addAsServiceProvider(ResourceMapper.class, Mapper.class);
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor descriptor) {
                 descriptor.getOrCreateContextParam()
-                    .paramName("org.richfaces.enableControlSkinning")
-                    .paramValue("false");
+                        .paramName("org.richfaces.enableControlSkinning")
+                        .paramValue("false");
                 return descriptor;
             }
         });

@@ -23,7 +23,6 @@ package org.richfaces.component;
 
 /**
  * @author Nick Belaevski
- *
  */
 // TODO nick - move to API
 public enum AutocompleteLayout {

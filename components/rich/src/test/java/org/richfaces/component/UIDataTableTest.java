@@ -21,93 +21,33 @@
  */
 package org.richfaces.component;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.context.FacesContext;
-
+import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.ExtendedDataModel;
+import org.ajax4jsf.model.Range;
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.Range;
 import org.richfaces.model.Arrangeable;
 import org.richfaces.model.ArrangeableState;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
 
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
+import javax.faces.context.FacesContext;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author Konstantin Mishin
- *
  */
 public class UIDataTableTest extends AbstractFacesTest {
-    private class MockArrangeableModel extends ExtendedDataModel<Object> implements Arrangeable {
-        private ArrangeableState state;
-
-        @Override
-        public Object getRowKey() {
-            return null;
-        }
-
-        @Override
-        public void setRowKey(Object key) {
-        }
-
-        @Override
-        public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
-        }
-
-        @Override
-        public int getRowCount() {
-            return 0;
-        }
-
-        @Override
-        public Object getRowData() {
-            return null;
-        }
-
-        @Override
-        public int getRowIndex() {
-            return 0;
-        }
-
-        @Override
-        public Object getWrappedData() {
-            return null;
-        }
-
-        @Override
-        public boolean isRowAvailable() {
-            return false;
-        }
-
-        @Override
-        public void setRowIndex(int rowIndex) {
-        }
-
-        @Override
-        public void setWrappedData(Object data) {
-        }
-
-        public void arrange(FacesContext context, ArrangeableState state) {
-            this.state = state;
-        }
-
-        public ArrangeableState getState() {
-            return state;
-        }
-    }
-
     private UIDataTable table = null;
 
     /**
@@ -170,9 +110,9 @@ public class UIDataTableTest extends AbstractFacesTest {
             UIColumn child = new UIColumn();
             child.setId("id" + i);
             child.setValueExpression("filterExpression",
-                expressionFactory.createValueExpression(elContext, "#{'id" + i + "'}", Object.class));
+                    expressionFactory.createValueExpression(elContext, "#{'id" + i + "'}", Object.class));
             child.setValueExpression("sortBy",
-                expressionFactory.createValueExpression(elContext, "#{'id" + i + "'}", Object.class));
+                    expressionFactory.createValueExpression(elContext, "#{'id" + i + "'}", Object.class));
             child.setSortOrder(SortOrder.ascending);
             children.add(child);
         }
@@ -268,5 +208,63 @@ public class UIDataTableTest extends AbstractFacesTest {
         Assert.assertTrue(table.isColumnFacetPresent(facetName));
         child.setRendered(false);
         Assert.assertFalse(table.isColumnFacetPresent(facetName));
+    }
+
+    private class MockArrangeableModel extends ExtendedDataModel<Object> implements Arrangeable {
+        private ArrangeableState state;
+
+        @Override
+        public Object getRowKey() {
+            return null;
+        }
+
+        @Override
+        public void setRowKey(Object key) {
+        }
+
+        @Override
+        public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
+        }
+
+        @Override
+        public int getRowCount() {
+            return 0;
+        }
+
+        @Override
+        public Object getRowData() {
+            return null;
+        }
+
+        @Override
+        public int getRowIndex() {
+            return 0;
+        }
+
+        @Override
+        public void setRowIndex(int rowIndex) {
+        }
+
+        @Override
+        public Object getWrappedData() {
+            return null;
+        }
+
+        @Override
+        public void setWrappedData(Object data) {
+        }
+
+        @Override
+        public boolean isRowAvailable() {
+            return false;
+        }
+
+        public void arrange(FacesContext context, ArrangeableState state) {
+            this.state = state;
+        }
+
+        public ArrangeableState getState() {
+            return state;
+        }
     }
 }

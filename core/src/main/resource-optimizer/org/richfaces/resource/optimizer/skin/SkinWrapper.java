@@ -21,15 +21,13 @@
  */
 package org.richfaces.resource.optimizer.skin;
 
-import javax.faces.context.FacesContext;
-
 import org.richfaces.resource.ResourceFactory;
 import org.richfaces.skin.Skin;
 
+import javax.faces.context.FacesContext;
+
 /**
- *
  * @author mpetrov
- *
  */
 public class SkinWrapper implements Skin {
 
@@ -87,7 +85,7 @@ public class SkinWrapper implements Skin {
     @Override
     public String imageUrl(String resourceName) {
         return skin.imageUrl(resourceName).replace(
-            ResourceFactory.SKINNED_RESOURCE_PLACEHOLDER, "..");
+                ResourceFactory.SKINNED_RESOURCE_PLACEHOLDER, "..");
     }
 
 }

@@ -21,17 +21,7 @@
  */
 package org.richfaces.renderkit;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.ContextCallback;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
+import com.google.common.base.Strings;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -43,13 +33,20 @@ import org.richfaces.javascript.DropScript;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.util.Sets;
 
-import com.google.common.base.Strings;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.ContextCallback;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author abelevich
- *
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -60,7 +57,7 @@ import com.google.common.base.Strings;
         @ResourceDependency(library = "com.jqueryui", name = "mouse.js"),
         @ResourceDependency(library = "com.jqueryui", name = "draggable.js"),
         @ResourceDependency(library = "com.jqueryui", name = "droppable.js"),
-        @ResourceDependency(library = "org.richfaces", name = "dnd-droppable.js") })
+        @ResourceDependency(library = "org.richfaces", name = "dnd-droppable.js")})
 @JsfRenderer(type = "org.richfaces.DropTargetRenderer", family = AbstractDropTarget.COMPONENT_FAMILY)
 public class DropTargetRenderer extends DnDRenderBase {
     /**
@@ -87,7 +84,7 @@ public class DropTargetRenderer extends DnDRenderBase {
 
         DragSourceContextCallBack dragSourceContextCallBack = new DragSourceContextCallBack();
         boolean invocationResult = facesContext.getViewRoot().invokeOnComponent(facesContext, dragSourceId,
-            dragSourceContextCallBack);
+                dragSourceContextCallBack);
 
         if (!invocationResult) {
             // TODO - log
@@ -96,27 +93,7 @@ public class DropTargetRenderer extends DnDRenderBase {
 
         AbstractDropTarget dropTarget = (AbstractDropTarget) component;
         new DropEvent(dropTarget, dropTarget.getDropValue(), dragSourceContextCallBack.getDragSource(),
-            dragSourceContextCallBack.getDragValue()).queue();
-    }
-
-    private final class DragSourceContextCallBack implements ContextCallback {
-        private AbstractDragSource dragSource;
-        private Object dragValue;
-
-        public void invokeContextCallback(FacesContext context, UIComponent target) {
-            if (target instanceof AbstractDragSource) {
-                this.dragSource = (AbstractDragSource) target;
-                this.dragValue = this.dragSource.getDragValue();
-            }
-        }
-
-        public AbstractDragSource getDragSource() {
-            return dragSource;
-        }
-
-        public Object getDragValue() {
-            return dragValue;
-        }
+                dragSourceContextCallBack.getDragValue()).queue();
     }
 
     @Override
@@ -160,5 +137,25 @@ public class DropTargetRenderer extends DnDRenderBase {
     @Override
     public String getScriptName() {
         return "new RichFaces.ui.Droppable";
+    }
+
+    private final class DragSourceContextCallBack implements ContextCallback {
+        private AbstractDragSource dragSource;
+        private Object dragValue;
+
+        public void invokeContextCallback(FacesContext context, UIComponent target) {
+            if (target instanceof AbstractDragSource) {
+                this.dragSource = (AbstractDragSource) target;
+                this.dragValue = this.dragSource.getDragValue();
+            }
+        }
+
+        public AbstractDragSource getDragSource() {
+            return dragSource;
+        }
+
+        public Object getDragValue() {
+            return dragValue;
+        }
     }
 }

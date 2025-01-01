@@ -1,20 +1,19 @@
 package org.richfaces.component;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-
-import java.io.IOException;
-
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.hamcrest.Matcher;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.io.IOException;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 
 public abstract class IntegrationTestBase {
@@ -29,7 +28,7 @@ public abstract class IntegrationTestBase {
     public void setUp() {
         this.environment = new CustomizedHtmlUnitEnvironment();
         this.environment.withResource("/" + getPageName() + ".xhtml", "org/richfaces/component/" + getPageName() + ".xhtml")
-            .withResource("/WEB-INF/faces-config.xml", "org/richfaces/component/" + getFacesConfig());
+                .withResource("/WEB-INF/faces-config.xml", "org/richfaces/component/" + getFacesConfig());
         setupEnvironment(environment);
         this.environment.start();
     }

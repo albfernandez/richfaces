@@ -29,7 +29,6 @@ import javax.validation.constraints.Pattern;
 
 /**
  * @author asmirnov
- *
  */
 public class PatternBean extends Validable<String> {
     private String value;

@@ -3,16 +3,14 @@
  */
 package org.richfaces.javascript.client.validator;
 
-import java.util.List;
-
-import javax.validation.constraints.Max;
-
 import org.junit.runners.Parameterized.Parameters;
 import org.richfaces.javascript.client.RunParameters;
 
+import javax.validation.constraints.Max;
+import java.util.List;
+
 /**
  * @author asmirnov
- *
  */
 public class MaxValidatorTest extends BeanValidatorTestBase {
     private static final String MAXIMUM = "value";
@@ -22,6 +20,12 @@ public class MaxValidatorTest extends BeanValidatorTestBase {
      */
     public MaxValidatorTest(RunParameters criteria) {
         super(criteria);
+    }
+
+    @Parameters
+    public static List<RunParameters[]> parameters() {
+        return options(pass(0, PROP, "number", MAXIMUM, 2), pass(2, PROP, "number", MAXIMUM, 2),
+                pass(123, PROP, "number", MAXIMUM, 2));
     }
 
     /*
@@ -34,10 +38,9 @@ public class MaxValidatorTest extends BeanValidatorTestBase {
         return "validateMax";
     }
 
-    @Parameters
-    public static List<RunParameters[]> parameters() {
-        return options(pass(0, PROP, "number", MAXIMUM, 2), pass(2, PROP, "number", MAXIMUM, 2),
-            pass(123, PROP, "number", MAXIMUM, 2));
+    @Override
+    protected Class<?> getBeanType() {
+        return Bean.class;
     }
 
     public static final class Bean {
@@ -45,10 +48,5 @@ public class MaxValidatorTest extends BeanValidatorTestBase {
         public int getNumber() {
             return 0;
         }
-    }
-
-    @Override
-    protected Class<?> getBeanType() {
-        return Bean.class;
     }
 }

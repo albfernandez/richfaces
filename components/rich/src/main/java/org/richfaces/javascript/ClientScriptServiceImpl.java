@@ -25,29 +25,26 @@
  */
 package org.richfaces.javascript;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
-
-import javax.faces.FacesException;
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceDependency;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
-
-import org.richfaces.resource.ResourceKey;
-
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
+import org.richfaces.resource.ResourceKey;
+
+import javax.faces.FacesException;
+import javax.faces.application.Resource;
+import javax.faces.application.ResourceDependency;
+import javax.faces.application.ResourceHandler;
+import javax.faces.context.FacesContext;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author asmirnov
- *
  */
 public class ClientScriptServiceImpl implements ClientScriptService {
     private static final String TEXT_JAVASCRIPT = "text/javascript";
@@ -79,38 +76,6 @@ public class ClientScriptServiceImpl implements ClientScriptService {
         this.defaultMapping = defaultMapping;
         resourcesMapping = CacheBuilder.newBuilder().initialCapacity(10).build(CacheLoader.from(RESOURCE_SCRIPT_FUNCTION));
         annotationsMapping = CacheBuilder.newBuilder().initialCapacity(10).build(CacheLoader.from(ANNOTATION_SCRIPT_FUNCTION));
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.richfaces.validator.ClientScriptService#getScript(java.lang.Class)
-     */
-    public LibraryFunction getScript(FacesContext facesContext, Class<?> javaClass) throws ScriptNotFoundException {
-        if (null == facesContext || null == javaClass) {
-            throw new NullPointerException();
-        }
-        LibraryFunction function = NO_SCRIPT;// RF-10719, temporary disable. getFromComputationMap(resourcesMapping, javaClass);
-        if (NO_SCRIPT == function) {
-            if (defaultMapping.containsKey(javaClass)) {
-                function = defaultMapping.get(javaClass);
-            } else {
-                function = getFromLoadingCache(annotationsMapping, javaClass);
-            }
-        }
-        if (NO_SCRIPT == function) {
-            throw new ScriptNotFoundException("No client-side script for class " + javaClass.getName());
-        }
-        return function;
-    }
-
-    private LibraryFunction getFromLoadingCache(LoadingCache<Class<?>, LibraryFunction> cache, Class<?> clazz) {
-        try {
-            return cache.get(clazz);
-        } catch (ExecutionException e) {
-            Throwable cause = e.getCause();
-            throw new FacesException(cause);
-        }
     }
 
     private static LibraryFunction getScriptFromAnnotation(Class<?> javaClass) {
@@ -157,5 +122,37 @@ public class ClientScriptServiceImpl implements ClientScriptService {
         }
 
         return in.substring(0, 1).toLowerCase() + in.substring(1);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.validator.ClientScriptService#getScript(java.lang.Class)
+     */
+    public LibraryFunction getScript(FacesContext facesContext, Class<?> javaClass) throws ScriptNotFoundException {
+        if (null == facesContext || null == javaClass) {
+            throw new NullPointerException();
+        }
+        LibraryFunction function = NO_SCRIPT;// RF-10719, temporary disable. getFromComputationMap(resourcesMapping, javaClass);
+        if (NO_SCRIPT == function) {
+            if (defaultMapping.containsKey(javaClass)) {
+                function = defaultMapping.get(javaClass);
+            } else {
+                function = getFromLoadingCache(annotationsMapping, javaClass);
+            }
+        }
+        if (NO_SCRIPT == function) {
+            throw new ScriptNotFoundException("No client-side script for class " + javaClass.getName());
+        }
+        return function;
+    }
+
+    private LibraryFunction getFromLoadingCache(LoadingCache<Class<?>, LibraryFunction> cache, Class<?> clazz) {
+        try {
+            return cache.get(clazz);
+        } catch (ExecutionException e) {
+            Throwable cause = e.getCause();
+            throw new FacesException(cause);
+        }
     }
 }

@@ -1,23 +1,6 @@
 package org.richfaces.renderkit.html;
 
-import static org.easymock.EasyMock.expect;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.NumberConverter;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-
+import com.google.common.collect.Lists;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -33,7 +16,22 @@ import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesObjectDescriptor;
 import org.richfaces.validator.ValidatorDescriptor;
 
-import com.google.common.collect.Lists;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.NumberConverter;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+
+import static org.easymock.EasyMock.expect;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 @RunWith(MockTestRunner.class)
 public class RendererGetComponentScriptTest extends ValidatorRendererTestBase {
@@ -217,7 +215,7 @@ public class RendererGetComponentScriptTest extends ValidatorRendererTestBase {
     }
 
     private ClientValidatorRenderer createStubRenderer(final LibraryScriptFunction converterFunction,
-            final LibraryScriptFunction... validatorFunctions) {
+                                                       final LibraryScriptFunction... validatorFunctions) {
         return new ClientValidatorRenderer() {
             @Override
             LibraryScriptFunction getClientSideConverterScript(FacesContext facesContext, ConverterDescriptor converter)
@@ -230,7 +228,7 @@ public class RendererGetComponentScriptTest extends ValidatorRendererTestBase {
 
             @Override
             Collection<? extends LibraryScriptFunction> getClientSideValidatorScript(FacesContext facesContext,
-                    Collection<ValidatorDescriptor> validators) {
+                                                                                     Collection<ValidatorDescriptor> validators) {
                 return Lists.newArrayList(validatorFunctions);
             }
         };

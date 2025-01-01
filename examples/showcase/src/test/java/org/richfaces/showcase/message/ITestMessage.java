@@ -22,16 +22,15 @@
 package org.richfaces.showcase.message;
 
 import category.Smoke;
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.richfaces.fragment.message.Message;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.message.page.MessagePage;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -87,7 +86,7 @@ public class ITestMessage extends AbstractWebDriverTest {
         assertTrue("The message for the Job input should be present.", page.getMessageForJob().advanced().isVisible());
         assertMessageDetail("Job", page.getMessageForJob(), MessagePage.JOB_ERROR_GREATER_THAN_MAXIMUM);
 
-        for (Message message : new Message[] { page.getMessageForAddress(), page.getMessageForName(), page.getMessageForZip() }) {
+        for (Message message : new Message[]{page.getMessageForAddress(), page.getMessageForName(), page.getMessageForZip()}) {
             assertFalse("Unexpected message is present.", message.advanced().isVisible());
         }
 
@@ -100,15 +99,15 @@ public class ITestMessage extends AbstractWebDriverTest {
         assertTrue("A message for the Zip input should be present.", page.getMessageForZip().advanced().isVisible());
         assertMessageDetail("Zip", page.getMessageForZip(), MessagePage.ZIP_ERROR_GREATER_THAN_MAXIMUM);
 
-        for (Message message : new Message[] { page.getMessageForAddress(), page.getMessageForName() }) {
+        for (Message message : new Message[]{page.getMessageForAddress(), page.getMessageForName()}) {
             assertFalse("Unexpected message is present.", message.advanced().isVisible());
         }
     }
 
     protected void assertMessageDetail(String fieldName, Message message, String expected) {
         assertTrue(
-            "The message detail for '" + fieldName + "' should contain '" + expected + "', but it is '" + message.getDetail()
-                + "'", message.getDetail().contains(expected));
+                "The message detail for '" + fieldName + "' should contain '" + expected + "', but it is '" + message.getDetail()
+                        + "'", message.getDetail().contains(expected));
     }
 
 }

@@ -21,12 +21,14 @@
  */
 package org.ajax4jsf.javascript;
 
-import static org.easymock.EasyMock.capture;
-import static org.easymock.EasyMock.eq;
-import static org.easymock.EasyMock.expectLastCall;
-import static org.easymock.EasyMock.isNull;
-import static org.junit.Assert.assertThat;
+import junit.framework.TestCase;
+import org.easymock.Capture;
+import org.easymock.CaptureType;
+import org.hamcrest.CoreMatchers;
+import org.jboss.test.faces.mock.MockFacesEnvironment;
+import org.junit.Test;
 
+import javax.faces.context.ResponseWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -39,15 +41,11 @@ import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import javax.faces.context.ResponseWriter;
-
-import junit.framework.TestCase;
-
-import org.easymock.Capture;
-import org.easymock.CaptureType;
-import org.hamcrest.CoreMatchers;
-import org.jboss.test.faces.mock.MockFacesEnvironment;
-import org.junit.Test;
+import static org.easymock.EasyMock.capture;
+import static org.easymock.EasyMock.eq;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.easymock.EasyMock.isNull;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author shura
@@ -58,58 +56,6 @@ public class ScriptUtilsTest extends TestCase {
      */
     public ScriptUtilsTest(String name) {
         super(name);
-    }
-
-    private static enum TestEnum {
-        A,
-        B,
-        C;
-
-        @Override
-        public String toString() {
-            return "TestEnum: " + super.toString();
-        }
-    }
-
-    public static class ReferencedBean {
-        private String name;
-        private ReferenceHolderBean parent;
-
-        public ReferencedBean(String name, ReferenceHolderBean parent) {
-            super();
-            this.name = name;
-            this.parent = parent;
-        }
-
-        public ReferenceHolderBean getParent() {
-            return parent;
-        }
-
-        public String getName() {
-            return name;
-        }
-    }
-
-    public static class ReferenceHolderBean {
-        private String name;
-        private Object reference;
-
-        public ReferenceHolderBean(String name) {
-            super();
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public Object getReference() {
-            return reference;
-        }
-
-        public void setReference(Object reference) {
-            this.reference = reference;
-        }
     }
 
     private static String dehydrate(String s) {
@@ -123,14 +69,14 @@ public class ScriptUtilsTest extends TestCase {
         Object obj = "f \b\r\t\f\n\"'\\/ oo ]&<>-";
 
         assertEquals("\"f \\b\\r\\t\\f\\n\\\"'\\\\\\/ oo \\u005D\\u0026\\u003C\\u003E\\u002D\"",
-            ScriptUtils.toScript(obj));
+                ScriptUtils.toScript(obj));
     }
 
     /**
      * Test method for {@link org.richfaces.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testArrayToScript() {
-        int[] obj = { 1, 2, 3, 4, 5 };
+        int[] obj = {1, 2, 3, 4, 5};
 
         assertEquals("[1,2,3,4,5] ", ScriptUtils.toScript(obj));
     }
@@ -157,7 +103,7 @@ public class ScriptUtilsTest extends TestCase {
      * Test method for {@link org.richfaces.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testTwoDimentionalArrayToScript() {
-        int[][] obj = { { 1, 2 }, { 3, 4 } };
+        int[][] obj = {{1, 2}, {3, 4}};
 
         assertEquals("[[1,2] ,[3,4] ] ", ScriptUtils.toScript(obj));
     }
@@ -166,7 +112,7 @@ public class ScriptUtilsTest extends TestCase {
      * Test method for {@link org.richfaces.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testTwoDimentionalStringArrayToScript() {
-        String[][] obj = { { "one", "two" }, { "three", "four" } };
+        String[][] obj = {{"one", "two"}, {"three", "four"}};
 
         assertEquals("[[\"one\",\"two\"] ,[\"three\",\"four\"] ] ", ScriptUtils.toScript(obj));
 
@@ -209,21 +155,21 @@ public class ScriptUtilsTest extends TestCase {
      * Test method for {@link org.richfaces.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testObjectArrayToScript() {
-        Bean[] obj = { new Bean(1, true, "foo"), new Bean(2, false, "bar") };
+        Bean[] obj = {new Bean(1, true, "foo"), new Bean(2, false, "bar")};
 
         assertEquals("[{\"bool\":true,\"foo\":\"foo\",\"integer\":1} ,{\"bool\":false,\"foo\":\"bar\",\"integer\":2} ] ",
-            ScriptUtils.toScript(obj));
+                ScriptUtils.toScript(obj));
     }
 
     /**
      * Test method for {@link org.richfaces.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testObjectListToScript() {
-        Bean[] array = { new Bean(1, true, "foo"), new Bean(2, false, "bar") };
+        Bean[] array = {new Bean(1, true, "foo"), new Bean(2, false, "bar")};
         List<Bean> obj = Arrays.asList(array);
 
         assertEquals("[{\"bool\":true,\"foo\":\"foo\",\"integer\":1} ,{\"bool\":false,\"foo\":\"bar\",\"integer\":2} ] ",
-            ScriptUtils.toScript(obj));
+                ScriptUtils.toScript(obj));
     }
 
     /**
@@ -335,6 +281,159 @@ public class ScriptUtilsTest extends TestCase {
         environment.release();
     }
 
+    public void testCircularReferenceBeans() throws Exception {
+        ReferenceHolderBean parent = new ReferenceHolderBean("parent");
+        ReferencedBean child = new ReferencedBean("child", parent);
+
+        assertEquals(dehydrate("{\"name\": \"child\", \"parent\": {\"name\": \"parent\", \"reference\": null}}"),
+                dehydrate(ScriptUtils.toScript(child)));
+    }
+
+    public void testCircularReferenceViaProperty() throws Exception {
+        ReferenceHolderBean parent = new ReferenceHolderBean("parent");
+        ReferencedBean child = new ReferencedBean("child", parent);
+
+        parent.setReference(child);
+
+        assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": {\"name\": \"child\", \"parent\": null}}"),
+                dehydrate(ScriptUtils.toScript(parent)));
+    }
+
+    public void testCircularReferenceViaArray() throws Exception {
+        ReferenceHolderBean parent = new ReferenceHolderBean("parent");
+        ReferencedBean child = new ReferencedBean("child", parent);
+
+        parent.setReference(new Object[]{child});
+
+        assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": [{\"name\": \"child\", \"parent\": null}]}"),
+                dehydrate(ScriptUtils.toScript(parent)));
+    }
+
+    public void testCircularReferenceViaCollection() throws Exception {
+        ReferenceHolderBean parent = new ReferenceHolderBean("parent");
+        ReferencedBean child = new ReferencedBean("child", parent);
+
+        Collection<Object> set = new ArrayList<Object>();
+        set.add(child);
+        parent.setReference(set);
+
+        assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": [{\"name\": \"child\", \"parent\": null}]}"),
+                dehydrate(ScriptUtils.toScript(parent)));
+    }
+
+    public void testCircularReferenceViaMap() throws Exception {
+        ReferenceHolderBean parent = new ReferenceHolderBean("parent");
+        ReferencedBean child = new ReferencedBean("child", parent);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("key", child);
+        parent.setReference(map);
+
+        assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": {\"key\": {\"name\": \"child\", \"parent\": null}}}"),
+                dehydrate(ScriptUtils.toScript(parent)));
+    }
+
+    @Test
+    public void testEscapeStringForCSSSelector() throws Exception {
+        assertNull(ScriptUtils.escapeCSSMetachars(null));
+        assertEquals("", ScriptUtils.escapeCSSMetachars(""));
+
+        assertEquals("test", ScriptUtils.escapeCSSMetachars("test"));
+        assertEquals("test\\.string", ScriptUtils.escapeCSSMetachars("test.string"));
+        assertEquals("test\\.\\=string", ScriptUtils.escapeCSSMetachars("test.=string"));
+
+        assertEquals("some\\.test\\=string", ScriptUtils.escapeCSSMetachars("some.test=string"));
+
+        assertEquals("\\#test", ScriptUtils.escapeCSSMetachars("#test"));
+        assertEquals("\\#\\=test", ScriptUtils.escapeCSSMetachars("#=test"));
+
+        assertEquals("test\\#", ScriptUtils.escapeCSSMetachars("test#"));
+        assertEquals("test\\#\\=", ScriptUtils.escapeCSSMetachars("test#="));
+    }
+
+    @Test
+    public void testTimezoneSerialization() throws Exception {
+        TimeZone utcPlusTwoTZ = TimeZone.getTimeZone("GMT+02:00");
+
+        String serializedUTCPlusTwoTZ = dehydrate(ScriptUtils.toScript(utcPlusTwoTZ));
+
+        assertThat(serializedUTCPlusTwoTZ, CoreMatchers.containsString("\"DSTSavings\":0"));
+        assertThat(serializedUTCPlusTwoTZ, CoreMatchers.containsString("\"ID\":\"GMT+02:00\""));
+        assertThat(serializedUTCPlusTwoTZ, CoreMatchers.containsString("\"rawOffset\":7200000"));
+
+        TimeZone pstTimeZone = TimeZone.getTimeZone("PST");
+        String serializedPSTTimeZone = dehydrate(ScriptUtils.toScript(pstTimeZone));
+
+        assertThat(serializedPSTTimeZone, CoreMatchers.containsString("\"ID\":\"PST\""));
+        assertThat(serializedPSTTimeZone, CoreMatchers.containsString("\"rawOffset\":-28800000"));
+
+        TimeZone sfTimeZone = TimeZone.getTimeZone("America/New_York");
+        String serializedSFTimeZone = dehydrate(ScriptUtils.toScript(sfTimeZone));
+
+        assertThat(serializedSFTimeZone, CoreMatchers.containsString("\"ID\":\"America\\/New_York\""));
+        assertThat(serializedSFTimeZone, CoreMatchers.containsString("\"rawOffset\":-18000000"));
+    }
+
+    @Test
+    public void testGetMD5scriptHash() throws Exception {
+        String testString = "Some string to hash";
+        String expectedMD5hash = "7624f3fd394f02f0ff8c53fac249129a";
+        String computedMD5hash = ScriptUtils.getMD5scriptHash(testString);
+        assertEquals(expectedMD5hash, computedMD5hash);
+    }
+
+    private static enum TestEnum {
+        A,
+        B,
+        C;
+
+        @Override
+        public String toString() {
+            return "TestEnum: " + super.toString();
+        }
+    }
+
+    public static class ReferencedBean {
+        private String name;
+        private ReferenceHolderBean parent;
+
+        public ReferencedBean(String name, ReferenceHolderBean parent) {
+            super();
+            this.name = name;
+            this.parent = parent;
+        }
+
+        public ReferenceHolderBean getParent() {
+            return parent;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    public static class ReferenceHolderBean {
+        private String name;
+        private Object reference;
+
+        public ReferenceHolderBean(String name) {
+            super();
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public Object getReference() {
+            return reference;
+        }
+
+        public void setReference(Object reference) {
+            this.reference = reference;
+        }
+    }
+
     /**
      * @author shura
      */
@@ -398,106 +497,5 @@ public class ScriptUtilsTest extends TestCase {
         public void setFoo(Object foo) {
             this.foo = foo;
         }
-    }
-
-    public void testCircularReferenceBeans() throws Exception {
-        ReferenceHolderBean parent = new ReferenceHolderBean("parent");
-        ReferencedBean child = new ReferencedBean("child", parent);
-
-        assertEquals(dehydrate("{\"name\": \"child\", \"parent\": {\"name\": \"parent\", \"reference\": null}}"),
-            dehydrate(ScriptUtils.toScript(child)));
-    }
-
-    public void testCircularReferenceViaProperty() throws Exception {
-        ReferenceHolderBean parent = new ReferenceHolderBean("parent");
-        ReferencedBean child = new ReferencedBean("child", parent);
-
-        parent.setReference(child);
-
-        assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": {\"name\": \"child\", \"parent\": null}}"),
-            dehydrate(ScriptUtils.toScript(parent)));
-    }
-
-    public void testCircularReferenceViaArray() throws Exception {
-        ReferenceHolderBean parent = new ReferenceHolderBean("parent");
-        ReferencedBean child = new ReferencedBean("child", parent);
-
-        parent.setReference(new Object[] { child });
-
-        assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": [{\"name\": \"child\", \"parent\": null}]}"),
-            dehydrate(ScriptUtils.toScript(parent)));
-    }
-
-    public void testCircularReferenceViaCollection() throws Exception {
-        ReferenceHolderBean parent = new ReferenceHolderBean("parent");
-        ReferencedBean child = new ReferencedBean("child", parent);
-
-        Collection<Object> set = new ArrayList<Object>();
-        set.add(child);
-        parent.setReference(set);
-
-        assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": [{\"name\": \"child\", \"parent\": null}]}"),
-            dehydrate(ScriptUtils.toScript(parent)));
-    }
-
-    public void testCircularReferenceViaMap() throws Exception {
-        ReferenceHolderBean parent = new ReferenceHolderBean("parent");
-        ReferencedBean child = new ReferencedBean("child", parent);
-
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("key", child);
-        parent.setReference(map);
-
-        assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": {\"key\": {\"name\": \"child\", \"parent\": null}}}"),
-            dehydrate(ScriptUtils.toScript(parent)));
-    }
-
-    @Test
-    public void testEscapeStringForCSSSelector() throws Exception {
-        assertNull(ScriptUtils.escapeCSSMetachars(null));
-        assertEquals("", ScriptUtils.escapeCSSMetachars(""));
-
-        assertEquals("test", ScriptUtils.escapeCSSMetachars("test"));
-        assertEquals("test\\.string", ScriptUtils.escapeCSSMetachars("test.string"));
-        assertEquals("test\\.\\=string", ScriptUtils.escapeCSSMetachars("test.=string"));
-
-        assertEquals("some\\.test\\=string", ScriptUtils.escapeCSSMetachars("some.test=string"));
-
-        assertEquals("\\#test", ScriptUtils.escapeCSSMetachars("#test"));
-        assertEquals("\\#\\=test", ScriptUtils.escapeCSSMetachars("#=test"));
-
-        assertEquals("test\\#", ScriptUtils.escapeCSSMetachars("test#"));
-        assertEquals("test\\#\\=", ScriptUtils.escapeCSSMetachars("test#="));
-    }
-
-    @Test
-    public void testTimezoneSerialization() throws Exception {
-        TimeZone utcPlusTwoTZ = TimeZone.getTimeZone("GMT+02:00");
-
-        String serializedUTCPlusTwoTZ = dehydrate(ScriptUtils.toScript(utcPlusTwoTZ));
-
-        assertThat(serializedUTCPlusTwoTZ, CoreMatchers.containsString("\"DSTSavings\":0"));
-        assertThat(serializedUTCPlusTwoTZ, CoreMatchers.containsString("\"ID\":\"GMT+02:00\""));
-        assertThat(serializedUTCPlusTwoTZ, CoreMatchers.containsString("\"rawOffset\":7200000"));
-
-        TimeZone pstTimeZone = TimeZone.getTimeZone("PST");
-        String serializedPSTTimeZone = dehydrate(ScriptUtils.toScript(pstTimeZone));
-
-        assertThat(serializedPSTTimeZone, CoreMatchers.containsString("\"ID\":\"PST\""));
-        assertThat(serializedPSTTimeZone, CoreMatchers.containsString("\"rawOffset\":-28800000"));
-
-        TimeZone sfTimeZone = TimeZone.getTimeZone("America/New_York");
-        String serializedSFTimeZone = dehydrate(ScriptUtils.toScript(sfTimeZone));
-
-        assertThat(serializedSFTimeZone, CoreMatchers.containsString("\"ID\":\"America\\/New_York\""));
-        assertThat(serializedSFTimeZone, CoreMatchers.containsString("\"rawOffset\":-18000000"));
-    }
-
-    @Test
-    public void testGetMD5scriptHash() throws Exception {
-        String testString = "Some string to hash";
-        String expectedMD5hash = "7624f3fd394f02f0ff8c53fac249129a";
-        String computedMD5hash = ScriptUtils.getMD5scriptHash(testString);
-        assertEquals(expectedMD5hash, computedMD5hash);
     }
 }

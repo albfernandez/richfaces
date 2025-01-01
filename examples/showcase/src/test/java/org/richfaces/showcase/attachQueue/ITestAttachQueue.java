@@ -21,16 +21,16 @@
  */
 package org.richfaces.showcase.attachQueue;
 
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
-import static org.junit.Assert.assertTrue;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.attachQueue.page.AttachQueuePage;
+
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -71,8 +71,8 @@ public class ITestAttachQueue extends AbstractWebDriverTest {
         waitGui(webDriver).until().element(page.getAjaxRequestProcessing()).is().visible();
         long actualDelay = timeAfterAjaxRequestIsPresent - timeBeforePressingKey;
         assertTrue("The delay should be between " + DELAY_IN_MILISECONDS + "ms and " + (DELAY_IN_MILISECONDS + 1000)
-            + "ms but was:" + actualDelay, (actualDelay >= DELAY_IN_MILISECONDS)
-            && (actualDelay <= DELAY_IN_MILISECONDS + 1000));
+                + "ms but was:" + actualDelay, (actualDelay >= DELAY_IN_MILISECONDS)
+                && (actualDelay <= DELAY_IN_MILISECONDS + 1000));
     }
 
     /*
@@ -84,6 +84,6 @@ public class ITestAttachQueue extends AbstractWebDriverTest {
         waitGui(webDriver).until().element(page.getAjaxRequestProcessing()).is().visible();
         long actualDelay = System.currentTimeMillis() - timeBeforePressingKey;
         assertTrue("The delay should be between " + NO_DELAY + "ms and " + (NO_DELAY + 500) + "ms but was:!" + actualDelay,
-            (actualDelay >= NO_DELAY) && (actualDelay <= NO_DELAY + 500));
+                (actualDelay >= NO_DELAY) && (actualDelay <= NO_DELAY + 500));
     }
 }

@@ -21,16 +21,11 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
-import java.util.Collections;
-import java.util.Set;
-
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
-
+import com.google.common.collect.Sets;
 import org.richfaces.application.DependencyInjector;
 import org.richfaces.application.DependencyInjectorImpl;
 import org.richfaces.application.Module;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.ServicesFactory;
 import org.richfaces.application.ServicesFactoryImpl;
 import org.richfaces.application.configuration.ConfigurationService;
@@ -43,14 +38,16 @@ import org.richfaces.resource.mapping.ResourcePath;
 import org.richfaces.resource.optimizer.Faces;
 import org.richfaces.resource.optimizer.FileNameMapper;
 import org.richfaces.resource.optimizer.skin.SkinFactoryImpl;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.skin.SkinFactory;
 
-import com.google.common.collect.Sets;
+import javax.faces.application.Resource;
+import javax.faces.application.ResourceHandler;
+import javax.faces.context.FacesContext;
+import java.util.Collections;
+import java.util.Set;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class FacesImpl implements Faces {
     private String webroot;

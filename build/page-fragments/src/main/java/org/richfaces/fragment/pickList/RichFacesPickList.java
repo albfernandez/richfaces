@@ -21,9 +21,6 @@
  *******************************************************************************/
 package org.richfaces.fragment.pickList;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -46,13 +43,16 @@ import org.richfaces.fragment.orderingList.AbstractSelectableListItem;
 import org.richfaces.fragment.orderingList.OrderingList;
 import org.richfaces.fragment.orderingList.SelectableListItem;
 
+import java.util.Collections;
+import java.util.List;
+
 public class RichFacesPickList implements PickList, AdvancedVisibleComponentIteractions<RichFacesPickList.AdvancedPickListInteractions> {
 
+    private final AdvancedPickListInteractions interactions = new AdvancedPickListInteractions();
     @Root
     private WebElement root;
     @Drone
     private WebDriver driver;
-
     @FindBy(className = "rf-pick-add-all")
     private WebElement addAllButtonElement;
     @FindBy(className = "rf-pick-add")
@@ -75,8 +75,6 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
     private WebElement sourceCaptionElement;
     @FindBy(css = "thead.rf-pick-lst-hdr > tr.rf-pick-hdr")
     private WebElement sourceHeaderElement;
-
-    private final AdvancedPickListInteractions interactions = new AdvancedPickListInteractions();
 
     @Override
     public AdvancedPickListInteractions advanced() {
@@ -185,22 +183,22 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
 
     private void selectItem(final WebElement item) {
         new Actions(driver)
-            .keyDown(Keys.CONTROL).click(item).keyUp(Keys.CONTROL)
-            .addAction(new Action() {
-                @Override
-                public void perform() {
-                    Graphene.waitGui().until().element(item).attribute("class").contains(OrderingListInPickList.SELECTED_ITEM_CLASS);
-                }
-            })
-            .perform();
+                .keyDown(Keys.CONTROL).click(item).keyUp(Keys.CONTROL)
+                .addAction(new Action() {
+                    @Override
+                    public void perform() {
+                        Graphene.waitGui().until().element(item).attribute("class").contains(OrderingListInPickList.SELECTED_ITEM_CLASS);
+                    }
+                })
+                .perform();
     }
 
     protected void unselectAll(List<WebElement> list) {
         if (!list.isEmpty()) {
             new Actions(driver)
-                .click(list.get(0))
-                .keyDown(Keys.CONTROL).click(list.get(0)).keyUp(Keys.CONTROL)
-                .perform();
+                    .click(list.get(0))
+                    .keyDown(Keys.CONTROL).click(list.get(0)).keyUp(Keys.CONTROL)
+                    .perform();
             if (!list.isEmpty()) {
                 throw new RuntimeException("The unselection was not successfull.");
             }
@@ -210,7 +208,7 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
     public static class OrderingListInPickList extends AbstractOrderingList {
 
         private static final String SELECTED_ITEM_CLASS = "rf-pick-sel";
-
+        private final AdvancedOrderingListInPickListInteractions interactions = new AdvancedOrderingListInPickListInteractions();
         @FindBy(css = "button.rf-ord-dn")
         private WebElement downButtonElement;
         @FindBy(css = "button.rf-ord-up-tp")
@@ -223,7 +221,6 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
         private WebElement headerElement;
         @FindBy(className = "rf-pick-tgt-cptn")
         private WebElement captionElement;
-
         @FindBy(className = "rf-pick-opt")
         private List<WebElement> items;
         @FindBy(className = SELECTED_ITEM_CLASS)
@@ -232,8 +229,6 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
         private WebElement contentAreaElement;
         @FindBy(css = "[id$='TargetItems']")
         private SelectableListImpl list;
-
-        private final AdvancedOrderingListInPickListInteractions interactions = new AdvancedOrderingListInPickListInteractions();
 
         @Override
         public AdvancedOrderingListInteractions advanced() {
@@ -307,6 +302,9 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
         protected String getStyleClassForSelectedItem() {
             return SELECTED_ITEM_CLASS;
         }
+    }
+
+    public static class SelectableListImpl extends AbstractListComponent<SelectableListItemImpl> {
     }
 
     public class AdvancedPickListInteractions implements VisibleComponentInteractions {
@@ -410,8 +408,5 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
         }
-    }
-
-    public static class SelectableListImpl extends AbstractListComponent<SelectableListItemImpl> {
     }
 }

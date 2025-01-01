@@ -41,13 +41,13 @@ public class ITExecuteRichAjax extends AbstractRegionTest {
 
     @FindBy(id = "buttonNull")
     private WebElement buttonNull;
-    
+
     @FindBy(id = "buttonThis")
     private WebElement buttonThis;
-    
+
     @FindBy(id = "buttonAll")
     private WebElement buttonAll;
-    
+
     @FindBy(id = "buttonForm")
     private WebElement buttonForm;
 
@@ -55,7 +55,7 @@ public class ITExecuteRichAjax extends AbstractRegionTest {
     public static WebArchive createDeployment() {
         RegionTestDeployment deployment = new RegionTestDeployment(ITExecuteRichAjax.class);
         deployment.archive().addAsWebResource(ITExecuteRichAjax.class.getResource("ExecuteRichAjax.xhtml"),
-            "index.xhtml");
+                "index.xhtml");
         return deployment.getFinalArchive();
     }
 
@@ -82,7 +82,7 @@ public class ITExecuteRichAjax extends AbstractRegionTest {
         openPage("@form");
         verifyExecutedIds(buttonForm, FORM_ID, "buttonForm");
     }
-    
+
     protected void verifyExecutedIds(WebElement button, String... expectedExecutedIds) {
         Graphene.guardAjax(button).click();
         Assert.assertEquals(Arrays.toString(expectedExecutedIds), output.getText());

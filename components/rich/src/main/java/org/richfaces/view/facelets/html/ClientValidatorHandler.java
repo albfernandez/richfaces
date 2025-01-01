@@ -29,7 +29,6 @@ import javax.faces.view.facelets.BehaviorConfig;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public class ClientValidatorHandler extends AjaxHandler {
     /**

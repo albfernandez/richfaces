@@ -46,6 +46,58 @@ public class A4JRepeatBean implements Serializable {
     private Data selectedDataItem = null;
     private List<MatrixRow> matrixRows;
 
+    /**
+     * Initializes the managed bean.
+     */
+    @PostConstruct
+    public void init() {
+        // initialize model for page simple.xhtml
+        dataList = new ArrayList<Data>();
+        for (int i = 0; i < 20; i++) {
+            Data data = new Data();
+            data.setText(MessageFormat.format("Item {0}", i));
+            dataList.add(data);
+        }
+
+        // initialize model for page matrix.xhtml
+        matrixRows = new ArrayList<MatrixRow>();
+        for (int i = 0; i < MATRIX_DIMENSION; i++) {
+            MatrixRow matrixRow = new MatrixRow();
+
+            for (int j = 0; j < MATRIX_DIMENSION; j++) {
+                MatrixCell matrixCell = new MatrixCell();
+                matrixRow.addCell(matrixCell);
+            }
+
+            matrixRows.add(matrixRow);
+        }
+    }
+
+    /**
+     * @return the data
+     */
+    public List<Data> getDataList() {
+        return dataList;
+    }
+
+    /**
+     * @return the selectedDataItem
+     */
+    public Data getSelectedDataItem() {
+        return selectedDataItem;
+    }
+
+    /**
+     * @param selectedDataItem the selectedDataItem to set
+     */
+    public void setSelectedDataItem(Data selectedDataItem) {
+        this.selectedDataItem = selectedDataItem;
+    }
+
+    public List<MatrixRow> getMatrixRows() {
+        return matrixRows;
+    }
+
     public static final class MatrixCell implements Serializable {
 
         private static final long serialVersionUID = -5911659561854593681L;
@@ -104,57 +156,5 @@ public class A4JRepeatBean implements Serializable {
         public void setText(String text) {
             this.text = text;
         }
-    }
-
-    /**
-     * Initializes the managed bean.
-     */
-    @PostConstruct
-    public void init() {
-        // initialize model for page simple.xhtml
-        dataList = new ArrayList<Data>();
-        for (int i = 0; i < 20; i++) {
-            Data data = new Data();
-            data.setText(MessageFormat.format("Item {0}", i));
-            dataList.add(data);
-        }
-
-        // initialize model for page matrix.xhtml
-        matrixRows = new ArrayList<MatrixRow>();
-        for (int i = 0; i < MATRIX_DIMENSION; i++) {
-            MatrixRow matrixRow = new MatrixRow();
-
-            for (int j = 0; j < MATRIX_DIMENSION; j++) {
-                MatrixCell matrixCell = new MatrixCell();
-                matrixRow.addCell(matrixCell);
-            }
-
-            matrixRows.add(matrixRow);
-        }
-    }
-
-    /**
-     * @return the data
-     */
-    public List<Data> getDataList() {
-        return dataList;
-    }
-
-    /**
-     * @return the selectedDataItem
-     */
-    public Data getSelectedDataItem() {
-        return selectedDataItem;
-    }
-
-    /**
-     * @param selectedDataItem the selectedDataItem to set
-     */
-    public void setSelectedDataItem(Data selectedDataItem) {
-        this.selectedDataItem = selectedDataItem;
-    }
-
-    public List<MatrixRow> getMatrixRows() {
-        return matrixRows;
     }
 }

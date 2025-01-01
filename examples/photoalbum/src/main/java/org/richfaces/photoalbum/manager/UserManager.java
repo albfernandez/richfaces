@@ -26,12 +26,6 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
-import java.io.Serializable;
-
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
 
 import org.richfaces.photoalbum.model.User;
 import org.richfaces.photoalbum.model.actions.IUserAction;
@@ -42,6 +36,12 @@ import org.richfaces.photoalbum.model.event.Events;
 import org.richfaces.photoalbum.model.event.SimpleEvent;
 import org.richfaces.photoalbum.ui.UserPrefsHelper;
 import org.richfaces.photoalbum.util.Preferred;
+
+import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import java.io.Serializable;
 
 @SessionScoped
 public class UserManager implements Serializable {
@@ -76,7 +76,6 @@ public class UserManager implements Serializable {
 
     /**
      * Method, that invoked when user click 'Cancel' button during edit her profile.
-     *
      */
     public void cancelEditUser(@Observes @EventType(Events.CANCEL_EDIT_USER_EVENT) SimpleEvent se) {
         uph.setAvatarData(null);

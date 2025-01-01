@@ -21,13 +21,7 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
-import static org.richfaces.resource.optimizer.strings.Constants.SLASH_JOINER;
-import static org.richfaces.resource.optimizer.strings.Constants.SLASH_SPLITTER;
-
-import java.beans.FeatureDescriptor;
-import java.text.MessageFormat;
-import java.util.Iterator;
-import java.util.List;
+import com.google.common.collect.Lists;
 
 import javax.el.ELContext;
 import javax.el.ELException;
@@ -36,12 +30,16 @@ import javax.el.PropertyNotFoundException;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
+import java.beans.FeatureDescriptor;
+import java.text.MessageFormat;
+import java.util.Iterator;
+import java.util.List;
 
-import com.google.common.collect.Lists;
+import static org.richfaces.resource.optimizer.strings.Constants.SLASH_JOINER;
+import static org.richfaces.resource.optimizer.strings.Constants.SLASH_SPLITTER;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class ResourceELResolver extends ELResolver {
     private void checkBaseAndProperty(Object base, Object property) {

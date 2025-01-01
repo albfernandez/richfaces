@@ -21,18 +21,16 @@
  */
 package org.richfaces.demo.input;
 
-import java.util.Date;
-import java.util.Random;
-
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-
 import org.richfaces.model.CalendarDataModel;
 import org.richfaces.model.CalendarDataModelItem;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import java.util.Date;
+import java.util.Random;
+
 /**
  * @author Nick Belaevski - mailto:nbelaevski@exadel.com created 30.06.2007
- *
  */
 @ManagedBean(name = "calendarDataModel")
 @ApplicationScoped

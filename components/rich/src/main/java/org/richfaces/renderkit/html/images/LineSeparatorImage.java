@@ -1,11 +1,11 @@
 package org.richfaces.renderkit.html.images;
 
+import org.richfaces.resource.DynamicUserResource;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-
-import org.richfaces.resource.DynamicUserResource;
 
 @DynamicUserResource
 public class LineSeparatorImage extends ToolbarSeparatorImage {

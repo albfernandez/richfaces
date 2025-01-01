@@ -25,7 +25,6 @@ import org.richfaces.application.configuration.ConfigurationItem;
 
 /**
  * @author Nick Belaevski
- *
  */
 public enum Configuration {
 
@@ -49,7 +48,7 @@ public enum Configuration {
     booleanValue,
     @ConfigurationItem(names = "org.richfaces.BooleanValue", defaultValue = "false")
     booleanValueWithDefault,
-    @ConfigurationItem(names = { "org.richfaces.MultiValue1", "org.richfaces.MultiValue2" })
+    @ConfigurationItem(names = {"org.richfaces.MultiValue1", "org.richfaces.MultiValue2"})
     multiValue,
     @ConfigurationItem(names = "org.richfaces.FacesContextReference")
     facesContext,

@@ -8,15 +8,15 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped
 public class MediaData implements SerializableResource {
-    private static final Color[] COLORS = { new Color(255, 0, 0), new Color(0, 0, 255), new Color(0, 255, 0),
-            new Color(255, 255, 0), new Color(0, 255, 255) };
+    private static final Color[] COLORS = {new Color(255, 0, 0), new Color(0, 0, 255), new Color(0, 255, 0),
+            new Color(255, 255, 0), new Color(0, 255, 255)};
     private static final long serialVersionUID = 1L;
     private int colorIndex1 = 0;
     private int colorIndex2 = 1;
     private int colorIndex3 = 2;
 
     public Color[] getNewColors() {
-        return new Color[] { COLORS[colorIndex1], COLORS[colorIndex2], COLORS[colorIndex3], };
+        return new Color[]{COLORS[colorIndex1], COLORS[colorIndex2], COLORS[colorIndex3],};
     }
 
     public int getColorIndex1() {

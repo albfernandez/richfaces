@@ -21,6 +21,7 @@
  */
 package org.richfaces.fragment.calendar;
 
+import com.google.common.base.Optional;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -34,21 +35,16 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.configuration.RichFacesPageFragmentsConfiguration;
 import org.richfaces.fragment.configuration.RichFacesPageFragmentsConfigurationContext;
 
-import com.google.common.base.Optional;
-
 /**
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class RichFacesCalendar implements Calendar, AdvancedInteractions<RichFacesCalendar.AdvancedCalendarInteractions> {
 
-    @Root
-    private WebElement root;
-
     private final AdvancedCalendarInteractions interactions = new AdvancedCalendarInteractions();
     private final RichFacesPageFragmentsConfiguration configuration = RichFacesPageFragmentsConfigurationContext
-        .getProxy();
-
+            .getProxy();
+    @Root
+    private WebElement root;
     private Calendar strategy = configuration.isUseJSInteractionStrategy() ? new CalendarJavaScriptStrategy() : new CalendarInteractiveStrategy();
 
     @Override
@@ -121,6 +117,10 @@ public class RichFacesCalendar implements Calendar, AdvancedInteractions<RichFac
             return DateTimeFormat.forPattern(Optional.fromNullable(datePattern).or(DATE_PATTERN_DEFAULT));
         }
 
+        public void setDatePattern(String datePattern) {
+            this.datePattern = datePattern;
+        }
+
         public RichFacesAdvancedInlineCalendar getInlineCalendar() {
             if (!isPopup()) {
                 return Graphene.createPageFragment(RichFacesAdvancedInlineCalendar.class, advanced().getRootElement());
@@ -137,10 +137,6 @@ public class RichFacesCalendar implements Calendar, AdvancedInteractions<RichFac
 
         private boolean isPopup() {
             return Utils.isVisible(advanced().getRootElement(), ByJQuery.selector("span[id$='Popup']"));
-        }
-
-        public void setDatePattern(String datePattern) {
-            this.datePattern = datePattern;
         }
 
         /**

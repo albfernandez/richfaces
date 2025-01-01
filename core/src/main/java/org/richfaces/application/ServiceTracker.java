@@ -21,14 +21,13 @@
  */
 package org.richfaces.application;
 
+import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
 
 /**
  * <p>
@@ -76,7 +75,7 @@ public final class ServiceTracker {
      * faces context by {@link FacesContext#getCurrentInstance()} call, if needed.
      * </p>
      *
-     * @param <T> The service type, usually interface.
+     * @param <T>    The service type, usually interface.
      * @param target Service type class.
      * @return service implementation instance.
      */
@@ -89,9 +88,9 @@ public final class ServiceTracker {
      * Get service instance for given type.
      * </p>
      *
-     * @param <T> The service type, usually interface.
+     * @param <T>     The service type, usually interface.
      * @param context current {@link FacesContext}.
-     * @param target Service type class.
+     * @param target  Service type class.
      * @return service instance.
      */
     public static <T> T getService(FacesContext context, Class<T> target) {
@@ -143,7 +142,7 @@ public final class ServiceTracker {
      */
     @SuppressWarnings("unchecked")
     public static <T> T getProxy(final Class<T> targetService) {
-        return (T) Proxy.newProxyInstance(getCurrentLoader(), new Class<?>[] { targetService }, new InvocationHandler() {
+        return (T) Proxy.newProxyInstance(getCurrentLoader(), new Class<?>[]{targetService}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 T service = ServiceTracker.getService(targetService);

@@ -21,14 +21,12 @@
  */
 package org.richfaces.view.facelets.html;
 
+import javax.faces.context.FacesContext;
 import java.util.LinkedList;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
-
 /**
  * @author Nick Belaevski
- *
  */
 final class AttachQueueStack {
     private static final String STACK_ATTRIBUTE_NAME = "org.richfaces.AttachQueueStack";

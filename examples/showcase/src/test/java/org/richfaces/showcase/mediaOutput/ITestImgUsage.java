@@ -21,11 +21,6 @@
  */
 package org.richfaces.showcase.mediaOutput;
 
-import java.awt.image.BufferedImage;
-import java.net.URL;
-
-import javax.imageio.ImageIO;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
@@ -35,6 +30,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.mediaOutput.page.ImageState;
 import org.richfaces.showcase.mediaOutput.page.ImgUsagePage;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -56,28 +55,28 @@ public class ITestImgUsage extends AbstractWebDriverTest {
             textColor.selectByIndex(state.getTextColor().getIndex());
             Graphene.guardAjax(page.getSubmitButton()).click();
             testImage(
-                state.getLeftColor().getValue(),
-                state.getRightColor().getValue(),
-                state.getTextColor().getValue());
+                    state.getLeftColor().getValue(),
+                    state.getRightColor().getValue(),
+                    state.getTextColor().getValue());
         }
     }
 
     private void testImage(final long expectedRightBottomCornerColor, final long expectedLeftTopCornerColor, final long expectedTextColor)
-        throws Exception {
+            throws Exception {
         Graphene.waitModel()
-            .until(new ExpectedCondition<Boolean>() {
-                @Override
-                public Boolean apply(WebDriver f) {
-                    try {
-                        URL imageUrl = new URL(page.getImage().getAttribute("src"));
-                        BufferedImage image = ImageIO.read(imageUrl);
-                        int widthOfImage = image.getWidth();
-                        int heightOfImage = image.getHeight();
-                        return image.getRGB(0, 0) == expectedLeftTopCornerColor && image.getRGB(widthOfImage - 1, heightOfImage - 1) == expectedRightBottomCornerColor && image.getRGB(95, 45) == expectedTextColor;
-                    } catch (Exception ignored) {
-                        return false;
+                .until(new ExpectedCondition<Boolean>() {
+                    @Override
+                    public Boolean apply(WebDriver f) {
+                        try {
+                            URL imageUrl = new URL(page.getImage().getAttribute("src"));
+                            BufferedImage image = ImageIO.read(imageUrl);
+                            int widthOfImage = image.getWidth();
+                            int heightOfImage = image.getHeight();
+                            return image.getRGB(0, 0) == expectedLeftTopCornerColor && image.getRGB(widthOfImage - 1, heightOfImage - 1) == expectedRightBottomCornerColor && image.getRGB(95, 45) == expectedTextColor;
+                        } catch (Exception ignored) {
+                            return false;
+                        }
                     }
-                }
-            });
+                });
     }
 }

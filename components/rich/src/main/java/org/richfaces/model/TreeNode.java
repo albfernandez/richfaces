@@ -25,7 +25,6 @@ import java.util.Iterator;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface TreeNode {
     TreeNode getChild(Object key);

@@ -21,23 +21,14 @@
  */
 package org.richfaces.convert;
 
-import java.text.MessageFormat;
-
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
+import java.text.MessageFormat;
 
 /**
  * @author Nick Belaevski
- *
  */
 public final class TreeConverterUtil {
-    private static final class SeparatorCharHolder {
-        static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
-
-        private SeparatorCharHolder() {
-        }
-    }
-
     private static final char ESCAPE_CHAR = '_';
 
     private TreeConverterUtil() {
@@ -141,7 +132,7 @@ public final class TreeConverterUtil {
     private static void checkAvailable(String s, int idx, int len) {
         if (s.length() < idx + len) {
             throw new IllegalArgumentException(MessageFormat.format(
-                "Expected {0} available chars in ''{1}'' string starting from {2} index", len, s, idx));
+                    "Expected {0} available chars in ''{1}'' string starting from {2} index", len, s, idx));
         }
     }
 
@@ -160,7 +151,7 @@ public final class TreeConverterUtil {
             return (char) charValue;
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(MessageFormat.format(
-                "Substring ''{0}'' of ''{1}'' string is not a valid hex number ", numString, s));
+                    "Substring ''{0}'' of ''{1}'' string is not a valid hex number ", numString, s));
         }
     }
 
@@ -199,7 +190,7 @@ public final class TreeConverterUtil {
 
                     default:
                         throw new IllegalArgumentException(MessageFormat.format(
-                            "Unexpected char ''{0}'' in ''{1}'' string located at index {2}", c, s, idx));
+                                "Unexpected char ''{0}'' in ''{1}'' string located at index {2}", c, s, idx));
                 }
             } else {
                 sb.append(s.subSequence(startIdx, s.length()));
@@ -259,5 +250,12 @@ public final class TreeConverterUtil {
         }
 
         return sb.toString();
+    }
+
+    private static final class SeparatorCharHolder {
+        static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
+
+        private SeparatorCharHolder() {
+        }
     }
 }

@@ -1,14 +1,7 @@
 package org.richfaces.renderkit;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.io.IOException;
-
-import javax.faces.application.ViewHandler;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
-
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
@@ -17,8 +10,13 @@ import org.junit.Test;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.component.AbstractDataGrid;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import javax.faces.application.ViewHandler;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewDeclarationLanguage;
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
 
 public class DataGridRendererTest {
     private HtmlUnitEnvironment environment;
@@ -53,7 +51,7 @@ public class DataGridRendererTest {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         AbstractDataGrid component = (AbstractDataGrid) facesContext.getViewRoot().findComponent("dataGrid");
         DataGridRenderer renderer = (DataGridRenderer) FacesContext.getCurrentInstance().getRenderKit()
-            .getRenderer(component.getFamily(), component.getRendererType());
+                .getRenderer(component.getFamily(), component.getRendererType());
         assertEquals(AbstractDataGrid.class, renderer.getComponentClass());
         facesRequest.release();
     }
@@ -64,9 +62,9 @@ public class DataGridRendererTest {
         HtmlElement dataGrid = (HtmlElement) page.getElementById("dataGrid2");
         assertEquals("rf-dg", dataGrid.getAttribute("class"));
         assertEquals("noDataFacet",
-            ((HtmlElement) dataGrid
-                .getFirstByXPath("tbody/tr[@class='rf-dg-nd']/td[@class='rf-dg-nd-c']/*[@id='dataGrid2:noDataFacet']"))
-                .getTextContent());
+                ((HtmlElement) dataGrid
+                        .getFirstByXPath("tbody/tr[@class='rf-dg-nd']/td[@class='rf-dg-nd-c']/*[@id='dataGrid2:noDataFacet']"))
+                        .getTextContent());
     }
 
     @Test
@@ -74,9 +72,9 @@ public class DataGridRendererTest {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
         HtmlElement dataGrid = (HtmlElement) page.getElementById("dataGrid");
         assertEquals("value",
-            ((HtmlElement) dataGrid
-                .getFirstByXPath("tbody/tr[@class='rf-dg-r']/td[@class='rf-dg-c']/*[@id='dataGrid:0:outputText']"))
-                .getTextContent());
+                ((HtmlElement) dataGrid
+                        .getFirstByXPath("tbody/tr[@class='rf-dg-r']/td[@class='rf-dg-c']/*[@id='dataGrid:0:outputText']"))
+                        .getTextContent());
     }
 
     @Test

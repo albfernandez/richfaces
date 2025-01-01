@@ -35,7 +35,7 @@ public interface CommandButtonProps extends DisabledProps, EventsMouseProps, Eve
      * Javascript code executed when a pointer button is clicked over this element.
      */
     @Override
-    @Attribute(events = { @EventName(value = "click", defaultEvent = true), @EventName(value = "action") },
+    @Attribute(events = {@EventName(value = "click", defaultEvent = true), @EventName(value = "action")},
             description = @Description(
                     value = "Javascript code executed when a pointer button is clicked over this element.",
                     displayName = "Button Click Script"))

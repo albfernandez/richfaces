@@ -21,19 +21,18 @@
  */
 package org.richfaces.showcase.toolBar;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import com.google.common.collect.Sets;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.toolBar.page.ToolbarPage;
 
-import com.google.common.collect.Sets;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -42,8 +41,8 @@ import com.google.common.collect.Sets;
 public class ITestToolBar extends AbstractWebDriverTest {
 
     private static final String CONTEXT = "/images/icons/";
-    private static final String[] EXPECTED_SRCS = { CONTEXT + "create_doc.gif", CONTEXT + "create_folder.gif",
-        CONTEXT + "copy.gif", CONTEXT + "save.gif", CONTEXT + "save_as.gif", CONTEXT + "save_all.gif" };
+    private static final String[] EXPECTED_SRCS = {CONTEXT + "create_doc.gif", CONTEXT + "create_folder.gif",
+            CONTEXT + "copy.gif", CONTEXT + "save.gif", CONTEXT + "save_as.gif", CONTEXT + "save_all.gif"};
     private static final Pattern SRC_PATTERN_PORTAL = Pattern.compile("resourceID=(.*?)&");
 
     @Page

@@ -21,13 +21,13 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
 
 /**
  * <p>
@@ -39,6 +39,7 @@ import org.richfaces.cdk.annotations.TagType;
  * <p>
  * Regions can be nested, in which case only the parent region of the component initiating the request will be processed.
  * </p>
+ *
  * @author Nick Belaevski
  */
 @JsfComponent(tag = @Tag(name = "region", type = TagType.Facelets))

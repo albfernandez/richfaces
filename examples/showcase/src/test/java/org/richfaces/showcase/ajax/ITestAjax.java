@@ -21,14 +21,13 @@
  */
 package org.richfaces.showcase.ajax;
 
+import category.Smoke;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.ajax.page.AjaxPage;
-
-import category.Smoke;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -50,10 +49,10 @@ public class ITestAjax extends AbstractWebDriverTest {
         }
 
         Graphene.waitAjax()
-            .until()
-            .element(page.getOutput())
-            .text()
-            .equalTo(toWrite);
+                .until()
+                .element(page.getOutput())
+                .text()
+                .equalTo(toWrite);
     }
 
     @Test
@@ -70,10 +69,10 @@ public class ITestAjax extends AbstractWebDriverTest {
         Graphene.guardAjax(page.getInput()).sendKeys("x");
 
         Graphene.waitAjax()
-            .until()
-            .element(page.getOutput())
-            .text()
-            .equalTo("x");
+                .until()
+                .element(page.getOutput())
+                .text()
+                .equalTo("x");
     }
 
 }

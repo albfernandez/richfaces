@@ -46,19 +46,6 @@ public class ITAjaxCallbacksScope {
         return deployment.getFinalArchive();
     }
 
-    @Test
-    public void test_that_context_of_ajax_request_handlers_invocation_is_the_source_of_event() {
-        browser.get(contextPath.toExternalForm());
-
-        guardAjax(button).click();
-
-        assertTrue("the context of onbeforedomupdate function should be the source element (button)",
-                (Boolean) executor.executeScript("return window.onbeforedomupdateContext === document.getElementById('button')"));
-
-        assertTrue("the context of oncomplete function should be the source element (button)",
-            (Boolean) executor.executeScript("return window.oncompleteContext === document.getElementById('button')"));
-    }
-
     private static void addIndexPage(CoreDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -72,5 +59,18 @@ public class ITAjaxCallbacksScope {
                 + "oncomplete='window.oncompleteContext = this' />");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    @Test
+    public void test_that_context_of_ajax_request_handlers_invocation_is_the_source_of_event() {
+        browser.get(contextPath.toExternalForm());
+
+        guardAjax(button).click();
+
+        assertTrue("the context of onbeforedomupdate function should be the source element (button)",
+                (Boolean) executor.executeScript("return window.onbeforedomupdateContext === document.getElementById('button')"));
+
+        assertTrue("the context of oncomplete function should be the source element (button)",
+                (Boolean) executor.executeScript("return window.oncompleteContext === document.getElementById('button')"));
     }
 }

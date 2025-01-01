@@ -21,30 +21,6 @@
  */
 package org.richfaces.component;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.DateTimeConverter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -68,6 +44,29 @@ import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.utils.CalendarHelper;
 import org.richfaces.view.facelets.CalendarHandler;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.DateTimeConverter;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+
 /**
  * <p> The &lt;rich:calendar&gt; component allows the user to enter a date and time through an in-line or pop-up
  * calendar. The pop-up calendar can navigate through months and years, and its look and feel can be highly customized.
@@ -87,12 +86,27 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public static final String DEFAULT_DATE_PATTERN = "MMM d, yyyy";
     Logger log = RichfacesLogger.COMPONENTS.getLogger();
 
-    protected enum PropertyKeys {
-        locale
+    public static Object getDefaultValueOfDefaultTime(FacesContext facesContext, AbstractCalendar calendarComponent) {
+        if (calendarComponent == null) {
+            return null;
+        }
+
+        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarComponent);
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return calendar.getTime();
     }
 
-    public enum Mode {
-        client, ajax
+    public static Object formatStartDate(Date date) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        AbstractCalendar calendarInstance = (AbstractCalendar) AbstractCalendar.getCurrentComponent(facesContext);
+        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarInstance);
+        calendar.setTime(date);
+        HashMap<String, Object> hashDate = new HashMap<String, Object>();
+        hashDate.put("month", calendar.get(Calendar.MONTH));
+        hashDate.put("year", calendar.get(Calendar.YEAR));
+        return hashDate;
     }
 
     /**
@@ -720,18 +734,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         return (CurrentDateChangeListener[]) getFacesListeners(CurrentDateChangeListener.class);
     }
 
-    public static Object getDefaultValueOfDefaultTime(FacesContext facesContext, AbstractCalendar calendarComponent) {
-        if (calendarComponent == null) {
-            return null;
-        }
-
-        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarComponent);
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        return calendar.getTime();
-    }
-
     protected Date getDefaultPreloadBegin(Date date) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Calendar calendar = Calendar.getInstance(CalendarHelper.getTimeZoneOrDefault(this),
@@ -850,17 +852,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         return null;
     }
 
-    public static Object formatStartDate(Date date) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        AbstractCalendar calendarInstance = (AbstractCalendar) AbstractCalendar.getCurrentComponent(facesContext);
-        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarInstance);
-        calendar.setTime(date);
-        HashMap<String, Object> hashDate = new HashMap<String, Object>();
-        hashDate.put("month", calendar.get(Calendar.MONTH));
-        hashDate.put("year", calendar.get(Calendar.YEAR));
-        return hashDate;
-    }
-
     public ArrayList<Object> deleteEmptyPropeties(CalendarDataModelItem[] calendarDataModelItems) {
         ArrayList<Object> hashItems = new ArrayList<Object>();
         for (CalendarDataModelItem item : calendarDataModelItems) {
@@ -934,5 +925,13 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
 
             return (Date[]) dates.toArray(new Date[dates.size()]);
         }
+    }
+
+    protected enum PropertyKeys {
+        locale
+    }
+
+    public enum Mode {
+        client, ajax
     }
 }

@@ -21,22 +21,19 @@
  */
 package org.richfaces.model;
 
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Lists;
+import org.richfaces.convert.IntegerSequenceRowKeyConverter;
+import org.richfaces.model.iterators.IterableDataTuplesIterator;
+
+import javax.faces.convert.Converter;
+import javax.swing.tree.TreeNode;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-import javax.faces.convert.Converter;
-import javax.swing.tree.TreeNode;
-
-import org.richfaces.convert.IntegerSequenceRowKeyConverter;
-import org.richfaces.model.iterators.IterableDataTuplesIterator;
-
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class SwingTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNode> {
     private static final Converter DEFAULT_CONVERTER = new IntegerSequenceRowKeyConverter();
@@ -61,14 +58,14 @@ public class SwingTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNo
         return treeNodeImpl;
     }
 
+    public Object getWrappedData() {
+        return wrappedData;
+    }
+
     public void setWrappedData(Object data) {
         this.wrappedData = data;
 
         setRootNode(createFakeRootNode(data));
-    }
-
-    public Object getWrappedData() {
-        return wrappedData;
     }
 
     protected TreeNode findChild(TreeNode parent, Integer simpleKey) {

@@ -25,20 +25,18 @@
  */
 package org.richfaces.cache;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
+import org.richfaces.application.CoreConfiguration;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
+import javax.faces.context.FacesContext;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
-
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Ehcache;
-
-import org.richfaces.application.CoreConfiguration;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
 
 /**
  * @author Nick Belaevski

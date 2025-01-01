@@ -1,19 +1,19 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
@@ -71,9 +71,9 @@ import com.sun.facelets.impl.ResourceResolver;
  * @since 3.3.0
  */
 public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCase {
+    public static final int DEFAULT_REQUEST_TIME = 1000;
     private static final String AJAX_SUBMIT = "ajaxSubmit";
     private static final String COMPONENT_TYPE = AjaxSubmitFunctionComponent.class.getName();
-    public static final int DEFAULT_REQUEST_TIME = 1000;
     private static final String SIMULATION_SCRIPT_NAME = "org/ajax4jsf/component/simulation.js";
     private static final Compiler compiler = new SAXCompiler();
     private static final ScriptableObject systemOut = new ScriptableObject() {
@@ -151,7 +151,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
     }
 
     protected void checkRequestData(RequestData requestData, String data, double startTime, double endTime,
-            boolean aborted) {
+                                    boolean aborted) {
         assertEquals("Data check failed for " + requestData, data, requestData.getData());
         assertEquals("Start time check failed for " + requestData, startTime, requestData.getStartTime());
         assertEquals("End time check failed for " + requestData, endTime, requestData.getEndTime());
@@ -503,12 +503,12 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
             return dataList;
         }
 
-        public void setCurrentTime(double number) {
-            this.currentTime = number;
-        }
-
         public double getCurrentTime() {
             return currentTime;
+        }
+
+        public void setCurrentTime(double number) {
+            this.currentTime = number;
         }
 
         @Override
@@ -530,7 +530,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
         }
     }
 
-    ;
+
 }
 
 class UnescapingScriptPreprocessor implements ScriptPreProcessor {

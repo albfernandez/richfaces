@@ -43,6 +43,54 @@ public class ITFocusViewMode {
         return deployment.getFinalArchive();
     }
 
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<rich:focus id='focus' />");
+
+        p.body("<h:form id='form1'>");
+
+        p.body("    <h:inputText id='input1' required='true' />");
+        p.body("    <h:inputText id='input2' tabindex='1' />");
+
+        p.body("    <h:commandButton id='submit' value='Submit' />");
+
+        p.body("    <h:commandButton id='ajax' value='Ajax'>");
+        p.body("        <a4j:ajax execute='@form' render='@form' />");
+        p.body("    </h:commandButton>");
+
+        p.body("</h:form>");
+
+        p.body("<h:form id='form2'>");
+
+        p.body("    <h:inputText id='input1' />");
+        p.body("    <h:inputText id='input2' tabindex='1' />");
+
+        p.body("    <h:commandButton id='submit' value='Submit' />");
+
+        p.body("    <h:commandButton id='ajax' value='Ajax'>");
+        p.body("        <a4j:ajax render='@form' />");
+        p.body("    </h:commandButton>");
+
+        p.body("</h:form>");
+
+        p.body("<h:form id='form3'>");
+        p.body("    <rich:focus id='focus' preserve='true' />");
+
+        p.body("    <h:inputText id='input1' />");
+        p.body("    <h:inputText id='input2' tabindex='1' />");
+
+        p.body("    <h:commandButton id='submit' value='Submit' />");
+
+        p.body("    <h:commandButton id='ajax' value='Ajax'>");
+        p.body("        <a4j:ajax render='@form' />");
+        p.body("    </h:commandButton>");
+
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
     @Test
     public void when_form_focus_is_defined_then_it_overrides_view_focus_settings() {
         // having
@@ -105,54 +153,6 @@ public class ITFocusViewMode {
 
         // then
         Graphene.waitGui().until(new ElementIsFocused(form1.getInput2()));
-    }
-
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<rich:focus id='focus' />");
-
-        p.body("<h:form id='form1'>");
-
-        p.body("    <h:inputText id='input1' required='true' />");
-        p.body("    <h:inputText id='input2' tabindex='1' />");
-
-        p.body("    <h:commandButton id='submit' value='Submit' />");
-
-        p.body("    <h:commandButton id='ajax' value='Ajax'>");
-        p.body("        <a4j:ajax execute='@form' render='@form' />");
-        p.body("    </h:commandButton>");
-
-        p.body("</h:form>");
-
-        p.body("<h:form id='form2'>");
-
-        p.body("    <h:inputText id='input1' />");
-        p.body("    <h:inputText id='input2' tabindex='1' />");
-
-        p.body("    <h:commandButton id='submit' value='Submit' />");
-
-        p.body("    <h:commandButton id='ajax' value='Ajax'>");
-        p.body("        <a4j:ajax render='@form' />");
-        p.body("    </h:commandButton>");
-
-        p.body("</h:form>");
-
-        p.body("<h:form id='form3'>");
-        p.body("    <rich:focus id='focus' preserve='true' />");
-
-        p.body("    <h:inputText id='input1' />");
-        p.body("    <h:inputText id='input2' tabindex='1' />");
-
-        p.body("    <h:commandButton id='submit' value='Submit' />");
-
-        p.body("    <h:commandButton id='ajax' value='Ajax'>");
-        p.body("        <a4j:ajax render='@form' />");
-        p.body("    </h:commandButton>");
-
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
     public static class Form {

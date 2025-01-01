@@ -21,16 +21,15 @@
  */
 package org.richfaces.demo.iteration.model.tree.adaptors;
 
+import com.google.common.base.Strings;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import com.google.common.base.Strings;
-
 /**
  * @author Nick Belaevski
- *
  */
 @FacesConverter(value = "packageKeyConverter")
 public class PackageKeyConverter implements Converter {

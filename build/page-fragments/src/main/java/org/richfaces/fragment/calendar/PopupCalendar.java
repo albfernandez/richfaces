@@ -116,7 +116,7 @@ public class PopupCalendar extends RichFacesAdvancedInlineCalendar {
         public void closePopup() {
             if (!isVisible() || !Utils.isVisible(closeButtonElement)) {
                 throw new RuntimeException("Cannot interact with close button. "
-                    + "Ensure that calendar popup and header controls are displayed.");
+                        + "Ensure that calendar popup and header controls are displayed.");
             }
             closeButtonElement.click();
             waitUntilIsNotVisible().perform();

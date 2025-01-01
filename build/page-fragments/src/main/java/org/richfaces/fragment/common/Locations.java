@@ -21,15 +21,15 @@
  */
 package org.richfaces.fragment.common;
 
+import com.google.common.base.Objects;
+import org.openqa.selenium.Point;
+
 import java.util.Arrays;
 import java.util.Iterator;
 
-import org.openqa.selenium.Point;
-
-import com.google.common.base.Objects;
-
 /**
  * Helper class for storing locations of borders.
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class Locations implements Iterable<Point> {

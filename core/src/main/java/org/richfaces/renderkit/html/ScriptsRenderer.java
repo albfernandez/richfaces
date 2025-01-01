@@ -25,20 +25,18 @@
  */
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.Collection;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.component.UIScripts;
 import org.richfaces.resource.ResourceKey;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Collection;
+
 /**
  * @author asmirnov
- *
  */
 public class ScriptsRenderer extends ResourceRenderer {
     public static final String RENDERER_TYPE = "org.richfaces.renderer.ScriptsRenderer";

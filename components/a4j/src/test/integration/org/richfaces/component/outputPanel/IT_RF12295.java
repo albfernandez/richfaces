@@ -72,14 +72,25 @@ public class IT_RF12295 {
             @Override
             public WebAppDescriptor apply(@Nullable WebAppDescriptor webXML) {
                 webXML
-                    .createContextParam()
-                    .paramName("javax.faces.PARTIAL_STATE_SAVING")
-                    .paramValue("false")
-                    .up();
+                        .createContextParam()
+                        .paramName("javax.faces.PARTIAL_STATE_SAVING")
+                        .paramValue("false")
+                        .up();
                 return webXML;
             }
         });
         return deployment.getFinalArchive();
+    }
+
+    private static void addIndexPage(A4JDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.form("<a4j:outputPanel>");
+        p.form("    <span></span>");
+        p.form("</a4j:outputPanel>");
+        p.form("<a4j:commandButton id=\"button\" value=\"Click me\"/>");
+        p.form("<a4j:log id=\"log\"/>");
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
     @Test
@@ -98,16 +109,5 @@ public class IT_RF12295 {
             // assert that there is no exception on postback
             assertEquals(0, log.getLogEntries().size());
         }
-    }
-
-    private static void addIndexPage(A4JDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.form("<a4j:outputPanel>");
-        p.form("    <span></span>");
-        p.form("</a4j:outputPanel>");
-        p.form("<a4j:commandButton id=\"button\" value=\"Click me\"/>");
-        p.form("<a4j:log id=\"log\"/>");
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

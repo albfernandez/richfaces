@@ -27,7 +27,6 @@ import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -37,14 +36,12 @@ import java.util.List;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public class JavaScriptServiceImpl implements JavaScriptService {
     /**
      * <p class="changed_added_4_0">
      * 'Special Case' object to return if no Component with scripts added to View Root.
      * </p>
-     *
      */
     private static final ScriptsHolder EMPTY_SCRIPTS_HOLDER = new ScriptsHolder() {
         public Collection<Object> getScripts() {

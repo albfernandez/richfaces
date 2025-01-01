@@ -1,37 +1,35 @@
 /**
  * License Agreement.
- *
- *  JBoss RichFaces - Ajax4jsf Component Library
- *
+ * <p>
+ * JBoss RichFaces - Ajax4jsf Component Library
+ * <p>
  * Copyright (C) 2007  Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.component.util;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-
+import com.google.common.base.Strings;
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.renderkit.util.HtmlDimensions;
 import org.richfaces.renderkit.util.RendererUtils;
 
-import com.google.common.base.Strings;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com created 09.02.2007
@@ -158,9 +156,9 @@ public final class HtmlUtil {
 
     public static String escapeHtml(String html) {
         return html.replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll("\"", "&quot;")
-        .replaceAll("'", "&#39;");
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll("\"", "&quot;")
+                .replaceAll("'", "&#39;");
     }
 }

@@ -23,7 +23,6 @@ package org.richfaces.renderkit;
 
 /**
  * @author nick
- *
  */
 public class Data {
     private String term;

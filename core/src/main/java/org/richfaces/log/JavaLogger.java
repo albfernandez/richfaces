@@ -21,14 +21,14 @@
  */
 package org.richfaces.log;
 
+import org.richfaces.l10n.BundleLoader;
+import org.richfaces.l10n.InterpolationException;
+import org.richfaces.l10n.MessageInterpolator;
+
 import java.util.EnumMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.logging.LogRecord;
-
-import org.richfaces.l10n.BundleLoader;
-import org.richfaces.l10n.InterpolationException;
-import org.richfaces.l10n.MessageInterpolator;
 
 /**
  * <p class="changed_added_4_0">
@@ -41,6 +41,7 @@ import org.richfaces.l10n.MessageInterpolator;
 public class JavaLogger implements Logger {
     public static final String RICHFACES_LOG = "org.richfaces";
     static final Map<Level, java.util.logging.Level> LEVELS_MAP = new EnumMap<Level, java.util.logging.Level>(Level.class);
+    private static final String CLASS_NAME = JavaLogger.class.getName();
 
     static {
         LEVELS_MAP.put(Level.ERROR, java.util.logging.Level.SEVERE);
@@ -49,7 +50,6 @@ public class JavaLogger implements Logger {
         LEVELS_MAP.put(Level.DEBUG, java.util.logging.Level.FINE);
     }
 
-    private static final String CLASS_NAME = JavaLogger.class.getName();
     private final java.util.logging.Logger jdkLogger;
     private MessageInterpolator messageInterpolator;
 

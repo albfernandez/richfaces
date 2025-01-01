@@ -21,9 +21,6 @@
  */
 package org.richfaces.fragment.dataTable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -34,20 +31,16 @@ import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.TypeResolver;
 import org.richfaces.fragment.common.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
- * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @param <HEADER>
  * @param <ROW>
  * @param <FOOTER>
+ * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 public abstract class AbstractTable<HEADER, ROW, FOOTER> implements DataTable<HEADER, ROW, FOOTER>, AdvancedInteractions<AbstractTable.AdvancedTableInteractions> {
-
-    @Root
-    protected WebElement root;
-
-    @Drone
-    protected WebDriver browser;
 
     @SuppressWarnings("unchecked")
     private final Class<HEADER> headerClass = (Class<HEADER>) TypeResolver.resolveRawArguments(DataTable.class, getClass())[0];
@@ -55,12 +48,16 @@ public abstract class AbstractTable<HEADER, ROW, FOOTER> implements DataTable<HE
     private final Class<ROW> rowClass = (Class<ROW>) TypeResolver.resolveRawArguments(DataTable.class, getClass())[1];
     @SuppressWarnings("unchecked")
     private final Class<FOOTER> footerClass = (Class<FOOTER>) TypeResolver.resolveRawArguments(DataTable.class, getClass())[2];
+    @Root
+    protected WebElement root;
+    @Drone
+    protected WebDriver browser;
 
     @Override
     public ROW getRow(int n) {
         if (advanced().getNumberOfVisibleRows() - 1 < n) {
             throw new IllegalArgumentException("There is not so many rows! Requesting: "
-                + n + "but there is only: " + advanced().getNumberOfVisibleRows());
+                    + n + "but there is only: " + advanced().getNumberOfVisibleRows());
         }
         return Graphene.createPageFragment(rowClass, advanced().getTableRowsElements().get(n));
     }

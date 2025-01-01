@@ -21,6 +21,14 @@
  */
 package org.richfaces.resource.optimizer.resource.writer.impl;
 
+import com.google.common.io.ByteSink;
+import com.google.common.io.ByteSource;
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.resource.optimizer.faces.CurrentResourceContext;
+import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
+import org.richfaces.util.StreamUtils;
+
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,16 +37,6 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
-
-import javax.faces.context.FacesContext;
-
-import org.richfaces.resource.ResourceKey;
-import org.richfaces.resource.optimizer.faces.CurrentResourceContext;
-import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
-
-import com.google.common.io.ByteSink;
-import com.google.common.io.ByteSource;
-import org.richfaces.util.StreamUtils;
 
 /**
  * @author Lukas Fryc

@@ -21,12 +21,6 @@
  */
 package org.richfaces.model;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Enumeration;
-
-import javax.swing.tree.TreeNode;
-
 import com.google.common.base.MoreObjects;
 import com.google.common.base.MoreObjects.ToStringHelper;
 import com.google.common.base.Predicates;
@@ -34,9 +28,13 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 
+import javax.swing.tree.TreeNode;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Enumeration;
+
 /**
  * @author Nick Belaevski
- *
  */
 public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
     private static final long serialVersionUID = 8841984268370598781L;
@@ -53,12 +51,12 @@ public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
         this.children = wrapNull(children);
     }
 
-    void setAllowUpdateParents(boolean allowUpdateParents) {
-        this.allowUpdateParents = allowUpdateParents;
-    }
-
     private static Collection<TreeNode> wrapNull(Collection<TreeNode> src) {
         return src != null ? src : Lists.<TreeNode>newArrayList();
+    }
+
+    void setAllowUpdateParents(boolean allowUpdateParents) {
+        this.allowUpdateParents = allowUpdateParents;
     }
 
     public TreeNode getChildAt(int childIndex) {

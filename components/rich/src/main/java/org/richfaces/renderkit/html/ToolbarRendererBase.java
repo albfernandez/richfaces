@@ -21,6 +21,20 @@
  */
 package org.richfaces.renderkit.html;
 
+import org.richfaces.component.AbstractToolbar;
+import org.richfaces.component.AbstractToolbarGroup;
+import org.richfaces.renderkit.ComponentAttribute;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.renderkit.util.HtmlDimensions;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,62 +43,34 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
-import org.richfaces.component.AbstractToolbar;
-import org.richfaces.component.AbstractToolbarGroup;
-import org.richfaces.renderkit.ComponentAttribute;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
-import org.richfaces.renderkit.util.HtmlDimensions;
-import org.richfaces.renderkit.RendererBase;
-
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "toolbar.js"),
-        @ResourceDependency(library = "org.richfaces", name = "toolbar.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "toolbar.ecss")})
 public abstract class ToolbarRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.ToolbarRenderer";
     public static final Map<String, ComponentAttribute> ITEMS_HANDLER_ATTRIBUTES = Collections
-        .unmodifiableMap(ComponentAttribute.createMap(
-            new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("itemclick").setComponentAttributeName(
-                "onitemclick"),
-            new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("itemdblclick").setComponentAttributeName(
-                "onitemdblclick"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("itemmousedown")
-                .setComponentAttributeName("onitemmousedown"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("itemmouseup").setComponentAttributeName(
-                "onitemmouseup"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("itemmouseover")
-                .setComponentAttributeName("onitemmouseover"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("itemmousemove")
-                .setComponentAttributeName("onitemmousemove"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("itemmouseout").setComponentAttributeName(
-                "onitemmouseout"),
-            new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("itemkeypress").setComponentAttributeName(
-                "onitemkeypress"), new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("itemkeydown")
-                .setComponentAttributeName("onitemkeydown"), new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE)
-                .setEventNames("itemkeyup").setComponentAttributeName("onitemkeyup")));
-
-    public enum ItemSeparators {
-        NONE,
-        SQUARE,
-        DISC,
-        GRID,
-        LINE
-    }
-
-    public enum Locations {
-        RIGHT,
-        LEFT
-    }
+            .unmodifiableMap(ComponentAttribute.createMap(
+                    new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("itemclick").setComponentAttributeName(
+                            "onitemclick"),
+                    new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("itemdblclick").setComponentAttributeName(
+                            "onitemdblclick"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("itemmousedown")
+                            .setComponentAttributeName("onitemmousedown"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("itemmouseup").setComponentAttributeName(
+                            "onitemmouseup"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("itemmouseover")
+                            .setComponentAttributeName("onitemmouseover"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("itemmousemove")
+                            .setComponentAttributeName("onitemmousemove"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("itemmouseout").setComponentAttributeName(
+                            "onitemmouseout"),
+                    new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("itemkeypress").setComponentAttributeName(
+                            "onitemkeypress"), new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("itemkeydown")
+                            .setComponentAttributeName("onitemkeydown"), new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE)
+                            .setEventNames("itemkeyup").setComponentAttributeName("onitemkeyup")));
 
     private void writeColElement(ResponseWriter writer, UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.COL_ELEMENT, component);
@@ -101,7 +87,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
         String itemSeparator = (String) component.getAttributes().get("itemSeparator");
 
         if (itemSeparator != null && itemSeparator.trim().length() != 0
-            && !itemSeparator.equalsIgnoreCase(ItemSeparators.NONE.toString())) {
+                && !itemSeparator.equalsIgnoreCase(ItemSeparators.NONE.toString())) {
             return true;
         }
         return false;
@@ -162,7 +148,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
     }
 
     private void getChildrenToLeftAndRight(FacesContext context, UIComponent component,
-        final List<UIComponent> childrenToTheLeft, final List<UIComponent> childrenToTheRight) {
+                                           final List<UIComponent> childrenToTheLeft, final List<UIComponent> childrenToTheRight) {
 
         AbstractToolbar toolbar = (AbstractToolbar) component;
         List<UIComponent> children = toolbar.getChildren();
@@ -199,7 +185,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
 
             getChildrenToLeftAndRight(context, component, childrenToTheLeft, childrenToTheRight);
 
-            for (Iterator<UIComponent> it = childrenToTheLeft.iterator(); it.hasNext();) {
+            for (Iterator<UIComponent> it = childrenToTheLeft.iterator(); it.hasNext(); ) {
 
                 UIComponent child = it.next();
 
@@ -228,7 +214,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
             writer.writeText("\u00a0", null);
             writer.endElement(HtmlConstants.TD_ELEM);
 
-            for (Iterator<UIComponent> it = childrenToTheRight.iterator(); it.hasNext();) {
+            for (Iterator<UIComponent> it = childrenToTheRight.iterator(); it.hasNext(); ) {
                 UIComponent child = it.next();
                 child.encodeAll(context);
                 if (it.hasNext()) {
@@ -242,9 +228,9 @@ public abstract class ToolbarRendererBase extends RendererBase {
      * Inserts separator between toolbar items. Uses facet "itemSeparator" if it is set and default separator implementation if
      * facet is not set.
      *
-     * @param context - faces context
+     * @param context   - faces context
      * @param component - component
-     * @param writer - response writer
+     * @param writer    - response writer
      * @throws IOException - in case of IOException during writing to the ResponseWriter
      */
     protected void insertSeparatorIfNeed(FacesContext context, UIComponent component, ResponseWriter writer) throws IOException {
@@ -265,17 +251,17 @@ public abstract class ToolbarRendererBase extends RendererBase {
      * implementation; "none" - for no separators between toolbar items; URI string value - for custom images specified by the
      * page author.
      *
-     * @param context - faces context
+     * @param context   - faces context
      * @param component - component
-     * @param writer - response writer
+     * @param writer    - response writer
      * @throws IOException - in case of IOException during writing to the ResponseWriter
      */
     protected void insertDefaultSeparatorIfNeed(FacesContext context, UIComponent component, ResponseWriter writer)
-        throws IOException {
+            throws IOException {
         String itemSeparator = (String) component.getAttributes().get("itemSeparator");
 
         if (itemSeparator != null && itemSeparator.trim().length() != 0
-            && !itemSeparator.equalsIgnoreCase(ItemSeparators.NONE.toString())) {
+                && !itemSeparator.equalsIgnoreCase(ItemSeparators.NONE.toString())) {
 
             ItemSeparators separator = null;
             if (itemSeparator.equalsIgnoreCase(ItemSeparators.SQUARE.toString())) {
@@ -355,7 +341,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
                 Object attr = component.getAttributes().get(componentAttribute.getComponentAttributeName());
                 if (attr != null) {
                     RenderKitUtils.addToScriptHash(tbEvents, componentAttribute.getHtmlAttributeName().substring(2), attr,
-                        null, ScriptHashVariableWrapper.eventHandler);
+                            null, ScriptHashVariableWrapper.eventHandler);
                 }
             }
             results.put("id", component.getClientId());
@@ -378,7 +364,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
                     Object attr = tbg.getAttributes().get(componentAttribute.getComponentAttributeName());
                     if (attr != null) {
                         RenderKitUtils.addToScriptHash(tbgEvents, componentAttribute.getHtmlAttributeName().substring(2), attr,
-                            null, ScriptHashVariableWrapper.eventHandler);
+                                null, ScriptHashVariableWrapper.eventHandler);
                     }
                 }
                 if (!tbgEvents.isEmpty()) {
@@ -407,5 +393,18 @@ public abstract class ToolbarRendererBase extends RendererBase {
             }
         }
         return list;
+    }
+
+    public enum ItemSeparators {
+        NONE,
+        SQUARE,
+        DISC,
+        GRID,
+        LINE
+    }
+
+    public enum Locations {
+        RIGHT,
+        LEFT
     }
 }

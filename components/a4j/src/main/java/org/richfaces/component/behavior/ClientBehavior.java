@@ -35,12 +35,48 @@ import java.util.Map;
 
 /**
  * @author Anton Belevich
- *
- *         base class for the client behaviors
+ * <p>
+ * base class for the client behaviors
  */
 public abstract class ClientBehavior extends ClientBehaviorBase {
     private StateHelper behaviorStateHelper = null;
     private Map<String, ValueExpression> bindings;
+
+    // Utility for saving bindings state
+    private static Object saveBindings(FacesContext context, Map<String, ValueExpression> bindings) {
+
+        if (bindings == null) {
+            return (null);
+        }
+
+        Object[] values = new Object[2];
+        values[0] = bindings.keySet().toArray(new String[bindings.size()]);
+
+        Object[] bindingValues = bindings.values().toArray();
+        for (int i = 0; i < bindingValues.length; i++) {
+            bindingValues[i] = UIComponentBase.saveAttachedState(context, bindingValues[i]);
+        }
+
+        values[1] = bindingValues;
+
+        return (values);
+    }
+
+    // Utility for restoring bindings from state
+    private static Map<String, ValueExpression> restoreBindings(FacesContext context, Object state) {
+        if (state == null) {
+            return (null);
+        }
+
+        Object[] values = (Object[]) state;
+        String[] names = (String[]) values[0];
+        Object[] states = (Object[]) values[1];
+        Map<String, ValueExpression> bindings = new HashMap<String, ValueExpression>();
+        for (int i = 0; i < names.length; i++) {
+            bindings.put(names[i], (ValueExpression) UIComponentBase.restoreAttachedState(context, states[i]));
+        }
+        return (bindings);
+    }
 
     public StateHelper getStateHelper() {
         if (behaviorStateHelper == null) {
@@ -107,7 +143,7 @@ public abstract class ClientBehavior extends ClientBehaviorBase {
         Object parentState = super.saveState(context);
         if (initialStateMarked()) {
             if (parentState != null) {
-                state = new Object[] { parentState };
+                state = new Object[]{parentState};
             }
         } else {
 
@@ -137,42 +173,6 @@ public abstract class ClientBehavior extends ClientBehaviorBase {
                 clearInitialState();
             }
         }
-    }
-
-    // Utility for saving bindings state
-    private static Object saveBindings(FacesContext context, Map<String, ValueExpression> bindings) {
-
-        if (bindings == null) {
-            return (null);
-        }
-
-        Object[] values = new Object[2];
-        values[0] = bindings.keySet().toArray(new String[bindings.size()]);
-
-        Object[] bindingValues = bindings.values().toArray();
-        for (int i = 0; i < bindingValues.length; i++) {
-            bindingValues[i] = UIComponentBase.saveAttachedState(context, bindingValues[i]);
-        }
-
-        values[1] = bindingValues;
-
-        return (values);
-    }
-
-    // Utility for restoring bindings from state
-    private static Map<String, ValueExpression> restoreBindings(FacesContext context, Object state) {
-        if (state == null) {
-            return (null);
-        }
-
-        Object[] values = (Object[]) state;
-        String[] names = (String[]) values[0];
-        Object[] states = (Object[]) values[1];
-        Map<String, ValueExpression> bindings = new HashMap<String, ValueExpression>();
-        for (int i = 0; i < names.length; i++) {
-            bindings.put(names[i], (ValueExpression) UIComponentBase.restoreAttachedState(context, states[i]));
-        }
-        return (bindings);
     }
 
     protected boolean compare(Serializable key, String name) {

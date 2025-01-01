@@ -21,8 +21,6 @@
  */
 package org.richfaces.showcase.popup;
 
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
-
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
@@ -31,19 +29,19 @@ import org.richfaces.fragment.common.Actions;
 import org.richfaces.showcase.panel.AbstractPanelTest;
 import org.richfaces.showcase.popup.page.PopupPage;
 
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
+
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 public class ITestModalPopup extends AbstractPanelTest {
 
+    protected final String BODY_OF_POPUP = "You can also check and trigger events if the use clicks outside of the panel.\n"
+            + "In this example clicking outside closes the panel.";
     @Page
     private PopupPage page;
-
     @FindBy(css = "div[id$='popup_shade']")
     private WebElement popupPanelShadow;
-
-    protected final String BODY_OF_POPUP = "You can also check and trigger events if the use clicks outside of the panel.\n"
-        + "In this example clicking outside closes the panel.";
 
     @Test
     public void testModalPopupPanel() {

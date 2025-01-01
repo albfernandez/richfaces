@@ -23,29 +23,29 @@
 package org.richfaces.photoalbum.model.event;
 
 import org.richfaces.photoalbum.model.Image;
+
 /**
  * Image event, carries an image and its (relative) path.
  * Temporary solution.
- * 
- * @author mpetrov
  *
+ * @author mpetrov
  */
 public class ImageEvent extends SimpleEvent {
     private Image image;
-    
+
     public ImageEvent(Image image) {
         this(image, "");
     }
-    
+
     public ImageEvent(Image image, String path) {
         super(path);
         this.image = image;
     }
-    
+
     public Image getImage() {
         return image;
     }
-    
+
     public String getPath() {
         return super.getMessage();
     }

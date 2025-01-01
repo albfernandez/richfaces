@@ -21,8 +21,15 @@
  */
 package org.richfaces.cache;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
+import com.opensymphony.oscache.base.AbstractCacheAdministrator;
+import com.opensymphony.oscache.general.GeneralCacheAdministrator;
+import org.ajax4jsf.resource.util.URLToStreamHelper;
+import org.richfaces.application.CoreConfiguration;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
+import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -32,16 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.resource.util.URLToStreamHelper;
-import org.richfaces.application.CoreConfiguration;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-
-import com.opensymphony.oscache.base.AbstractCacheAdministrator;
-import com.opensymphony.oscache.general.GeneralCacheAdministrator;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
 
 /**
  * @author Nick - mailto:nbelaevski@exadel.com created 01.05.2007

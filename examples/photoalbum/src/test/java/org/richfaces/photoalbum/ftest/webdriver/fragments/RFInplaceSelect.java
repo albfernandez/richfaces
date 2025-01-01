@@ -21,9 +21,6 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
@@ -44,6 +41,9 @@ import org.richfaces.fragment.inplaceInput.ConfirmOrCancel;
 import org.richfaces.fragment.inplaceInput.InplaceComponentState;
 import org.richfaces.fragment.inplaceSelect.InplaceSelect;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * InplaceSelect with predefined saveOnSelect.
  * FIXME: remove and replace with RichFacesInplaceSelect fragment after fixed.
@@ -52,43 +52,31 @@ import org.richfaces.fragment.inplaceSelect.InplaceSelect;
  */
 public class RFInplaceSelect implements InplaceSelect {
 
+    private static final String OPTIONS_CLASS = "rf-is-opt";
+    private final AdvancedInplaceSelectInteractions advancedInteractions = new AdvancedInplaceSelectInteractions();
     @FindBy(css = "input[id$=Okbtn]")
     private WebElement confirmButton;
-
     @FindBy(css = "input[id$=Cancelbtn]")
     private WebElement cancelButton;
-
     @FindBy(className = "rf-is-fld")
     private TextInputComponentImpl textInput;
-
     @FindBy(css = ".rf-is-lbl")
     private WebElement label;
-
     @FindBy(css = "span[id$=Edit] > input[id$=Input]")
     private WebElement editInputElement;
-
     @FindBy(tagName = "script")
     private WebElement script;
-
     @FindBy(css = "span.rf-is-lst-cord")
     private WebElement localList;
-
     @FindBy(xpath = "//body/span[contains(@class, rf-is-lst-cord)]")
     // whole page search
     private WebElement globalList;
-
-    private static final String OPTIONS_CLASS = "rf-is-opt";
-
     @Root
     private WebElement root;
-
     @Drone
     private WebDriver browser;
-
     @ArquillianResource
     private JavascriptExecutor executor;
-
-    private final AdvancedInplaceSelectInteractions advancedInteractions = new AdvancedInplaceSelectInteractions();
 
     public AdvancedInplaceSelectInteractions advanced() {
         return advancedInteractions;
@@ -121,6 +109,19 @@ public class RFInplaceSelect implements InplaceSelect {
         return select(ChoicePickerHelper.byVisibleText().contains(text));
     }
 
+    private boolean isSaveOnSelect() {
+        return Boolean.TRUE;
+    }
+
+    private boolean isShowControlls() {
+        return new WebElementConditionFactory(cancelButton).isPresent().apply(browser);
+    }
+
+    private void waitForPopupHide() {
+        Graphene.waitModel().until().element(localList).is().present();
+        Graphene.waitModel().until().element(globalList).is().not().visible();
+    }
+
     public class ConfirmOrCancelImpl extends AbstractConfirmOrCancel {
 
         @Override
@@ -151,11 +152,10 @@ public class RFInplaceSelect implements InplaceSelect {
 
     public class AdvancedInplaceSelectInteractions {
 
-        private final Event DEFAULT_EDIT_EVENT = Event.CLICK;
-        private Event editByEvent = DEFAULT_EDIT_EVENT;
-
         private static final String RF_IS_CHNG_CLASS = "rf-is-chng";
         private static final String RF_IS_ACT_CLASS = "rf-is-act";
+        private final Event DEFAULT_EDIT_EVENT = Event.CLICK;
+        private Event editByEvent = DEFAULT_EDIT_EVENT;
 
         public void setupEditByEvent() {
             editByEvent = DEFAULT_EDIT_EVENT;
@@ -220,18 +220,5 @@ public class RFInplaceSelect implements InplaceSelect {
             }
             return null;
         }
-    }
-
-    private boolean isSaveOnSelect() {
-        return Boolean.TRUE;
-    }
-
-    private boolean isShowControlls() {
-        return new WebElementConditionFactory(cancelButton).isPresent().apply(browser);
-    }
-
-    private void waitForPopupHide() {
-        Graphene.waitModel().until().element(localList).is().present();
-        Graphene.waitModel().until().element(globalList).is().not().visible();
     }
 }

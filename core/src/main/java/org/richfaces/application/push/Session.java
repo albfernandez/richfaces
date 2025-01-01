@@ -50,7 +50,6 @@ import java.util.Map;
  * </p>
  *
  * @author Nick Belaevski
- *
  */
 public interface Session {
 

@@ -30,7 +30,7 @@ import org.apache.commons.lang.Validate;
 
 /**
  * Provides Color manipulations and functionality.
- *
+ * <p>
  * TODO: moved to Graphene (ARQGRA-223)
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>

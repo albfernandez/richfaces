@@ -21,8 +21,6 @@
  */
 package org.richfaces.fragment.orderingList;
 
-import java.util.List;
-
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -39,20 +37,19 @@ import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.common.picker.MultipleChoicePicker;
 import org.richfaces.fragment.list.ListComponent;
 
+import java.util.List;
+
 /**
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public abstract class AbstractOrderingList implements OrderingList, AdvancedVisibleComponentIteractions<AbstractOrderingList.AdvancedOrderingListInteractions> {
 
-    @Root
-    private WebElement root;
-
-    @Drone
-    private WebDriver driver;
-
     private final OrderingInteraction orderingInteraction = new OrderingInteractionImpl();
     private final PuttingSelectedItem puttingSelectedItem = new PuttingSelectedItemImpl();
+    @Root
+    private WebElement root;
+    @Drone
+    private WebDriver driver;
 
     @Override
     public abstract AdvancedOrderingListInteractions advanced();
@@ -92,15 +89,15 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedVisi
     protected void unselectAll() {
         if (!advanced().getSelectedItemsElements().isEmpty()) {
             new Actions(driver)
-                .click(advanced().getItemsElements().get(0))
-                .keyDown(Keys.CONTROL).click(advanced().getItemsElements().get(0))
-                .keyUp(Keys.CONTROL)
-                .addAction(new Action() {
-                    @Override
-                    public void perform() {
-                        Graphene.waitGui().until().element(advanced().getItemsElements().get(0)).attribute("class").not().contains("rf-ord-sel");
-                    }
-                }).perform();
+                    .click(advanced().getItemsElements().get(0))
+                    .keyDown(Keys.CONTROL).click(advanced().getItemsElements().get(0))
+                    .keyUp(Keys.CONTROL)
+                    .addAction(new Action() {
+                        @Override
+                        public void perform() {
+                            Graphene.waitGui().until().element(advanced().getItemsElements().get(0)).attribute("class").not().contains("rf-ord-sel");
+                        }
+                    }).perform();
             if (!advanced().getSelectedItemsElements().isEmpty()) {
                 throw new RuntimeException("The unselection was not successfull.");
             }

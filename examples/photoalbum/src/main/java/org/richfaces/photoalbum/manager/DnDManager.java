@@ -26,8 +26,6 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
@@ -43,10 +41,13 @@ import org.richfaces.photoalbum.model.event.ErrorEvent;
 import org.richfaces.photoalbum.model.event.EventType;
 import org.richfaces.photoalbum.model.event.Events;
 import org.richfaces.photoalbum.model.event.ImageEvent;
+import org.richfaces.photoalbum.util.ApplicationUtils;
 import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
 import org.richfaces.photoalbum.util.Preferred;
-import org.richfaces.photoalbum.util.ApplicationUtils;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 @Named("dndManager")
 public class DnDManager implements DropListener {

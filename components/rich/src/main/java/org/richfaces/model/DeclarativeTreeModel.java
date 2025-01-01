@@ -25,7 +25,6 @@ import javax.faces.component.UIComponent;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface DeclarativeTreeModel<E> extends TreeDataModel<E> {
     UIComponent getCurrentComponent();

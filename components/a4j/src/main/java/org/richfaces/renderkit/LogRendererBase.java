@@ -25,7 +25,6 @@ import org.richfaces.component.LogMode;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class LogRendererBase extends RendererBase {
     protected boolean isInline(Object attributeValue) {

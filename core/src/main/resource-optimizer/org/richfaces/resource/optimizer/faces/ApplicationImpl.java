@@ -21,9 +21,7 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Locale;
+import org.richfaces.application.ServiceTracker;
 
 import javax.el.ELException;
 import javax.el.ExpressionFactory;
@@ -40,12 +38,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.event.ActionListener;
 import javax.faces.validator.Validator;
-
-import org.richfaces.application.ServiceTracker;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Locale;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class ApplicationImpl extends Application {
     private ExpressionFactory expressionFactory = createExpressionFactory();

@@ -13,6 +13,7 @@ import org.richfaces.component.util.SelectItemsInterface;
 
 /**
  * <p>The &lt;rich:orderingList&gt; is a component for ordering items in a list (client-side).</p>
+ *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(type = AbstractOrderingList.COMPONENT_TYPE, family = AbstractOrderingList.COMPONENT_FAMILY,

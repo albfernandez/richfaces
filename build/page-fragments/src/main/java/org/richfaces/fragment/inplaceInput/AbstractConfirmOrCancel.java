@@ -60,7 +60,7 @@ public abstract class AbstractConfirmOrCancel implements ConfirmOrCancel {
         boolean condition = new WebElementConditionFactory(getConfirmButton()).isPresent().apply(getBrowser());
         if (!condition) {
             throw new IllegalStateException(
-                "You are trying to use cotrolls to confirm/cancel the input, however, there are no controlls!");
+                    "You are trying to use cotrolls to confirm/cancel the input, however, there are no controlls!");
         }
     }
 

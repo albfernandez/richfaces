@@ -22,8 +22,8 @@
 
 package org.richfaces.photoalbum.util.converters;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.richfaces.photoalbum.manager.UserBean;
+import org.richfaces.photoalbum.model.Shelf;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.spi.CreationalContext;
@@ -36,9 +36,8 @@ import javax.faces.convert.FacesConverter;
 import javax.inject.Named;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
-import org.richfaces.photoalbum.manager.UserBean;
-import org.richfaces.photoalbum.model.Shelf;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Named
 @ApplicationScoped
@@ -64,7 +63,7 @@ public class ShelfConverter implements Converter {
         UserBean userBean = (UserBean) bm.getReference(bean, UserBean.class, ctx); // this could be inlined, but intentionally left this way
 
 
-        for(Shelf s : userBean.getUser().getShelves()) {
+        for (Shelf s : userBean.getUser().getShelves()) {
             if (s.getName().equals(value)) {
                 return s;
             }

@@ -37,9 +37,9 @@ public interface MetaComponentResolver {
      * Resolves and returns string identifying supported meta-component or <code>null</code> if provided meta-component name is
      * not a supported one.
      *
-     * @param facesContext - current instance of {@link FacesContext}
+     * @param facesContext     - current instance of {@link FacesContext}
      * @param contextComponent - instance of {@link UIComponent} that requested resolution of meta-component
-     * @param metaComponentId - name of meta-component (without leading '@' sign)
+     * @param metaComponentId  - name of meta-component (without leading '@' sign)
      * @return clientId, one of supported meta-names such as @all, @this, etc. or <code>null</code>
      */
     String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId);
@@ -48,9 +48,9 @@ public interface MetaComponentResolver {
      * Provides replacement for unresolved meta-component names. Returns identifier string for the chosen substitution or
      * <code>null</code>
      *
-     * @param facesContext - current instance of {@link FacesContext}
+     * @param facesContext     - current instance of {@link FacesContext}
      * @param contextComponent - instance of {@link UIComponent} that requested resolution of meta-component
-     * @param metaComponentId - name of meta-component (without leading '@' sign)
+     * @param metaComponentId  - name of meta-component (without leading '@' sign)
      * @return clientId, one of supported meta-names such as @all, @this, etc. or <code>null</code>
      */
     String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId);

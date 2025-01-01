@@ -57,6 +57,31 @@ public class ITFocusPreserve {
         return deployment.getFinalArchive();
     }
 
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='form'>");
+        p.body("    <rich:focus id='focus' preserve='true' />");
+
+        p.body("    <h:inputText id='input1' />");
+        p.body("    <h:inputText id='input2' />");
+        p.body("    <h:inputText id='input3' />");
+
+        p.body("    <h:commandButton id='submit' value='Submit' />");
+
+        p.body("    <h:commandButton id='ajax' value='Ajax'>");
+        p.body("        <a4j:ajax render='@form' />");
+        p.body("    </h:commandButton>");
+
+        p.body("</h:form>");
+
+        p.body("<h:form id='secondForm'>");
+        p.body("    <a4j:commandButton id='renderFirstForm' render='form' value='Re-render form with focus'  />");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
     @Test
     public void testInputFocusIsPreservedAfterSubmission() {
         // having
@@ -101,30 +126,5 @@ public class ITFocusPreserve {
 
     private WebElement getFocusedElement() {
         return FocusRetriever.retrieveActiveElement();
-    }
-
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form id='form'>");
-        p.body("    <rich:focus id='focus' preserve='true' />");
-
-        p.body("    <h:inputText id='input1' />");
-        p.body("    <h:inputText id='input2' />");
-        p.body("    <h:inputText id='input3' />");
-
-        p.body("    <h:commandButton id='submit' value='Submit' />");
-
-        p.body("    <h:commandButton id='ajax' value='Ajax'>");
-        p.body("        <a4j:ajax render='@form' />");
-        p.body("    </h:commandButton>");
-
-        p.body("</h:form>");
-
-        p.body("<h:form id='secondForm'>");
-        p.body("    <a4j:commandButton id='renderFirstForm' render='form' value='Re-render form with focus'  />");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

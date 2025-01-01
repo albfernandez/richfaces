@@ -21,13 +21,6 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.Renderer;
-
 import org.ajax4jsf.Messages;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.log.Logger;
@@ -35,6 +28,12 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.RendererUtils;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
+import java.io.IOException;
 
 /**
  * Base Renderer for all chameleon Skin's and components. At most, make all common procedures and realise concrete work in
@@ -61,12 +60,12 @@ public abstract class RendererBase extends Renderer {
 
         if (!getComponentClass().isInstance(component)) {
             throw new IllegalArgumentException(Messages.getMessage(Messages.COMPONENT_CLASS_ERROR, "", getComponentClass()
-                .getName()));
+                    .getName()));
         }
 
         if (LOG.isDebugEnabled()) {
             LOG.debug(Messages.getMessage(Messages.START_DECODING_COMPONENT_INFO, component.getClientId(context), component
-                .getClass().getName()));
+                    .getClass().getName()));
         }
 
         preDecode(context, component);
@@ -105,7 +104,7 @@ public abstract class RendererBase extends Renderer {
 
         if (LOG.isDebugEnabled()) {
             LOG.debug(Messages.getMessage(Messages.START_ENCODING_COMPONENT_INFO, component.getClientId(context), component
-                .getClass().getName()));
+                    .getClass().getName()));
         }
 
         preEncodeBegin(context, component);
@@ -122,7 +121,7 @@ public abstract class RendererBase extends Renderer {
 
         if (!getComponentClass().isInstance(component)) {
             throw new IllegalArgumentException(Messages.getMessage(Messages.COMPONENT_CLASS_ERROR,
-                component.getClientId(context), getComponentClass().getName()));
+                    component.getClientId(context), getComponentClass().getName()));
         }
     }
 
@@ -149,7 +148,7 @@ public abstract class RendererBase extends Renderer {
 
         if (LOG.isDebugEnabled()) {
             LOG.debug(Messages.getMessage(Messages.CHILDREN_ENCODING_COMPONENT_INFO, component.getClientId(context), component
-                .getClass().getName()));
+                    .getClass().getName()));
         }
 
         if (component.isRendered()) {
@@ -182,7 +181,7 @@ public abstract class RendererBase extends Renderer {
 
         if (LOG.isDebugEnabled()) {
             LOG.debug(Messages.getMessage(Messages.FINISH_ENCODING_COMPONENT_INFO, component.getClientId(context), component
-                .getClass().getName()));
+                    .getClass().getName()));
         }
     }
 

@@ -1,9 +1,6 @@
 package org.richfaces.component;
 
-import javax.faces.component.UIComponentBase;
-
 import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -20,7 +17,7 @@ import org.richfaces.renderkit.html.DropDownMenuRendererBase;
  * &lt;rich:toolbar&gt; component to create menus in an application's toolbar.
  */
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractDropDownMenu.COMPONENT_TYPE,
-        facets = {@Facet(name = "label", generate = false), @Facet(name = "labelDisabled", generate = false) },
+        facets = {@Facet(name = "label", generate = false), @Facet(name = "labelDisabled", generate = false)},
         renderer = @JsfRenderer(type = DropDownMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "dropDownMenu"))
 public abstract class AbstractDropDownMenu extends AbstractMenuContainer implements CoreProps, EventsKeyProps, EventsMouseProps, I18nProps, PositionProps {
     public static final String COMPONENT_TYPE = "org.richfaces.DropDownMenu";

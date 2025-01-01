@@ -21,11 +21,7 @@
  */
 package org.richfaces.fragment.switchable;
 
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-
-import java.util.List;
-
+import com.google.common.base.Predicate;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebDriver;
@@ -37,14 +33,16 @@ import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
-import com.google.common.base.Predicate;
+import java.util.List;
+
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 
 public abstract class AbstractSwitchableComponent<T extends ComponentContainer> implements SwitchableComponent<T>, AdvancedVisibleComponentIteractions<AbstractSwitchableComponent<T>.AdvancedSwitchableComponentInteractions> {
 
+    private final Class<T> containerClass;
     @Root
     private WebElement root;
-
-    private final Class<T> containerClass;
 
     @SuppressWarnings("unchecked")
     public AbstractSwitchableComponent() {
@@ -96,12 +94,12 @@ public abstract class AbstractSwitchableComponent<T extends ComponentContainer> 
             return switchType;
         }
 
-        public void setSwitchType() {
-            switchType = DEFAULT_SWITCH_TYPE;
-        }
-
         public void setSwitchType(SwitchType newSwitchType) {
             switchType = newSwitchType;
+        }
+
+        public void setSwitchType() {
+            switchType = DEFAULT_SWITCH_TYPE;
         }
 
         public WebElement getRootElement() {
@@ -116,12 +114,12 @@ public abstract class AbstractSwitchableComponent<T extends ComponentContainer> 
 
         protected void waitUntilContentSwitched(String textToContain) {
             (switchType.equals(SwitchType.CLIENT)
-                ? Graphene.waitGui()
-                : switchType.equals(SwitchType.AJAX)
+                    ? Graphene.waitGui()
+                    : switchType.equals(SwitchType.AJAX)
                     ? Graphene.waitAjax()
                     : Graphene.waitModel())
-                .withMessage("Waiting for content to be switched")
-                .until(getConditionForContentSwitched(textToContain));
+                    .withMessage("Waiting for content to be switched")
+                    .until(getConditionForContentSwitched(textToContain));
         }
 
         @Override

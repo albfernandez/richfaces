@@ -21,18 +21,18 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Named;
-
 import org.richfaces.photoalbum.model.event.ErrorEvent;
 import org.richfaces.photoalbum.model.event.EventType;
 import org.richfaces.photoalbum.model.event.Events;
 import org.richfaces.photoalbum.util.ApplicationUtils;
 
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Named;
+
 /**
  * Convenience UI class for global eeror-checking mechanism
- * 
+ *
  * @author Andrey Markhel
  */
 @Named
@@ -41,9 +41,9 @@ public class ErrorHandlerBean {
 
     /**
      * Creates a <code><rich:notifyMessage></code> on the site.
-     * 
+     *
      * @param summary - summary of the error
-     * @param detail - detailed description of the error
+     * @param detail  - detailed description of the error
      */
     public void showError(String summary, String detail) {
         ApplicationUtils.addFacesMessage("overForm", summary, detail);
@@ -51,7 +51,7 @@ public class ErrorHandlerBean {
 
     /**
      * Convenience method that observes Event of type <code>Events.ADD_ERROR_EVENT</code>.
-     * 
+     *
      * @param ee - event fired upon error.
      */
     public void addToErrors(@Observes @EventType(Events.ADD_ERROR_EVENT) ErrorEvent ee) {
@@ -60,7 +60,7 @@ public class ErrorHandlerBean {
 
     /**
      * Pseudo-setter that shows error that originated in JS code, using <code><a4j:jsFunction></code> as a middle-man.
-     * 
+     *
      * @param message - summary and detail separated by '$#$'
      */
     public void setJSError(String message) {

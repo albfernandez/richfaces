@@ -20,13 +20,13 @@ public class Form {
         return viewState.getAttribute("value");
     }
 
+    public String getInput() {
+        return input.getAttribute("value");
+    }
+
     public void setInput(String text) {
         input.clear();
         input.sendKeys(text);
-    }
-
-    public String getInput() {
-        return input.getAttribute("value");
     }
 
     public void submit() {

@@ -21,16 +21,14 @@
  */
 package org.richfaces.util;
 
+import com.google.common.base.Joiner;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.richfaces.util.FastJoiner.on;
 
-import org.junit.Test;
-
-import com.google.common.base.Joiner;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class FastJoinerTest {
     private static final int PERFORMANCE_TEST_STEPS = 100000;

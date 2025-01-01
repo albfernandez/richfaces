@@ -21,8 +21,6 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.junit.Test;
@@ -33,6 +31,8 @@ import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AddImagesView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.EditUserProfileView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.UserProfileView;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>

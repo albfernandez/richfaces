@@ -21,20 +21,18 @@
  */
 package org.richfaces;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
+import com.google.common.collect.Maps;
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.rules.MethodRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 
-import com.google.common.collect.Maps;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class FacesRequestSetupRule implements MethodRule {
     private FacesEnvironment environment;

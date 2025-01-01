@@ -21,20 +21,9 @@
  */
 package org.richfaces.renderkit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Map;
-
-import javax.faces.application.ViewHandler;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
-
+import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
@@ -44,13 +33,21 @@ import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.SortOrder;
 
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import javax.faces.application.ViewHandler;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewDeclarationLanguage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Konstantin Mishin
- *
  */
 public class ExtendedDataTableRendererTest {
     private HtmlUnitEnvironment environment;
@@ -92,7 +89,7 @@ public class ExtendedDataTableRendererTest {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance().getRenderKit()
-            .getRenderer(component.getFamily(), component.getRendererType());
+                .getRenderer(component.getFamily(), component.getRendererType());
         assertEquals(AbstractExtendedDataTable.class, renderer.getComponentClass());
         facesRequest.release();
     }
@@ -133,30 +130,30 @@ public class ExtendedDataTableRendererTest {
         assertNotNull(frozenHeader.getFirstByXPath("descendant::*[@class='rf-edt-rsz']"));
         assertNotNull(normalHeader.getFirstByXPath("descendant::*[@class='rf-edt-rsz']"));
         assertEquals("headerColumnFacet1",
-            ((HtmlElement) frozenHeader.getFirstByXPath("//*[@class='rf-edt-hdr-c-cnt']//*[@id='table:headerColumnFacet1']"))
-                .getTextContent());
+                ((HtmlElement) frozenHeader.getFirstByXPath("//*[@class='rf-edt-hdr-c-cnt']//*[@id='table:headerColumnFacet1']"))
+                        .getTextContent());
         assertEquals("headerColumnFacet2",
-            ((HtmlElement) normalHeader.getFirstByXPath("//*[@class='rf-edt-hdr-c-cnt']//*[@id='table:headerColumnFacet2']"))
-                .getTextContent());
+                ((HtmlElement) normalHeader.getFirstByXPath("//*[@class='rf-edt-hdr-c-cnt']//*[@id='table:headerColumnFacet2']"))
+                        .getTextContent());
         DomElement body = page.getElementById("table:b");
         assertEquals("rf-edt-b", body.getAttribute("class"));
         assertNotNull(body.getFirstByXPath("descendant::*[@class='rf-edt-spcr']"));
         assertNotNull(body.getFirstByXPath("descendant::*[@class='rf-edt-cnt']//*[@id='table:tbn']"));
         assertEquals("noDataFacet",
-            ((HtmlElement) page.getFirstByXPath("//*[@id='table2']//*[@id='table2:b']//*[@id='table2:noDataFacet']"))
-                .getTextContent());
+                ((HtmlElement) page.getFirstByXPath("//*[@id='table2']//*[@id='table2:b']//*[@id='table2:noDataFacet']"))
+                        .getTextContent());
         HtmlElement footer = table.getFirstByXPath("div[@class='rf-edt-ftr']");
         HtmlElement frozenFooter = footer.getFirstByXPath("descendant::*[@class='rf-edt-ftr-fzn']/div");
         DomElement normalFooter = page.getElementById("table:footer");
         assertTrue(normalFooter.getAttribute("class").contains("rf-edt-ftr-cnt"));
         assertEquals("footerColumnFacet1",
-            ((HtmlElement) frozenFooter
-                .getFirstByXPath("descendant::*[@class='rf-edt-ftr-c-cnt']//*[@id='table:footerColumnFacet1']"))
-                .getTextContent());
+                ((HtmlElement) frozenFooter
+                        .getFirstByXPath("descendant::*[@class='rf-edt-ftr-c-cnt']//*[@id='table:footerColumnFacet1']"))
+                        .getTextContent());
         assertEquals("footerColumnFacet2",
-            ((HtmlElement) normalFooter
-                .getFirstByXPath("descendant::*[@class='rf-edt-ftr-c-cnt']//*[@id='table:footerColumnFacet2']"))
-                .getTextContent());
+                ((HtmlElement) normalFooter
+                        .getFirstByXPath("descendant::*[@class='rf-edt-ftr-c-cnt']//*[@id='table:footerColumnFacet2']"))
+                        .getTextContent());
     }
 
     /**
@@ -211,7 +208,7 @@ public class ExtendedDataTableRendererTest {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance().getRenderKit()
-            .getRenderer(component.getFamily(), component.getRendererType());
+                .getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> column1Attributes = component.findComponent("column1").getAttributes();
         Map<String, Object> column2Attributes = component.findComponent("column2").getAttributes();
         String clientId = component.getClientId(facesContext);
@@ -232,7 +229,7 @@ public class ExtendedDataTableRendererTest {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance().getRenderKit()
-            .getRenderer(component.getFamily(), component.getRendererType());
+                .getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> column1Attributes = component.findComponent("column1").getAttributes();
         Map<String, Object> column2Attributes = component.findComponent("column2").getAttributes();
         String clientId = component.getClientId(facesContext);
@@ -253,7 +250,7 @@ public class ExtendedDataTableRendererTest {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance().getRenderKit()
-            .getRenderer(component.getFamily(), component.getRendererType());
+                .getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> column1Attributes = component.findComponent("column1").getAttributes();
         assertNull(column1Attributes.get("width"));
         facesRequest.withParameter(component.getClientId(facesContext) + ":wi", "column1:200px");
@@ -268,7 +265,7 @@ public class ExtendedDataTableRendererTest {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance().getRenderKit()
-            .getRenderer(component.getFamily(), component.getRendererType());
+                .getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> componentAttributes = component.getAttributes();
         String clientId = component.getClientId(facesContext);
         assertNull(componentAttributes.get("columnsOrder"));
@@ -276,7 +273,7 @@ public class ExtendedDataTableRendererTest {
         facesRequest.withParameter("rich:columnsOrder", "column2,column1");
         renderer.doDecode(facesContext, component);
         assertTrue(facesContext.getPartialViewContext().getRenderIds().contains(clientId));
-        assertTrue(Arrays.equals(new String[] { "column2", "column1" }, (String[]) componentAttributes.get("columnsOrder")));
+        assertTrue(Arrays.equals(new String[]{"column2", "column1"}, (String[]) componentAttributes.get("columnsOrder")));
         facesRequest.release();
     }
 
@@ -286,7 +283,7 @@ public class ExtendedDataTableRendererTest {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance().getRenderKit()
-            .getRenderer(component.getFamily(), component.getRendererType());
+                .getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> column1Attributes = component.findComponent("column1").getAttributes();
         Map<String, Object> column2Attributes = component.findComponent("column2").getAttributes();
         String clientId = component.getClientId(facesContext);
@@ -307,7 +304,7 @@ public class ExtendedDataTableRendererTest {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance().getRenderKit()
-            .getRenderer(component.getFamily(), component.getRendererType());
+                .getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> column1Attributes = component.findComponent("column1").getAttributes();
         Map<String, Object> column2Attributes = component.findComponent("column2").getAttributes();
         String clientId = component.getClientId(facesContext);
@@ -328,7 +325,7 @@ public class ExtendedDataTableRendererTest {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance().getRenderKit()
-            .getRenderer(component.getFamily(), component.getRendererType());
+                .getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> componentAttributes = component.getAttributes();
         String clientId = component.getClientId(facesContext);
         assertNull(componentAttributes.get(AbstractExtendedDataTable.SUBMITTED_CLIENT_FIRST));
@@ -337,7 +334,7 @@ public class ExtendedDataTableRendererTest {
         renderer.doDecode(facesContext, component);
         assertEquals(28, componentAttributes.get(AbstractExtendedDataTable.SUBMITTED_CLIENT_FIRST));
         assertTrue(facesContext.getPartialViewContext().getRenderIds()
-            .contains(clientId + "@" + AbstractExtendedDataTable.SCROLL));
+                .contains(clientId + "@" + AbstractExtendedDataTable.SCROLL));
         facesRequest.release();
     }
 }

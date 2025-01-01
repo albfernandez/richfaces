@@ -1,8 +1,6 @@
 package org.richfaces.cdk;
 
-import java.io.File;
-import java.net.URI;
-
+import com.google.inject.Inject;
 import org.richfaces.cdk.model.ClassName;
 import org.richfaces.cdk.model.ComponentLibrary;
 import org.richfaces.cdk.model.ComponentModel;
@@ -13,21 +11,21 @@ import org.richfaces.cdk.model.Name.Classifier;
 import org.richfaces.cdk.model.RendererModel;
 import org.richfaces.cdk.util.Strings;
 
-import com.google.inject.Inject;
+import java.io.File;
+import java.net.URI;
 
 /**
  * <p class="changed_added_4_0">
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public final class RichFaces5Conventions implements NamingConventions {
     private static final String ABSTRACT = "Abstract";
     private static final String BASE = "Base";
     private static final String UI = "UI";
-    private static final String[] COMPONENT_SUFFIXES = { BASE };
-    private static final String[] COMPONENT_PREFIXES = { UI, ABSTRACT };
+    private static final String[] COMPONENT_SUFFIXES = {BASE};
+    private static final String[] COMPONENT_PREFIXES = {UI, ABSTRACT};
     // TODO - inject base name.
     private String baseName;// = "org.richfaces";
 
@@ -161,7 +159,7 @@ public final class RichFaces5Conventions implements NamingConventions {
     public FacesId inferRendererTypeByTemplatePath(String templateName) {
         String rendererType = new File(templateName).getName();
         rendererType = rendererType.split("\\.")[0];
-        rendererType = rendererType.replaceFirst("^.", new String(new char[] { rendererType.charAt(0) }).toUpperCase());
+        rendererType = rendererType.replaceFirst("^.", new String(new char[]{rendererType.charAt(0)}).toUpperCase());
 
         return FacesId.parseId("org.richfaces.ui." + rendererType + "Renderer");
     }

@@ -21,40 +21,19 @@
  */
 package org.richfaces.component;
 
-import org.richfaces.renderkit.html.DivPanelRenderer;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.component.attribute.DisabledProps;
+import org.richfaces.renderkit.html.DivPanelRenderer;
 
 /**
  * @author akolonitsky
  * @since 2010-08-05
  */
 public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemInterface, DisabledProps {
-    public enum HeaderStates {
-        active("act"),
-        inactive("inact"),
-        disabled("dis");
-        private String abbreviation;
-
-        HeaderStates(String abbreviation) {
-            this.abbreviation = abbreviation;
-        }
-
-        public String abbreviation() {
-            return abbreviation;
-        }
-
-        public String headerClass() {
-            return new StringBuilder("header").append(DivPanelRenderer.capitalize(this.toString())).append("Class").toString();
-        }
-    }
-
-    // ------------------------------------------------ Component Attributes
-
     String getHeader();
 
-    // ------------------------------------------------ Html Attributes
+    // ------------------------------------------------ Component Attributes
 
     /**
      * The CSS class applied to the panel content
@@ -62,13 +41,15 @@ public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemIn
     @Attribute
     String getContentClass();
 
-    // ------------------------------------------------ Header Attributes
+    // ------------------------------------------------ Html Attributes
 
     /**
      * The CSS class applied to the header when this panel is active
      */
     @Attribute
     String getHeaderActiveClass();
+
+    // ------------------------------------------------ Header Attributes
 
     /**
      * The CSS class applied to the header when this panel is disabled
@@ -123,4 +104,23 @@ public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemIn
      */
     @Attribute(events = @EventName("headermouseup"))
     String getOnheadermouseup();
+
+    public enum HeaderStates {
+        active("act"),
+        inactive("inact"),
+        disabled("dis");
+        private String abbreviation;
+
+        HeaderStates(String abbreviation) {
+            this.abbreviation = abbreviation;
+        }
+
+        public String abbreviation() {
+            return abbreviation;
+        }
+
+        public String headerClass() {
+            return new StringBuilder("header").append(DivPanelRenderer.capitalize(this.toString())).append("Class").toString();
+        }
+    }
 }

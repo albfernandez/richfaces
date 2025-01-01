@@ -25,7 +25,6 @@ import org.richfaces.l10n.MessageBundle;
 
 /**
  * @author Nick Belaevski
- *
  */
 @MessageBundle(baseName = "org.richfaces.log.Resources")
 public enum LoggerTestMessages {

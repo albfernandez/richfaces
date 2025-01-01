@@ -1,15 +1,15 @@
 package org.richfaces.renderkit.html;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.component.AbstractMenuContainer;
 import org.richfaces.component.AbstractMenuGroup;
 import org.richfaces.component.AbstractMenuItem;
 import org.richfaces.component.Mode;
 import org.richfaces.renderkit.AjaxCommandRendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIForm;
+import javax.faces.context.FacesContext;
 
 public class MenuItemRendererBase extends AjaxCommandRendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.MenuItemRenderer";
@@ -127,7 +127,7 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
     }
 
     protected String getStyleClass(FacesContext facesContext, UIComponent component, String menuParentStyle,
-            String menuGroupStyle, String menuItemStyle) {
+                                   String menuGroupStyle, String menuItemStyle) {
         UIComponent parent = getMenuParent(component);
         UIComponent menuGroup = getMenuGroup(component);
         Object styleClass = null;
@@ -144,7 +144,7 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
     /**
      * Finds a parent of given UI <code>component</code>.
      *
-     * @param component <code>UIComponent</code>
+     * @param component   <code>UIComponent</code>
      * @param parentClass <code>Class</code> of desired parent
      * @return <code>UIComponent</code>
      */

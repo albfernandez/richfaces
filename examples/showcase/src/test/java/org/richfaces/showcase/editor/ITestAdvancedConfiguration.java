@@ -21,8 +21,6 @@
  */
 package org.richfaces.showcase.editor;
 
-import static org.junit.Assert.assertEquals;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -34,6 +32,8 @@ import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.editor.page.AdvancedConfigurationPage;
 import org.richfaces.showcase.editor.page.AdvancedConfigurationPage.Lang;
 import org.richfaces.utils.focus.ElementIsFocused;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>

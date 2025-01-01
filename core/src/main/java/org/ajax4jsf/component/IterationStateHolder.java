@@ -27,7 +27,6 @@ package org.ajax4jsf.component;
  * a components implemented this interface.
  *
  * @author asmirnov
- *
  */
 public interface IterationStateHolder {
     /**

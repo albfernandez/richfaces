@@ -21,13 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-
 import org.richfaces.PanelMenuMode;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -42,6 +35,13 @@ import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.PanelToggleEvent;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+
 /**
  * <p>
  * The &lt;rich:panelMenuGroup&gt; component defines a group of &lt;rich:panelMenuItem&gt; components inside a
@@ -52,16 +52,11 @@ import org.richfaces.event.PanelToggleEvent;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem implements AjaxProps, BypassProps, EventsMouseProps,
-    StyleProps, StyleClassProps {
+        StyleProps, StyleClassProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuGroup";
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuGroup";
     private Boolean submittedExpanded;
     private boolean valueChanged;
-
-    private enum PropertyKeys {
-        selectable,
-        immediate
-    }
 
     protected AbstractPanelMenuGroup() {
         setRendererType("org.richfaces.PanelMenuGroupRenderer");
@@ -207,13 +202,13 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
         getStateHelper().put(PropertyKeys.immediate, immediate);
     }
 
-    // ------------------------------------------------ Component Attributes
-
     /**
      * Defines whenever the group is selectable. Default: false.
      */
     @Attribute(defaultValue = "Boolean.FALSE")
     public abstract Boolean getSelectable();
+
+    // ------------------------------------------------ Component Attributes
 
     /**
      * Mode used for expanding/collapsing of this group: default value is inherited from panelMenu
@@ -233,27 +228,16 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
     @Attribute
     public abstract String getExpandEvent();
 
-    // ------------------------------------------------ Html Attributes
-
-    enum Properties {
-        leftDisabledIcon,
-        leftExpandedIcon,
-        rightCollapsedIcon,
-        rightDisabledIcon,
-        rightExpandedIcon,
-        disabledClass,
-        styleClass,
-        leftCollapsedIcon
-    }
-
     /**
      * The icon displayed on the left of the menu group label when the group is collapsed
      */
     @Attribute(generate = false)
     public String getLeftCollapsedIcon() {
         return (String) getStateHelper().eval(Properties.leftCollapsedIcon,
-            isTopItem() ? getPanelMenu().getTopGroupCollapsedLeftIcon() : getPanelMenu().getGroupCollapsedLeftIcon());
+                isTopItem() ? getPanelMenu().getTopGroupCollapsedLeftIcon() : getPanelMenu().getGroupCollapsedLeftIcon());
     }
+
+    // ------------------------------------------------ Html Attributes
 
     public void setLeftCollapsedIcon(String leftCollapsedIcon) {
         getStateHelper().put(Properties.leftCollapsedIcon, leftCollapsedIcon);
@@ -265,7 +249,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
     @Attribute(generate = false)
     public String getLeftDisabledIcon() {
         return (String) getStateHelper().eval(Properties.leftDisabledIcon,
-            isTopItem() ? getPanelMenu().getTopGroupDisabledLeftIcon() : getPanelMenu().getGroupDisabledLeftIcon());
+                isTopItem() ? getPanelMenu().getTopGroupDisabledLeftIcon() : getPanelMenu().getGroupDisabledLeftIcon());
     }
 
     public void setLeftDisabledIcon(String leftDisabledIcon) {
@@ -278,7 +262,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
     @Attribute(generate = false)
     public String getLeftExpandedIcon() {
         return (String) getStateHelper().eval(Properties.leftExpandedIcon,
-            isTopItem() ? getPanelMenu().getTopGroupExpandedLeftIcon() : getPanelMenu().getGroupExpandedLeftIcon());
+                isTopItem() ? getPanelMenu().getTopGroupExpandedLeftIcon() : getPanelMenu().getGroupExpandedLeftIcon());
     }
 
     public void setLeftExpandedIcon(String leftExpandedIcon) {
@@ -291,7 +275,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
     @Attribute(generate = false)
     public String getRightCollapsedIcon() {
         return (String) getStateHelper().eval(Properties.rightCollapsedIcon,
-            isTopItem() ? getPanelMenu().getTopGroupCollapsedRightIcon() : getPanelMenu().getGroupCollapsedRightIcon());
+                isTopItem() ? getPanelMenu().getTopGroupCollapsedRightIcon() : getPanelMenu().getGroupCollapsedRightIcon());
     }
 
     public void setRightCollapsedIcon(String rightCollapsedIcon) {
@@ -304,7 +288,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
     @Attribute(generate = false)
     public String getRightDisabledIcon() {
         return (String) getStateHelper().eval(Properties.rightDisabledIcon,
-            isTopItem() ? getPanelMenu().getTopGroupDisabledRightIcon() : getPanelMenu().getGroupDisabledRightIcon());
+                isTopItem() ? getPanelMenu().getTopGroupDisabledRightIcon() : getPanelMenu().getGroupDisabledRightIcon());
     }
 
     public void setRightDisabledIcon(String rightDisabledIcon) {
@@ -317,7 +301,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
     @Attribute(generate = false)
     public String getRightExpandedIcon() {
         return (String) getStateHelper().eval(Properties.rightExpandedIcon,
-            isTopItem() ? getPanelMenu().getTopGroupExpandedRightIcon() : getPanelMenu().getGroupExpandedRightIcon());
+                isTopItem() ? getPanelMenu().getTopGroupExpandedRightIcon() : getPanelMenu().getGroupExpandedRightIcon());
     }
 
     public void setRightExpandedIcon(String rightExpandedIcon) {
@@ -366,7 +350,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
     @Attribute(generate = false)
     public String getDisabledClass() {
         return (String) getStateHelper().eval(Properties.disabledClass,
-            isTopItem() ? getPanelMenu().getTopGroupDisabledClass() : getPanelMenu().getGroupDisabledClass());
+                isTopItem() ? getPanelMenu().getTopGroupDisabledClass() : getPanelMenu().getGroupDisabledClass());
     }
 
     public void setDisabledClass(String disabledClass) {
@@ -394,7 +378,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
     @Attribute(generate = false)
     public String getStyleClass() {
         return (String) getStateHelper().eval(Properties.styleClass,
-            isTopItem() ? getPanelMenu().getTopGroupClass() : getPanelMenu().getGroupClass());
+                isTopItem() ? getPanelMenu().getTopGroupClass() : getPanelMenu().getGroupClass());
     }
 
     public void setStyleClass(String styleClass) {
@@ -465,5 +449,21 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
             }
         }
         super.processUpdates(context);
+    }
+
+    private enum PropertyKeys {
+        selectable,
+        immediate
+    }
+
+    enum Properties {
+        leftDisabledIcon,
+        leftExpandedIcon,
+        rightCollapsedIcon,
+        rightDisabledIcon,
+        rightExpandedIcon,
+        disabledClass,
+        styleClass,
+        leftCollapsedIcon
     }
 }

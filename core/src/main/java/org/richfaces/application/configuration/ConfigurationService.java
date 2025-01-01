@@ -26,7 +26,6 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface ConfigurationService {
     Boolean getBooleanValue(FacesContext facesContext, Enum<?> key);

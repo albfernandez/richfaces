@@ -21,13 +21,13 @@
  *******************************************************************************/
 package org.richfaces.showcase.notify;
 
-import static org.junit.Assert.assertEquals;
-
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.fragment.notify.NotifyMessage.NotifyMessagePosition;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.notify.page.StackingMessagesPage;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

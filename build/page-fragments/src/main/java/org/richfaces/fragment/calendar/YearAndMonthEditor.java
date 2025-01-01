@@ -21,10 +21,7 @@
  */
 package org.richfaces.fragment.calendar;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.collect.Lists;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
@@ -41,27 +38,28 @@ import org.richfaces.fragment.common.Validate;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 
-import com.google.common.collect.Lists;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Component for calendar's year and month editor.
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class YearAndMonthEditor {
 
+    private static final String SELECTED = "rf-cal-edtr-btn-sel";
     @Root
     private WebElement root;
-
     @Drone
     private WebDriver browser;
-
     @FindByJQuery("div[id*='DateEditorLayoutM']:even")
     private List<WebElement> monthsEven;
     @FindByJQuery("div[id*='DateEditorLayoutM']:odd")
     private List<WebElement> monthsOdd;
     @FindBy(css = "div[id*='DateEditorLayoutM'].rf-cal-edtr-btn-sel")
     private WebElement selectedMonth;
-
     @FindBy(css = "div[id*='DateEditorLayoutY']")
     private List<WebElement> years;
     @FindByJQuery("div[id*='DateEditorLayoutY']:even")
@@ -72,7 +70,6 @@ public class YearAndMonthEditor {
     private WebElement firstYear;
     @FindBy(css = "div[id*='DateEditorLayoutY'].rf-cal-edtr-btn-sel")
     private WebElement selectedYear;
-
     @FindByJQuery("[id$='DateEditorLayoutTR'] > td > div:eq(2)")
     private WebElement previousDecadeButtonElement;
     @FindByJQuery("[id$='DateEditorLayoutTR'] > td > div:eq(3)")
@@ -81,9 +78,6 @@ public class YearAndMonthEditor {
     private WebElement okButtonElement;
     @FindBy(css = "div[id$=DateEditorButtonCancel]")
     private WebElement cancelButtonElement;
-
-    private static final String SELECTED = "rf-cal-edtr-btn-sel";
-
     private long _timeoutForYearAndMonthEditorToBeNotVisible = -1;
     private long _timeoutForYearAndMonthEditorToBeVisible = -1;
 
@@ -139,7 +133,7 @@ public class YearAndMonthEditor {
         if (Utils.isVisible(getSelectedMonth())) {
             String id = getSelectedMonth().getAttribute("id");
             return Integer.parseInt(id.substring(id.lastIndexOf("M") + 1))
-                + 1;// indexed from 0
+                    + 1;// indexed from 0
         }
         return null;
     }
@@ -225,12 +219,12 @@ public class YearAndMonthEditor {
         return _timeoutForYearAndMonthEditorToBeNotVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForYearAndMonthEditorToBeNotVisible;
     }
 
-    public void setTimeoutForYearAndMonthEditorToBeVisible(long timeoutInMilliseconds) {
-        _timeoutForYearAndMonthEditorToBeVisible = timeoutInMilliseconds;
-    }
-
     public long getTimeoutForYearAndMonthEditorToBeVisible() {
         return _timeoutForYearAndMonthEditorToBeVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForYearAndMonthEditorToBeVisible;
+    }
+
+    public void setTimeoutForYearAndMonthEditorToBeVisible(long timeoutInMilliseconds) {
+        _timeoutForYearAndMonthEditorToBeVisible = timeoutInMilliseconds;
     }
 
     public WaitingWrapper waitUntilIsNotVisible() {
@@ -240,7 +234,7 @@ public class YearAndMonthEditor {
                 wait.until().element(getRootElement()).is().not().visible();
             }
         }.withMessage("Waiting for year and month editor to be not visible.")
-            .withTimeout(getTimeoutForYearAndMonthEditorToBeNotVisible(), TimeUnit.MILLISECONDS);
+                .withTimeout(getTimeoutForYearAndMonthEditorToBeNotVisible(), TimeUnit.MILLISECONDS);
     }
 
     public WaitingWrapper waitUntilIsVisible() {
@@ -250,7 +244,7 @@ public class YearAndMonthEditor {
                 wait.until().element(getRootElement()).is().visible();
             }
         }.withMessage("Waiting for year and month editor to be visible.")
-            .withTimeout(getTimeoutForYearAndMonthEditorToBeVisible(), TimeUnit.MILLISECONDS);
+                .withTimeout(getTimeoutForYearAndMonthEditorToBeVisible(), TimeUnit.MILLISECONDS);
     }
 
     protected List<WebElement> getMonthsEven() {

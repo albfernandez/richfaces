@@ -21,22 +21,21 @@
  */
 package org.richfaces.renderkit.html;
 
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractAccordion;
 import org.richfaces.component.util.HtmlUtil;
 
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.util.Map;
+
 /**
  * @author akolonitsky
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -44,13 +43,13 @@ import org.richfaces.component.util.HtmlUtil;
         @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
         @ResourceDependency(library = "org.richfaces", name = "accordion.js"),
         @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
-        @ResourceDependency(library = "org.richfaces", name = "accordion.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "accordion.ecss")})
 @JsfRenderer(type = "org.richfaces.AccordionRenderer", family = AbstractAccordion.COMPONENT_FAMILY)
 public class AccordionRenderer extends TogglePanelRenderer {
     @Override
     protected String getStyle(UIComponent component) {
         return HtmlUtil.concatStyles(attributeAsStyle(component, "height"), attributeAsStyle(component, "width"),
-            super.getStyle(component));
+                super.getStyle(component));
     }
 
     @Override
@@ -66,7 +65,7 @@ public class AccordionRenderer extends TogglePanelRenderer {
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.Accordion", component.getClientId(context),
-            getScriptObjectOptions(context, component));
+                getScriptObjectOptions(context, component));
     }
 
     @Override

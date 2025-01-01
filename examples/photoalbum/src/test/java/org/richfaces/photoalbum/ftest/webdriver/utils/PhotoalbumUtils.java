@@ -21,10 +21,8 @@
  */
 package org.richfaces.photoalbum.ftest.webdriver.utils;
 
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.base.Predicate;
+import com.google.common.collect.Lists;
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -35,8 +33,9 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.photoalbum.ftest.webdriver.pages.GPlusLoginPage;
 import org.richfaces.photoalbum.ftest.webdriver.pages.SocialLoginPage;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -53,9 +52,9 @@ public final class PhotoalbumUtils {
     public static void checkNotVisible(List<WebElement> list) {
         for (WebElement webElement : list) {
             Graphene.waitAjax()
-                .ignoring(StaleElementReferenceException.class)
-                .ignoring(NoSuchElementException.class)
-                .until().element(webElement).is().not().visible();
+                    .ignoring(StaleElementReferenceException.class)
+                    .ignoring(NoSuchElementException.class)
+                    .until().element(webElement).is().not().visible();
         }
     }
 
@@ -66,9 +65,9 @@ public final class PhotoalbumUtils {
     public static void checkVisible(List<WebElement> list) {
         for (WebElement webElement : list) {
             Graphene.waitAjax()
-                .ignoring(StaleElementReferenceException.class)
-                .ignoring(NoSuchElementException.class)
-                .until().element(webElement).is().visible();
+                    .ignoring(StaleElementReferenceException.class)
+                    .ignoring(NoSuchElementException.class)
+                    .until().element(webElement).is().visible();
         }
     }
 

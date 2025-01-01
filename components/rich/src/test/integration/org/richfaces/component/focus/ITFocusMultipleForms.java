@@ -1,4 +1,4 @@
- package org.richfaces.component.focus;
+package org.richfaces.component.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 
@@ -48,41 +48,6 @@ public class ITFocusMultipleForms {
         return deployment.getFinalArchive();
     }
 
-    @Test
-    public void when_page_is_loaded_initially_then_first_input_from_first_form_should_gain_focus() {
-        browser.get(contextPath.toExternalForm());
-
-        Graphene.waitGui().until(new ElementIsFocused(form1.getInput1()));
-    }
-
-    @Test
-    public void when_form_is_submitted_then_first_input_from_this_form_should_gain_focus() {
-        browser.get(contextPath.toExternalForm());
-
-        form2.submit();
-        Graphene.waitGui().until(new ElementIsFocused(form2.getInput2()));
-
-        form1.submit();
-        Graphene.waitGui().until(new ElementIsFocused(form1.getInput2()));
-
-        form3.submit();
-        Graphene.waitGui().until(new ElementIsFocused(form3.getInput1()));
-    }
-
-    @Test
-    public void when_ajax_is_sent_then_first_input_from_submitted_form_should_gain_focus() {
-        browser.get(contextPath.toExternalForm());
-
-        form2.submitAjax();
-        waitAjax().until(new ElementIsFocused(form2.getInput2()));
-
-        form1.submitAjax();
-        waitAjax().until(new ElementIsFocused(form1.getInput2()));
-
-        form3.submitAjax();
-        waitAjax().until(new ElementIsFocused(form3.getInput1()));
-    }
-
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -120,6 +85,41 @@ public class ITFocusMultipleForms {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    @Test
+    public void when_page_is_loaded_initially_then_first_input_from_first_form_should_gain_focus() {
+        browser.get(contextPath.toExternalForm());
+
+        Graphene.waitGui().until(new ElementIsFocused(form1.getInput1()));
+    }
+
+    @Test
+    public void when_form_is_submitted_then_first_input_from_this_form_should_gain_focus() {
+        browser.get(contextPath.toExternalForm());
+
+        form2.submit();
+        Graphene.waitGui().until(new ElementIsFocused(form2.getInput2()));
+
+        form1.submit();
+        Graphene.waitGui().until(new ElementIsFocused(form1.getInput2()));
+
+        form3.submit();
+        Graphene.waitGui().until(new ElementIsFocused(form3.getInput1()));
+    }
+
+    @Test
+    public void when_ajax_is_sent_then_first_input_from_submitted_form_should_gain_focus() {
+        browser.get(contextPath.toExternalForm());
+
+        form2.submitAjax();
+        waitAjax().until(new ElementIsFocused(form2.getInput2()));
+
+        form1.submitAjax();
+        waitAjax().until(new ElementIsFocused(form1.getInput2()));
+
+        form3.submitAjax();
+        waitAjax().until(new ElementIsFocused(form3.getInput1()));
     }
 
     public static class Form {

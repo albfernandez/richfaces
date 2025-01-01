@@ -21,10 +21,6 @@
  */
 package org.richfaces.json;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Arrays;
-
 import org.ajax4jsf.Messages;
 import org.ajax4jsf.javascript.JSEncoder;
 import org.xml.sax.Attributes;
@@ -32,6 +28,10 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Arrays;
 
 /**
  * @author shura SAX content handler for serialise events as JavaScript function.
@@ -201,7 +201,7 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
      *
      * @param endElement Whether this method was called because an element is being closed or not.
      * @return <b>true </b> if this call successfully closed the element (and no further <code>&lt;/element&gt;</code> is
-     *         required.
+     * required.
      */
     protected boolean closeElement(boolean endElement) throws SAXException {
         if (!hangingElement) {

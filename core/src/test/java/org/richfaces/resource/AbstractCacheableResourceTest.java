@@ -21,6 +21,12 @@
  */
 package org.richfaces.resource;
 
+import org.easymock.IAnswer;
+import org.easymock.classextension.EasyMock;
+import org.jboss.test.faces.AbstractFacesTest;
+import org.jboss.test.faces.mock.FacesMock;
+
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -30,13 +36,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-
-import javax.faces.context.FacesContext;
-
-import org.easymock.IAnswer;
-import org.easymock.classextension.EasyMock;
-import org.jboss.test.faces.AbstractFacesTest;
-import org.jboss.test.faces.mock.FacesMock;
 
 /**
  * @author Nick Belaevski

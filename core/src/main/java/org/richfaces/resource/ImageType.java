@@ -63,7 +63,7 @@ public enum ImageType {
 
     // Build web safe 6x6x6 cube color model.
     static {
-        byte[] webLevels = { 0, 51, 102, (byte) 153, (byte) 204, (byte) 255 };
+        byte[] webLevels = {0, 51, 102, (byte) 153, (byte) 204, (byte) 255};
         int colorsNumber = webLevels.length * webLevels.length * webLevels.length; /* 216 colors */
         byte[] r = new byte[colorsNumber];
         byte[] g = new byte[colorsNumber];
@@ -102,7 +102,7 @@ public enum ImageType {
 
     private static BufferedImage createBitmaskImage(int width, int height) {
         ColorModel colorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), true, false,
-            Transparency.BITMASK, DataBuffer.TYPE_BYTE);
+                Transparency.BITMASK, DataBuffer.TYPE_BYTE);
 
         WritableRaster raster = colorModel.createCompatibleWritableRaster(width, height);
 

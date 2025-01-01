@@ -20,13 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.component;
-import javax.el.MethodExpression;
-import javax.faces.component.UIComponentBase;
 
-import org.richfaces.model.ChartDataModel;
-import org.richfaces.model.SeriesHandler;
-import org.richfaces.model.PlotClickEvent;
-import org.richfaces.model.PlotClickListener;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Event;
 import org.richfaces.cdk.annotations.EventName;
@@ -34,6 +28,13 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.model.ChartDataModel;
+import org.richfaces.model.PlotClickEvent;
+import org.richfaces.model.PlotClickListener;
+import org.richfaces.model.SeriesHandler;
+
+import javax.el.MethodExpression;
+import javax.faces.component.UIComponentBase;
 
 /**
  * The &lt;rich:chartSeries&gt; defines the data to be plotted in a chart. It represents
@@ -44,7 +45,7 @@ import org.richfaces.cdk.annotations.TagType;
  */
 @JsfComponent(
         family = "org.richfaces.ui.output.ChartFamily",
-        tag = @Tag(name = "chartSeries", generate = false, handlerClass=SeriesHandler.class, type = TagType.Facelets),
+        tag = @Tag(name = "chartSeries", generate = false, handlerClass = SeriesHandler.class, type = TagType.Facelets),
         fires = {@Event(value = PlotClickEvent.class, listener = PlotClickListener.class)})
 public abstract class AbstractChartSeries extends UIComponentBase {
 
@@ -114,6 +115,7 @@ public abstract class AbstractChartSeries extends UIComponentBase {
     public abstract MethodExpression getPlotClickListener();
 
     public abstract void setPlotClickListener(MethodExpression e);
+
     /**
      * Point symbols for line chart
      */

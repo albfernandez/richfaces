@@ -21,6 +21,14 @@
  */
 package org.richfaces;
 
+import org.richfaces.component.AbstractDataScroller;
+import org.richfaces.component.UIDataAdaptor;
+import org.richfaces.renderkit.util.RendererUtils;
+
+import javax.faces.FacesException;
+import javax.faces.component.NamingContainer;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,25 +36,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.faces.FacesException;
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
-
-import org.richfaces.component.AbstractDataScroller;
-import org.richfaces.component.UIDataAdaptor;
-import org.richfaces.renderkit.util.RendererUtils;
-
 public final class DataScrollerUtils {
     /**
      *
      */
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
-
-    protected enum PropertyKeys {
-        rowCount,
-        rows
-    }
 
     private DataScrollerUtils() {
     }
@@ -116,7 +110,7 @@ public final class DataScrollerUtils {
             throw new IllegalArgumentException("could not find dataTable with id '" + forAttribute + "'");
         } else if (!((forComp instanceof UIData) || (forComp instanceof UIDataAdaptor))) {
             throw new IllegalArgumentException("component with id '" + forAttribute + "' must be of type "
-                + UIData.class.getName() + " or " + UIDataAdaptor.class + ", not type " + forComp.getClass().getName());
+                    + UIData.class.getName() + " or " + UIDataAdaptor.class + ", not type " + forComp.getClass().getName());
         }
 
         return forComp;
@@ -149,5 +143,10 @@ public final class DataScrollerUtils {
                 }
             }
         }
+    }
+
+    protected enum PropertyKeys {
+        rowCount,
+        rows
     }
 }

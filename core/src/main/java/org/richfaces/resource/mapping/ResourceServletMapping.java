@@ -21,19 +21,17 @@
  */
 package org.richfaces.resource.mapping;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
-
+import com.google.common.base.Strings;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.webapp.ResourceServlet;
 
-import com.google.common.base.Strings;
+import javax.faces.application.Resource;
+import javax.faces.context.FacesContext;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Maps resource with given key to RichFaces {@link ResourceServlet}.
@@ -62,29 +60,6 @@ public class ResourceServletMapping implements ResourceMapping {
         }
         this.resourceKey = null;
         this.resourcePath = resourcePath;
-    }
-
-    @Override
-    public ResourcePath getResourcePath(FacesContext context) {
-        ResourceMappingConfiguration service = ServiceTracker.getService(ResourceMappingConfiguration.class);
-        String location = service.getLocation();
-
-        String mappedPath = getMappedPath(context);
-
-        return new ResourcePath(location + mappedPath);
-    }
-
-    private String getMappedPath(FacesContext context) {
-        if (resourcePath != null) {
-            return resourcePath.toExternalForm();
-        } else {
-            Resource resource = context.getApplication().getResourceHandler()
-                    .createResource(resourceKey.getResourceName(), resourceKey.getLibraryName());
-            if (resource == null) {
-                return "RESOURCE_NOT_FOUND";
-            }
-            return getResourcePath(resource);
-        }
     }
 
     static String getResourcePath(Resource resource) {
@@ -116,6 +91,29 @@ public class ResourceServletMapping implements ResourceMapping {
         } catch (URISyntaxException e) {
             throw new IllegalStateException(String.format("Failed to parse requestPath '%s' for resource '%s': %s",
                     resource.getRequestPath(), ResourceKey.create(resource), e.getMessage()), e);
+        }
+    }
+
+    @Override
+    public ResourcePath getResourcePath(FacesContext context) {
+        ResourceMappingConfiguration service = ServiceTracker.getService(ResourceMappingConfiguration.class);
+        String location = service.getLocation();
+
+        String mappedPath = getMappedPath(context);
+
+        return new ResourcePath(location + mappedPath);
+    }
+
+    private String getMappedPath(FacesContext context) {
+        if (resourcePath != null) {
+            return resourcePath.toExternalForm();
+        } else {
+            Resource resource = context.getApplication().getResourceHandler()
+                    .createResource(resourceKey.getResourceName(), resourceKey.getLibraryName());
+            if (resource == null) {
+                return "RESOURCE_NOT_FOUND";
+            }
+            return getResourcePath(resource);
         }
     }
 }

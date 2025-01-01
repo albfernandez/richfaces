@@ -35,7 +35,6 @@ import org.w3c.dom.css.CSSUnknownRule;
 
 /**
  * @author Nick Belaevski
- *
  */
 public abstract class AbstractCSSVisitor {
     public void visitStyleSheet(CSSStyleSheet styleSheet) {

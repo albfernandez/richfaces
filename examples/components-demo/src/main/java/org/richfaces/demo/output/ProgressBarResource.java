@@ -21,15 +21,13 @@
  */
 package org.richfaces.demo.output;
 
-import java.util.Map;
+import org.richfaces.resource.AbstractJSONResource;
 
 import javax.faces.context.FacesContext;
-
-import org.richfaces.resource.AbstractJSONResource;
+import java.util.Map;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class ProgressBarResource extends AbstractJSONResource {
     private static final String ATTRIBUTE_NAME = ProgressBarResource.class.getName();

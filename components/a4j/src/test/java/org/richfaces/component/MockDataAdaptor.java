@@ -21,15 +21,14 @@
  */
 package org.richfaces.component;
 
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-
 import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.ExtendedDataModel;
 
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+
 /**
  * @author Nick Belaevski
- *
  */
 public class MockDataAdaptor extends UIDataAdaptor {
     private ExtendedDataModel<?> dataModel;

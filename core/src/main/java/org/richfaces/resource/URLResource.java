@@ -21,15 +21,14 @@
  */
 package org.richfaces.resource;
 
+import org.richfaces.resource.mapping.ResourcePath;
+
+import javax.faces.application.Resource;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
-
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
-
-import org.richfaces.resource.mapping.ResourcePath;
 
 /**
  * <p>

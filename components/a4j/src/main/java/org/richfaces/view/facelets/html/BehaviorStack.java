@@ -21,25 +21,23 @@
  */
 package org.richfaces.view.facelets.html;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import javax.faces.application.Application;
 import javax.faces.component.StateHolder;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHint;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Nick Belaevski
- *
- *         This class is necessary to handle nesting wrapping behaviors properly and is created to work around this issue:
- *         https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=655
- *
+ * <p>
+ * This class is necessary to handle nesting wrapping behaviors properly and is created to work around this issue:
+ * https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=655
  */
 
 // TODO - check for bug resolution

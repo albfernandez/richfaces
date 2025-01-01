@@ -21,16 +21,15 @@
  */
 package org.ajax4jsf.io;
 
-import java.io.IOException;
-import java.io.Writer;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.ResponseWriter;
-
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.AttributesImpl;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * Realization of Faces <code>ResponseWriter</code> for Cocoon Environment. Use ONLY Markup-specific calls , send it as
@@ -259,8 +258,8 @@ public class SAXResponseWriter extends ResponseWriter {
 
     /**
      * @author shura
-     *         <p/>
-     *         CDATA section. allow regular write() functions, write any text.
+     * <p/>
+     * CDATA section. allow regular write() functions, write any text.
      */
     private final class CDATAState extends XMLResponseWriterState {
         void flushCDATA() throws IOException {
@@ -372,7 +371,7 @@ public class SAXResponseWriter extends ResponseWriter {
 
         void writeAttribute(String name, Object value, String property) throws IOException {
             attributes.addAttribute(getNamespaceURI(), name, name, "id".equalsIgnoreCase(name) ? "ID" : "CDATA",
-                value.toString());
+                    value.toString());
         }
 
         void writeURIAttribute(String name, Object value, String property) throws IOException {
@@ -451,8 +450,8 @@ public class SAXResponseWriter extends ResponseWriter {
 
     /**
      * @author shura
-     *         <p/>
-     *         State in regular document. Disabled attributes & startDocument.
+     * <p/>
+     * State in regular document. Disabled attributes & startDocument.
      */
     private final class InDocumentState extends XMLResponseWriterState {
         void startElement(String name, UIComponent component) {
@@ -514,8 +513,8 @@ public class SAXResponseWriter extends ResponseWriter {
 
     /**
      * @author shura
-     *         <p/>
-     *         state before startDocument - only allow startDocument.
+     * <p/>
+     * state before startDocument - only allow startDocument.
      */
     private final class NotDocumentState extends XMLResponseWriterState {
         /*

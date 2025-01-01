@@ -21,10 +21,10 @@
  *******************************************************************************/
 package org.richfaces.showcase.extendedDataTable;
 
-import static org.junit.Assert.assertEquals;
-
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -34,7 +34,7 @@ public class AbstractExtendedTableTest extends AbstractDataIterationWithCars {
 
     /**
      * Checks whether there is correct car in the row, according to given vendor and model strings
-     * 
+     *
      * @param vendor
      * @param model
      * @param row

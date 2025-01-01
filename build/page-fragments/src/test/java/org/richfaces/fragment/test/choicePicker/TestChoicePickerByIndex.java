@@ -21,19 +21,18 @@
  */
 package org.richfaces.fragment.test.choicePicker;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
+import com.google.common.collect.Lists;
+import com.google.common.collect.Range;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper.ByIndexChoicePicker;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Range;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class TestChoicePickerByIndex extends AbstractChoicePickerTest {
 

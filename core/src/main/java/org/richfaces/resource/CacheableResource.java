@@ -21,13 +21,11 @@
  */
 package org.richfaces.resource;
 
-import java.util.Date;
-
 import javax.faces.context.FacesContext;
+import java.util.Date;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface CacheableResource {
     boolean isCacheable(FacesContext context);

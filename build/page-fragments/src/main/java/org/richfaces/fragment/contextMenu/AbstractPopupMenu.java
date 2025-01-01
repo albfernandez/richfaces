@@ -21,10 +21,7 @@
  */
 package org.richfaces.fragment.contextMenu;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.base.Optional;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -43,7 +40,9 @@ import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
-import com.google.common.base.Optional;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -170,13 +169,11 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
      */
     public abstract class AdvancedPopupMenuInteractions implements VisibleComponentInteractions {
 
+        private static final int DEFAULT_HIDEDELAY = 300;
+        private static final int DEFAULT_SHOWDELAY = 50;
         private final Event DEFAULT_SHOW_EVENT = Event.CONTEXTMENU;
         private Event showEvent = DEFAULT_SHOW_EVENT;
-
-        private static final int DEFAULT_HIDEDELAY = 300;
         private int hideDelay = DEFAULT_HIDEDELAY;
-
-        private static final int DEFAULT_SHOWDELAY = 50;
         private int showDelay = DEFAULT_SHOWDELAY;
 
         private WebElement target;
@@ -192,7 +189,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
         public void hide() {
             if (!getMenuPopup().isDisplayed()) {
                 throw new IllegalStateException("You are attemting to dismiss the " + getNameOfFragment() + ", however, no "
-                    + getNameOfFragment() + " is displayed at the moment!");
+                        + getNameOfFragment() + " is displayed at the moment!");
             }
             Utils.performUniversalBlur(browser);
             waitUntilIsNotVisible().perform();
@@ -221,6 +218,18 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
 
         protected int getShowDelay() {
             return showDelay;
+        }
+
+        /**
+         * Sets the delay which is between showevent observing and the menu opening
+         *
+         * @param newShowDelayInMillis
+         */
+        public void setShowDelay(int newShowDelayInMillis) {
+            if (newShowDelayInMillis < 0) {
+                throw new IllegalArgumentException("Can not be negative!");
+            }
+            showDelay = newShowDelayInMillis;
         }
 
         public WebElement getTargetElement() {
@@ -253,8 +262,8 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
          */
         public void show(WebElement givenTarget) {
             new Actions(browser)
-                .moveToElement(givenTarget)
-                .triggerEventByWD(getShowEvent(), givenTarget).perform();
+                    .moveToElement(givenTarget)
+                    .triggerEventByWD(getShowEvent(), givenTarget).perform();
 
             advanced().waitUntilIsVisible().perform();
         }
@@ -301,15 +310,15 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
             return showEvent;
         }
 
-        public void setShowEvent() {
-            setShowEvent(getDefaultShowEvent());
-        }
-
         public void setShowEvent(Event newShowEvent) {
             if (newShowEvent == null) {
                 throw new IllegalArgumentException("Parameter newInvokeEvent can not be null!");
             }
             showEvent = newShowEvent;
+        }
+
+        public void setShowEvent() {
+            setShowEvent(getDefaultShowEvent());
         }
 
         public void setShowEventFromWidget() {
@@ -319,18 +328,6 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
 
         public void setShowDelay() {
             showDelay = DEFAULT_SHOWDELAY;
-        }
-
-        /**
-         * Sets the delay which is between showevent observing and the menu opening
-         *
-         * @param newShowDelayInMillis
-         */
-        public void setShowDelay(int newShowDelayInMillis) {
-            if (newShowDelayInMillis < 0) {
-                throw new IllegalArgumentException("Can not be negative!");
-            }
-            showDelay = newShowDelayInMillis;
         }
 
         public void setTarget() {
@@ -350,20 +347,20 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
             }
         }
 
-        public void setTimeoutForPopupMenuToBeNotVisible(long timeoutInMilliseconds) {
-            _timeoutForPopupMenuToBeNotVisible = timeoutInMilliseconds;
-        }
-
         public long getTimeoutForPopupMenuToBeNotVisible() {
             return _timeoutForPopupMenuToBeNotVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForPopupMenuToBeNotVisible;
         }
 
-        public void setTimeoutForPopupMenuToBeVisible(long timeoutInMilliseconds) {
-            _timeoutForPopupMenuToBeVisible = timeoutInMilliseconds;
+        public void setTimeoutForPopupMenuToBeNotVisible(long timeoutInMilliseconds) {
+            _timeoutForPopupMenuToBeNotVisible = timeoutInMilliseconds;
         }
 
         public long getTimeoutForPopupMenuToBeVisible() {
             return _timeoutForPopupMenuToBeVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForPopupMenuToBeVisible;
+        }
+
+        public void setTimeoutForPopupMenuToBeVisible(long timeoutInMilliseconds) {
+            _timeoutForPopupMenuToBeVisible = timeoutInMilliseconds;
         }
 
         /**
@@ -379,7 +376,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
                     wait.until().element(getMenuPopup()).is().not().visible();
                 }
             }.withMessage("Waiting for menu to hide.")
-                .withTimeout(hideDelay + getTimeoutForPopupMenuToBeNotVisible(), TimeUnit.MILLISECONDS);
+                    .withTimeout(hideDelay + getTimeoutForPopupMenuToBeNotVisible(), TimeUnit.MILLISECONDS);
         }
 
         public WaitingWrapper waitUntilIsVisible() {
@@ -390,7 +387,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
                     wait.until().element(getMenuPopup()).is().visible();
                 }
             }.withMessage("The " + getNameOfFragment() + " did not show in the given timeout!")
-                .withTimeout(showDelay + getTimeoutForPopupMenuToBeVisible(), TimeUnit.MILLISECONDS);
+                    .withTimeout(showDelay + getTimeoutForPopupMenuToBeVisible(), TimeUnit.MILLISECONDS);
         }
 
         @Override

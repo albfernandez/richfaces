@@ -21,19 +21,17 @@
  */
 package org.richfaces.webapp;
 
-import java.text.MessageFormat;
-import java.util.Set;
+import com.google.common.collect.Iterables;
+import org.richfaces.application.push.impl.PushContextFactoryImpl;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 import javax.servlet.ServletRegistration.Dynamic;
-
-import org.richfaces.application.push.impl.PushContextFactoryImpl;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-
-import com.google.common.collect.Iterables;
+import java.text.MessageFormat;
+import java.util.Set;
 
 /**
  * Checks whether the {@link PushServlet} should be registered automatically on application startup.
@@ -62,7 +60,7 @@ public class PushServletContainerInitializer extends AbstractServletContainerIni
 
     /**
      * If Atmosphere is on classpath and {@link PushFilter} wasn't registered in current {@link ServletContext},
-     *
+     * <p>
      * the {@link PushServlet} will be registered automatically.
      */
     @Override

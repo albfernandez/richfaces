@@ -27,7 +27,6 @@ package org.richfaces.log;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public final class LogFactory {
     private static final Logger DEFAULT_LOGGER = new JavaLogger();

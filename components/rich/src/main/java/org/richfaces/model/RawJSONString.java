@@ -20,6 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.model;
+
 import org.richfaces.json.JSONString;
 
 /**
@@ -27,6 +28,7 @@ import org.richfaces.json.JSONString;
  * The aim of this class <b>RawJSONString</b> is to output content into JSON
  * without quotes
  * </p>
+ *
  * @author Lukas Macko
  */
 public class RawJSONString implements JSONString {

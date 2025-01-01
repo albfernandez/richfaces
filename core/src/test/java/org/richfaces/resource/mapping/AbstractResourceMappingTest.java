@@ -21,17 +21,6 @@
  */
 package org.richfaces.resource.mapping;
 
-import static org.mockito.Mockito.when;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.el.ELContext;
-import javax.faces.application.Application;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-
 import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -43,6 +32,16 @@ import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.test.AbstractServicesTest;
+
+import javax.el.ELContext;
+import javax.faces.application.Application;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.mockito.Mockito.when;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>

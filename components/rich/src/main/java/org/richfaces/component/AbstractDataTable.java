@@ -21,8 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIComponent;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -38,6 +36,8 @@ import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.component.attribute.TableStyleProps;
 import org.richfaces.taglib.DataTableHandler;
+
+import javax.faces.component.UIComponent;
 
 /**
  * <p>

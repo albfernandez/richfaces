@@ -21,8 +21,7 @@
  */
 package org.richfaces.fragment.hotkey;
 
-import java.util.EnumSet;
-
+import com.google.common.base.Optional;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -37,44 +36,24 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.configuration.RichFacesPageFragmentsConfiguration;
 import org.richfaces.fragment.configuration.RichFacesPageFragmentsConfigurationContext;
 
-import com.google.common.base.Optional;
+import java.util.EnumSet;
 
 /**
  * Automatically set hotkey from widget, if no hotkey from user is set.
  */
 public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHotkey.AdvancedHotkeyInteractions> {
 
+    private final RichFacesPageFragmentsConfiguration configuration = RichFacesPageFragmentsConfigurationContext.getProxy();
+    private final AdvancedHotkeyInteractions interactions = new AdvancedHotkeyInteractions();
     @Drone
     private WebDriver driver;
-
     @Root
     private WebElement rootElement;
-
     @ArquillianResource
     private Actions actions;
-
-    private final RichFacesPageFragmentsConfiguration configuration = RichFacesPageFragmentsConfigurationContext.getProxy();
-
-    private final AdvancedHotkeyInteractions interactions = new AdvancedHotkeyInteractions();
     private String hotkey;
     private String selector;
     private boolean firefoxKeyboardWorkaroundPerformed = false;
-
-    public enum ModifierKeys {
-
-        ALT(Keys.ALT),
-        SHIFT(Keys.SHIFT),
-        CTRL(Keys.CONTROL);
-        private final Keys key;
-
-        private ModifierKeys(Keys key) {
-            this.key = key;
-        }
-
-        public Keys getKey() {
-            return key;
-        }
-    }
 
     @Override
     public AdvancedHotkeyInteractions advanced() {
@@ -101,7 +80,7 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
         String key = advanced().getHotkey();
         if (key == null || key.trim().isEmpty()) {
             throw new IllegalArgumentException(
-                "The hotkey can not be null nor empty! Set it up correctly with #setUp(String) method.");
+                    "The hotkey can not be null nor empty! Set it up correctly with #setUp(String) method.");
         }
         getActions().sendKeys(elementOrNull, key).perform();
     }
@@ -110,7 +89,7 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
     public void setHotkey(String hotkey) {
         if (hotkey == null || hotkey.isEmpty()) {
             throw new IllegalArgumentException(
-                "Hotkey cannot be empty or null. Set up hotkey from widget if you want to reset it.");
+                    "Hotkey cannot be empty or null. Set up hotkey from widget if you want to reset it.");
         }
         this.hotkey = parseHotKey(hotkey);
     }
@@ -147,6 +126,22 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
         return result;
     }
 
+    public enum ModifierKeys {
+
+        ALT(Keys.ALT),
+        SHIFT(Keys.SHIFT),
+        CTRL(Keys.CONTROL);
+        private final Keys key;
+
+        private ModifierKeys(Keys key) {
+            this.key = key;
+        }
+
+        public Keys getKey() {
+            return key;
+        }
+    }
+
     public class AdvancedHotkeyInteractions {
 
         private final String previousKeyText = "";
@@ -168,7 +163,7 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
 
         protected Optional<By> getSelector() {
             return (selector == null || selector.isEmpty() ? Optional.<By>absent() : Optional.<By>of(ByJQuery
-                .selector(selector)));
+                    .selector(selector)));
         }
 
         public void setFromWidget() {

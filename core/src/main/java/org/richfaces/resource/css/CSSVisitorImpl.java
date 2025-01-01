@@ -21,16 +21,6 @@
  */
 package org.richfaces.resource.css;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.el.util.ELUtils;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -46,9 +36,17 @@ import org.w3c.dom.css.CSSStyleSheet;
 import org.w3c.dom.css.CSSUnknownRule;
 import org.w3c.dom.stylesheets.MediaList;
 
+import javax.faces.application.Resource;
+import javax.faces.context.FacesContext;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Nick Belaevski
- *
  */
 public final class CSSVisitorImpl extends AbstractCSSVisitor {
     private static final String RESOURCE_START_PREFIX = "resource[";
@@ -251,12 +249,12 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
         return encoding;
     }
 
-    public String getCSSText() {
-        return buffer.toString();
-    }
-
     public void setEncoding(String encoding) {
         this.encoding = encoding;
+    }
+
+    public String getCSSText() {
+        return buffer.toString();
     }
 
     public String convertStreamToString(InputStream is, String encoding) throws IOException {

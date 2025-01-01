@@ -21,6 +21,7 @@
  */
 package org.richfaces.fragment.inputNumberSlider;
 
+import com.google.common.base.Preconditions;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebDriver;
@@ -32,51 +33,36 @@ import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
 
-import com.google.common.base.Preconditions;
-
 public class RichFacesInputNumberSlider extends AbstractNumberInput implements InputNumberSlider,
-    AdvancedVisibleComponentIteractions<RichFacesInputNumberSlider.AdvancedInputNumberSliderInteractions> {
-
-    @FindBy(className = "rf-insl-inc")
-    private WebElement arrowIncrease;
-
-    @FindBy(className = "rf-insl-dec")
-    private WebElement arrowDecrease;
-
-    @FindBy(css = "span.rf-insl-inp-cntr > input.rf-insl-inp")
-    private TextInputComponentImpl input;
-
-    @FindBy(className = "rf-insl-hnd-cntr")
-    private WebElement handleContainer;
-
-    @FindBy(className = "rf-insl-hnd")
-    private WebElement handle;
-
-    @FindBy(className = "rf-insl-hnd-dis")
-    private WebElement disabledHandle;
-
-    @FindBy(className = "rf-insl-mn")
-    private WebElement min;
-
-    @FindBy(className = "rf-insl-mx")
-    private WebElement max;
-
-    @FindBy(css = "span.rf-insl-trc")
-    private WebElement trackComponent;
-
-    @FindBy(className = "rf-insl-tt")
-    private WebElement tooltip;
-
-    @FindBy(css = "span.rf-insl-trc")
-    private WebElement sliderElement;
-
-    @Drone
-    private WebDriver browser;
-
-    @Root
-    private WebElement root;
+        AdvancedVisibleComponentIteractions<RichFacesInputNumberSlider.AdvancedInputNumberSliderInteractions> {
 
     private final AdvancedInputNumberSliderInteractions advancedInteractons = new AdvancedInputNumberSliderInteractions();
+    @FindBy(className = "rf-insl-inc")
+    private WebElement arrowIncrease;
+    @FindBy(className = "rf-insl-dec")
+    private WebElement arrowDecrease;
+    @FindBy(css = "span.rf-insl-inp-cntr > input.rf-insl-inp")
+    private TextInputComponentImpl input;
+    @FindBy(className = "rf-insl-hnd-cntr")
+    private WebElement handleContainer;
+    @FindBy(className = "rf-insl-hnd")
+    private WebElement handle;
+    @FindBy(className = "rf-insl-hnd-dis")
+    private WebElement disabledHandle;
+    @FindBy(className = "rf-insl-mn")
+    private WebElement min;
+    @FindBy(className = "rf-insl-mx")
+    private WebElement max;
+    @FindBy(css = "span.rf-insl-trc")
+    private WebElement trackComponent;
+    @FindBy(className = "rf-insl-tt")
+    private WebElement tooltip;
+    @FindBy(css = "span.rf-insl-trc")
+    private WebElement sliderElement;
+    @Drone
+    private WebDriver browser;
+    @Root
+    private WebElement root;
 
     @Override
     public AdvancedInputNumberSliderInteractions advanced() {
@@ -93,11 +79,11 @@ public class RichFacesInputNumberSlider extends AbstractNumberInput implements I
     }
 
     public class AdvancedInputNumberSliderInteractions extends AbstractNumberInput.AdvancedNumberInputInteractions
-        implements VisibleComponentInteractions {
+            implements VisibleComponentInteractions {
 
         public void dragHandleToPointInTrace(int pixelInTrace) {
             Preconditions.checkArgument(pixelInTrace >= 0 && pixelInTrace <= getWidth(),
-                "Cannot slide outside the trace.");
+                    "Cannot slide outside the trace.");
             if (!Utils.isVisible(advanced().getRootElement())) {
                 throw new RuntimeException("Trace is not visible.");
             }

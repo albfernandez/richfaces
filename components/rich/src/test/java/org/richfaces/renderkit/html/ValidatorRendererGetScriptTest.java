@@ -1,11 +1,11 @@
 package org.richfaces.renderkit.html;
 
-import javax.faces.FacesException;
-import javax.faces.component.behavior.ClientBehavior;
-
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.faces.FacesException;
+import javax.faces.component.behavior.ClientBehavior;
 
 /**
  * <p class="changed_added_4_0">
@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 @RunWith(MockTestRunner.class)
 public class ValidatorRendererGetScriptTest extends ValidatorRendererTestBase {

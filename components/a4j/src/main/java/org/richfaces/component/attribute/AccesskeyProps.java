@@ -23,7 +23,6 @@ package org.richfaces.component.attribute;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
-import org.richfaces.cdk.annotations.EventName;
 
 /**
  * Interface defining the methods for accesskey-props.xml

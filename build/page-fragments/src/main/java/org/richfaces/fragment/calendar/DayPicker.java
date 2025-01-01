@@ -21,10 +21,7 @@
  */
 package org.richfaces.fragment.calendar;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import com.google.common.base.Preconditions;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
@@ -45,7 +42,9 @@ import org.richfaces.fragment.list.AbstractListComponent;
 import org.richfaces.fragment.list.ListItem;
 import org.richfaces.fragment.orderingList.AbstractSelectableListItem;
 
-import com.google.common.base.Preconditions;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -74,7 +73,7 @@ public class DayPicker {
             throw new RuntimeException("Cannot interact with DayPicker.");
         }
         List<CalendarDayImpl> items = getDays().getItems(ChoicePickerHelper.byWebElement()
-            .attribute("class").contains("rf-cal-boundary-day"));
+                .attribute("class").contains("rf-cal-boundary-day"));
         return items;
     }
 
@@ -90,10 +89,10 @@ public class DayPicker {
             throw new RuntimeException("Cannot interact with DayPicker.");
         }
         List<CalendarDayImpl> items = getDays().getItems(ChoicePickerHelper
-            .byWebElement()
-            .attribute("class").contains("rf-cal-boundary-day").not()
-            .and()
-            .attribute("class").contains("rf-cal-day-lbl").not());
+                .byWebElement()
+                .attribute("class").contains("rf-cal-boundary-day").not()
+                .and()
+                .attribute("class").contains("rf-cal-day-lbl").not());
         return items;
     }
 
@@ -271,20 +270,20 @@ public class DayPicker {
                 this.styleClass = styleClass;
             }
 
-            public boolean isType(WebElement day) {
-                return check(day, styleClass);
-            }
-
-            public String getStyle() {
-                return styleClass;
-            }
-
             public static boolean check(WebElement day, String styleClass) {
                 String attribute = day.getAttribute("class");
                 if (attribute == null) {
                     return false;
                 }
                 return attribute.contains(styleClass);
+            }
+
+            public boolean isType(WebElement day) {
+                return check(day, styleClass);
+            }
+
+            public String getStyle() {
+                return styleClass;
             }
         }
     }
@@ -293,6 +292,7 @@ public class DayPicker {
 
         /**
          * Checks if this day contains chosen styleClass
+         *
          * @param styleClass
          * @return
          */
@@ -323,6 +323,7 @@ public class DayPicker {
 
         /**
          * Parses and returns the element's text representing day number.
+         *
          * @return
          */
         @Override

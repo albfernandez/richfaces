@@ -21,12 +21,10 @@
  */
 package org.richfaces.model;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
-import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
 import org.richfaces.renderkit.ChartRendererBase;
+
+import java.io.IOException;
 
 
 /**

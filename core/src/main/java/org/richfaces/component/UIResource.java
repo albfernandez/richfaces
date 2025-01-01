@@ -32,7 +32,6 @@ import javax.faces.render.Renderer;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public class UIResource extends UITransient {
     private final String name;

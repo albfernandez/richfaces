@@ -1,10 +1,9 @@
 package org.richfaces.demo.tables;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import org.richfaces.JsfVersion;
+import org.richfaces.demo.common.data.RandomHelper;
+import org.richfaces.demo.tables.model.cars.InventoryItem;
+import org.richfaces.demo.tables.model.cars.InventoryVendorList;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -13,11 +12,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-
-import org.richfaces.JsfVersion;
-import org.richfaces.demo.common.data.RandomHelper;
-import org.richfaces.demo.tables.model.cars.InventoryItem;
-import org.richfaces.demo.tables.model.cars.InventoryVendorList;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @ManagedBean(name = "carsBean")
 @ViewScoped

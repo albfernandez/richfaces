@@ -21,19 +21,6 @@
  */
 package org.richfaces.component;
 
-import java.io.IOException;
-
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-
 import org.ajax4jsf.component.IterationStateHolder;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -54,6 +41,18 @@ import org.richfaces.event.TreeToggleSource;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.view.facelets.TreeNodeHandler;
 
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+import java.io.IOException;
+
 /**
  * <p> The <rich:treeNode> component is a child component of the <rich:tree> component. It represents nodes in the
  * parent tree. The appearance and functionality of each tree node can be customized. </p>
@@ -69,10 +68,6 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     public static final String SUBTREE_META_COMPONENT_ID = "subtree";
 
     private AbstractTree parent;
-
-    enum PropertyKeys {
-        expanded
-    }
 
     public AbstractTreeNode() {
         setRendererType("org.richfaces.TreeNodeRenderer");
@@ -247,5 +242,9 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     @Attribute(hidden = true)
     public Object getData() {
         return findTreeComponent().getData();
+    }
+
+    enum PropertyKeys {
+        expanded
     }
 }

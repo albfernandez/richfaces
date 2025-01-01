@@ -30,7 +30,6 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author leo
- *
  */
 public class ContentBean {
     private static final String PRELUDE = "<html xmlns=\"http://www.w3.org/1999/xhtml\"\n"
@@ -52,16 +51,16 @@ public class ContentBean {
     }
 
     /**
-     * @param xpath the xpath to set
-     */
-    public void setXpath(String xpath) {
-        this.xpath = xpath;
-    }
-
-    /**
      * @return the xpath
      */
     public String getXpath() {
         return xpath;
+    }
+
+    /**
+     * @param xpath the xpath to set
+     */
+    public void setXpath(String xpath) {
+        this.xpath = xpath;
     }
 }

@@ -22,14 +22,11 @@
 
 package org.richfaces.photoalbum.social.facebook;
 
-import java.io.Serializable;
-import java.util.List;
+import org.richfaces.json.JSONObject;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-
-import org.richfaces.json.JSONObject;
-import org.richfaces.photoalbum.util.converters.ListConverter;
+import java.io.Serializable;
 
 @Named
 @SessionScoped
@@ -49,7 +46,7 @@ public class FacebookBean implements Serializable {
     public void setUserInfo(JSONObject userInfo) {
         this.userInfo = userInfo;
     }
-    
+
     public String getUserId() {
         return userInfo != null ? userInfo.optString("id", "1") : "1";
     }

@@ -22,7 +22,6 @@
 package org.richfaces.io.io;
 
 import junit.framework.TestCase;
-
 import org.ajax4jsf.io.ByteBuffer;
 import org.ajax4jsf.io.FastBufferOutputStream;
 

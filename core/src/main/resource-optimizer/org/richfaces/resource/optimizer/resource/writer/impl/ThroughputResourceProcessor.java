@@ -21,14 +21,14 @@
  */
 package org.richfaces.resource.optimizer.resource.writer.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import com.google.common.io.ByteSink;
 import com.google.common.io.ByteSource;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 import org.richfaces.util.StreamUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * @author Nick Belaevski

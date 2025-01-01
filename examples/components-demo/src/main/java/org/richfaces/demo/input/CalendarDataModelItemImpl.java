@@ -25,7 +25,6 @@ import org.richfaces.model.CalendarDataModelItem;
 
 /**
  * @author Nick Belaevski - mailto:nbelaevski@exadel.com created 04.07.2007
- *
  */
 public class CalendarDataModelItemImpl implements CalendarDataModelItem {
     private boolean enabled = true;

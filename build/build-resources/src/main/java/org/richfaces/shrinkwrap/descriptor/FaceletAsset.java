@@ -21,12 +21,12 @@
  */
 package org.richfaces.shrinkwrap.descriptor;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.apache.commons.io.IOUtils;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Assert simplifying process of creating facelets XHTML definitions out of template.
@@ -37,13 +37,6 @@ public class FaceletAsset implements Asset {
 
     private static final String TEMPLATE;
 
-    private StringBuilder head = new StringBuilder();
-    private StringBuilder body = new StringBuilder();
-    private StringBuilder xmlns = new StringBuilder();
-    private StringBuilder form = new StringBuilder();
-
-    private boolean stateless = false;
-
     static {
         try {
             TEMPLATE = IOUtils.toString(FaceletAsset.class.getResourceAsStream("facelet-template.xhtml"));
@@ -51,6 +44,12 @@ public class FaceletAsset implements Asset {
             throw new IllegalStateException(e);
         }
     }
+
+    private StringBuilder head = new StringBuilder();
+    private StringBuilder body = new StringBuilder();
+    private StringBuilder xmlns = new StringBuilder();
+    private StringBuilder form = new StringBuilder();
+    private boolean stateless = false;
 
     public FaceletAsset() {
         this.xmlns("ui", "http://java.sun.com/jsf/facelets");

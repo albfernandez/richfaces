@@ -1,24 +1,5 @@
 package org.richfaces.validator;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.convert.BooleanConverter;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.DateTimeConverter;
-import javax.faces.convert.IntegerConverter;
-import javax.faces.render.ClientBehaviorRenderer;
-
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;
 import org.jboss.test.faces.mock.Mock;
@@ -30,10 +11,28 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
+import javax.faces.convert.BooleanConverter;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+import javax.faces.convert.DateTimeConverter;
+import javax.faces.convert.IntegerConverter;
+import javax.faces.render.ClientBehaviorRenderer;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TimeZone;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 @RunWith(MockTestRunner.class)
 public class FacesConverterServiceTest {
     @Mock()
-    @Environment({ Feature.APPLICATION })
+    @Environment({Feature.APPLICATION})
     protected MockFacesEnvironment environment;
     protected FacesConverterService serviceImpl;
     @Mock
@@ -69,7 +68,7 @@ public class FacesConverterServiceTest {
         converter = new BooleanConverter();
         controller.replay();
         ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input,
-            converter, null);
+                converter, null);
         assertEquals(converter.getClass(), converterDescription.getImplementationClass());
     }
 
@@ -85,7 +84,7 @@ public class FacesConverterServiceTest {
         }
         assertNotNull(facesMessage);
         ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input,
-            converter, null);
+                converter, null);
         String summary = converterDescription.getMessage().getSummary();
         summary = summary.replace("{2}", "foo");
         summary = summary.replace("'{0}'", "abc");
@@ -103,7 +102,7 @@ public class FacesConverterServiceTest {
         converter.setTimeZone(TimeZone.getTimeZone("EST"));
         controller.replay();
         ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input,
-            converter, null);
+                converter, null);
         Map<String, ? extends Object> additionalParameters = converterDescription.getAdditionalParameters();
         assertEquals("short", additionalParameters.get("dateStyle"));
         assertEquals("MM/DD/YYYY", additionalParameters.get("pattern"));

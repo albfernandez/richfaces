@@ -23,7 +23,6 @@ package org.richfaces.renderkit;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com
- *
  */
 public class ControlsState {
     private boolean firstRendered = true;

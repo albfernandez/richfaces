@@ -24,7 +24,6 @@ package org.richfaces.resource;
 
 /**
  * @author Nick Belaevski
- *
  */
 public final class DefaultCodecResourceRequestData implements ResourceRequestData {
     private DefaultResourceCodec defaultResourceCodec;
@@ -43,28 +42,28 @@ public final class DefaultCodecResourceRequestData implements ResourceRequestDat
         this.defaultResourceCodec = defaultResourceCodec;
     }
 
-    protected void setResourceName(String resourceName) {
-        this.resourceName = resourceName;
-    }
-
     public String getResourceName() {
         return resourceName;
     }
 
-    protected void setLibraryName(String libraryName) {
-        this.libraryName = libraryName;
+    protected void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
     }
 
     public String getLibraryName() {
         return libraryName;
     }
 
-    protected void setVersion(String version) {
-        this.version = version;
+    protected void setLibraryName(String libraryName) {
+        this.libraryName = libraryName;
     }
 
     public String getVersion() {
         return version;
+    }
+
+    protected void setVersion(String version) {
+        this.version = version;
     }
 
     public String getResourceKey() {
@@ -82,12 +81,12 @@ public final class DefaultCodecResourceRequestData implements ResourceRequestDat
         this.dataString = dataString;
     }
 
-    protected void setDataSerialized(boolean dataSerialized) {
-        this.dataSerialized = dataSerialized;
-    }
-
     protected boolean isDataSerialized() {
         return dataSerialized;
+    }
+
+    protected void setDataSerialized(boolean dataSerialized) {
+        this.dataSerialized = dataSerialized;
     }
 
     public Object getData() {

@@ -1,19 +1,19 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
@@ -112,16 +112,16 @@ public class ValueBindingValueExpressionAdaptor extends javax.faces.el.ValueBind
         return tranzient;
     }
 
+    public void setTransient(boolean newTransientValue) {
+        tranzient = newTransientValue;
+    }
+
     public void restoreState(FacesContext context, Object state) {
         expression = (ValueExpression) state;
     }
 
     public Object saveState(FacesContext context) {
         return expression;
-    }
-
-    public void setTransient(boolean newTransientValue) {
-        tranzient = newTransientValue;
     }
 
     public ValueExpression getExpression() {

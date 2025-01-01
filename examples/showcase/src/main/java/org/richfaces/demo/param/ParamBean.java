@@ -1,9 +1,8 @@
 package org.richfaces.demo.param;
 
-import java.io.Serializable;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import java.io.Serializable;
 
 @ManagedBean
 @RequestScoped

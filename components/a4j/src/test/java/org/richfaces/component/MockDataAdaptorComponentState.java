@@ -27,7 +27,6 @@ import org.ajax4jsf.model.SequenceRange;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class MockDataAdaptorComponentState implements DataComponentState {
     private Range range = new SequenceRange(0, -1);

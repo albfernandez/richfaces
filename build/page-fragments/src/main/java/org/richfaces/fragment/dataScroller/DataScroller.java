@@ -27,22 +27,6 @@ package org.richfaces.fragment.dataScroller;
 public interface DataScroller {
 
     /**
-     * Represents the buttons by which the dataScroller can be controlled.
-     *
-     * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
-     *
-     */
-    enum DataScrollerSwitchButton {
-
-        FIRST,
-        FAST_REWIND,
-        PREVIOUS,
-        NEXT,
-        FAST_FORWARD,
-        LAST;
-    }
-
-    /**
      * Gets the index of the currently selected page. Indexed from 1.
      *
      * @return the position of the page at which the dataScroller currently is
@@ -66,7 +50,23 @@ public interface DataScroller {
 
     /**
      * Determines whether there are some pages to scroll over with this DataScroller.
+     *
      * @return true if there is more than one page of data, false otherwise
      */
     boolean hasPages();
+
+    /**
+     * Represents the buttons by which the dataScroller can be controlled.
+     *
+     * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
+     */
+    enum DataScrollerSwitchButton {
+
+        FIRST,
+        FAST_REWIND,
+        PREVIOUS,
+        NEXT,
+        FAST_FORWARD,
+        LAST;
+    }
 }

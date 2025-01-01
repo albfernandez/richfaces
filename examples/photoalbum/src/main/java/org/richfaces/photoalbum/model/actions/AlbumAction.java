@@ -21,13 +21,13 @@
  */
 package org.richfaces.photoalbum.model.actions;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-
 import org.richfaces.photoalbum.model.Album;
 import org.richfaces.photoalbum.model.Shelf;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 /**
  * Class for manipulating with album entity. Analogous to DAO pattern. EJB3 Bean

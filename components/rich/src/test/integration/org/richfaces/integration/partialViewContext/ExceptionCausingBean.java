@@ -38,7 +38,7 @@ public class ExceptionCausingBean implements Serializable {
     public void causeException() {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getApplication().publishEvent(context, ExceptionQueuedEvent.class,
-            new ExceptionQueuedEventContext(context, new IllegalStateException("this should be handled by JSF")));
+                new ExceptionQueuedEventContext(context, new IllegalStateException("this should be handled by JSF")));
     }
 
 }

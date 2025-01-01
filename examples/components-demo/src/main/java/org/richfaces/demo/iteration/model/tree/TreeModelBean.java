@@ -26,7 +26,6 @@ import javax.faces.bean.ViewScoped;
 
 /**
  * @author Nick Belaevski
- *
  */
 @ManagedBean
 @ViewScoped

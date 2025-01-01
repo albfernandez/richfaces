@@ -21,7 +21,9 @@
  */
 package org.richfaces.example;
 
-import java.io.StringWriter;
+import org.w3c.dom.Document;
+import org.w3c.dom.DocumentFragment;
+import org.w3c.dom.NodeList;
 
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.Transformer;
@@ -29,14 +31,10 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.DocumentFragment;
-import org.w3c.dom.NodeList;
+import java.io.StringWriter;
 
 /**
  * @author Maksim Kaszynski
- *
  */
 public class XMLBodySerializer {
     public String serialize(NodeList childNodes, Document xmlDocument) throws ParsingException {

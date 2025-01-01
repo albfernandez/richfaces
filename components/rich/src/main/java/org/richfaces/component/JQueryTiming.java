@@ -23,7 +23,6 @@ package org.richfaces.component;
 
 /**
  * @author nick
- *
  */
 public enum JQueryTiming {
 

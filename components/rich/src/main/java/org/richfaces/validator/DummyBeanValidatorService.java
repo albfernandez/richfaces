@@ -25,15 +25,13 @@
  */
 package org.richfaces.validator;
 
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-
 /**
  * @author asmirnov
- *
  */
 public class DummyBeanValidatorService implements BeanValidatorService {
     /*
@@ -43,12 +41,12 @@ public class DummyBeanValidatorService implements BeanValidatorService {
      * javax.el.ValueExpression, java.lang.Class<?>[])
      */
     public Collection<ValidatorDescriptor> getConstrains(FacesContext context, ValueExpression expression, String message,
-        Class<?>... groups) {
+                                                         Class<?>... groups) {
         return Collections.emptySet();
     }
 
     public Collection<String> validateExpression(FacesContext context, ValueExpression expression, Object newValue,
-        Class<?>... groups) {
+                                                 Class<?>... groups) {
         return Collections.emptySet();
     }
 

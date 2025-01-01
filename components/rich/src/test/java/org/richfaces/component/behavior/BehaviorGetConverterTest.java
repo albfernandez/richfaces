@@ -1,17 +1,5 @@
 package org.richfaces.component.behavior;
 
-import static org.easymock.EasyMock.capture;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.same;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-
-import java.util.Collections;
-
-import javax.faces.convert.Converter;
-import javax.faces.convert.NumberConverter;
-
 import org.easymock.Capture;
 import org.easymock.EasyMock;
 import org.jboss.test.faces.mock.Mock;
@@ -25,6 +13,17 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesConverterService;
 
+import javax.faces.convert.Converter;
+import javax.faces.convert.NumberConverter;
+import java.util.Collections;
+
+import static org.easymock.EasyMock.capture;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.same;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+
 /**
  * <p class="changed_added_4_0">
  * This class tests client validator behavior. as it described at https://community.jboss.org/wiki/ClientSideValidation #
@@ -32,7 +31,6 @@ import org.richfaces.validator.FacesConverterService;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 @RunWith(MockTestRunner.class)
 public class BehaviorGetConverterTest extends BehaviorTestBase {
@@ -49,8 +47,8 @@ public class BehaviorGetConverterTest extends BehaviorTestBase {
         expect(factory.getInstance(FacesConverterService.class)).andStubReturn(converterService);
         converterCapture = new Capture<Converter>();
         expect(
-            converterService.getConverterDescription(same(environment.getFacesContext()), same(input),
-                capture(converterCapture), EasyMock.<String>isNull())).andStubReturn(descriptor);
+                converterService.getConverterDescription(same(environment.getFacesContext()), same(input),
+                        capture(converterCapture), EasyMock.<String>isNull())).andStubReturn(descriptor);
         ServiceTracker.setFactory(factory);
     }
 

@@ -1,6 +1,7 @@
 package org.richfaces.renderkit;
 
-import java.io.IOException;
+import org.richfaces.component.AbstractPlaceholder;
+import org.richfaces.component.util.InputUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -8,17 +9,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
+import java.io.IOException;
 
-import org.richfaces.component.AbstractPlaceholder;
-import org.richfaces.component.util.InputUtils;
-
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(name = "jquery.watermark.js", library = "org.richfaces", target = "head"),
         @ResourceDependency(name = "placeholder.js", library = "org.richfaces", target = "head"),
-        @ResourceDependency(name = "placeholder.css", library = "org.richfaces") })
+        @ResourceDependency(name = "placeholder.css", library = "org.richfaces")})
 public abstract class PlaceholderRendererBase extends RendererBase {
 
     public static final String RENDERER_TYPE = "org.richfaces.PlaceholderRenderer";

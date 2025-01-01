@@ -1,12 +1,11 @@
 package org.richfaces.context;
 
-import java.util.Collection;
-import java.util.Set;
-
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitContextFactory;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.context.FacesContext;
+import java.util.Collection;
+import java.util.Set;
 
 // TODO visitContext instanceof ExtendedVisitContext
 public class ExtendedVisitContextFactory extends VisitContextFactory {

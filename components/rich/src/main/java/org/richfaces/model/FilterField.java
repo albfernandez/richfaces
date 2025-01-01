@@ -25,7 +25,6 @@ import javax.el.ValueExpression;
 
 /**
  * @author Konstantin Mishin
- *
  */
 public class FilterField extends Field {
     private static final long serialVersionUID = -935655586515863809L;

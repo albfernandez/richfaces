@@ -21,29 +21,25 @@
  */
 package org.richfaces.fragment.accordion;
 
-import java.util.Collections;
-import java.util.List;
-
+import com.google.common.base.Predicate;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.switchable.AbstractSwitchableComponent;
 
-import com.google.common.base.Predicate;
+import java.util.Collections;
+import java.util.List;
 
 public class RichFacesAccordion extends AbstractSwitchableComponent<RichFacesAccordionItem> implements Accordion {
 
+    private final AdvancedAccordionInteractions advancedInteractions = new AdvancedAccordionInteractions();
     @FindBy(className = "rf-ac-itm-hdr")
     private List<WebElement> accordionHeaders;
-
     @FindBy(className = "rf-ac-itm")
     private List<RichFacesAccordionItem> accordionItems;
-
     @FindByJQuery(".rf-ac-itm-cnt:visible")
     private WebElement visibleContent;
-
-    private final AdvancedAccordionInteractions advancedInteractions = new AdvancedAccordionInteractions();
 
     @Override
     public AdvancedAccordionInteractions advanced() {

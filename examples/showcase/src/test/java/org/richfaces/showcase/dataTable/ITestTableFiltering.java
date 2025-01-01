@@ -21,14 +21,14 @@
  */
 package org.richfaces.showcase.dataTable;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.Collection;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.dataTable.page.TableFilteringPage;
+
+import java.util.Collection;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -37,22 +37,21 @@ import org.richfaces.showcase.dataTable.page.TableFilteringPage;
  */
 public class ITestTableFiltering extends AbstractDataIterationWithCars {
 
-    @Page
-    protected TableFilteringPage page;
+    private final String MILEAGE_FILTER = "40000";
 
     /*
      * Constants *****************************************************************
      * ***********************************************
      */
-
-    private final String MILEAGE_FILTER = "40000";
     private final String VENDOR_FILTER = "Chevrolet";
     private final String VIN_FILTER = "A";
     private final String ERROR_MESSAGE = "is not a number";
+    @Page
+    protected TableFilteringPage page;
 
     /*
      * Tests
-     * 
+     *
      * tests conditions are depending on some non deterministic conditions, when are not satisfied the fail() is called
      * ************************************ ************************************** *****************************************
      */
@@ -61,21 +60,21 @@ public class ITestTableFiltering extends AbstractDataIterationWithCars {
     public void testVendorFilter() {
         getPage().filter(Field.VENDOR, VENDOR_FILTER);
         assertTrue("There should be only rows which contains only " + VENDOR_FILTER,
-            checkAllCarsAreCorrect(getPage().getCars(), Field.VENDOR, VENDOR_FILTER));
+                checkAllCarsAreCorrect(getPage().getCars(), Field.VENDOR, VENDOR_FILTER));
     }
 
     @Test
     public void testMileageFilter() {
         getPage().filter(Field.MILEAGE, MILEAGE_FILTER);
         assertTrue("There should be only rows with mileage less or equal to " + MILEAGE_FILTER,
-            checkAllCarsAreCorrect(getPage().getCars(), Field.MILEAGE, MILEAGE_FILTER));
+                checkAllCarsAreCorrect(getPage().getCars(), Field.MILEAGE, MILEAGE_FILTER));
     }
 
     @Test
     public void testVinFilter() {
         getPage().filter(Field.VIN, VIN_FILTER);
         assertTrue("all vins of the car should contain " + VIN_FILTER,
-            checkAllCarsAreCorrect(getPage().getCars(), Field.VIN, VIN_FILTER));
+                checkAllCarsAreCorrect(getPage().getCars(), Field.VIN, VIN_FILTER));
     }
 
     @Test
@@ -86,7 +85,7 @@ public class ITestTableFiltering extends AbstractDataIterationWithCars {
 
         String actualErrorMessage = getPage().getErrorMessage().getText();
         assertTrue("There should be error message, since there is string in the mileage input!",
-            actualErrorMessage.contains(ERROR_MESSAGE));
+                actualErrorMessage.contains(ERROR_MESSAGE));
     }
 
     @Test

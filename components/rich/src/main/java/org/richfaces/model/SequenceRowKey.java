@@ -21,14 +21,13 @@
  */
 package org.richfaces.model;
 
+import com.google.common.collect.ObjectArrays;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
-import com.google.common.collect.ObjectArrays;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class SequenceRowKey implements Serializable {
     private static final long serialVersionUID = 5605581090240141910L;

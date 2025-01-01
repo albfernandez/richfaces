@@ -28,9 +28,13 @@ import javax.faces.model.DataModel;
  * Extesion for {@link DataModel} , for support complex data structure, like tree, spreadsheet etc in iterable components.
  *
  * @author shura
- *
  */
 public abstract class ExtendedDataModel<E> extends DataModel<E> {
+    /**
+     * @return key for selected data or <code>null</code>
+     */
+    public abstract Object getRowKey();
+
     /**
      * <p>
      * Instead of simple <code>int</code> for current state selection, this model can use any object for select current data.
@@ -48,16 +52,11 @@ public abstract class ExtendedDataModel<E> extends DataModel<E> {
     public abstract void setRowKey(Object key);
 
     /**
-     * @return key for selected data or <code>null</code>
-     */
-    public abstract Object getRowKey();
-
-    /**
      * Iterate over model by "visitor" pattern, for given range
      *
-     * @param context current JSF context.
-     * @param visitor instance of {@link DataVisitor}, for process each row.
-     * @param range Implementation-specific range of data keys.
+     * @param context  current JSF context.
+     * @param visitor  instance of {@link DataVisitor}, for process each row.
+     * @param range    Implementation-specific range of data keys.
      * @param argument Implementation-specific argument
      * @throws java.io.IOException
      */

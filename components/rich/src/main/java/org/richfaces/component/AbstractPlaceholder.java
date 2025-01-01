@@ -21,6 +21,16 @@
  */
 package org.richfaces.component;
 
+import com.google.common.base.Strings;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.StyleClassProps;
+import org.richfaces.component.event.PreRenderParentListener;
+import org.richfaces.renderkit.PlaceholderRendererBase;
+
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -31,24 +41,12 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
-import com.google.common.base.Strings;
-
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.attribute.CoreProps;
-import org.richfaces.component.attribute.StyleClassProps;
-import org.richfaces.component.event.PreRenderParentListener;
-import org.richfaces.renderkit.PlaceholderRendererBase;
-
 /**
  * Adds placeholder capability to HTML input and textarea elements. A placeholder typically appears as light gray text within an
  * input or textarea element whenever the element is empty and does not have focus. This provides a hint to the user as to what
  * the input or textarea element is used for, or the type of input that is required.
  */
-@JsfComponent(tag = @Tag(name = "placeholder", type = TagType.Facelets), renderer = @JsfRenderer(family = AbstractPlaceholder.COMPONENT_FAMILY, type = PlaceholderRendererBase.RENDERER_TYPE), attributes = { "javax.faces.component.ValueHolder.xml" })
+@JsfComponent(tag = @Tag(name = "placeholder", type = TagType.Facelets), renderer = @JsfRenderer(family = AbstractPlaceholder.COMPONENT_FAMILY, type = PlaceholderRendererBase.RENDERER_TYPE), attributes = {"javax.faces.component.ValueHolder.xml"})
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractPlaceholder extends UIOutput implements StyleClassProps {
     // ------------------------------ FIELDS ------------------------------
@@ -110,8 +108,8 @@ public abstract class AbstractPlaceholder extends UIOutput implements StyleClass
             PlaceholderRendererBase renderer = (PlaceholderRendererBase) placeholder.getRenderer(facesContext);
 
             String placeHolderStyleClass = (String) component.getAttributes().get("styleClass");
-            if (! Strings.isNullOrEmpty(placeHolderStyleClass)) {
-                    parent.getAttributes().put("placeHolderStyleClass", placeHolderStyleClass);
+            if (!Strings.isNullOrEmpty(placeHolderStyleClass)) {
+                parent.getAttributes().put("placeHolderStyleClass", placeHolderStyleClass);
             }
             if (parent instanceof InplaceComponent) {
                 if (placeholder.isRendered() && placeholder.getValue() != null) {

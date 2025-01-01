@@ -23,10 +23,10 @@
 package org.richfaces.photoalbum.model.event;
 
 public enum Events {
-    EDIT_USER_EVENT, 
-    CANCEL_EDIT_USER_EVENT, 
-    AUTHENTICATED_EVENT, 
-    USER_DELETED_EVENT, 
+    EDIT_USER_EVENT,
+    CANCEL_EDIT_USER_EVENT,
+    AUTHENTICATED_EVENT,
+    USER_DELETED_EVENT,
     ADD_ERROR_EVENT, // SimpleEvent
 
     ALBUM_ADDED_EVENT,
@@ -55,9 +55,9 @@ public enum Events {
 
     // this is never used (neither fired nor observed)
     ADD_IMAGE_EVENT,
-    
+
     EVENT_ADDED_EVENT,
     EVENT_EDITED_EVENT,
-    EVENT_DELETED_EVENT, 
+    EVENT_DELETED_EVENT,
     EVENT_DISPLAYED_EVENT // ShelfEvent
 }

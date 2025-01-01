@@ -3,6 +3,8 @@
  */
 package org.richfaces.json;
 
+import junit.framework.TestCase;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,11 +12,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import junit.framework.TestCase;
-
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com created 12.04.2007
- *
  */
 public class JsonTest extends TestCase {
     /**

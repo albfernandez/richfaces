@@ -21,16 +21,14 @@
  */
 package org.richfaces.model.iterators;
 
+import org.richfaces.model.SequenceRowKey;
+
+import javax.faces.component.UIComponent;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-
-import org.richfaces.model.SequenceRowKey;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class MapDataTuplesIterator extends BaseTupleIterator {
     private Map<?, ?> dataMap;

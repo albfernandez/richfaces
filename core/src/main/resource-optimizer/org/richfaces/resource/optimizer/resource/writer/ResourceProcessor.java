@@ -21,12 +21,12 @@
  */
 package org.richfaces.resource.optimizer.resource.writer;
 
+import com.google.common.io.ByteSink;
+import com.google.common.io.ByteSource;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import com.google.common.io.ByteSink;
-import com.google.common.io.ByteSource;
 
 /**
  * @author Nick Belaevski

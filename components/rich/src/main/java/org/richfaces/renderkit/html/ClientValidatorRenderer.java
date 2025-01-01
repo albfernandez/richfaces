@@ -4,20 +4,7 @@ package org.richfaces.renderkit.html;
 // Imports
 //
 
-import java.util.Collection;
-import java.util.List;
-
-import javax.faces.FacesException;
-import javax.faces.component.ActionSource;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.render.ClientBehaviorRenderer;
-
+import com.google.common.collect.Lists;
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.application.ServiceTracker;
@@ -31,7 +18,18 @@ import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesObjectDescriptor;
 import org.richfaces.validator.ValidatorDescriptor;
 
-import com.google.common.collect.Lists;
+import javax.faces.FacesException;
+import javax.faces.component.ActionSource;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.render.ClientBehaviorRenderer;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Renderer for component class org.richfaces.renderkit.html.AjaxValidatorRenderer
@@ -45,6 +43,36 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
 
     public ClientValidatorRenderer() {
         super();
+    }
+
+    // Creates an AjaxBehaviorEvent for the specified component/behavior
+    private static AjaxBehaviorEvent createEvent(UIComponent component, ClientValidatorBehavior ajaxBehavior) {
+
+        AjaxBehaviorEvent event = new AjaxBehaviorEvent(component, ajaxBehavior);
+
+        PhaseId phaseId = isImmediate(component, ajaxBehavior) ? PhaseId.APPLY_REQUEST_VALUES : PhaseId.PROCESS_VALIDATIONS;
+
+        event.setPhaseId(phaseId);
+
+        return event;
+    }
+
+    // Tests whether we should perform immediate processing. Note
+    // that we "inherit" immediate from the parent if not specified
+    // on the behavior.
+    private static boolean isImmediate(UIComponent component, ClientValidatorBehavior ajaxBehavior) {
+
+        boolean immediate = false;
+
+        if (ajaxBehavior.isImmediateSet()) {
+            immediate = ajaxBehavior.isImmediate();
+        } else if (component instanceof EditableValueHolder) {
+            immediate = ((EditableValueHolder) component).isImmediate();
+        } else if (component instanceof ActionSource) {
+            immediate = ((ActionSource) component).isImmediate();
+        }
+
+        return immediate;
     }
 
     @Override
@@ -84,36 +112,6 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
         if (!ajaxBehavior.isDisabled()) {
             component.queueEvent(createEvent(component, ajaxBehavior));
         }
-    }
-
-    // Creates an AjaxBehaviorEvent for the specified component/behavior
-    private static AjaxBehaviorEvent createEvent(UIComponent component, ClientValidatorBehavior ajaxBehavior) {
-
-        AjaxBehaviorEvent event = new AjaxBehaviorEvent(component, ajaxBehavior);
-
-        PhaseId phaseId = isImmediate(component, ajaxBehavior) ? PhaseId.APPLY_REQUEST_VALUES : PhaseId.PROCESS_VALIDATIONS;
-
-        event.setPhaseId(phaseId);
-
-        return event;
-    }
-
-    // Tests whether we should perform immediate processing. Note
-    // that we "inherit" immediate from the parent if not specified
-    // on the behavior.
-    private static boolean isImmediate(UIComponent component, ClientValidatorBehavior ajaxBehavior) {
-
-        boolean immediate = false;
-
-        if (ajaxBehavior.isImmediateSet()) {
-            immediate = ajaxBehavior.isImmediate();
-        } else if (component instanceof EditableValueHolder) {
-            immediate = ((EditableValueHolder) component).isImmediate();
-        } else if (component instanceof ActionSource) {
-            immediate = ((ActionSource) component).isImmediate();
-        }
-
-        return immediate;
     }
 
     /**
@@ -176,14 +174,14 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
     }
 
     private ValidatorScriptBase createValidatorScript(ClientBehaviorContext behaviorContext, ClientValidatorBehavior behavior,
-            Collection<ValidatorDescriptor> validators, LibraryScriptFunction clientSideConverterScript) {
+                                                      Collection<ValidatorDescriptor> validators, LibraryScriptFunction clientSideConverterScript) {
         Collection<? extends LibraryScriptFunction> validatorScripts = getClientSideValidatorScript(
                 behaviorContext.getFacesContext(), validators);
         if (validatorScripts.isEmpty()) {
             return new AjaxOnlyScript(behavior.getAjaxScript(behaviorContext));
         } else if (validatorScripts.size() < validators.size()) {
             return new ClientAndAjaxScript(clientSideConverterScript, validatorScripts, behavior.getAjaxScript(behaviorContext),
-                behavior.getOnvalid(), behavior.getOninvalid());
+                    behavior.getOnvalid(), behavior.getOninvalid());
         } else {
             return new ClientOnlyScript(clientSideConverterScript, validatorScripts, behavior.getOnvalid(),
                     behavior.getOninvalid());
@@ -216,7 +214,7 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
     }
 
     private LibraryScriptFunction createClientFunction(FacesContext facesContext, FacesObjectDescriptor descriptor,
-            ClientScriptService clientScriptService) throws ScriptNotFoundException {
+                                                       ClientScriptService clientScriptService) throws ScriptNotFoundException {
         LibraryFunction script = clientScriptService.getScript(facesContext, descriptor.getImplementationClass());
         return new LibraryScriptFunction(script, descriptor.getMessage(), descriptor.getAdditionalParameters());
     }
@@ -232,7 +230,7 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
      * @throws ScriptNotFoundException
      */
     Collection<? extends LibraryScriptFunction> getClientSideValidatorScript(FacesContext facesContext,
-            Collection<ValidatorDescriptor> validators) {
+                                                                             Collection<ValidatorDescriptor> validators) {
         ClientScriptService clientScriptService = ServiceTracker.getService(facesContext, ClientScriptService.class);
         List<LibraryScriptFunction> scripts = Lists.newArrayList();
         for (FacesObjectDescriptor validator : validators) {

@@ -1,7 +1,13 @@
 package org.richfaces.component;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
+import org.junit.Assert;
+import org.junit.Test;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
+import org.richfaces.renderkit.html.RendererTestBase;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -9,15 +15,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.richfaces.CustomizedHtmlUnitEnvironment;
-import org.richfaces.renderkit.html.RendererTestBase;
-
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class CalendarRenderTest extends RendererTestBase {
     @Override

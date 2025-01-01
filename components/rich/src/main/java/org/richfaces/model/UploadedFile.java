@@ -21,15 +21,14 @@
  */
 package org.richfaces.model;
 
+import org.richfaces.exception.FileUploadException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
-import org.richfaces.exception.FileUploadException;
-
 /**
  * @author Konstantin Mishin
- *
  */
 public interface UploadedFile {
     String getContentType();
@@ -56,7 +55,7 @@ public interface UploadedFile {
 
     /**
      * Returns the files extension - the substring after last period of this file's name.
-     *
+     * <p>
      * If there is no period in file name, empty string is returned instead.
      */
     String getFileExtension();

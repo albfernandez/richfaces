@@ -22,11 +22,33 @@
  */
 package org.richfaces.component.behavior;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Lists;
+import org.ajax4jsf.component.behavior.AjaxBehavior;
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
+import org.richfaces.cdk.annotations.JsfBehavior;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.ClientSideMessage;
+import org.richfaces.component.attribute.ImmediateProps;
+import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.javascript.Message;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.html.ClientValidatorRenderer;
+import org.richfaces.renderkit.html.FormClientValidatorRenderer;
+import org.richfaces.validator.BeanValidatorService;
+import org.richfaces.validator.ConverterDescriptor;
+import org.richfaces.validator.FacesBeanValidator;
+import org.richfaces.validator.FacesConverterService;
+import org.richfaces.validator.FacesValidatorService;
+import org.richfaces.validator.ValidatorDescriptor;
+import org.richfaces.view.facelets.html.ClientValidatorHandler;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
@@ -48,36 +70,11 @@ import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.RenderKit;
 import javax.faces.validator.BeanValidator;
 import javax.faces.validator.Validator;
-
-import org.ajax4jsf.component.behavior.AjaxBehavior;
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.Description;
-import org.richfaces.cdk.annotations.JsfBehavior;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.ClientSideMessage;
-import org.richfaces.component.attribute.ImmediateProps;
-import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.javascript.Message;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.renderkit.html.ClientValidatorRenderer;
-import org.richfaces.renderkit.html.FormClientValidatorRenderer;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.validator.BeanValidatorService;
-import org.richfaces.validator.ConverterDescriptor;
-import org.richfaces.validator.FacesBeanValidator;
-import org.richfaces.validator.FacesConverterService;
-import org.richfaces.validator.FacesValidatorService;
-import org.richfaces.validator.ValidatorDescriptor;
-
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
-
-import org.richfaces.view.facelets.html.ClientValidatorHandler;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * <p>The &lt;rich:validator&gt; behavior adds client-side validation to a form input control based on registered server-side validators. It provides this validation without the need to reproduce the server-side annotations.</p>
@@ -88,7 +85,7 @@ import org.richfaces.view.facelets.html.ClientValidatorHandler;
  */
 @JsfBehavior(id = "org.richfaces.behavior.ClientValidator",
         tag = @Tag(name = "validator", handlerClass = ClientValidatorHandler.class, type = TagType.Facelets),
-        attributes = {"validator-props.xml" })
+        attributes = {"validator-props.xml"})
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior, ImmediateProps {
     private static final Set<String> NONE = Collections.emptySet();
     private static final Set<String> THIS = Collections.singleton("@this");
@@ -96,19 +93,12 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
     private static final String VALUE = "value";
     private static final String IMMEDIATE = "immediate";
     private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
-    private Class<?>[] groups;
-
     private static final Function<? super FacesMessage, Message> MESSAGES_TRANSFORMER = new Function<FacesMessage, Message>() {
         public Message apply(FacesMessage msg) {
             return new Message(msg);
         }
     };
-
-    protected enum Properties {
-        onvalid,
-        oninvalid,
-        immediate
-    }
+    private Class<?>[] groups;
 
     @Override
     public String getScript(ClientBehaviorContext behaviorContext) {
@@ -208,7 +198,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
      * @param id
      */
     protected boolean findMessages(UIComponent parent, UIComponent component, Set<UIComponent> messages, boolean found,
-            Object id) {
+                                   Object id) {
         Iterator<UIComponent> facetsAndChildren = parent.getFacetsAndChildren();
         while (facetsAndChildren.hasNext()) {
             UIComponent child = (UIComponent) facetsAndChildren.next();
@@ -239,7 +229,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
      * Look up for {@link ClientBehaviorRenderer} instence
      * </p>
      *
-     * @param context current JSF context
+     * @param context      current JSF context
      * @param rendererType desired renderer type
      * @return renderer instance
      * @throws {@link FacesException} if renderer can not be found
@@ -381,7 +371,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
             if (superState == null) {
                 values = null;
             } else {
-                values = new Object[] { superState };
+                values = new Object[]{superState};
             }
         } else {
             values = new Object[2];
@@ -472,5 +462,11 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
 
     public void setOninvalid(String value) {
         getStateHelper().put(Properties.oninvalid, value);
+    }
+
+    protected enum Properties {
+        onvalid,
+        oninvalid,
+        immediate
     }
 }

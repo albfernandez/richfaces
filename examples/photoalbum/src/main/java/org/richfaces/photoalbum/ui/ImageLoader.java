@@ -21,18 +21,17 @@
  */
 package org.richfaces.photoalbum.ui;
 
+import org.richfaces.photoalbum.manager.FileManager;
+import org.richfaces.photoalbum.util.Constants;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
-
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.richfaces.photoalbum.manager.FileManager;
-import org.richfaces.photoalbum.util.Constants;
 
 @Named
 @RequestScoped

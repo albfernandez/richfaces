@@ -1,5 +1,16 @@
 package org.richfaces.renderkit.html;
 
+import org.richfaces.component.AbstractPopupPanel;
+import org.richfaces.json.JSONException;
+import org.richfaces.json.JSONMap;
+import org.richfaces.renderkit.RendererBase;
+
+import javax.faces.FacesException;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,20 +19,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.faces.FacesException;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
-import org.richfaces.component.AbstractPopupPanel;
-import org.richfaces.json.JSONException;
-import org.richfaces.json.JSONMap;
-import org.richfaces.renderkit.RendererBase;
-
 //TODO nick - JSF have concept of library, it should be used instead of '/' in resource names
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
@@ -29,7 +28,7 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "org.richfaces", name = "popupPanel.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupPanelBorders.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupPanelSizer.js"),
-        @ResourceDependency(library = "org.richfaces", name = "popupPanel.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "popupPanel.ecss")})
 public class PopupPanelBaseRenderer extends RendererBase {
     private static final String CONTROLS_FACET = "controls";
     private static final String HEADER_FACET = "header";
@@ -106,7 +105,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
         if (domElementAttachment != null && domElementAttachment.trim().length() != 0) {
             if (!ALLOWED_ATTACHMENT_OPTIONS.contains(domElementAttachment)) {
                 throw new IllegalArgumentException("Value '" + domElementAttachment
-                    + "' of domElementAttachment attribute is illegal. " + "Allowed values are: " + ALLOWED_ATTACHMENT_OPTIONS);
+                        + "' of domElementAttachment attribute is illegal. " + "Allowed values are: " + ALLOWED_ATTACHMENT_OPTIONS);
             }
         }
 
@@ -140,7 +139,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
 
             // TODO nick - use ScriptUtils.toScript
             Iterator<Map.Entry<String, Object>> it = ((Map<String, Object>) getHandledVisualOptions(panel)).entrySet()
-                .iterator();
+                    .iterator();
             while (it.hasNext()) {
                 Map.Entry<String, Object> entry = it.next();
 
@@ -219,8 +218,8 @@ public class PopupPanelBaseRenderer extends RendererBase {
             }
         } else {
             throw new FacesException("Attribute visualOptions of component ["
-                + panel.getClientId(FacesContext.getCurrentInstance())
-                + "] must be instance of Map or String, but its type is " + value.getClass().getSimpleName());
+                    + panel.getClientId(FacesContext.getCurrentInstance())
+                    + "] must be instance of Map or String, but its type is " + value.getClass().getSimpleName());
         }
     }
 

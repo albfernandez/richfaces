@@ -1,14 +1,13 @@
 package org.richfaces.demo.calendar.model;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import org.richfaces.model.CalendarDataModel;
+import org.richfaces.model.CalendarDataModelItem;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-
-import org.richfaces.model.CalendarDataModel;
-import org.richfaces.model.CalendarDataModelItem;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 @ManagedBean
 @ApplicationScoped

@@ -21,12 +21,6 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Collections;
-import java.util.List;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
@@ -35,6 +29,12 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.dataScroller.RichFacesDataScroller;
 import org.richfaces.fragment.inputNumberSlider.RichFacesInputNumberSlider;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView.PhotoInfo;
+
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>

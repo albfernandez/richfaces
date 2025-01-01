@@ -1,24 +1,27 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.component.util;
+
+import com.google.common.base.Strings;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -27,10 +30,6 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-
-import org.richfaces.renderkit.util.RendererUtils;
-
-import com.google.common.base.Strings;
 
 /**
  * @author Maksim Kaszynski
@@ -60,12 +59,6 @@ public final class InputUtils {
     private InputUtils() {
     }
 
-    public interface ConverterLookupStrategy {
-        Converter getConverterByProperty(FacesContext context, UIComponent component);
-
-        Converter getConverterByValue(FacesContext context, UIComponent component, Object value);
-    }
-
     public static boolean isDisabled(UIComponent component) {
         return RendererUtils.getInstance().isBooleanAttribute(component, "disabled");
     }
@@ -87,12 +80,12 @@ public final class InputUtils {
     }
 
     public static String getConvertedStringValue(FacesContext context, UIComponent component, Object value)
-        throws ConverterException {
+            throws ConverterException {
         return getConvertedStringValue(context, component, DEFAULT_CONVERTER_LOOKUP_STRATEGY, value);
     }
 
     public static String getConvertedStringValue(FacesContext context, UIComponent component,
-        ConverterLookupStrategy converterLookupStrategy, Object value) throws ConverterException {
+                                                 ConverterLookupStrategy converterLookupStrategy, Object value) throws ConverterException {
 
         Converter converter = converterLookupStrategy.getConverterByValue(context, component, value);
         if (converter != null) {
@@ -146,7 +139,7 @@ public final class InputUtils {
     }
 
     public static Object getConvertedValue(FacesContext context, UIComponent component,
-        ConverterLookupStrategy converterLookupStrategy, Object val) throws ConverterException {
+                                           ConverterLookupStrategy converterLookupStrategy, Object val) throws ConverterException {
 
         String submittedString = (String) val;
         if (Strings.isNullOrEmpty(submittedString)) {
@@ -166,7 +159,7 @@ public final class InputUtils {
     }
 
     public static String getInputValue(FacesContext context, UIComponent component,
-        ConverterLookupStrategy converterLookupStrategy) throws ConverterException {
+                                       ConverterLookupStrategy converterLookupStrategy) throws ConverterException {
 
         UIInput input = (UIInput) component;
         String submittedValue = (String) input.getSubmittedValue();
@@ -183,5 +176,11 @@ public final class InputUtils {
         } else {
             return value != null ? value.toString() : "";
         }
+    }
+
+    public interface ConverterLookupStrategy {
+        Converter getConverterByProperty(FacesContext context, UIComponent component);
+
+        Converter getConverterByValue(FacesContext context, UIComponent component, Object value);
     }
 }

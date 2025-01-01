@@ -44,8 +44,8 @@ public interface TextInputComponent {
     /**
      * Returns <code>int</code> value of this input.
      *
-     * @throws NumberFormatException if the value of the input cannot be parsed as an integer
      * @return
+     * @throws NumberFormatException if the value of the input cannot be parsed as an integer
      */
     int getIntValue();
 

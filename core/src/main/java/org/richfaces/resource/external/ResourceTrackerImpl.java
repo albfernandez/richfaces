@@ -21,14 +21,13 @@
  */
 package org.richfaces.resource.external;
 
-import java.util.concurrent.atomic.AtomicReference;
-
-import javax.faces.FactoryFinder;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
+
+import javax.faces.FactoryFinder;
+import javax.faces.context.FacesContext;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Wraps known implementations of {@link ResourceTracker} and decides which one to choose in runtime
@@ -41,8 +40,8 @@ public class ResourceTrackerImpl implements ResourceTracker {
 
     private static final String MYFACES_RESOURCE_UTILS_CLASS = "org.apache.myfaces.shared.renderkit.html.util.ResourceUtils";
     private static final String WEBSPHERE_BUNDLED_MYFACES_RESOURCE_UTILS_CLASS = "org.apache.myfaces.shared_impl.renderkit.html.util.ResourceUtils";
-    private static final String[] MYFACES_RESOURCE_UTILS_CLASSES = { MYFACES_RESOURCE_UTILS_CLASS,
-            WEBSPHERE_BUNDLED_MYFACES_RESOURCE_UTILS_CLASS };
+    private static final String[] MYFACES_RESOURCE_UTILS_CLASSES = {MYFACES_RESOURCE_UTILS_CLASS,
+            WEBSPHERE_BUNDLED_MYFACES_RESOURCE_UTILS_CLASS};
 
     private AtomicReference<ResourceTracker> externalResourceTracker = new AtomicReference<ResourceTracker>();
 

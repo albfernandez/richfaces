@@ -21,16 +21,15 @@
  */
 package org.richfaces.webapp;
 
-import java.text.MessageFormat;
-import java.util.Set;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 import javax.servlet.ServletRegistration.Dynamic;
-
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import java.text.MessageFormat;
+import java.util.Set;
 
 /**
  * <p>
@@ -43,10 +42,18 @@ import org.richfaces.log.RichfacesLogger;
  */
 public class ResourceServletContainerInitializer extends AbstractServletContainerInitializer {
 
-    private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
-
-    private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.resources.skipResourceServletRegistration";
     public static final String RICHFACES_RESOURCES_DEFAULT_MAPPING = "/org.richfaces.resources/*";
+    private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
+    private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.resources.skipResourceServletRegistration";
+
+    private static void registerServlet(ServletContext context) {
+        Dynamic dynamicRegistration = context.addServlet("AutoRegisteredResourceServlet", ResourceServlet.class);
+        dynamicRegistration.addMapping(RICHFACES_RESOURCES_DEFAULT_MAPPING);
+
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Auto-registered servlet " + ResourceServlet.class.getSimpleName() + " with mapping '" + RICHFACES_RESOURCES_DEFAULT_MAPPING + "'");
+        }
+    }
 
     /*
      * (non-Javadoc)
@@ -67,15 +74,6 @@ public class ResourceServletContainerInitializer extends AbstractServletContaine
         } catch (Exception e) {
             servletContext
                     .log(MessageFormat.format("Exception registering RichFaces Resource Servlet: {0}", e.getMessage()), e);
-        }
-    }
-
-    private static void registerServlet(ServletContext context) {
-        Dynamic dynamicRegistration = context.addServlet("AutoRegisteredResourceServlet", ResourceServlet.class);
-        dynamicRegistration.addMapping(RICHFACES_RESOURCES_DEFAULT_MAPPING);
-
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("Auto-registered servlet " + ResourceServlet.class.getSimpleName() + " with mapping '" + RICHFACES_RESOURCES_DEFAULT_MAPPING + "'");
         }
     }
 }

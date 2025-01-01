@@ -21,13 +21,12 @@
  */
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
+import org.richfaces.component.util.HtmlUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import org.richfaces.component.util.HtmlUtil;
+import java.io.IOException;
 
 enum ProgressBarState {
     initialState {
@@ -54,7 +53,7 @@ enum ProgressBarState {
 
         @Override
         public void encodeStateForMetaComponent(FacesContext context, UIComponent component, ProgressBarStateEncoder encoder)
-            throws IOException {
+                throws IOException {
 
             encoder.encodeInitialState(context, component, this);
         }
@@ -93,7 +92,7 @@ enum ProgressBarState {
 
         @Override
         public void encodeStateForMetaComponent(FacesContext context, UIComponent component, ProgressBarStateEncoder encoder)
-            throws IOException {
+                throws IOException {
 
             encoder.encodeProgressStateContent(context, component, this);
         }
@@ -125,7 +124,7 @@ enum ProgressBarState {
 
         @Override
         public void encodeStateForMetaComponent(FacesContext context, UIComponent component, ProgressBarStateEncoder encoder)
-            throws IOException {
+                throws IOException {
 
             encoder.encodeCompleteState(context, component, this);
         }
@@ -140,5 +139,5 @@ enum ProgressBarState {
     public abstract boolean hasContent(FacesContext context, UIComponent component);
 
     public abstract void encodeStateForMetaComponent(FacesContext context, UIComponent component,
-        ProgressBarStateEncoder encoder) throws IOException;
+                                                     ProgressBarStateEncoder encoder) throws IOException;
 }

@@ -21,17 +21,16 @@
  */
 package org.richfaces.cache.lru;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
-
-import java.util.Map;
-
-import javax.faces.context.FacesContext;
-
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.cache.Cache;
 import org.richfaces.cache.CacheFactory;
-import org.richfaces.application.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+
+import javax.faces.context.FacesContext;
+import java.util.Map;
+
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
 
 /**
  * @author Nick - mailto:nbelaevski@exadel.com created 01.05.2007

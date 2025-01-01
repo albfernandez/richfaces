@@ -21,16 +21,14 @@
  */
 package org.richfaces.resource;
 
-import java.beans.FeatureDescriptor;
-import java.util.Iterator;
-
 import javax.el.ELContext;
 import javax.el.ELResolver;
 import javax.faces.context.FacesContext;
+import java.beans.FeatureDescriptor;
+import java.util.Iterator;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class ResourceParameterELResolver extends ELResolver {
     public static final String CONTEXT_ATTRIBUTE_NAME = "rfResourceParam";

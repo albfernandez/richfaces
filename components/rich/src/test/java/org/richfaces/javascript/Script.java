@@ -1,10 +1,10 @@
 package org.richfaces.javascript;
 
-import java.io.IOException;
-import java.util.Collections;
-
 import org.ajax4jsf.javascript.ScriptWithDependencies;
 import org.richfaces.resource.ResourceKey;
+
+import java.io.IOException;
+import java.util.Collections;
 
 final class Script implements ScriptWithDependencies {
     static final ResourceKey FOO_RESOURCE = ResourceKey.create("foo", "org.rf");

@@ -21,10 +21,10 @@
  */
 package org.richfaces.log;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.richfaces.log.Logger.Level;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -34,14 +34,13 @@ import java.util.logging.Handler;
 import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.richfaces.log.Logger.Level;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class JavaLoggerTest {
     private static final String ANOTHER_DUMMY_MESSAGE = "another message";
@@ -49,26 +48,6 @@ public class JavaLoggerTest {
     private static final String TEST_MESSAGE_PATTERN = "RF-000000 Test message with arguments: {0} and {1}";
     private static final String CHAR_SEQUENCE_THROWABLE_PATTERN = "(CharSequence, Throwable)({0})";
     private static final String CHAR_SEQUENCE_PATTERN = "(CharSequence)({0})";
-
-    /**
-     * @author Nick Belaevski
-     *
-     */
-    private final class TrackingHandler extends Handler {
-        @Override
-        public void publish(LogRecord record) {
-            publishedRecords.add(record);
-        }
-
-        @Override
-        public void flush() {
-        }
-
-        @Override
-        public void close() throws SecurityException {
-        }
-    }
-
     private java.util.logging.Logger wrappedLogger;
     private JavaLogger logger;
     private List<LogRecord> publishedRecords;
@@ -93,7 +72,7 @@ public class JavaLoggerTest {
     }
 
     private void verifyLogRecord(LogRecord logRecord, Level level, String message, Class<? extends Throwable> thrownClass,
-        String thrownMessage) {
+                                 String thrownMessage) {
         assertEquals(JavaLogger.LEVELS_MAP.get(level), logRecord.getLevel());
         assertEquals(message, logRecord.getMessage());
 
@@ -106,11 +85,11 @@ public class JavaLoggerTest {
     }
 
     private void verifyEnabledMethods(Level loggerLevel) throws Exception {
-        String[] levels = { "Debug", "Info", "Warn", "Error" };
+        String[] levels = {"Debug", "Info", "Warn", "Error"};
 
         for (Level level : Level.values()) {
             boolean enabledValue = (Boolean) Logger.class.getMethod(
-                MessageFormat.format("is{0}Enabled", levels[level.ordinal()])).invoke(logger);
+                    MessageFormat.format("is{0}Enabled", levels[level.ordinal()])).invoke(logger);
 
             if (level.compareTo(loggerLevel) < 0) {
                 assertFalse(loggerLevel.toString(), enabledValue);
@@ -137,22 +116,22 @@ public class JavaLoggerTest {
     public void testLogging() throws Exception {
         wrappedLogger.setLevel(java.util.logging.Level.ALL);
 
-        String[] levels = { "debug", "info", "warn", "error" };
+        String[] levels = {"debug", "info", "warn", "error"};
 
         for (String levelName : levels) {
             Logger.class.getMethod(levelName, CharSequence.class).invoke(logger,
-                MessageFormat.format(CHAR_SEQUENCE_PATTERN, levelName));
+                    MessageFormat.format(CHAR_SEQUENCE_PATTERN, levelName));
             Logger.class.getMethod(levelName, CharSequence.class, Throwable.class).invoke(logger,
-                MessageFormat.format(CHAR_SEQUENCE_THROWABLE_PATTERN, levelName), new NullPointerException(levelName));
+                    MessageFormat.format(CHAR_SEQUENCE_THROWABLE_PATTERN, levelName), new NullPointerException(levelName));
 
             Logger.class.getMethod(levelName, Enum.class, Object[].class).invoke(logger, LoggerTestMessages.TEST_MESSAGE,
-                new Object[] { levelName, DUMMY_MESSAGE });
+                    new Object[]{levelName, DUMMY_MESSAGE});
 
             Logger.class.getMethod(levelName, Throwable.class).invoke(logger, new IllegalArgumentException(levelName));
 
             Logger.class.getMethod(levelName, Throwable.class, Enum.class, Object[].class).invoke(logger,
-                new UnsupportedOperationException(levelName), LoggerTestMessages.TEST_MESSAGE,
-                new Object[] { levelName, ANOTHER_DUMMY_MESSAGE });
+                    new UnsupportedOperationException(levelName), LoggerTestMessages.TEST_MESSAGE,
+                    new Object[]{levelName, ANOTHER_DUMMY_MESSAGE});
         }
 
         Iterator<LogRecord> iterator = publishedRecords.iterator();
@@ -162,16 +141,16 @@ public class JavaLoggerTest {
 
             verifyLogRecord(iterator.next(), level, MessageFormat.format(CHAR_SEQUENCE_PATTERN, levelName), null, null);
             verifyLogRecord(iterator.next(), level, MessageFormat.format(CHAR_SEQUENCE_THROWABLE_PATTERN, levelName),
-                NullPointerException.class, levelName);
+                    NullPointerException.class, levelName);
 
             verifyLogRecord(iterator.next(), level, MessageFormat.format(TEST_MESSAGE_PATTERN, levelName, DUMMY_MESSAGE), null,
-                null);
+                    null);
 
             verifyLogRecord(iterator.next(), level, null, IllegalArgumentException.class, levelName);
 
             verifyLogRecord(iterator.next(), level,
-                MessageFormat.format(TEST_MESSAGE_PATTERN, levelName, ANOTHER_DUMMY_MESSAGE),
-                UnsupportedOperationException.class, levelName);
+                    MessageFormat.format(TEST_MESSAGE_PATTERN, levelName, ANOTHER_DUMMY_MESSAGE),
+                    UnsupportedOperationException.class, levelName);
         }
     }
 
@@ -182,6 +161,24 @@ public class JavaLoggerTest {
 
             verifyEnabledMethods(loggerLevel);
             verifyLoggingLevels(loggerLevel);
+        }
+    }
+
+    /**
+     * @author Nick Belaevski
+     */
+    private final class TrackingHandler extends Handler {
+        @Override
+        public void publish(LogRecord record) {
+            publishedRecords.add(record);
+        }
+
+        @Override
+        public void flush() {
+        }
+
+        @Override
+        public void close() throws SecurityException {
         }
     }
 }

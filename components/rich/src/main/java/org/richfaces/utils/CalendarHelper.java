@@ -21,6 +21,14 @@
  */
 package org.richfaces.utils;
 
+import org.richfaces.component.AbstractCalendar;
+
+import javax.faces.FacesException;
+import javax.faces.application.Application;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.DateTimeConverter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,18 +39,8 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.faces.FacesException;
-import javax.faces.application.Application;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.DateTimeConverter;
-
-import org.richfaces.component.AbstractCalendar;
-
 /**
  * @author amarkhel
- *
  */
 public final class CalendarHelper {
     protected CalendarHelper() {

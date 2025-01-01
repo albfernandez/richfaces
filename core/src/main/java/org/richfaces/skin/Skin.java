@@ -28,7 +28,6 @@ import javax.faces.context.FacesContext;
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:59:43 $
- *
  */
 public interface Skin {
     String IMAGE_LIBRARY = "org.richfaces.images";
@@ -49,7 +48,6 @@ public interface Skin {
     String BUTTON_FAMILY_FONT = "buttonFamilyFont";
     /**
      * Rounding-off radius of the buttons corners. Default value 13px.
-     *
      */
     String BUTTON_RADIUS_CORNER = "buttonRadiusCorner";
     /**
@@ -58,7 +56,6 @@ public interface Skin {
     String BUTTON_SIZE_FONT = "buttonSizeFont";
     /**
      * Style of the text displaying on the button. Default value normal.
-     *
      */
     String BUTTON_STYLE_FONT = "buttonStyleFont";
     /**
@@ -187,7 +184,6 @@ public interface Skin {
     String TABLE_FOOTER_BACKGROUND_COLOR = "tableFooterBackgroundColor";
     /**
      * Font name for displaying tab titles. Default value Arial, Verdana.
-     *
      */
     String TAB_FAMILY_FONT = "tabFamilyFont";
     /**
@@ -213,7 +209,7 @@ public interface Skin {
      * Get value for configuration parameter. If parameter set as EL-expression, calculate it value.
      *
      * @param context - {@link FacesContext } for current request.
-     * @param name name of parameter.
+     * @param name    name of parameter.
      * @return value of parameter in config, or null
      */
     Object getParameter(FacesContext context, String name);
@@ -221,8 +217,8 @@ public interface Skin {
     /**
      * Get value for configuration parameter. If parameter set as EL-expression, calculate it value.
      *
-     * @param context - {@link FacesContext } for current request.
-     * @param name name of paremeter.
+     * @param context      - {@link FacesContext } for current request.
+     * @param name         name of paremeter.
      * @param defaultValue - default value if parameter not present in Skin
      * @return value of parameter in config, or null
      */
@@ -233,7 +229,7 @@ public interface Skin {
      * value.
      *
      * @param context - {@link FacesContext } for current request.
-     * @param name name of parameter.
+     * @param name    name of parameter.
      * @return value of parameter in config, or null
      * @since 4.0.M1
      */
@@ -243,8 +239,8 @@ public interface Skin {
      * Get value for configuration parameter and interpret it as color string. If parameter set as EL-expression, calculate it
      * value.
      *
-     * @param context - {@link FacesContext } for current request.
-     * @param name name of parameter.
+     * @param context      - {@link FacesContext } for current request.
+     * @param name         name of parameter.
      * @param defaultValue - default value if parameter not present in Skin
      * @return value for configuration parameter
      * @since 4.0.M1
@@ -274,12 +270,13 @@ public interface Skin {
 
     // Preferable parameters
 
+    String imageUrl(String resourceName);
+
     /**
      * Preferable parameters names for skin ( in common, for Preferable.Name parameter will PreferableName )
      *
      * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
      * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:59:43 $
-     *
      */
     public interface Preferable {
         /**
@@ -299,6 +296,4 @@ public interface Skin {
          */
         String PANEL_BODY_PADDING = "preferablePanelBodyPadding";
     }
-
-    String imageUrl(String resourceName);
 }

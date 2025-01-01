@@ -1,9 +1,9 @@
 package org.richfaces.demo.panelmenu;
 
+import org.richfaces.event.ItemChangeEvent;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
-import org.richfaces.event.ItemChangeEvent;
 
 @ManagedBean
 @ViewScoped

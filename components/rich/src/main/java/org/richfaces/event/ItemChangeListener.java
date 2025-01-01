@@ -34,7 +34,6 @@ import javax.faces.event.FacesListener;
  * @author akolonitsky
  * @version 1.0
  * @since -4712-01-01
- *
  */
 public interface ItemChangeListener extends FacesListener {
     /**
@@ -43,9 +42,8 @@ public interface ItemChangeListener extends FacesListener {
      * </p>
      *
      * @param event The {@link ItemChangeEvent} that has occurred
-     *
      * @throws AbortProcessingException Signal the JavaServer Faces implementation that no further processing on the current
-     *         event should be performed
+     *                                  event should be performed
      */
     void processItemChange(ItemChangeEvent event) throws AbortProcessingException;
 }

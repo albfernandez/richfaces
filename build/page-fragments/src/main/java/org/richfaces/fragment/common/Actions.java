@@ -21,10 +21,7 @@
  */
 package org.richfaces.fragment.common;
 
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import com.google.common.collect.Sets;
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -35,7 +32,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
-import com.google.common.collect.Sets;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Extending org.openqa.selenium.interactions.Actions by some functionality.
@@ -44,9 +43,9 @@ import com.google.common.collect.Sets;
  */
 public class Actions extends org.openqa.selenium.interactions.Actions {
 
-    private final WebDriver driver;
     private static final Set<Event> supportedEventsInTriggerEventByWD = Sets.newHashSet(Event.CLICK, Event.DBLCLICK, Event.MOUSEDOWN,
-        Event.MOUSEDOWN, Event.CONTEXTCLICK, Event.CONTEXTMENU, Event.MOUSEOUT, Event.MOUSEOVER, Event.MOUSEUP);
+            Event.MOUSEDOWN, Event.CONTEXTCLICK, Event.CONTEXTMENU, Event.MOUSEOUT, Event.MOUSEOVER, Event.MOUSEUP);
+    private final WebDriver driver;
 
     public Actions(WebDriver driver) {
         super(driver);

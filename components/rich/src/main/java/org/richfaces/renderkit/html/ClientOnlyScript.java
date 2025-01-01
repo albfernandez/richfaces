@@ -1,29 +1,28 @@
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.resource.ResourceKey;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.google.common.collect.UnmodifiableIterator;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.resource.ResourceKey;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 
 public class ClientOnlyScript extends ValidatorScriptBase {
     public static final ResourceKey CSV_RESOURCE = ResourceKey.create("csv.reslib", "org.richfaces");
     protected final LibraryScriptFunction converter;
     protected final ImmutableList<? extends LibraryScriptFunction> validators;
-    private final ImmutableSet<ResourceKey> resources;
     protected final String onvalid;
     protected final String oninvalid;
+    private final ImmutableSet<ResourceKey> resources;
 
     public ClientOnlyScript(LibraryScriptFunction clientSideConverterScript,
-            Collection<? extends LibraryScriptFunction> validatorScripts, String onvalid, String oninvalid) {
+                            Collection<? extends LibraryScriptFunction> validatorScripts, String onvalid, String oninvalid) {
         super();
         this.converter = clientSideConverterScript;
         this.validators = ImmutableList.copyOf(validatorScripts);

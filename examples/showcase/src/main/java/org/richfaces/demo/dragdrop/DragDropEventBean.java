@@ -1,11 +1,11 @@
 package org.richfaces.demo.dragdrop;
 
+import org.richfaces.event.DropEvent;
+import org.richfaces.event.DropListener;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-
-import org.richfaces.event.DropEvent;
-import org.richfaces.event.DropListener;
 
 @ManagedBean
 @RequestScoped

@@ -21,9 +21,8 @@
  */
 package org.richfaces.resource;
 
-import java.util.Map;
-
 import javax.faces.context.FacesContext;
+import java.util.Map;
 
 public final class DefaultResourceCodec implements ResourceCodec {
     private static final String VERSION_PARAM = "v";
@@ -33,11 +32,11 @@ public final class DefaultResourceCodec implements ResourceCodec {
 
     String encodeResource(DefaultCodecResourceRequestData data) {
         return encodeResource(data.getLibraryName(), data.getResourceName(), data.getDataString(), data.isDataSerialized(),
-            data.getVersion());
+                data.getVersion());
     }
 
     String encodeResource(String libraryName, String resourceName, String encodedResourceData, boolean dataIsSerialized,
-        String resourceVersion) {
+                          String resourceVersion) {
 
         boolean parameterAppended = false;
 
@@ -85,7 +84,7 @@ public final class DefaultResourceCodec implements ResourceCodec {
     }
 
     public String encodeResourceRequestPath(FacesContext context, String libraryName, String resourceName, Object resourceData,
-        String resourceVersion) {
+                                            String resourceVersion) {
         String encodedDataString = null;
         boolean dataIsSerialized = false;
         if (resourceData != null) {
@@ -98,7 +97,7 @@ public final class DefaultResourceCodec implements ResourceCodec {
         }
 
         return ResourceHandlerImpl.RICHFACES_RESOURCE_IDENTIFIER
-            + encodeResource(libraryName, resourceName, encodedDataString, dataIsSerialized, resourceVersion);
+                + encodeResource(libraryName, resourceName, encodedDataString, dataIsSerialized, resourceVersion);
     }
 
     public String encodeJSFMapping(FacesContext context, String resourcePath) {

@@ -1,9 +1,8 @@
 package org.richfaces.renderkit;
 
-import java.io.File;
-import java.net.URISyntaxException;
-import java.util.List;
-
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.DifferenceListener;
 import org.custommonkey.xmlunit.IgnoreTextAndAttributeValuesDifferenceListener;
@@ -12,9 +11,9 @@ import org.junit.Test;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.renderkit.html.RendererTestBase;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.util.List;
 
 public class AutocompleteRendererTest extends RendererTestBase {
     @Override

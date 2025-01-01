@@ -22,14 +22,7 @@
 
 package org.richfaces.fragment.test.choicePicker;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -38,7 +31,13 @@ import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.common.picker.MultipleChoicePicker;
 
-import com.google.common.collect.Lists;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TestChoicePickerByWebElement {
 
@@ -53,13 +52,25 @@ public class TestChoicePickerByWebElement {
         for (int i = 1; i <= 6; i++) {
             WebElement elem = mock(WebElement.class);
             when(elem.getText()).thenReturn("" + i);
-            switch(i) {
-                case 1 : when(elem.getAttribute("class")).thenReturn("odd first"); break;
-                case 2 : when(elem.getAttribute("class")).thenReturn("even second"); break;
-                case 3 : when(elem.getAttribute("class")).thenReturn("odd"); break;
-                case 4 : when(elem.getAttribute("class")).thenReturn("even"); break;
-                case 5 : when(elem.getAttribute("class")).thenReturn("odd"); break;
-                case 6 : when(elem.getAttribute("class")).thenReturn("even last"); break;
+            switch (i) {
+                case 1:
+                    when(elem.getAttribute("class")).thenReturn("odd first");
+                    break;
+                case 2:
+                    when(elem.getAttribute("class")).thenReturn("even second");
+                    break;
+                case 3:
+                    when(elem.getAttribute("class")).thenReturn("odd");
+                    break;
+                case 4:
+                    when(elem.getAttribute("class")).thenReturn("even");
+                    break;
+                case 5:
+                    when(elem.getAttribute("class")).thenReturn("odd");
+                    break;
+                case 6:
+                    when(elem.getAttribute("class")).thenReturn("even last");
+                    break;
             }
             divs.add(elem);
         }
@@ -77,7 +88,7 @@ public class TestChoicePickerByWebElement {
     @Test
     public void testPickByStyleClassEvenANDOddElements() {
         MultipleChoicePicker picker = ChoicePickerHelper.byWebElement().attribute("class").contains("even").and()
-            .attribute("class").contains("odd");
+                .attribute("class").contains("odd");
         List<WebElement> elements = picker.pickMultiple(myFragment.getDivs());
         assertEquals(Collections.EMPTY_LIST, getStringsFromElements(elements));
     }
@@ -96,13 +107,13 @@ public class TestChoicePickerByWebElement {
         assertEquals(Lists.newArrayList("2", "4", "6"), getStringsFromElements(evenPicker.pickMultiple(myFragment.getDivs())));
         assertEquals(Lists.newArrayList("2", "4", "6"), getStringsFromElements(notOddPicker.pickMultiple(myFragment.getDivs())));
         assertEquals(getStringsFromElements(evenPicker.pickMultiple(myFragment.getDivs())),
-            getStringsFromElements(notOddPicker.pickMultiple(myFragment.getDivs())));
+                getStringsFromElements(notOddPicker.pickMultiple(myFragment.getDivs())));
     }
 
     @Test
     public void testPickByStyleClassFirstAndLastElements() {
         MultipleChoicePicker oddPicker = ChoicePickerHelper.byWebElement().attribute("class").contains("first").and()
-            .attribute("class").contains("last");
+                .attribute("class").contains("last");
         List<WebElement> elements = oddPicker.pickMultiple(myFragment.getDivs());
         assertEquals(Lists.<String>newArrayList(), getStringsFromElements(elements));
     }
@@ -117,7 +128,7 @@ public class TestChoicePickerByWebElement {
     @Test
     public void testPickByStyleClassOddOrEvenElements() {
         MultipleChoicePicker oddPicker = ChoicePickerHelper.byWebElement().attribute("class").contains("odd").or()
-            .attribute("class").contains("even");
+                .attribute("class").contains("even");
         List<WebElement> elements = oddPicker.pickMultiple(myFragment.getDivs());
         assertEquals(Lists.newArrayList("1", "2", "3", "4", "5", "6"), getStringsFromElements(elements));
     }
@@ -125,8 +136,8 @@ public class TestChoicePickerByWebElement {
     @Test
     public void testPickByStyleClassOddOrFirstOrSecondOrLastElements() {
         MultipleChoicePicker picker = ChoicePickerHelper.byWebElement().attribute("class").contains("odd").or()
-            .attribute("class").contains("first").or().attribute("class").contains("second").or().attribute("class")
-            .contains("last");
+                .attribute("class").contains("first").or().attribute("class").contains("second").or().attribute("class")
+                .contains("last");
         List<WebElement> elements = picker.pickMultiple(myFragment.getDivs());
         assertEquals(Lists.newArrayList("1", "2", "3", "5", "6"), getStringsFromElements(elements));
     }
@@ -134,7 +145,7 @@ public class TestChoicePickerByWebElement {
     @Test
     public void testPickByStyleClassOddWithoutFirstElements() {
         MultipleChoicePicker oddPicker = ChoicePickerHelper.byWebElement().attribute("class").contains("odd").and()
-            .attribute("class").contains("first").not();
+                .attribute("class").contains("first").not();
         List<WebElement> elements = oddPicker.pickMultiple(myFragment.getDivs());
         assertEquals(Lists.newArrayList("3", "5"), getStringsFromElements(elements));
     }

@@ -23,14 +23,12 @@
 package org.richfaces.application;
 
 
-
 /**
  * <p>Configuration module allows to configure RichFaces services.</p>
  *
  * <p>Implementations are loaded in conformance with {@link java.util.ServiceLoader} (/META-INF/services/org.richfaces.services.Module).</p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public interface Module {
     /**

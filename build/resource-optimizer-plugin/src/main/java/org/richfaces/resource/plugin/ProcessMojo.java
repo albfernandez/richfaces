@@ -21,33 +21,13 @@
  */
 package org.richfaces.resource.plugin;
 
-import static com.google.common.base.Predicates.notNull;
-import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Collections2.transform;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.concurrent.CompletionService;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceDependency;
-
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -58,6 +38,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.richfaces.application.Module;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.ServicesFactoryImpl;
 import org.richfaces.log.Logger;
 import org.richfaces.resource.ResourceFactory;
@@ -89,21 +70,38 @@ import org.richfaces.resource.optimizer.util.MorePredicates;
 import org.richfaces.resource.optimizer.vfs.VFS;
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
 import org.richfaces.resource.optimizer.vfs.VirtualFile;
-import org.richfaces.application.ServiceTracker;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
-import com.google.common.collect.Sets;
+import javax.faces.application.Resource;
+import javax.faces.application.ResourceDependency;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+import static com.google.common.base.Predicates.notNull;
+import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Collections2.transform;
 
 /**
  * Scans for resource depe`ndencies (ResourceDependency annotations) on the class-path and collect them in order to pre-generate
  * resources them and optionally pack or compress them.
  */
-@Mojo(name="process", defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = "process", defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class ProcessMojo extends AbstractMojo {
     private static final URL[] EMPTY_URL_ARRAY = new URL[0];
     private static final Function<String, Predicate<CharSequence>> REGEX_CONTAINS_BUILDER_FUNCTION = new Function<String, Predicate<CharSequence>>() {
@@ -139,28 +137,28 @@ public class ProcessMojo extends AbstractMojo {
     /**
      * Output directory for processed resources
      */
-    @Parameter(property="resourcesOutputDir", required=true)
+    @Parameter(property = "resourcesOutputDir", required = true)
     private String resourcesOutputDir;
 
     /**
      * Configures what prefix should be placed to each file before the library and name of the resource
      */
-    @Parameter(property="staticResourcePrefix", defaultValue="" )
+    @Parameter(property = "staticResourcePrefix", defaultValue = "")
     private String staticResourcePrefix;
 
     /**
      * Output file for resource mapping configuration
      */
-    @Parameter(property="staticResourceMappingFile", required=true)
+    @Parameter(property = "staticResourceMappingFile", required = true)
     private String staticResourceMappingFile;
 
     /**
      * The list of RichFaces skins to be processed
      */
-    @Parameter(property="skins", required=true)
+    @Parameter(property = "skins", required = true)
     // TODO handle base skins
     private String[] skins;
-    @Parameter(property="project", readonly=true)
+    @Parameter(property = "project", readonly = true)
     private MavenProject project;
     /**
      * The list of mime-types to be included in processing
@@ -185,12 +183,12 @@ public class ProcessMojo extends AbstractMojo {
     /**
      * Turns on compression with YUI Compressor (JavaScript/CSS compression)
      */
-    @Parameter(property="compress")
+    @Parameter(property = "compress")
     private boolean compress = true;
     /**
      * Turns on packing of JavaScript/CSS resources
      */
-    @Parameter(property="pack")
+    @Parameter(property = "pack")
     private String pack;
     /**
      * Mapping of file names to output file names
@@ -203,12 +201,12 @@ public class ProcessMojo extends AbstractMojo {
     /**
      * The expression determines the root of the webapp resources
      */
-    @Parameter(defaultValue="${basedir}/src/main/webapp")
+    @Parameter(defaultValue = "${basedir}/src/main/webapp")
     private String webRoot;
     /**
      * The encoding used for resource processing
      */
-    @Parameter(property="encoding", defaultValue="${project.build.sourceEncoding}")
+    @Parameter(property = "encoding", defaultValue = "${project.build.sourceEncoding}")
     private String encoding;
     // TODO handle resource locales
     private Locale resourceLocales;
@@ -249,12 +247,12 @@ public class ProcessMojo extends AbstractMojo {
             charset = Charset.forName(encoding);
         } else {
             getLog()
-                .warn(
-                    "Encoding is not set explicitly, CDK resources plugin will use default platform encoding for processing char-based resources");
+                    .warn(
+                            "Encoding is not set explicitly, CDK resources plugin will use default platform encoding for processing char-based resources");
         }
         if (compress) {
             return Arrays.<ResourceProcessor>asList(new JavaScriptCompressingProcessor(charset, getLogger()),
-                new CSSCompressingProcessor(charset));
+                    new CSSCompressingProcessor(charset));
         } else {
             return Arrays.<ResourceProcessor>asList(new JavaScriptPackagingProcessor(charset));
         }
@@ -270,12 +268,12 @@ public class ProcessMojo extends AbstractMojo {
 
     private Predicate<Resource> createResourcesFilter() {
         Predicate<CharSequence> qualifierPredicate = MorePredicates.compose(includedFiles, excludedFiles,
-            REGEX_CONTAINS_BUILDER_FUNCTION);
+                REGEX_CONTAINS_BUILDER_FUNCTION);
 
         Predicate<Resource> qualifierResourcePredicate = Predicates.compose(qualifierPredicate, RESOURCE_QUALIFIER_FUNCTION);
 
         Predicate<CharSequence> contentTypePredicate = MorePredicates.compose(includedContentTypes, excludedContentTypes,
-            REGEX_CONTAINS_BUILDER_FUNCTION);
+                REGEX_CONTAINS_BUILDER_FUNCTION);
         Predicate<Resource> contentTypeResourcePredicate = Predicates.compose(contentTypePredicate, CONTENT_TYPE_FUNCTION);
 
         return Predicates.and(qualifierResourcePredicate, contentTypeResourcePredicate);
@@ -360,7 +358,7 @@ public class ProcessMojo extends AbstractMojo {
     /**
      * Initializes {@link ServiceTracker} to be able use it inside RichFaces framework code in order to handle dynamic
      * resources.
-     *
+     * <p>
      * Fake {@link ServiceFactoryModule} is used for this purpose.
      *
      * @throws IllegalStateException when initialization fails
@@ -381,11 +379,11 @@ public class ProcessMojo extends AbstractMojo {
 
     /**
      * Will determine ordering of resources from {@link ResourceDependency} annotations on renderers.
-     *
+     * <p>
      * Sorts foundResources using the determined ordering.
      */
     private void reorderFoundResources(Collection<VFSRoot> cpResources, DynamicResourceHandler dynamicResourceHandler,
-        ResourceFactory resourceFactory) throws Exception {
+                                       ResourceFactory resourceFactory) throws Exception {
         Faces faces = new FacesImpl(null, new FileNameMapperImpl(fileNameMappings), dynamicResourceHandler);
         faces.start();
         initializeServiceTracker();
@@ -448,7 +446,7 @@ public class ProcessMojo extends AbstractMojo {
             faces.start();
 
             ResourceWriterImpl resourceWriter = new ResourceWriterImpl(new File(resourcesOutputDir),
-                getDefaultResourceProcessors(), getLogger(), resourcesWithKnownOrder);
+                    getDefaultResourceProcessors(), getLogger(), resourcesWithKnownOrder);
             ResourceTaskFactoryImpl taskFactory = new ResourceTaskFactoryImpl(faces, pack);
             taskFactory.setResourceWriter(resourceWriter);
 

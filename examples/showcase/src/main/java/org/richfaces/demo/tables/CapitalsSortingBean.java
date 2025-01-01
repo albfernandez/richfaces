@@ -1,13 +1,12 @@
 package org.richfaces.demo.tables;
 
-import java.io.Serializable;
-import java.util.Comparator;
+import org.richfaces.component.SortOrder;
+import org.richfaces.demo.tables.model.capitals.Capital;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
-import org.richfaces.demo.tables.model.capitals.Capital;
-import org.richfaces.component.SortOrder;
+import java.io.Serializable;
+import java.util.Comparator;
 
 @ManagedBean
 @ViewScoped

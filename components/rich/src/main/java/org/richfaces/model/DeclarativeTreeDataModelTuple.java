@@ -21,13 +21,12 @@
  */
 package org.richfaces.model;
 
-import javax.faces.component.UIComponent;
-
 import com.google.common.base.MoreObjects.ToStringHelper;
+
+import javax.faces.component.UIComponent;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class DeclarativeTreeDataModelTuple extends TreeDataModelTuple {
     private UIComponent component;

@@ -1,19 +1,17 @@
 package org.richfaces.component;
 
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.junit.Test;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertNotNull;
-
-import org.junit.Test;
-
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * Test for dynamic add/remove {@link UIScripts} as view resource.
  *
  * @author asmirnov
- *
  */
 public class ClientValidationTest extends IntegrationTestBase {
 

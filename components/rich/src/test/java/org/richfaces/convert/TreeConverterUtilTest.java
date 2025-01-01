@@ -21,16 +21,6 @@
  */
 package org.richfaces.convert;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.richfaces.convert.TreeConverterUtil.escape;
-import static org.richfaces.convert.TreeConverterUtil.unescape;
-
-import java.util.HashMap;
-
-import javax.faces.context.FacesContext;
-
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockFacesEnvironment;
@@ -39,14 +29,22 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.faces.context.FacesContext;
+import java.util.HashMap;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.richfaces.convert.TreeConverterUtil.escape;
+import static org.richfaces.convert.TreeConverterUtil.unescape;
+
 /**
  * @author Nick Belaevski
- *
  */
 @RunWith(MockTestRunner.class)
 public class TreeConverterUtilTest {
     @Mock
-    @Environment({ Environment.Feature.EXTERNAL_CONTEXT })
+    @Environment({Environment.Feature.EXTERNAL_CONTEXT})
     private MockFacesEnvironment environment;
 
     @Before

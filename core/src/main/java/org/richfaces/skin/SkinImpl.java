@@ -21,13 +21,12 @@
  */
 package org.richfaces.skin;
 
-import java.util.Map;
+import org.ajax4jsf.Messages;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.Messages;
+import java.util.Map;
 
 /**
  * Singleton ( in respect as collection of different skins ) for produce instances properties for all used skins.
@@ -74,19 +73,6 @@ final class SkinImpl extends AbstractSkin {
         }
     };
     private final Map<Object, Object> skinParams;
-
-    private static class MutableInteger {
-        private int value;
-
-        public int getAndIncrement() {
-            return value++;
-        }
-
-        public int getAndDecrement() {
-            return value--;
-        }
-    }
-
     private String name;
 
     /**
@@ -109,12 +95,6 @@ final class SkinImpl extends AbstractSkin {
         }
 
         return counter;
-    }
-
-    private abstract static class Operation {
-        public abstract Object executeLocal(FacesContext facesContext, SkinImpl skin, String name);
-
-        public abstract Object executeBase(FacesContext facesContext, Skin skin, String name);
     }
 
     protected Map<Object, Object> getSkinParams() {
@@ -237,5 +217,23 @@ final class SkinImpl extends AbstractSkin {
         }
 
         return hash;
+    }
+
+    private static class MutableInteger {
+        private int value;
+
+        public int getAndIncrement() {
+            return value++;
+        }
+
+        public int getAndDecrement() {
+            return value--;
+        }
+    }
+
+    private abstract static class Operation {
+        public abstract Object executeLocal(FacesContext facesContext, SkinImpl skin, String name);
+
+        public abstract Object executeBase(FacesContext facesContext, Skin skin, String name);
     }
 }

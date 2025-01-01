@@ -29,7 +29,7 @@ import category.Smoke;
 @RunAsClient
 @RunWith(Arquillian.class)
 public class ITStaticTab {
-    
+
     @FindByJQuery("[id$='tabPanel']")
     private RichFacesTabPanel tabPanel;
 
@@ -40,7 +40,7 @@ public class ITStaticTab {
     private URL contextPath;
 
     @FindBy(tagName = "body")
-    private WebElement body;    
+    private WebElement body;
 
     @FindBy(id = "out")
     private WebElement out;
@@ -66,84 +66,6 @@ public class ITStaticTab {
         WebArchive archive = deployment.getFinalArchive();
         return archive;
     }
-
-    /**
-     * {@link https://issues.jboss.org/browse/RF-12839}
-     */
-    @Test
-    @Category(Smoke.class)
-    public void check_tab_switch() {
-        browser.get(contextPath.toExternalForm() + "index.jsf");
-
-        guardAjax(tabPanel.advanced().getTabHeaders().get(1)).click();
-        Assert.assertTrue(out.getText().contains("begin"));
-//        Assert.assertTrue(out.getText().contains("tabpanel_complete"));
-//        Assert.assertTrue(out.getText().contains("beforedomupdate"));
-
-        // Assert the oncomplete on the tab does work
-        Assert.assertTrue(out.getText().contains("tab1_complete"));
-
-    }
-
-    /**
-     * {@link https://issues.jboss.org/browse/RF-12969}
-     */
-    @Test
-    public void check_click_active_tab() {
-        browser.get(contextPath.toExternalForm() + "index.jsf");
-        WebElement activeTab = tabPanel.advanced().getActiveHeaderElement();
-        guardAjax(activeTab).click();
-        Assert.assertEquals(null, body.getAttribute("JSError"));
-    }
-
-    @Test
-    public void check_tab_execute() {
-        browser.get(contextPath.toExternalForm() + "index.jsf");
-
-        inputText.sendKeys("abcd");
-        guardAjax(tabPanel.advanced().getTabHeaders().get(1)).click();
-        Assert.assertEquals("abcd", outputText.getText());
-    }
-
-    /**
-     * {@link https://issues.jboss.org/browse/RF-13278}
-     * {@link https://issues.jboss.org/browse/RF-13687}
-     */
-    @Test
-    public void check_header_render() {
-        browser.get(contextPath.toExternalForm() + "header.jsf");
-        Assert.assertEquals("0 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
-
-        guardAjax(tabPanel.advanced().getTabHeaders().get(1)).click();
-        guardAjax(tabPanel.advanced().getTabHeaders().get(0)).click();
-        Assert.assertEquals("1 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
-
-        guardAjax(tabPanel.advanced().getTabHeaders().get(1)).click();
-        Assert.assertEquals("1 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
-
-        guardAjax(tabPanel.advanced().getTabHeaders().get(0)).click();
-        Assert.assertEquals("2 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
-    }
-
-    /**
-     * {@link https://issues.jboss.org/browse/RF-13278}
-     */
-    @Test
-    public void check_header_button_render() {
-        browser.get(contextPath.toExternalForm() + "headerButton.jsf");
-        Assert.assertEquals("0 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
-        
-        guardAjax(tabPanel.advanced().getTabHeaders().get(0).findElement(By.className("button"))).click();
-        Assert.assertEquals("1 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
-
-        guardAjax(tabPanel.advanced().getTabHeaders().get(1)).click();
-        guardAjax(tabPanel.advanced().getTabHeaders().get(0).findElement(By.className("myText"))).click();
-        Assert.assertEquals("1 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
-        
-        guardAjax(tabPanel.advanced().getTabHeaders().get(0).findElement(By.className("button"))).click();
-        Assert.assertEquals("2 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
-    }
-
 
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
@@ -227,6 +149,83 @@ public class ITStaticTab {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "headerButton.xhtml");
+    }
+
+    /**
+     * {@link https://issues.jboss.org/browse/RF-12839}
+     */
+    @Test
+    @Category(Smoke.class)
+    public void check_tab_switch() {
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+
+        guardAjax(tabPanel.advanced().getTabHeaders().get(1)).click();
+        Assert.assertTrue(out.getText().contains("begin"));
+//        Assert.assertTrue(out.getText().contains("tabpanel_complete"));
+//        Assert.assertTrue(out.getText().contains("beforedomupdate"));
+
+        // Assert the oncomplete on the tab does work
+        Assert.assertTrue(out.getText().contains("tab1_complete"));
+
+    }
+
+    /**
+     * {@link https://issues.jboss.org/browse/RF-12969}
+     */
+    @Test
+    public void check_click_active_tab() {
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+        WebElement activeTab = tabPanel.advanced().getActiveHeaderElement();
+        guardAjax(activeTab).click();
+        Assert.assertEquals(null, body.getAttribute("JSError"));
+    }
+
+    @Test
+    public void check_tab_execute() {
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+
+        inputText.sendKeys("abcd");
+        guardAjax(tabPanel.advanced().getTabHeaders().get(1)).click();
+        Assert.assertEquals("abcd", outputText.getText());
+    }
+
+    /**
+     * {@link https://issues.jboss.org/browse/RF-13278}
+     * {@link https://issues.jboss.org/browse/RF-13687}
+     */
+    @Test
+    public void check_header_render() {
+        browser.get(contextPath.toExternalForm() + "header.jsf");
+        Assert.assertEquals("0 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
+
+        guardAjax(tabPanel.advanced().getTabHeaders().get(1)).click();
+        guardAjax(tabPanel.advanced().getTabHeaders().get(0)).click();
+        Assert.assertEquals("1 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
+
+        guardAjax(tabPanel.advanced().getTabHeaders().get(1)).click();
+        Assert.assertEquals("1 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
+
+        guardAjax(tabPanel.advanced().getTabHeaders().get(0)).click();
+        Assert.assertEquals("2 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
+    }
+
+    /**
+     * {@link https://issues.jboss.org/browse/RF-13278}
+     */
+    @Test
+    public void check_header_button_render() {
+        browser.get(contextPath.toExternalForm() + "headerButton.jsf");
+        Assert.assertEquals("0 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
+
+        guardAjax(tabPanel.advanced().getTabHeaders().get(0).findElement(By.className("button"))).click();
+        Assert.assertEquals("1 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
+
+        guardAjax(tabPanel.advanced().getTabHeaders().get(1)).click();
+        guardAjax(tabPanel.advanced().getTabHeaders().get(0).findElement(By.className("myText"))).click();
+        Assert.assertEquals("1 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
+
+        guardAjax(tabPanel.advanced().getTabHeaders().get(0).findElement(By.className("button"))).click();
+        Assert.assertEquals("2 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
     }
 
 }

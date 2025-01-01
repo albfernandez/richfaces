@@ -21,14 +21,14 @@
  *******************************************************************************/
 package org.richfaces.showcase.fileUpload;
 
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.fileUpload.page.FileUploadPage;
+
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -49,7 +49,7 @@ public class ITestFileUpload extends AbstractWebDriverTest {
         assertTrue("The upload files info should be there!", page.getUploadFilesInfo().isDisplayed());
         assertTrue("The div with uplad files messages should be there!", page.getDivWithUploadFilesMessage().isDisplayed());
         assertEquals("The message that no files is currently uploaded should be there!", MSG_NO_FILES,
-            page.getDivWithUploadFilesMessage().getText());
+                page.getDivWithUploadFilesMessage().getText());
 
     }
 

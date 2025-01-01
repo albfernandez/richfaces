@@ -21,10 +21,10 @@
  */
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-
 import org.junit.Test;
 import org.xml.sax.SAXException;
+
+import java.io.IOException;
 
 /**
  * @author akolonitsky

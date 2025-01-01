@@ -63,17 +63,6 @@ public class ITRowClick {
         return deployment.getFinalArchive();
     }
 
-    @Test
-    // RF-13165
-    public void row_click() {
-        browser.get(contextPath.toExternalForm());
-
-        assertEquals("", selectedNodeIdElement.getText());
-
-        guardAjax(firstRow).click();
-        assertEquals("5", selectedNodeIdElement.getText());
-    }
-
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -103,5 +92,16 @@ public class ITRowClick {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    @Test
+    // RF-13165
+    public void row_click() {
+        browser.get(contextPath.toExternalForm());
+
+        assertEquals("", selectedNodeIdElement.getText());
+
+        guardAjax(firstRow).click();
+        assertEquals("5", selectedNodeIdElement.getText());
     }
 }

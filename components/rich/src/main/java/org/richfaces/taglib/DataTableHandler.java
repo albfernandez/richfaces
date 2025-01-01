@@ -21,6 +21,9 @@
  */
 package org.richfaces.taglib;
 
+import org.richfaces.component.AbstractDataTable;
+import org.richfaces.view.facelets.RowKeyConverterRule;
+
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
@@ -30,12 +33,8 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.AbstractDataTable;
-import org.richfaces.view.facelets.RowKeyConverterRule;
-
 /**
  * @author Anton Belevich
- *
  */
 public class DataTableHandler extends ComponentHandler {
     public DataTableHandler(ComponentConfig config) {
@@ -69,7 +68,7 @@ public class DataTableHandler extends ComponentHandler {
     }
 
     static final class SortingListenerMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.SortingEvent.class };
+        private static final Class[] SIGNATURE = new Class[]{org.richfaces.event.SortingEvent.class};
         private final TagAttribute attribute;
 
         public SortingListenerMapper(TagAttribute attribute) {
@@ -78,12 +77,12 @@ public class DataTableHandler extends ComponentHandler {
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
             ((AbstractDataTable) instance).addSortingListener(new MethodExpressionSortingListener(this.attribute
-                .getMethodExpression(ctx, null, SIGNATURE)));
+                    .getMethodExpression(ctx, null, SIGNATURE)));
         }
     }
 
     static final class FilteringListenerMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.FilteringEvent.class };
+        private static final Class[] SIGNATURE = new Class[]{org.richfaces.event.FilteringEvent.class};
         private final TagAttribute attribute;
 
         public FilteringListenerMapper(TagAttribute attribute) {
@@ -92,7 +91,7 @@ public class DataTableHandler extends ComponentHandler {
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
             ((AbstractDataTable) instance).addFilteringListener(new MethodExpressionFilteringListener(this.attribute
-                .getMethodExpression(ctx, null, SIGNATURE)));
+                    .getMethodExpression(ctx, null, SIGNATURE)));
         }
     }
 }

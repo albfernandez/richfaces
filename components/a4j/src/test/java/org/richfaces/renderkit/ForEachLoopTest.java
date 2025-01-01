@@ -21,24 +21,24 @@
  */
 package org.richfaces.renderkit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import org.junit.Test;
+import org.richfaces.renderkit.ForEachLoop.Status;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Test;
-import org.richfaces.renderkit.ForEachLoop.Status;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 /**
  * @author Lukas Fryc
  */
 public class ForEachLoopTest {
 
-    private Integer[] array = new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+    private Integer[] array = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
 
     @Test
     public void testArrayIterationStatus() {

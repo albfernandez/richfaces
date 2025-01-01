@@ -1,11 +1,9 @@
 package org.richfaces.view.facelets.html;
 
-import java.io.Serializable;
-
-import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
-
 import org.richfaces.component.AbstractGraphValidator;
+
+import javax.faces.validator.Validator;
+import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class SetupValidatorsParameter implements Serializable {

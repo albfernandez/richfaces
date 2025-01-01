@@ -21,17 +21,16 @@
  */
 package org.richfaces.renderkit.util;
 
-import static org.richfaces.JsfVersion.JSF_2_2;
-
-import java.util.Map;
+import org.richfaces.JsfVersion;
 
 import javax.faces.component.UINamingContainer;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.render.ResponseStateManager;
+import java.util.Map;
 
-import org.richfaces.JsfVersion;
+import static org.richfaces.JsfVersion.JSF_2_2;
 
 /**
  * @author Lukas Fryc
@@ -79,7 +78,7 @@ public final class ViewStateIdUtils {
         UIViewRoot root = context.getViewRoot();
         result = root.getContainerClientId(context) + sep +
                 ResponseStateManager.VIEW_STATE_PARAM + sep +
-                + counter;
+                +counter;
         contextAttrs.put(VIEW_STATE_COUNTER_KEY, ++counter);
 
         return result;

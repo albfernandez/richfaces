@@ -1,9 +1,5 @@
 package org.richfaces.showcase;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.eu.ingwar.tools.arquillian.extension.suite.annotations.ArquillianSuiteDeployment;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OverProtocol;
@@ -14,14 +10,18 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 @RunAsClient
 @RunWith(Arquillian.class)
 @ArquillianSuiteDeployment
 public class AbstractShowcaseTest {
 
+    protected static final Boolean runInPortalEnv = Boolean.getBoolean("runInPortalEnv");
     @ArquillianResource
     protected URL contextRoot;
-    protected static final Boolean runInPortalEnv = Boolean.getBoolean("runInPortalEnv");
 
     @Deployment(testable = false)
     @OverProtocol("Servlet 3.0")

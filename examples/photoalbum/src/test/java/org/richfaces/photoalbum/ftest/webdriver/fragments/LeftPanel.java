@@ -21,6 +21,8 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Lists;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebDriver;
@@ -33,9 +35,6 @@ import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
 import org.richfaces.photoalbum.ftest.webdriver.pages.PhotoalbumPage;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
-
-import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>

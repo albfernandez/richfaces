@@ -21,10 +21,6 @@
  *******************************************************************************/
 package org.richfaces.showcase.focus;
 
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
-
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
@@ -32,16 +28,19 @@ import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.focus.page.FocusPage;
 import org.richfaces.utils.focus.ElementIsFocused;
 
+import java.util.concurrent.TimeUnit;
+
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
+
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @version $Revision$
  */
 public class ITestFocus extends AbstractWebDriverTest {
 
+    public static final int TIMEOUT_FOCUS = 2;
     @Page
     private FocusPage page;
-
-    public static final int TIMEOUT_FOCUS = 2;
 
     @Test
     public void testFirstInputFocusedAfterPageLoad() {

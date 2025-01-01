@@ -30,7 +30,6 @@ import java.util.List;
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.3 $ $Date: 2007/02/06 16:23:26 $
- *
  */
 public class JSFunction extends ScriptStringBase implements ScriptString {
     private List<Object> parameters = new ArrayList<Object>();
@@ -58,7 +57,7 @@ public class JSFunction extends ScriptStringBase implements ScriptString {
         List<?> parameters = getParameters();
 
         if (null != parameters) {
-            for (Iterator<?> param = parameters.iterator(); param.hasNext();) {
+            for (Iterator<?> param = parameters.iterator(); param.hasNext(); ) {
                 Object element = param.next();
 
                 if (!first) {

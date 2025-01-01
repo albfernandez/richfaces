@@ -21,17 +21,6 @@
  */
 package org.richfaces.component;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
-
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -52,6 +41,16 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.SelectionMode;
 import org.richfaces.taglib.ExtendedDataTableHandler;
 
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Map;
+
 /**
  * <p> The &lt;rich:extendedDataTable&gt; component builds on the functionality of the &lt;rich:dataTable&gt; component,
  * adding features such as scrolling for the table body (both horizontal and vertical), Ajax loading for vertical
@@ -70,10 +69,6 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     public static final String SUBMITTED_CLIENT_FIRST = "submittedClientFirst";
     public static final String OLD_CLIENT_FIRST = "oldClientFirst";
     private static final Logger RENDERKIT_LOG = RichfacesLogger.RENDERKIT.getLogger();
-
-    protected enum PropertyKeys {
-        clientFirst, clientRows
-    }
 
     /**
      * Determines how many columns should not be vertically scrollable (should be "frozen").
@@ -254,4 +249,8 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
      */
     @Attribute
     public abstract Collection<Object> getSelection();
+
+    protected enum PropertyKeys {
+        clientFirst, clientRows
+    }
 }

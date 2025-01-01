@@ -27,7 +27,6 @@ import javax.faces.event.AjaxBehaviorEvent;
 
 /**
  * @author Nick Belaevski
- *
  */
 @ManagedBean(name = "outputPanelBean")
 @RequestScoped

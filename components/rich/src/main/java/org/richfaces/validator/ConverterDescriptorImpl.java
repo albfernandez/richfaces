@@ -30,7 +30,6 @@ import javax.faces.convert.Converter;
 
 /**
  * @author asmirnov
- *
  */
 public class ConverterDescriptorImpl extends BaseFacesObjectDescriptor<Converter> implements ConverterDescriptor {
     ConverterDescriptorImpl(Class<? extends Converter> converterClass, FacesMessage message) {

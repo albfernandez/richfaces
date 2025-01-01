@@ -21,12 +21,11 @@
  */
 package org.richfaces.component;
 
-import java.util.Iterator;
+import org.ajax4jsf.model.DataVisitor;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.model.DataVisitor;
+import java.util.Iterator;
 
 /**
  * Marker interface for table columns, rendered as entire row.

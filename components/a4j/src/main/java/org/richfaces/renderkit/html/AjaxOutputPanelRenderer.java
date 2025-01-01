@@ -1,31 +1,24 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.renderkit.html;
-
-import java.io.IOException;
-import java.util.Iterator;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractOutputPanel;
@@ -33,13 +26,19 @@ import org.richfaces.component.OutputPanelLayout;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RendererBase;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Iterator;
+
 /**
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/02/01 15:31:27 $
  */
 @JsfRenderer(type = "org.richfaces.OutputPanelRenderer", family = AbstractOutputPanel.COMPONENT_FAMILY)
 public class AjaxOutputPanelRenderer extends RendererBase {
-    private static final String[] STYLE_ATTRIBUTES = new String[] { "style", "class" };
+    private static final String[] STYLE_ATTRIBUTES = new String[]{"style", "class"};
 
     private boolean hasNoneLayout(UIComponent component) {
         // TODO - A1 won't support 'none' layout
@@ -127,7 +126,7 @@ public class AjaxOutputPanelRenderer extends RendererBase {
      * @param component
      */
     private void markNoTransient(UIComponent component) {
-        for (Iterator<UIComponent> iter = component.getFacetsAndChildren(); iter.hasNext();) {
+        for (Iterator<UIComponent> iter = component.getFacetsAndChildren(); iter.hasNext(); ) {
             UIComponent element = iter.next();
             // RF-12295: UIInstructions can be set to non-transient in Mojarra which causes an exception on postback
             // because non-transient components require a zero-parameter to be restored with;

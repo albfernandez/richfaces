@@ -21,18 +21,17 @@
  */
 package org.richfaces.photoalbum.ui.search;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.richfaces.photoalbum.model.MetaTag;
 import org.richfaces.photoalbum.search.ISearchAction;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class, that encapsulate functionality related to search by metatag entity.
  *
  * @author Andrey Markavtsov
- *
  */
 public class SearchOptionByTag extends ISearchOption {
 
@@ -78,7 +77,7 @@ public class SearchOptionByTag extends ISearchOption {
      */
     @Override
     public void search(ISearchAction action, String searchQuery, boolean searchInMyAlbums, boolean searchInShared)
-        throws PhotoAlbumException {
+            throws PhotoAlbumException {
         List<MetaTag> searchByTags = action.searchByTags(searchQuery, searchInMyAlbums, searchInShared);
         if (searchByTags != null) {
             setSearchResult(searchByTags);

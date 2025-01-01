@@ -22,11 +22,10 @@
 
 package org.richfaces.demo.input;
 
-import java.io.Serializable;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
+import java.io.Serializable;
 
 @ManagedBean(name = "editor")
 @ViewScoped
@@ -53,7 +52,7 @@ public class EditorBean implements Serializable {
     private String editorStyle;
     private String title;
     private String config =
-                    "toolbar_MyToolbar:" +
+            "toolbar_MyToolbar:" +
                     "[" +
                     "{ name: 'document', items : [ 'NewPage','Preview' ] }," +
                     "{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] }," +
@@ -224,12 +223,12 @@ public class EditorBean implements Serializable {
         this.editorStyle = editorStyle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getConfig() {

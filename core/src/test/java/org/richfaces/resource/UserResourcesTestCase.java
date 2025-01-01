@@ -21,19 +21,6 @@
  */
 package org.richfaces.resource;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
-
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
-
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
@@ -41,78 +28,22 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import javax.faces.application.Resource;
+import javax.faces.application.ResourceHandler;
+import javax.faces.context.FacesContext;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Nick Belaevski
- *
  */
 public class UserResourcesTestCase {
-    protected static class BaseUserResource extends AbstractUserResource {
-        public void encode(FacesContext facesContext) throws IOException {
-            facesContext.getResponseWriter().write(getClass().getSimpleName());
-        }
-
-        public String getContentType() {
-            return "text/plain";
-        }
-    }
-
-    protected static class BaseJava2DUserResource extends AbstractJava2DUserResource {
-        public BaseJava2DUserResource() {
-            super(new Dimension(10, 5));
-        }
-
-        public void paint(Graphics2D graphics2d) {
-        }
-    }
-
-    @DynamicUserResource(versioned = false)
-    public static final class NonVersionedUserResource extends BaseUserResource {
-    }
-
-    @DynamicUserResource(versioned = false)
-    public static final class NonVersionedJava2DUserResource extends BaseJava2DUserResource {
-    }
-
-    @DynamicUserResource(cacheable = false)
-    public static final class NonCacheableUserResource extends BaseUserResource {
-    }
-
-    @DynamicUserResource(cacheable = false)
-    public static final class NonCacheableJava2DUserResource extends BaseJava2DUserResource {
-    }
-
-    @DynamicUserResource
-    public static final class DefaultSettingsUserResource extends BaseUserResource {
-    }
-
-    @DynamicUserResource
-    public static final class DefaultSettingsJava2DUserResource extends BaseJava2DUserResource {
-    }
-
-    @DynamicUserResource
-    public static final class SettingsOverridableResource extends BaseUserResource implements VersionedResource,
-        CacheableResource {
-        public boolean isCacheable(FacesContext context) {
-            return Boolean.TRUE.equals(context.getAttributes().get(CACHEABLE_OVERRIDE_KEY));
-        }
-
-        public Date getExpires(FacesContext context) {
-            return null;
-        }
-
-        public int getTimeToLive(FacesContext context) {
-            return 0;
-        }
-
-        public String getEntityTag(FacesContext context) {
-            return null;
-        }
-
-        public String getVersion() {
-            return (String) FacesContext.getCurrentInstance().getAttributes().get(VERSION_OVERRIDE_KEY);
-        }
-    }
-
     private static final String PACKAGE_VERSION = "test-package-1.0";
     private static final String CACHEABLE_OVERRIDE_KEY = "org.richfaces.test.CacheableOverrideKey";
     private static final String VERSION_OVERRIDE_KEY = "org.richfaces.test.VersionOverrideKey";
@@ -180,5 +111,72 @@ public class UserResourcesTestCase {
         attributes.put(VERSION_OVERRIDE_KEY, null);
 
         checkResource(resourceHandler.createResource(SettingsOverridableResource.class.getName()), false, null);
+    }
+
+    protected static class BaseUserResource extends AbstractUserResource {
+        public void encode(FacesContext facesContext) throws IOException {
+            facesContext.getResponseWriter().write(getClass().getSimpleName());
+        }
+
+        public String getContentType() {
+            return "text/plain";
+        }
+    }
+
+    protected static class BaseJava2DUserResource extends AbstractJava2DUserResource {
+        public BaseJava2DUserResource() {
+            super(new Dimension(10, 5));
+        }
+
+        public void paint(Graphics2D graphics2d) {
+        }
+    }
+
+    @DynamicUserResource(versioned = false)
+    public static final class NonVersionedUserResource extends BaseUserResource {
+    }
+
+    @DynamicUserResource(versioned = false)
+    public static final class NonVersionedJava2DUserResource extends BaseJava2DUserResource {
+    }
+
+    @DynamicUserResource(cacheable = false)
+    public static final class NonCacheableUserResource extends BaseUserResource {
+    }
+
+    @DynamicUserResource(cacheable = false)
+    public static final class NonCacheableJava2DUserResource extends BaseJava2DUserResource {
+    }
+
+    @DynamicUserResource
+    public static final class DefaultSettingsUserResource extends BaseUserResource {
+    }
+
+    @DynamicUserResource
+    public static final class DefaultSettingsJava2DUserResource extends BaseJava2DUserResource {
+    }
+
+    @DynamicUserResource
+    public static final class SettingsOverridableResource extends BaseUserResource implements VersionedResource,
+            CacheableResource {
+        public boolean isCacheable(FacesContext context) {
+            return Boolean.TRUE.equals(context.getAttributes().get(CACHEABLE_OVERRIDE_KEY));
+        }
+
+        public Date getExpires(FacesContext context) {
+            return null;
+        }
+
+        public int getTimeToLive(FacesContext context) {
+            return 0;
+        }
+
+        public String getEntityTag(FacesContext context) {
+            return null;
+        }
+
+        public String getVersion() {
+            return (String) FacesContext.getCurrentInstance().getAttributes().get(VERSION_OVERRIDE_KEY);
+        }
     }
 }

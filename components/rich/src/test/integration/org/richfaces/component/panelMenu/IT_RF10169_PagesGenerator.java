@@ -38,21 +38,21 @@ import com.google.common.collect.Lists;
  */
 public class IT_RF10169_PagesGenerator {
 
-    public static final String[] ALL_ATTRIBUTES = new String[] {
-        "groupClass",
-        "groupCollapsedLeftIcon",
-        "groupCollapsedRightIcon",
-        "groupDisabledClass",
-        "groupDisabledLeftIcon",
-        "groupDisabledRightIcon",
-        "groupExpandedLeftIcon",
-        "groupExpandedRightIcon",
-        "itemClass",
-        "itemDisabledClass",
-        "itemDisabledLeftIcon",
-        "itemDisabledRightIcon",
-        "itemLeftIcon",
-        "itemRightIcon"
+    public static final String[] ALL_ATTRIBUTES = new String[]{
+            "groupClass",
+            "groupCollapsedLeftIcon",
+            "groupCollapsedRightIcon",
+            "groupDisabledClass",
+            "groupDisabledLeftIcon",
+            "groupDisabledRightIcon",
+            "groupExpandedLeftIcon",
+            "groupExpandedRightIcon",
+            "itemClass",
+            "itemDisabledClass",
+            "itemDisabledLeftIcon",
+            "itemDisabledRightIcon",
+            "itemLeftIcon",
+            "itemRightIcon"
     };
 
     public static final int COUNT_INNER_DISABLED_GROUPS = 1;
@@ -81,7 +81,7 @@ public class IT_RF10169_PagesGenerator {
     private static final List<String> links = Lists.newArrayList();
 
     private static void addAllPages(RichDeployment deployment) {
-        final String[] names = new String[] { EMPTY_STRING, "WithTopClass", "WithEmptyTopClass" };
+        final String[] names = new String[]{EMPTY_STRING, "WithTopClass", "WithEmptyTopClass"};
         int i;
         String pageName;
         for (String att : ALL_ATTRIBUTES) {
@@ -202,13 +202,13 @@ public class IT_RF10169_PagesGenerator {
         String value = containsIcon ? DEFAULT_ICON : DEFAULT_CLASS;
         String emptyValue = EMPTY_STRING;
         String topValue = containsIcon ? DEFAULT_TOP_ICON : DEFAULT_TOP_CLASS;
-        return new String[] {
-            // only first attribute (e.g. groupClass='a')
-            createAttributeWithValue(className, value),
-            // both attributes (e.g. groupClass='a' + topGroupClass='b')
-            createAttributeWithValue(className, value) + createAttributeWithValue(cTopClass, topValue),
-            // both attributes, second is empty (e.g. groupClass='a' + topGroupClass='')
-            createAttributeWithValue(className, value) + createAttributeWithValue(cTopClass, emptyValue)
+        return new String[]{
+                // only first attribute (e.g. groupClass='a')
+                createAttributeWithValue(className, value),
+                // both attributes (e.g. groupClass='a' + topGroupClass='b')
+                createAttributeWithValue(className, value) + createAttributeWithValue(cTopClass, topValue),
+                // both attributes, second is empty (e.g. groupClass='a' + topGroupClass='')
+                createAttributeWithValue(className, value) + createAttributeWithValue(cTopClass, emptyValue)
         };
     }
 

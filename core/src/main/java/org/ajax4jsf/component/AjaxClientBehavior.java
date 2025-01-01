@@ -27,32 +27,31 @@ import javax.faces.event.AjaxBehaviorListener;
 
 /**
  * @author Anton Belevich interface for our ajax behaviors
- *
  */
 public interface AjaxClientBehavior extends ClientBehavior {
     boolean isLimitRender();
 
     void setLimitRender(boolean limitRender);
 
-    void setExecute(Object execute);
-
     Object getExecute();
 
-    void setRender(Object render);
+    void setExecute(Object execute);
 
     Object getRender();
+
+    void setRender(Object render);
 
     boolean isDisabled();
 
     void setDisabled(boolean disabled);
 
-    void setQueueId(String queueId);
-
     String getQueueId();
 
-    void setStatus(String statusId);
+    void setQueueId(String queueId);
 
     String getStatus();
+
+    void setStatus(String statusId);
 
     String getOnerror();
 

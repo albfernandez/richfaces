@@ -9,7 +9,9 @@ public class CustomizedHtmlUnitEnvironment extends HtmlUnitEnvironment {
     private static ThreadLocal<ResourceServletHolder> RESOURCE_SERVLET_HOLDER = new ThreadLocal<CustomizedHtmlUnitEnvironment.ResourceServletHolder>() {
         protected ResourceServletHolder initialValue() {
             return new ResourceServletHolder();
-        };
+        }
+
+        ;
     };
 
     public CustomizedHtmlUnitEnvironment() {

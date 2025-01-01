@@ -21,6 +21,10 @@
  */
 package org.richfaces.resource;
 
+import org.jboss.test.faces.AbstractFacesTest;
+
+import javax.faces.application.Resource;
+import javax.faces.context.FacesContext;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -35,11 +39,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.TimeZone;
-
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
-
-import org.jboss.test.faces.AbstractFacesTest;
 
 /**
  * @author Nick Belaevski

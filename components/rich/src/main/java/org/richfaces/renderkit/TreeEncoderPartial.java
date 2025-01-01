@@ -21,18 +21,16 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.Collections;
-
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.component.AbstractTreeNode;
 
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
+import java.io.IOException;
+import java.util.Collections;
+
 /**
  * @author Nick Belaevski
- *
  */
 class TreeEncoderPartial extends TreeEncoderBase {
     protected final AbstractTreeNode treeNode;
@@ -80,7 +78,7 @@ class TreeEncoderPartial extends TreeEncoderBase {
 
         prw.startEval();
         JSFunction function = new JSFunction("RichFaces.ui.TreeNode.initNodeByAjax", elementId, Collections.singletonMap(
-            "clientEventHandlers", clientEventHandlers));
+                "clientEventHandlers", clientEventHandlers));
         prw.write(function.toScript());
         prw.endEval();
     }

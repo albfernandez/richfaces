@@ -28,9 +28,8 @@ import java.lang.annotation.Target;
 
 /**
  * @author Nick Belaevski
- *
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD })
+@Target({ElementType.METHOD})
 public @interface PostConstructResource {
 }

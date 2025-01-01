@@ -21,13 +21,12 @@
  */
 package org.richfaces.renderkit.util;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author amarkhel
- *
  */
 public class HtmlDimensionsTest {
     @Test

@@ -54,37 +54,16 @@ public class IT_RF12717 {
             @Override
             public WebAppDescriptor apply(@Nullable WebAppDescriptor input) {
                 input
-                    .createContextParam()
-                    .paramName("javax.faces.PARTIAL_STATE_SAVING")
-                    .paramValue("false")
-                    .up();
+                        .createContextParam()
+                        .paramName("javax.faces.PARTIAL_STATE_SAVING")
+                        .paramValue("false")
+                        .up();
                 return input;
             }
         });
         addIndexPage(deployment);
 
         return deployment.getFinalArchive();
-    }
-
-    @Test
-    public void check_row_click() {
-        browser.get(contextPath.toExternalForm());
-
-        assertEquals("", selectedValueElement.getText());
-        assertTrue(rowLinks.isEmpty());
-
-        // show the table
-        guardHttp(showTableButton).click();
-        assertEquals("", selectedValueElement.getText());
-        assertEquals(3, rowLinks.size());
-
-        // check row links
-        final String[] expectedNumbers = { "3", "6", "4" };
-        int size = rowLinks.size();
-        for (int i = 0; i < size; i++) {
-            guardHttp(rowLinks.get(i)).click();
-            assertEquals(expectedNumbers[i], selectedValueElement.getText());
-        }
     }
 
     private static void addIndexPage(RichDeployment deployment) {
@@ -104,5 +83,26 @@ public class IT_RF12717 {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    @Test
+    public void check_row_click() {
+        browser.get(contextPath.toExternalForm());
+
+        assertEquals("", selectedValueElement.getText());
+        assertTrue(rowLinks.isEmpty());
+
+        // show the table
+        guardHttp(showTableButton).click();
+        assertEquals("", selectedValueElement.getText());
+        assertEquals(3, rowLinks.size());
+
+        // check row links
+        final String[] expectedNumbers = {"3", "6", "4"};
+        int size = rowLinks.size();
+        for (int i = 0; i < size; i++) {
+            guardHttp(rowLinks.get(i)).click();
+            assertEquals(expectedNumbers[i], selectedValueElement.getText());
+        }
     }
 }

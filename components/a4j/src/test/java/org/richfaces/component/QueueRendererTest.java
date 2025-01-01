@@ -1,34 +1,28 @@
 /**
  * License Agreement.
- *
- *  JBoss RichFaces - Ajax4jsf Component Library
- *
+ * <p>
+ * JBoss RichFaces - Ajax4jsf Component Library
+ * <p>
  * Copyright (C) 2007  Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.component;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
+import com.gargoylesoftware.htmlunit.html.DomNode;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.jboss.test.faces.ApplicationServer;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
@@ -40,25 +34,25 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 
-import com.gargoylesoftware.htmlunit.html.DomNode;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author amarkhel
  * @since 3.3.0
  */
 public class QueueRendererTest {
-    @Target(value = { ElementType.METHOD })
-    @Retention(RetentionPolicy.RUNTIME)
-    private @interface DisableQueue {
-    }
-
     private static final String EXPECTED_QUEUE_SCRIPT = "RichFaces.queue.setQueueOptions({"
-        + "\"first\": {\"requestDelay\": 400, \"ignoreDupResponses\": true}," + "\"form\": {\"requestDelay\": 400},"
-        + "\"form:firstAttach\": {\"requestGroupingId\": \"request\"},"
-        + "\"second\": {\"requestDelay\": 400, \"ignoreDupResponses\": true},"
-        + "\"form:linkAttach\": {\"queueId\": \"second\"}," + "\"form:secondAttach\": {}" + "});";
+            + "\"first\": {\"requestDelay\": 400, \"ignoreDupResponses\": true}," + "\"form\": {\"requestDelay\": 400},"
+            + "\"form:firstAttach\": {\"requestGroupingId\": \"request\"},"
+            + "\"second\": {\"requestDelay\": 400, \"ignoreDupResponses\": true},"
+            + "\"form:linkAttach\": {\"queueId\": \"second\"}," + "\"form:secondAttach\": {}" + "});";
     protected HtmlPage page;
     protected HtmlUnitEnvironment facesEnvironment;
     private boolean queueEnabled = true;
@@ -146,5 +140,10 @@ public class QueueRendererTest {
             return getTextContent(scriptElement).replaceAll("(^<!--)|(//-->$)", "");
         }
         return null;
+    }
+
+    @Target(value = {ElementType.METHOD})
+    @Retention(RetentionPolicy.RUNTIME)
+    private @interface DisableQueue {
     }
 }

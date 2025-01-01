@@ -25,7 +25,6 @@ import com.google.common.collect.ImmutableList;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class StaticResourceLibrary implements ResourceLibrary {
     private final ImmutableList<ResourceKey> keys;

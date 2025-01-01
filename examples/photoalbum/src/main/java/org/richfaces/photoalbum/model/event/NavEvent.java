@@ -25,10 +25,10 @@ package org.richfaces.photoalbum.model.event;
 /**
  * Navigation event, carries an item from NavigationEnum which points to a destiantion.
  * It is used to update the current view (there might be a better way to do this).
- * 
- * @author mpetrov
  *
+ * @author mpetrov
  */
+
 import org.richfaces.photoalbum.manager.NavigationEnum;
 
 public class NavEvent {

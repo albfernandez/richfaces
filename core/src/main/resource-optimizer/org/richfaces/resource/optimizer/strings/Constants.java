@@ -26,7 +26,6 @@ import com.google.common.base.Splitter;
 
 /**
  * @author Nick Belaevski
- *
  */
 public final class Constants {
     public static final Joiner SLASH_JOINER = Joiner.on('/').skipNulls();

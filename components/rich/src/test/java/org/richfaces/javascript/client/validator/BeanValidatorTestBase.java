@@ -1,21 +1,18 @@
 package org.richfaces.javascript.client.validator;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.Set;
-
-import javax.validation.Validation;
-import javax.validation.ValidationException;
-import javax.validation.Validator;
-
+import com.gargoylesoftware.htmlunit.ScriptException;
 import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
-
 import org.ajax4jsf.javascript.JSFunction;
 import org.junit.Test;
 import org.richfaces.javascript.client.MockTestBase;
 import org.richfaces.javascript.client.RunParameters;
 
-import com.gargoylesoftware.htmlunit.ScriptException;
+import javax.validation.Validation;
+import javax.validation.ValidationException;
+import javax.validation.Validator;
+import java.util.Set;
+
+import static org.junit.Assert.assertTrue;
 
 public abstract class BeanValidatorTestBase extends MockTestBase {
     protected static final String PROP = "property";
@@ -31,7 +28,7 @@ public abstract class BeanValidatorTestBase extends MockTestBase {
         try {
             validateOnClient(validator);
             assertTrue("Bean validator found error for value: " + criteria.getValue() + ", validator options: " + getOptions(),
-                constrains.isEmpty());
+                    constrains.isEmpty());
         } catch (ScriptException e2) {
             // both methods throws exceptions - it's ok.
             Throwable cause = e2.getCause();
@@ -43,7 +40,7 @@ public abstract class BeanValidatorTestBase extends MockTestBase {
 
     protected Object validateOnClient(Validator validator) throws ValidationException {
         JSFunction clientSideFunction = new JSFunction("RichFaces.csv." + getJavaScriptFunctionName(), criteria.getValue(),
-            TEST_COMPONENT_ID, getJavaScriptOptions(), getErrorMessage());
+                TEST_COMPONENT_ID, getJavaScriptOptions(), getErrorMessage());
         return qunit.runScript(clientSideFunction.toScript());
     }
 

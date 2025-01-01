@@ -21,24 +21,11 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptString;
 import org.richfaces.application.FacesMessages;
 import org.richfaces.application.MessageFactory;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.AbstractSelect;
 import org.richfaces.component.AbstractSelectComponent;
 import org.richfaces.component.AutocompleteMode;
@@ -48,15 +35,27 @@ import org.richfaces.component.util.InputUtils;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.util.HtmlDimensions;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.validator.SelectLabelValueValidator;
 import org.richfaces.validator.csv.AddCSVMessageScript;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author abelevich
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -68,7 +67,7 @@ import org.richfaces.validator.csv.AddCSVMessageScript;
         @ResourceDependency(library = "org.richfaces", name = "list.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.js"),
-        @ResourceDependency(library = "org.richfaces", name = "select.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "select.ecss")})
 public class SelectRendererBase extends InputRendererBase implements MetaComponentRenderer {
     public static final String ITEM_CSS = "rf-sel-opt";
 
@@ -212,7 +211,7 @@ public class SelectRendererBase extends InputRendererBase implements MetaCompone
     }
 
     public boolean isAutocomplete(UIComponent component) {
-        if (! (component instanceof AbstractSelect)) {
+        if (!(component instanceof AbstractSelect)) {
             return false;
         }
         AbstractSelect select = (AbstractSelect) component;

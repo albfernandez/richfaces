@@ -33,6 +33,7 @@ public class StreamUtils {
 
     /**
      * Reads all bytes from an input stream to a byte array. Does not close the stream
+     *
      * @param is
      * @return all bytes from an input stream
      * @throws IOException
@@ -47,6 +48,7 @@ public class StreamUtils {
     /**
      * Copies all bytes from input stream to output stream. Does not flush or close
      * either stream
+     *
      * @param is
      * @param os
      * @throws IOException

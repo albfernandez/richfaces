@@ -30,7 +30,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class CountingExecutorCompletionService<T> extends ExecutorCompletionService<T> {
     private AtomicInteger tasksCounter = new AtomicInteger(0);
@@ -68,9 +67,9 @@ public class CountingExecutorCompletionService<T> extends ExecutorCompletionServ
             tasksCounter.getAndDecrement();
         }
     }
-    
+
     @Override
     public String toString() {
-        return "CountingExecutorCompletionService (" + tasksCounter.get() + ")"; 
+        return "CountingExecutorCompletionService (" + tasksCounter.get() + ")";
     }
 }

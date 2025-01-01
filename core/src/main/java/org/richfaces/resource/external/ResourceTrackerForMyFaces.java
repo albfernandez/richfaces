@@ -21,14 +21,13 @@
  */
 package org.richfaces.resource.external;
 
-import java.lang.reflect.Method;
-import java.util.Arrays;
-
-import javax.faces.context.FacesContext;
-
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
+
+import javax.faces.context.FacesContext;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * Tracks what external resources are renderered to the page (specific for MyFaces)
@@ -47,12 +46,12 @@ public class ResourceTrackerForMyFaces implements ResourceTracker {
     public ResourceTrackerForMyFaces(Class<?> resourceUtilsClass) {
         try {
             isRenderedStylesheet = resourceUtilsClass.getMethod("isRenderedStylesheet", FacesContext.class, String.class,
-                String.class);
+                    String.class);
             isRenderedScript = resourceUtilsClass.getMethod("isRenderedScript", FacesContext.class, String.class, String.class);
             markStylesheetAsRendered = resourceUtilsClass.getMethod("markStylesheetAsRendered", FacesContext.class,
-                String.class, String.class);
+                    String.class, String.class);
             markScriptAsRendered = resourceUtilsClass.getMethod("markScriptAsRendered", FacesContext.class, String.class,
-                String.class);
+                    String.class);
         } catch (Exception e) {
             ResourceTrackerForMyFaces.handleException(e);
             throw new ExceptionInInitializerError(e);
@@ -77,10 +76,10 @@ public class ResourceTrackerForMyFaces implements ResourceTracker {
         try {
             if (MimeType.STYLESHEET.contains(mimeType)) {
                 return (Boolean) isRenderedStylesheet.invoke(null, facesContext, resourceKey.getLibraryName(),
-                    resourceKey.getResourceName());
+                        resourceKey.getResourceName());
             } else if (MimeType.SCRIPT.contains(mimeType)) {
                 return (Boolean) isRenderedScript.invoke(null, facesContext, resourceKey.getLibraryName(),
-                    resourceKey.getResourceName());
+                        resourceKey.getResourceName());
             }
         } catch (Exception e) {
             ResourceTrackerForMyFaces.handleException(e);
@@ -101,7 +100,7 @@ public class ResourceTrackerForMyFaces implements ResourceTracker {
         try {
             if (MimeType.STYLESHEET.contains(mimeType)) {
                 markStylesheetAsRendered
-                    .invoke(null, facesContext, resourceKey.getLibraryName(), resourceKey.getResourceName());
+                        .invoke(null, facesContext, resourceKey.getLibraryName(), resourceKey.getResourceName());
             } else if (MimeType.SCRIPT.contains(mimeType)) {
                 markScriptAsRendered.invoke(null, facesContext, resourceKey.getLibraryName(), resourceKey.getResourceName());
             }

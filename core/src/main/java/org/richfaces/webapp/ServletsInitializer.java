@@ -21,14 +21,13 @@
  */
 package org.richfaces.webapp;
 
-import java.util.Set;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import javax.servlet.ServletContainerInitializer;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import java.util.Set;
 
 /**
  * <p>
@@ -41,9 +40,9 @@ public class ServletsInitializer implements ServletContainerInitializer {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
-    private Class<?>[] INITIALIZERS = new Class<?>[] {
+    private Class<?>[] INITIALIZERS = new Class<?>[]{
             PushServletContainerInitializer.class,
-            ResourceServletContainerInitializer.class };
+            ResourceServletContainerInitializer.class};
 
     /**
      * Takes classes listed in {@link #INITIALIZERS} and tries to initialize them as {@link ServletContainerInitializer}s.

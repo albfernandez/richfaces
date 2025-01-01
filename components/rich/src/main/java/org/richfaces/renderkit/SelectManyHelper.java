@@ -3,17 +3,17 @@
  * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
- *
+ * <p>
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- *
+ * <p>
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
@@ -24,7 +24,6 @@ package org.richfaces.renderkit;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
-
 import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.SelectItemsInterface;
@@ -48,10 +47,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
-
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -71,13 +68,12 @@ import java.util.TreeSet;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public class SelectManyHelper {
-    private static final Logger LOG = RichfacesLogger.APPLICATION.getLogger();
-
     public static final String CELL_CSS = "-c";
     public static final String ITEM_CSS = "-opt";
     public static final String ITEM_CSS_DIS = "-opt-dis";
     public static final String BUTTON_CSS = "-btn";
     public static final String BUTTON_CSS_DIS = "-btn-dis";
+    private static final Logger LOG = RichfacesLogger.APPLICATION.getLogger();
     public static Comparator<ClientSelectItem> clientSelectItemComparator = new Comparator<ClientSelectItem>() {
         public int compare(ClientSelectItem clientSelectItem, ClientSelectItem clientSelectItem1) {
             Integer sortOrder = (clientSelectItem == null || clientSelectItem.getSortOrder() == null) ? 0 : clientSelectItem.getSortOrder();
@@ -87,7 +83,7 @@ public class SelectManyHelper {
     };
 
 
-    public static Predicate<ClientSelectItem> SELECTED_PREDICATE =  new Predicate<ClientSelectItem>() {
+    public static Predicate<ClientSelectItem> SELECTED_PREDICATE = new Predicate<ClientSelectItem>() {
         public boolean apply(@Nullable ClientSelectItem clientSelectItem) {
             return clientSelectItem.isSelected();
         }
@@ -239,8 +235,7 @@ public class SelectManyHelper {
         List values;
         if (object == null) {
             values = new ArrayList();
-        }
-        else if (object instanceof List) {
+        } else if (object instanceof List) {
             values = (List) object;
         } else if (object instanceof Object[]) {
             values = Arrays.asList((Object[]) object);
@@ -371,7 +366,7 @@ public class SelectManyHelper {
             }
         } else {
             throw new FacesException("'collectionType' should resolve to type String or Class. Found: "
-                + collectionType.getClass().getName());
+                    + collectionType.getClass().getName());
         }
         return collectionClass;
     }
@@ -415,16 +410,14 @@ public class SelectManyHelper {
                 Iterator<SelectItem> groupSelectItems = Iterators.forArray(selectItemGroup.getSelectItems());
                 // Recursively get the converter from the SelectItems of the SelectItemGroup
                 converter = getSelectItemConverter(facesApplication, groupSelectItems);
-            }
-            else {
+            } else {
                 Class<?> selectItemClass = selectItem.getValue().getClass();
                 if (String.class.equals(selectItemClass)) {
                     return null; // No converter required for strings
                 }
                 try {
                     converter = facesApplication.createConverter(selectItemClass); // Lookup the converter registered for the class
-                }
-                catch (FacesException exception) {
+                } catch (FacesException exception) {
                     // Converter cannot be created
                 }
             }

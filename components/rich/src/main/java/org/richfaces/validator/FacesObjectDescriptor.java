@@ -22,9 +22,9 @@
 
 package org.richfaces.validator;
 
-import java.util.Map;
-
 import org.richfaces.javascript.Message;
+
+import java.util.Map;
 
 /**
  * <p class="changed_added_4_0">
@@ -33,7 +33,6 @@ import org.richfaces.javascript.Message;
  * </p>
  *
  * @author asmirnov@exadel.com
- *
  */
 public interface FacesObjectDescriptor {
     /**

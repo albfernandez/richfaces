@@ -21,14 +21,13 @@
  */
 package org.richfaces.context;
 
-import java.util.Collection;
+import com.google.common.collect.Lists;
 
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-
-import com.google.common.collect.Lists;
+import java.util.Collection;
 
 final class RowsFunctionContextCallback implements ContextCallback {
     private final String image;
@@ -45,7 +44,7 @@ final class RowsFunctionContextCallback implements ContextCallback {
         Converter rowKeyConverter = (Converter) target.getAttributes().get("rowKeyConverter");
 
         Collection<?> keys = (Collection<?>) context.getApplication().evaluateExpressionGet(context, "#{" + image + "}",
-            Object.class);
+                Object.class);
 
         if (keys == null) {
             return;

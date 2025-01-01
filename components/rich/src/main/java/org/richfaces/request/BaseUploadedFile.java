@@ -21,13 +21,12 @@
  */
 package org.richfaces.request;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.richfaces.exception.FileUploadException;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.util.StreamUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Nick Belaevski

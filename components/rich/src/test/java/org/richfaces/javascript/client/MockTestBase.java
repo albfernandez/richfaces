@@ -1,15 +1,7 @@
 package org.richfaces.javascript.client;
 
-import static org.easymock.EasyMock.expect;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
-
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.jboss.test.qunit.Qunit;
 import org.junit.After;
@@ -19,8 +11,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.richfaces.javascript.Message;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableList.Builder;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import static org.easymock.EasyMock.expect;
 
 @RunWith(Parameterized.class)
 public abstract class MockTestBase {
@@ -34,6 +32,44 @@ public abstract class MockTestBase {
     public MockTestBase(RunParameters criteria) {
         this.criteria = criteria;
         this.qunit = createQunitPage().build();
+    }
+
+    protected static List<RunParameters[]> options(RunParameters... criterias) {
+        Builder<RunParameters[]> builder = ImmutableList.builder();
+        for (RunParameters testCriteria : criterias) {
+            builder.add(optionsArray(testCriteria));
+        }
+        return builder.build();
+    }
+
+    protected static RunParameters pass(Object value) {
+        return new RunParameters(value);
+    }
+
+    protected static RunParameters pass(Object value, String option1, Object value1) {
+        RunParameters testCriteria = pass(value);
+        Map<String, Object> options = testCriteria.getOptions();
+        options.put(option1, value1);
+        return testCriteria;
+    }
+
+    protected static RunParameters pass(Object value, String option1, Object value1, String option2, Object value2) {
+        RunParameters testCriteria = pass(value, option1, value1);
+        Map<String, Object> options = testCriteria.getOptions();
+        options.put(option2, value2);
+        return testCriteria;
+    }
+
+    protected static RunParameters pass(Object value, String option1, Object value1, String option2, Object value2,
+                                        String option3, Object value3) {
+        RunParameters testCriteria = pass(value, option1, value1, option2, value2);
+        Map<String, Object> options = testCriteria.getOptions();
+        options.put(option3, value3);
+        return testCriteria;
+    }
+
+    private static RunParameters[] optionsArray(RunParameters testCriteria) {
+        return new RunParameters[]{testCriteria};
     }
 
     @Before
@@ -69,7 +105,7 @@ public abstract class MockTestBase {
 
     protected org.jboss.test.qunit.Qunit.Builder createQunitPage() {
         return Qunit.builder().loadJsfResource("jquery.js", "org.richfaces").loadJsfResource("richfaces.js", "org.richfaces")
-            .loadJsfResource("richfaces-event.js", "org.richfaces").loadJsfResource("richfaces-csv.js", "org.richfaces");
+                .loadJsfResource("richfaces-event.js", "org.richfaces").loadJsfResource("richfaces-csv.js", "org.richfaces");
     }
 
     protected abstract String getJavaScriptFunctionName();
@@ -77,43 +113,5 @@ public abstract class MockTestBase {
     protected Map<String, Object> getOptions() {
         Map<String, Object> options = criteria.getOptions();
         return options;
-    }
-
-    protected static List<RunParameters[]> options(RunParameters... criterias) {
-        Builder<RunParameters[]> builder = ImmutableList.builder();
-        for (RunParameters testCriteria : criterias) {
-            builder.add(optionsArray(testCriteria));
-        }
-        return builder.build();
-    }
-
-    protected static RunParameters pass(Object value) {
-        return new RunParameters(value);
-    }
-
-    protected static RunParameters pass(Object value, String option1, Object value1) {
-        RunParameters testCriteria = pass(value);
-        Map<String, Object> options = testCriteria.getOptions();
-        options.put(option1, value1);
-        return testCriteria;
-    }
-
-    protected static RunParameters pass(Object value, String option1, Object value1, String option2, Object value2) {
-        RunParameters testCriteria = pass(value, option1, value1);
-        Map<String, Object> options = testCriteria.getOptions();
-        options.put(option2, value2);
-        return testCriteria;
-    }
-
-    protected static RunParameters pass(Object value, String option1, Object value1, String option2, Object value2,
-        String option3, Object value3) {
-        RunParameters testCriteria = pass(value, option1, value1, option2, value2);
-        Map<String, Object> options = testCriteria.getOptions();
-        options.put(option3, value3);
-        return testCriteria;
-    }
-
-    private static RunParameters[] optionsArray(RunParameters testCriteria) {
-        return new RunParameters[] { testCriteria };
     }
 }

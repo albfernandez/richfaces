@@ -110,10 +110,6 @@ public class NotifyBean implements Serializable {
         this.showDetail = showDetail;
     }
 
-    public void setShowSummary(boolean showSummary) {
-        this.showSummary = showSummary;
-    }
-
     public boolean isSticky() {
         return sticky;
     }
@@ -132,6 +128,10 @@ public class NotifyBean implements Serializable {
 
     public boolean isShowSummary() {
         return showSummary;
+    }
+
+    public void setShowSummary(boolean showSummary) {
+        this.showSummary = showSummary;
     }
 
     public String getAppearAnimation() {

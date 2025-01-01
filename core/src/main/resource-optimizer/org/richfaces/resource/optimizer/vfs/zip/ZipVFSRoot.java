@@ -21,7 +21,8 @@
  */
 package org.richfaces.resource.optimizer.vfs.zip;
 
-import static org.richfaces.resource.optimizer.strings.Constants.SLASH_SPLITTER;
+import org.richfaces.resource.optimizer.vfs.VFSRoot;
+import org.richfaces.resource.optimizer.vfs.VFSType;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,12 +33,10 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.richfaces.resource.optimizer.vfs.VFSRoot;
-import org.richfaces.resource.optimizer.vfs.VFSType;
+import static org.richfaces.resource.optimizer.strings.Constants.SLASH_SPLITTER;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class ZipVFSRoot extends ZipVFSFile implements VFSRoot {
     private File file;

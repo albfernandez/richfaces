@@ -26,9 +26,10 @@ package org.richfaces.photoalbum.util;
  *
  * @author Andrey Markhel
  */
-import java.security.MessageDigest;
 
 import org.apache.commons.codec.binary.Hex;
+
+import java.security.MessageDigest;
 
 public class HashUtils {
     private static String digestAlgorithm = "SHA-1";
@@ -37,7 +38,7 @@ public class HashUtils {
 
     /**
      * Convenience method to hash user passwords.
-     * 
+     *
      * @param plainTextPassword - password to hash
      */
     public static String hash(String plainTextPassword) {

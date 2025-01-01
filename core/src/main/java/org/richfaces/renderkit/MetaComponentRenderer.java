@@ -28,7 +28,7 @@ import java.io.IOException;
 /**
  * MetaComponentRenderer is a variant of renderer that is capable of handling meta-components.  Meta-components have
  * ids like "table@header" and can be the value of render and target attributes.
- *
+ * <p>
  * Components should invoke methods of MetaComponentRenderer explicitly.
  *
  * @author Nick Belaevski

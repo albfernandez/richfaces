@@ -21,22 +21,20 @@
  */
 package org.richfaces.model.iterators;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-
+import com.google.common.collect.ForwardingIterator;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Lists;
 import org.richfaces.component.ComponentPredicates;
 import org.richfaces.component.TreeModelAdaptor;
 import org.richfaces.component.TreeModelRecursiveAdaptor;
 import org.richfaces.model.SequenceRowKey;
 import org.richfaces.model.TreeDataModelTuple;
 
-import com.google.common.collect.ForwardingIterator;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
+import javax.faces.component.UIComponent;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class DeclarativeTreeDataModelCompositeTuplesIterator extends ForwardingIterator<TreeDataModelTuple> {
     private UIComponent component;

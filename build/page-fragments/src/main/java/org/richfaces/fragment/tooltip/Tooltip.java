@@ -24,14 +24,14 @@ package org.richfaces.fragment.tooltip;
 import org.openqa.selenium.WebElement;
 
 /**
- * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  * @param <CONTENT>
+ * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface Tooltip<CONTENT> {
 
     /**
      * Invokes the tooltip over an element, which is found by injected root element to his component.
-     *
+     * <p>
      * Note that, invoking of the tooltip should be rather by implicit action (for example hover of the mouse over some
      * element), than this explicit call.
      *
@@ -41,7 +41,7 @@ public interface Tooltip<CONTENT> {
 
     /**
      * Invokes the tooltip over the given <code>target</code>.
-     *
+     * <p>
      * Note that, invoking of the tooltip should be rather by implicit action (for example hover of the mouse over some
      * element), than this explicit call.
      *
@@ -52,7 +52,7 @@ public interface Tooltip<CONTENT> {
 
     /**
      * Dismiss the tooltip, which is found by injected root element to his component.
-     *
+     * <p>
      * Note that, hiding of the tooltip should be rather by implicit action (for example hover of the mouse out from some
      * element), than this explicit call.
      *
@@ -62,7 +62,7 @@ public interface Tooltip<CONTENT> {
 
     /**
      * Dismiss the tooltip over the given <code>target</code>.
-     *
+     * <p>
      * Note that, hiding of the tooltip should be rather by implicit action (for example hover of the mouse out from some
      * element), than this explicit call.
      *

@@ -21,11 +21,13 @@
  */
 package org.richfaces.renderkit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.JSReference;
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.component.UIHashParameter;
+import org.richfaces.component.behavior.ComponentControlBehavior;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -37,27 +39,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
-
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.JSReference;
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.component.UIHashParameter;
-import org.richfaces.component.behavior.ComponentControlBehavior;
-import org.richfaces.renderkit.util.RendererUtils;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * @author Anton Belevich
- *
  */
 @FacesBehaviorRenderer(rendererType = "org.richfaces.behavior.ComponentControlBehavior", renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "component-control.js") })
+        @ResourceDependency(library = "org.richfaces", name = "component-control.js")})
 public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
     /**
      *
@@ -87,7 +85,7 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
         // Fix https://issues.jboss.org/browse/RF-9745
         if (isEmpty(apiFunctionName) || (isEmpty(targetSourceString) && isEmpty(selector))) {
             throw new IllegalArgumentException(
-                "One of the necessary attributes is null or empty. Check operation attribute and selector or target attributes.");
+                    "One of the necessary attributes is null or empty. Check operation attribute and selector or target attributes.");
         }
 
         JSFunctionDefinition callback = new JSFunctionDefinition();
@@ -145,7 +143,7 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
                 String name = parameter.getName();
 
                 Map<String, Object> value = RendererUtils.getInstance().createParametersMap(FacesContext.getCurrentInstance(),
-                    child);
+                        child);
 
                 if (value != null) {
                     if (name != null) {

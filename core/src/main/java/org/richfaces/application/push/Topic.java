@@ -82,7 +82,6 @@ public interface Topic {
      * Publish data to the subscribed clients
      *
      * @param messageData data that will be serialized by MessageDataSerializer
-     *
      * @throws MessageException
      */
     void publish(Object messageData) throws MessageException;
@@ -90,9 +89,8 @@ public interface Topic {
     /**
      * Publish data to the subscribed clients
      *
-     * @param messageData data that will be serialized by MessageDataSerializer
+     * @param messageData  data that will be serialized by MessageDataSerializer
      * @param subtopicName optional subtopic, used to publish to clients that are only interested in specific subtopics
-     *
      * @throws MessageException
      */
     void publish(Object messageData, String subtopicName) throws MessageException;

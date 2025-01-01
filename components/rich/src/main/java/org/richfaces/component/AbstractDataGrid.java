@@ -21,18 +21,6 @@
  */
 package org.richfaces.component;
 
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PreRenderComponentEvent;
-
 import org.richfaces.cdk.annotations.Alias;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
@@ -40,17 +28,28 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
 import org.richfaces.component.attribute.ColumnProps;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.IterationProps;
 import org.richfaces.component.attribute.RowColumnStyleProps;
 import org.richfaces.component.attribute.SequenceProps;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.taglib.DataGridHandler;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PreRenderComponentEvent;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * <p> The &lt;rich:dataGrid&gt; component is used to arrange data objects in a grid. Values in the grid can be updated
@@ -79,10 +78,6 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
         SUPPORTED_META_COMPONENTS.add(HEADER);
         SUPPORTED_META_COMPONENTS.add(FOOTER);
         SUPPORTED_META_COMPONENTS.add(BODY);
-    }
-
-    enum PropertyKeys {
-        columns
     }
 
     /**
@@ -206,5 +201,9 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
     public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
 
         return null;
+    }
+
+    enum PropertyKeys {
+        columns
     }
 }

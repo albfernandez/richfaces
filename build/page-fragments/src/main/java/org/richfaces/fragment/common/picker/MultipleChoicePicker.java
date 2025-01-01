@@ -21,9 +21,9 @@
  */
 package org.richfaces.fragment.common.picker;
 
-import java.util.List;
-
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -34,7 +34,7 @@ public interface MultipleChoicePicker {
      * Picks multiple WebElements from the @options, that meets all requirements depending on implementation.
      *
      * @param options options to be picked from
-     * @return        List of WebElement that meets all requirements or an empty list
+     * @return List of WebElement that meets all requirements or an empty list
      */
     List<WebElement> pickMultiple(List<WebElement> options);
 }

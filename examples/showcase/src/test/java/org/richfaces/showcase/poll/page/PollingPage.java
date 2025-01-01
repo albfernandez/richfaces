@@ -25,7 +25,6 @@ import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 
 /**
- *
  * @author pmensik
  */
 public class PollingPage {

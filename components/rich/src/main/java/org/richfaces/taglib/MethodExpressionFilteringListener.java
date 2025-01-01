@@ -21,11 +21,11 @@
  */
 package org.richfaces.taglib;
 
-import javax.el.MethodExpression;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.event.FilteringEvent;
 import org.richfaces.event.FilteringListener;
+
+import javax.el.MethodExpression;
+import javax.faces.context.FacesContext;
 
 public class MethodExpressionFilteringListener implements FilteringListener {
     private MethodExpression methodExpression;
@@ -41,6 +41,6 @@ public class MethodExpressionFilteringListener implements FilteringListener {
 
     public void processFiltering(FilteringEvent filteringEvent) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        methodExpression.invoke(facesContext.getELContext(), new Object[] { filteringEvent });
+        methodExpression.invoke(facesContext.getELContext(), new Object[]{filteringEvent});
     }
 }

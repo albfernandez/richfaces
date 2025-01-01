@@ -53,7 +53,7 @@ public final class XML {
      * The Character '>'.
      */
     public static final Character GT = new Character('>');
-/**
+    /**
      * The Character '<'.
      */
     public static final Character LT = new Character('<');
@@ -125,9 +125,9 @@ public final class XML {
     /**
      * Scan the content following the named tag, attaching it to the context.
      *
-     * @param x The XMLTokener containing the source string.
+     * @param x       The XMLTokener containing the source string.
      * @param context The JSONObject that will include the new material.
-     * @param name The tag name.
+     * @param name    The tag name.
      * @return true if the close tag is processed.
      * @throws JSONException
      */
@@ -222,7 +222,7 @@ public final class XML {
             t = null;
             o = new JSONObject();
 
-            for (;;) {
+            for (; ; ) {
                 if (t == null) {
                     t = x.nextToken();
                 }
@@ -257,7 +257,7 @@ public final class XML {
 
                     // Content, between <...> and </...>
                 } else if (t == GT) {
-                    for (;;) {
+                    for (; ; ) {
                         t = x.nextContent();
 
                         if (t == null) {
@@ -332,7 +332,7 @@ public final class XML {
     /**
      * Convert a JSONObject into a well-formed, element-normal XML string.
      *
-     * @param o A JSONObject.
+     * @param o       A JSONObject.
      * @param tagName The optional name of the enclosing tag.
      * @return A string.
      * @throws JSONException
@@ -432,7 +432,7 @@ public final class XML {
             s = (o == null) ? "null" : escape(o.toString());
 
             return (tagName == null) ? "\"" + s + "\"" : (s.length() == 0) ? "<" + tagName + "/>" : "<" + tagName + ">" + s
-                + "</" + tagName + ">";
+                    + "</" + tagName + ">";
         }
     }
 }

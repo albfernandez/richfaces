@@ -21,17 +21,10 @@
  */
 package org.richfaces.application;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
-import static org.richfaces.application.CoreConfiguration.Items.executeAWTInitializer;
-import static org.richfaces.application.CoreConfiguration.Items.pushInitializePushContextOnStartup;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSEnabled;
-
-import java.awt.Toolkit;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
+import org.richfaces.VersionBean;
+import org.richfaces.application.push.PushContextFactory;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
@@ -43,11 +36,17 @@ import javax.faces.event.SystemEventListener;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 import javax.xml.rpc.ServiceFactory;
+import java.awt.Toolkit;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.richfaces.VersionBean;
-import org.richfaces.application.push.PushContextFactory;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import static org.richfaces.application.CoreConfiguration.Items.executeAWTInitializer;
+import static org.richfaces.application.CoreConfiguration.Items.pushInitializePushContextOnStartup;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSEnabled;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
 /**
  * <p>Listens for application's {@link PostConstructApplicationEvent} and {@link PreDestroyApplicationEvent} events in order to initialize RichFaces services.</p>

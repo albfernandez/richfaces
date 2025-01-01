@@ -21,11 +21,11 @@
  */
 package org.richfaces.showcase.param.page;
 
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 /**
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
@@ -52,25 +52,6 @@ public class ParamPage {
         }
     }
 
-    public static enum Name {
-
-        ALEX("Alex"), JOHN("John");
-        private final String name;
-
-        private Name(String name) {
-            this.name = name;
-        }
-
-        public static ParamPage.Name[] getAll() {
-            return new ParamPage.Name[] { ALEX, JOHN };
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
-
     public WebElement getOutput() {
         return output;
     }
@@ -81,6 +62,25 @@ public class ParamPage {
 
     public WebElement getSetJohn() {
         return setJohn;
+    }
+
+    public static enum Name {
+
+        ALEX("Alex"), JOHN("John");
+        private final String name;
+
+        private Name(String name) {
+            this.name = name;
+        }
+
+        public static ParamPage.Name[] getAll() {
+            return new ParamPage.Name[]{ALEX, JOHN};
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
 }

@@ -26,7 +26,7 @@
 
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-build-resources</artifactId>
-    <version>4.5.17.Final</version>
+    <version>4.5.18.Final</version>
     <name>RichFaces Build Resources</name>
 
     <description>
@@ -50,7 +50,7 @@
     </developers>
 
     <properties>
-        <version.richfaces>4.5.17.Final</version.richfaces>
+        <version.richfaces>4.5.18.Final</version.richfaces>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -194,7 +194,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>3.5.2</version>
             </plugin>
         </plugins>
     </build>

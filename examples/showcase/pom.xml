@@ -26,7 +26,7 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-showcase</artifactId>
-    <version>4.5.17.Final</version>
+    <version>4.5.18.Final</version>
     <packaging>war</packaging>
     <name>RichFaces Showcase</name>
 
@@ -51,7 +51,7 @@
     </developers>
 
     <properties>
-        <version.richfaces>4.5.17.Final</version.richfaces>
+        <version.richfaces>4.5.18.Final</version.richfaces>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -381,7 +381,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.19.1</version>
+                    <version>3.5.2</version>
                     <configuration>
                         <!-- Travis build workaround -->
                         <argLine>${surefire.jvm.params}</argLine>

@@ -155,7 +155,7 @@
 
         <!-- JVM values for surefire plugin -->
         <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->
-        <surefire.jvm.params>-Xms1024m -Xmx2048m</surefire.jvm.params>
+        <surefire.jvm.params>-Xms1024m -Xmx2048m --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED</surefire.jvm.params>
     </properties>
 
     <prerequisites>

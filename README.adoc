@@ -8,7 +8,6 @@ RichFaces 4.5 image:https://travis-ci.org/richfaces/richfaces.png?branch=master[
 
 > The RichFaces project is an advanced UI component framework for easily integrating Ajax capabilities into business applications using JSF.
 
-
 == Project Info
 
 --
@@ -133,4 +132,3 @@ This will download WildFly and run the project tests against a managed instance 
 For a detailed explanation of additional testing configurations and options, refer to the link:TESTS.md[Testing guide].
 
 These smoke tests are also executed in the https://travis-ci.org/richfaces/richfaces/builds[continuous integration job].
-

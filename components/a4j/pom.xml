@@ -36,6 +36,10 @@
     <name>RichFaces a4j components</name>
     <packaging>jar</packaging>
 
+    <properties>
+        <surefire.jvm.params>-Xms1024m -Xmx2048m --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED</surefire.jvm.params>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.jboss.spec</groupId>

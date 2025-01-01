@@ -65,8 +65,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
 
         <maven.min.version>3.0</maven.min.version>
-        <maven.compiler.source>1.6</maven.compiler.source>
-        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 

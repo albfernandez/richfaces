@@ -5,9 +5,9 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.component.AutocompleteMode;
 
-import javax.el.MethodExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.el.MethodExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

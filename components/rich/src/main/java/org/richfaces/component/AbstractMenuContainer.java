@@ -27,7 +27,7 @@ import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsPopupsProps;
 import org.richfaces.component.attribute.PositionProps;
 
-import javax.faces.component.UIComponentBase;
+import jakarta.faces.component.UIComponentBase;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

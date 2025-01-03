@@ -23,8 +23,8 @@ package org.richfaces.component;
 
 import com.google.common.collect.AbstractIterator;
 
-import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UIComponent;
 import java.util.Iterator;
 
 /**

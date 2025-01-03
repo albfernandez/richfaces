@@ -23,9 +23,9 @@ package org.richfaces.component.util;
 import com.google.common.collect.Maps;
 import junit.framework.TestCase;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
 import java.util.Map;
 
 /**

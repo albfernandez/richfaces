@@ -22,7 +22,7 @@
 package org.richfaces.renderkit;
 
 import javax.annotation.PostConstruct;
-import javax.faces.FacesException;
+import jakarta.faces.FacesException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;

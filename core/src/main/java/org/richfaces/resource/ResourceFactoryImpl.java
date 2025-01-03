@@ -32,10 +32,10 @@ import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.mapping.ResourcePath;
 import org.richfaces.webapp.ResourceServlet;
 
-import javax.faces.application.ProjectStage;
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.FacesContext;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Collection;

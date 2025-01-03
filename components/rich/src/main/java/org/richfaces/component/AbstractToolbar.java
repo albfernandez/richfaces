@@ -29,7 +29,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.renderkit.html.ToolbarRendererBase;
 
-import javax.faces.component.UIComponentBase;
+import jakarta.faces.component.UIComponentBase;
 
 /**
  * <p>The &lt;rich:toolbar&gt; component is a horizontal toolbar. Any JavaServer Faces (JSF) component can be added to the

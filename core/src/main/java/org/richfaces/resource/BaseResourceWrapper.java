@@ -21,9 +21,9 @@
  */
 package org.richfaces.resource;
 
-import javax.faces.FacesWrapper;
-import javax.faces.component.StateHolder;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesWrapper;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.context.FacesContext;
 import java.util.Date;
 import java.util.Map;
 

@@ -24,7 +24,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 import java.util.List;
 
 /**

@@ -21,10 +21,10 @@
  */
 package org.richfaces.renderkit;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.context.FacesContext;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

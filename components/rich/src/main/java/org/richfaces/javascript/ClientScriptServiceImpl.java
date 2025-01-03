@@ -33,11 +33,11 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import org.richfaces.resource.ResourceKey;
 
-import javax.faces.FacesException;
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceDependency;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.FacesContext;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

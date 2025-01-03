@@ -25,7 +25,7 @@ package org.richfaces.component.attribute;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.Converter;
 
 /**
  * Interface defining the methods for sequence-props.xml

@@ -32,9 +32,9 @@ import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.LinkProps;
 import org.richfaces.renderkit.AjaxConstants;
 
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p>

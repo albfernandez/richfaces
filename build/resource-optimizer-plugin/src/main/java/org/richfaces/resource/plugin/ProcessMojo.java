@@ -71,8 +71,8 @@ import org.richfaces.resource.optimizer.vfs.VFS;
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
 import org.richfaces.resource.optimizer.vfs.VirtualFile;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceDependency;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceDependency;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;

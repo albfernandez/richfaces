@@ -28,10 +28,10 @@ import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.component.AbstractPush;
 import org.richfaces.resource.PushResource;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import java.util.HashMap;
 import java.util.Map;
 

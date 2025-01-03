@@ -32,8 +32,8 @@ import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.FocusProps;
 import org.richfaces.renderkit.EditorRendererBase;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
 
 /**
  * <p> The &lt;rich:editor&gt; component is used for creating a WYSIWYG editor on a page. </p>

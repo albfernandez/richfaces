@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
 
-import javax.faces.context.PartialViewContext;
+import jakarta.faces.context.PartialViewContext;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;

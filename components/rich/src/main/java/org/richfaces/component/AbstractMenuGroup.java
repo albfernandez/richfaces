@@ -14,9 +14,9 @@ import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.PositionProps;
 import org.richfaces.renderkit.html.MenuGroupRendererBase;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.convert.Converter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.convert.Converter;
 
 /**
  * <p>The &lt;rich:menuGroup&gt; component represents an expandable sub-menu in a menu control. The

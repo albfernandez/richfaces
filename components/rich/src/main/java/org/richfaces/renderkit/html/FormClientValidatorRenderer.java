@@ -22,7 +22,7 @@
  */
 package org.richfaces.renderkit.html;
 
-import javax.faces.render.ClientBehaviorRenderer;
+import jakarta.faces.render.ClientBehaviorRenderer;
 
 /**
  * <p class="changed_added_4_0">

@@ -23,7 +23,7 @@ package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
 
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.Converter;
 
 /**
  * @author Nick Belaevski

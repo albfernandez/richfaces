@@ -25,8 +25,8 @@
  */
 package org.richfaces.validator;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import javax.validation.Validator;
 import javax.validation.metadata.ConstraintDescriptor;
 import java.lang.annotation.Annotation;

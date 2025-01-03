@@ -25,8 +25,8 @@ import org.ajax4jsf.Messages;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import javax.faces.FacesException;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.ResponseWriter;
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

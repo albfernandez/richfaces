@@ -25,16 +25,16 @@
  */
 package org.richfaces.validator;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.DoubleRangeValidator;
-import javax.faces.validator.LengthValidator;
-import javax.faces.validator.LongRangeValidator;
-import javax.faces.validator.RegexValidator;
-import javax.faces.validator.RequiredValidator;
-import javax.faces.validator.Validator;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.DoubleRangeValidator;
+import jakarta.faces.validator.LengthValidator;
+import jakarta.faces.validator.LongRangeValidator;
+import jakarta.faces.validator.RegexValidator;
+import jakarta.faces.validator.RequiredValidator;
+import jakarta.faces.validator.Validator;
 
 /**
  * @author asmirnov

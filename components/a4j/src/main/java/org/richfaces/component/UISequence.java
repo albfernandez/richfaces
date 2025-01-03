@@ -21,6 +21,7 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.el.ValueBinding;
 import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
@@ -30,18 +31,18 @@ import org.ajax4jsf.model.SequenceState;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.model.CollectionDataModel;
 
-import javax.el.ValueExpression;
-import javax.faces.component.ContextCallback;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-import javax.faces.model.ResultDataModel;
-import javax.faces.model.ResultSetDataModel;
-import javax.faces.model.ScalarDataModel;
-import javax.servlet.jsp.jstl.sql.Result;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.ContextCallback;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.model.ArrayDataModel;
+import jakarta.faces.model.DataModel;
+import jakarta.faces.model.ListDataModel;
+import jakarta.faces.model.ResultDataModel;
+import jakarta.faces.model.ResultSetDataModel;
+import jakarta.faces.model.ScalarDataModel;
+import jakarta.servlet.jsp.jstl.sql.Result;
 import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.Collections;
@@ -259,7 +260,7 @@ public class UISequence extends UIDataAdaptor {
 
     @SuppressWarnings("deprecation")
     @Override
-    public void setValueBinding(String name, javax.faces.el.ValueBinding binding) {
+    public void setValueBinding(String name, ValueBinding binding) {
         if ("value".equals(name)) {
             resetDataModel();
         } else if ("first".equals(name) || "rows".equals(name)) {

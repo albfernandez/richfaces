@@ -21,10 +21,10 @@
  */
 package org.richfaces.demo.validator;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.RequestScoped;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

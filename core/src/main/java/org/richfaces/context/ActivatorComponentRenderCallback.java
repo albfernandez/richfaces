@@ -23,8 +23,8 @@ package org.richfaces.context;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import java.util.Collection;
 import java.util.Collections;
 

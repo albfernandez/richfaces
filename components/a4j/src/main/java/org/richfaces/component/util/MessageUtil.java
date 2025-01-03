@@ -23,8 +23,8 @@ package org.richfaces.component.util;
 
 import com.google.common.base.Strings;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski

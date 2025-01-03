@@ -24,7 +24,7 @@ package org.richfaces.component;
 import org.ajax4jsf.component.JavaScriptParameter;
 
 import javax.annotation.Generated;
-import javax.faces.event.ActionListener;
+import jakarta.faces.event.ActionListener;
 
 /**
  * <p>

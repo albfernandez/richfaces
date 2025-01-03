@@ -37,7 +37,7 @@ import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.component.attribute.TableStyleProps;
 import org.richfaces.taglib.DataTableHandler;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 /**
  * <p>

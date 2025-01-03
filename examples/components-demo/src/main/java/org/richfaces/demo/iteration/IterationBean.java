@@ -28,8 +28,8 @@ import org.richfaces.demo.iteration.utils.EmployeeUtils;
 import org.richfaces.event.SortingEvent;
 import org.richfaces.model.SelectionMode;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;

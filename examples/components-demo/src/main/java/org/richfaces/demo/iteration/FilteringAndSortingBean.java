@@ -25,8 +25,8 @@ import org.richfaces.component.SortOrder;
 import org.richfaces.demo.iteration.model.Employee;
 import org.richfaces.model.Filter;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
 import java.util.Comparator;
 
 @ManagedBean(name = "filteringAndSortingBean")

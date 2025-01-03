@@ -3,8 +3,8 @@ package org.richfaces.javascript.client.converter;
 import org.junit.runners.Parameterized.Parameters;
 import org.richfaces.javascript.client.RunParameters;
 
-import javax.faces.convert.Converter;
-import javax.faces.convert.ShortConverter;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ShortConverter;
 import java.util.List;
 
 public class ShortConverterTest extends ConverterTestBase {

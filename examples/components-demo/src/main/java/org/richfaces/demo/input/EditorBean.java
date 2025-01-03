@@ -22,9 +22,9 @@
 
 package org.richfaces.demo.input;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.event.ValueChangeEvent;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
+import jakarta.faces.event.ValueChangeEvent;
 import java.io.Serializable;
 
 @ManagedBean(name = "editor")

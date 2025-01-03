@@ -34,8 +34,8 @@ import org.richfaces.application.push.impl.TopicsContextImpl;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;

@@ -38,12 +38,12 @@ import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.PartialViewContext;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialResponseWriter;
+import jakarta.faces.context.PartialViewContext;
 import java.io.IOException;
 import java.util.Map;
 

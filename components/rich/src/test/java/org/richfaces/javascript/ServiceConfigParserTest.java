@@ -7,7 +7,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.resource.ResourceKey;
 
-import javax.faces.FacesException;
+import jakarta.faces.FacesException;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;

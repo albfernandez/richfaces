@@ -1,7 +1,7 @@
 package org.richfaces.renderkit;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
 
 public class MessageForRender {
     private final FacesMessage msg;

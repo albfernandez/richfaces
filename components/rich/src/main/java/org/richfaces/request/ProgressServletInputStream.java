@@ -21,7 +21,7 @@
  */
 package org.richfaces.request;
 
-import javax.servlet.ServletInputStream;
+import jakarta.servlet.ServletInputStream;
 import java.io.IOException;
 
 class ProgressServletInputStream extends ServletInputStream {

@@ -27,8 +27,8 @@ import org.richfaces.application.push.PushContext;
 import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.application.push.PushContextInitializationException;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.ServletContext;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
 

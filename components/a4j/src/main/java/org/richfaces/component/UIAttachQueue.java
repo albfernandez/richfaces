@@ -22,7 +22,7 @@
 package org.richfaces.component;
 
 import javax.annotation.Generated;
-import javax.faces.event.ComponentSystemEventListener;
+import jakarta.faces.event.ComponentSystemEventListener;
 
 /**
  * <p>

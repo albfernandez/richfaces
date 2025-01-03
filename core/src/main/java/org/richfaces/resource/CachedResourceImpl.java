@@ -27,8 +27,8 @@ import org.ajax4jsf.io.FastBufferOutputStream;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;

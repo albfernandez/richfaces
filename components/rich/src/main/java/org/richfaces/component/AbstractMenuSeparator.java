@@ -6,8 +6,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.MenuSeparatorRendererBase;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
 
 /**
  * <p>The &lt;rich:menuSeparator&gt; component represents a separating divider in a menu control.</p>

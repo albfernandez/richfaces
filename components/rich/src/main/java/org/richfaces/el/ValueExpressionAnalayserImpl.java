@@ -24,10 +24,10 @@ package org.richfaces.el;
 
 import org.richfaces.validator.GraphValidatorState;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 
 public class ValueExpressionAnalayserImpl implements ValueExpressionAnalayser {
     private void checkNotNull(FacesContext context, ValueExpression expression) {

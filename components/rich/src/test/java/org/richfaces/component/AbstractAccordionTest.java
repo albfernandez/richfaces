@@ -26,9 +26,9 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import javax.el.MethodExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.convert.Converter;
+import jakarta.el.MethodExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.convert.Converter;
 import java.util.List;
 
 import static org.easymock.EasyMock.createNiceMock;

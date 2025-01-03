@@ -37,7 +37,7 @@ import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 import org.richfaces.resource.optimizer.strings.Constants;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

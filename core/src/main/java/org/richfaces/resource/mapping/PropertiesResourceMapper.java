@@ -33,7 +33,7 @@ import org.richfaces.skin.SkinFactory;
 import org.richfaces.util.PropertiesUtil;
 import org.richfaces.webapp.ResourceServlet;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;

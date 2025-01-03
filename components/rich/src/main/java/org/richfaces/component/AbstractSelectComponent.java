@@ -28,7 +28,7 @@ import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.FocusProps;
 import org.richfaces.component.attribute.SelectProps;
 
-import javax.faces.component.UISelectOne;
+import jakarta.faces.component.UISelectOne;
 
 /**
  * @author abelevich

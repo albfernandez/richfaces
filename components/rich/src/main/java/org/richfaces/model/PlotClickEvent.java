@@ -21,9 +21,9 @@
  */
 package org.richfaces.model;
 
-import javax.faces.component.UIComponent;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.FacesListener;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.FacesListener;
 
 /**
  * The class represents plotclick event fired by the chart component, when user

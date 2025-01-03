@@ -25,10 +25,10 @@ import org.richfaces.component.AbstractDataScroller;
 import org.richfaces.component.UIDataAdaptor;
 import org.richfaces.renderkit.util.RendererUtils;
 
-import javax.faces.FacesException;
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIData;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

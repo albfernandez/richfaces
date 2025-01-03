@@ -23,7 +23,7 @@ package org.richfaces.application.configuration;
 
 import org.richfaces.application.ServiceTracker;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski

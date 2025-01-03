@@ -32,7 +32,7 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.request.ByteSequenceMatcher.BytesHandler;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

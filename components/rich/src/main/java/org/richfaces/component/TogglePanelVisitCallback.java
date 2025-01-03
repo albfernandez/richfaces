@@ -21,8 +21,8 @@
  **/
 package org.richfaces.component;
 
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

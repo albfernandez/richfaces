@@ -26,7 +26,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 import java.util.Arrays;
 import java.util.Collection;
 

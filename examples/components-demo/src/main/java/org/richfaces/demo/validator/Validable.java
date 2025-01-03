@@ -25,8 +25,8 @@
  */
 package org.richfaces.demo.validator;
 
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
 import java.lang.reflect.ParameterizedType;
 
 /**

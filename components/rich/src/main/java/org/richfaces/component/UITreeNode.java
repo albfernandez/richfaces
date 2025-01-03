@@ -31,9 +31,9 @@ import org.richfaces.component.attribute.TreeCommonProps;
 import org.richfaces.event.TreeToggleSource;
 
 import javax.annotation.Generated;
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.el.MethodExpression;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

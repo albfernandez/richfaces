@@ -3,8 +3,8 @@ package org.richfaces.demo.calendar.model;
 import org.richfaces.model.CalendarDataModel;
 import org.richfaces.model.CalendarDataModelItem;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.bean.ApplicationScoped;
+import jakarta.faces.bean.ManagedBean;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;

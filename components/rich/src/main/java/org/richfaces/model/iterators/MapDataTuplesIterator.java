@@ -23,7 +23,7 @@ package org.richfaces.model.iterators;
 
 import org.richfaces.model.SequenceRowKey;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 import java.util.Iterator;
 import java.util.Map;
 

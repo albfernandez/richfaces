@@ -25,7 +25,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import javax.inject.Named;
 
 @Named

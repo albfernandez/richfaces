@@ -22,9 +22,9 @@ package org.richfaces.component;
 
 import org.richfaces.component.util.MessageUtil;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick - mailto:nbelaevski@exadel.com created 20.02.2007

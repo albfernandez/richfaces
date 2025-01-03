@@ -4,9 +4,9 @@ import org.richfaces.renderkit.RenderKitUtils.Attributes;
 import org.richfaces.renderkit.TreeNodeRendererBase;
 import org.richfaces.renderkit.TreeNodeState;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 import java.io.IOException;
 
 import static org.richfaces.renderkit.RenderKitUtils.attributes;

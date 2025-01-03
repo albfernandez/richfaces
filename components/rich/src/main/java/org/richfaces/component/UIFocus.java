@@ -24,7 +24,7 @@ package org.richfaces.component;
 import org.ajax4jsf.component.AjaxOutput;
 
 import javax.annotation.Generated;
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.Converter;
 
 /**
  * <p>

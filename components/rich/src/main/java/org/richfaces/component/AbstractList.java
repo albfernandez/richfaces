@@ -41,7 +41,7 @@ import org.richfaces.component.attribute.RowsProps;
 import org.richfaces.component.attribute.SequenceProps;
 import org.richfaces.taglib.ListHandler;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 import java.util.Iterator;
 
 /**

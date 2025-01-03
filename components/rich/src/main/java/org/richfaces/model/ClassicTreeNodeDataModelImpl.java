@@ -24,7 +24,7 @@ package org.richfaces.model;
 import org.richfaces.convert.StringSequenceRowKeyConverter;
 import org.richfaces.model.iterators.ClassicTreeNodeTuplesIterator;
 
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.Converter;
 import java.util.Iterator;
 
 /**

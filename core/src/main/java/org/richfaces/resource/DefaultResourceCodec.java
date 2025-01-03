@@ -21,7 +21,7 @@
  */
 package org.richfaces.resource;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.util.Map;
 
 public final class DefaultResourceCodec implements ResourceCodec {

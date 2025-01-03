@@ -23,7 +23,7 @@ package org.richfaces.resource;
 
 import com.google.common.base.Function;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 
 /**
  * Encapsulates resource name and resource library

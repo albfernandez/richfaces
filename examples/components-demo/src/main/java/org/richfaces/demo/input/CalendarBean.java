@@ -25,9 +25,9 @@ package org.richfaces.demo.input;
 import org.richfaces.component.Positioning;
 import org.richfaces.event.CurrentDateChangeEvent;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.event.ValueChangeEvent;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
+import jakarta.faces.event.ValueChangeEvent;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;

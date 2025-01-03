@@ -23,8 +23,8 @@ package org.richfaces.demo.iteration;
 
 import org.richfaces.component.ListType;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
 
 /**
  * @author Nick Belaevski

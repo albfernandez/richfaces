@@ -30,9 +30,9 @@ import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.context.IdParser.Node;
 import org.richfaces.util.SeparatorChar;
 
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;

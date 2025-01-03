@@ -26,17 +26,17 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.view.facelets.TagHandlerUtils;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ActionListener;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ActionListener;
 import java.io.Serializable;
 
 /**
  * @author Nick Belaevski
  */
-@Event(listener = ActionListener.class, source = "org.richfaces.event.DummyActionListenerSource", tag = {@Tag(name = "actionListener", handlerClass = ActionListenerHandler.class, generate = false, type = TagType.Facelets)})
+//@Event(listener = ActionListener.class, source = "org.richfaces.event.DummyActionListenerSource", tag = {@Tag(name = "actionListener", handlerClass = ActionListenerHandler.class, generate = false, type = TagType.Facelets)})
 class LazyActionListener implements ActionListener, Serializable {
     /**
      *

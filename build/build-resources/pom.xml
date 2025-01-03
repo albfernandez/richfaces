@@ -82,6 +82,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>jakarta.faces</groupId>
+            <artifactId>jakarta.faces-api</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.richfaces.cdk</groupId>
             <artifactId>generator</artifactId>
             <scope>provided</scope>

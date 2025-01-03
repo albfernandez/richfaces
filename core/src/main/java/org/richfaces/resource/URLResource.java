@@ -23,8 +23,8 @@ package org.richfaces.resource;
 
 import org.richfaces.resource.mapping.ResourcePath;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;

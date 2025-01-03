@@ -33,8 +33,8 @@ import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.OutputFormatProps;
 
-import javax.faces.component.UIMessages;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIMessages;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p> The &lt;rich:notifyMessages&gt; component is the same as the &lt;rich:notifyMessage&gt; component, but each of

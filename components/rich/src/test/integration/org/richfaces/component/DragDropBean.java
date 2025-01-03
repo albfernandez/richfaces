@@ -7,8 +7,8 @@ import static org.richfaces.component.Framework.Family.php;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
 
 import org.richfaces.component.Framework.Family;
 import com.google.common.base.Predicate;

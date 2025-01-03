@@ -27,7 +27,7 @@ import org.richfaces.photoalbum.model.Sex;
 import org.richfaces.photoalbum.util.Constants;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.SelectItem;
+import jakarta.faces.model.SelectItem;
 import javax.inject.Named;
 import java.io.File;
 import java.io.FileOutputStream;

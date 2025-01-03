@@ -33,8 +33,8 @@ import org.richfaces.model.PlotClickEvent;
 import org.richfaces.model.PlotClickListener;
 import org.richfaces.model.SeriesHandler;
 
-import javax.el.MethodExpression;
-import javax.faces.component.UIComponentBase;
+import jakarta.el.MethodExpression;
+import jakarta.faces.component.UIComponentBase;
 
 /**
  * The &lt;rich:chartSeries&gt; defines the data to be plotted in a chart. It represents

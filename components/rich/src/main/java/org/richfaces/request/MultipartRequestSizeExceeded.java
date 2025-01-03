@@ -24,7 +24,7 @@ package org.richfaces.request;
 import com.google.common.collect.Lists;
 import org.richfaces.model.UploadedFile;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author Nick Belaevski

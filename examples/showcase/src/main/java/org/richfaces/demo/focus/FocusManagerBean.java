@@ -3,8 +3,8 @@ package org.richfaces.demo.focus;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.focus.FocusManager;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.RequestScoped;
 
 @RequestScoped
 @ManagedBean

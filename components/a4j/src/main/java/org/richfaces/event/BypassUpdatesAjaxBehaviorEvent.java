@@ -21,11 +21,11 @@
  */
 package org.richfaces.event;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.Behavior;
-import javax.faces.event.BehaviorEvent;
-import javax.faces.event.FacesListener;
-import javax.faces.event.PhaseId;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.Behavior;
+import jakarta.faces.event.BehaviorEvent;
+import jakarta.faces.event.FacesListener;
+import jakarta.faces.event.PhaseId;
 
 /**
  * @author Nick Belaevski

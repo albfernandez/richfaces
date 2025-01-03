@@ -22,7 +22,7 @@
 package org.richfaces.component;
 
 import javax.annotation.Generated;
-import javax.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;

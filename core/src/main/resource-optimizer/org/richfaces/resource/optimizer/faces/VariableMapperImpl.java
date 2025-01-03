@@ -23,10 +23,10 @@ package org.richfaces.resource.optimizer.faces;
 
 import org.richfaces.skin.SkinFactory;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.el.VariableMapper;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.ValueExpression;
+import jakarta.el.VariableMapper;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski

@@ -7,9 +7,9 @@ import org.richfaces.demo.tree.model.Country;
 import org.richfaces.event.TreeSelectionChangeEvent;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedProperty;
+import jakarta.faces.bean.ViewScoped;
 import javax.swing.tree.TreeNode;
 import java.io.Serializable;
 import java.util.ArrayList;

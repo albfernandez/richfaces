@@ -21,7 +21,7 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 /**
  * @author asmirnov

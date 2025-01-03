@@ -26,7 +26,7 @@ import org.richfaces.application.CoreConfiguration;
 import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.util.Arrays;
 import java.util.List;
 

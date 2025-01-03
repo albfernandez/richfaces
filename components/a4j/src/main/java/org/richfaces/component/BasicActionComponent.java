@@ -25,9 +25,9 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.component.attribute.AjaxCommandProps;
 import org.richfaces.util.Sets;
 
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;

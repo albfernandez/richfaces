@@ -21,9 +21,9 @@
  */
 package org.richfaces.view.facelets;
 
-import javax.faces.component.UIComponent;
-import javax.faces.view.AttachedObjectHandler;
-import javax.faces.view.facelets.FaceletContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.view.AttachedObjectHandler;
+import jakarta.faces.view.facelets.FaceletContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

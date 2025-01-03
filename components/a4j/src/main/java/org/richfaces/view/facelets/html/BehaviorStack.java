@@ -21,12 +21,12 @@
  */
 package org.richfaces.view.facelets.html;
 
-import javax.faces.application.Application;
-import javax.faces.component.StateHolder;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorHint;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Application;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorHint;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

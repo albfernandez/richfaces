@@ -21,9 +21,9 @@
  */
 package org.richfaces.el.util;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ValueExpression;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.ValueExpression;
 
 /**
  * @author Nick Belaevski

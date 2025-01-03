@@ -25,9 +25,9 @@
  */
 package org.richfaces.el;
 
-import javax.el.ELException;
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELException;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Implementation of this interface extract information about bean property from EL-expression.

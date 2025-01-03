@@ -7,9 +7,9 @@ import org.richfaces.component.Mode;
 import org.richfaces.renderkit.AjaxCommandRendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.context.FacesContext;
 
 public class MenuItemRendererBase extends AjaxCommandRendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.MenuItemRenderer";

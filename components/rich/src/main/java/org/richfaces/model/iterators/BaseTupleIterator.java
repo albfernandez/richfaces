@@ -27,7 +27,7 @@ import org.richfaces.model.DeclarativeTreeDataModelTuple;
 import org.richfaces.model.SequenceRowKey;
 import org.richfaces.model.TreeDataModelTuple;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 /**
  * @author Nick Belaevski

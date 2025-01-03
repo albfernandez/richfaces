@@ -2,7 +2,7 @@ package org.richfaces.view.facelets.html;
 
 import org.richfaces.component.AbstractGraphValidator;
 
-import javax.faces.validator.Validator;
+import jakarta.faces.validator.Validator;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")

@@ -27,12 +27,12 @@ package org.richfaces.el;
 
 import org.richfaces.validator.GraphValidatorState;
 
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.FunctionMapper;
-import javax.el.ValueExpression;
-import javax.el.VariableMapper;
-import javax.faces.el.CompositeComponentExpressionHolder;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.FunctionMapper;
+import jakarta.el.ValueExpression;
+import jakarta.el.VariableMapper;
+import jakarta.faces.el.CompositeComponentExpressionHolder;
 import java.beans.FeatureDescriptor;
 import java.util.Collection;
 import java.util.Iterator;

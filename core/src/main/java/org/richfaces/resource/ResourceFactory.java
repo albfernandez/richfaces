@@ -21,8 +21,8 @@
  */
 package org.richfaces.resource;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
 import java.util.Collection;
 
 /**

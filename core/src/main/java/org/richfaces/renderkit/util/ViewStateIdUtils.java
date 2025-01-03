@@ -23,11 +23,11 @@ package org.richfaces.renderkit.util;
 
 import org.richfaces.JsfVersion;
 
-import javax.faces.component.UINamingContainer;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialResponseWriter;
+import jakarta.faces.render.ResponseStateManager;
 import java.util.Map;
 
 import static org.richfaces.JsfVersion.JSF_2_2;

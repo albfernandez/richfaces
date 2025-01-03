@@ -21,7 +21,7 @@
  */
 package org.richfaces.cache;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.util.Map;
 
 /**

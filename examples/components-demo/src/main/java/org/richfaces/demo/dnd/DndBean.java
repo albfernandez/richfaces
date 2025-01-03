@@ -22,8 +22,8 @@
 
 package org.richfaces.demo.dnd;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
 import java.util.ArrayList;
 import java.util.List;
 

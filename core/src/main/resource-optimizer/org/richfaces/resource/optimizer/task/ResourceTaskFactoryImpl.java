@@ -35,9 +35,9 @@ import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
 import org.richfaces.util.StreamUtils;
 
 import javax.activation.MimetypesFileTypeMap;
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.FacesContext;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;

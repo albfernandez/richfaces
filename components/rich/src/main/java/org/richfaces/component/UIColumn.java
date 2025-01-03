@@ -27,7 +27,7 @@ import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.model.Filter;
 
 import javax.annotation.Generated;
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;

@@ -23,7 +23,7 @@ package org.richfaces.resource.external;
 
 import org.richfaces.resource.ResourceKey;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.util.Map;
 
 /**

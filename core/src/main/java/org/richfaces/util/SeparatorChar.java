@@ -23,8 +23,8 @@ package org.richfaces.util;
 
 import com.google.common.base.Splitter;
 
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Caches JSF separator char for a context of current classloader and exposes useful utilities for joining and splitting by

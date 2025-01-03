@@ -21,7 +21,7 @@
  */
 package org.richfaces.renderkit;
 
-import javax.servlet.jsp.jstl.core.LoopTagStatus;
+import jakarta.servlet.jsp.jstl.core.LoopTagStatus;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;

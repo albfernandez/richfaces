@@ -22,8 +22,8 @@
 
 package org.ajax4jsf.component;
 
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.event.AjaxBehaviorListener;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.event.AjaxBehaviorListener;
 
 /**
  * @author Anton Belevich interface for our ajax behaviors

@@ -26,7 +26,7 @@ import org.richfaces.cache.lru.LRUMapCacheFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;

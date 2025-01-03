@@ -23,8 +23,8 @@ package org.richfaces.component.tabPanel.model;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

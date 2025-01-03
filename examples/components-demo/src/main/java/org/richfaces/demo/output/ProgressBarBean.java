@@ -25,8 +25,8 @@
  */
 package org.richfaces.demo.output;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;

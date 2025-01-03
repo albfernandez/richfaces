@@ -24,7 +24,7 @@ package org.richfaces.photoalbum.ui;
 import org.richfaces.component.UITree;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 

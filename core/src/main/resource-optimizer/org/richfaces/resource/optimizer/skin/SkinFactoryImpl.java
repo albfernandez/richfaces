@@ -25,7 +25,7 @@ import org.richfaces.skin.AbstractSkinFactory;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.Theme;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski

@@ -3,8 +3,8 @@ package org.richfaces.demo.tables;
 import org.richfaces.demo.tables.model.cars.InventoryItem;
 import org.richfaces.model.Filter;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
 import java.io.Serializable;
 
 @ManagedBean

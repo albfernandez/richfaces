@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.event.ActionEvent;
+import jakarta.faces.event.ActionEvent;
 import javax.inject.Named;
 
 /**

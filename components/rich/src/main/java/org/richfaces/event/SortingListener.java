@@ -21,7 +21,7 @@
  */
 package org.richfaces.event;
 
-import javax.faces.event.FacesListener;
+import jakarta.faces.event.FacesListener;
 
 public interface SortingListener extends FacesListener {
     void processSorting(SortingEvent sortingEvent);

@@ -21,8 +21,8 @@
  */
 package org.richfaces.application.configuration;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski

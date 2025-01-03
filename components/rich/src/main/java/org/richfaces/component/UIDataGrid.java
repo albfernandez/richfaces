@@ -28,8 +28,8 @@ import org.richfaces.component.attribute.RowColumnStyleProps;
 import org.richfaces.component.attribute.SequenceProps;
 
 import javax.annotation.Generated;
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
 import java.util.ArrayList;
 import java.util.List;
 

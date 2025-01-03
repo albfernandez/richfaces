@@ -30,9 +30,9 @@ import org.richfaces.photoalbum.model.event.SimpleEvent;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**

@@ -22,7 +22,7 @@
 
 package org.richfaces.validator;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.util.IdentityHashMap;
 import java.util.Map;
 

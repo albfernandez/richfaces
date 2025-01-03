@@ -24,7 +24,7 @@ package org.richfaces.renderkit;
 import org.ajax4jsf.javascript.ScriptString;
 import org.ajax4jsf.javascript.ScriptUtils;
 
-import javax.faces.model.SelectItem;
+import jakarta.faces.model.SelectItem;
 import java.io.IOException;
 
 /**

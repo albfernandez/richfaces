@@ -23,8 +23,8 @@ package org.richfaces.resource.mapping;
 
 import org.richfaces.el.util.ELUtils;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p>

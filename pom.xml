@@ -117,8 +117,8 @@
 
         <!-- Base Dependencies Versions -->
         <version.richfaces>4.5.18.Final</version.richfaces>
-        <version.cdk>4.5.0.Final</version.cdk>
-        <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
+<!--        <version.cdk>4.5.0.Final</version.cdk>-->
+        <version.jboss-jakartaee>1.0.0.Final</version.jboss-jakartaee>
 
         <!-- Container Versions -->
         <version.wildfly100>10.0.0.Final</version.wildfly100>
@@ -167,15 +167,15 @@
             <!-- Java EE -->
             <dependency>
                 <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
-                <version>${version.jboss-javaee}</version>
+                <artifactId>jboss-jakartaee-8.0</artifactId>
+                <version>${version.jboss-jakartaee}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-web-6.0</artifactId>
-                <version>${version.jboss-javaee}</version>
+                <artifactId>jboss-jakartaee-web-8.0</artifactId>
+                <version>${version.jboss-jakartaee}</version>
                 <type>pom</type>
                 <scope>import</scope>
                 <exclusions>

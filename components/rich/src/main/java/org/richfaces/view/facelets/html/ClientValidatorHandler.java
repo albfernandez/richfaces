@@ -22,7 +22,7 @@
  */
 package org.richfaces.view.facelets.html;
 
-import javax.faces.view.facelets.BehaviorConfig;
+import jakarta.faces.view.facelets.BehaviorConfig;
 
 /**
  * <p class="changed_added_4_0">

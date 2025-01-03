@@ -3,8 +3,8 @@ package org.richfaces.javascript.client.converter;
 import org.junit.runners.Parameterized.Parameters;
 import org.richfaces.javascript.client.RunParameters;
 
-import javax.faces.convert.ByteConverter;
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.ByteConverter;
+import jakarta.faces.convert.Converter;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

@@ -25,8 +25,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractQueue;
 import org.richfaces.renderkit.util.RendererUtils;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski Renderer for queue component

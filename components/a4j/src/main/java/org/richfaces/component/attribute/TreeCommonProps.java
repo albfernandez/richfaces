@@ -25,7 +25,7 @@ package org.richfaces.component.attribute;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 
-import javax.el.MethodExpression;
+import jakarta.el.MethodExpression;
 
 /**
  * Interface defining the methods for tree-common-props.xml

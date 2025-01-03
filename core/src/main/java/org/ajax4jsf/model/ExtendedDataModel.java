@@ -21,8 +21,8 @@
  */
 package org.ajax4jsf.model;
 
-import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.DataModel;
 
 /**
  * Extesion for {@link DataModel} , for support complex data structure, like tree, spreadsheet etc in iterable components.

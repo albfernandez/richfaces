@@ -4,9 +4,9 @@ import org.richfaces.event.MethodExpressionTreeSelectionChangeListener;
 import org.richfaces.event.TreeSelectionChangeEvent;
 import org.richfaces.event.TreeSelectionChangeSource;
 
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.Metadata;
-import javax.faces.view.facelets.TagAttribute;
+import jakarta.faces.view.facelets.FaceletContext;
+import jakarta.faces.view.facelets.Metadata;
+import jakarta.faces.view.facelets.TagAttribute;
 
 /**
  * @author Nick Belaevski

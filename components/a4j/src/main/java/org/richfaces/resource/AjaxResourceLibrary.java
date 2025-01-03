@@ -24,7 +24,7 @@ package org.richfaces.resource;
 import com.google.common.collect.ImmutableList;
 import org.richfaces.application.CommonComponentsConfiguration;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 

@@ -24,8 +24,8 @@ package org.richfaces.request;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 import java.util.Locale;
 import java.util.Map;
 

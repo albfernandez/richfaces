@@ -22,8 +22,8 @@ package org.richfaces.renderkit.util;
 
 import org.richfaces.component.SwitchType;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Filip Antonov - mailto:fantonov@exadel.com created 08.02.2007

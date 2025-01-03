@@ -25,9 +25,9 @@ import org.richfaces.cdk.annotations.Function;
 import org.richfaces.renderkit.util.RendererUtils;
 import org.richfaces.util.Sets;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import java.util.Set;
 
 /**

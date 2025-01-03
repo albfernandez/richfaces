@@ -21,8 +21,8 @@
  */
 package org.richfaces.demo.iteration.model.tree;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
 
 /**
  * @author Nick Belaevski

@@ -27,12 +27,12 @@ import org.richfaces.event.ItemChangeSource;
 import org.richfaces.view.facelets.EventListenerHandler;
 import org.richfaces.view.facelets.TagHandlerUtils;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.TagConfig;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.view.facelets.FaceletContext;
+import jakarta.faces.view.facelets.TagConfig;
 import java.io.Serializable;
 
 /**

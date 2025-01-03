@@ -29,9 +29,9 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.RowColumnStyleProps;
 import org.richfaces.renderkit.RowHolderBase;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIPanel;
+import jakarta.faces.context.FacesContext;
 import java.util.Iterator;
 
 /**

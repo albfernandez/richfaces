@@ -25,8 +25,8 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
 
-import javax.faces.FactoryFinder;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FactoryFinder;
+import jakarta.faces.context.FacesContext;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**

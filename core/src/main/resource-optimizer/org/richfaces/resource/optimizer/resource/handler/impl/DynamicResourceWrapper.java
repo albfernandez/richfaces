@@ -25,8 +25,8 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.resource.ResourceSkinUtils;
 import org.richfaces.resource.optimizer.FileNameMapper;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;

@@ -26,7 +26,7 @@ import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 
 import java.net.URL;
 
-import javax.faces.context.PartialResponseWriter;
+import jakarta.faces.context.PartialResponseWriter;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;

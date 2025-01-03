@@ -31,7 +31,7 @@ import org.richfaces.application.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Map;

@@ -27,7 +27,7 @@ import org.richfaces.cache.CacheFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.util.Map;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;

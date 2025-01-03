@@ -21,7 +21,7 @@
  */
 package org.richfaces.resource.optimizer;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;

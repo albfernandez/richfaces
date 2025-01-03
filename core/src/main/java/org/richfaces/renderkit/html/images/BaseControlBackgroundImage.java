@@ -24,7 +24,7 @@ package org.richfaces.renderkit.html.images;
 import org.richfaces.renderkit.html.BaseGradient;
 import org.richfaces.skin.Skin;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Created 23.02.2008

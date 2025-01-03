@@ -3,9 +3,9 @@ package org.richfaces.demo.arrangeablemodel;
 import com.google.common.collect.Maps;
 import org.richfaces.component.SortOrder;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
+import jakarta.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.Map;

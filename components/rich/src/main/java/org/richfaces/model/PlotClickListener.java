@@ -21,7 +21,7 @@
  */
 package org.richfaces.model;
 
-import javax.faces.event.FacesListener;
+import jakarta.faces.event.FacesListener;
 
 /**
  * Define listener for PlotClickEvent.

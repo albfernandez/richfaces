@@ -23,7 +23,7 @@ package org.richfaces.context;
 
 import org.ajax4jsf.component.AjaxOutput;
 
-import javax.faces.component.UIOutput;
+import jakarta.faces.component.UIOutput;
 
 /**
  * @author Nick Belaevski

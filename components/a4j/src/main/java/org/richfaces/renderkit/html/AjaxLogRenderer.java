@@ -3,9 +3,9 @@ package org.richfaces.renderkit.html;
 import org.richfaces.renderkit.LogRendererBase;
 import org.richfaces.renderkit.RenderKitUtils.Attributes;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;

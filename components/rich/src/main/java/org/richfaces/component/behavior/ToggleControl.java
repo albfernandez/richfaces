@@ -31,11 +31,11 @@ import org.richfaces.component.ComponentIterators;
 import org.richfaces.renderkit.util.RendererUtils;
 import org.richfaces.view.facelets.html.CustomBehaviorHandler;
 
-import javax.el.ExpressionFactory;
-import javax.faces.FacesException;
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.context.FacesContext;
+import jakarta.el.ExpressionFactory;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p> The &lt;rich:toggleControl&gt; behavior can be attached to any interface component, whether inside or outside the

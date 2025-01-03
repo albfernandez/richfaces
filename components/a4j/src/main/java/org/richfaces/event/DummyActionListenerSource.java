@@ -22,7 +22,7 @@
 package org.richfaces.event;
 
 import javax.annotation.Generated;
-import javax.faces.event.ActionListener;
+import jakarta.faces.event.ActionListener;
 
 /**
  *

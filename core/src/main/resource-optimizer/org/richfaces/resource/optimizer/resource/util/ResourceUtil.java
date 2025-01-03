@@ -28,7 +28,7 @@ import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
 import org.richfaces.resource.optimizer.vfs.VirtualFile;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Collection;

@@ -41,7 +41,7 @@ import org.richfaces.application.push.TopicsContext;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collection;

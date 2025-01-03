@@ -29,9 +29,9 @@ import org.ajax4jsf.model.SequenceRange;
 import org.richfaces.application.IterationComponentsConfiguration;
 import org.richfaces.component.SortOrder;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-import javax.faces.model.DataModelListener;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.DataModelListener;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;

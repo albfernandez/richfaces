@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpUtils;
+import jakarta.servlet.http.HttpUtils;
 
 import org.openqa.selenium.WebElement;
 

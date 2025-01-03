@@ -24,8 +24,8 @@ package org.richfaces.taglib;
 import org.richfaces.event.SortingEvent;
 import org.richfaces.event.SortingListener;
 
-import javax.el.MethodExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.MethodExpression;
+import jakarta.faces.context.FacesContext;
 
 public class MethodExpressionSortingListener implements SortingListener {
     private MethodExpression methodExpression;

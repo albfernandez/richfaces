@@ -28,8 +28,8 @@ import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.PositionProps;
 
 import javax.annotation.Generated;
-import javax.el.ValueExpression;
-import javax.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

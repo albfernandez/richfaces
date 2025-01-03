@@ -25,8 +25,8 @@
  */
 package org.richfaces.example;
 
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author leo

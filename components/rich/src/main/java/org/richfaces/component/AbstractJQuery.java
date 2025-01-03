@@ -27,7 +27,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
-import javax.faces.component.UIComponentBase;
+import jakarta.faces.component.UIComponentBase;
 
 /**
  * <p>The &lt;rich:jQuery&gt; component applies styles and custom behavior to both JSF (JavaServer Faces) objects and

@@ -3,12 +3,12 @@ package org.richfaces.renderkit;
 import org.richfaces.component.AbstractPlaceholder;
 import org.richfaces.component.util.InputUtils;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.convert.Converter;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.convert.Converter;
 import java.io.IOException;
 
 @ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),

@@ -29,7 +29,7 @@ import static org.junit.Assert.fail;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import javax.faces.context.PartialViewContext;
+import jakarta.faces.context.PartialViewContext;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;

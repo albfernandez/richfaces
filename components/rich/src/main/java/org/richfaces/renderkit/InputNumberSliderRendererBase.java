@@ -24,7 +24,7 @@ package org.richfaces.renderkit;
 import org.richfaces.component.InputNumberSliderHandleType;
 import org.richfaces.component.InputNumberSliderInputPosition;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 /**
  * @author Nick Belaevski

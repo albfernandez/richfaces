@@ -23,11 +23,11 @@ package org.richfaces.context;
 
 import org.richfaces.component.MetaComponentProcessor;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
 
 /**
  * Wraps {@link VisitCallback} in order to be able execute own logic during {@link #visit(VisitContext, UIComponent)}

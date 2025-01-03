@@ -31,7 +31,7 @@ import org.richfaces.component.TreeModelRecursiveAdaptor;
 import org.richfaces.model.SequenceRowKey;
 import org.richfaces.model.TreeDataModelTuple;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;

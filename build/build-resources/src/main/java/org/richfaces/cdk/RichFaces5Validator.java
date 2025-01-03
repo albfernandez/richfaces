@@ -54,12 +54,12 @@ import org.richfaces.cdk.model.validator.CallbackException;
 import org.richfaces.cdk.model.validator.NamingConventionsCallback;
 import org.richfaces.cdk.util.Strings;
 
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.behavior.ClientBehaviorBase;
-import javax.faces.render.Renderer;
-import javax.faces.view.facelets.BehaviorHandler;
-import javax.faces.view.facelets.ComponentHandler;
-import javax.faces.view.facelets.ConverterHandler;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.behavior.ClientBehaviorBase;
+import jakarta.faces.render.Renderer;
+import jakarta.faces.view.facelets.BehaviorHandler;
+import jakarta.faces.view.facelets.ComponentHandler;
+import jakarta.faces.view.facelets.ConverterHandler;
 import javax.xml.validation.ValidatorHandler;
 import java.util.Collection;
 import java.util.HashSet;

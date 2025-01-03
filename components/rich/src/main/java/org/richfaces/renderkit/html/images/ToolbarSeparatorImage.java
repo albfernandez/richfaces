@@ -8,7 +8,7 @@ import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.awt.Color;
 import java.io.DataInput;
 import java.io.DataOutput;

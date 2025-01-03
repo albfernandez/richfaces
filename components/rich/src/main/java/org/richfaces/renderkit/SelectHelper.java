@@ -26,11 +26,11 @@ import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.InputUtils;
 import org.richfaces.component.util.SelectUtils;
 
-import javax.el.ELException;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.model.SelectItem;
+import jakarta.el.ELException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;

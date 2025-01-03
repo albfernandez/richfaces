@@ -31,10 +31,10 @@ import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.component.util.SelectItemsInterface;
 import org.richfaces.renderkit.SelectManyHelper;
 
-import javax.faces.component.UIColumn;
-import javax.faces.component.UISelectItems;
-import javax.faces.component.UISelectMany;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UISelectItems;
+import jakarta.faces.component.UISelectMany;
+import jakarta.faces.context.FacesContext;
 import java.util.Iterator;
 
 /**

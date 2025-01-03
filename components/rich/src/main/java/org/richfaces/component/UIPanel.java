@@ -26,8 +26,8 @@ import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 
 import javax.annotation.Generated;
-import javax.el.ValueExpression;
-import javax.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

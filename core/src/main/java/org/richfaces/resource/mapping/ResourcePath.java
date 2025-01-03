@@ -25,7 +25,7 @@ import org.richfaces.resource.ResourceKey;
 import org.richfaces.util.URLUtils;
 import org.richfaces.webapp.ResourceServlet;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 import java.net.URL;
 
 /**

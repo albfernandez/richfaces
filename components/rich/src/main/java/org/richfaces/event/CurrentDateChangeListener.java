@@ -21,7 +21,7 @@
  */
 package org.richfaces.event;
 
-import javax.faces.event.FacesListener;
+import jakarta.faces.event.FacesListener;
 
 /**
  * @author Alexej Kushunin - akushunin@exadel.com

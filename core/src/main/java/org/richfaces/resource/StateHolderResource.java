@@ -21,7 +21,7 @@
  */
 package org.richfaces.resource;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;

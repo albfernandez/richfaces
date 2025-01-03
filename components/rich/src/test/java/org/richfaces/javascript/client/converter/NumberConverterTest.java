@@ -3,8 +3,8 @@ package org.richfaces.javascript.client.converter;
 import org.junit.runners.Parameterized.Parameters;
 import org.richfaces.javascript.client.RunParameters;
 
-import javax.faces.convert.Converter;
-import javax.faces.convert.NumberConverter;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.NumberConverter;
 import java.util.List;
 import java.util.Map;
 

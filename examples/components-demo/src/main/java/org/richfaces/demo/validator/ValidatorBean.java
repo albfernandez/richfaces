@@ -25,8 +25,8 @@
  */
 package org.richfaces.demo.validator;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import java.util.ArrayList;

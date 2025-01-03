@@ -24,7 +24,7 @@ package org.richfaces.resource.optimizer;
 import com.google.common.base.Predicate;
 import org.richfaces.resource.ResourceKey;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 import java.util.concurrent.CompletionService;
 
 /**

@@ -23,7 +23,7 @@ package org.richfaces.demo.output;
 
 import org.richfaces.resource.AbstractJSONResource;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.util.Map;
 
 /**

@@ -25,10 +25,10 @@ import org.ajax4jsf.Messages;
 import org.richfaces.el.util.ELUtils;
 import org.richfaces.util.PropertiesUtil;
 
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.ExpressionFactory;
+import jakarta.faces.application.Application;
+import jakarta.faces.context.FacesContext;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;

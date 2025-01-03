@@ -21,7 +21,7 @@
  */
 package org.richfaces.skin;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.nio.ByteBuffer;
 import java.util.AbstractMap;
 import java.util.Collections;

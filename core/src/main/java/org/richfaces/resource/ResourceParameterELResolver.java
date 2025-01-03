@@ -21,9 +21,9 @@
  */
 package org.richfaces.resource;
 
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.faces.context.FacesContext;
 import java.beans.FeatureDescriptor;
 import java.util.Iterator;
 

@@ -26,8 +26,8 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.webapp.ResourceServlet;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.regex.Matcher;

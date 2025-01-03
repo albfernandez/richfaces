@@ -33,10 +33,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.faces.component.UIOutput;
-import javax.faces.event.PostConstructApplicationEvent;
-import javax.faces.event.PreDestroyApplicationEvent;
-import javax.servlet.ServletContainerInitializer;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.event.PostConstructApplicationEvent;
+import jakarta.faces.event.PreDestroyApplicationEvent;
+import jakarta.servlet.ServletContainerInitializer;
 
 import org.ajax4jsf.util.base64.Codec;
 import org.jboss.arquillian.container.test.spi.RemoteLoadableExtension;

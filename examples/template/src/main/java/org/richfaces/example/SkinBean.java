@@ -22,9 +22,9 @@
 
 package org.richfaces.example;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
+import jakarta.faces.model.SelectItem;
 import java.io.Serializable;
 
 @ManagedBean(name = "skinBean")

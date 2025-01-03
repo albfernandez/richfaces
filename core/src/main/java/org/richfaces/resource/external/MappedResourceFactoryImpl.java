@@ -36,8 +36,8 @@ import org.richfaces.resource.mapping.ResourceServletMapping;
 import org.richfaces.services.ServiceUtils;
 import org.richfaces.webapp.ResourceServlet;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;

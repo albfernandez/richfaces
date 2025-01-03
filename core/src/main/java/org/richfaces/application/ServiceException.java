@@ -21,7 +21,7 @@
  */
 package org.richfaces.application;
 
-import javax.faces.FacesException;
+import jakarta.faces.FacesException;
 
 /**
  * <p class="changed_added_4_0">

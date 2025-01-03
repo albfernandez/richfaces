@@ -53,7 +53,7 @@
     <properties>
         <version.richfaces>4.5.18.Final</version.richfaces>
         <version.hibernate-validator>4.3.2.Final</version.hibernate-validator>
-        <version.jboss-spec>3.0.2.Final</version.jboss-spec>
+        <version.jboss-spec>1.0.0.Final</version.jboss-spec>
         <version.junit>4.11</version.junit>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -70,7 +70,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-web-6.0</artifactId>
+            <artifactId>jboss-jakartaee-web-8.0</artifactId>
             <type>pom</type>
             <scope>provided</scope>
             <version>${version.jboss-spec}</version>

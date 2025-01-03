@@ -32,7 +32,7 @@ import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.FocusProps;
 
-import javax.faces.component.UIInput;
+import jakarta.faces.component.UIInput;
 
 /**
  * <p> The &lt;rich:inplaceInput&gt; component allows information to be entered in-line in blocks of text, improving

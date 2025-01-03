@@ -21,7 +21,7 @@
  */
 package org.ajax4jsf.io;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 import java.io.IOException;
 
 /**

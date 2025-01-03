@@ -24,8 +24,8 @@ package org.richfaces.resource.mapping;
 import org.richfaces.application.CoreConfiguration;
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
 
-import javax.faces.application.ProjectStage;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p>

@@ -25,7 +25,7 @@ import org.richfaces.component.attribute.AjaxCommandProps;
 import org.richfaces.component.attribute.BypassProps;
 
 import javax.annotation.Generated;
-import javax.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;

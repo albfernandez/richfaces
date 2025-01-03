@@ -24,8 +24,8 @@ package org.richfaces.component;
 import org.richfaces.component.attribute.StyleClassProps;
 
 import javax.annotation.Generated;
-import javax.el.ValueExpression;
-import javax.faces.convert.Converter;
+import jakarta.el.ValueExpression;
+import jakarta.faces.convert.Converter;
 import java.util.ArrayList;
 import java.util.List;
 

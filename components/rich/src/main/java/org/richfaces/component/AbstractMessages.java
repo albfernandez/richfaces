@@ -32,8 +32,8 @@ import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.OutputFormatProps;
 
-import javax.faces.component.UIMessages;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIMessages;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p>The &lt;rich:messages&gt; components works similarly to the &lt;rich:message&gt; component, but can display all

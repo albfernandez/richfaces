@@ -23,8 +23,8 @@ package org.richfaces.demo.core;
 
 import org.richfaces.resource.ResourceUtils;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.RequestScoped;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

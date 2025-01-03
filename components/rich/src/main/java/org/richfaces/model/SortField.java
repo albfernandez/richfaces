@@ -23,7 +23,7 @@ package org.richfaces.model;
 
 import org.richfaces.component.SortOrder;
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 import java.util.Comparator;
 
 /**

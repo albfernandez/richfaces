@@ -21,6 +21,7 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.el.ValueBinding;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -41,12 +42,12 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.SelectionMode;
 import org.richfaces.taglib.ExtendedDataTableHandler;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
@@ -226,7 +227,7 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     }
 
     @SuppressWarnings("deprecation")
-    public void setValueBinding(String name, javax.faces.el.ValueBinding binding) {
+    public void setValueBinding(String name, ValueBinding binding) {
         super.setValueBinding(name, binding);
 
         // TODO nick - clientFirst?

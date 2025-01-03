@@ -27,7 +27,7 @@ import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.component.SwitchType;
 
-import javax.el.MethodExpression;
+import jakarta.el.MethodExpression;
 import java.util.Collection;
 
 /**

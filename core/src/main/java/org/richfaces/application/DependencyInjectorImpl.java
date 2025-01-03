@@ -27,10 +27,10 @@ import org.richfaces.resource.PostConstructResource;
 import org.richfaces.resource.ResourceParameter;
 import org.richfaces.resource.ResourceParameterELResolver;
 
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;

@@ -25,7 +25,7 @@ import org.richfaces.cache.Cache;
 import org.richfaces.cache.CacheManager;
 import org.richfaces.resource.ResourceHandlerImpl;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.util.Date;
 import java.util.Map;
 

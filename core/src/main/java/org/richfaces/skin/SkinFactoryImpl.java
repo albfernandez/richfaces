@@ -24,7 +24,7 @@ package org.richfaces.skin;
 import org.ajax4jsf.Messages;
 import org.richfaces.application.CoreConfiguration;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;

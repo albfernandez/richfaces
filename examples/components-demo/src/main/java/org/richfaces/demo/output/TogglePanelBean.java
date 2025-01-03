@@ -26,8 +26,8 @@ import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
 import java.io.Serializable;
 
 @ManagedBean

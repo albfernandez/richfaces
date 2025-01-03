@@ -81,7 +81,7 @@
 
         <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-web-6.0</artifactId>
+            <artifactId>jboss-jakartaee-web-8.0</artifactId>
             <type>pom</type>
             <scope>provided</scope>
             <exclusions>

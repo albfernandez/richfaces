@@ -20,17 +20,18 @@
  */
 package org.richfaces.component;
 
-import javax.el.ELException;
-import javax.el.PropertyNotFoundException;
-import javax.el.ValueExpression;
-import javax.faces.component.StateHolder;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELException;
+import jakarta.el.PropertyNotFoundException;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.el.ValueBinding;
 
 /**
  * @author Maksim Kaszynski
  */
 @SuppressWarnings("deprecation")
-public class ValueBindingValueExpressionAdaptor extends javax.faces.el.ValueBinding implements StateHolder {
+public class ValueBindingValueExpressionAdaptor extends ValueBinding implements StateHolder {
     private ValueExpression expression;
     private boolean tranzient;
 
@@ -47,7 +48,7 @@ public class ValueBindingValueExpressionAdaptor extends javax.faces.el.ValueBind
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.el.ValueBinding#getType(javax.faces.context.FacesContext)
+     * @see ValueBinding#getType(javax.faces.context.FacesContext)
      */
     @Override
     public Class<?> getType(FacesContext context) throws ELException {
@@ -63,7 +64,7 @@ public class ValueBindingValueExpressionAdaptor extends javax.faces.el.ValueBind
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.el.ValueBinding#getValue(javax.faces.context.FacesContext)
+     * @see ValueBinding#getValue(javax.faces.context.FacesContext)
      */
     @Override
     public Object getValue(FacesContext context) throws ELException {
@@ -79,7 +80,7 @@ public class ValueBindingValueExpressionAdaptor extends javax.faces.el.ValueBind
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.el.ValueBinding#isReadOnly(javax.faces.context.FacesContext)
+     * @see ValueBinding#isReadOnly(javax.faces.context.FacesContext)
      */
     @Override
     public boolean isReadOnly(FacesContext context) throws ELException {
@@ -95,7 +96,7 @@ public class ValueBindingValueExpressionAdaptor extends javax.faces.el.ValueBind
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.el.ValueBinding#setValue(javax.faces.context.FacesContext, java.lang.Object)
+     * @see ValueBinding#setValue(javax.faces.context.FacesContext, java.lang.Object)
      */
     @Override
     public void setValue(FacesContext context, Object value) throws ELException {

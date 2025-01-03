@@ -21,11 +21,11 @@
  */
 package org.richfaces.context;
 
-import javax.faces.FacesException;
-import javax.faces.FacesWrapper;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.ExternalContextFactory;
-import javax.faces.context.ExternalContextWrapper;
+import jakarta.faces.FacesException;
+import jakarta.faces.FacesWrapper;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContextFactory;
+import jakarta.faces.context.ExternalContextWrapper;
 
 /**
  * @author Nick Belaevski

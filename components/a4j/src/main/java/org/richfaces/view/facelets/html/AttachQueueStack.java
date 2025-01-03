@@ -21,7 +21,7 @@
  */
 package org.richfaces.view.facelets.html;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.util.LinkedList;
 import java.util.Map;
 

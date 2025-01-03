@@ -37,14 +37,26 @@
 
     <properties>
         <version.richfaces>4.5.18.Final</version.richfaces>
+        <jakarta.el-api.version>4.0.0</jakarta.el-api.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>jakarta.xml.rpc</groupId>
+            <artifactId>jakarta.xml.rpc-api</artifactId>
+            <version>1.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>5.0.0</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- Java EE Web Profile -->
         <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
+            <artifactId>jboss-jakartaee-8.0</artifactId>
             <type>pom</type>
             <scope>provided</scope>
             <exclusions>
@@ -56,15 +68,19 @@
                     <artifactId>xalan</artifactId>
                     <groupId>xalan</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>jboss-servlet-api_4.0_spec</artifactId>
+                    <groupId>org.jboss.spec.javax.servlet</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
         <!-- CDK -->
-        <dependency>
-            <groupId>org.richfaces.cdk</groupId>
-            <artifactId>annotations</artifactId>
-            <scope>provided</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.richfaces.cdk</groupId>-->
+<!--            <artifactId>annotations</artifactId>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
 
         <!-- Runtime Dependencies -->
         <dependency>
@@ -108,31 +124,37 @@
 
         <!-- Test Dependencies -->
         <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
-            <artifactId>htmlunit-client</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>javax.servlet-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
-            <artifactId>jsf-mock</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
-            <artifactId>jsf-mockito</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
-            <artifactId>jsf-test-scriptunit</artifactId>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.jboss.test-jsf</groupId>-->
+<!--            <artifactId>htmlunit-client</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>javax.servlet</groupId>-->
+<!--                    <artifactId>javax.servlet-api</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.jboss.test-jsf</groupId>-->
+<!--            <artifactId>jsf-mock</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.jboss.test-jsf</groupId>-->
+<!--            <artifactId>jsf-mockito</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.jboss.test-jsf</groupId>-->
+<!--            <artifactId>jsf-test-scriptunit</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.easymock</groupId>
@@ -188,10 +210,9 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.jboss.el</groupId>
-            <artifactId>jboss-el</artifactId>
-            <scope>compile</scope>
-            <optional>true</optional>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+            <version>${jakarta.el-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.richfaces</groupId>
@@ -315,8 +336,8 @@
 <!--                        <dependencies>-->
 <!--                            <dependency>-->
 <!--                                <groupId>org.jboss.spec</groupId>-->
-<!--                                <artifactId>jboss-javaee-6.0</artifactId>-->
-<!--                                <version>${version.jboss-javaee}</version>-->
+<!--                                <artifactId>jboss-jakartaee-8.0</artifactId>-->
+<!--                                <version>${version.jboss-jakartaee}</version>-->
 <!--                                <type>pom</type>-->
 <!--                                <exclusions>-->
 <!--                                    <exclusion>-->
@@ -346,7 +367,7 @@
             <dependencies>
                 <dependency>
                     <groupId>org.glassfish</groupId>
-                    <artifactId>javax.faces</artifactId>
+                    <artifactId>jakarta.faces</artifactId>
                     <scope>compile</scope>
                     <optional>true</optional>
                 </dependency>

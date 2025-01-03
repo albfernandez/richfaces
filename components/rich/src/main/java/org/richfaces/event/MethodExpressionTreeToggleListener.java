@@ -21,8 +21,8 @@
  */
 package org.richfaces.event;
 
-import javax.el.MethodExpression;
-import javax.faces.event.AbortProcessingException;
+import jakarta.el.MethodExpression;
+import jakarta.faces.event.AbortProcessingException;
 
 /**
  * @author Nick Belaevski

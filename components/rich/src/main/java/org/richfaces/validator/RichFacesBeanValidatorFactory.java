@@ -25,9 +25,9 @@
  */
 package org.richfaces.validator;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
 import javax.validation.MessageInterpolator;
 import javax.validation.MessageInterpolator.Context;
 import javax.validation.Validation;

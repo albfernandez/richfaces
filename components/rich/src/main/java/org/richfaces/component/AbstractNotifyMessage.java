@@ -31,8 +31,8 @@ import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.OutputFormatProps;
 
-import javax.faces.component.UIMessage;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIMessage;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p>The &lt;rich:notifyMessage&gt; component is built on top of &lt;rich:notify&gt;, the difference is in usage. The

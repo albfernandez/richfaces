@@ -21,23 +21,27 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
+import jakarta.faces.el.MethodBinding;
+import jakarta.faces.el.PropertyResolver;
+import jakarta.faces.el.ValueBinding;
+import jakarta.faces.el.VariableResolver;
 import org.richfaces.application.ServiceTracker;
 
-import javax.el.ELException;
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.application.Application;
-import javax.faces.application.NavigationHandler;
-import javax.faces.application.ProjectStage;
-import javax.faces.application.ResourceHandler;
-import javax.faces.application.StateManager;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.event.ActionListener;
-import javax.faces.validator.Validator;
+import jakarta.el.ELException;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.NavigationHandler;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.application.StateManager;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.event.ActionListener;
+import jakarta.faces.validator.Validator;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Locale;
@@ -173,7 +177,7 @@ public class ApplicationImpl extends Application {
      */
     @SuppressWarnings("deprecation")
     @Override
-    public javax.faces.el.PropertyResolver getPropertyResolver() {
+    public PropertyResolver getPropertyResolver() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -185,7 +189,7 @@ public class ApplicationImpl extends Application {
      */
     @SuppressWarnings("deprecation")
     @Override
-    public void setPropertyResolver(javax.faces.el.PropertyResolver resolver) {
+    public void setPropertyResolver(PropertyResolver resolver) {
         // TODO Auto-generated method stub
 
     }
@@ -197,7 +201,7 @@ public class ApplicationImpl extends Application {
      */
     @SuppressWarnings("deprecation")
     @Override
-    public javax.faces.el.VariableResolver getVariableResolver() {
+    public VariableResolver getVariableResolver() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -209,7 +213,7 @@ public class ApplicationImpl extends Application {
      */
     @SuppressWarnings("deprecation")
     @Override
-    public void setVariableResolver(javax.faces.el.VariableResolver resolver) {
+    public void setVariableResolver(VariableResolver resolver) {
         // TODO Auto-generated method stub
 
     }
@@ -288,7 +292,7 @@ public class ApplicationImpl extends Application {
      */
     @SuppressWarnings("deprecation")
     @Override
-    public UIComponent createComponent(javax.faces.el.ValueBinding componentBinding, FacesContext context, String componentType)
+    public UIComponent createComponent(ValueBinding componentBinding, FacesContext context, String componentType)
             throws FacesException {
         // TODO Auto-generated method stub
         return null;
@@ -378,7 +382,7 @@ public class ApplicationImpl extends Application {
      */
     @SuppressWarnings("deprecation")
     @Override
-    public javax.faces.el.MethodBinding createMethodBinding(String ref, Class<?>[] params) throws javax.faces.el.ReferenceSyntaxException {
+    public MethodBinding createMethodBinding(String ref, Class<?>[] params) throws javax.faces.el.ReferenceSyntaxException {
         // TODO Auto-generated method stub
         return null;
     }
@@ -445,7 +449,7 @@ public class ApplicationImpl extends Application {
      */
     @SuppressWarnings("deprecation")
     @Override
-    public javax.faces.el.ValueBinding createValueBinding(String ref) throws javax.faces.el.ReferenceSyntaxException {
+    public ValueBinding createValueBinding(String ref) throws javax.faces.el.ReferenceSyntaxException {
         // TODO Auto-generated method stub
         return null;
     }

@@ -25,8 +25,8 @@
  */
 package org.richfaces.validator;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.convert.Converter;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.convert.Converter;
 
 /**
  * @author asmirnov

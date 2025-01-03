@@ -1,7 +1,7 @@
 package org.richfaces.demo.function;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.RequestScoped;
 
 @ManagedBean(name = "functionBean")
 @RequestScoped

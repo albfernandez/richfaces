@@ -24,8 +24,8 @@ package org.richfaces.taglib;
 import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.event.CollapsibleSubTableToggleListener;
 
-import javax.el.MethodExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.MethodExpression;
+import jakarta.faces.context.FacesContext;
 
 public class MethodExpressionToggleListener implements CollapsibleSubTableToggleListener {
     private MethodExpression methodExpression;

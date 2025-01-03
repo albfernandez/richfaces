@@ -25,7 +25,7 @@ import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.component.attribute.StyleProps;
 
 import javax.annotation.Generated;
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 import java.util.ArrayList;
 import java.util.List;
 

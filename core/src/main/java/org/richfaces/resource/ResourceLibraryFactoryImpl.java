@@ -32,7 +32,7 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.FastJoiner;
 import org.richfaces.util.PropertiesUtil;
 
-import javax.faces.FacesException;
+import jakarta.faces.FacesException;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 

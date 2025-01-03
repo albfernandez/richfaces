@@ -25,8 +25,8 @@
  */
 package org.richfaces.skin;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 import java.util.Properties;
 
 /**

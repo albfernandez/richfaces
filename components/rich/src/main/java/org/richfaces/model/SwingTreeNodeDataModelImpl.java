@@ -26,7 +26,7 @@ import com.google.common.collect.Lists;
 import org.richfaces.convert.IntegerSequenceRowKeyConverter;
 import org.richfaces.model.iterators.IterableDataTuplesIterator;
 
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.Converter;
 import javax.swing.tree.TreeNode;
 import java.util.Collection;
 import java.util.Enumeration;

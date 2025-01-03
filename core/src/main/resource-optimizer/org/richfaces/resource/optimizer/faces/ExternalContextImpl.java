@@ -24,7 +24,7 @@ package org.richfaces.resource.optimizer.faces;
 import com.google.common.collect.Sets;
 
 import javax.activation.MimetypesFileTypeMap;
-import javax.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -91,6 +91,12 @@ public class ExternalContextImpl extends ExternalContext {
      */
     @Override
     public String encodeResourceURL(String url) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String encodeWebsocketURL(String s) {
         // TODO Auto-generated method stub
         return null;
     }

@@ -21,7 +21,7 @@
  */
 package org.richfaces.model;
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 
 /**
  * @author Konstantin Mishin

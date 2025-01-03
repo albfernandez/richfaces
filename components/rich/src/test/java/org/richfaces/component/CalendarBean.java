@@ -1,6 +1,6 @@
 package org.richfaces.component;
 
-import javax.faces.event.ValueChangeEvent;
+import jakarta.faces.event.ValueChangeEvent;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;

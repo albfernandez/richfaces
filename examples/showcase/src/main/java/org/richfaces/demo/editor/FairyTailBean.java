@@ -1,8 +1,8 @@
 package org.richfaces.demo.editor;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.bean.ApplicationScoped;
+import jakarta.faces.bean.ManagedBean;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

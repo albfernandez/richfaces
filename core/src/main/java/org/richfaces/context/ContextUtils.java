@@ -23,9 +23,9 @@ package org.richfaces.context;
 
 import org.richfaces.component.MetaComponentResolver;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.context.FacesContext;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;

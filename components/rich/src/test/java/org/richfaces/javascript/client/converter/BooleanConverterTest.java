@@ -3,8 +3,8 @@ package org.richfaces.javascript.client.converter;
 import org.junit.runners.Parameterized.Parameters;
 import org.richfaces.javascript.client.RunParameters;
 
-import javax.faces.convert.BooleanConverter;
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.BooleanConverter;
+import jakarta.faces.convert.Converter;
 import java.util.List;
 
 public class BooleanConverterTest extends ConverterTestBase {

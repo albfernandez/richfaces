@@ -25,7 +25,7 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 

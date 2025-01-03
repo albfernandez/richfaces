@@ -30,7 +30,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.OutputFormatProps;
 import org.richfaces.component.attribute.StyleClassProps;
 
-import javax.faces.component.UIComponentBase;
+import jakarta.faces.component.UIComponentBase;
 
 /**
  * <p>

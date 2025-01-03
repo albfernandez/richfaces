@@ -23,8 +23,8 @@ package org.richfaces.component.behavior;
 
 import org.richfaces.component.PartialStateHolderHelper;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Anton Belevich

@@ -26,8 +26,8 @@ import org.richfaces.component.attribute.BypassProps;
 import org.richfaces.component.attribute.ImmediateProps;
 
 import javax.annotation.Generated;
-import javax.el.MethodExpression;
-import javax.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.el.MethodExpression;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;

@@ -40,8 +40,8 @@ import org.richfaces.resource.optimizer.resource.scan.impl.reflections.Reflectio
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
 import org.richfaces.resource.optimizer.vfs.VFSType;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.net.URL;

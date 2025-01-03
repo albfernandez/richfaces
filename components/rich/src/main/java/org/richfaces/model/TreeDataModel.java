@@ -21,7 +21,7 @@
  */
 package org.richfaces.model;
 
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.Converter;
 import java.util.Iterator;
 
 /**

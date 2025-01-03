@@ -23,10 +23,10 @@ package org.richfaces.context;
 
 import com.google.common.collect.Lists;
 
-import javax.faces.component.ContextCallback;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
+import jakarta.faces.component.ContextCallback;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
 import java.util.Collection;
 
 final class RowsFunctionContextCallback implements ContextCallback {

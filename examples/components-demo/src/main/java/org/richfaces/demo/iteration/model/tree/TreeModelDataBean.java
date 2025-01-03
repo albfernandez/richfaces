@@ -28,9 +28,9 @@ package org.richfaces.demo.iteration.model.tree;
 import org.richfaces.demo.iteration.model.tree.adaptors.Entry;
 import org.richfaces.demo.iteration.model.tree.adaptors.Root;
 
-import javax.faces.FacesException;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.FacesException;
+import jakarta.faces.bean.ApplicationScoped;
+import jakarta.faces.bean.ManagedBean;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;

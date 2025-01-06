@@ -29,6 +29,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author asmirnov
+ *
  */
 public class NotNullBean extends Validable<String> {
     @NotNull

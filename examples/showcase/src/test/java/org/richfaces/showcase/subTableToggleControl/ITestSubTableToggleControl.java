@@ -21,6 +21,11 @@
  */
 package org.richfaces.showcase.subTableToggleControl;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
@@ -28,11 +33,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars;
 import org.richfaces.showcase.subTableToggleControl.page.SubTableToggleControlPage;
-
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -62,7 +62,7 @@ public class ITestSubTableToggleControl extends AbstractDataIterationWithCars {
     /**
      * Checks whether there is more than 0 rows with some data, also checks whether the counting of rows works
      *
-     * @param toggler     the toggler where user click in order to hide/show subtable
+     * @param toggler the toggler where user click in order to hide/show subtable
      * @param bodyOfTable the body of table
      */
     private void checkCountingOfRows(WebElement toggler, WebElement bodyOfTable) {
@@ -98,7 +98,7 @@ public class ITestSubTableToggleControl extends AbstractDataIterationWithCars {
         style = subtable.getAttribute(STYLE_STRING);
         boolean isSubTableDisplayedAfterSecondClick = !(style.contains(DISPLAY_NONE_STRING));
         assertEquals("The subtable should be displayed, or hidden, "
-                        + "it depends on whether the subtable was diplayed before clicking on toggler or not!",
-                !isSubTableDisplayedAfterSecondClick, isSubTableDisplayedAfterFirstClick);
+            + "it depends on whether the subtable was diplayed before clicking on toggler or not!",
+            !isSubTableDisplayedAfterSecondClick, isSubTableDisplayedAfterFirstClick);
     }
 }

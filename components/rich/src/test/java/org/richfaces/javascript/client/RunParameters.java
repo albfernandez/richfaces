@@ -1,8 +1,8 @@
 package org.richfaces.javascript.client;
 
-import com.google.common.collect.Maps;
-
 import java.util.Map;
+
+import com.google.common.collect.Maps;
 
 public class RunParameters {
     private final Object value;

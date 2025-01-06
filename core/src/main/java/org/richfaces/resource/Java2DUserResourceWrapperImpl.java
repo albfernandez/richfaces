@@ -21,6 +21,19 @@
  */
 package org.richfaces.resource;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.Map;
+
+import jakarta.faces.context.FacesContext;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
+
 import org.ajax4jsf.io.ByteBuffer;
 import org.ajax4jsf.io.FastBufferInputStream;
 import org.ajax4jsf.io.FastBufferOutputStream;
@@ -30,17 +43,6 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.HtmlDimensions;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
-
-import jakarta.faces.context.FacesContext;
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.Map;
 
 /**
  * @author Nick Belaevski
@@ -150,17 +152,24 @@ public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUse
     protected void paintAndWrite(ImageOutputStream outputStream) throws IOException {
         Java2DUserResource resource = getWrapped();
         ImageType imageType = resource.getImageType();
-
-        BufferedImage image = imageType.createImage(resource.getDimension());
-        Graphics2D g2d = null;
-        try {
-            g2d = createGraphics(image);
-            resource.paint(g2d);
-            ImageIO.write(image, imageType.getFormatName(), outputStream);
-        } finally {
-            if (g2d != null) {
-                g2d.dispose();
-            }
+        
+        //MZ - added to avoid exception with 0 width or height
+        Dimension dimension = resource.getDimension();
+        
+        if ((dimension.width > 0) && (dimension.height > 0)) {
+        
+	        BufferedImage image = imageType.createImage(resource.getDimension());
+	        Graphics2D g2d = null;
+	        try {
+	            g2d = createGraphics(image);
+	            resource.paint(g2d);
+	            ImageIO.write(image, imageType.getFormatName(), outputStream);
+	        } finally {
+	            if (g2d != null) {
+	                g2d.dispose();
+	            }
+	        }
+        
         }
     }
 

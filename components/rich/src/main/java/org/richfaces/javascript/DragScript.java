@@ -21,25 +21,26 @@
  */
 package org.richfaces.javascript;
 
-import org.richfaces.resource.ResourceKey;
-
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.richfaces.resource.ResourceKey;
+
 /**
  * @author abelevich
+ *
  */
 public final class DragScript extends DnDScript {
     private static final Set<ResourceKey> DRAG_SCRIPT = Collections.singleton(new ResourceKey("dnd-draggable.js",
-            "org.richfaces"));
+        "org.richfaces"));
 
     public DragScript(String name) {
         super(name);
     }
 
     public Iterable<ResourceKey> getResources() {
-        Set<ResourceKey> dragResourceKeys = new LinkedHashSet<ResourceKey>();
+        Set<ResourceKey> dragResourceKeys = new LinkedHashSet<>();
         dragResourceKeys.addAll(getBaseResources());
         dragResourceKeys.addAll(DRAG_SCRIPT);
         return dragResourceKeys;

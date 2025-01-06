@@ -3,17 +3,17 @@
  * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
- * <p>
+ *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- * <p>
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
@@ -85,29 +85,47 @@ import java.io.Serializable;
  */
 public class UAgentInfo implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    // User-Agent and Accept HTTP request headers
+
+    private String userAgent = "";
+    private String httpAccept = "";
+
+    // Let's store values for quickly accessing the same info multiple times.
+    public boolean isIphone = false;
+    public boolean isAndroidPhone = false;
+    public boolean isTierTablet = false;
+    public boolean isTierIphone = false;
+    public boolean isTierRichCss = false;
+    public boolean isTierGenericMobile = false;
+
     // Initialize some initial smartphone string variables.
     public static final String engineWebKit = "webkit";
 
-    // User-Agent and Accept HTTP request headers
     public static final String deviceIphone = "iphone";
     public static final String deviceIpod = "ipod";
     public static final String deviceIpad = "ipad";
     public static final String deviceMacPpc = "macintosh"; //Used for disambiguation
+
     public static final String deviceAndroid = "android";
     public static final String deviceGoogleTV = "googletv";
     public static final String deviceXoom = "xoom"; //Motorola Xoom
     public static final String deviceHtcFlyer = "htc_flyer"; //HTC Flyer
+
     public static final String deviceSymbian = "symbian";
     public static final String deviceS60 = "series60";
     public static final String deviceS70 = "series70";
     public static final String deviceS80 = "series80";
     public static final String deviceS90 = "series90";
+
     public static final String deviceWinPhone7 = "windows phone os 7";
     public static final String deviceWinMob = "windows ce";
     public static final String deviceWindows = "windows";
     public static final String deviceIeMob = "iemobile";
     public static final String devicePpc = "ppc"; //Stands for PocketPC
     public static final String enginePie = "wm5 pie"; //An old Windows Mobile
+
     public static final String deviceBB = "blackberry";
     public static final String vndRIM = "vnd.rim"; //Detectable when BB devices emulate IE or Firefox
     public static final String deviceBBStorm = "blackberry95";  //Storm 1 and 2
@@ -117,16 +135,22 @@ public class UAgentInfo implements Serializable {
     public static final String deviceBBCurve = "blackberry89";  //Curve 2
     public static final String deviceBBTorch = "blackberry 98";  //Torch
     public static final String deviceBBPlaybook = "playbook"; //PlayBook tablet
+
     public static final String devicePalm = "palm";
     public static final String deviceWebOS = "webos"; //For Palm's line of WebOS devices
     public static final String deviceWebOShp = "hpwos"; //For HP's line of WebOS devices
+
     public static final String engineBlazer = "blazer"; //Old Palm
     public static final String engineXiino = "xiino"; //Another old Palm
+
     public static final String deviceKindle = "kindle";  //Amazon Kindle, eInk one.
+
     public static final String deviceNuvifone = "nuvifone";  //Garmin Nuvifone
+
     //Initialize variables for mobile-specific content.
     public static final String vndwap = "vnd.wap";
     public static final String wml = "wml";
+
     //Initialize variables for other random devices and mobile browsers.
     public static final String deviceTablet = "tablet"; //Generic term for slate and tablet devices
     public static final String deviceBrew = "brew";
@@ -138,6 +162,7 @@ public class UAgentInfo implements Serializable {
     public static final String deviceWii = "wii";
     public static final String deviceXbox = "xbox";
     public static final String deviceArchos = "archos";
+
     public static final String engineOpera = "opera"; //Popular browser
     public static final String engineNetfront = "netfront"; //Common embedded OS browser
     public static final String engineUpBrowser = "up.browser"; //common on some phones
@@ -149,33 +174,27 @@ public class UAgentInfo implements Serializable {
     public static final String mini = "mini";  //Some mobile browsers put "mini" in their names.
     public static final String mobile = "mobile"; //Some mobile browsers put "mobile" in their user agent strings.
     public static final String mobi = "mobi"; //Some mobile browsers put "mobi" in their user agent strings.
+
     //Use Maemo, Tablet, and Linux to test for Nokia"s Internet Tablets.
     public static final String maemo = "maemo";
     public static final String linux = "linux";
     public static final String qtembedded = "qt embedded"; //for Sony Mylo
     public static final String mylocom2 = "com2"; //for Sony Mylo also
+
     //In some UserAgents, the only clue is the manufacturer.
     public static final String manuSonyEricsson = "sonyericsson";
     public static final String manuericsson = "ericsson";
     public static final String manuSamsung1 = "sec-sgh";
     public static final String manuSony = "sony";
     public static final String manuHtc = "htc"; //Popular Android and WinMo manufacturer
+
     //In some UserAgents, the only clue is the operator.
     public static final String svcDocomo = "docomo";
     public static final String svcKddi = "kddi";
     public static final String svcVodafone = "vodafone";
+
     //Disambiguation strings.
     public static final String disUpdate = "update"; //pda vs. update
-    private static final long serialVersionUID = 1L;
-    // Let's store values for quickly accessing the same info multiple times.
-    public boolean isIphone = false;
-    public boolean isAndroidPhone = false;
-    public boolean isTierTablet = false;
-    public boolean isTierIphone = false;
-    public boolean isTierRichCss = false;
-    public boolean isTierGenericMobile = false;
-    private String userAgent = "";
-    private String httpAccept = "";
 
 
     /**

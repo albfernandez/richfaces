@@ -21,16 +21,18 @@
  */
 package org.richfaces.model.iterators;
 
-import com.google.common.collect.UnmodifiableIterator;
+import jakarta.faces.component.UIComponent;
+
 import org.richfaces.model.DeclarativeModelKey;
 import org.richfaces.model.DeclarativeTreeDataModelTuple;
 import org.richfaces.model.SequenceRowKey;
 import org.richfaces.model.TreeDataModelTuple;
 
-import jakarta.faces.component.UIComponent;
+import com.google.common.collect.UnmodifiableIterator;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public abstract class BaseTupleIterator extends UnmodifiableIterator<TreeDataModelTuple> {
     private SequenceRowKey baseKey;

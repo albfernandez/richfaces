@@ -21,33 +21,6 @@
  */
 package org.richfaces.demo.iteration;
 
-import org.richfaces.component.AbstractTree;
-import org.richfaces.component.AbstractTreeNode;
-import org.richfaces.component.SwitchType;
-import org.richfaces.convert.SequenceRowKeyConverter;
-import org.richfaces.demo.iteration.model.tree.DataHolderTreeNodeImpl;
-import org.richfaces.event.TreeSelectionChangeEvent;
-import org.richfaces.event.TreeSelectionChangeListener;
-import org.richfaces.event.TreeToggleEvent;
-import org.richfaces.event.TreeToggleListener;
-import org.richfaces.log.LogFactory;
-import org.richfaces.log.Logger;
-import org.richfaces.model.SwingTreeNodeDataModelImpl;
-import org.richfaces.model.SwingTreeNodeImpl;
-import org.richfaces.model.TreeDataModel;
-import org.richfaces.model.TreeNodeImpl;
-
-import javax.annotation.PostConstruct;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.IntegerConverter;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.AjaxBehaviorEvent;
-import jakarta.faces.event.FacesEvent;
-import javax.swing.tree.TreeNode;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -55,12 +28,76 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.IntegerConverter;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.FacesEvent;
+import javax.swing.tree.TreeNode;
+
+import org.richfaces.demo.iteration.model.tree.DataHolderTreeNodeImpl;
+import org.richfaces.log.LogFactory;
+import org.richfaces.log.Logger;
+import org.richfaces.model.TreeDataModel;
+import org.richfaces.component.SwitchType;
+import org.richfaces.component.AbstractTree;
+import org.richfaces.component.AbstractTreeNode;
+import org.richfaces.event.TreeSelectionChangeEvent;
+import org.richfaces.event.TreeSelectionChangeListener;
+import org.richfaces.event.TreeToggleEvent;
+import org.richfaces.event.TreeToggleListener;
+import org.richfaces.convert.SequenceRowKeyConverter;
+import org.richfaces.model.SwingTreeNodeDataModelImpl;
+import org.richfaces.model.SwingTreeNodeImpl;
+import org.richfaces.model.TreeNodeImpl;
+
 /**
  * @author Nick Belaevski
+ *
  */
 @ManagedBean
 @SessionScoped
 public class TreeBean implements Serializable {
+    public static final class SelectionChangeHandler implements TreeSelectionChangeListener {
+        private boolean fromExpression = false;
+
+        public SelectionChangeHandler() {
+        }
+
+        public SelectionChangeHandler(boolean fromExpression) {
+            super();
+            this.fromExpression = fromExpression;
+        }
+
+        public void processTreeSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+
+            facesContext.addMessage(getTree(event).getClientId(facesContext), createEventMessage(event, fromExpression));
+        }
+    }
+
+    public static final class ToggleHandler implements TreeToggleListener {
+        private boolean fromExpression = false;
+
+        public ToggleHandler() {
+        }
+
+        public ToggleHandler(boolean fromExpression) {
+            super();
+            this.fromExpression = fromExpression;
+        }
+
+        public void processTreeToggle(TreeToggleEvent event) throws AbortProcessingException {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(getTree(event).getClientId(facesContext), createEventMessage(event, fromExpression));
+        }
+    }
+
     private static final long serialVersionUID = 3368885134614548497L;
     private static final Logger LOGGER = LogFactory.getLogger(TreeBean.class);
     private static final Converter INTEGER_SEQUENCE_KEY_CONVERTER = new SequenceRowKeyConverter<Integer>(Integer.class,
@@ -262,40 +299,5 @@ public class TreeBean implements Serializable {
 
     public TreeDataModel<?> getTreeDataModel() {
         return treeDataModel;
-    }
-
-    public static final class SelectionChangeHandler implements TreeSelectionChangeListener {
-        private boolean fromExpression = false;
-
-        public SelectionChangeHandler() {
-        }
-
-        public SelectionChangeHandler(boolean fromExpression) {
-            super();
-            this.fromExpression = fromExpression;
-        }
-
-        public void processTreeSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-
-            facesContext.addMessage(getTree(event).getClientId(facesContext), createEventMessage(event, fromExpression));
-        }
-    }
-
-    public static final class ToggleHandler implements TreeToggleListener {
-        private boolean fromExpression = false;
-
-        public ToggleHandler() {
-        }
-
-        public ToggleHandler(boolean fromExpression) {
-            super();
-            this.fromExpression = fromExpression;
-        }
-
-        public void processTreeToggle(TreeToggleEvent event) throws AbortProcessingException {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(getTree(event).getClientId(facesContext), createEventMessage(event, fromExpression));
-        }
     }
 }

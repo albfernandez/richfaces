@@ -1,20 +1,16 @@
 package org.richfaces.javascript.client.converter;
 
-import org.junit.runners.Parameterized.Parameters;
-import org.richfaces.javascript.client.RunParameters;
+import java.util.List;
 
 import jakarta.faces.convert.BooleanConverter;
 import jakarta.faces.convert.Converter;
-import java.util.List;
+
+import org.junit.runners.Parameterized.Parameters;
+import org.richfaces.javascript.client.RunParameters;
 
 public class BooleanConverterTest extends ConverterTestBase {
     public BooleanConverterTest(RunParameters criteria) {
         super(criteria);
-    }
-
-    @Parameters
-    public static List<RunParameters[]> getRunParameterss() {
-        return options(pass("true"), pass("ok"), pass("123"), pass("0"), pass("1"), pass("no"));
     }
 
     @Override
@@ -25,5 +21,10 @@ public class BooleanConverterTest extends ConverterTestBase {
     @Override
     protected String getJavaScriptFunctionName() {
         return "convertBoolean";
+    }
+
+    @Parameters
+    public static List<RunParameters[]> getRunParameterss() {
+        return options(pass("true"), pass("ok"), pass("123"), pass("0"), pass("1"), pass("no"));
     }
 }

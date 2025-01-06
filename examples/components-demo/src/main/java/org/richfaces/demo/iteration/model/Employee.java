@@ -22,14 +22,14 @@
 
 package org.richfaces.demo.iteration.model;
 
-import org.richfaces.event.CollapsibleSubTableToggleEvent;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.richfaces.event.CollapsibleSubTableToggleEvent;
+
 public class Employee {
-    private static String[] phoneNames = {"Cell phone", "Work phone", "Home phone"};
+    private static String[] phoneNames = { "Cell phone", "Work phone", "Home phone" };
     private String name;
     private String title;
     private List<Company> companies;
@@ -47,7 +47,7 @@ public class Employee {
         Random random = new Random();
         int count = random.nextInt(phoneNames.length + 1);
         for (int i = 0; i < count; i++) {
-            phones.add(new String[]{phoneNames[i], "+" + random.nextInt(1000) + "-" + random.nextInt(1000000000)});
+            phones.add(new String[] { phoneNames[i], "+" + random.nextInt(1000) + "-" + random.nextInt(1000000000) });
         }
     }
 
@@ -83,12 +83,12 @@ public class Employee {
         this.eMail = eMail;
     }
 
-    public List<String[]> getPhones() {
-        return phones;
-    }
-
     public void setPhones(List<String[]> phones) {
         this.phones = phones;
+    }
+
+    public List<String[]> getPhones() {
+        return phones;
     }
 
     @Override

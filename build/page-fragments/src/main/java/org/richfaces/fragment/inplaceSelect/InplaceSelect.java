@@ -29,12 +29,12 @@ import org.richfaces.fragment.inplaceInput.ConfirmOrCancel;
 public interface InplaceSelect {
 
     /**
-     * Selects the first option according to the given <code>picker<code> param.
-     * <p>
+     * Selects the first option according to the given <code>picker</code> param.
+     *
      * In other words, it selects the first option which satisfies the choice picking rules defined in <code>picker</code>
      *
-     * @param picker for defining the rules by which the suggestion will be selected
-     * @return object by which a user can actually change the select value (confirm), or return to the previous input value (cancel)
+     * @param  picker for defining the rules by which the suggestion will be selected
+     * @return        object by which a user can actually change the select value (confirm), or return to the previous input value (cancel)
      * @throws IllegalArgumentException if there is no such element which satisfies the rules given by <code>picker</code>
      */
     ConfirmOrCancel select(ChoicePicker picker);
@@ -42,8 +42,8 @@ public interface InplaceSelect {
     /**
      * Selects the option from the list of the options at index.
      *
-     * @param index index of option
-     * @return object by which a user can actually change the select value (confirm), or return to the previous input value (cancel)
+     * @param  index index of option
+     * @return       object by which a user can actually change the select value (confirm), or return to the previous input value (cancel)
      * @throws IllegalArgumentException if there is no such element with index <code>index</code>
      */
     ConfirmOrCancel select(int index);
@@ -51,8 +51,8 @@ public interface InplaceSelect {
     /**
      * Selects the first option, which matches the given <code>text</code>.
      *
-     * @param text the text of the option to be selected
-     * @return object by which a user can actually change the select value (confirm), or return to the previous input value (cancel)
+     * @param  text  the text of the option to be selected
+     * @return       object by which a user can actually change the select value (confirm), or return to the previous input value (cancel)
      * @throws IllegalArgumentException if there is no such element with text representation matching the given <code>text</code>
      */
     ConfirmOrCancel select(String text);
@@ -61,7 +61,7 @@ public interface InplaceSelect {
      * Gets the associated text input.
      *
      * @return the text input of the component
-     * @see TextInputComponentImpl
+     * @see    TextInputComponentImpl
      */
     TextInputComponent getTextInput();
 }

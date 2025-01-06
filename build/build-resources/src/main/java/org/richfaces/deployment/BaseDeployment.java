@@ -21,8 +21,15 @@
  */
 package org.richfaces.deployment;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Sets;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import jakarta.faces.webapp.FacesServlet;
+
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.exporter.ZipExporter;
@@ -37,13 +44,8 @@ import org.jboss.shrinkwrap.resolver.api.maven.MavenResolverSystem;
 import org.richfaces.arquillian.configuration.FundamentalTestConfiguration;
 import org.richfaces.arquillian.configuration.FundamentalTestConfigurationContext;
 
-import jakarta.faces.webapp.FacesServlet;
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.Arrays;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.google.common.base.Function;
+import com.google.common.collect.Sets;
 
 /**
  * Provides base for all test deployments
@@ -55,11 +57,14 @@ public class BaseDeployment {
     private final Logger log = Logger.getLogger(BaseDeployment.class.getName());
     private final FundamentalTestConfiguration configuration = FundamentalTestConfigurationContext.getProxy();
     private final File cacheDir = new File("target/shrinkwrap-resolver-cache/");
-    private final Set<String> mavenDependencies = Sets.newHashSet();
-    private final Set<String> excludedMavenDependencies = Sets.newHashSet();
+
     private WebArchive archive;
+
     private WebFacesConfigDescriptor facesConfig;
     private WebAppDescriptor webXml;
+
+    private final Set<String> mavenDependencies = Sets.newHashSet();
+    private final Set<String> excludedMavenDependencies = Sets.newHashSet();
 
     /**
      * Constructs base deployment with:
@@ -87,28 +92,32 @@ public class BaseDeployment {
         this.facesConfig = Descriptors.create(WebFacesConfigDescriptor.class).version(FacesConfigVersionType._2_0);
 
         this.webXml = Descriptors.create(WebAppDescriptor.class)
-                .version("3.0")
-                .addNamespace("xmlns:web", "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd")
-                .getOrCreateWelcomeFileList()
-                .welcomeFile("faces/index.xhtml")
-                .up()
-                .getOrCreateContextParam()
-                .paramName("javax.faces.PROJECT_STAGE")
-                .paramValue("Development")
-                .up()
-                .getOrCreateServlet()
-                .servletName(FacesServlet.class.getSimpleName())
-                .servletClass(FacesServlet.class.getName())
-                .loadOnStartup(1)
-                .up()
-                .getOrCreateServletMapping()
-                .servletName(FacesServlet.class.getSimpleName())
-                .urlPattern("*.jsf")
-                .up()
-                .getOrCreateServletMapping()
-                .servletName(FacesServlet.class.getSimpleName())
-                .urlPattern("/faces/*")
-                .up();
+            .version("3.0")
+            .addNamespace("xmlns:web", "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd")
+            .getOrCreateWelcomeFileList()
+            .welcomeFile("faces/index.xhtml")
+            .up()
+            .getOrCreateContextParam()
+            .paramName("jakarta.faces.PROJECT_STAGE")
+            .paramValue("Development")
+            .up()
+            .getOrCreateContextParam()
+            .paramName("org.richfaces.push.jms.enabled")
+            .paramValue("false")
+            .up()
+            .getOrCreateServlet()
+            .servletName(FacesServlet.class.getSimpleName())
+            .servletClass(FacesServlet.class.getName())
+            .loadOnStartup(1)
+            .up()
+            .getOrCreateServletMapping()
+            .servletName(FacesServlet.class.getSimpleName())
+            .urlPattern("*.jsf")
+            .up()
+            .getOrCreateServletMapping()
+            .servletName(FacesServlet.class.getSimpleName())
+            .urlPattern("/faces/*")
+            .up();
 
         // Servlet container setup
         if (configuration.servletContainerSetup()) {
@@ -140,9 +149,9 @@ public class BaseDeployment {
      */
     public WebArchive getFinalArchive() {
         WebArchive finalArchive = archive
-                .addAsWebInfResource(new StringAsset(facesConfig.exportAsString()), "faces-config.xml")
-                .addAsWebInfResource(new StringAsset(webXml.exportAsString()), "web.xml")
-                .addAsWebInfResource(new File("src/test/resources/beans.xml"));
+            .addAsWebInfResource(new StringAsset(facesConfig.exportAsString()), "faces-config.xml")
+            .addAsWebInfResource(new StringAsset(webXml.exportAsString()), "web.xml")
+            .addAsWebInfResource(new File("src/test/resources/beans.xml"));
 
         // add library dependencies
         exportMavenDependenciesToArchive(finalArchive);
@@ -152,7 +161,7 @@ public class BaseDeployment {
 
     /**
      * Allows to modify contents of faces-config.xml.
-     * <p>
+     *
      * Takes function which transforms original faces-config.xml and returns modified one
      */
     public void facesConfig(Function<WebFacesConfigDescriptor, WebFacesConfigDescriptor> transform) {
@@ -161,7 +170,7 @@ public class BaseDeployment {
 
     /**
      * Allows to modify contents of web.xml.
-     * <p>
+     *
      * Takes function which transforms original web.xml and returns modified one
      */
     public void webXml(Function<WebAppDescriptor, WebAppDescriptor> transform) {
@@ -242,16 +251,16 @@ public class BaseDeployment {
 
         addMavenDependency("org.jboss.weld.servlet:weld-servlet");
 
-        addMavenDependency("javax.annotation:jsr250-api:1.0");
-        addMavenDependency("javax.servlet:jstl:1.2");
+        addMavenDependency("jakarta.annotation:jakarta.annotation-api:3.0.0");
+        addMavenDependency("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2");
 
         webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
 
                 // setup Weld Servlet
                 webXml
-                        .createListener()
-                        .listenerClass("org.jboss.weld.environment.servlet.Listener");
+                    .createListener()
+                    .listenerClass("org.jboss.weld.environment.servlet.Listener");
 
                 return webXml;
             }
@@ -294,11 +303,11 @@ public class BaseDeployment {
         if (missingDependency.matches("^[^:]+:[^:]+:[^:]+")) {
             // resolution of the artifact without a version specified
             dependencies = resolver.resolve(missingDependency).withClassPathResolution(false).withTransitivity()
-                    .as(JavaArchive.class);
+                .as(JavaArchive.class);
         } else {
             // resolution of the artifact without a version specified
             dependencies = resolver.loadPomFromFile("pom.xml").resolve(missingDependency)
-                    .withClassPathResolution(false).withTransitivity().as(JavaArchive.class);
+                .withClassPathResolution(false).withTransitivity().as(JavaArchive.class);
         }
 
         for (JavaArchive archive : dependencies) {

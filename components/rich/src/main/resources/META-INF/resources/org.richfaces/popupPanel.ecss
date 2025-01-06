@@ -16,13 +16,11 @@
     left: 0px;
     background-color: #D0D0D0;
     opacity: 0.5;
-    filter: 'alpha(opacity=50)';
 }
 
 .rf-pp-shdw {
     background-color: #000000;
     opacity: 0.1;
-    filter: 'alpha(opacity=10)';
     position: absolute;
     top: 6px;
     left: 6px;

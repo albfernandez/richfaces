@@ -125,10 +125,10 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
                 // eventType: namespace can be used, like onclick.rf.conponentName
                 if (typeof eventType == "object") {
                     // in this case fn == component object
-                    getEventElement(selector).bind(getMultipleHandlerWrapper(eventType, fn), data);
+                    getEventElement(selector).on(getMultipleHandlerWrapper(eventType, fn), data);
                 } else {
                     var f = getHandlerWrapper(component, fn);
-                    getEventElement(selector).bind(eventType, data, f);
+                    getEventElement(selector).on(eventType, data, f);
                     return f;
                 }
             },
@@ -149,10 +149,10 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
                 // eventType: namespace can be used, like onclick.rf.conponentName
                 if (typeof eventType == "object") {
                     // in this case fn == component object
-                    $(document.getElementById(id)).bind(getMultipleHandlerWrapper(eventType, fn), data);
+                    $(document.getElementById(id)).on(getMultipleHandlerWrapper(eventType, fn), data);
                 } else {
                     var f = getHandlerWrapper(component, fn);
-                    $(document.getElementById(id)).bind(eventType, data, f);
+                    $(document.getElementById(id)).on(eventType, data, f);
                 }
                 return f;
             },
@@ -209,7 +209,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
              * */
             unbind : function(selector, eventType, fn) {
                 // eventType: namespace can be used, like onclick.rf.conponentName
-                return getEventElement(selector).unbind(eventType, fn);
+                return getEventElement(selector).off(eventType, fn);
             },
 
             /**
@@ -225,7 +225,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
              * */
             unbindById : function(id, eventType, fn) {
                 // eventType: namespace can be used, like onclick.rf.conponentName
-                return $(document.getElementById(id)).unbind(eventType, fn);
+                return $(document.getElementById(id)).off(eventType, fn);
             },
 
             // TODO add jsdocs and qunits

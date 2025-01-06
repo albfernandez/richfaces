@@ -135,9 +135,14 @@ abstract class ColumnsState implements Serializable {
     protected JSONObject json;
 
     /**
+     * Return the value to which the column will map to in the resulting JSONMap
+     */
+    abstract String getValueFromColumn(AbstractColumn column);
+
+    /**
      * Initialize state from an extendedDataTable
      */
-    ColumnsState(UIDataTableBase extendedDataTable) {
+    ColumnsState (UIDataTableBase extendedDataTable) {
         try {
             JSONWriter writer = new JSONStringer().object();
             Iterator<UIComponent> iterator = extendedDataTable.columns();
@@ -155,16 +160,11 @@ abstract class ColumnsState implements Serializable {
     /**
      * Initialize state from JSON
      */
-    ColumnsState(JSONMap json) {
+    ColumnsState (JSONMap json) {
         if ((json != null) && (json.size() > 0)) {
             this.json = new JSONObject(json);
         }
     }
-
-    /**
-     * Return the value to which the column will map to in the resulting JSONMap
-     */
-    abstract String getValueFromColumn(AbstractColumn column);
 
     /**
      * Return the value mapped to by the given column, as stored in the json map.
@@ -267,7 +267,7 @@ class ColumnsOrder implements Serializable {
     /**
      * Initialize state from an extendedDataTable
      */
-    ColumnsOrder(UIDataTableBase extendedDataTable) {
+    ColumnsOrder (UIDataTableBase extendedDataTable) {
         String[] columnsOrder = (String[]) extendedDataTable.getAttributes().get("columnsOrder");
         if (columnsOrder != null) {
             json = new JSONArray(Arrays.asList(columnsOrder));
@@ -277,7 +277,7 @@ class ColumnsOrder implements Serializable {
     /**
      * Initialize state from JSON
      */
-    ColumnsOrder(JSONCollection json) {
+    ColumnsOrder (JSONCollection json) {
         if ((json != null) && (json.size() > 0)) {
             this.json = new JSONArray(json);
         }

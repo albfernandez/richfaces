@@ -21,23 +21,25 @@
  */
 package org.richfaces.view.facelets.html;
 
-import jakarta.faces.application.Application;
-import jakarta.faces.component.StateHolder;
-import jakarta.faces.component.behavior.ClientBehavior;
-import jakarta.faces.component.behavior.ClientBehaviorHint;
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import jakarta.faces.application.Application;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorHint;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
+
 /**
  * @author Nick Belaevski
- * <p>
- * This class is necessary to handle nesting wrapping behaviors properly and is created to work around this issue:
- * https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=655
+ *
+ *         This class is necessary to handle nesting wrapping behaviors properly and is created to work around this issue:
+ *         https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=655
+ *
  */
 
 // TODO - check for bug resolution
@@ -46,7 +48,7 @@ public final class BehaviorStack {
     private LinkedList<BehaviorInfoImpl> behaviorStack = null;
 
     public BehaviorStack() {
-        behaviorStack = new LinkedList<BehaviorInfoImpl>();
+        behaviorStack = new LinkedList<>();
     }
 
     public static BehaviorStack getBehaviorStack(FacesContext context, boolean createIfNull) {
@@ -159,7 +161,7 @@ public final class BehaviorStack {
             ((StateHolder) behavior).restoreState(context, behaviorState);
 
             if (behaviors == null) {
-                behaviors = new ArrayList<ClientBehavior>();
+                behaviors = new ArrayList<>();
             }
 
             behaviors.add(behavior);

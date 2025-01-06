@@ -21,12 +21,13 @@
  */
 package org.richfaces.model;
 
-import com.google.common.base.MoreObjects.ToStringHelper;
-
 import jakarta.faces.component.UIComponent;
+
+import com.google.common.base.MoreObjects.ToStringHelper;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class DeclarativeTreeDataModelTuple extends TreeDataModelTuple {
     private UIComponent component;

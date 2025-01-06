@@ -21,13 +21,15 @@
  */
 package org.richfaces.event;
 
+import java.util.Date;
+
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.event.FacesEvent;
 import jakarta.faces.event.FacesListener;
-import java.util.Date;
 
 /**
  * @author amarkhel
+ *
  */
 public class CurrentDateChangeEvent extends FacesEvent {
     private static final long serialVersionUID = -8169207286087810907L;

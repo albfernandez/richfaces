@@ -21,12 +21,12 @@
  */
 package org.richfaces.shrinkwrap.descriptor;
 
-import org.jboss.shrinkwrap.api.asset.Asset;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Properties;
+
+import org.jboss.shrinkwrap.api.asset.Asset;
 
 /**
  * Assert for simplified creation of properties files with fluent API
@@ -46,6 +46,13 @@ public class PropertiesAsset implements Asset {
         return new Value();
     }
 
+    public class Value {
+        public PropertiesAsset value(String value) {
+            properties.put(key, value);
+            return PropertiesAsset.this;
+        }
+    }
+
     @Override
     public InputStream openStream() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -54,13 +61,6 @@ public class PropertiesAsset implements Asset {
             return new ByteArrayInputStream(baos.toByteArray());
         } catch (Exception e) {
             throw new IllegalStateException(e);
-        }
-    }
-
-    public class Value {
-        public PropertiesAsset value(String value) {
-            properties.put(key, value);
-            return PropertiesAsset.this;
         }
     }
 }

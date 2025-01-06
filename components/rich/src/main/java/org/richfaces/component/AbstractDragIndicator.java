@@ -21,19 +21,18 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
-import jakarta.faces.component.UIComponentBase;
-
 /**
  * <p>
- * The &lt;rich:dragIndicator&gt; component defines a graphical element to display under the mouse cursor during a
- * drag-and-drop operation.
+ *     The &lt;rich:dragIndicator&gt; component defines a graphical element to display under the mouse cursor during a
+ *     drag-and-drop operation.
  * </p>
- *
  * @author abelevich
  */
 @JsfComponent(type = AbstractDragIndicator.COMPONENT_TYPE, family = AbstractDragIndicator.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DragIndicatorRenderer"), tag = @Tag(name = "dragIndicator"))

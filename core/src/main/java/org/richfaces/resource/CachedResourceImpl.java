@@ -21,14 +21,8 @@
  */
 package org.richfaces.resource;
 
-import org.ajax4jsf.io.ByteBuffer;
-import org.ajax4jsf.io.FastBufferInputStream;
-import org.ajax4jsf.io.FastBufferOutputStream;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import static org.richfaces.resource.ResourceUtils.secondToMillis;
 
-import jakarta.faces.application.Resource;
-import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -41,7 +35,14 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.richfaces.resource.ResourceUtils.secondToMillis;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
+
+import org.ajax4jsf.io.ByteBuffer;
+import org.ajax4jsf.io.FastBufferInputStream;
+import org.ajax4jsf.io.FastBufferOutputStream;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
@@ -63,40 +64,6 @@ public class CachedResourceImpl extends AbstractCacheableResource {
     private Date expired;
     private Map<String, String> headers;
     private Date lastModified;
-
-    private static ByteBuffer readContent(InputStream is) throws IOException {
-        if (is == null) {
-            throw new NullPointerException("Resource input stream is null");
-        }
-
-        FastBufferOutputStream os = new FastBufferOutputStream();
-
-        try {
-            ResourceUtils.copyStreamContent(is, os);
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug(e.getMessage(), e);
-                }
-            }
-
-            try {
-                os.close();
-            } catch (IOException e) {
-                if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug(e.getMessage(), e);
-                }
-            }
-        }
-
-        ByteBuffer buffer = os.getFirstBuffer();
-
-        buffer.compact();
-
-        return buffer;
-    }
 
     private void initializeFromHeaders() {
         this.entityTag = null;
@@ -155,8 +122,8 @@ public class CachedResourceImpl extends AbstractCacheableResource {
             // ttl = expireTime - currentTime
             // CACHE_EXPIRATION_COEFFICIENT * ttl + currentTime
             this.expired = new Date(
-                    (long) (CACHE_EXPIRATION_COEFFICIENT * expiredFromHeader.getTime() + (1 - CACHE_EXPIRATION_COEFFICIENT)
-                            * currentTime));
+                (long) (CACHE_EXPIRATION_COEFFICIENT * expiredFromHeader.getTime() + (1 - CACHE_EXPIRATION_COEFFICIENT)
+                    * currentTime));
         } else {
 
             // TODO throw exception or modify headers?
@@ -165,6 +132,40 @@ public class CachedResourceImpl extends AbstractCacheableResource {
 
     long getCurrentTime() {
         return System.currentTimeMillis();
+    }
+
+    private static ByteBuffer readContent(InputStream is) throws IOException {
+        if (is == null) {
+            throw new NullPointerException("Resource input stream is null");
+        }
+
+        FastBufferOutputStream os = new FastBufferOutputStream();
+
+        try {
+            ResourceUtils.copyStreamContent(is, os);
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug(e.getMessage(), e);
+                }
+            }
+
+            try {
+                os.close();
+            } catch (IOException e) {
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug(e.getMessage(), e);
+                }
+            }
+        }
+
+        ByteBuffer buffer = os.getFirstBuffer();
+
+        buffer.compact();
+
+        return buffer;
     }
 
     public void initialize(Resource resource) throws IOException {
@@ -187,7 +188,7 @@ public class CachedResourceImpl extends AbstractCacheableResource {
 
     @Override
     public Map<String, String> getResponseHeaders() {
-        return new HashMap<String, String>(headers);
+        return new HashMap<>(headers);
     }
 
     @Override

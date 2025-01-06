@@ -28,6 +28,7 @@ package org.richfaces.application;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public interface Initializable {
 

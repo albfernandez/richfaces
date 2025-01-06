@@ -21,15 +21,16 @@
  */
 package org.richfaces.demo.input;
 
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
-
-import javax.annotation.PostConstruct;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import org.richfaces.model.UploadedFile;
+import org.richfaces.event.FileUploadEvent;
 
 /**
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>

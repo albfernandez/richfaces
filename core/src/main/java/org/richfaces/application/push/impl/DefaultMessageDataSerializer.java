@@ -27,6 +27,7 @@ import org.richfaces.application.push.MessageDataSerializer;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public final class DefaultMessageDataSerializer implements MessageDataSerializer {
     private static final MessageDataSerializer INSTANCE = new DefaultMessageDataSerializer();

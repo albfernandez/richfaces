@@ -152,7 +152,7 @@ public abstract class AbstractAccordion extends AbstractTogglePanel implements C
     public abstract String getOnitemchange();
 
     /**
-     * Points to the function to perform when before the switchable item is changed
+     *  Points to the function to perform when before the switchable item is changed
      */
     @Attribute(events = @EventName("beforeitemchange"))
     public abstract String getOnbeforeitemchange();

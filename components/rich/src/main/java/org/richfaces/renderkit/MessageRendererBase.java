@@ -22,21 +22,9 @@
  */
 package org.richfaces.renderkit;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMap.Builder;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
-import com.google.common.collect.UnmodifiableIterator;
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.component.AbstractMessage;
-import org.richfaces.component.AbstractMessages;
-import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.renderkit.util.RendererUtils;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.application.FacesMessage.Severity;
@@ -45,25 +33,35 @@ import jakarta.faces.component.UIMessage;
 import jakarta.faces.component.UIMessages;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
+
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.component.AbstractMessage;
+import org.richfaces.component.AbstractMessages;
+import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.renderkit.util.RendererUtils;
+
+import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Lists;
+import com.google.common.collect.UnmodifiableIterator;
 
 /**
  * <p class="changed_added_4_0">
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public class MessageRendererBase extends RendererBase {
     private static final ImmutableMap<Severity, SeverityAttributes> SEVERITY_MAP = ImmutableMap.of(FacesMessage.SEVERITY_INFO,
             attrs("info", "inf"), FacesMessage.SEVERITY_WARN, attrs("warn", "wrn"), FacesMessage.SEVERITY_ERROR,
             attrs("error", "err"), FacesMessage.SEVERITY_FATAL, attrs("fatal", "ftl"));
-
-    static SeverityAttributes attrs(String attPrefix, String skinSuffix) {
-        SeverityAttributes attrs = new SeverityAttributes(attPrefix, skinSuffix);
-        return attrs;
-    }
 
     protected Iterator<MessageForRender> getMessages(FacesContext context, String forClientId, UIComponent component) {
 
@@ -305,6 +303,11 @@ public class MessageRendererBase extends RendererBase {
             style.append(componentStyle);
         }
         return style.toString();
+    }
+
+    static SeverityAttributes attrs(String attPrefix, String skinSuffix) {
+        SeverityAttributes attrs = new SeverityAttributes(attPrefix, skinSuffix);
+        return attrs;
     }
 
     private static final class SeverityAttributes {

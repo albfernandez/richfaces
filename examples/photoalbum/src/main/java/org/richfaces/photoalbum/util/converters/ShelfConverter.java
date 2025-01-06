@@ -22,22 +22,23 @@
 
 package org.richfaces.photoalbum.util.converters;
 
-import org.richfaces.photoalbum.manager.UserBean;
-import org.richfaces.photoalbum.model.Shelf;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.FacesConverter;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 import javax.inject.Named;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.richfaces.photoalbum.manager.UserBean;
+import org.richfaces.photoalbum.model.Shelf;
 
 @Named
 @ApplicationScoped
@@ -63,7 +64,7 @@ public class ShelfConverter implements Converter {
         UserBean userBean = (UserBean) bm.getReference(bean, UserBean.class, ctx); // this could be inlined, but intentionally left this way
 
 
-        for (Shelf s : userBean.getUser().getShelves()) {
+        for(Shelf s : userBean.getUser().getShelves()) {
             if (s.getName().equals(value)) {
                 return s;
             }

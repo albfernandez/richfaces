@@ -21,6 +21,11 @@
  *******************************************************************************/
 package org.richfaces.showcase.dataTable;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.Iterator;
+import java.util.List;
+
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
@@ -28,11 +33,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.richfaces.showcase.dataTable.page.TableStylingPage;
-
-import java.util.Iterator;
-import java.util.List;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -62,7 +62,7 @@ public class ITestTableStyling extends AbstractDataIterationWithCars {
 
         List<WebElement> trs = page.getTbody().findElements(By.tagName("tr"));
 
-        for (Iterator<WebElement> i = trs.iterator(); i.hasNext(); ) {
+        for (Iterator<WebElement> i = trs.iterator(); i.hasNext();) {
 
             boolean result = isRowHighlighted(i.next());
 
@@ -79,7 +79,7 @@ public class ITestTableStyling extends AbstractDataIterationWithCars {
     /**
      * Tests whether the row is higlighted when mouse is over it, the class of the row is changed, it then contains active row
      * string
-     *
+     * 
      * @param row
      * @return true if the row is highlighted, false otherwise
      */

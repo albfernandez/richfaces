@@ -1,10 +1,10 @@
 package org.richfaces.taglib;
 
-import org.richfaces.view.facelets.RowKeyConverterRule;
-
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.MetaRuleset;
+
+import org.richfaces.view.facelets.RowKeyConverterRule;
 
 /**
  * User: Gleb Galkin Date: 11.03.11

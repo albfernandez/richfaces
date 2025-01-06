@@ -21,15 +21,11 @@
  */
 package org.richfaces.photoalbum.model;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -46,11 +42,17 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import java.io.File;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Class for representing Album Entity. EJB3 Entity Bean
@@ -58,7 +60,7 @@ import java.util.List;
  * @author Andrey Markhel
  */
 @Entity
-@JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.NONE, isGetterVisibility = Visibility.NONE)
+@JsonAutoDetect(fieldVisibility=Visibility.NONE, getterVisibility=Visibility.NONE, isGetterVisibility=Visibility.NONE)
 public class Album implements Serializable {
 
     private static final long serialVersionUID = -7042878411608396483L;
@@ -166,6 +168,15 @@ public class Album implements Serializable {
     }
 
     /**
+     * @param coveringImage - Image for covering album
+     */
+    public void setCoveringImage(Image coveringImage) {
+        this.coveringImage = coveringImage;
+    }
+
+    // ********************** Business Methods ********************** //
+
+    /**
      * This method add image to collection of images of current album
      *
      * @param image - image to add
@@ -185,8 +196,6 @@ public class Album implements Serializable {
         image.setAlbum(this);
         images.add(image);
     }
-
-    // ********************** Business Methods ********************** //
 
     /**
      * This method remove image from collection of images of album
@@ -248,14 +257,8 @@ public class Album implements Serializable {
     }
 
     /**
-     * @param coveringImage - Image for covering album
-     */
-    public void setCoveringImage(Image coveringImage) {
-        this.coveringImage = coveringImage;
-    }
-
-    /**
      * This method determine is album empty or not
+     *
      */
     public boolean isEmpty() {
         return images == null || images.isEmpty();
@@ -272,13 +275,15 @@ public class Album implements Serializable {
 
     /**
      * Return relative path of this album in file-system(relative to uploadRoot parameter)
+     *
      */
     public String getPath() {
         if (getShelf() != null) {
             if (getShelf().getPath() == null) {
                 return null;
             }
-        } else {
+        }
+        else {
             return File.separator + "event" + File.separator + this.getId() + File.separator;
         }
         return getShelf().getPath() + this.getId() + File.separator;

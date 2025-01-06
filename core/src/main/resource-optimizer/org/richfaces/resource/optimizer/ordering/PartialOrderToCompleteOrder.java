@@ -21,14 +21,6 @@
  */
 package org.richfaces.resource.optimizer.ordering;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Ordering;
-import com.google.common.collect.Sets;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -37,15 +29,23 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
+
 /**
  * <p>
  * Stores partial orderings in order to be able derive complete ordering.
  * </p>
- *
+ * 
  * <p>
  * When storing new partial ordering, checks that new partial ordering does not violates partial orderings stored before.
  * </p>
- *
+ * 
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class PartialOrderToCompleteOrder<T> {
@@ -54,7 +54,7 @@ public class PartialOrderToCompleteOrder<T> {
     private Set<T> allItems = Sets.newLinkedHashSet();
 
     // partial orderings used to check for ordering violation
-    private List<PartialOrdering> partialOrderings = new LinkedList<PartialOrdering>();
+    private List<PartialOrdering> partialOrderings = new LinkedList<>();
 
     // map from items to their dependencies
     private Map<T, Set<T>> dependencies = Maps.newLinkedHashMap();
@@ -63,11 +63,11 @@ public class PartialOrderToCompleteOrder<T> {
      * <p>
      * Stores collection as partial ordering.
      * </p>
-     *
+     * 
      * <p>
      * Checks that this collection will not violate another partial orderings stored before.
      * </p>
-     *
+     * 
      * @param collection as partial order
      */
     public void addPartialOrdering(Collection<T> collection) {
@@ -84,7 +84,7 @@ public class PartialOrderToCompleteOrder<T> {
 
     /**
      * Provides all items which was stored in collections as partial orderings
-     *
+     * 
      * @return all items which was stored in collections as partial orderings
      */
     public Set<T> getAllItems() {
@@ -95,7 +95,7 @@ public class PartialOrderToCompleteOrder<T> {
      * <p>
      * Provides current complete ordering derived from partial orderings.
      * </p>
-     *
+     * 
      * @return current complete ordering derived from partial orderings.
      */
     public CompleteOrdering getCompleteOrdering() {
@@ -104,38 +104,11 @@ public class PartialOrderToCompleteOrder<T> {
 
     /**
      * Get all items completely ordered.
-     *
+     * 
      * @return all items completely ordered.
      */
     public Collection<T> getCompletelyOrderedItems() {
         return new CompleteOrdering().sortedCopy(allItems);
-    }
-
-    private void checkCurrentPartialOrders(Collection<T> collection) {
-        for (PartialOrdering p : partialOrderings) {
-            List<T> filtered = p.filter(collection);
-            if (!p.isStrictlyOrdered(filtered)) {
-                throw new IllegalPartialOrderingException("\ncollection: " + collection + "\n" + p);
-            }
-        }
-    }
-
-    private void registerDependencies(Collection<T> collection) {
-        List<T> reversedOrder = Lists.reverse(Lists.newLinkedList(collection));
-        Set<T> newItemDependencies = Sets.newLinkedHashSet(collection);
-
-        for (T newItem : reversedOrder) {
-            newItemDependencies.remove(newItem);
-            registerDependenciesForItem(newItem, Sets.newLinkedHashSet(newItemDependencies));
-        }
-    }
-
-    private void registerDependenciesForItem(T item, Set<T> newItemDependencies) {
-        if (!dependencies.containsKey(item)) {
-            dependencies.put(item, Sets.<T>newHashSet());
-        }
-        Set<T> itemDependences = dependencies.get(item);
-        itemDependences.addAll(newItemDependencies);
     }
 
     /**
@@ -172,7 +145,7 @@ public class PartialOrderToCompleteOrder<T> {
          * <p>
          * Returns new iterable sorted according to this complete ordering.
          * </p>
-         *
+         * 
          * <p>
          * All items which are unknown in this ordering are stored on the end of returned collection in the same order like in
          * iterable.
@@ -244,6 +217,33 @@ public class PartialOrderToCompleteOrder<T> {
         }
     }
 
+    private void checkCurrentPartialOrders(Collection<T> collection) {
+        for (PartialOrdering p : partialOrderings) {
+            List<T> filtered = p.filter(collection);
+            if (!p.isStrictlyOrdered(filtered)) {
+                throw new IllegalPartialOrderingException("\ncollection: " + collection + "\n" + p);
+            }
+        }
+    }
+
+    private void registerDependencies(Collection<T> collection) {
+        List<T> reversedOrder = Lists.reverse(Lists.newLinkedList(collection));
+        Set<T> newItemDependencies = Sets.newLinkedHashSet(collection);
+
+        for (T newItem : reversedOrder) {
+            newItemDependencies.remove(newItem);
+            registerDependenciesForItem(newItem, Sets.newLinkedHashSet(newItemDependencies));
+        }
+    }
+
+    private void registerDependenciesForItem(T item, Set<T> newItemDependencies) {
+        if (!dependencies.containsKey(item)) {
+            dependencies.put(item, Sets.<T>newHashSet());
+        }
+        Set<T> itemDependences = dependencies.get(item);
+        itemDependences.addAll(newItemDependencies);
+    }
+
     private class PartialOrdering extends Ordering<T> {
         private LinkedList<T> order = Lists.newLinkedList();
         private HashSet<T> items = Sets.newHashSet();
@@ -264,7 +264,7 @@ public class PartialOrderToCompleteOrder<T> {
         }
 
         public List<T> filter(Collection<T> collection) {
-            List<T> list = new LinkedList<T>(collection);
+            List<T> list = new LinkedList<>(collection);
             list.retainAll(items);
             return list;
         }

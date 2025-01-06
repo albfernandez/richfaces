@@ -3,17 +3,17 @@
  * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
- * <p>
+ *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- * <p>
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
@@ -38,7 +38,7 @@ import org.richfaces.component.SortOrder;
 public class IterationBuiltInBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String[] array = {"3", "6", "4", "8", "2", "1", "5", "7", "9", "0"};
+    private String[] array = {"3","6","4","8","2","1","5","7","9","0" };
     private List<String> values = Arrays.asList(array);
 
     private SortOrder sortOrder;// = SortOrder.ascending;
@@ -58,12 +58,12 @@ public class IterationBuiltInBean implements Serializable {
         return sortOrder;
     }
 
-    public void setSortOrder(SortOrder sortOrder) {
-        this.sortOrder = sortOrder;
-    }
-
     public SortOrder getSortOrder2() {
         return sortOrder2;
+    }
+
+    public void setSortOrder(SortOrder sortOrder) {
+        this.sortOrder = sortOrder;
     }
 
     public Long getFilterValue() {

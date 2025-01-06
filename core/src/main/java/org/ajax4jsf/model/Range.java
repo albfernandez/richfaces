@@ -26,6 +26,7 @@ package org.ajax4jsf.model;
  * min/max values for data table, but also can provide set of expanded/collapsed nodes in tree, can provide sorting order,
  *
  * @author shura
+ *
  */
 public interface Range {
 }

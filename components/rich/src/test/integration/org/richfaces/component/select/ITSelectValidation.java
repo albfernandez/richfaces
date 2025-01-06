@@ -36,7 +36,7 @@ public class ITSelectValidation {
     @FindBy(id = "submit")
     private WebElement submit;
 
-    @FindBy(id = "message")
+    @FindBy(id="message")
     private WebElement message;
 
     @Deployment(testable = false)
@@ -50,6 +50,17 @@ public class ITSelectValidation {
         deployment.addHibernateValidatorWhenUsingServletContainer();
 
         return deployment.getFinalArchive();
+    }
+
+    @Test
+    public void test() {
+        browser.get(contextPath.toExternalForm());
+
+        selectInput.sendKeys("invalid");
+
+        guardAjax(submit).click();
+
+        assertTrue("contains invalid message", message.getText().contains("Value is not valid"));
     }
 
     private static void addIndexPage(RichDeployment deployment) {
@@ -66,16 +77,5 @@ public class ITSelectValidation {
         p.form("</a4j:outputPanel>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    @Test
-    public void test() {
-        browser.get(contextPath.toExternalForm());
-
-        selectInput.sendKeys("invalid");
-
-        guardAjax(submit).click();
-
-        assertTrue("contains invalid message", message.getText().contains("Value is not valid"));
     }
 }

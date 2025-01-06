@@ -21,18 +21,19 @@
  */
 package org.richfaces.validator.csv;
 
+import java.io.IOException;
+import java.text.MessageFormat;
+
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
+
 import org.ajax4jsf.javascript.ScriptString;
 import org.ajax4jsf.javascript.ScriptStringBase;
 import org.richfaces.javascript.JavaScriptService;
 
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.application.FacesMessage.Severity;
-import java.io.IOException;
-import java.text.MessageFormat;
-
 /**
  * Renders script for adding new CSV message type with given ID, derived from provided FacesMessage
- * <p>
+ *
  * This script can be then included by {@link JavaScriptService} to the page.
  *
  * @author Lukas Fryc

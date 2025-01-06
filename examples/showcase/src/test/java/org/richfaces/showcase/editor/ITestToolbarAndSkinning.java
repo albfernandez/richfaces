@@ -21,14 +21,14 @@
  */
 package org.richfaces.showcase.editor;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.editor.page.ToolbarAndSkinningPage;
-
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

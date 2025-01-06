@@ -1,32 +1,32 @@
 /**
  * License Agreement.
- * <p>
+ *
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- * <p>
+ *
  * Copyright (C) 2007 Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.renderkit;
 
-import org.ajax4jsf.javascript.ScriptStringBase;
-import org.ajax4jsf.javascript.ScriptUtils;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import org.ajax4jsf.javascript.ScriptStringBase;
+import org.ajax4jsf.javascript.ScriptUtils;
 
 /**
  * @author Nick Belaevski
@@ -35,7 +35,7 @@ import java.util.Map;
 public class AjaxOptions extends ScriptStringBase {
     public static final String PARAMETERS = "parameters";
     public static final String CLIENT_PARAMETERS = "clientParameters";
-    private Map<String, Object> options = new HashMap<String, Object>();
+    private Map<String, Object> options = new HashMap<>();
     private Object beforesubmitHandler;
 
     public void appendScript(Appendable target) throws IOException {
@@ -71,7 +71,7 @@ public class AjaxOptions extends ScriptStringBase {
         Map<String, Object> parameters = (Map<String, Object>) options.get(PARAMETERS);
 
         if (parameters == null) {
-            parameters = new LinkedHashMap<String, Object>();
+            parameters = new LinkedHashMap<>();
             options.put(PARAMETERS, parameters);
         }
 

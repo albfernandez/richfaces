@@ -21,13 +21,14 @@
  */
 package org.richfaces.demo.iteration;
 
-import org.richfaces.component.SortOrder;
+import java.util.Comparator;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import org.richfaces.demo.iteration.model.Employee;
 import org.richfaces.model.Filter;
-
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-import java.util.Comparator;
+import org.richfaces.component.SortOrder;
 
 @ManagedBean(name = "filteringAndSortingBean")
 @SessionScoped
@@ -59,35 +60,35 @@ public class FilteringAndSortingBean {
         };
     }
 
-    public SortOrder getNameSortOrder() {
-        return nameSortOrder;
-    }
-
     public void setNameSortOrder(SortOrder nameSortOrder) {
         this.nameSortOrder = nameSortOrder;
     }
 
-    public SortOrder getEmailSortOrder() {
-        return emailSortOrder;
+    public SortOrder getNameSortOrder() {
+        return nameSortOrder;
     }
 
     public void setEmailSortOrder(SortOrder emailSortOrder) {
         this.emailSortOrder = emailSortOrder;
     }
 
-    public String getTitleFilterValue() {
-        return titleFilterValue;
+    public SortOrder getEmailSortOrder() {
+        return emailSortOrder;
     }
 
     public void setTitleFilterValue(String titleFilterValue) {
         this.titleFilterValue = titleFilterValue;
     }
 
-    public String getNameFilterValue() {
-        return nameFilterValue;
+    public String getTitleFilterValue() {
+        return titleFilterValue;
     }
 
     public void setNameFilterValue(String nameFilterValue) {
         this.nameFilterValue = nameFilterValue;
+    }
+
+    public String getNameFilterValue() {
+        return nameFilterValue;
     }
 }

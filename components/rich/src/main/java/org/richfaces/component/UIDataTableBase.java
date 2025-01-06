@@ -21,8 +21,26 @@
  */
 package org.richfaces.component;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterators;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.Nullable;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.event.PreRenderComponentEvent;
+
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
@@ -49,24 +67,8 @@ import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
-import javax.annotation.Nullable;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitResult;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.FacesEvent;
-import jakarta.faces.event.PhaseId;
-import jakarta.faces.event.PreRenderComponentEvent;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterators;
 
 public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder, ColumnProps, EventsRowProps, RowColumnStyleProps, StyleProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.Data";
@@ -77,7 +79,7 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     public static final String FOOTER = "footer";
     public static final String BODY = "body";
     private static final Logger RENDERKIT_LOG = RichfacesLogger.RENDERKIT.getLogger();
-    private static final Set<String> SUPPORTED_META_COMPONENTS = new HashSet<String>();
+    private static final Set<String> SUPPORTED_META_COMPONENTS = new HashSet<>();
     private static Predicate<UIComponent> isRow = new Predicate<UIComponent>() {
         @Override
         public boolean apply(@Nullable UIComponent child) {
@@ -92,8 +94,8 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         SUPPORTED_META_COMPONENTS.add(BODY);
     }
 
-    public static Set<String> getSupportedMetaComponents() {
-        return SUPPORTED_META_COMPONENTS;
+    protected enum PropertyKeys {
+        filterVar, sortPriority, sortMode, first, rows, noDataLabel, selection, header
     }
 
     /**
@@ -166,7 +168,7 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         boolean result = false;
         while (columns.hasNext() && !result) {
             UIComponent component = columns.next();
-            if (component instanceof javax.faces.component.UIColumn) {
+            if (component instanceof jakarta.faces.component.UIColumn) {
                 if (component.isRendered()) {
                     UIComponent facet = component.getFacet(facetName);
                     result = facet != null && facet.isRendered();
@@ -208,9 +210,9 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
 
     private ArrangeableState createArrangeableState(FacesContext context) {
         ArrangeableState state = null;
-        List<FilterField> filterFields = new LinkedList<FilterField>();
-        Map<Object, SortField> sortFieldsMap = new LinkedHashMap<Object, SortField>();
-        for (Iterator<UIComponent> iterator = columns(); iterator.hasNext(); ) {
+        List<FilterField> filterFields = new LinkedList<>();
+        Map<Object, SortField> sortFieldsMap = new LinkedHashMap<>();
+        for (Iterator<UIComponent> iterator = columns(); iterator.hasNext();) {
             UIComponent component = iterator.next();
             if (component instanceof AbstractColumn && component.isRendered()) {
                 AbstractColumn column = (AbstractColumn) component;
@@ -224,7 +226,7 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
                 }
             }
         }
-        List<SortField> sortFields = new LinkedList<SortField>();
+        List<SortField> sortFields = new LinkedList<>();
         Collection<?> sortPriority = getSortPriority();
         if (sortPriority != null) {
             for (Object object : sortPriority) {
@@ -390,11 +392,11 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         super.queueEvent(event);
     }
 
-    public String getSortingAndFilteringRenderTargetId(FacesContext facesContext) {
-        return getClientId(facesContext);
+    public static Set<String> getSupportedMetaComponents() {
+        return SUPPORTED_META_COMPONENTS;
     }
 
-    protected enum PropertyKeys {
-        filterVar, sortPriority, sortMode, first, rows, noDataLabel, selection, header
+    public String getSortingAndFilteringRenderTargetId(FacesContext facesContext) {
+        return getClientId(facesContext);
     }
 }

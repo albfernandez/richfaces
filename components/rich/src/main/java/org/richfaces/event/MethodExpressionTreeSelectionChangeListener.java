@@ -26,9 +26,10 @@ import jakarta.faces.event.AbortProcessingException;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class MethodExpressionTreeSelectionChangeListener extends MethodExpressionEventListener implements
-        TreeSelectionChangeListener {
+    TreeSelectionChangeListener {
     public MethodExpressionTreeSelectionChangeListener() {
         super();
     }

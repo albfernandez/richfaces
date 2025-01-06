@@ -291,7 +291,7 @@ public final class Messages {
     public static final String WRAPPED_RULES_NULL_ERROR = "WRAPPED_RULES_NULL_ERROR";
     public static final String JAVASCRIPT_CIRCULAR_REFERENCE = "JAVASCRIPT_CIRCULAR_REFERENCE";
     private static final String BUNDLE_NAME = "org.richfaces.messages";
-    private static Map<ClassLoader, ResourceBundle> bundles = new HashMap<ClassLoader, ResourceBundle>();
+    private static Map<ClassLoader, ResourceBundle> bundles = new HashMap<>();
 
     private Messages() {
     }
@@ -330,7 +330,7 @@ public final class Messages {
             return "%" + name + "%";
         }
 
-        return MessageFormat.format(pattern, new Object[]{param});
+        return MessageFormat.format(pattern, param);
     }
 
     public static String getMessage(String name, Object param1, Object param2) {
@@ -340,7 +340,7 @@ public final class Messages {
             return "%" + name + "%";
         }
 
-        return MessageFormat.format(pattern, new Object[]{param1, param2});
+        return MessageFormat.format(pattern, param1, param2);
     }
 
     public static String getMessage(String name, Object[] params) {

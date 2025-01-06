@@ -21,14 +21,15 @@
  */
 package org.richfaces.context;
 
-import org.ajax4jsf.component.AjaxClientBehavior;
-import org.richfaces.component.AjaxContainer;
-import org.richfaces.renderkit.AjaxConstants;
+import java.util.Collection;
+import java.util.Collections;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
-import java.util.Collection;
-import java.util.Collections;
+
+import org.ajax4jsf.component.AjaxClientBehavior;
+import org.richfaces.component.AjaxContainer;
+import org.richfaces.renderkit.AjaxConstants;
 
 /**
  * Callback that collects component attributes necessary for partial view rendering

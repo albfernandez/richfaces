@@ -21,12 +21,12 @@
  */
 package org.richfaces.renderkit;
 
-import jakarta.servlet.jsp.jstl.core.LoopTagStatus;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+
 
 /**
  * <p>
@@ -62,7 +62,7 @@ public class ForEachLoop<T> implements Iterable<T> {
 
     /**
      * the next item which will be returned when calling stateAwareIterator.next()
-     * <p>
+     *
      * used as cache for determining if the original provided iterator has next element available
      */
     private T nextElement;
@@ -77,11 +77,11 @@ public class ForEachLoop<T> implements Iterable<T> {
     }
 
     public static <T> ForEachLoop<T> getInstance(Iterator<T> iterator) {
-        return new ForEachLoop<T>(iterator);
+        return new ForEachLoop<>(iterator);
     }
 
     public static <T> ForEachLoop<T> getInstance(Iterable<T> iterable) {
-        ForEachLoop<T> loop = new ForEachLoop<T>(iterable.iterator());
+        ForEachLoop<T> loop = new ForEachLoop<>(iterable.iterator());
         return loop;
     }
 
@@ -99,18 +99,6 @@ public class ForEachLoop<T> implements Iterable<T> {
         return status;
     }
 
-    public void setBegin(int begin) {
-        this.begin = begin;
-    }
-
-    public void setEnd(int end) {
-        this.end = end;
-    }
-
-    public void setStep(int step) {
-        this.step = step;
-    }
-
     /**
      * Wraps {@link Iterator} instance in order to allow setup properties begin, end and step of iteration.
      */
@@ -124,7 +112,7 @@ public class ForEachLoop<T> implements Iterable<T> {
 
         /**
          * Asks underlying iterator if there is next element available.
-         * <p>
+         *
          * This method can call method {@link Iterator#next()} for underlying iterator in order to determine if there is next
          * element (especially when there are begin or step properties setup).
          */
@@ -195,49 +183,62 @@ public class ForEachLoop<T> implements Iterable<T> {
         }
     }
 
+    
     /**
      * Provides the functionality of {@link LoopTagStatus} for state of iteration.
      */
-    public class Status implements LoopTagStatus {
+    public class Status {
 
-        @Override
+        //MZ @Override
         public Object getCurrent() {
             return currentElement;
         }
 
-        @Override
+        //MZ @Override
         public int getIndex() {
             return index;
         }
 
-        @Override
+        //MZ @Override
         public int getCount() {
             return count;
         }
 
-        @Override
+        //MZ @Override
         public boolean isFirst() {
             return count == 1;
         }
 
-        @Override
+        //MZ @Override
         public boolean isLast() {
             return !stateAwareIterator.hasNext();
         }
 
-        @Override
+        //MZ @Override
         public Integer getBegin() {
             return begin;
         }
 
-        @Override
+        //MZ @Override
         public Integer getEnd() {
             return end;
         }
 
-        @Override
+        //MZ @Override
         public Integer getStep() {
             return step;
         }
+    }
+
+    public void setBegin(int begin) {
+        this.begin = begin;
+    }
+
+    public void setEnd(int end) {
+        this.end = end;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
     }
 }

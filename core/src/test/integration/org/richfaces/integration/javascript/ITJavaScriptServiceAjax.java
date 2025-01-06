@@ -73,39 +73,13 @@ public class ITJavaScriptServiceAjax {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(CoreDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.head("<title></title>");
-
-        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
-        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
-        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
-
-        p.form("<h:commandButton id='jsfAjax' value='jsf ajax' action='#{jsServiceBean.addScript}' "
-                + "onclick='jsf.ajax.request(this, event, {}); return false;' />");
-
-        p.form("<h:commandButton id='richfacesAjax' value='richfaces ajax' action='#{jsServiceBean.addScript}' "
-                + "onclick='RichFaces.ajax(this, event, {}); return false;' "
-                + "onbeforedomupdate=\"document.title += ' onbeforedomupdate'\" "
-                + "oncomplete=\"document.title += ' oncomplete';\" />");
-
-        p.form("<script>");
-        p.form("  $(document).on('ajaxbeforedomupdate', function() { document.title += ' ajaxbeforedomupdate'; })");
-        p.form("  $(document).on('ajaxcomplete', function() { document.title += ' ajaxcomplete'; })");
-        p.form("  $(document).on('javascriptServiceComplete', function() { document.title += ' javascriptServiceComplete'; })");
-        p.form("</script>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void jsf_ajax_should_trigger_script_added_by_JavaScriptService() {
         driver.navigate().to(contextPath);
         guardAjax(jsfAjax).click();
 
         assertThat(driver.getTitle(),
-                equalTo("ajaxbeforedomupdate javascriptServiceInProgress javascriptServiceComplete ajaxcomplete"));
+            equalTo("ajaxbeforedomupdate javascriptServiceInProgress ajaxcomplete javascriptServiceComplete"));
     }
 
     @Test
@@ -114,8 +88,34 @@ public class ITJavaScriptServiceAjax {
         guardAjax(richfacesAjax).click();
 
         assertThat(
-                driver.getTitle(),
-                equalTo("onbeforedomupdate ajaxbeforedomupdate javascriptServiceInProgress javascriptServiceComplete oncomplete ajaxcomplete"));
+            driver.getTitle(),
+            equalTo("onbeforedomupdate ajaxbeforedomupdate javascriptServiceInProgress oncomplete ajaxcomplete javascriptServiceComplete"));
+    }
+
+    private static void addIndexPage(CoreDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.head("<title></title>");
+
+        p.head("<h:outputScript name='jsf.js' library='jakarta.faces' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
+
+        p.form("<h:commandButton id='jsfAjax' value='jsf ajax' action='#{jsServiceBean.addScript}' "
+            + "onclick='jsf.ajax.request(this, event, {}); return false;' />");
+
+        p.form("<h:commandButton id='richfacesAjax' value='richfaces ajax' action='#{jsServiceBean.addScript}' "
+            + "onclick='RichFaces.ajax(this, event, {}); return false;' "
+            + "onbeforedomupdate=\"document.title += ' onbeforedomupdate'\" "
+            + "oncomplete=\"document.title += ' oncomplete';\" />");
+
+        p.form("<script>");
+        p.form("  $(document).on('ajaxbeforedomupdate', function() { document.title += ' ajaxbeforedomupdate'; })");
+        p.form("  $(document).on('ajaxcomplete', function() { document.title += ' ajaxcomplete'; })");
+        p.form("  $(document).on('javascriptServiceComplete', function() { document.title += ' javascriptServiceComplete'; })");
+        p.form("</script>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
 }

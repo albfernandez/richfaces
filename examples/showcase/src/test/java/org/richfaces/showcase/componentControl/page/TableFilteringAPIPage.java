@@ -21,13 +21,13 @@
  *******************************************************************************/
 package org.richfaces.showcase.componentControl.page;
 
+import java.util.List;
+
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.List;
 
 /**
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>

@@ -21,16 +21,6 @@
  */
 package org.richfaces.application;
 
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.resource.PostConstructResource;
-import org.richfaces.resource.ResourceParameter;
-import org.richfaces.resource.ResourceParameterELResolver;
-
-import jakarta.el.ExpressionFactory;
-import jakarta.el.ValueExpression;
-import jakarta.faces.FacesException;
-import jakarta.faces.context.FacesContext;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -47,17 +37,29 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import jakarta.el.ExpressionFactory;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
+
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.resource.PostConstructResource;
+import org.richfaces.resource.ResourceParameter;
+import org.richfaces.resource.ResourceParameterELResolver;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class DependencyInjectorImpl implements DependencyInjector {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
-    private ConcurrentMap<Class<?>, IntrospectionData> classesCache = new ConcurrentHashMap<Class<?>, IntrospectionData>();
+    private ConcurrentMap<Class<?>, IntrospectionData> classesCache = new ConcurrentHashMap<>();
 
     private void invokeMethod(Object bean, Method method) throws IllegalArgumentException, IllegalAccessException,
-            InvocationTargetException {
+        InvocationTargetException {
 
         if (method != null) {
             method.setAccessible(true);
@@ -74,12 +76,12 @@ public class DependencyInjectorImpl implements DependencyInjector {
         // TODO - allow FacesContext to be passed
         if (method.getParameterTypes().length != 0) {
             throw new IllegalStateException(MessageFormat.format("Post-construction method {0} has one or more parameters",
-                    method.toString()));
+                method.toString()));
         }
 
         if (!Void.TYPE.equals(method.getReturnType())) {
             throw new IllegalStateException(MessageFormat.format("Post-construction method {0} has incorrect return type",
-                    method.toString()));
+                method.toString()));
         }
 
         if ((method.getModifiers() & Modifier.STATIC) != 0) {
@@ -93,7 +95,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
             }
 
             throw new IllegalStateException(MessageFormat.format("Post-construction method {0} throws checked exception",
-                    method.toString()));
+                method.toString()));
         }
     }
 
@@ -105,8 +107,8 @@ public class DependencyInjectorImpl implements DependencyInjector {
 
             if (introspectionData.getPostConstructMethod() != null) {
                 throw new IllegalStateException(MessageFormat.format(
-                        "There are two conflicting post-construction methods: {0} and {1}", method.toString(), introspectionData
-                                .getPostConstructMethod().toString()));
+                    "There are two conflicting post-construction methods: {0} and {1}", method.toString(), introspectionData
+                        .getPostConstructMethod().toString()));
             }
 
             introspectionData.setPostConstructMethod(method);
@@ -133,9 +135,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
             if (dependency != null) {
                 String propertyName = field.getName();
 
-                if (!fieldsMap.containsKey(propertyName)) {
-                    fieldsMap.put(propertyName, dependency);
-                }
+                fieldsMap.putIfAbsent(propertyName, dependency);
             }
         }
 
@@ -164,7 +164,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
     }
 
     private void locateManagedPropertyDescriptors(Class<?> clazz, IntrospectionData introspectionData,
-                                                  Map<String, ResourceParameter> injectableFields) {
+        Map<String, ResourceParameter> injectableFields) {
 
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
@@ -199,7 +199,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
     protected IntrospectionData createIntrospectionData(Class<?> beanClass) {
         IntrospectionData introspectionData = new IntrospectionData();
 
-        Map<String, ResourceParameter> injectableFields = new HashMap<String, ResourceParameter>();
+        Map<String, ResourceParameter> injectableFields = new HashMap<>();
         locateManagedPropertyFields(beanClass, injectableFields);
 
         locateManagedPropertyDescriptors(beanClass, introspectionData, injectableFields);
@@ -260,7 +260,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
         protected abstract Object evaluateProperty(FacesContext context, Class<?> propertyType);
 
         public void inject(FacesContext context, Object bean) throws IllegalArgumentException, IllegalAccessException,
-                InvocationTargetException {
+            InvocationTargetException {
 
             Method writeMethod = propertyDescriptor.getWriteMethod();
 
@@ -268,7 +268,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
                 writeMethod.invoke(bean, evaluateProperty(context, propertyDescriptor.getPropertyType()));
             } else {
                 throw new IllegalStateException(MessageFormat.format("Write method for property {0} doesn't exist",
-                        propertyDescriptor.getName()));
+                    propertyDescriptor.getName()));
             }
         }
     }
@@ -281,7 +281,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
         private Object getExpressionValue(FacesContext context, String expressionString, Class<?> expectedType) {
             ExpressionFactory expressionFactory = context.getApplication().getExpressionFactory();
             ValueExpression expression = expressionFactory.createValueExpression(context.getELContext(), expressionString,
-                    expectedType);
+                expectedType);
             return expression.getValue(context.getELContext());
         }
 
@@ -300,7 +300,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
 
             if (expression.length() != 0 && name.length() != 0) {
                 throw new IllegalStateException(MessageFormat.format(
-                        "'name' and 'expression' should not be specified simultaneously: {0}", resourceParameter));
+                    "'name' and 'expression' should not be specified simultaneously: {0}", resourceParameter));
             }
 
             Object propertyValue = null;
@@ -312,7 +312,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
                 }
 
                 Map<String, Object> parameters = (Map<String, Object>) context.getAttributes().get(
-                        ResourceParameterELResolver.CONTEXT_ATTRIBUTE_NAME);
+                    ResourceParameterELResolver.CONTEXT_ATTRIBUTE_NAME);
 
                 propertyValue = parameters.get(name);
             }
@@ -346,7 +346,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
 
         public void addInjector(String propertyName, Injector<?> injector) {
             if (injectorsMap == null) {
-                injectorsMap = new HashMap<String, Injector<?>>();
+                injectorsMap = new HashMap<>();
             }
 
             injectorsMap.put(propertyName, injector);

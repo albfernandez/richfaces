@@ -1,5 +1,9 @@
 package org.richfaces.arquillian.browser;
 
+import java.lang.annotation.Annotation;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jboss.arquillian.drone.spi.DroneInstanceEnhancer;
 import org.jboss.arquillian.drone.spi.InstanceOrCallableInstance;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy;
@@ -8,10 +12,6 @@ import org.jboss.arquillian.graphene.proxy.Interceptor;
 import org.jboss.arquillian.graphene.proxy.InvocationContext;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-
-import java.lang.annotation.Annotation;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Intercepts call of <code>WebDriver#get(url)</code> and tries to load the page up to 3 times, while catching TimeoutException.

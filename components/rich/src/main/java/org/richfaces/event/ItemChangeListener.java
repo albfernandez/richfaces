@@ -27,13 +27,14 @@ import jakarta.faces.event.FacesListener;
 /**
  * <p>
  * A listener interface for receiving {@link ItemChangeEvent}s. A class that is interested in receiving such events implements
- * this interface, and then registers itself with the source {@link javax.faces.component.UIComponent} of interest, by calling
+ * this interface, and then registers itself with the source {@link jakarta.faces.component.UIComponent} of interest, by calling
  * <code>addItemChangeListener()</code>.
  * </p>
  *
  * @author akolonitsky
  * @version 1.0
  * @since -4712-01-01
+ *
  */
 public interface ItemChangeListener extends FacesListener {
     /**
@@ -42,8 +43,9 @@ public interface ItemChangeListener extends FacesListener {
      * </p>
      *
      * @param event The {@link ItemChangeEvent} that has occurred
+     *
      * @throws AbortProcessingException Signal the JavaServer Faces implementation that no further processing on the current
-     *                                  event should be performed
+     *         event should be performed
      */
     void processItemChange(ItemChangeEvent event) throws AbortProcessingException;
 }

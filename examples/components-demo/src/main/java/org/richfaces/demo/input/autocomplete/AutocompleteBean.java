@@ -1,22 +1,25 @@
 package org.richfaces.demo.input.autocomplete;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import org.richfaces.demo.model.person.Person;
-
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.RequestScoped;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+
+import org.richfaces.demo.model.person.Person;
 
 @ManagedBean
 @RequestScoped
 public class AutocompleteBean implements Serializable {
 
-    private Person person;
+	private static final long serialVersionUID = 7029646394934680537L;
+	private Person person;
 
     public Person getPerson() {
         return person;
@@ -38,6 +41,10 @@ public class AutocompleteBean implements Serializable {
                     return true;
                 }
                 return input.getName().toLowerCase().startsWith(prefix.toLowerCase());
+            }
+            @Override
+            public boolean test(Person input) {
+                return apply(input);
             }
         });
     }

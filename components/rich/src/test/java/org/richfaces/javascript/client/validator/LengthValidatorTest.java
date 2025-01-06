@@ -3,16 +3,18 @@
  */
 package org.richfaces.javascript.client.validator;
 
-import org.junit.runners.Parameterized.Parameters;
-import org.richfaces.javascript.client.RunParameters;
-
-import jakarta.faces.validator.LengthValidator;
-import jakarta.faces.validator.Validator;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.faces.validator.LengthValidator;
+import jakarta.faces.validator.Validator;
+
+import org.junit.runners.Parameterized.Parameters;
+import org.richfaces.javascript.client.RunParameters;
+
 /**
  * @author asmirnov
+ *
  */
 public class LengthValidatorTest extends ValidatorTestBase {
     private static final String MINIMUM = "min";
@@ -23,15 +25,6 @@ public class LengthValidatorTest extends ValidatorTestBase {
      */
     public LengthValidatorTest(RunParameters criteria) {
         super(criteria);
-    }
-
-    @SuppressWarnings("deprecation")
-    @Parameters
-    public static List<RunParameters[]> parameters() {
-        return options(pass(""), pass("aaa"), pass("123"), pass("", MINIMUM, 2), pass("vv", MINIMUM, 2),
-                pass("vvv", MINIMUM, 2), pass("", MAXIMUM, 2), pass("vv", MAXIMUM, 2), pass("123", MAXIMUM, 2),
-                pass("", MINIMUM, 3, MAXIMUM, 5, IGNORE_MESSAGE, true), pass("ddd", MINIMUM, 3, MAXIMUM, 5),
-                pass("dddd", MINIMUM, 3, MAXIMUM, 5), pass("abcdefg", MINIMUM, 3, MAXIMUM, 5, IGNORE_MESSAGE, true));
     }
 
     /*
@@ -60,5 +53,14 @@ public class LengthValidatorTest extends ValidatorTestBase {
     @Override
     protected String getJavaScriptFunctionName() {
         return "validateLength";
+    }
+
+    @SuppressWarnings("deprecation")
+    @Parameters
+    public static List<RunParameters[]> parameters() {
+        return options(pass(""), pass("aaa"), pass("123"), pass("", MINIMUM, 2), pass("vv", MINIMUM, 2),
+            pass("vvv", MINIMUM, 2), pass("", MAXIMUM, 2), pass("vv", MAXIMUM, 2), pass("123", MAXIMUM, 2),
+            pass("", MINIMUM, 3, MAXIMUM, 5, IGNORE_MESSAGE, true), pass("ddd", MINIMUM, 3, MAXIMUM, 5),
+            pass("dddd", MINIMUM, 3, MAXIMUM, 5), pass("abcdefg", MINIMUM, 3, MAXIMUM, 5, IGNORE_MESSAGE, true));
     }
 }

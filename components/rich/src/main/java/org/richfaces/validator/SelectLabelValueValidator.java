@@ -21,34 +21,32 @@
  */
 package org.richfaces.validator;
 
-import org.richfaces.application.FacesMessages;
-import org.richfaces.application.MessageFactory;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.component.AbstractSelectComponent;
-import org.richfaces.component.util.MessageUtil;
+import java.io.Serializable;
+import java.util.Map;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
-import java.io.Serializable;
-import java.util.Map;
+
+import org.richfaces.application.FacesMessages;
+import org.richfaces.application.MessageFactory;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.component.AbstractSelectComponent;
+import org.richfaces.component.util.MessageUtil;
 
 /**
  * Validates that Select component has sent valid value
  *
  * @author Lukas Fryc
+ *
  */
 public class SelectLabelValueValidator implements Validator, Serializable {
 
     public static final String ID = "org.richfaces.validator.SelectLabelValueValidator";
 
     private static final long serialVersionUID = 2343817853927262660L;
-
-    private static boolean isEmpty(String value) {
-        return (value == null) || (value.length() == 0);
-    }
 
     public void validate(FacesContext facesContext, UIComponent component, Object valueAsObject) throws ValidatorException {
         final AbstractSelectComponent select = (AbstractSelectComponent) component;
@@ -90,6 +88,10 @@ public class SelectLabelValueValidator implements Validator, Serializable {
 
         return messageFactory.createMessage(facesContext, FacesMessage.SEVERITY_ERROR, FacesMessages.UISELECTONE_INVALID,
                 componentLabel);
+    }
+
+    private static boolean isEmpty(String value) {
+        return (value == null) || (value.length() == 0);
     }
 
 }

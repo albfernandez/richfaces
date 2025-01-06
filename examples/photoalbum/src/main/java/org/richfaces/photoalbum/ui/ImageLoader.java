@@ -21,17 +21,18 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import org.richfaces.photoalbum.manager.FileManager;
-import org.richfaces.photoalbum.util.Constants;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Serializable;
+import java.nio.file.Files;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Serializable;
+
+import org.richfaces.photoalbum.manager.FileManager;
+import org.richfaces.photoalbum.util.Constants;
 
 @Named
 @RequestScoped
@@ -65,17 +66,7 @@ public class ImageLoader implements Serializable {
 
         if (imageResource != null && imageResource.exists()) {
 
-            byte[] toWrite = new byte[Constants.DEFAULT_BUFFER_SIZE];
-
-            FileInputStream in = new FileInputStream(imageResource);
-
-            try {
-                while (in.read(toWrite) != -1) {
-                    out.write(toWrite);
-                }
-            } finally {
-                in.close();
-            }
+        	Files.copy(imageResource.toPath(), out);            
 
         } else {
             String suffix = excludeFilePrefix(imageResource.getPath());

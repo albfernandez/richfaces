@@ -21,13 +21,15 @@
  */
 package org.richfaces.model;
 
-import org.richfaces.component.SortOrder;
+import java.util.Comparator;
 
 import jakarta.el.ValueExpression;
-import java.util.Comparator;
+
+import org.richfaces.component.SortOrder;
 
 /**
  * @author Konstantin Mishin
+ *
  */
 public class SortField extends Field {
     private static final long serialVersionUID = 654268763477658266L;

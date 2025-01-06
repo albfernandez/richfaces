@@ -27,81 +27,37 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 @RunAsClient
 public class ITAjaxSubmissionCallbacks {
 
-    private static final String FORM_ID = "form1";
-    private static final List<String> EVENT_CALLBACKS = Arrays.asList(new String[]{"ajaxsubmit", "ajaxbegin", "ajaxbeforedomupdate", "ajaxcomplete"});
     @Drone
     private WebDriver driver;
+
     @ArquillianResource
     private URL contextPath;
+
     @JavaScript
     private Callbacks callbacks;
+
     @FindByJQuery("input:visible")
     private WebElement input;
+
     @FindBy(id = "out")
     private WebElement output;
+
     @FindBy(tagName = "body")
     private WebElement body;
+
+    private static final String FORM_ID = "form1";
+    private static final List<String> EVENT_CALLBACKS = Arrays.asList(new String[]{ "ajaxsubmit", "ajaxbegin", "ajaxbeforedomupdate", "ajaxcomplete" });
 
     @Deployment(testable = false)
     public static WebArchive deployment() {
         CoreDeployment deployment = new CoreDeployment(ITAjaxSubmissionCallbacks.class);
         deployment.withA4jComponents();
-
+        
         deployment.archive().addAsWebResource(buildPage(true, true), "documentAndFormScoped.xhtml");
         deployment.archive().addAsWebResource(buildPage(true, false), "formScoped.xhtml");
         deployment.archive().addAsWebResource(buildPage(false, true), "documentScoped.xhtml");
 
         return deployment.getFinalArchive();
-    }
-
-    private static FaceletAsset buildPage(boolean formScopedRegistration, boolean pageScopedRegistration) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.head("<h:outputScript library='javax.faces' name='jsf.js' />");
-        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
-        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
-
-        p.body("<h:outputScript>");
-        p.body("  window.RichFaces.jQuery(document).ready(function() {");
-
-        if (formScopedRegistration) {
-            for (String eventCallback : EVENT_CALLBACKS) {
-                registerCallBackToForm(p, eventCallback);
-            }
-        }
-
-        if (pageScopedRegistration) {
-            for (String eventCallback : EVENT_CALLBACKS) {
-                registerCallBackToDocumentObject(p, eventCallback);
-            }
-        }
-
-        p.body("    document.formScopedCallbacksCalled = ' ';");
-        p.body("    document.documentScopedCallbacksCalled = ' ';");
-
-        p.body("});");
-        p.body("</h:outputScript>");
-
-        p.body("<h:form prependId=\"false\" id=\"" + FORM_ID + "\">");
-        p.body("  <h:inputText value=\"#{requestScope.property}\">");
-        p.body("     <a4j:ajax event=\"keyup\" render=\"out\" />");
-        p.body("  </h:inputText>");
-        p.body("  <h:outputText value=\"#{requestScope.property}\" id=\"out\" />");
-        p.body("</h:form>");
-
-        return p;
-    }
-
-    private static void registerCallBackToForm(FaceletAsset p, String eventCallback) {
-        p.body("    window.RichFaces.jQuery(document.getElementById('" + FORM_ID + "')).on(\"" + eventCallback + "\", function() {");
-        p.body("         document.formScopedCallbacksCalled += '" + eventCallback + " ';");
-        p.body("    });");
-    }
-
-    private static void registerCallBackToDocumentObject(FaceletAsset p, String eventCallback) {
-        p.body("    window.RichFaces.jQuery(document).on(\"" + eventCallback + "\", function() {");
-        p.body("         document.documentScopedCallbacksCalled += '" + eventCallback + " ';");
-        p.body("    });");
     }
 
     @Test
@@ -152,6 +108,56 @@ public class ITAjaxSubmissionCallbacks {
         }
     }
 
+    private static FaceletAsset buildPage(boolean formScopedRegistration, boolean pageScopedRegistration) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.head("<h:outputScript library='jakarta.faces' name='jsf.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
+
+        p.body("<h:outputScript>");
+        p.body("  window.RichFaces.jQuery(document).ready(function() {");
+
+        if (formScopedRegistration) {
+            for (String eventCallback : EVENT_CALLBACKS) {
+                registerCallBackToForm(p, eventCallback);
+            }
+        }
+
+        if (pageScopedRegistration) {
+            for (String eventCallback : EVENT_CALLBACKS) {
+                registerCallBackToDocumentObject(p, eventCallback);
+            }
+        }
+
+        p.body("    document.formScopedCallbacksCalled = ' ';");
+        p.body("    document.documentScopedCallbacksCalled = ' ';");
+
+        p.body("});");
+        p.body("</h:outputScript>");
+
+        p.body("<h:form prependId=\"false\" id=\"" + FORM_ID + "\">");
+        p.body("  <h:inputText value=\"#{requestScope.property}\">");
+        p.body("     <a4j:ajax event=\"keyup\" render=\"out\" />");
+        p.body("  </h:inputText>");
+        p.body("  <h:outputText value=\"#{requestScope.property}\" id=\"out\" />");
+        p.body("</h:form>");
+
+        return p;
+    }
+
+    private static void registerCallBackToForm(FaceletAsset p, String eventCallback) {
+        p.body("    window.RichFaces.jQuery(document.getElementById('" + FORM_ID + "')).on(\"" + eventCallback + "\", function() {");
+        p.body("         document.formScopedCallbacksCalled += '" + eventCallback + " ';");
+        p.body("    });");
+    }
+
+    private static void registerCallBackToDocumentObject(FaceletAsset p, String eventCallback) {
+        p.body("    window.RichFaces.jQuery(document).on(\"" + eventCallback + "\", function() {");
+        p.body("         document.documentScopedCallbacksCalled += '" + eventCallback + " ';");
+        p.body("    });");
+    }
+
     private void resetCallbacks() {
         callbacks.setDocumentScopedCallbacksCalled(" ");
         callbacks.setFormScopedCallbacksCalled(" ");
@@ -162,9 +168,9 @@ public class ITAjaxSubmissionCallbacks {
 
         String getFormScopedCallbacksCalled();
 
-        void setFormScopedCallbacksCalled(String s);
-
         String getDocumentScopedCallbacksCalled();
+
+        void setFormScopedCallbacksCalled(String s);
 
         void setDocumentScopedCallbacksCalled(String s);
     }

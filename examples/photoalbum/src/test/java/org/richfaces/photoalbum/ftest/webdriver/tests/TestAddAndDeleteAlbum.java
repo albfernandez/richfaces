@@ -21,6 +21,8 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -34,8 +36,6 @@ import org.richfaces.photoalbum.ftest.webdriver.fragments.ConfirmationPanel;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
@@ -140,7 +140,7 @@ public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
         ConfirmationPanel confirmationPanel = getPage().getConfirmationPanel();
         confirmationPanel.advanced().waitUntilPopupIsVisible().perform();
         confirmationPanel
-                .check("Are you sure? All images associated with this album will also be dropped! Click OK to proceed, otherwise click Cancel.");
+            .check("Are you sure? All images associated with this album will also be dropped! Click OK to proceed, otherwise click Cancel.");
         confirmationPanel.cancel();
 
         albumView.checkAlbumHeader(albumName, "Created " + dt.toString(pattern) + ".*" + dt.getYear() + ", contains 0 images");
@@ -167,6 +167,6 @@ public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
         RichFacesTree myAlbumGroupsTree = getPage().getLeftPanel().getMyGroupsTree();
         assertEquals(2, myAlbumGroupsTree.advanced().getNodes().size());
         assertEquals(2, myAlbumGroupsTree.expandNode(ChoicePickerHelper.byVisibleText().contains(albumGroupName)).advanced()
-                .getNodes().size());
+            .getNodes().size());
     }
 }

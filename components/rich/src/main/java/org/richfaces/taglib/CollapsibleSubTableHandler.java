@@ -21,9 +21,6 @@
  */
 package org.richfaces.taglib;
 
-import org.richfaces.component.AbstractCollapsibleSubTable;
-import org.richfaces.view.facelets.RowKeyConverterRule;
-
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.FaceletContext;
@@ -33,8 +30,12 @@ import jakarta.faces.view.facelets.Metadata;
 import jakarta.faces.view.facelets.MetadataTarget;
 import jakarta.faces.view.facelets.TagAttribute;
 
+import org.richfaces.component.AbstractCollapsibleSubTable;
+import org.richfaces.view.facelets.RowKeyConverterRule;
+
 /**
  * @author Anton Belevich
+ *
  */
 public class CollapsibleSubTableHandler extends ComponentHandler {
     public CollapsibleSubTableHandler(ComponentConfig config) {
@@ -60,7 +61,7 @@ public class CollapsibleSubTableHandler extends ComponentHandler {
     }
 
     static class CollapsibleSubTableMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[]{org.richfaces.event.CollapsibleSubTableToggleEvent.class};
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.CollapsibleSubTableToggleEvent.class };
         private final TagAttribute attribute;
 
         public CollapsibleSubTableMapper(TagAttribute attribute) {
@@ -69,7 +70,7 @@ public class CollapsibleSubTableHandler extends ComponentHandler {
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
             ((AbstractCollapsibleSubTable) instance).addCollapsibleSubTableToggleListener((new MethodExpressionToggleListener(
-                    this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
+                this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
         }
     }
 }

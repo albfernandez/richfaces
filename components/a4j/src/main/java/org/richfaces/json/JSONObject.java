@@ -54,7 +54,7 @@ import java.util.Map;
  * <pre>
  * myString = new JSONObject().put(&quot;JSON&quot;, &quot;Hello, World!&quot;).toString();
  * </pre>
- * <p>
+ *
  * produces the string <code>{"JSON": "Hello, World"}</code>.
  * <p/>
  * The texts produced by the <code>toString</code> methods strictly conform to the JSON sysntax rules. The constructors are more
@@ -114,7 +114,7 @@ public class JSONObject implements Serializable {
             throw x.syntaxError("A JSONObject text must begin with '{'");
         }
 
-        for (; ; ) {
+        for (;;) {
             c = x.nextClean();
 
             switch (c) {
@@ -180,7 +180,7 @@ public class JSONObject implements Serializable {
      * Construct a JSONObject from a string. This is the most commonly used JSONObject constructor.
      *
      * @param string A string beginning with <code>{</code>&nbsp;<small>(left brace)</small> and ending with <code>}</code>
-     *               &nbsp;<small>(right brace)</small>.
+     *        &nbsp;<small>(right brace)</small>.
      * @throws JSONException If there is a syntax error in the source string.
      */
     public JSONObject(String string) throws JSONException {
@@ -209,7 +209,7 @@ public class JSONObject implements Serializable {
      * a key is not found or not visible, then it will not be copied into the new JSONObject.
      *
      * @param object An object that has fields that should be used to make a JSONObject.
-     * @param names  An array of strings, the names of the fields to be used from the object.
+     * @param names An array of strings, the names of the fields to be used from the object.
      */
     public JSONObject(Object object, String[] names) {
         this();
@@ -228,6 +228,58 @@ public class JSONObject implements Serializable {
                 /* forget about it */
             }
         }
+    }
+
+    /**
+     * Accumulate values under a key. It is similar to the put method except that if there is already an object stored under the
+     * key then a JSONArray is stored under the key to hold all of the accumulated values. If there is already a JSONArray, then
+     * the new value is appended to it. In contrast, the put method replaces the previous value.
+     *
+     * @param key A key string.
+     * @param value An object to be accumulated under the key.
+     * @return this.
+     * @throws JSONException If the value is an invalid number or if the key is null.
+     */
+    public JSONObject accumulate(String key, Object value) throws JSONException {
+        testValidity(value);
+
+        Object o = opt(key);
+
+        if (o == null) {
+            put(key, (value instanceof JSONArray) ? new JSONArray().put(value) : value);
+        } else if (o instanceof JSONArray) {
+            ((JSONArray) o).put(value);
+        } else {
+            put(key, new JSONArray().put(o).put(value));
+        }
+
+        return this;
+    }
+
+    /**
+     * Append values to the array under a key. If the key does not exist in the JSONObject, then the key is put in the
+     * JSONObject with its value being a JSONArray containing the value parameter. If the key was already associated with a
+     * JSONArray, then the value parameter is appended to it.
+     *
+     * @param key A key string.
+     * @param value An object to be accumulated under the key.
+     * @return this.
+     * @throws JSONException If the key is null or if the current value associated with the key is not a JSONArray.
+     */
+    public JSONObject append(String key, Object value) throws JSONException {
+        testValidity(value);
+
+        Object o = opt(key);
+
+        if (o == null) {
+            put(key, new JSONArray().put(value));
+        } else if (o instanceof JSONArray) {
+            put(key, ((JSONArray) o).put(value));
+        } else {
+            throw new JSONException("JSONObject[" + key + "] is not a JSONArray.");
+        }
+
+        return this;
     }
 
     /**
@@ -255,284 +307,6 @@ public class JSONObject implements Serializable {
         }
 
         return s;
-    }
-
-    /**
-     * Produce a string from a Number.
-     *
-     * @param n A Number
-     * @return A String.
-     * @throws JSONException If n is a non-finite number.
-     */
-    public static String numberToString(Number n) throws JSONException {
-        if (n == null) {
-            throw new JSONException("Null pointer");
-        }
-
-        testValidity(n);
-
-        // Shave off trailing zeros and decimal point, if possible.
-        String s = n.toString();
-
-        if ((s.indexOf('.') > 0) && (s.indexOf('e') < 0) && (s.indexOf('E') < 0)) {
-            while (s.endsWith("0")) {
-                s = s.substring(0, s.length() - 1);
-            }
-
-            if (s.endsWith(".")) {
-                s = s.substring(0, s.length() - 1);
-            }
-        }
-
-        return s;
-    }
-
-    /**
-     * Produce a string in double quotes with backslash sequences in all the right places. A backslash will be inserted within
-     * </, allowing JSON text to be delivered in HTML. In JSON text, a string cannot contain a control character or an unescaped
-     * quote or backslash.
-     *
-     * @param string A String
-     * @return A String correctly formatted for insertion in a JSON text.
-     */
-    public static String quote(String string) {
-        if ((string == null) || (string.length() == 0)) {
-            return "\"\"";
-        }
-
-        char b;
-        char c = 0;
-        int i;
-        int len = string.length();
-        StringBuffer sb = new StringBuffer(len + 4);
-        String t;
-
-        sb.append('"');
-
-        for (i = 0; i < len; i += 1) {
-            b = c;
-            c = string.charAt(i);
-
-            switch (c) {
-                case '\\':
-                case '"':
-                    sb.append('\\');
-                    sb.append(c);
-
-                    break;
-
-                case '/':
-                    if (b == '<') {
-                        sb.append('\\');
-                    }
-
-                    sb.append(c);
-
-                    break;
-
-                case '\b':
-                    sb.append("\\b");
-
-                    break;
-
-                case '\t':
-                    sb.append("\\t");
-
-                    break;
-
-                case '\n':
-                    sb.append("\\n");
-
-                    break;
-
-                case '\f':
-                    sb.append("\\f");
-
-                    break;
-
-                case '\r':
-                    sb.append("\\r");
-
-                    break;
-
-                default:
-                    if (c < ' ') {
-                        t = "000" + Integer.toHexString(c);
-                        sb.append("\\u" + t.substring(t.length() - 4));
-                    } else {
-                        sb.append(c);
-                    }
-            }
-        }
-
-        sb.append('"');
-
-        return sb.toString();
-    }
-
-    /**
-     * Throw an exception if the object is an NaN or infinite number.
-     *
-     * @param o The object to test.
-     * @throws JSONException If o is a non-finite number.
-     */
-    static void testValidity(Object o) throws JSONException {
-        if (o != null) {
-            if (o instanceof Double) {
-                if (((Double) o).isInfinite() || ((Double) o).isNaN()) {
-                    throw new JSONException("JSON does not allow non-finite numbers");
-                }
-            } else if (o instanceof Float) {
-                if (((Float) o).isInfinite() || ((Float) o).isNaN()) {
-                    throw new JSONException("JSON does not allow non-finite numbers.");
-                }
-            }
-        }
-    }
-
-    /**
-     * Make a JSON text of an Object value. If the object has an value.toJSONString() method, then that method will be used to
-     * produce the JSON text. The method is required to produce a strictly conforming text. If the object does not contain a
-     * toJSONString method (which is the most common case), then a text will be produced by the rules.
-     * <p/>
-     * Warning: This method assumes that the data structure is acyclical.
-     *
-     * @param value The value to be serialized.
-     * @return a printable, displayable, transmittable representation of the object, beginning with <code>{</code>
-     * &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
-     * @throws JSONException If the value is or contains an invalid number.
-     */
-    static String valueToString(Object value) throws JSONException {
-        if ((value == null) || value.equals(null)) {
-            return "null";
-        }
-
-        if (value instanceof JSONString) {
-            Object o;
-
-            try {
-                o = ((JSONString) value).toJSONString();
-            } catch (Exception e) {
-                throw new JSONException(e);
-            }
-
-            if (o instanceof String) {
-                return (String) o;
-            }
-
-            throw new JSONException("Bad value from toJSONString: " + o);
-        }
-
-        if (value instanceof Number) {
-            return numberToString((Number) value);
-        }
-
-        if ((value instanceof Boolean) || (value instanceof JSONObject) || (value instanceof JSONArray)) {
-            return value.toString();
-        }
-
-        return quote(value.toString());
-    }
-
-    /**
-     * Make a prettyprinted JSON text of an object value.
-     * <p/>
-     * Warning: This method assumes that the data structure is acyclical.
-     *
-     * @param value        The value to be serialized.
-     * @param indentFactor The number of spaces to add to each level of indentation.
-     * @param indent       The indentation of the top level.
-     * @return a printable, displayable, transmittable representation of the object, beginning with <code>{</code>
-     * &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
-     * @throws JSONException If the object contains an invalid number.
-     */
-    static String valueToString(Object value, int indentFactor, int indent) throws JSONException {
-        if ((value == null) || value.equals(null)) {
-            return "null";
-        }
-
-        try {
-            if (value instanceof JSONString) {
-                Object o = ((JSONString) value).toJSONString();
-
-                if (o instanceof String) {
-                    return (String) o;
-                }
-            }
-        } catch (Exception e) {
-
-            /* forget about it */
-        }
-
-        if (value instanceof Number) {
-            return numberToString((Number) value);
-        }
-
-        if (value instanceof Boolean) {
-            return value.toString();
-        }
-
-        if (value instanceof JSONObject) {
-            return ((JSONObject) value).toString(indentFactor, indent);
-        }
-
-        if (value instanceof JSONArray) {
-            return ((JSONArray) value).toString(indentFactor, indent);
-        }
-
-        return quote(value.toString());
-    }
-
-    /**
-     * Accumulate values under a key. It is similar to the put method except that if there is already an object stored under the
-     * key then a JSONArray is stored under the key to hold all of the accumulated values. If there is already a JSONArray, then
-     * the new value is appended to it. In contrast, the put method replaces the previous value.
-     *
-     * @param key   A key string.
-     * @param value An object to be accumulated under the key.
-     * @return this.
-     * @throws JSONException If the value is an invalid number or if the key is null.
-     */
-    public JSONObject accumulate(String key, Object value) throws JSONException {
-        testValidity(value);
-
-        Object o = opt(key);
-
-        if (o == null) {
-            put(key, (value instanceof JSONArray) ? new JSONArray().put(value) : value);
-        } else if (o instanceof JSONArray) {
-            ((JSONArray) o).put(value);
-        } else {
-            put(key, new JSONArray().put(o).put(value));
-        }
-
-        return this;
-    }
-
-    /**
-     * Append values to the array under a key. If the key does not exist in the JSONObject, then the key is put in the
-     * JSONObject with its value being a JSONArray containing the value parameter. If the key was already associated with a
-     * JSONArray, then the value parameter is appended to it.
-     *
-     * @param key   A key string.
-     * @param value An object to be accumulated under the key.
-     * @return this.
-     * @throws JSONException If the key is null or if the current value associated with the key is not a JSONArray.
-     */
-    public JSONObject append(String key, Object value) throws JSONException {
-        testValidity(value);
-
-        Object o = opt(key);
-
-        if (o == null) {
-            put(key, new JSONArray().put(value));
-        } else if (o instanceof JSONArray) {
-            put(key, ((JSONArray) o).put(value));
-        } else {
-            throw new JSONException("JSONObject[" + key + "] is not a JSONArray.");
-        }
-
-        return this;
     }
 
     /**
@@ -714,6 +488,36 @@ public class JSONObject implements Serializable {
     }
 
     /**
+     * Produce a string from a Number.
+     *
+     * @param n A Number
+     * @return A String.
+     * @throws JSONException If n is a non-finite number.
+     */
+    public static String numberToString(Number n) throws JSONException {
+        if (n == null) {
+            throw new JSONException("Null pointer");
+        }
+
+        testValidity(n);
+
+        // Shave off trailing zeros and decimal point, if possible.
+        String s = n.toString();
+
+        if ((s.indexOf('.') > 0) && (s.indexOf('e') < 0) && (s.indexOf('E') < 0)) {
+            while (s.endsWith("0")) {
+                s = s.substring(0, s.length() - 1);
+            }
+
+            if (s.endsWith(".")) {
+                s = s.substring(0, s.length() - 1);
+            }
+        }
+
+        return s;
+    }
+
+    /**
      * Get an optional value associated with a key.
      *
      * @param key A key string.
@@ -738,7 +542,7 @@ public class JSONObject implements Serializable {
      * Get an optional boolean associated with a key. It returns the defaultValue if there is no such key, or if it is not a
      * Boolean or the String "true" or "false" (case insensitive).
      *
-     * @param key          A key string.
+     * @param key A key string.
      * @param defaultValue The default.
      * @return The truth.
      */
@@ -753,7 +557,7 @@ public class JSONObject implements Serializable {
     /**
      * Put a key/value pair in the JSONObject, where the value will be a JSONArray which is produced from a Collection.
      *
-     * @param key   A key string.
+     * @param key A key string.
      * @param value A Collection value.
      * @return this.
      * @throws JSONException
@@ -779,7 +583,7 @@ public class JSONObject implements Serializable {
      * Get an optional double associated with a key, or the defaultValue if there is no such key or if its value is not a
      * number. If the value is a string, an attempt will be made to evaluate it as a number.
      *
-     * @param key          A key string.
+     * @param key A key string.
      * @param defaultValue The default.
      * @return An object which is the value.
      */
@@ -787,7 +591,7 @@ public class JSONObject implements Serializable {
         try {
             Object o = opt(key);
 
-            return (o instanceof Number) ? ((Number) o).doubleValue() : new Double((String) o).doubleValue();
+            return (o instanceof Number) ? ((Number) o).doubleValue() : Double.parseDouble((String) o);
         } catch (Exception e) {
             return defaultValue;
         }
@@ -808,7 +612,7 @@ public class JSONObject implements Serializable {
      * Get an optional int value associated with a key, or the default if there is no such key or if the value is not a number.
      * If the value is a string, an attempt will be made to evaluate it as a number.
      *
-     * @param key          A key string.
+     * @param key A key string.
      * @param defaultValue The default.
      * @return An object which is the value.
      */
@@ -861,7 +665,7 @@ public class JSONObject implements Serializable {
      * Get an optional long value associated with a key, or the default if there is no such key or if the value is not a number.
      * If the value is a string, an attempt will be made to evaluate it as a number.
      *
-     * @param key          A key string.
+     * @param key A key string.
      * @param defaultValue The default.
      * @return An object which is the value.
      */
@@ -887,7 +691,7 @@ public class JSONObject implements Serializable {
     /**
      * Get an optional string associated with a key. It returns the defaultValue if there is no such key.
      *
-     * @param key          A key string.
+     * @param key A key string.
      * @param defaultValue The default.
      * @return A string which is the value.
      */
@@ -900,7 +704,7 @@ public class JSONObject implements Serializable {
     /**
      * Put a key/boolean pair in the JSONObject.
      *
-     * @param key   A key string.
+     * @param key A key string.
      * @param value A boolean which is the value.
      * @return this.
      * @throws JSONException If the key is null.
@@ -914,13 +718,13 @@ public class JSONObject implements Serializable {
     /**
      * Put a key/double pair in the JSONObject.
      *
-     * @param key   A key string.
+     * @param key A key string.
      * @param value A double which is the value.
      * @return this.
      * @throws JSONException If the key is null or if the number is invalid.
      */
     public JSONObject put(String key, double value) throws JSONException {
-        put(key, new Double(value));
+        put(key, Double.valueOf(value));
 
         return this;
     }
@@ -928,13 +732,13 @@ public class JSONObject implements Serializable {
     /**
      * Put a key/int pair in the JSONObject.
      *
-     * @param key   A key string.
+     * @param key A key string.
      * @param value An int which is the value.
      * @return this.
      * @throws JSONException If the key is null.
      */
     public JSONObject put(String key, int value) throws JSONException {
-        put(key, new Integer(value));
+        put(key, Integer.valueOf(value));
 
         return this;
     }
@@ -942,13 +746,13 @@ public class JSONObject implements Serializable {
     /**
      * Put a key/long pair in the JSONObject.
      *
-     * @param key   A key string.
+     * @param key A key string.
      * @param value A long which is the value.
      * @return this.
      * @throws JSONException If the key is null.
      */
     public JSONObject put(String key, long value) throws JSONException {
-        put(key, new Long(value));
+        put(key, Long.valueOf(value));
 
         return this;
     }
@@ -956,7 +760,7 @@ public class JSONObject implements Serializable {
     /**
      * Put a key/value pair in the JSONObject, where the value will be a JSONObject which is produced from a Map.
      *
-     * @param key   A key string.
+     * @param key A key string.
      * @param value A Map value.
      * @return this.
      * @throws JSONException
@@ -971,9 +775,9 @@ public class JSONObject implements Serializable {
      * Put a key/value pair in the JSONObject. If the value is null, then the key will be removed from the JSONObject if it is
      * present.
      *
-     * @param key   A key string.
+     * @param key A key string.
      * @param value An object which is the value. It should be of one of these types: Boolean, Double, Integer, JSONArray,
-     *              JSONObject, Long, String, or the JSONObject.NULL object.
+     *        JSONObject, Long, String, or the JSONObject.NULL object.
      * @return this.
      * @throws JSONException If the value is non-finite number or if the key is null.
      */
@@ -995,9 +799,9 @@ public class JSONObject implements Serializable {
     /**
      * Put a key/value pair in the JSONObject, but only if the key and the value are both non-null.
      *
-     * @param key   A key string.
+     * @param key A key string.
      * @param value An object which is the value. It should be of one of these types: Boolean, Double, Integer, JSONArray,
-     *              JSONObject, Long, String, or the JSONObject.NULL object.
+     *        JSONObject, Long, String, or the JSONObject.NULL object.
      * @return this.
      * @throws JSONException If the value is a non-finite number.
      */
@@ -1010,6 +814,89 @@ public class JSONObject implements Serializable {
     }
 
     /**
+     * Produce a string in double quotes with backslash sequences in all the right places. A backslash will be inserted within
+     * </, allowing JSON text to be delivered in HTML. In JSON text, a string cannot contain a control character or an unescaped
+     * quote or backslash.
+     *
+     * @param string A String
+     * @return A String correctly formatted for insertion in a JSON text.
+     */
+    public static String quote(String string) {
+        if ((string == null) || (string.length() == 0)) {
+            return "\"\"";
+        }
+
+        char b;
+        char c = 0;
+        int i;
+        int len = string.length();
+        StringBuilder sb = new StringBuilder(len + 4);
+        String t;
+
+        sb.append('"');
+
+        for (i = 0; i < len; i += 1) {
+            b = c;
+            c = string.charAt(i);
+
+            switch (c) {
+                case '\\':
+                case '"':
+                    sb.append('\\');
+                    sb.append(c);
+
+                    break;
+
+                case '/':
+                    if (b == '<') {
+                        sb.append('\\');
+                    }
+
+                    sb.append(c);
+
+                    break;
+
+                case '\b':
+                    sb.append("\\b");
+
+                    break;
+
+                case '\t':
+                    sb.append("\\t");
+
+                    break;
+
+                case '\n':
+                    sb.append("\\n");
+
+                    break;
+
+                case '\f':
+                    sb.append("\\f");
+
+                    break;
+
+                case '\r':
+                    sb.append("\\r");
+
+                    break;
+
+                default:
+                    if (c < ' ') {
+                        t = "000" + Integer.toHexString(c);
+                        sb.append("\\u" + t.substring(t.length() - 4));
+                    } else {
+                        sb.append(c);
+                    }
+            }
+        }
+
+        sb.append('"');
+
+        return sb.toString();
+    }
+
+    /**
      * Remove a name and its value, if present.
      *
      * @param key The name to be removed.
@@ -1017,6 +904,26 @@ public class JSONObject implements Serializable {
      */
     public Object remove(String key) {
         return this.myHashMap.remove(key);
+    }
+
+    /**
+     * Throw an exception if the object is an NaN or infinite number.
+     *
+     * @param o The object to test.
+     * @throws JSONException If o is a non-finite number.
+     */
+    static void testValidity(Object o) throws JSONException {
+        if (o != null) {
+            if (o instanceof Double) {
+                if (((Double) o).isInfinite() || ((Double) o).isNaN()) {
+                    throw new JSONException("JSON does not allow non-finite numbers");
+                }
+            } else if (o instanceof Float) {
+                if (((Float) o).isInfinite() || ((Float) o).isNaN()) {
+                    throw new JSONException("JSON does not allow non-finite numbers.");
+                }
+            }
+        }
     }
 
     /**
@@ -1047,12 +954,12 @@ public class JSONObject implements Serializable {
      * Warning: This method assumes that the data structure is acyclical.
      *
      * @return a printable, displayable, portable, transmittable representation of the object, beginning with <code>{</code>
-     * &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
+     *         &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
      */
     public String toString() {
         try {
             Iterator keys = keys();
-            StringBuffer sb = new StringBuffer("{");
+            StringBuilder sb = new StringBuilder("{");
 
             while (keys.hasNext()) {
                 if (sb.length() > 1) {
@@ -1081,7 +988,7 @@ public class JSONObject implements Serializable {
      *
      * @param indentFactor The number of spaces to add to each level of indentation.
      * @return a printable, displayable, portable, transmittable representation of the object, beginning with <code>{</code>
-     * &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
+     *         &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
      * @throws JSONException If the object contains an invalid number.
      */
     public String toString(int indentFactor) throws JSONException {
@@ -1094,9 +1001,9 @@ public class JSONObject implements Serializable {
      * Warning: This method assumes that the data structure is acyclical.
      *
      * @param indentFactor The number of spaces to add to each level of indentation.
-     * @param indent       The indentation of the top level.
+     * @param indent The indentation of the top level.
      * @return a printable, displayable, transmittable representation of the object, beginning with <code>{</code>
-     * &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
+     *         &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
      * @throws JSONException If the object contains an invalid number.
      */
     String toString(int indentFactor, int indent) throws JSONException {
@@ -1108,7 +1015,7 @@ public class JSONObject implements Serializable {
         }
 
         Iterator keys = keys();
-        StringBuffer sb = new StringBuffer("{");
+        StringBuilder sb = new StringBuilder("{");
         int newindent = indent + indentFactor;
         Object o;
 
@@ -1148,6 +1055,99 @@ public class JSONObject implements Serializable {
         sb.append('}');
 
         return sb.toString();
+    }
+
+    /**
+     * Make a JSON text of an Object value. If the object has an value.toJSONString() method, then that method will be used to
+     * produce the JSON text. The method is required to produce a strictly conforming text. If the object does not contain a
+     * toJSONString method (which is the most common case), then a text will be produced by the rules.
+     * <p/>
+     * Warning: This method assumes that the data structure is acyclical.
+     *
+     * @param value The value to be serialized.
+     * @return a printable, displayable, transmittable representation of the object, beginning with <code>{</code>
+     *         &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
+     * @throws JSONException If the value is or contains an invalid number.
+     */
+    static String valueToString(Object value) throws JSONException {
+        if ((value == null) || value.equals(null)) {
+            return "null";
+        }
+
+        if (value instanceof JSONString) {
+            Object o;
+
+            try {
+                o = ((JSONString) value).toJSONString();
+            } catch (Exception e) {
+                throw new JSONException(e);
+            }
+
+            if (o instanceof String) {
+                return (String) o;
+            }
+
+            throw new JSONException("Bad value from toJSONString: " + o);
+        }
+
+        if (value instanceof Number) {
+            return numberToString((Number) value);
+        }
+
+        if ((value instanceof Boolean) || (value instanceof JSONObject) || (value instanceof JSONArray)) {
+            return value.toString();
+        }
+
+        return quote(value.toString());
+    }
+
+    /**
+     * Make a prettyprinted JSON text of an object value.
+     * <p/>
+     * Warning: This method assumes that the data structure is acyclical.
+     *
+     * @param value The value to be serialized.
+     * @param indentFactor The number of spaces to add to each level of indentation.
+     * @param indent The indentation of the top level.
+     * @return a printable, displayable, transmittable representation of the object, beginning with <code>{</code>
+     *         &nbsp;<small>(left brace)</small> and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
+     * @throws JSONException If the object contains an invalid number.
+     */
+    static String valueToString(Object value, int indentFactor, int indent) throws JSONException {
+        if ((value == null) || value.equals(null)) {
+            return "null";
+        }
+
+        try {
+            if (value instanceof JSONString) {
+                Object o = ((JSONString) value).toJSONString();
+
+                if (o instanceof String) {
+                    return (String) o;
+                }
+            }
+        } catch (Exception e) {
+
+            /* forget about it */
+        }
+
+        if (value instanceof Number) {
+            return numberToString((Number) value);
+        }
+
+        if (value instanceof Boolean) {
+            return value.toString();
+        }
+
+        if (value instanceof JSONObject) {
+            return ((JSONObject) value).toString(indentFactor, indent);
+        }
+
+        if (value instanceof JSONArray) {
+            return ((JSONArray) value).toString(indentFactor, indent);
+        }
+
+        return quote(value.toString());
     }
 
     /**

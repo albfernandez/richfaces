@@ -48,18 +48,6 @@ public class ITSelectMouseSelection {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form id='form'>");
-        p.body("    <rich:select id='select'  enableManualInput='true'>");
-        p.body("        <f:selectItems value='#{autocompleteBean.suggestions}' />");
-        p.body("    </rich:select>");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void test() {
         browser.get(contextPath.toExternalForm());
@@ -70,5 +58,17 @@ public class ITSelectMouseSelection {
         tampaBayOption.click();
 
         assertEquals("Tampa Bay", selectInput.getAttribute("value"));
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='form'>");
+        p.body("    <rich:select id='select'  enableManualInput='true'>");
+        p.body("        <f:selectItems value='#{autocompleteBean.suggestions}' />");
+        p.body("    </rich:select>");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

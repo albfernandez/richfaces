@@ -25,12 +25,14 @@
  */
 package org.richfaces.demo.validator;
 
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
 import java.lang.reflect.ParameterizedType;
+
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 
 /**
  * @author asmirnov
+ *
  */
 public abstract class Validable<T> {
     T value;

@@ -21,18 +21,19 @@
  */
 package org.richfaces.javascript;
 
-import org.ajax4jsf.javascript.ScriptWithDependencies;
-import org.richfaces.resource.ResourceKey;
-
 import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.ajax4jsf.javascript.ScriptWithDependencies;
+import org.richfaces.resource.ResourceKey;
+
 /**
  * @author abelevich
+ *
  */
 public abstract class DnDScript implements ScriptWithDependencies {
-    private static final Set<ResourceKey> BASE_RESOURCES = new LinkedHashSet<ResourceKey>();
+    private static final Set<ResourceKey> BASE_RESOURCES = new LinkedHashSet<>();
 
     static {
         BASE_RESOURCES.add(new ResourceKey("jquery.js", "org.richfaces"));
@@ -40,11 +41,7 @@ public abstract class DnDScript implements ScriptWithDependencies {
         BASE_RESOURCES.add(new ResourceKey("richfaces.js", "org.richfaces"));
         BASE_RESOURCES.add(new ResourceKey("richfaces-base-component.js", "org.richfaces"));
         BASE_RESOURCES.add(new ResourceKey("richfaces-event.js", "org.richfaces"));
-        BASE_RESOURCES.add(new ResourceKey("core.js", "com.jqueryui"));
-        BASE_RESOURCES.add(new ResourceKey("widget.js", "com.jqueryui"));
-        BASE_RESOURCES.add(new ResourceKey("mouse.js", "com.jqueryui"));
-        BASE_RESOURCES.add(new ResourceKey("draggable.js", "com.jqueryui"));
-        BASE_RESOURCES.add(new ResourceKey("droppable.js", "com.jqueryui"));
+        BASE_RESOURCES.add(new ResourceKey("jquery-ui.js", "com.jqueryui"));        
     }
 
     private final String name;

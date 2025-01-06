@@ -22,8 +22,8 @@
 
 package org.richfaces.demo.output;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 @ManagedBean(name = "rf11474")
 @ViewScoped

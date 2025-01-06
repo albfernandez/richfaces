@@ -24,38 +24,16 @@
 
     <engine>
         <property name="maxTestClassesBeforeRestart">${arquillian.maxTestClassesBeforeRestart:1}</property>
-<!--         <property name="deploymentExportPath">target/</property>  -->
     </engine>
 
-    <container qualifier="jbosseap6" default="${arquillian.launch.jbosseap6}">
+    <container qualifier="wildfly" default="${arquillian.launch.wildfly}">
         <configuration>
             <property name="javaVmArguments">${arquillian.container.vmargs}</property>
             <property name="jbossHome">${arquillian.container.home}</property>
         </configuration>
     </container>
     
-    <container qualifier="wildfly8" default="${arquillian.launch.wildfly8}">
-        <configuration>
-            <property name="javaVmArguments">${arquillian.container.vmargs}</property>
-            <property name="jbossHome">${arquillian.container.home}</property>
-        </configuration>
-    </container>
-    
-    <container qualifier="wildfly9" default="${arquillian.launch.wildfly9}">
-        <configuration>
-            <property name="javaVmArguments">${arquillian.container.vmargs}</property>
-            <property name="jbossHome">${arquillian.container.home}</property>
-        </configuration>
-    </container>
-    
-    <container qualifier="wildfly10" default="${arquillian.launch.wildfly10}">
-        <configuration>
-            <property name="javaVmArguments">${arquillian.container.vmargs}</property>
-            <property name="jbossHome">${arquillian.container.home}</property>
-        </configuration>
-    </container>
-
-    <container qualifier="tomcat7" default="${arquillian.launch.tomcat7}">
+    <container qualifier="tomcat" default="${arquillian.launch.tomcat}">
         <configuration>
             <property name="catalinaHome">${arquillian.container.home}</property>
             <property name="javaVmArguments">
@@ -66,16 +44,12 @@
         </configuration>
     </container>
     
-    <container qualifier="tomcat8" default="${arquillian.launch.tomcat8}">
+    <container qualifier="payara" default="${arquillian.launch.payara}">
         <configuration>
-            <property name="catalinaHome">${arquillian.container.home}</property>
-            <property name="javaVmArguments">
-                -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Djava.rmi.server.hostname=127.0.0.1
-            </property>
-            <property name="user">admin</property>
-            <property name="pass">pass</property>
+            <property name="glassFishHome">${arquillian.container.home}</property>
         </configuration>
     </container>
+    
 
     <extension qualifier="selenium-server">
         <property name="port">8444</property>
@@ -92,9 +66,7 @@
         <property name="remoteReusable">${arquillian.drone.reusable}</property>
         <property name="remoteAddress">http://localhost:4444/wd/hub/</property>
 
-        <property name="chromeDriverBinary">/opt/google/chrome/chromedriver</property>
-        <property name="phantomjs.binary.path">target/phantomjs</property>
-
+        <property name="chromeDriverBinary">/usr/bin/chromedriver</property>
     </extension>
 
     <extension qualifier="richfaces">

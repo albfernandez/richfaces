@@ -21,21 +21,23 @@
  */
 package org.richfaces.demo.core;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-import jakarta.faces.model.SelectItem;
 import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 /**
  * @author Nick Belaevski
+ *
  */
 @ManagedBean(name = "dynamicExecuteBean")
 @SessionScoped
 public class DynamicExecuteBean implements Serializable {
     private static final long serialVersionUID = -486936947341873167L;
-    private static final SelectItem[] POSSIBLE_EXECUTE_OPTIONS = new SelectItem[]{new SelectItem(null, "default"),
+    private static final SelectItem[] POSSIBLE_EXECUTE_OPTIONS = new SelectItem[] { new SelectItem(null, "default"),
             new SelectItem("@none"), new SelectItem("@this"), new SelectItem("@form"), new SelectItem("formId"),
-            new SelectItem("anotherFormId"), new SelectItem("@all")};
+            new SelectItem("anotherFormId"), new SelectItem("@all") };
     private int actionsCounter = 0;
     private Object execute = null;
     private String inputValue;

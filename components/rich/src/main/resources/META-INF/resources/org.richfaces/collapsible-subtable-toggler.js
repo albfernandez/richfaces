@@ -20,7 +20,7 @@
         this.element = $(document.getElementById(this.id));
 
         if (this.element && this.eventName) {
-            this.element.bind(this.eventName, $.proxy(this.switchState, this));
+            this.element.on(this.eventName, $.proxy(this.switchState, this));
         }
     };
 

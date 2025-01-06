@@ -21,16 +21,17 @@
  */
 package org.richfaces.resource.optimizer.vfs;
 
-import org.richfaces.resource.optimizer.vfs.file.FileVFSRoot;
-import org.richfaces.resource.optimizer.vfs.zip.ZipVFSRoot;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import org.richfaces.resource.optimizer.vfs.file.FileVFSRoot;
+import org.richfaces.resource.optimizer.vfs.zip.ZipVFSRoot;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public final class VFS {
     private VFS() {

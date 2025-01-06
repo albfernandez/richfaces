@@ -1,12 +1,12 @@
 package org.richfaces.resource.plugin;
 
+import java.util.Locale;
+
 import org.apache.maven.plugin.logging.Log;
 import org.richfaces.l10n.BundleLoader;
 import org.richfaces.l10n.InterpolationException;
 import org.richfaces.l10n.MessageInterpolator;
 import org.richfaces.log.Logger;
-
-import java.util.Locale;
 
 public class LoggerWrapper implements Logger {
 

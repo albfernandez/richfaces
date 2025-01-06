@@ -29,6 +29,7 @@ import jakarta.faces.event.PhaseId;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class BypassUpdatesAjaxBehaviorEvent extends BehaviorEvent {
     private static final long serialVersionUID = 154803120133655033L;

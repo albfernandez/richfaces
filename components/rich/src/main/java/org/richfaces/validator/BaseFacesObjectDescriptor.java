@@ -22,17 +22,19 @@
 
 package org.richfaces.validator;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
-import org.richfaces.javascript.Message;
+import java.util.Map;
 
 import jakarta.faces.application.FacesMessage;
-import java.util.Map;
+
+import org.richfaces.javascript.Message;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 
 public class BaseFacesObjectDescriptor<T> {
     private final Class<? extends T> converterClass;
-    private final Message message;
     private Map<String, Object> parameters = Maps.newHashMap();
+    private final Message message;
 
     public BaseFacesObjectDescriptor(Class<? extends T> converterClass, FacesMessage message) {
         this.converterClass = converterClass;

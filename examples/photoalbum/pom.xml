@@ -27,7 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-photoalbum</artifactId>
-    <version>4.5.18.Final</version>
+    <version>4.6.22-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>RichFaces Photoalbum</name>
@@ -36,7 +36,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         RichFaces Photoalbum is a sample of complex Java EE application using RichFaces Framework. 
     </description>
 
-    <url>http://richfaces.org</url>
+    <url>https://github.com/albfernandez/richfaces</url>
 
     <licenses>
         <license>
@@ -52,21 +52,32 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </developer>
     </developers>
 
+    <scm>
+        <connection>scm:git:git@github.com:albfernandez/richfaces.git</connection>
+        <developerConnection>scm:git:git@github.com:albfernandez/richfaces.git</developerConnection>
+        <url>git@github.com:albfernandez/richfaces.git</url>
+    </scm>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/albfernandez/richfaces/issues</url>
+    </issueManagement>
+
     <properties>
-        <version.richfaces>4.5.18.Final</version.richfaces>
-        <version.metadata-extractor>2.6.2</version.metadata-extractor>
-        <version.jackson>1.9.12</version.jackson>
+        <java.version>1.8</java.version>
+        <version.richfaces>4.6.22-SNAPSHOT</version.richfaces>
+        <version.metadata-extractor>2.18.0</version.metadata-extractor>
+        <version.jackson>2.13.1</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
-        <version.wildfly100>10.0.0.Final</version.wildfly100>
-        <version.wildfly90>9.0.1.Final</version.wildfly90>
+        <version.wildfly100>10.1.0.Final</version.wildfly100>
+        <version.wildfly90>9.0.2.Final</version.wildfly90>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
         <version.wildfly82>8.2.1.Final</version.wildfly82>
-        <version.jboss-as7>7.1.1.Final</version.jboss-as7>
+        <version.jboss-as7>7.2.0.Final</version.jboss-as7>
 
-        <maven.min.version>3.0</maven.min.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.min.version>3.0.3</maven.min.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -86,18 +97,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             -Djboss.bind.address.management=${arquillian.container.jbossas.7-1.node0}
             -Djboss.bind.address.unsecure=${arquillian.container.jbossas.7-1.node0}</arquillian.container.jbossas.7-1.jvm.args>
         <arquillian.container.wildfly.8-1.jvm.args>-Xmx768m -XX:MaxPermSize=256m</arquillian.container.wildfly.8-1.jvm.args>
-        
-        <!-- Release repositories -->
-        <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
-        <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
-    
+
         <testCategory.included.default>NOT category.None</testCategory.included.default>
         <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
-        
+
         <!-- JVM values for surefire plugin -->
         <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->
         <surefire.jvm.params>-Xms1024m -Xmx2048m</surefire.jvm.params>
-        
+
         <!-- G+ login credentials, default is undefined -->
         <!-- if not provided, any tests requiring G+ login will fail -->
         <googlePlus.username>undefined</googlePlus.username>
@@ -114,7 +121,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 Reference usage of RichFaces BOM dependency version management
             -->
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-cache-bom</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
@@ -125,7 +132,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                (not intented to be used by other projects projects)
             -->
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-build</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
@@ -139,7 +146,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <!-- Java EE deps -->
         <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-jakartaee-web-8.0</artifactId>
+            <artifactId>jboss-javaee-web-6.0</artifactId>
             <type>pom</type>
             <scope>provided</scope>
             <exclusions>
@@ -153,10 +160,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </exclusion>
             </exclusions>
         </dependency>
+
+		<!--  javax (for java11) -->
+		<dependency>
+			<groupId>com.sun.activation</groupId>
+			<artifactId>javax.activation</artifactId>
+			<version>1.2.0</version>
+		</dependency>
     
         <!-- RichFaces dependency -->
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces</artifactId>
         </dependency>
 
@@ -186,11 +200,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <artifactId>metadata-extractor</artifactId>
             <version>${version.metadata-extractor}</version>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-jaxrs</artifactId>
-            <version>${version.jackson}</version>
-        </dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.jaxrs</groupId>
+		    <artifactId>jackson-jaxrs-json-provider</artifactId>
+		    <version>${version.jackson}</version>
+		</dependency>
+
+
 
         <!-- Test dependencies -->
         <dependency>
@@ -204,14 +220,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces-page-fragments</artifactId>
             <scope>test</scope>
             <optional>true</optional>
             <version>${version.richfaces}</version>
         </dependency>
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces-build-resources</artifactId>
             <scope>test</scope>
         </dependency>
@@ -296,7 +312,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </plugin>
 
             <plugin>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
                 <version>${version.richfaces}</version>
                 <configuration>
@@ -405,27 +421,27 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <plugins>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.5.1</version>
+                    <version>3.8.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.2</version>
+                    <version>3.0.0-M3</version>
                     <configuration>
                         <!-- Travis build workaround -->
                         <argLine>${surefire.jvm.params}</argLine>
@@ -433,24 +449,30 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </plugin>
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>3.2.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.9</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.9.1</version>
+                    <version>3.0.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.10.1</version>
+                    <configuration>
+						<source>7</source>
+						<links>
+	                        <link>https://docs.oracle.com/javase/7/docs/api/</link>
+	                    </links>
+					</configuration>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.richfaces</groupId>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
                     <artifactId>ichfaces-resources-maven-plugin</artifactId>
                     <version>${version.richfaces}</version>
                 </plugin>
@@ -493,7 +515,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                 </pluginExecution>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>org.richfaces</groupId>
+                                        <groupId>com.github.albfernandez.richfaces</groupId>
                                         <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
                                         <versionRange>[4.5.2-Final,)</versionRange>
                                         <goals>
@@ -501,7 +523,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
@@ -524,6 +546,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+							<source>7</source>
+							<links>
+		                        <link>https://docs.oracle.com/javase/7/docs/api/</link>
+		                    </links>
+						</configuration>
                         <executions>
                             <execution>
                                 <id>generate-javadoc</id>
@@ -575,35 +603,34 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </activation>
             <properties>
                 <integration.test.source>src/test/java/</integration.test.source>
-                
+
                 <!-- Arquillian Configuration -->
                 <arquillian.debug>false</arquillian.debug>
-                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
+                <arquillian.drone.browser>chromeHeadless</arquillian.drone.browser>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
-                <arquillian.richfaces.version />
+                <arquillian.richfaces.version/>
                 <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
                 <arquillian.richfaces.jsfProvider>mojarra</arquillian.richfaces.jsfProvider>
                 <arquillian.richfaces.jsfImplementation>org.glassfish:javax.faces</arquillian.richfaces.jsfImplementation>
-                <arquillian.container.home />
-                <arquillian.container.distribution />
-                <arquillian.container.configuration />
+                <arquillian.container.home/>
+                <arquillian.container.distribution/>
+                <arquillian.container.configuration/>
                 <arquillian.container.uninstall>true</arquillian.container.uninstall>
                 <arquillian.container.vmargs>-Xmx768m -XX:MaxPermSize=256m</arquillian.container.vmargs>
-                <arquillian.maven.settings />
-                
+                <arquillian.maven.settings/>
+
                 <!-- Container Selection -->
                 <arquillian.launch.wildfly90>false</arquillian.launch.wildfly90>
                 <arquillian.launch.wildfly81>false</arquillian.launch.wildfly81>
                 <arquillian.launch.wildfly82>false</arquillian.launch.wildfly82>
-                
+
                 <!-- JUnit Categories Selection -->
-                <testCategory.excluded.container />
-                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
-                <testCategory.excluded.jsf />
+                <testCategory.excluded.container/>
+                <testCategory.excluded.jsf/>
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>org.richfaces</groupId>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
                     <artifactId>richfaces-build-resources</artifactId>
                     <scope>test</scope>
                 </dependency>
@@ -648,18 +675,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
                         <executions>
-                            <!--                             <execution> -->
-                            <!--                                 <id>add-integration-test-sources</id> -->
-                            <!--                                 <phase>process-test-sources</phase> -->
-                            <!--                                 <goals> -->
-                            <!--                                     <goal>add-test-source</goal> -->
-                            <!--                                 </goals> -->
-                            <!--                                 <configuration> -->
-                            <!--                                     <sources> -->
-                            <!--                                         <source>${integration.test.source}</source> -->
-                            <!--                                     </sources> -->
-                            <!--                                 </configuration> -->
-                            <!--                             </execution> -->
+                            <!-- <execution> -->
+                            <!--    <id>add-integration-test-sources</id> -->
+                            <!--    <phase>process-test-sources</phase> -->
+                            <!--    <goals> -->
+                            <!--        <goal>add-test-source</goal> -->
+                            <!--    </goals> -->
+                            <!--    <configuration> -->
+                            <!--        <sources> -->
+                            <!--            <source>${integration.test.source}</source> -->
+                            <!--        </sources> -->
+                            <!--    </configuration> -->
+                            <!-- </execution> -->
                             <execution>
                                 <id>add-integration-test-resources</id>
                                 <phase>process-test-resources</phase>
@@ -683,7 +710,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>3.5.2</version>
+                        <version>3.0.0-M3</version>
                         <executions>
                             <execution>
                                 <id>default-test</id>
@@ -728,7 +755,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>org.richfaces</groupId>
+                                <groupId>com.github.albfernandez.richfaces</groupId>
                                 <artifactId>richfaces-build-resources</artifactId>
                                 <version>${version.richfaces}</version>
                             </dependency>
@@ -747,7 +774,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>org.richfaces</groupId>
+                                            <groupId>com.github.albfernandez.richfaces</groupId>
                                             <artifactId>richfaces-build-resources</artifactId>
                                             <version>${version.richfaces}</version>
                                             <type>jar</type>
@@ -764,20 +791,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </build>
         </profile>
 
-        <!-- Browsers -->
-        <profile>
-            <id>browser-phantomjs</id>
-            <activation>
-                <property>
-                    <name>browser</name>
-                    <value>phantomjs</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
-                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
-            </properties>
-        </profile>
+        <!-- Browsers -->       
         <profile>
             <id>browser-chrome</id>
             <activation>
@@ -787,8 +801,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </property>
             </activation>
             <properties>
-                <arquillian.drone.browser>chrome</arquillian.drone.browser>
-                <testCategory.excluded.browser />
+                <arquillian.drone.browser>chromeHeadless</arquillian.drone.browser>
+                <testCategory.excluded.browser/>
             </properties>
         </profile>
         <profile>
@@ -824,27 +838,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <arquillian.launch.wildfly10>true</arquillian.launch.wildfly10>
                 <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly100}</arquillian.container.home>
                 <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly100}</arquillian.container.distribution>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-managed-9-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly90</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.wildfly9>true</arquillian.launch.wildfly9>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly90}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly90}</arquillian.container.distribution>
             </properties>
             <dependencies>
                 <dependency>
@@ -898,197 +891,5 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </dependency>
             </dependencies>
         </profile>
-        <profile>
-            <id>wildfly-remote-10-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly100-remote</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-remote-9-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly90-remote</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-remote-8-1</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly81-remote</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <version>${version.wildfly81}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-remote-8-2</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly82-remote</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <version>${version.wildfly82}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-managed-6-4</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap64</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
-                <arquillian.container.home>${project.build.directory}/jboss-eap-6.4</arquillian.container.home>
-                <arquillian.container.distribution>file:///path/to/jboss-eap-6.4.0.zip</arquillian.container.distribution>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-remote-6-4</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap64-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-managed-6-3</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap63</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
-                <arquillian.container.home>${project.build.directory}/jboss-eap-6.3</arquillian.container.home>
-                <arquillian.container.distribution>file:///path/to/jboss-eap-6.3.0.zip</arquillian.container.distribution>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-remote-6-3</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap63-remote</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
     </profiles>
-
-    <scm>
-        <connection>scm:git:git://github.com/richfaces/richfaces.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/richfaces.git</developerConnection>
-        <url>https://github.com/richfaces/richfaces</url>
-        <tag>HEAD</tag>
-    </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>jboss-releases-repository</id>
-            <name>JBoss Releases Repository</name>
-            <url>${jboss.releases.repo.url}</url>
-        </repository>
-        <snapshotRepository>
-            <id>jboss-snapshots-repository</id>
-            <name>JBoss Snapshots Repository</name>
-            <url>${jboss.snapshots.repo.url}</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>

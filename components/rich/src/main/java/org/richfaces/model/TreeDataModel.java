@@ -21,11 +21,13 @@
  */
 package org.richfaces.model;
 
-import jakarta.faces.convert.Converter;
 import java.util.Iterator;
+
+import jakarta.faces.convert.Converter;
 
 /**
  * @author Nick Belaevski
+ *
  */
 // TODO - add necessary methods for tree adaptors support
 public interface TreeDataModel<E> {

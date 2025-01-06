@@ -31,8 +31,8 @@ public class TreeShowcase {
 
     public void showcase_tree() {
         tree.expandNode(ChoicePickerHelper.byVisibleText().match("src"))
-                .expandNode(ChoicePickerHelper.byIndex().index(2))
-                .selectNode(1);
+            .expandNode(ChoicePickerHelper.byIndex().index(2))
+            .selectNode(1);
 
         tree.selectNode(4).collapseNode(1);
     }

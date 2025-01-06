@@ -21,7 +21,11 @@
  */
 package org.richfaces.component;
 
-import org.richfaces.application.CoreConfiguration;
+import java.util.Comparator;
+
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
+
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
@@ -31,13 +35,10 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.ColumnProps;
 import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.component.attribute.StyleProps;
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
-
-import jakarta.el.ValueExpression;
-import jakarta.faces.context.FacesContext;
-import java.util.Comparator;
 
 /**
  * <p> The &lt;rich:column&gt; component facilitates columns in a table. It supports merging columns and rows, sorting,
@@ -47,28 +48,12 @@ import java.util.Comparator;
  */
 @JsfComponent(type = AbstractColumn.COMPONENT_TYPE, family = AbstractColumn.COMPONENT_FAMILY, facets = {
         @Facet(name = "header", description = @Description("Column header")),
-        @Facet(name = "footer", description = @Description("Column footer"))}, tag = @Tag(name = "column"))
-public abstract class AbstractColumn extends javax.faces.component.UIColumn implements Column, ColumnProps, StyleClassProps, StyleProps {
+        @Facet(name = "footer", description = @Description("Column footer")) }, tag = @Tag(name = "column"))
+public abstract class AbstractColumn extends jakarta.faces.component.UIColumn implements Column, ColumnProps, StyleClassProps, StyleProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Column";
     public static final String COMPONENT_FAMILY = "org.richfaces.Column";
     private static Boolean builtInSortControlsEnabled;
     private static Boolean builtInFilterControlsEnabled;
-
-    public static boolean isBuiltInSortControlsEnabled() {
-        if (builtInSortControlsEnabled == null) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            builtInSortControlsEnabled = ConfigurationServiceHelper.getBooleanConfigurationValue(context, CoreConfiguration.Items.builtInSortControlsEnabled);
-        }
-        return Boolean.TRUE.equals(builtInSortControlsEnabled);
-    }
-
-    public static boolean isBuiltInFilterControlsEnabled() {
-        if (builtInFilterControlsEnabled == null) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            builtInFilterControlsEnabled = ConfigurationServiceHelper.getBooleanConfigurationValue(context, CoreConfiguration.Items.builtInFilterControlsEnabled);
-        }
-        return Boolean.TRUE.equals(builtInFilterControlsEnabled);
-    }
 
     /**
      * If "true" next column begins from the first row.
@@ -189,11 +174,27 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
     }
 
     public boolean useBuiltInFilter() {
-        return isBuiltInFilterControlsEnabled() && getFilterField() != null && !"custom".equals(getFilterType());
+        return isBuiltInFilterControlsEnabled() && getFilterField() != null &&  ! "custom".equals(getFilterType());
     }
 
     public boolean useBuiltInSort() {
-        return isBuiltInSortControlsEnabled() && getValueExpression("sortBy") != null && !"custom".equals(getSortType());
+        return isBuiltInSortControlsEnabled() && getValueExpression("sortBy") != null && ! "custom".equals(getSortType());
+    }
+
+    public static boolean isBuiltInSortControlsEnabled(){
+        if(builtInSortControlsEnabled== null){
+            FacesContext context = FacesContext.getCurrentInstance();
+            builtInSortControlsEnabled =  ConfigurationServiceHelper.getBooleanConfigurationValue(context, CoreConfiguration.Items.builtInSortControlsEnabled);
+        }
+        return Boolean.TRUE.equals(builtInSortControlsEnabled);
+    }
+
+    public static boolean isBuiltInFilterControlsEnabled(){
+        if(builtInFilterControlsEnabled== null){
+            FacesContext context = FacesContext.getCurrentInstance();
+            builtInFilterControlsEnabled =  ConfigurationServiceHelper.getBooleanConfigurationValue(context, CoreConfiguration.Items.builtInFilterControlsEnabled);
+        }
+        return Boolean.TRUE.equals(builtInFilterControlsEnabled);
     }
 
 

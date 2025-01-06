@@ -21,6 +21,19 @@
  */
 package org.richfaces.component;
 
+import java.io.IOException;
+
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.PhaseId;
+
 import org.ajax4jsf.component.IterationStateHolder;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -41,18 +54,6 @@ import org.richfaces.event.TreeToggleSource;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.view.facelets.TreeNodeHandler;
 
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIComponentBase;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitResult;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.FacesEvent;
-import jakarta.faces.event.PhaseId;
-import java.io.IOException;
-
 /**
  * <p> The <rich:treeNode> component is a child component of the <rich:tree> component. It represents nodes in the
  * parent tree. The appearance and functionality of each tree node can be customized. </p>
@@ -68,6 +69,10 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     public static final String SUBTREE_META_COMPONENT_ID = "subtree";
 
     private AbstractTree parent;
+
+    enum PropertyKeys {
+        expanded
+    }
 
     public AbstractTreeNode() {
         setRendererType("org.richfaces.TreeNodeRenderer");
@@ -242,9 +247,5 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     @Attribute(hidden = true)
     public Object getData() {
         return findTreeComponent().getData();
-    }
-
-    enum PropertyKeys {
-        expanded
     }
 }

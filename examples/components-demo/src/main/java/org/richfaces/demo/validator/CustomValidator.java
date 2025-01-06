@@ -21,16 +21,17 @@
  */
 package org.richfaces.demo.validator;
 
-import jakarta.faces.validator.FacesValidator;
-import jakarta.faces.validator.LengthValidator;
+import javax.faces.validator.FacesValidator;
+import javax.faces.validator.LengthValidator;
 
 /**
  * <p class="changed_added_4_0">
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
-@FacesValidator(value = "custom")
+@FacesValidator(value="custom")
 public class CustomValidator extends LengthValidator {
     public CustomValidator() {
         setMinimum(1);

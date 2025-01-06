@@ -74,19 +74,6 @@ public class ITImplicitAjaxOutputRendering {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.form("<a4j:commandButton id='button' render='@this' />");
-        p.form("<a4j:commandButton id='buttonLimitRender' render='@this' limitRender='true' />");
-
-        p.form("<a4j:outputPanel id='panel' ajaxRendered='true'>");
-        p.form("    #{counterBean.incrementAndGet()}");
-        p.form("</a4j:outputPanel>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void implicitly_rendered_areas_are_rendered_for_each_ajax_request_not_matter_what_render_attribute_specifies() {
         browser.get(contextPath.toExternalForm());
@@ -103,5 +90,18 @@ public class ITImplicitAjaxOutputRendering {
 
         guardAjax(buttonLimitRender).click();
         assertThat(panel.getText(), equalTo("1"));
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.form("<a4j:commandButton id='button' render='@this' />");
+        p.form("<a4j:commandButton id='buttonLimitRender' render='@this' limitRender='true' />");
+
+        p.form("<a4j:outputPanel id='panel' ajaxRendered='true'>");
+        p.form("    #{counterBean.incrementAndGet()}");
+        p.form("</a4j:outputPanel>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

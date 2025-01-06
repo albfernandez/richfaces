@@ -27,14 +27,15 @@ import jakarta.faces.context.FacesContext;
  * Interface for classes, able to receive visitor processing calls from ExtendedDataModel
  *
  * @author shura
+ *
  */
 public interface DataVisitor {
     /**
      * This method called back ( as visitor ) from {@link ExtendedDataModel#walk(FacesContext, DataVisitor, Range, Object)} for each
      * row.
      *
-     * @param context  current JSF context.
-     * @param rowKey   current row key of DataModel
+     * @param context current JSF context.
+     * @param rowKey current row key of DataModel
      * @param argument Implementation-specific argument
      */
     DataVisitResult process(FacesContext context, Object rowKey, Object argument);

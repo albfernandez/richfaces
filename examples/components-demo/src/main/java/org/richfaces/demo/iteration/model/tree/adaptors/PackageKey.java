@@ -23,6 +23,7 @@ package org.richfaces.demo.iteration.model.tree.adaptors;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class PackageKey {
     private String packageName;

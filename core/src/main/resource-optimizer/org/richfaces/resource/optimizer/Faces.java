@@ -25,6 +25,7 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public interface Faces {
     void start();

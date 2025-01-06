@@ -52,45 +52,6 @@ public class ITBuiltInFilter {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-        p.xmlns("fn", "http://java.sun.com/jsp/jstl/functions");
-
-        p.body("<script type='text/javascript'>");
-        p.body("function filterEdt(filterValue) {");
-        p.body("  var edt = RichFaces.$('myForm:edt');");
-        p.body("  edt.filter('column2', filterValue, true);");
-        p.body("}");
-        p.body("</script>");
-        p.body("<h:form id='myForm'>");
-        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBuiltInBean.values}' var='bean' filterVar='fv' >");
-        p.body("        <rich:column id='column1' width='150px' >");
-        p.body("            <f:facet name='header'>Column 1</f:facet>");
-        p.body("            <h:outputText value='Bean:' />");
-        p.body("        </rich:column>");
-        p.body("        <rich:column id='column2' width='150px' ");
-        p.body("                         filterValue='#{iterationBuiltInBean.filterValue}' ");
-        p.body("                         filterExpression='#{fv eq null or bean le fv}' >");
-        p.body("            <f:facet name='header'>Column 2</f:facet>");
-        p.body("            <h:outputText value='#{bean}' />");
-        p.body("        </rich:column>");
-        p.body("        <rich:column id='column3' width='150px' ");
-        p.body("                         filterValue='#{iterationBuiltInBean.filterValue2}' ");
-        p.body("                         filterExpression='#{fn:startsWith(bean,fv)}' ");
-        p.body("                         filterType='custom' >");
-        p.body("            <f:facet name='header'>Column 3</f:facet>");
-        p.body("            <h:outputText value='Row #{bean}, Column 3' />");
-        p.body("        </rich:column>");
-        p.body("    </rich:extendedDataTable>");
-        p.body("    <br/>");
-        p.body("    <a4j:commandButton id='ajax' execute='edt' render='edt' value='Ajax' action='#{iterationBuiltInBean.setFilterValue(6)}' />");
-        p.body("    <br/>");
-        p.body("    <input id='blur' value='blur' type='button' />");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void check_builtin_filters_present() {
         // given
@@ -138,5 +99,44 @@ public class ITBuiltInFilter {
         assertEquals("Number of rows present", 7, column2CellsElements.size());
 
         assertEquals("Filter input value should be backing bean value", "6", filterInput.getAttribute("value"));
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+        p.xmlns("fn", "http://java.sun.com/jsp/jstl/functions");
+
+        p.body("<script type='text/javascript'>");
+        p.body("function filterEdt(filterValue) {");
+        p.body("  var edt = RichFaces.$('myForm:edt');");
+        p.body("  edt.filter('column2', filterValue, true);");
+        p.body("}");
+        p.body("</script>");
+        p.body("<h:form id='myForm'>");
+        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBuiltInBean.values}' var='bean' filterVar='fv' >");
+        p.body("        <rich:column id='column1' width='150px' >");
+        p.body("            <f:facet name='header'>Column 1</f:facet>");
+        p.body("            <h:outputText value='Bean:' />");
+        p.body("        </rich:column>");
+        p.body("        <rich:column id='column2' width='150px' ");
+        p.body("                         filterValue='#{iterationBuiltInBean.filterValue}' ");
+        p.body("                         filterExpression='#{fv eq null or bean le fv}' >");
+        p.body("            <f:facet name='header'>Column 2</f:facet>");
+        p.body("            <h:outputText value='#{bean}' />");
+        p.body("        </rich:column>");
+        p.body("        <rich:column id='column3' width='150px' ");
+        p.body("                         filterValue='#{iterationBuiltInBean.filterValue2}' ");
+        p.body("                         filterExpression='#{fn:startsWith(bean,fv)}' ");
+        p.body("                         filterType='custom' >");
+        p.body("            <f:facet name='header'>Column 3</f:facet>");
+        p.body("            <h:outputText value='Row #{bean}, Column 3' />");
+        p.body("        </rich:column>");
+        p.body("    </rich:extendedDataTable>");
+        p.body("    <br/>");
+        p.body("    <a4j:commandButton id='ajax' execute='edt' render='edt' value='Ajax' action='#{iterationBuiltInBean.setFilterValue(6)}' />");
+        p.body("    <br/>");
+        p.body("    <input id='blur' value='blur' type='button' />");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

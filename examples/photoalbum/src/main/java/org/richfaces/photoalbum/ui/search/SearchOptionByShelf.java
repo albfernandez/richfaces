@@ -21,17 +21,18 @@
  */
 package org.richfaces.photoalbum.ui.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.richfaces.photoalbum.model.Shelf;
 import org.richfaces.photoalbum.search.ISearchAction;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class, that encapsulate functionality related to search by shelf entity.
  *
  * @author Andrey Markavtsov
+ *
  */
 public class SearchOptionByShelf extends ISearchOption {
 
@@ -77,7 +78,7 @@ public class SearchOptionByShelf extends ISearchOption {
      */
     @Override
     public void search(ISearchAction action, String searchQuery, boolean searchInMyAlbums, boolean searchInShared)
-            throws PhotoAlbumException {
+        throws PhotoAlbumException {
         List<Shelf> list = action.searchByShelves(searchQuery, searchInMyAlbums, searchInShared);
         if (list != null) {
             setSearchResult(list);

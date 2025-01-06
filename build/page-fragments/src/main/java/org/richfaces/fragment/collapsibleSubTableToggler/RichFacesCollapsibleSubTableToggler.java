@@ -35,19 +35,23 @@ import org.richfaces.fragment.common.Utils;
  */
 public class RichFacesCollapsibleSubTableToggler {
 
-    private static final Event DEFAULT_EVENT = Event.CLICK;
-    private static final boolean DEFAULT_TOGGLE_BY = true;
     @Root
     private WebElement root;
+
     @ArquillianResource
     private WebDriver browser;
+
     @FindByJQuery(value = ".rf-csttg > span:visible")
     private WebElement elementWithStyleClass;
     @FindByJQuery(value = ".rf-csttg > span:visible > img")
     private WebElement image;
     @FindByJQuery(value = ".rf-csttg > span:visible > a.rf-csttg-lnk")
     private WebElement label;
+
+    private static final Event DEFAULT_EVENT = Event.CLICK;
     private Event toggleEvent = DEFAULT_EVENT;
+
+    private static final boolean DEFAULT_TOGGLE_BY = true;
     private boolean isToggleByImage = DEFAULT_TOGGLE_BY;
 
     public WebElement getRoot() {

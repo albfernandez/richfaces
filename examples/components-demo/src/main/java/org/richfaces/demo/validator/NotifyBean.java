@@ -22,10 +22,10 @@
 
 package org.richfaces.demo.validator;
 
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
-import jakarta.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
 @ViewScoped
@@ -110,6 +110,10 @@ public class NotifyBean implements Serializable {
         this.showDetail = showDetail;
     }
 
+    public void setShowSummary(boolean showSummary) {
+        this.showSummary = showSummary;
+    }
+
     public boolean isSticky() {
         return sticky;
     }
@@ -128,10 +132,6 @@ public class NotifyBean implements Serializable {
 
     public boolean isShowSummary() {
         return showSummary;
-    }
-
-    public void setShowSummary(boolean showSummary) {
-        this.showSummary = showSummary;
     }
 
     public String getAppearAnimation() {

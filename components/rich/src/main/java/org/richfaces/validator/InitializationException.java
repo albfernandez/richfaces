@@ -27,6 +27,7 @@ package org.richfaces.validator;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 @SuppressWarnings("serial")
 public class InitializationException extends Exception {

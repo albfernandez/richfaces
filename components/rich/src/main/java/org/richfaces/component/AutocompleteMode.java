@@ -23,6 +23,7 @@ package org.richfaces.component;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public enum AutocompleteMode {
 

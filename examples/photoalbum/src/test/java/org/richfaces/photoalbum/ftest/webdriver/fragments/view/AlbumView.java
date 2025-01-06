@@ -21,7 +21,15 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
-import com.google.common.collect.Lists;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.richfaces.photoalbum.ftest.webdriver.tests.AbstractPhotoalbumTest.NO_OWNER;
+import static org.richfaces.photoalbum.ftest.webdriver.tests.AbstractPhotoalbumTest.UNKNOWN_IMG_SRC;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -36,14 +44,7 @@ import org.richfaces.fragment.inplaceInput.RichFacesInplaceInput;
 import org.richfaces.fragment.inputNumberSlider.RichFacesInputNumberSlider;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.richfaces.photoalbum.ftest.webdriver.tests.AbstractPhotoalbumTest.NO_OWNER;
-import static org.richfaces.photoalbum.ftest.webdriver.tests.AbstractPhotoalbumTest.UNKNOWN_IMG_SRC;
+import com.google.common.collect.Lists;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -94,7 +95,7 @@ public class AlbumView {
 
     public void checkUserOwnsAlbum(boolean owns) {
         ArrayList<WebElement> ownAlbumLinks = Lists.newArrayList(albumHeader.getDeleteAlbumLink(),
-                albumHeader.getEditAlbumPropertiesLink());
+            albumHeader.getEditAlbumPropertiesLink());
         if (owns) {
             PhotoalbumUtils.checkVisible(ownAlbumLinks);
         } else {

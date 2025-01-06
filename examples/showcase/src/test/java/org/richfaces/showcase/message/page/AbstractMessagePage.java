@@ -31,40 +31,49 @@ import org.openqa.selenium.support.FindBy;
  */
 public class AbstractMessagePage {
 
+    protected static final int MINIMUM_OF_NAME = 3;
+    protected static final int MINIMUM_OF_JOB = 3;
+    protected static final int MINIMUM_OF_ADDRESS = 10;
+    protected static final int MINIMUM_OF_ZIP = 4;
+
+    protected static final int MAXIMUM_OF_JOB = 50;
+    protected static final int MAXIMUM_OF_ZIP = 9;
+
     public static final String NAME_ERROR_VALUE_REQUIRED = "Name: Validation Error: Value is required.";
     public static final String JOB_ERROR__VALUE_REQUIRED = "Job: Validation Error: Value is required.";
     public static final String ADDRESS_ERROR__VALUE_REQUIRED = "Address: Validation Error: Value is required.";
     public static final String ZIP_ERROR__VALUE_REQUIRED = "Zip: Validation Error: Value is required.";
+
+    public static final String NAME_ERROR_LESS_THAN_MINIMUM = "Name: Validation Error: Length is less than allowable minimum of '"
+        + MINIMUM_OF_NAME + "'";
+    public static final String JOB_ERROR_LESS_THAN_MINIMUM = "Job: Validation Error: Length is less than allowable minimum of '"
+        + MINIMUM_OF_JOB + "'";
+    public static final String ADDRESS_ERROR_LESS_THAN_MINIMUM = "Address: Validation Error: Length is less than allowable minimum of '"
+        + MINIMUM_OF_ADDRESS + "'";
+    public static final String ZIP_ERROR_LESS_THAN_MINIMUM = "Zip: Validation Error: Length is less than allowable minimum of '"
+        + MINIMUM_OF_ZIP + "'";
+
+    public static final String JOB_ERROR_GREATER_THAN_MAXIMUM = "Job: Validation Error: Length is greater than allowable maximum of '"
+        + MAXIMUM_OF_JOB + "'";
+    public static final String ZIP_ERROR_GREATER_THAN_MAXIMUM = "Zip: Validation Error: Length is greater than allowable maximum of '"
+        + MAXIMUM_OF_ZIP + "'";
     public static final String JOB_ERROR_NOT_BETWEEN = "Job: Validation Error: Specified attribute is not between the expected values of 3 and 50.";
     public static final String ZIP_ERROR_NOT_BETWEEN = "Zip: Validation Error: Specified attribute is not between the expected values of 4 and 9.";
-    protected static final int MINIMUM_OF_NAME = 3;
-    public static final String NAME_ERROR_LESS_THAN_MINIMUM = "Name: Validation Error: Length is less than allowable minimum of '"
-            + MINIMUM_OF_NAME + "'";
-    protected static final int MINIMUM_OF_JOB = 3;
-    public static final String JOB_ERROR_LESS_THAN_MINIMUM = "Job: Validation Error: Length is less than allowable minimum of '"
-            + MINIMUM_OF_JOB + "'";
-    protected static final int MINIMUM_OF_ADDRESS = 10;
-    public static final String ADDRESS_ERROR_LESS_THAN_MINIMUM = "Address: Validation Error: Length is less than allowable minimum of '"
-            + MINIMUM_OF_ADDRESS + "'";
-    protected static final int MINIMUM_OF_ZIP = 4;
-    public static final String ZIP_ERROR_LESS_THAN_MINIMUM = "Zip: Validation Error: Length is less than allowable minimum of '"
-            + MINIMUM_OF_ZIP + "'";
-    protected static final int MAXIMUM_OF_JOB = 50;
-    public static final String JOB_ERROR_GREATER_THAN_MAXIMUM = "Job: Validation Error: Length is greater than allowable maximum of '"
-            + MAXIMUM_OF_JOB + "'";
-    protected static final int MAXIMUM_OF_ZIP = 9;
-    public static final String ZIP_ERROR_GREATER_THAN_MAXIMUM = "Zip: Validation Error: Length is greater than allowable maximum of '"
-            + MAXIMUM_OF_ZIP + "'";
-    @FindBy(css = "input[type=submit]")
-    protected WebElement ajaxValidateButton;
+
     @FindByJQuery("input[id$=name]")
     private WebElement nameInput;
+
     @FindByJQuery("input[id$=job]")
     private WebElement jobInput;
+
     @FindByJQuery("input[id$=address]")
     private WebElement addressInput;
+
     @FindByJQuery("input[id$=zip]")
     private WebElement zipInput;
+
+    @FindBy(css = "input[type=submit]")
+    protected WebElement ajaxValidateButton;
 
     public void fillLongerJob() {
         fillInputWithStringOfLength(jobInput, MAXIMUM_OF_JOB + 1);
@@ -131,7 +140,7 @@ public class AbstractMessagePage {
     }
 
     protected WebElement[] allInputs() {
-        return new WebElement[]{nameInput, jobInput, addressInput, zipInput};
+        return new WebElement[] { nameInput, jobInput, addressInput, zipInput };
     }
 
 }

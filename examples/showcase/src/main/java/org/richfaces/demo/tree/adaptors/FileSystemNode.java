@@ -1,28 +1,27 @@
 package org.richfaces.demo.tree.adaptors;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
 import static com.google.common.base.Predicates.containsPattern;
 import static com.google.common.base.Predicates.not;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.transform;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+
 public class FileSystemNode {
     private static final Function<String, FileSystemNode> FACTORY = new Function<String, FileSystemNode>() {
         public FileSystemNode apply(String from) {
             return new FileSystemNode(from.substring(0, from.length() - 1));
-        }
-
-        ;
+        };
     };
 
     private static final Function<String, String> TO_SHORT_PATH = new Function<String, String>() {
@@ -34,9 +33,7 @@ public class FileSystemNode {
             }
 
             return from.substring(idx + 1);
-        }
-
-        ;
+        };
     };
 
     private String path;

@@ -21,12 +21,13 @@
  */
 package org.richfaces.component;
 
-import com.google.common.collect.AbstractIterator;
-import com.google.common.collect.ImmutableSet;
+import java.util.Iterator;
 
 import jakarta.faces.component.UIColumn;
 import jakarta.faces.component.UIComponent;
-import java.util.Iterator;
+
+import com.google.common.collect.AbstractIterator;
+import com.google.common.collect.ImmutableSet;
 
 class DataTableFixedChildrenIterator extends AbstractIterator<UIComponent> {
     private Iterator<UIComponent> facetsIterator;

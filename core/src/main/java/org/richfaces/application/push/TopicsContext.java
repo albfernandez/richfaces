@@ -21,13 +21,14 @@
  */
 package org.richfaces.application.push;
 
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.el.util.ELUtils;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import jakarta.el.ELContext;
 import jakarta.faces.context.FacesContext;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.el.util.ELUtils;
 
 /**
  * <p>
@@ -50,14 +51,7 @@ import java.util.concurrent.ConcurrentMap;
  */
 public abstract class TopicsContext {
 
-    private ConcurrentMap<String, Topic> topics = new ConcurrentHashMap<String, Topic>();
-
-    /**
-     * Look-ups per-application singleton of {@link TopicsContext} tracking all registered topics.
-     */
-    public static TopicsContext lookup() {
-        return ServiceTracker.getService(PushContextFactory.class).getPushContext().getTopicsContext();
-    }
+    private ConcurrentMap<String, Topic> topics = new ConcurrentHashMap<>();
 
     /**
      * Creates topic for given topic key
@@ -126,6 +120,13 @@ public abstract class TopicsContext {
         Topic topic = getOrCreateTopic(resolvedKey);
 
         topic.publish(data, resolvedKey.getSubtopicName());
+    }
+
+    /**
+     * Look-ups per-application singleton of {@link TopicsContext} tracking all registered topics.
+     */
+    public static TopicsContext lookup() {
+        return ServiceTracker.getService(PushContextFactory.class).getPushContext().getTopicsContext();
     }
 
     protected TopicKey getTopicKeyWithResolvedExpressions(TopicKey key) {

@@ -21,8 +21,7 @@
  */
 package org.richfaces.context;
 
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import java.util.Collection;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIData;
@@ -30,10 +29,13 @@ import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
-import java.util.Collection;
+
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class AjaxTableComponentImpl extends UIData {
     private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();

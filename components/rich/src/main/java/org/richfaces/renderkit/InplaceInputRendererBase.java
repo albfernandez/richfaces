@@ -21,23 +21,25 @@
  */
 package org.richfaces.renderkit;
 
-import org.richfaces.component.AbstractInplaceInput;
-import org.richfaces.component.InplaceComponent;
-import org.richfaces.component.InplaceState;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 
 import jakarta.faces.application.ResourceDependencies;
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
+
+import org.richfaces.component.AbstractInplaceInput;
+import org.richfaces.component.InplaceComponent;
+import org.richfaces.component.InplaceState;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 /**
  * @author Anton Belevich
+ *
  */
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -46,32 +48,32 @@ import java.util.Map;
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceInput.js"),
-        @ResourceDependency(library = "org.richfaces", name = "inplaceInput.ecss")})
+        @ResourceDependency(library = "org.richfaces", name = "inplaceInput.ecss") })
 public class InplaceInputRendererBase extends InputRendererBase {
     // TODO: anton - move to RenderUtils (we use the same in the calendar base renderer) ?
     protected static final Map<String, ComponentAttribute> INPLACE_INPUT_HANDLER_ATTRIBUTES = Collections
-            .unmodifiableMap(ComponentAttribute.createMap(
-                    new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("inputclick").setComponentAttributeName(
-                            "oninputclick"),
-                    new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("inputdblclick")
-                            .setComponentAttributeName("oninputdblclick"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("inputmousedown")
-                            .setComponentAttributeName("oninputmousedown"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("inputmouseup").setComponentAttributeName(
-                            "oninputmouseup"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("inputmouseover")
-                            .setComponentAttributeName("oninputmouseover"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("inputmousemove")
-                            .setComponentAttributeName("oninputmousemove"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("inputmouseout")
-                            .setComponentAttributeName("oninputmouseout"),
-                    new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("inputkeypress")
-                            .setComponentAttributeName("oninputkeypress"),
-                    new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("inputkeydown").setComponentAttributeName(
-                            "oninputkeydown"),
-                    new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("inputkeyup").setComponentAttributeName(
-                            "oninputkeyup"), new ComponentAttribute(HtmlConstants.ONSELECT_ATTRIBUTE).setEventNames("inputselect")
-                            .setComponentAttributeName("oninputselect")));
+        .unmodifiableMap(ComponentAttribute.createMap(
+            new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("inputclick").setComponentAttributeName(
+                "oninputclick"),
+            new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("inputdblclick")
+                .setComponentAttributeName("oninputdblclick"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("inputmousedown")
+                .setComponentAttributeName("oninputmousedown"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("inputmouseup").setComponentAttributeName(
+                "oninputmouseup"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("inputmouseover")
+                .setComponentAttributeName("oninputmouseover"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("inputmousemove")
+                .setComponentAttributeName("oninputmousemove"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("inputmouseout")
+                .setComponentAttributeName("oninputmouseout"),
+            new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("inputkeypress")
+                .setComponentAttributeName("oninputkeypress"),
+            new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("inputkeydown").setComponentAttributeName(
+                "oninputkeydown"),
+            new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("inputkeyup").setComponentAttributeName(
+                "oninputkeyup"), new ComponentAttribute(HtmlConstants.ONSELECT_ATTRIBUTE).setEventNames("inputselect")
+                .setComponentAttributeName("oninputselect")));
 
     public void renderInputHandlers(FacesContext facesContext, UIComponent component) throws IOException {
         RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, INPLACE_INPUT_HANDLER_ATTRIBUTES);
@@ -127,7 +129,7 @@ public class InplaceInputRendererBase extends InputRendererBase {
     public String getEditStyleClass(UIComponent component, InplaceState inplaceState) {
         InplaceComponent inplaceComponent = (InplaceComponent) component;
         return (InplaceState.edit != inplaceState) ? concatClasses(getEditCss(inplaceComponent), getNoneCss(inplaceComponent))
-                : getEditCss(inplaceComponent);
+            : getEditCss(inplaceComponent);
     }
 
     public String getReadyStateCss(InplaceComponent component) {

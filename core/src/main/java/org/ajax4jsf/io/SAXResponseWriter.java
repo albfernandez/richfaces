@@ -21,15 +21,16 @@
  */
 package org.ajax4jsf.io;
 
+import java.io.IOException;
+import java.io.Writer;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ResponseWriter;
+
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.AttributesImpl;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.io.Writer;
 
 /**
  * Realization of Faces <code>ResponseWriter</code> for Cocoon Environment. Use ONLY Markup-specific calls , send it as
@@ -115,7 +116,7 @@ public class SAXResponseWriter extends ResponseWriter {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.ResponseWriter#getContentType()
+     * @see jakarta.faces.context.ResponseWriter#getContentType()
      */
     public String getContentType() {
         return CONTENT_TYPE;
@@ -124,7 +125,7 @@ public class SAXResponseWriter extends ResponseWriter {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.ResponseWriter#getCharacterEncoding()
+     * @see jakarta.faces.context.ResponseWriter#getCharacterEncoding()
      */
     public String getCharacterEncoding() {
         return CHARTER_ENCODING;
@@ -143,7 +144,7 @@ public class SAXResponseWriter extends ResponseWriter {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.ResponseWriter#startDocument()
+     * @see jakarta.faces.context.ResponseWriter#startDocument()
      */
     public void startDocument() throws IOException {
         state.startDocument();
@@ -152,7 +153,7 @@ public class SAXResponseWriter extends ResponseWriter {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.ResponseWriter#endDocument()
+     * @see jakarta.faces.context.ResponseWriter#endDocument()
      */
     public void endDocument() throws IOException {
         state.endDocument();
@@ -161,7 +162,7 @@ public class SAXResponseWriter extends ResponseWriter {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.ResponseWriter#startElement(java.lang.String, javax.faces.component.UIComponent)
+     * @see jakarta.faces.context.ResponseWriter#startElement(java.lang.String, jakarta.faces.component.UIComponent)
      */
     public void startElement(String name, UIComponent component) throws IOException {
         state.startElement(name, component);
@@ -170,7 +171,7 @@ public class SAXResponseWriter extends ResponseWriter {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.ResponseWriter#endElement(java.lang.String)
+     * @see jakarta.faces.context.ResponseWriter#endElement(java.lang.String)
      */
     public void endElement(String name) throws IOException {
         state.endElement(name);
@@ -179,7 +180,7 @@ public class SAXResponseWriter extends ResponseWriter {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.ResponseWriter#writeAttribute(java.lang.String, java.lang.Object, java.lang.String)
+     * @see jakarta.faces.context.ResponseWriter#writeAttribute(java.lang.String, java.lang.Object, java.lang.String)
      */
     public void writeAttribute(String name, Object value, String property) throws IOException {
         state.writeAttribute(name, value, property);
@@ -188,7 +189,7 @@ public class SAXResponseWriter extends ResponseWriter {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.ResponseWriter#writeURIAttribute(java.lang.String, java.lang.Object, java.lang.String)
+     * @see jakarta.faces.context.ResponseWriter#writeURIAttribute(java.lang.String, java.lang.Object, java.lang.String)
      */
     public void writeURIAttribute(String name, Object value, String property) throws IOException {
         state.writeURIAttribute(name, value, property);
@@ -197,7 +198,7 @@ public class SAXResponseWriter extends ResponseWriter {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.ResponseWriter#writeComment(java.lang.Object)
+     * @see jakarta.faces.context.ResponseWriter#writeComment(java.lang.Object)
      */
     public void writeComment(Object comment) throws IOException {
         state.writeComment(comment);
@@ -206,7 +207,7 @@ public class SAXResponseWriter extends ResponseWriter {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.ResponseWriter#writeText(java.lang.Object, java.lang.String)
+     * @see jakarta.faces.context.ResponseWriter#writeText(java.lang.Object, java.lang.String)
      */
     public void writeText(Object text, String property) throws IOException {
         state.writeText(text, property);
@@ -215,7 +216,7 @@ public class SAXResponseWriter extends ResponseWriter {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.ResponseWriter#writeText(char[], int, int)
+     * @see jakarta.faces.context.ResponseWriter#writeText(char[], int, int)
      */
     public void writeText(char[] text, int off, int len) throws IOException {
         state.writeText(text, off, len);
@@ -224,7 +225,7 @@ public class SAXResponseWriter extends ResponseWriter {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.ResponseWriter#cloneWithWriter(java.io.Writer)
+     * @see jakarta.faces.context.ResponseWriter#cloneWithWriter(java.io.Writer)
      */
     public ResponseWriter cloneWithWriter(Writer writer) {
 
@@ -258,8 +259,8 @@ public class SAXResponseWriter extends ResponseWriter {
 
     /**
      * @author shura
-     * <p/>
-     * CDATA section. allow regular write() functions, write any text.
+     *         <p/>
+     *         CDATA section. allow regular write() functions, write any text.
      */
     private final class CDATAState extends XMLResponseWriterState {
         void flushCDATA() throws IOException {
@@ -297,7 +298,7 @@ public class SAXResponseWriter extends ResponseWriter {
          * (non-Javadoc)
          *
          * @see org.apache.cocoon.components.faces.context.XMLResponseWriterState#startElement(java.lang.String,
-         * javax.faces.component.UIComponent)
+         * jakarta.faces.component.UIComponent)
          */
         void startElement(String name, UIComponent component) throws IOException {
             flushCDATA();
@@ -371,7 +372,7 @@ public class SAXResponseWriter extends ResponseWriter {
 
         void writeAttribute(String name, Object value, String property) throws IOException {
             attributes.addAttribute(getNamespaceURI(), name, name, "id".equalsIgnoreCase(name) ? "ID" : "CDATA",
-                    value.toString());
+                value.toString());
         }
 
         void writeURIAttribute(String name, Object value, String property) throws IOException {
@@ -398,7 +399,7 @@ public class SAXResponseWriter extends ResponseWriter {
          * (non-Javadoc)
          *
          * @see org.apache.cocoon.components.faces.context.XMLResponseWriterState#startElement(java.lang.String,
-         * javax.faces.component.UIComponent)
+         * jakarta.faces.component.UIComponent)
          */
         void startElement(String name, UIComponent component) throws IOException {
 
@@ -450,8 +451,8 @@ public class SAXResponseWriter extends ResponseWriter {
 
     /**
      * @author shura
-     * <p/>
-     * State in regular document. Disabled attributes & startDocument.
+     *         <p/>
+     *         State in regular document. Disabled attributes & startDocument.
      */
     private final class InDocumentState extends XMLResponseWriterState {
         void startElement(String name, UIComponent component) {
@@ -513,8 +514,8 @@ public class SAXResponseWriter extends ResponseWriter {
 
     /**
      * @author shura
-     * <p/>
-     * state before startDocument - only allow startDocument.
+     *         <p/>
+     *         state before startDocument - only allow startDocument.
      */
     private final class NotDocumentState extends XMLResponseWriterState {
         /*

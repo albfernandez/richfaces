@@ -53,22 +53,6 @@ public class ITAutocompleteBehaviors {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form id='form'>");
-        p.body("    <rich:autocomplete id='autocomplete' autocompleteList='#{autocompleteBean.suggestions}'>");
-        p.body("        <a4j:ajax event='blur' listener='#{autocompleteBean.actionListener}' render='output' />");
-        p.body("    </rich:autocomplete>");
-        p.body("    <br/>");
-        p.body("    listener was invoked: <h:outputText id='output' value='#{autocompleteBean.listenerInvoked}' />");
-        p.body("    <br/>");
-        p.body("    <input value='blur' type='button' id='blur' />");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     /**
      * onblur should have input value available via 'this.value' expression
      */
@@ -85,5 +69,21 @@ public class ITAutocompleteBehaviors {
         guardAjax(blurInput).click();
 
         assertTrue(Boolean.parseBoolean(outputElement.getText()));
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='form'>");
+        p.body("    <rich:autocomplete id='autocomplete' autocompleteList='#{autocompleteBean.suggestions}'>");
+        p.body("        <a4j:ajax event='blur' listener='#{autocompleteBean.actionListener}' render='output' />");
+        p.body("    </rich:autocomplete>");
+        p.body("    <br/>");
+        p.body("    listener was invoked: <h:outputText id='output' value='#{autocompleteBean.listenerInvoked}' />");
+        p.body("    <br/>");
+        p.body("    <input value='blur' type='button' id='blur' />");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

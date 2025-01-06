@@ -21,60 +21,21 @@
  */
 package org.richfaces.renderkit;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.Locale;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class AutoCompleteBean implements Serializable {
     private static final long serialVersionUID = 3072125097847582809L;
-    private String value;
-    private String mode = "client";
-    private String layout = "list";
-    private CountriesBean countriesBean;
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public String getMode() {
-        return mode;
-    }
-
-    public void setMode(String mode) {
-        this.mode = mode;
-    }
-
-    public String getLayout() {
-        return layout;
-    }
-
-    public void setLayout(String layout) {
-        this.layout = layout;
-    }
-
-    public void setCountriesBean(CountriesBean countriesBean) {
-        this.countriesBean = countriesBean;
-    }
-
-    public Object autocomplete(FacesContext facesContext, UIComponent component, String value) {
-        // for tests when value does not starts with prefix
-        /*
-         * String str = value; if (str.charAt(0)=='i') { str = str.substring(1); }
-         */
-        String v = mode.equals("lazyClient") || mode.equals("client") ? "" : value;
-        return Collections2.filter(countriesBean.getCountries(), new CountryNamePredicate(v.toLowerCase()));
-    }
 
     private class CountryNamePredicate implements Predicate<Country> {
         private String countryNamePrefix;
@@ -91,5 +52,50 @@ public class AutoCompleteBean implements Serializable {
 
             return input.getName().toLowerCase(Locale.US).startsWith(countryNamePrefix);
         }
+    }
+
+    private String value;
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    private String mode = "client";
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    private String layout = "list";
+
+    public String getLayout() {
+        return layout;
+    }
+
+    public void setLayout(String layout) {
+        this.layout = layout;
+    }
+
+    private CountriesBean countriesBean;
+
+    public void setCountriesBean(CountriesBean countriesBean) {
+        this.countriesBean = countriesBean;
+    }
+
+    public Object autocomplete(FacesContext facesContext, UIComponent component, String value) {
+        // for tests when value does not starts with prefix
+        /*
+         * String str = value; if (str.charAt(0)=='i') { str = str.substring(1); }
+         */
+        String v = mode.equals("lazyClient") || mode.equals("client") ? "" : value;
+        return Collections2.filter(countriesBean.getCountries(), new CountryNamePredicate(v.toLowerCase()));
     }
 }

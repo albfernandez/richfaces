@@ -21,12 +21,12 @@
  */
 package org.richfaces.showcase.progressBar;
 
+import static org.jboss.arquillian.graphene.Graphene.waitAjax;
+
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -45,16 +45,16 @@ public class ITestAjaxProgressBar extends AbstractProgressBarTest {
     public void testProgressBarIsRisingByMax3() {
         startButton.click();
         waitAjax(webDriver).until()
-                .element(progressBar)
-                .text()
-                .contains("%");
+            .element(progressBar)
+            .text()
+            .contains("%");
         while (progressBar.getText().contains("%")) {
             String value = progressBar.getText();
             waitAjax().until()
-                    .element(progressBar)
-                    .value()
-                    .not()
-                    .equalTo(value);
+                .element(progressBar)
+                .value()
+                .not()
+                .equalTo(value);
             if (value.length() >= 3) {
                 // this ensures that a correct value was read since ajax request timing can be tricky
                 getTheNumberFromValueAndSaveToList(value);

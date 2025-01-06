@@ -25,6 +25,7 @@ import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.list.ListItem;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface FileUploadItem extends ListItem {
@@ -39,7 +40,6 @@ public interface FileUploadItem extends ListItem {
     /**
      * Clears/deletes the log of already uploaded/to be uploaded file from the list of the files of the already uploaded files/to be uploaded files.
      *
-     * @return
      */
     WebElement getClearOrDeleteElement();
 

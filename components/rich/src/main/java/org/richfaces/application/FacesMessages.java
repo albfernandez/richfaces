@@ -21,8 +21,6 @@
  */
 package org.richfaces.application;
 
-import org.richfaces.l10n.MessageBundle;
-
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.component.UISelectMany;
@@ -46,8 +44,11 @@ import jakarta.faces.validator.LengthValidator;
 import jakarta.faces.validator.LongRangeValidator;
 import jakarta.faces.validator.RegexValidator;
 
+import org.richfaces.l10n.MessageBundle;
+
 /**
  * @author Nick Belaevski
+ *
  */
 @MessageBundle(baseName = FacesMessage.FACES_MESSAGES)
 public enum FacesMessages {
@@ -73,7 +74,7 @@ public enum FacesMessages {
     DATE_TIME_CONVERTER_TIME_DETAIL(DateTimeConverter.TIME_ID, true),
     DATE_TIME_CONVERTER_DATETIME(DateTimeConverter.DATETIME_ID),
     DATE_TIME_CONVERTER_DATETIME_DETAIL(DateTimeConverter.DATETIME_ID, true),
-    DATE_TIME_CONVERTER_PATTERN_TYPE("javax.faces.converter.DateTimeConverter.PATTERN_TYPE"),
+    DATE_TIME_CONVERTER_PATTERN_TYPE("jakarta.faces.converter.DateTimeConverter.PATTERN_TYPE"),
     DOUBLE_CONVERTER_DOUBLE(DoubleConverter.DOUBLE_ID),
     DOUBLE_CONVERTER_DOUBLE_DETAIL(DoubleConverter.DOUBLE_ID, true),
     ENUM_CONVERTER_ENUM(EnumConverter.ENUM_ID),
@@ -96,7 +97,7 @@ public enum FacesMessages {
     NUMBER_CONVERTER_PATTERN_DETAIL(NumberConverter.PATTERN_ID, true),
     SHORT_CONVERTER_SHORT(ShortConverter.SHORT_ID),
     SHORT_CONVERTER_SHORT_DETAIL(ShortConverter.SHORT_ID, true),
-    CONVERTER_STRING("javax.faces.converter.STRING"),
+    CONVERTER_STRING("jakarta.faces.converter.STRING"),
     DOUBLE_RANGE_VALIDATOR_MAXIMUM(DoubleRangeValidator.MAXIMUM_MESSAGE_ID),
     DOUBLE_RANGE_VALIDATOR_MINIMUM(DoubleRangeValidator.MINIMUM_MESSAGE_ID),
     DOUBLE_RANGE_VALIDATOR_NOT_IN_RANGE(DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID),
@@ -107,7 +108,7 @@ public enum FacesMessages {
     LONG_RANGE_VALIDATOR_MINIMUM(LongRangeValidator.MINIMUM_MESSAGE_ID),
     LONG_RANGE_VALIDATOR_NOT_IN_RANGE(LongRangeValidator.NOT_IN_RANGE_MESSAGE_ID),
     LONG_RANGE_VALIDATOR_TYPE(LongRangeValidator.TYPE_MESSAGE_ID),
-    VALIDATOR_NOT_IN_RANGE("javax.faces.validator.NOT_IN_RANGE"),
+    VALIDATOR_NOT_IN_RANGE("jakarta.faces.validator.NOT_IN_RANGE"),
     REGEX_VALIDATOR_PATTERN_NOT_SET(RegexValidator.PATTERN_NOT_SET_MESSAGE_ID),
     REGEX_VALIDATOR_PATTERN_NOT_SET_DETAIL(RegexValidator.PATTERN_NOT_SET_MESSAGE_ID, true),
     REGEX_VALIDATOR_NOT_MATCHED(RegexValidator.NOT_MATCHED_MESSAGE_ID),

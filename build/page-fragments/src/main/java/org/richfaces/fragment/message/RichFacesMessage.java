@@ -26,16 +26,26 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * Component for rich:message.
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class RichFacesMessage extends AbstractMessage {
 
-    private final AdvancedRichMessageInteractions interactions = new AdvancedRichMessageInteractions();
     @FindBy(className = "rf-msg-det")
     private WebElement messageDetailElement;
     @FindBy(className = "rf-msg-sum")
     private WebElement messageSummaryElement;
+
+    private final AdvancedRichMessageInteractions interactions = new AdvancedRichMessageInteractions();
+
+    @Override
+    public AdvancedMessageInteractions advanced() {
+        return interactions;
+    }
+
+    @Override
+    protected String getCssClass(MessageType type) {
+        return getCssClassForMessageType(type);
+    }
 
     public static String getCssClassForMessageType(MessageType type) {
         switch (type) {
@@ -52,16 +62,6 @@ public class RichFacesMessage extends AbstractMessage {
             default:
                 throw new UnsupportedOperationException("Unknown message type " + type);
         }
-    }
-
-    @Override
-    public AdvancedMessageInteractions advanced() {
-        return interactions;
-    }
-
-    @Override
-    protected String getCssClass(MessageType type) {
-        return getCssClassForMessageType(type);
     }
 
     public class AdvancedRichMessageInteractions extends AdvancedMessageInteractionsImpl {

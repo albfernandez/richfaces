@@ -23,8 +23,8 @@ package org.richfaces.deployment;
 
 /**
  * The features of Core which can be added per deployment by {@link CoreDeployment}
- *
  * @author lfryc
+ *
  */
 public enum CoreFeature {
 

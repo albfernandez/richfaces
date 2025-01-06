@@ -63,8 +63,8 @@ public class ITNestedRepeat {
         A4JDeployment deployment = new A4JDeployment(ITNestedRepeat.class);
 
         deployment.archive()
-                .addClasses(NestedDataBean.class)
-                .addAsWebResource(ITNestedRepeat.class.getResource("NestedRepeatTest.xhtml"), "NestedRepeatTest.xhtml");
+            .addClasses(NestedDataBean.class)
+            .addAsWebResource(ITNestedRepeat.class.getResource("NestedRepeatTest.xhtml"), "NestedRepeatTest.xhtml");
 
         return deployment.getFinalArchive();
     }

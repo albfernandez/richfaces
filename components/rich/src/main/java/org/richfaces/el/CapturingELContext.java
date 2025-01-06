@@ -25,6 +25,10 @@
  */
 package org.richfaces.el;
 
+import java.util.Collection;
+import java.util.Locale;
+import java.util.Map;
+
 import org.richfaces.validator.GraphValidatorState;
 
 import jakarta.el.ELContext;
@@ -33,22 +37,18 @@ import jakarta.el.FunctionMapper;
 import jakarta.el.ValueExpression;
 import jakarta.el.VariableMapper;
 import jakarta.faces.el.CompositeComponentExpressionHolder;
-import java.beans.FeatureDescriptor;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * This class wraps original ELContext and capture whole call stack to the target object so it could be used to extract semantic
  * information like annotations or Jena Model properties.
  *
  * @author asmirnov
+ *
  */
 public class CapturingELContext extends ELContext {
     private final ELContext parent;
-    private final InterceptingResolver resolver;
     private ValueReference reference = null;
+    private final InterceptingResolver resolver;
 
     public CapturingELContext(ELContext parent, Map<Object, GraphValidatorState> states) {
         this.parent = parent;
@@ -100,7 +100,6 @@ public class CapturingELContext extends ELContext {
         return resolver;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Object getContext(Class key) {
         return parent.getContext(key);
@@ -117,19 +116,18 @@ public class CapturingELContext extends ELContext {
     }
 
     @Override
-    public void setLocale(Locale locale) {
-        parent.setLocale(locale);
-    }
-
-    @Override
     public VariableMapper getVariableMapper() {
         return parent.getVariableMapper();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void putContext(Class key, Object contextObject) {
         parent.putContext(key, contextObject);
+    }
+
+    @Override
+    public void setLocale(Locale locale) {
+        parent.setLocale(locale);
     }
 
     /**
@@ -137,11 +135,12 @@ public class CapturingELContext extends ELContext {
      * annotations or Jena Model properties.
      *
      * @author asmirnov
+     *
      */
     private final class InterceptingResolver extends ELResolver {
         private final ELResolver delegate;
-        private final Map<Object, GraphValidatorState> states;
         private boolean clonedObject;
+        private final Map<Object, GraphValidatorState> states;
 
         public InterceptingResolver(ELResolver delegate, Map<Object, GraphValidatorState> states) {
             this.delegate = delegate;
@@ -193,19 +192,21 @@ public class CapturingELContext extends ELContext {
             return delegate.isReadOnly(context, base, property);
         }
 
+        /*MZ
         @Override
         public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
             return delegate.getFeatureDescriptors(context, base);
         }
+        */
 
         @Override
         public Class<?> getCommonPropertyType(ELContext context, Object base) {
             return delegate.getCommonPropertyType(context, base);
         }
-
+/*
         @Override
         public Object convertToType(ELContext context, Object obj, Class<?> targetType) {
             return delegate.convertToType(context, obj, targetType);
-        }
+        }*/
     }
 }

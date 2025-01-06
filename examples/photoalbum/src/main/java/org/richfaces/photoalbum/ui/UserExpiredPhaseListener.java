@@ -21,19 +21,20 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import org.richfaces.photoalbum.util.ApplicationUtils;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
-import jakarta.faces.event.PhaseEvent;
-import jakarta.faces.event.PhaseId;
-import jakarta.faces.event.PhaseListener;
+import javax.faces.event.PhaseEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PhaseListener;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.richfaces.photoalbum.util.ApplicationUtils;
 
 /**
  * Special <code>PhaseListener</code> for check is the user session was expired or user were login in another browser. By
@@ -79,7 +80,7 @@ public class UserExpiredPhaseListener implements PhaseListener {
         Bean<ApplicationUtils> bean = (Bean<ApplicationUtils>) bm.getBeans(ApplicationUtils.class).iterator().next();
         CreationalContext<ApplicationUtils> ctx = bm.createCreationalContext(bean);
         ApplicationUtils utils = (ApplicationUtils) bm.getReference(bean, ApplicationUtils.class, ctx);
-        // this could be inlined, but intentionally left this way
+            // this could be inlined, but intentionally left this way
         return utils;
     }
 }

@@ -21,6 +21,9 @@
  */
 package org.richfaces.fragment.dataGrid;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -32,9 +35,6 @@ import org.richfaces.fragment.common.TypeResolver;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Class representing a page fragment for RichFaces DataGrid.
  *
@@ -43,22 +43,27 @@ import java.util.List;
  * extended so the generic types are substituted with a regular type representing particular part of the grid.
  * </p>
  *
- * @param <RECORD>
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
+ * @param <RECORD>
  */
 public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedVisibleComponentIteractions<RichFacesDataGrid.AdvancedDataGridInteractions> {
 
-    @SuppressWarnings("unchecked")
-    private final Class<RECORD> recordClass = (Class<RECORD>) TypeResolver.resolveRawArguments(DataGrid.class, getClass())[0];
-    private final AdvancedDataGridInteractions advancedInteractions = new AdvancedDataGridInteractions();
     @Root
     private WebElement root;
+
     @FindBy(css = ".rf-dg-r")
     private List<WebElement> rowElements;
+
     @FindByJQuery(".rf-dg-c:not(:empty)")
     private List<WebElement> recordsElements;
+
     @FindBy(css = ".rf-dg-nd")
     private WebElement noDataElement;
+
+    @SuppressWarnings("unchecked")
+    private final Class<RECORD> recordClass = (Class<RECORD>) TypeResolver.resolveRawArguments(DataGrid.class, getClass())[0];
+
+    private final AdvancedDataGridInteractions advancedInteractions = new AdvancedDataGridInteractions();
 
     @Override
     public List<RECORD> getRecordsInRow(int rowIndex) {

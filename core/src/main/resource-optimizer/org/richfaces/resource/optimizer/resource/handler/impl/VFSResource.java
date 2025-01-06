@@ -21,19 +21,21 @@
  */
 package org.richfaces.resource.optimizer.resource.handler.impl;
 
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.resource.optimizer.FileNameMapper;
-import org.richfaces.resource.optimizer.vfs.VirtualFile;
-
-import jakarta.faces.application.Resource;
-import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
+
+import org.richfaces.resource.optimizer.FileNameMapper;
+import org.richfaces.resource.optimizer.vfs.VirtualFile;
+import org.richfaces.application.ServiceTracker;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class VFSResource extends Resource {
     private VirtualFile file;

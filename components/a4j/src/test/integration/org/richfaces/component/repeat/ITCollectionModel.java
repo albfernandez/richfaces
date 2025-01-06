@@ -59,11 +59,22 @@ public class ITCollectionModel {
         A4JDeployment deployment = new A4JDeployment(ITCollectionModel.class);
 
         deployment.archive()
-                .addClasses(CollectionModelBean.class);
+            .addClasses(CollectionModelBean.class);
 
         addIndexPage(deployment);
 
         return deployment.getFinalArchive();
+    }
+
+    @Test
+    public void test_that_list_can_be_rendered_from_generic_collection() {
+        browser.get(contextPath.toExternalForm());
+
+        assertEquals("there are 3 items rendered", 3, items.size());
+
+        for (int i = 0; i < 3; i++) {
+            assertEquals(String.valueOf(i + 1), items.get(i).getText());
+        }
     }
 
     private static void addIndexPage(A4JDeployment deployment) {
@@ -76,16 +87,5 @@ public class ITCollectionModel {
         p.body("</ul>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    @Test
-    public void test_that_list_can_be_rendered_from_generic_collection() {
-        browser.get(contextPath.toExternalForm());
-
-        assertEquals("there are 3 items rendered", 3, items.size());
-
-        for (int i = 0; i < 3; i++) {
-            assertEquals(String.valueOf(i + 1), items.get(i).getText());
-        }
     }
 }

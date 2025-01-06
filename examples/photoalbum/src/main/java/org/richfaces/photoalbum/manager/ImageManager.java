@@ -26,6 +26,21 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 import org.richfaces.photoalbum.model.Comment;
 import org.richfaces.photoalbum.model.Image;
@@ -40,21 +55,6 @@ import org.richfaces.photoalbum.model.event.NavEvent;
 import org.richfaces.photoalbum.model.event.SimpleEvent;
 import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.Preferred;
-
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.inject.Any;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
-import jakarta.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 @Named
 @RequestScoped
@@ -97,6 +97,7 @@ public class ImageManager {
      * Method, that invoked when user click 'Delete image' button. Only registered users can delete images.
      *
      * @param image - image to delete
+     *
      */
     public void deleteImage(Image image) {
         if (user == null) {
@@ -116,7 +117,7 @@ public class ImageManager {
     /**
      * Method, that invoked when user click 'Edit image' button. Only registered users can edit images.
      *
-     * @param image           - image to edit
+     * @param image - image to edit
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
      */
     public void editImage(Image image, boolean editFromInplace) {
@@ -154,8 +155,9 @@ public class ImageManager {
     /**
      * Method, that invoked when user add comment to image. Only registered users can add comments to image.
      *
-     * @param image   - image
+     * @param image - image
      * @param message - comment text
+     *
      */
     public void addComment(Image image) {
         if (user == null) {
@@ -187,6 +189,7 @@ public class ImageManager {
      * Method, that invoked when user delete comment. Only registered users can delete comments.
      *
      * @param comment - comment to delete
+     *
      */
     public void deleteComment(Comment comment) {
         if (user == null) {
@@ -204,6 +207,7 @@ public class ImageManager {
      * Method, that invoked to retrieve most popular metatags.
      *
      * @return List of most popular metatags
+     *
      */
     public List<MetaTag> popularTags() {
         return imageAction.getPopularTags();
@@ -214,6 +218,7 @@ public class ImageManager {
      *
      * @param suggest - text to autocomplete
      * @return List of similar metatags
+     *
      */
     public List<MetaTag> autoComplete(Object suggest) {
         String temp = (String) suggest;
@@ -228,6 +233,7 @@ public class ImageManager {
      *
      * @param image - image to get direct link
      * @return List of similar metatags
+     *
      */
     public String getImageDirectLink(Image image) {
         String directLink = null;

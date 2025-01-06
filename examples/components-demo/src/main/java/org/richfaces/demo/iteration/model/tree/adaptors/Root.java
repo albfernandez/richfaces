@@ -21,12 +21,14 @@
  */
 package org.richfaces.demo.iteration.model.tree.adaptors;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.List;
 
 /**
  * @author Nick Belaevski
+ *
  */
 @XmlRootElement(name = "root")
 public class Root {

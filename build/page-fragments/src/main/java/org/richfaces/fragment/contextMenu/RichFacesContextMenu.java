@@ -21,6 +21,10 @@
  */
 package org.richfaces.fragment.contextMenu;
 
+import static java.lang.String.format;
+
+import java.util.List;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.enricher.WebElementUtils;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -29,10 +33,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.AdvancedInteractions;
-
-import java.util.List;
-
-import static java.lang.String.format;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -82,7 +82,7 @@ public class RichFacesContextMenu extends AbstractPopupMenu implements PopupMenu
         protected MenuPopup getPopupFragment() {
             if (popupFragment == null) {
                 popupFragment = Graphene.createPageFragment(MenuPopup.class,
-                        WebElementUtils.findElementLazily(By.cssSelector(format(MENU_SELECTOR_TEMPLATE, getMenuId())), browser));
+                    WebElementUtils.findElementLazily(By.cssSelector(format(MENU_SELECTOR_TEMPLATE, getMenuId())), browser));
             }
             return popupFragment;
         }

@@ -21,24 +21,24 @@
  */
 package org.richfaces.renderkit;
 
-import org.junit.Test;
-import org.richfaces.renderkit.ForEachLoop.Status;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import org.junit.Test;
+import org.richfaces.renderkit.ForEachLoop.Status;
 
 /**
  * @author Lukas Fryc
  */
 public class ForEachLoopTest {
 
-    private Integer[] array = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+    private Integer[] array = new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
 
     @Test
     public void testArrayIterationStatus() {
@@ -71,7 +71,7 @@ public class ForEachLoopTest {
     @Test
     public void testCollectionIterationStatus() {
 
-        ForEachLoop<Integer> loop = ForEachLoop.getInstance(new LinkedList<Integer>(Arrays.asList(array)));
+        ForEachLoop<Integer> loop = ForEachLoop.getInstance(new LinkedList<>(Arrays.asList(array)));
 
         Set<Integer> iterated = asSet();
 
@@ -99,7 +99,7 @@ public class ForEachLoopTest {
     @Test
     public void testIteratorIterationStatus() {
 
-        ForEachLoop<Integer> loop = ForEachLoop.getInstance(new LinkedList<Integer>(Arrays.asList(array)).iterator());
+        ForEachLoop<Integer> loop = ForEachLoop.getInstance(new LinkedList<>(Arrays.asList(array)).iterator());
 
         Set<Integer> iterated = asSet();
 
@@ -283,7 +283,7 @@ public class ForEachLoopTest {
     }
 
     private Set<Integer> asSet(Integer... integers) {
-        return new TreeSet<Integer>(Arrays.asList(integers));
+        return new TreeSet<>(Arrays.asList(integers));
     }
 
 }

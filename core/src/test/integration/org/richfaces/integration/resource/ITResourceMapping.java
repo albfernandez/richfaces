@@ -70,42 +70,42 @@ public class ITResourceMapping {
 //        deployment.withWholeCore();
 
         PropertiesAsset staticResourceMapping = new PropertiesAsset()
-                .key(":original.css").value("relocated.css")
-                .key(":part1.css").value("aggregated.css")
-                .key(":part2.css").value("aggregated.css")
-                .key("part1.js").value("aggregated.js")
-                .key("part2.js").value("aggregated.js");
+            .key(":original.css").value("relocated.css")
+            .key(":part1.css").value("aggregated.css")
+            .key(":part2.css").value("aggregated.css")
+            .key("part1.js").value("aggregated.js")
+            .key("part2.js").value("aggregated.js");
 
         EmptyAsset emptyResource = EmptyAsset.INSTANCE;
 
         FaceletAsset relocationPage = new FaceletAsset().head("<h:outputStylesheet name=\"original.css\" />");
 
         FaceletAsset aggregationPage = new FaceletAsset().head("<h:outputStylesheet name=\"part1.css\" />"
-                + "<h:outputStylesheet name=\"part2.css\" />");
+            + "<h:outputStylesheet name=\"part2.css\" />");
 
         FaceletAsset javaScriptAggregationPage = new FaceletAsset().head("<h:outputScript name=\"part1.js\" />"
-                + "<h:outputScript name=\"part2.js\" />");
+            + "<h:outputScript name=\"part2.js\" />");
 
         deployment.archive()
-                /** classes */
-                .addPackage(ResourceHandlerImpl.class.getPackage())
-                .addPackage(ResourceTracker.class.getPackage())
-                .addPackage(ResourceMapper.class.getPackage())
-                .addClasses(Codec.class)
-                /** META-INF */
-                .addAsResource(staticResourceMapping, "META-INF/richfaces/static-resource-mappings.properties")
-                /** ROOT */
-                .addAsWebResource(relocationPage, "relocation.xhtml")
-                .addAsWebResource(aggregationPage, "aggregation.xhtml")
-                .addAsWebResource(javaScriptAggregationPage, "javaScriptAggregation.xhtml")
-                .addAsWebResource(emptyResource, "resources/original.css")
-                .addAsWebResource(emptyResource, "resources/part1.css")
-                .addAsWebResource(emptyResource, "resources/part2.css")
-                .addAsWebResource(emptyResource, "resources/relocated.css")
-                .addAsWebResource(emptyResource, "resources/aggregated.css")
-                .addAsWebResource(emptyResource, "resources/part1.js")
-                .addAsWebResource(emptyResource, "resources/part2.js")
-                .addAsWebResource(emptyResource, "resources/aggregated.js");
+            /** classes */
+            .addPackage(ResourceHandlerImpl.class.getPackage())
+            .addPackage(ResourceTracker.class.getPackage())
+            .addPackage(ResourceMapper.class.getPackage())
+            .addClasses(Codec.class)
+            /** META-INF */
+            .addAsResource(staticResourceMapping, "META-INF/richfaces/static-resource-mappings.properties")
+            /** ROOT */
+            .addAsWebResource(relocationPage, "relocation.xhtml")
+            .addAsWebResource(aggregationPage, "aggregation.xhtml")
+            .addAsWebResource(javaScriptAggregationPage, "javaScriptAggregation.xhtml")
+            .addAsWebResource(emptyResource, "resources/original.css")
+            .addAsWebResource(emptyResource, "resources/part1.css")
+            .addAsWebResource(emptyResource, "resources/part2.css")
+            .addAsWebResource(emptyResource, "resources/relocated.css")
+            .addAsWebResource(emptyResource, "resources/aggregated.css")
+            .addAsWebResource(emptyResource, "resources/part1.js")
+            .addAsWebResource(emptyResource, "resources/part2.js")
+            .addAsWebResource(emptyResource, "resources/aggregated.js");
 
         return deployment.getFinalArchive();
     }
@@ -118,7 +118,7 @@ public class ITResourceMapping {
         WebElement element = driver.findElement(By.cssSelector("head > link[rel=stylesheet]"));
         String href = element.getAttribute("href");
 
-        assertThat(href, containsString("/javax.faces.resource/relocated.css"));
+        assertThat(href, containsString("/jakarta.faces.resource/relocated.css"));
     }
 
     @Test
@@ -127,13 +127,13 @@ public class ITResourceMapping {
         driver.navigate().to(contextPath + "aggregation.jsf");
 
         List<WebElement> elements = driver.findElements(By.cssSelector("head > link[rel=stylesheet]"));
-
+        
         assertEquals("There must be exactly one resource link rendered", 1, elements.size());
 
         WebElement element = elements.get(0);
         String href = element.getAttribute("href");
 
-        assertTrue("href must contain aggregated.css resource path: " + href, href.contains("/javax.faces.resource/aggregated.css"));
+        assertTrue("href must contain aggregated.css resource path: " + href, href.contains("/jakarta.faces.resource/aggregated.css"));
     }
 
     @Test
@@ -148,6 +148,6 @@ public class ITResourceMapping {
         WebElement element = elements.get(0);
         String src = element.getAttribute("src");
 
-        assertTrue("src must contain aggregated.js resource path: " + src, src.contains("/javax.faces.resource/aggregated.js"));
+        assertTrue("src must contain aggregated.js resource path: " + src, src.contains("/jakarta.faces.resource/aggregated.js"));
     }
 }

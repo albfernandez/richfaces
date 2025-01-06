@@ -22,9 +22,10 @@
 
 package org.richfaces.validator;
 
+import java.util.Collection;
+
 import jakarta.el.ValueExpression;
 import jakarta.faces.context.FacesContext;
-import java.util.Collection;
 
 /**
  * <p class="changed_added_4_0">
@@ -32,6 +33,7 @@ import java.util.Collection;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public interface BeanValidatorService {
     /**
@@ -41,10 +43,10 @@ public interface BeanValidatorService {
      *
      * @param context
      * @param expression
-     * @param message    TODO
+     * @param message TODO
      */
     Collection<ValidatorDescriptor> getConstrains(FacesContext context, ValueExpression expression, String message,
-                                                  Class<?>... groups);
+        Class<?>... groups);
 
     /**
      * <p class="changed_added_4_0">

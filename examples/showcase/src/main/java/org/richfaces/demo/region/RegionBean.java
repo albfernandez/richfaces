@@ -1,10 +1,11 @@
 package org.richfaces.demo.region;
 
-import org.richfaces.demo.common.UserBean;
-
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.RequestScoped;
 import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
+import org.richfaces.demo.common.UserBean;
 
 @ManagedBean
 @RequestScoped
@@ -20,12 +21,12 @@ public class RegionBean implements Serializable {
         return user1;
     }
 
-    public void setUser1(UserBean user1) {
-        this.user1 = user1;
-    }
-
     public UserBean getUser2() {
         return user2;
+    }
+
+    public void setUser1(UserBean user1) {
+        this.user1 = user1;
     }
 
     public void setUser2(UserBean user2) {

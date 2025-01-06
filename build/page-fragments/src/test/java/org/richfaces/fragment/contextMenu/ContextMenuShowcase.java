@@ -21,10 +21,10 @@
  */
 package org.richfaces.fragment.contextMenu;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
-
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 public class ContextMenuShowcase {
 

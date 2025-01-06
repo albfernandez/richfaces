@@ -2,7 +2,7 @@
 
                       RichFaces - Ajax enabled JSF 2.0 component library
 
-                                                RichFaces 4.5.18.Final
+                                                RichFaces 4.6.22-SNAPSHOT
                                                     http://richfaces.org
                                                               March 2011
                      This software is distributed under the terms of the
@@ -56,9 +56,9 @@ SETTING UP YOUR PROJECT
     use RichFaces inside your project.  Copy the following jars to your
     application libraries folder:
 
-        - richfaces-rich-4.5.18.Final
-        - richfaces-a4j-4.5.18.Final
-        - richfaces-core-4.5.18.Final
+        - richfaces-rich-4.6.0.ayg
+        - richfaces-a4j-4.6.0.ayg
+        - richfaces-core-4.6.0.ayg
 
     In addition to the RichFaces jars, a number of dependencies are
     required in order to properly configure the framework.
@@ -182,7 +182,6 @@ a4j:ajax
 a4j:commandLink
 a4j:commandButton
 a4j:push
-a4j:mediaOutput
 a4j:status
 a4j:jsFunction
 a4j:log

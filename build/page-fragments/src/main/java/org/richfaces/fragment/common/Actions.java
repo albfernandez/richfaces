@@ -21,7 +21,10 @@
  */
 package org.richfaces.fragment.common;
 
-import com.google.common.collect.Sets;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -30,11 +33,8 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.google.common.collect.Sets;
 
 /**
  * Extending org.openqa.selenium.interactions.Actions by some functionality.
@@ -43,9 +43,9 @@ import java.util.logging.Logger;
  */
 public class Actions extends org.openqa.selenium.interactions.Actions {
 
-    private static final Set<Event> supportedEventsInTriggerEventByWD = Sets.newHashSet(Event.CLICK, Event.DBLCLICK, Event.MOUSEDOWN,
-            Event.MOUSEDOWN, Event.CONTEXTCLICK, Event.CONTEXTMENU, Event.MOUSEOUT, Event.MOUSEOVER, Event.MOUSEUP);
     private final WebDriver driver;
+    private static final Set<Event> supportedEventsInTriggerEventByWD = Sets.newHashSet(Event.CLICK, Event.DBLCLICK, Event.MOUSEDOWN,
+        Event.MOUSEDOWN, Event.CONTEXTCLICK, Event.CONTEXTMENU, Event.MOUSEOUT, Event.MOUSEOVER, Event.MOUSEUP);
 
     public Actions(WebDriver driver) {
         super(driver);
@@ -155,31 +155,26 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
         throw new RuntimeException("Cannot find any suitable position for mouseout event.");
     }
 
-    @Override
     public Actions keyDown(Keys theKey) {
         super.keyDown(theKey);
         return this;
     }
 
-    @Override
     public Actions keyDown(WebElement element, Keys theKey) {
         super.keyDown(element, theKey);
         return this;
     }
 
-    @Override
     public Actions keyUp(Keys theKey) {
         super.keyUp(theKey);
         return this;
     }
 
-    @Override
     public Actions keyUp(WebElement element, Keys theKey) {
         super.keyUp(element, theKey);
         return this;
     }
 
-    @Override
     public Actions moveByOffset(int xOffset, int yOffset) {
         super.moveByOffset(xOffset, yOffset);
         return this;
@@ -236,7 +231,6 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
      *
      * @param event
      * @param element
-     * @return
      * @throws IllegalArgumentException when given event can not be triggered by webdriver API
      */
     public Actions triggerEventByWD(Event event, WebElement element) {
@@ -249,13 +243,7 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
         } else if (event.equals(Event.MOUSEMOVE)) {
             return moveToElement(element);
         } else if (event.equals(Event.CONTEXTCLICK) || event.equals(Event.CONTEXTMENU)) {
-            // workaround for RF-14034 / RF-14273
-            if (driver instanceof PhantomJSDriver) {
-                return triggerEventByJS(event, element);
-            } else {
-                // all other browsers use former solution - simply invoke context click
-                return contextClick(element);
-            }
+            return contextClick(element);            
         } else if (event.equals(Event.MOUSEOUT)) {
             Point coords = getPossibleCoordinationsForMouseOut(element);
             return moveToElement(element).moveByOffset(coords.x, coords.y);

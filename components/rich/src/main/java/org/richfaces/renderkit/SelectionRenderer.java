@@ -21,151 +21,26 @@
  */
 package org.richfaces.renderkit;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.SequenceRange;
 import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.UIDataTableBase;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-
 /**
  * @author Konstantin Mishin
+ *
  */
 public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
-    protected void encodeSelectionInput(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        writer.startElement(HtmlConstants.INPUT_ELEM, component);
-        // TODO nick - selection input id should use constants/be a method
-        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ":si", null);
-        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, component.getClientId(context) + ":si", null);
-        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
-        UIDataTableBase table = (UIDataTableBase) component;
-        StringBuilder builder = new StringBuilder("|");
-        Object key = table.getRowKey();
-        table.captureOrigValue(context);
-        SequenceRange range = (SequenceRange) table.getComponentState().getRange();
-        int first = range.getFirstRow();
-        int last = first + range.getRows() - 1;
-        Map<String, Object> attributes = component.getAttributes();
-        table.setRowKey(attributes.get("activeRowKey"));
-        int activeIndex = table.getRowIndex();
-        if (activeIndex > 0) {
-            if (activeIndex < first) {
-                builder.append(ClientSelection.FLAG_BEFORE_RANGE);
-            } else if (activeIndex > last) {
-                builder.append(ClientSelection.FLAG_AFTER_RANGE);
-            }
-        }
-        builder.append("|");
-        table.setRowKey(attributes.get("shiftRowKey"));
-        int shiftIndex = table.getRowIndex();
-        if (shiftIndex > 0) {
-            if (shiftIndex < first) {
-                builder.append(ClientSelection.FLAG_BEFORE_RANGE);
-            } else if (shiftIndex > last) {
-                builder.append(ClientSelection.FLAG_AFTER_RANGE);
-            }
-        }
-        builder.append("|");
-        table.setRowKey(context, key);
-        table.restoreOrigValue(context);
-        writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, builder.toString(), null);
-        writer.endElement(HtmlConstants.INPUT_ELEM);
-    }
-
-    @Override
-    protected void doDecode(FacesContext context, UIComponent component) {
-        super.doDecode(context, component);
-        Map<String, String> map = context.getExternalContext().getRequestParameterMap();
-        String selectionString = map.get(component.getClientId(context) + ":si");
-        if (selectionString != null && selectionString.length() > 0) {
-            final ClientSelection clientSelection = new ClientSelection(selectionString);
-            final Map<String, Object> attributes = component.getAttributes();
-            AbstractExtendedDataTable table = (AbstractExtendedDataTable) component;
-            Collection<Object> selection = table.getSelection();
-            if (selection == null) {
-                selection = new HashSet<Object>();
-                // TODO nick - model updates should not happen on the 2nd phase
-                updateAttribute(context, component, "selection", selection);
-            }
-            final Collection<Object> rowKeys = selection;
-            String selectionFlag = clientSelection.getSelectionFlag();
-            if (selectionFlag != null) {
-                selection.clear();
-                if (!ClientSelection.FLAG_RESET.equals(selectionFlag)) {
-                    encodeSelectionOutsideCurrentRange(context, table, selectionFlag);
-                }
-            }
-            if (clientSelection.isCleanShiftIndex()) {
-                attributes.remove("shiftRowKey");
-            }
-            table.walk(context, new DataVisitor() {
-                public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
-                    int index = clientSelection.nextIndex();
-                    if (clientSelection.isSelected(index)) {
-                        rowKeys.add(rowKey);
-                    } else {
-                        rowKeys.remove(rowKey);
-                    }
-                    if (clientSelection.isActiveIndex(index)) {
-                        attributes.put("activeRowKey", rowKey);
-                    }
-                    if (clientSelection.isShiftIndex(index)) {
-                        attributes.put("shiftRowKey", rowKey);
-                    }
-                    return DataVisitResult.CONTINUE;
-                }
-            }, null);
-        }
-    }
-
-    private void encodeSelectionOutsideCurrentRange(FacesContext context, AbstractExtendedDataTable table, String selectionFlag) { // TODO
-        // Rename
-        // method
-        Object key = table.getRowKey();
-        table.captureOrigValue(context);
-        SequenceRange range = (SequenceRange) table.getComponentState().getRange();
-        SequenceRange newRange = null;
-        Map<String, Object> attributes = table.getAttributes();
-        Object rowKey = attributes.get("shiftRowKey");
-        if (rowKey == null) {
-            rowKey = attributes.get("activeRowKey");
-            if (rowKey == null) {
-                rowKey = range.getFirstRow();
-            }
-            attributes.put("shiftRowKey", rowKey);
-        }
-        table.setRowKey(rowKey);
-        int shiftIndex = table.getRowIndex();
-        if (ClientSelection.FLAG_ALL.equals(selectionFlag)) {
-            newRange = new SequenceRange(0, 0);
-        } else if (shiftIndex > 0) {
-            if (ClientSelection.FLAG_BEFORE_RANGE.equals(selectionFlag)) {
-                newRange = new SequenceRange(shiftIndex, range.getFirstRow() - shiftIndex);
-            } else {
-                int last = range.getFirstRow() + range.getRows();
-                newRange = new SequenceRange(last, shiftIndex - last + 1);
-            }
-        }
-        table.setRowKey(context, key);
-        table.restoreOrigValue(context);
-        if (newRange != null) {
-            final Collection<Object> rowKeys = table.getSelection();
-            table.walk(context, new DataVisitor() {
-                public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
-                    rowKeys.add(rowKey);
-                    return DataVisitResult.CONTINUE;
-                }
-            }, newRange, null);
-        }
-    }
-
     private class ClientSelection {
         // TODO nick - use enum instead of constant
         public static final String FLAG_RESET = "x";
@@ -241,6 +116,133 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
 
         public int nextIndex() {
             return index++;
+        }
+    }
+
+    protected void encodeSelectionInput(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        writer.startElement(HtmlConstants.INPUT_ELEM, component);
+        // TODO nick - selection input id should use constants/be a method
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ":si", null);
+        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, component.getClientId(context) + ":si", null);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
+        UIDataTableBase table = (UIDataTableBase) component;
+        StringBuilder builder = new StringBuilder("|");
+        Object key = table.getRowKey();
+        table.captureOrigValue(context);
+        SequenceRange range = (SequenceRange) table.getComponentState().getRange();
+        int first = range.getFirstRow();
+        int last = first + range.getRows() - 1;
+        Map<String, Object> attributes = component.getAttributes();
+        table.setRowKey(attributes.get("activeRowKey"));
+        int activeIndex = table.getRowIndex();
+        if (activeIndex > 0) {
+            if (activeIndex < first) {
+                builder.append(ClientSelection.FLAG_BEFORE_RANGE);
+            } else if (activeIndex > last) {
+                builder.append(ClientSelection.FLAG_AFTER_RANGE);
+            }
+        }
+        builder.append("|");
+        table.setRowKey(attributes.get("shiftRowKey"));
+        int shiftIndex = table.getRowIndex();
+        if (shiftIndex > 0) {
+            if (shiftIndex < first) {
+                builder.append(ClientSelection.FLAG_BEFORE_RANGE);
+            } else if (shiftIndex > last) {
+                builder.append(ClientSelection.FLAG_AFTER_RANGE);
+            }
+        }
+        builder.append("|");
+        table.setRowKey(context, key);
+        table.restoreOrigValue(context);
+        writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, builder.toString(), null);
+        writer.endElement(HtmlConstants.INPUT_ELEM);
+    }
+
+    @Override
+    protected void doDecode(FacesContext context, UIComponent component) {
+        super.doDecode(context, component);
+        Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+        String selectionString = map.get(component.getClientId(context) + ":si");
+        if (selectionString != null && selectionString.length() > 0) {
+            final ClientSelection clientSelection = new ClientSelection(selectionString);
+            final Map<String, Object> attributes = component.getAttributes();
+            AbstractExtendedDataTable table = (AbstractExtendedDataTable) component;
+            Collection<Object> selection = table.getSelection();
+            if (selection == null) {
+                selection = new HashSet<>();
+                // TODO nick - model updates should not happen on the 2nd phase
+                updateAttribute(context, component, "selection", selection);
+            }
+            final Collection<Object> rowKeys = selection;
+            String selectionFlag = clientSelection.getSelectionFlag();
+            if (selectionFlag != null) {
+                selection.clear();
+                if (!ClientSelection.FLAG_RESET.equals(selectionFlag)) {
+                    encodeSelectionOutsideCurrentRange(context, table, selectionFlag);
+                }
+            }
+            if (clientSelection.isCleanShiftIndex()) {
+                attributes.remove("shiftRowKey");
+            }
+            table.walk(context, new DataVisitor() {
+                public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
+                    int index = clientSelection.nextIndex();
+                    if (clientSelection.isSelected(index)) {
+                        rowKeys.add(rowKey);
+                    } else {
+                        rowKeys.remove(rowKey);
+                    }
+                    if (clientSelection.isActiveIndex(index)) {
+                        attributes.put("activeRowKey", rowKey);
+                    }
+                    if (clientSelection.isShiftIndex(index)) {
+                        attributes.put("shiftRowKey", rowKey);
+                    }
+                    return DataVisitResult.CONTINUE;
+                }
+            }, null);
+        }
+    }
+
+    private void encodeSelectionOutsideCurrentRange(FacesContext context, AbstractExtendedDataTable table, String selectionFlag) { // TODO
+                                                                                                                                   // Rename
+                                                                                                                                   // method
+        Object key = table.getRowKey();
+        table.captureOrigValue(context);
+        SequenceRange range = (SequenceRange) table.getComponentState().getRange();
+        SequenceRange newRange = null;
+        Map<String, Object> attributes = table.getAttributes();
+        Object rowKey = attributes.get("shiftRowKey");
+        if (rowKey == null) {
+            rowKey = attributes.get("activeRowKey");
+            if (rowKey == null) {
+                rowKey = range.getFirstRow();
+            }
+            attributes.put("shiftRowKey", rowKey);
+        }
+        table.setRowKey(rowKey);
+        int shiftIndex = table.getRowIndex();
+        if (ClientSelection.FLAG_ALL.equals(selectionFlag)) {
+            newRange = new SequenceRange(0, 0);
+        } else if (shiftIndex > 0) {
+            if (ClientSelection.FLAG_BEFORE_RANGE.equals(selectionFlag)) {
+                newRange = new SequenceRange(shiftIndex, range.getFirstRow() - shiftIndex);
+            } else {
+                int last = range.getFirstRow() + range.getRows();
+                newRange = new SequenceRange(last, shiftIndex - last + 1);
+            }
+        }
+        table.setRowKey(context, key);
+        table.restoreOrigValue(context);
+        if (newRange != null) {
+            final Collection<Object> rowKeys = table.getSelection();
+            table.walk(context, new DataVisitor() {
+                public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
+                    rowKeys.add(rowKey);
+                    return DataVisitResult.CONTINUE;
+                }
+            }, newRange, null);
         }
     }
 }

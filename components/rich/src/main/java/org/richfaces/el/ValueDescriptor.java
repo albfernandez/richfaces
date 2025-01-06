@@ -29,6 +29,7 @@ package org.richfaces.el;
  * This class describes bean property.
  *
  * @author asmirnov
+ *
  */
 public class ValueDescriptor {
     private final String name;
@@ -37,8 +38,6 @@ public class ValueDescriptor {
     /**
      * @param beanType
      * @param name
-     * @param propertyType
-     * @param readOnly
      */
     public ValueDescriptor(Class<?> beanType, String name) {
         this.beanType = beanType;

@@ -24,16 +24,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+	<!--MZ
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>47</version>
+        <version>36</version>
+        <relativePath />
+    </parent>
+    -->
+    
+    <parent>
+        <groupId>org.jboss</groupId>
+    	<version>36-custom</version>
+    	<artifactId>jboss-parent</artifactId>
+        <relativePath>./parent-parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.richfaces</groupId>
+    <groupId>com.github.albfernandez.richfaces</groupId>
     <artifactId>richfaces-parent</artifactId>
     <packaging>pom</packaging>
-    <version>4.5.18.Final</version>
+    <version>10.0.1-SNAPSHOT</version>
     <name>RichFaces Parent</name>
 
     <modules>
@@ -42,8 +52,8 @@
         <module>build</module>
         <module>build/build-resources</module>
         <module>build/page-fragments</module>
-        <module>build/push-depchain</module>
-        <module>build/push-native-depchain</module>
+        <!--<module>build/push-depchain</module>
+        <module>build/push-native-depchain</module>-->
         <module>build/resource-optimizer-plugin</module>
 
         <module>core</module>
@@ -51,6 +61,7 @@
 
         <module>dist</module>
 
+        <!-- 
         <module>examples/photoalbum</module>
         <module>examples/showcase</module>
         <module>examples/template</module>
@@ -58,6 +69,8 @@
         <module>examples/push-demo</module>
         <module>examples/irc-client</module>
         <module>examples/components-demo</module>
+         -->
+        <module>parent-parent</module>
     </modules>
 
     <description>
@@ -66,7 +79,7 @@
         change very rarely.
     </description>
 
-    <url>http://richfaces.org</url>
+    <url>https://github.com/albfernandez/richfaces</url>
 
     <licenses>
         <license>
@@ -82,100 +95,86 @@
         </developer>
     </developers>
 
-    <issueManagement>
-        <system>jira</system>
-        <url>https://jira.jboss.org/jira/browse/RF</url>
-    </issueManagement>
-
-    <mailingLists>
-        <mailingList>
-            <name>RichFaces User Forums</name>
-            <archive>http://community.jboss.org/en/richfaces</archive>
-        </mailingList>
-        <mailingList>
-            <name>RichFaces Developer Forums</name>
-            <archive>http://community.jboss.org/en/richfaces/dev</archive>
-        </mailingList>
-    </mailingLists>
-
-    <distributionManagement>
-        <!-- Other items inherited from jboss-parent -->
-        <downloadUrl>http://www.jboss.org/richfaces/download</downloadUrl>
-    </distributionManagement>
-
     <!-- SCM and distribution management -->
     <scm>
-        <connection>scm:git:git://github.com/richfaces/richfaces.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/richfaces.git</developerConnection>
-        <url>https://github.com/richfaces/richfaces</url>
-        <tag>HEAD</tag>
+        <connection>scm:git:git@github.com:albfernandez/richfaces.git</connection>
+        <developerConnection>scm:git:git@github.com:albfernandez/richfaces.git</developerConnection>
+        <url>git@github.com:albfernandez/richfaces.git</url>
     </scm>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/albfernandez/richfaces/issues</url>
+    </issueManagement>
 
     <properties>
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Base Dependencies Versions -->
-        <version.richfaces>4.5.18.Final</version.richfaces>
-<!--        <version.cdk>4.5.0.Final</version.cdk>-->
-        <version.jboss-jakartaee>1.0.0.Final</version.jboss-jakartaee>
+        <version.richfaces>10.0.1-SNAPSHOT</version.richfaces>
+        <version.cdk>10.0.1-SNAPSHOT</version.cdk>
+        <version.jboss-javaee>3.0.3.Final</version.jboss-javaee>
 
         <!-- Container Versions -->
-        <version.wildfly100>10.0.0.Final</version.wildfly100>
-        <version.wildfly90>9.0.1.Final</version.wildfly90>
+        <version.wildfly18>18.0.1.Final</version.wildfly18>
+        <version.wildfly10>10.1.0.Final</version.wildfly10>
+        <version.wildfly9>9.0.2.Final</version.wildfly9>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
         <version.wildfly82>8.2.1.Final</version.wildfly82>
-        <version.tomcat7>7.0.69</version.tomcat7>
-        <version.tomcat8>8.0.35</version.tomcat8>
+        <version.tomcat7>7.0.94</version.tomcat7>
+        <version.tomcat8>8.0.53</version.tomcat8>
+        <version.tomcat85>8.5.40</version.tomcat85>
+        <version.tomcat9>9.0.19</version.tomcat9>
+        <version.payara4>4.1.2.181</version.payara4>
+        <version.payara5>5.201</version.payara5>
 
         <!-- Plugin Management: versions -->
-        <version.assembly.plugin>2.6</version.assembly.plugin>
-        <version.clean.plugin>3.0.0</version.clean.plugin>
-        <version.compiler.plugin>3.5.1</version.compiler.plugin>
-        <version.install.plugin>2.5.2</version.install.plugin>
-        <version.jacoco.plugin>0.5.5.201112152213</version.jacoco.plugin>
-        <version.jrebel.plugin>1.1.3</version.jrebel.plugin>
-        <version.release.plugin>2.5.3</version.release.plugin>
-        <version.replacer.plugin>1.5.3</version.replacer.plugin>
-        <version.resources.plugin>3.0.0</version.resources.plugin>
-        <version.scm.plugin>1.9.2</version.scm.plugin>
-        <version.source.plugin>3.0.0</version.source.plugin>
-        <version.surefire.plugin>3.5.2</version.surefire.plugin>
-        <version.vdldoc>1.2</version.vdldoc>
+        <version.assembly.plugin>3.7.1</version.assembly.plugin>
+        <version.clean.plugin>3.3.2</version.clean.plugin>
+        <version.compiler.plugin>3.13.0</version.compiler.plugin>
+        <version.install.plugin>3.1.2</version.install.plugin>
+         <version.jacoco.plugin>0.8.12</version.jacoco.plugin>
+         <version.jrebel.plugin>1.2.0</version.jrebel.plugin>
+        <version.release.plugin>3.1.1</version.release.plugin>
+         <version.replacer.plugin>1.5.3</version.replacer.plugin>
+        <version.resources.plugin>3.3.1</version.resources.plugin>
+         <version.scm.plugin>2.1.0</version.scm.plugin>
+        <version.source.plugin>3.3.1</version.source.plugin>
+        <version.surefire.plugin>3.5.0</version.surefire.plugin>
+         <version.vdldoc>2.1</version.vdldoc>
 
-        <version.screenshooter>2.1.0.Alpha1</version.screenshooter>
+        <version.screenshooter>2.5.4</version.screenshooter>
+
 
         <!-- maven-compiler-plugin -->
         <!-- Overide jboss-parent default version-->
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
 
         <!-- Release -->
         <regular.files.which.contains.version>core/src/main/java/org/richfaces/VersionBean.java,dist/src/main/resources/txt/readme.txt,dist/src/main/resources/txt/readme-examples.txt,build/build-resources/src/main/java/org/richfaces/arquillian/configuration/FundamentalTestConfiguration.java,build/resources-plugin/src/site/apt/usage.apt,examples/showcase/src/main/webapp/META-INF/MANIFEST.MF,examples/showcase/README.md,examples/irc-client/readme.txt</regular.files.which.contains.version>
 
         <!-- JVM values for surefire plugin -->
         <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->
-        <surefire.jvm.params>-Xms1024m -Xmx2048m --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED</surefire.jvm.params>
+        <surefire.jvm.params>-Xms1024m -Xmx2048m</surefire.jvm.params>
     </properties>
-
-    <prerequisites>
-        <maven>${maven.min.version}</maven>
-    </prerequisites>
 
     <dependencyManagement>
         <dependencies>
             <!-- Java EE -->
+            <!--MZ
             <dependency>
                 <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-jakartaee-8.0</artifactId>
-                <version>${version.jboss-jakartaee}</version>
+                <artifactId>jboss-javaee-6.0</artifactId>
+                <version>${version.jboss-javaee}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-jakartaee-web-8.0</artifactId>
-                <version>${version.jboss-jakartaee}</version>
+                <artifactId>jboss-javaee-web-6.0</artifactId>
+                <version>${version.jboss-javaee}</version>
                 <type>pom</type>
                 <scope>import</scope>
                 <exclusions>
@@ -185,17 +184,69 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            -->
+            <dependency>
+	            <groupId>org.apache.myfaces.core</groupId>
+	            <artifactId>myfaces-api</artifactId>
+	            <version>4.0.2</version>
+	        </dependency>
+	        <dependency>
+				<groupId>jakarta.el</groupId>
+				<artifactId>jakarta.el-api</artifactId>
+				<version>6.0.1</version>
+			</dependency>
+			<dependency>
+		    	<groupId>org.glassfish</groupId>
+		    	<artifactId>jakarta.el</artifactId>
+		    	<version>4.0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.servlet</groupId>
+				<artifactId>jakarta.servlet-api</artifactId>
+				<version>6.1.0</version>
+			</dependency>
+			<dependency>
+			    <groupId>jakarta.jms</groupId>
+			    <artifactId>jakarta.jms-api</artifactId>
+			    <version>3.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.inject</groupId>
+				<artifactId>jakarta.inject-api</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+			    <groupId>jakarta.validation</groupId>
+			    <artifactId>jakarta.validation-api</artifactId>
+			    <version>3.1.0</version>
+			</dependency>
+			<dependency>
+			    <groupId>jakarta.enterprise</groupId>
+			    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+			    <version>4.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.transaction</groupId>
+				<artifactId>jakarta.transaction-api</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+			    <groupId>jakarta.activation</groupId>
+			    <artifactId>jakarta.activation-api</artifactId>
+			    <version>2.1.3</version>
+			</dependency>
+
 
             <!-- RichFaces -->
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-cache-bom</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-build</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
@@ -211,14 +262,35 @@
             contain and stable plugin settings, and versions to be used
             by all part of the project.
         -->
-        <pluginManagement>
-            <plugins>
+    <pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>${maven.min.version}</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
                 <!-- Build -->
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
+                        <release>${java.version}</release>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -238,6 +310,9 @@
                             <manifestEntries>
                                 <mode>development</mode>
                                 <Build-Number>${buildNumber}</Build-Number>
+                                <!--MZ
+                                <Automatic-Module-Name>com.github.albfernandez.richfaces.${project.artifactId}</Automatic-Module-Name>
+                            	-->
                             </manifestEntries>
                         </archive>
                     </configuration>
@@ -246,6 +321,12 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <configuration>
+                    	<source>21</source>
+                    	<!--MZ
+						<links>
+	                        <link>https://docs.oracle.com/javase/7/docs/api/</link>
+	                    </links>
+	                    -->
                         <keywords>true</keywords>
                         <quiet>true</quiet>
                         <!-- Solves issues related to link lookups for all
@@ -274,40 +355,6 @@
                     </configuration>
                 </plugin>
 
-                <!-- Checkstyle -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <configuration>
-                        <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml</configLocation>
-                        <logViolationsToConsole>true</logViolationsToConsole>
-                        <violationSeverity>error</violationSeverity>
-                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>richfaces-checkstyle-report</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.richfaces</groupId>
-                            <artifactId>richfaces-build-resources</artifactId>
-                            <version>${version.richfaces}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-eclipse-plugin</artifactId>
-                    <configuration>
-                        <wtpversion>2.9</wtpversion>
-                        <downloadSources>true</downloadSources>
-                    </configuration>
-                </plugin>
                 <plugin>
                     <groupId>org.zeroturnaround</groupId>
                     <artifactId>jrebel-maven-plugin</artifactId>
@@ -318,11 +365,18 @@
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${version.jacoco.plugin}</version>
                 </plugin>
-<!--                <plugin>-->
-<!--                    <groupId>org.richfaces.cdk</groupId>-->
-<!--                    <artifactId>richfaces-cdk-maven-plugin</artifactId>-->
-<!--                    <version>${version.cdk}</version>-->
-<!--                </plugin>-->
+                <plugin>
+                    <groupId>com.github.albfernandez.richfaces.cdk</groupId>
+                    <artifactId>richfaces-cdk-maven-plugin</artifactId>
+                    <version>${version.cdk}</version>
+                    <!--<dependencies>
+                        <dependency>
+                            <groupId>javax.xml.bind</groupId>
+                            <artifactId>jaxb-api</artifactId>
+                            <version>2.3.1</version>
+                        </dependency>
+                    </dependencies>-->
+                </plugin>
                 <plugin>
                     <groupId>com.google.code.maven-replacer-plugin</groupId>
                     <artifactId>replacer</artifactId>
@@ -333,73 +387,12 @@
                     <artifactId>maven-scm-plugin</artifactId>
                     <version>${version.scm.plugin}</version>
                 </plugin>
-
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
                 <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-<!--                                <pluginExecution>-->
-<!--                                    <pluginExecutionFilter>-->
-<!--                                        <groupId>org.richfaces.cdk</groupId>-->
-<!--                                        <artifactId>richfaces-cdk-maven-plugin</artifactId>-->
-<!--                                        <versionRange>[4.5.2.Final,)</versionRange>-->
-<!--                                        <goals>-->
-<!--                                            <goal>generate</goal>-->
-<!--                                        </goals>-->
-<!--                                    </pluginExecutionFilter>-->
-<!--                                    <action>-->
-<!--                                        <execute>-->
-<!--                                            <runOnIncremental>false</runOnIncremental>-->
-<!--                                        </execute>-->
-<!--                                    </action>-->
-<!--                                </pluginExecution>-->
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.richfaces.cdk</groupId>
-                                        <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
-                                        <versionRange>[4.5.2.Final,)</versionRange>
-                                        <goals>
-                                            <goal>process</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore />
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-dependency-plugin</artifactId>
-                                        <versionRange>[2.9,)</versionRange>
-                                        <goals>
-                                            <goal>unpack</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <execute />
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.codehaus.mojo</groupId>
-                                        <artifactId>exec-maven-plugin</artifactId>
-                                        <versionRange>[1.3.2,)</versionRange>
-                                        <goals>
-                                            <goal>java</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore />
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${version.source.plugin}</version>
                 </plugin>
+
             </plugins>
         </pluginManagement>
         <plugins>
@@ -434,7 +427,6 @@
     </build>
 
     <profiles>
-
         <profile>
             <id>integration-tests</id>
             <activation>
@@ -448,7 +440,7 @@
 
                 <!-- Arquillian Configuration -->
                 <arquillian.debug>false</arquillian.debug>
-                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
+                <arquillian.drone.browser>chromeHeadless</arquillian.drone.browser>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
                 <arquillian.richfaces.version />
                 <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
@@ -462,9 +454,9 @@
                 <arquillian.maven.settings />
 
                 <!-- Container Selection -->
-                <arquillian.launch.jbosseap6>false</arquillian.launch.jbosseap6>
-                <arquillian.launch.tomcat7>false</arquillian.launch.tomcat7>
-                <arquillian.launch.tomcat8>false</arquillian.launch.tomcat8>
+                <arquillian.launch.wildfly>false</arquillian.launch.wildfly>
+                <arquillian.launch.tomcat>false</arquillian.launch.tomcat>
+                <arquillian.launch.payara>false</arquillian.launch.payara>
 
                 <!-- HTTPS testing -->
                 <firefoxProfileTemplate />
@@ -474,12 +466,11 @@
                 <testCategory.included.default>NOT category.None</testCategory.included.default>
                 <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
                 <testCategory.excluded.container />
-                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
                 <testCategory.excluded.jsf />
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>org.richfaces</groupId>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
                     <artifactId>richfaces-build-resources</artifactId>
                     <scope>test</scope>
                 </dependency>
@@ -550,7 +541,7 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>org.richfaces</groupId>
+                                            <groupId>com.github.albfernandez.richfaces</groupId>
                                             <artifactId>richfaces-build-resources</artifactId>
                                             <version>${version.richfaces}</version>
                                             <type>jar</type>
@@ -622,30 +613,19 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>org.richfaces</groupId>
+                                <groupId>com.github.albfernandez.richfaces</groupId>
                                 <artifactId>richfaces-build-resources</artifactId>
                                 <version>${version.richfaces}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
+
                 </plugins>
             </build>
         </profile>
 
         <!-- Browsers -->
-        <profile>
-            <id>browser-phantomjs</id>
-            <activation>
-                <property>
-                    <name>browser</name>
-                    <value>phantomjs</value>
-                </property>
-            </activation>
-            <properties>
-                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
-                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
-            </properties>
-        </profile>
+        
         <profile>
             <id>browser-chrome</id>
             <activation>
@@ -656,7 +636,7 @@
             </activation>
             <properties>
                 <testCategory.excluded.browser/>
-                <arquillian.drone.browser>chrome</arquillian.drone.browser>
+                <arquillian.drone.browser>chromeHeadless</arquillian.drone.browser>
             </properties>
         </profile>
         <profile>
@@ -685,18 +665,57 @@
         </profile>
 
         <!-- Containers -->
+        
+        <profile>
+            <id>wildfly-managed-18-0</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly18</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.wildfly>true</arquillian.launch.wildfly>
+                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly18}</arquillian.container.home>
+                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly18}</arquillian.container.distribution>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly.arquillian</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <scope>test</scope>                    
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>wildfly-remote-18</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly18-remote</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-remote</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>  
+        
         <profile>
             <id>wildfly-managed-10-0</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>wildfly100</value>
+                    <value>wildfly10</value>
                 </property>
             </activation>
             <properties>
-                <arquillian.launch.wildfly10>true</arquillian.launch.wildfly10>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly100}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly100}</arquillian.container.distribution>
+                <arquillian.launch.wildfly>true</arquillian.launch.wildfly>
+                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly10}</arquillian.container.home>
+                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly10}</arquillian.container.distribution>
             </properties>
             <dependencies>
                 <dependency>
@@ -711,7 +730,7 @@
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>wildfly100-remote</value>
+                    <value>wildfly10-remote</value>
                 </property>
             </activation>
             <dependencies>
@@ -722,87 +741,7 @@
                 </dependency>
             </dependencies>
         </profile>
-        <profile>
-            <id>wildfly-managed-9-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly90</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.wildfly9>true</arquillian.launch.wildfly9>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly90}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly90}</arquillian.container.distribution>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-remote-9-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly90-remote</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-managed-8-1</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly81</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly81}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly81}</arquillian.container.distribution>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>${version.wildfly81}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-managed-8-2</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly82</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly82}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly82}</arquillian.container.distribution>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>${version.wildfly82}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
+
         <profile>
             <id>wildfly-managed-8-2-https</id>
             <activation>
@@ -812,10 +751,10 @@
                 </property>
             </activation>
             <properties>
-                <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
+                <arquillian.launch.wildfly>true</arquillian.launch.wildfly>
                 <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly82}</arquillian.container.home>
                 <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly82}</arquillian.container.distribution>
-                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-wildfly82-https:${version.richfaces}</arquillian.container.configuration>
+                <arquillian.container.configuration>com.github.albfernandez.richfaces:richfaces-build-resources:zip:configuration-wildfly82-https:${version.richfaces}</arquillian.container.configuration>
             </properties>
             <dependencies>
                 <dependency>
@@ -841,6 +780,45 @@
             </build>
         </profile>
         <profile>
+            <id>wildfly-remote-8-2</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly82-remote</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-remote</artifactId>
+                    <version>${version.wildfly82}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>          
+        <profile>
+            <id>wildfly-managed-8-1</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly81</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.wildfly>true</arquillian.launch.wildfly>
+                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly81}</arquillian.container.home>
+                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly81}</arquillian.container.distribution>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <version>${version.wildfly81}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>wildfly-remote-8-1</id>
             <activation>
                 <property>
@@ -857,198 +835,44 @@
                 </dependency>
             </dependencies>
         </profile>
-        <profile>
-            <id>wildfly-remote-8-2</id>
+      
+        
+
+      
+         <profile>
+            <id>tomcat-managed-9</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>wildfly82-remote</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <version>${version.wildfly82}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-managed-6-2</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap62</value>
+                    <value>tomcat9</value>
                 </property>
             </activation>
             <properties>
-                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
-                <arquillian.container.home>${project.build.directory}/jboss-eap-6.2</arquillian.container.home>
-                <arquillian.container.distribution>file:///path/to/jboss-eap-6.2.4.zip</arquillian.container.distribution>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
+                <catalinaHome>${project.build.directory}/apache-tomcat-${version.tomcat9}</catalinaHome>
+                <arquillian.launch.tomcat>true</arquillian.launch.tomcat>
+                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+                <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat9}</arquillian.container.home>
+                <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat9}</arquillian.container.distribution>
+                <arquillian.container.configuration>com.github.albfernandez.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-managed-7</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>
         <profile>
-            <id>jbosseap-remote-6-2</id>
+            <id>tomcat-remote-9</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>jbosseap62-remote</value>
-                </property>
+                    <value>tomcat9-remote</value>
+               </property>
             </activation>
             <properties>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-managed-6-3</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap63</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
-                <arquillian.container.home>${project.build.directory}/jboss-eap-6.3</arquillian.container.home>
-                <arquillian.container.distribution>file:///path/to/jboss-eap-6.3.0.zip</arquillian.container.distribution>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-remote-6-3</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap63-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-managed-6-4</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap64</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
-                <arquillian.container.home>${project.build.directory}/jboss-eap-6.4</arquillian.container.home>
-                <arquillian.container.distribution>file:///path/to/jboss-eap-6.4.0.zip</arquillian.container.distribution>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-remote-6-4</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap64-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>tomcat-remote-7</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>tomcat7-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.tomcat7>true</arquillian.launch.tomcat7>
+                <arquillian.launch.tomcat>true</arquillian.launch.tomcat>
                 <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
             </properties>
             <dependencies>
@@ -1060,20 +884,64 @@
             </dependencies>
         </profile>
         <profile>
-            <id>tomcat-managed-7</id>
+            <id>tomcat-managed-85</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>tomcat7</value>
+                    <value>tomcat85</value>
                 </property>
             </activation>
             <properties>
-                <catalinaHome>${project.build.directory}/apache-tomcat-${version.tomcat7}</catalinaHome>
-                <arquillian.launch.tomcat7>true</arquillian.launch.tomcat7>
+                <catalinaHome>${project.build.directory}/apache-tomcat-${version.tomcat85}</catalinaHome>
+                <arquillian.launch.tomcat>true</arquillian.launch.tomcat>
                 <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
-                <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat7}</arquillian.container.home>
-                <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat7}</arquillian.container.distribution>
-                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
+                <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat85}</arquillian.container.home>
+                <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat85}</arquillian.container.distribution>
+                <arquillian.container.configuration>com.github.albfernandez.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-managed-7</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>tomcat-remote-85</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomcat85-remote</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.tomcat>true</arquillian.launch.tomcat>
+                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-remote-7</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+         <profile>
+            <id>tomcat-managed-8</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomcat8</value>
+                </property>
+            </activation>
+            <properties>
+                <catalinaHome>${project.build.directory}/apache-tomcat-${version.tomcat8}</catalinaHome>
+                <arquillian.launch.tomcat>true</arquillian.launch.tomcat>
+                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+                <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat8}</arquillian.container.home>
+                <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat8}</arquillian.container.distribution>
+                <arquillian.container.configuration>com.github.albfernandez.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
             </properties>
             <dependencies>
                 <dependency>
@@ -1092,7 +960,7 @@
                 </property>
             </activation>
             <properties>
-                <arquillian.launch.tomcat8>true</arquillian.launch.tomcat8>
+                <arquillian.launch.tomcat>true</arquillian.launch.tomcat>
                 <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
             </properties>
             <dependencies>
@@ -1103,26 +971,50 @@
                 </dependency>
             </dependencies>
         </profile>
+
+        
+        <!--  Currently it doesn't work : java.lang.NoSuchMethodError: javax.ws.rs.core.MultivaluedMap.addAll(Ljava/lang/Object;[Ljava/lang/Object;)V -->
         <profile>
-            <id>tomcat-managed-8</id>
+        	<id>payara-managed-5</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>tomcat8</value>
+                    <value>payara5</value>
                 </property>
             </activation>
             <properties>
-                <catalinaHome>${project.build.directory}/apache-tomcat-${version.tomcat8}</catalinaHome>
-                <arquillian.launch.tomcat8>true</arquillian.launch.tomcat8>
-                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
-                <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat8}</arquillian.container.home>
-                <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat8}</arquillian.container.distribution>
-                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
+                <arquillian.launch.payara>true</arquillian.launch.payara>
+                <arquillian.container.home>${project.build.directory}/payara5</arquillian.container.home>
+                <arquillian.container.distribution>fish.payara.distributions:payara-web:zip:${version.payara5}</arquillian.container.distribution>
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-tomcat-managed-7</artifactId>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-managed</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <!--  Currently it doesn't work : java.lang.NoSuchMethodError: javax.ws.rs.core.MultivaluedMap.addAll(Ljava/lang/Object;[Ljava/lang/Object;)V -->
+        <profile>
+        	<id>payara-managed-4-1</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>payara4</value>
+                </property>
+            </activation>
+            
+            <properties>
+                <arquillian.launch.payara>true</arquillian.launch.payara>
+                <arquillian.container.home>${project.build.directory}/payara41</arquillian.container.home>
+                <arquillian.container.distribution>fish.payara.distributions:payara-web:zip:${version.payara4}</arquillian.container.distribution>
+                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-managed</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -1205,6 +1097,19 @@
         </profile>
 
         <profile>
+            <id>examples</id>
+            <modules>
+                <module>examples/photoalbum</module>
+                <module>examples/showcase</module>
+                <module>examples/template</module>
+                <module>examples/jpa-demo</module>
+                <module>examples/push-demo</module>
+                <module>examples/irc-client</module>
+                <module>examples/components-demo</module>
+            </modules>
+        </profile>
+
+        <profile>
             <id>release-completion</id>
             <build>
                 <plugins>
@@ -1260,7 +1165,172 @@
                 </plugins>
             </build>
         </profile>
+        
+        <profile>
+        	<id>quickrun</id>
+        	<properties>
+                <dependency.skip>true</dependency.skip>
+                <pmd.skip>true</pmd.skip>
+                <spotbugs.skip>true</spotbugs.skip>
+            </properties>
+        </profile>
+        
+        <profile>
+        	<id>sign</id>
+        	<build>
+        		<plugins>
+        		    <plugin>
+				        <groupId>org.apache.maven.plugins</groupId>
+				        <artifactId>maven-gpg-plugin</artifactId>
+				        <version>1.6</version>
+				        <configuration>
+				            <keyname>${gpg.keyname}</keyname>
+				            <passphraseServerId>${gpg.keyname}</passphraseServerId>
+				        </configuration>
+				        <executions>
+				            <execution>
+				                <id>sign-artifacts</id>
+				                <phase>verify</phase>
+				                <goals>
+				                    <goal>sign</goal>
+				                </goals>
+				            </execution>
+				        </executions>
+				    </plugin>
+				    <plugin>
+				        <groupId>org.sonatype.plugins</groupId>
+				        <artifactId>nexus-staging-maven-plugin</artifactId>
+				        <version>1.7.0</version>
+				        <extensions>true</extensions>
+				        <configuration>
+				            <serverId>ossrh</serverId>
+				            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+				            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+				        </configuration>
+				    </plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		 
+        <profile>
+	        <id>only-eclipse</id>
+			<activation>
+			  <property>
+			    <name>m2e.version</name>
+			  </property>
+			</activation>
+			<build>
+			
+			        <pluginManagement>
+            <plugins>
+            
+            	 <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>com.github.albfernandez.richfaces.cdk</groupId>
+                                        <artifactId>richfaces-cdk-maven-plugin</artifactId>
+                                        <versionRange>[4.5.2.Final,)</versionRange>
+                                        <goals>
+                                            <goal>generate</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute>
+                                            <runOnIncremental>false</runOnIncremental>
+                                        </execute>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>com.github.albfernandez.richfaces.cdk</groupId>
+                                        <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
+                                        <versionRange>[4.5.2.Final,)</versionRange>
+                                        <goals>
+                                            <goal>process</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-dependency-plugin</artifactId>
+                                        <versionRange>[2.9,)</versionRange>
+                                        <goals>
+                                            <goal>unpack</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>exec-maven-plugin</artifactId>
+                                        <versionRange>[1.3.2,)</versionRange>
+                                        <goals>
+                                            <goal>java</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+             
+            </plugins>
+        </pluginManagement>
+		
+			</build>
+		</profile>
 
     </profiles>
+
+     <repositories>
+        <repository>
+          <id>jboss-public-repository-group</id>
+          <name>JBoss Public Maven Repository Group</name>
+          <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+          <layout>default</layout>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>jboss-public-repository-group</id>
+          <name>JBoss Public Maven Repository Group</name>
+          <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+          <layout>default</layout>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
 
 </project>

@@ -21,9 +21,6 @@
  */
 package org.richfaces.view.facelets;
 
-import org.richfaces.component.AbstractCalendar;
-import org.richfaces.event.MethodExpressionCurrentDateChangeListener;
-
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.FaceletContext;
@@ -33,8 +30,12 @@ import jakarta.faces.view.facelets.Metadata;
 import jakarta.faces.view.facelets.MetadataTarget;
 import jakarta.faces.view.facelets.TagAttribute;
 
+import org.richfaces.component.AbstractCalendar;
+import org.richfaces.event.MethodExpressionCurrentDateChangeListener;
+
 /**
  * @author amarkhel
+ *
  */
 public class CalendarHandler extends ComponentHandler {
     private static final CalendarHandlerMetaRule METARULE = new CalendarHandlerMetaRule();
@@ -59,7 +60,7 @@ public class CalendarHandler extends ComponentHandler {
     }
 
     static class CalendarMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[]{org.richfaces.event.CurrentDateChangeEvent.class};
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.CurrentDateChangeEvent.class };
         private final TagAttribute attribute;
 
         public CalendarMapper(TagAttribute attribute) {
@@ -68,7 +69,7 @@ public class CalendarHandler extends ComponentHandler {
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
             ((AbstractCalendar) instance).addCurrentDateChangeListener((new MethodExpressionCurrentDateChangeListener(
-                    this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
+                this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
         }
     }
 }

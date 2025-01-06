@@ -27,31 +27,32 @@ import jakarta.faces.event.AjaxBehaviorListener;
 
 /**
  * @author Anton Belevich interface for our ajax behaviors
+ *
  */
 public interface AjaxClientBehavior extends ClientBehavior {
     boolean isLimitRender();
 
     void setLimitRender(boolean limitRender);
 
-    Object getExecute();
-
     void setExecute(Object execute);
 
-    Object getRender();
+    Object getExecute();
 
     void setRender(Object render);
+
+    Object getRender();
 
     boolean isDisabled();
 
     void setDisabled(boolean disabled);
 
-    String getQueueId();
-
     void setQueueId(String queueId);
 
-    String getStatus();
+    String getQueueId();
 
     void setStatus(String statusId);
+
+    String getStatus();
 
     String getOnerror();
 

@@ -28,6 +28,7 @@ import java.io.IOException;
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:58:30 $
+ *
  */
 public class JSReference extends ScriptStringBase {
     public static final JSReference EVENT = new JSReference("event");

@@ -21,6 +21,8 @@
  */
 package org.richfaces.fragment.dropDownMenu;
 
+import java.util.List;
+
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,22 +30,24 @@ import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.contextMenu.AbstractPopupMenu;
 import org.richfaces.fragment.contextMenu.PopupMenu;
 
-import java.util.List;
-
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 public class RichFacesDropDownMenu extends AbstractPopupMenu implements PopupMenu {
 
-    private final AdvancedDropDownMenuInteractions advancedInteractions = new AdvancedDropDownMenuInteractions();
     @FindBy(className = "rf-ddm-itm")
     private List<WebElement> menuItemsElements;
+
     @FindByJQuery(".rf-ddm-lst:eq(0)")
     private WebElement dropDownMenuPopup;
+
     @FindByJQuery(".rf-ddm-lbl script:last")
     private WebElement script;
+
     @FindByJQuery(".rf-ddm-lbl:eq(0)")
     private WebElement topLvlElement;
+
+    private final AdvancedDropDownMenuInteractions advancedInteractions = new AdvancedDropDownMenuInteractions();
 
     @Override
     public AdvancedDropDownMenuInteractions advanced() {
@@ -51,9 +55,6 @@ public class RichFacesDropDownMenu extends AbstractPopupMenu implements PopupMen
     }
 
     public class AdvancedDropDownMenuInteractions extends AbstractPopupMenu.AdvancedPopupMenuInteractions {
-
-        private final Event DEFAULT_INVOKE_EVENT = Event.MOUSEOVER;
-        private Event invokeEvent = DEFAULT_INVOKE_EVENT;
 
         @Override
         public WebElement getMenuPopup() {
@@ -70,6 +71,9 @@ public class RichFacesDropDownMenu extends AbstractPopupMenu implements PopupMen
             return script;
         }
 
+        private final Event DEFAULT_INVOKE_EVENT = Event.MOUSEOVER;
+        private Event invokeEvent = DEFAULT_INVOKE_EVENT;
+
         public String getLangAttribute() {
             return getTopLevelElement().getAttribute("lang");
         }
@@ -84,13 +88,13 @@ public class RichFacesDropDownMenu extends AbstractPopupMenu implements PopupMen
         }
 
         @Override
-        protected Event getShowEvent() {
-            return invokeEvent;
+        public void setShowEvent(Event showEvent) {
+            this.invokeEvent = showEvent;
         }
 
         @Override
-        public void setShowEvent(Event showEvent) {
-            this.invokeEvent = showEvent;
+        protected Event getShowEvent() {
+            return invokeEvent;
         }
 
     }

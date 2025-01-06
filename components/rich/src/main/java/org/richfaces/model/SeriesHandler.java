@@ -22,9 +22,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.model;
-
-import org.richfaces.component.AbstractChartSeries;
-
 import jakarta.el.MethodExpression;
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
@@ -34,26 +31,30 @@ import jakarta.faces.view.facelets.MetaRuleset;
 import jakarta.faces.view.facelets.Metadata;
 import jakarta.faces.view.facelets.MetadataTarget;
 import jakarta.faces.view.facelets.TagAttribute;
+import org.richfaces.component.AbstractChartSeries;
 
 public class SeriesHandler extends ComponentHandler {
 
 
-    private static final MetaRule META_RULE = new MetaRule() {
+    public SeriesHandler(ComponentConfig config) {
+        super(config);
+
+    }
+
+    private static final MetaRule META_RULE = new MetaRule(){
 
         @Override
         public Metadata applyRule(String name, final TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(AbstractChartSeries.class)) {
                 if ("plotClickListener".equals(name)) {
                     return new Metadata() {
-                        private final Class<?>[] SIGNATURE = {PlotClickEvent.class};
-
+                        private final Class<?>[] SIGNATURE={PlotClickEvent.class};
                         @Override
                         public void applyMetadata(FaceletContext ctx, Object instance) {
                             ((AbstractChartSeries) instance).setPlotClickListener(getValue(ctx));
                         }
-
-                        private MethodExpression getValue(FaceletContext ctx) {
-                            return attribute.getMethodExpression(ctx, Void.class, SIGNATURE);
+                        private MethodExpression getValue(FaceletContext ctx){
+                           return attribute.getMethodExpression(ctx, Void.class, SIGNATURE);
                         }
                     };
                 }
@@ -61,11 +62,6 @@ public class SeriesHandler extends ComponentHandler {
             return null;
         }
     };
-
-    public SeriesHandler(ComponentConfig config) {
-        super(config);
-
-    }
 
     @Override
     protected MetaRuleset createMetaRuleset(Class type) {
@@ -75,3 +71,4 @@ public class SeriesHandler extends ComponentHandler {
     }
 
 }
+

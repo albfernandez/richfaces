@@ -36,7 +36,6 @@ import org.richfaces.fragment.common.WaitingWrapperImpl;
 
 /**
  * Component for footer controls of calendar.
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class FooterControls {
@@ -58,11 +57,11 @@ public class FooterControls {
     private void _openTimeEditor() {
         if (!isVisible()) {
             throw new RuntimeException("Cannot open time editor. "
-                    + "Ensure that calendar popup and footer controls are displayed.");
+                + "Ensure that calendar popup and footer controls are displayed.");
         }
         if (!getTimeEditorOpenerElement().isDisplayed()) {
             throw new RuntimeException("Cannot open time editor. "
-                    + "Ensure that the date is set before setting time.");
+                + "Ensure that the date is set before setting time.");
         }
         getTimeEditorOpenerElement().click();
         getCalendarEditor().getTimeEditor().waitUntilIsVisible().perform();
@@ -112,6 +111,10 @@ public class FooterControls {
         }
     }
 
+    public void setCalendarEditor(CalendarEditor calendarEditor) {
+        this.calendarEditor = calendarEditor;
+    }
+
     public void setTodaysDate() {
         todayDate();
     }
@@ -150,9 +153,5 @@ public class FooterControls {
 
     protected CalendarEditor getCalendarEditor() {
         return calendarEditor;
-    }
-
-    public void setCalendarEditor(CalendarEditor calendarEditor) {
-        this.calendarEditor = calendarEditor;
     }
 }

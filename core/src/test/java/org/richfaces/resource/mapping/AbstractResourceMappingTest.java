@@ -21,6 +21,17 @@
  */
 package org.richfaces.resource.mapping;
 
+import static org.mockito.Mockito.when;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import jakarta.el.ELContext;
+import jakarta.faces.application.Application;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+
 import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -32,16 +43,6 @@ import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.test.AbstractServicesTest;
-
-import jakarta.el.ELContext;
-import jakarta.faces.application.Application;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.mockito.Mockito.when;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
@@ -78,10 +79,10 @@ public class AbstractResourceMappingTest extends AbstractServicesTest {
 
     @Before
     public void setUp() {
-        facesAttributes = new HashMap<Object, Object>();
+        facesAttributes = new HashMap<>();
         when(facesContext.getAttributes()).thenReturn(facesAttributes);
 
-        requestMap = new HashMap<String, Object>();
+        requestMap = new HashMap<>();
         when(externalContext.getRequestMap()).thenReturn(requestMap);
 
         when(skinFactory.getSkin(Mockito.any(FacesContext.class))).thenReturn(skin);

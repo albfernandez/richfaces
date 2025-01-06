@@ -21,13 +21,14 @@
  */
 package org.richfaces.application;
 
-import jakarta.faces.FacesException;
-import jakarta.faces.context.FacesContext;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
@@ -59,7 +60,7 @@ public final class ServiceTracker {
      * <p class="changed_added_4_0">
      * </p>
      */
-    private static final Map<ClassLoader, ServicesFactory> INSTANCES = new ConcurrentHashMap<ClassLoader, ServicesFactory>();
+    private static final Map<ClassLoader, ServicesFactory> INSTANCES = new ConcurrentHashMap<>();
 
     /**
      * <p class="changed_added_4_0">
@@ -75,7 +76,7 @@ public final class ServiceTracker {
      * faces context by {@link FacesContext#getCurrentInstance()} call, if needed.
      * </p>
      *
-     * @param <T>    The service type, usually interface.
+     * @param <T> The service type, usually interface.
      * @param target Service type class.
      * @return service implementation instance.
      */
@@ -88,9 +89,9 @@ public final class ServiceTracker {
      * Get service instance for given type.
      * </p>
      *
-     * @param <T>     The service type, usually interface.
+     * @param <T> The service type, usually interface.
      * @param context current {@link FacesContext}.
-     * @param target  Service type class.
+     * @param target Service type class.
      * @return service instance.
      */
     public static <T> T getService(FacesContext context, Class<T> target) {
@@ -101,8 +102,8 @@ public final class ServiceTracker {
         if (!INSTANCES.containsKey(getCurrentLoader())) {
             throw new FacesException("Service Tracker has not been initialized");
         }
-        ServicesFactory service = INSTANCES.get(getCurrentLoader());
-        return service;
+
+        return INSTANCES.get(getCurrentLoader());
     }
 
     private static ClassLoader getCurrentLoader() {
@@ -130,7 +131,7 @@ public final class ServiceTracker {
      * </p>
      */
     public static void release() {
-        ServicesFactory servicesFactory = INSTANCES.remove(getCurrentLoader());
+    	ServicesFactory servicesFactory = INSTANCES.remove(getCurrentLoader());
         servicesFactory.release();
     }
 
@@ -142,7 +143,7 @@ public final class ServiceTracker {
      */
     @SuppressWarnings("unchecked")
     public static <T> T getProxy(final Class<T> targetService) {
-        return (T) Proxy.newProxyInstance(getCurrentLoader(), new Class<?>[]{targetService}, new InvocationHandler() {
+        return (T) Proxy.newProxyInstance(getCurrentLoader(), new Class<?>[] { targetService }, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 T service = ServiceTracker.getService(targetService);

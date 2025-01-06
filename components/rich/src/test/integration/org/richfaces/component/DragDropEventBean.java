@@ -3,7 +3,6 @@ package org.richfaces.component;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.ManagedProperty;
 import jakarta.faces.bean.RequestScoped;
-
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
 

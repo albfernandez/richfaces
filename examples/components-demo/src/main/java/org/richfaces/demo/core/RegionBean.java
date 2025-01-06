@@ -21,22 +21,24 @@
  */
 package org.richfaces.demo.core;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-import jakarta.faces.event.AjaxBehaviorEvent;
-import jakarta.faces.event.ValueChangeEvent;
-import jakarta.faces.model.SelectItem;
 import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
 
 /**
  * @author Nick Belaevski
+ *
  */
 @ManagedBean
 @SessionScoped
 public class RegionBean implements Serializable {
     private static final long serialVersionUID = -6371272297263012554L;
-    private static final SelectItem[] AVAILABLE_EXECUTE_OPTIONS = new SelectItem[]{new SelectItem(null, "default"),
-            new SelectItem("@region"), new SelectItem("@all"), new SelectItem("@this")};
+    private static final SelectItem[] AVAILABLE_EXECUTE_OPTIONS = new SelectItem[] { new SelectItem(null, "default"),
+            new SelectItem("@region"), new SelectItem("@all"), new SelectItem("@this") };
     private String execute = null;
     private String nestedExecute = null;
     private String outerExecute = null;

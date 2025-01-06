@@ -144,8 +144,6 @@ body > header > div img.logo {
     background: #1d2f3d -webkit-gradient(linear, left top, left bottom, from(#FAFAFA), to(#F5F5F5));
     border: 1px solid #E0E0E0;
     border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
     padding:  5px;
     margin:  5px;
 }
@@ -163,8 +161,6 @@ RichFaces panelMenu styles overwriting
 .rf-pm-hdr-colps,
 .rf-pm-top-gr-hdr {
    border-radius: 8px;
-   -moz-border-radius: 8px;
-   -webkit-border-radius: 8px;
    border: 1px solid #99ccff;
 }
 
@@ -287,14 +283,10 @@ textarea, input[type="text"], input[type="password"], select {
     font-size: 16px;
     padding: .4em;
     border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
 }
 
 button, input[type="reset"], input[type="submit"], input[type="button"] {
     border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
     font-size: 16px;
     padding: .4em;
 }
@@ -313,8 +305,6 @@ inputNumberSlider
     width: 28px;
     height: 28px;
     border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
     background-image: none;
     /*padding: .6em 25px;*/
     display: block;
@@ -328,21 +318,11 @@ inputNumberSlider
     font-weight: bold;
     color: #444;
     text-shadow: 0 1px 1px #F6F6F6;
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#fdfdfd),to(#eee));
-    background-image: -webkit-linear-gradient(top,#fdfdfd,#eee);
-    background-image: -moz-linear-gradient(top,#fdfdfd,#eee);
-    background-image: -ms-linear-gradient(top,#fdfdfd,#eee);
-    background-image: -o-linear-gradient(top,#fdfdfd,#eee);
     background-image: linear-gradient(top,#fdfdfd,#eee);
     border-image: initial;
 }
 
 .rf-insl-hnd-sel {
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#ccc),to(#eee));
-    background-image: -webkit-linear-gradient(top,#ccc,#eee);
-    background-image: -moz-linear-gradient(top,#ccc,#eee);
-    background-image: -ms-linear-gradient(top,#ccc,#eee);
-    background-image: -o-linear-gradient(top,#ccc,#eee);
     background-image: linear-gradient(top,#ccc,#eee);
     border-image: initial;
 }
@@ -377,8 +357,6 @@ rich:tree
 .rf-trn-hnd {
     padding: 3px;
     border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
     background-color: #fff;
     color: #BED6F8;
     border-width: 1px;
@@ -432,8 +410,6 @@ reset the blue border of fieldset  and others
 *************************************************/
 fieldset {
     border-radius: 8px;
-   -moz-border-radius: 8px;
-   -webkit-border-radius: 8px;
     border-width: 1px;
     border-style: solid;
     padding: 10px;
@@ -442,8 +418,6 @@ fieldset {
 
 .rf-p {
     border-radius: 8px;
-   -moz-border-radius: 8px;
-   -webkit-border-radius: 8px;
     background-color: white;
     color: #BED6F8;
     border-width: 1px;
@@ -457,8 +431,6 @@ add rounded corners
 
 .rf-p-hdr {
     border-radius: 8px;
-   -moz-border-radius: 8px;
-   -webkit-border-radius: 8px;
     padding:  10px;
 }
 

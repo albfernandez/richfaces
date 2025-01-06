@@ -1,22 +1,23 @@
 package org.richfaces.demo.tables;
 
-import org.richfaces.JsfVersion;
-import org.richfaces.demo.common.data.RandomHelper;
-import org.richfaces.demo.tables.model.cars.InventoryItem;
-import org.richfaces.demo.tables.model.cars.InventoryVendorList;
-
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.ValueChangeEvent;
-import jakarta.faces.model.SelectItem;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+
+import org.richfaces.JsfVersion;
+import org.richfaces.demo.common.data.RandomHelper;
+import org.richfaces.demo.tables.model.cars.InventoryItem;
+import org.richfaces.demo.tables.model.cars.InventoryVendorList;
 
 @ManagedBean(name = "carsBean")
 @ViewScoped

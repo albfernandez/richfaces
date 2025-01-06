@@ -29,6 +29,7 @@ import jakarta.faces.FacesException;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 @SuppressWarnings("serial")
 public class ServiceException extends FacesException {

@@ -21,20 +21,20 @@
  */
 package org.richfaces.photoalbum.util;
 
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpSession;
+
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.photoalbum.model.event.EventType;
 import org.richfaces.photoalbum.model.event.Events;
 import org.richfaces.photoalbum.model.event.SimpleEvent;
-
-import javax.enterprise.event.Event;
-import javax.enterprise.inject.Produces;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import jakarta.servlet.http.HttpSession;
 
 /**
  * Utility class for actions, related to direct access or modification of current request
@@ -43,9 +43,6 @@ import jakarta.servlet.http.HttpSession;
  */
 public class ApplicationUtils {
 
-    @Inject
-    @EventType(Events.CHECK_USER_EXPIRED_EVENT)
-    Event<SimpleEvent> event;
     @SuppressWarnings("unused")
     @Produces
     @PersistenceContext
@@ -55,17 +52,21 @@ public class ApplicationUtils {
 
     }
 
+    @Inject
+    @EventType(Events.CHECK_USER_EXPIRED_EVENT)
+    Event<SimpleEvent> event;
+
     /**
      * Utility method for adding FacesMessages to specified component
      *
      * @param componentId - component identifier
-     * @param message     - message to add
+     * @param message - message to add
      */
     public static void addFacesMessage(String componentId, String summary, String detail) {
         UIComponent root = FacesContext.getCurrentInstance().getViewRoot();
         UIComponent component = root.findComponent(componentId);
         FacesContext.getCurrentInstance().addMessage(component.getClientId(FacesContext.getCurrentInstance()),
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail));
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail));
     }
 
     /**

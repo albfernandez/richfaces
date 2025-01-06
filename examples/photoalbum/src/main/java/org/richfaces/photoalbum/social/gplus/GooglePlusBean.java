@@ -22,20 +22,21 @@
 
 package org.richfaces.photoalbum.social.gplus;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
 import org.richfaces.photoalbum.model.event.ErrorEvent;
 import org.richfaces.photoalbum.model.event.EventType;
 import org.richfaces.photoalbum.model.event.Events;
-
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 @SessionScoped

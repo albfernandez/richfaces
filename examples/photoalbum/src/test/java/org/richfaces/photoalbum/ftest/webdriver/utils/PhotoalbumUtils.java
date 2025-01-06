@@ -21,8 +21,11 @@
  */
 package org.richfaces.photoalbum.ftest.webdriver.utils;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -33,9 +36,7 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.photoalbum.ftest.webdriver.pages.GPlusLoginPage;
 import org.richfaces.photoalbum.ftest.webdriver.pages.SocialLoginPage;
 
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
+import com.google.common.collect.Lists;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -52,9 +53,9 @@ public final class PhotoalbumUtils {
     public static void checkNotVisible(List<WebElement> list) {
         for (WebElement webElement : list) {
             Graphene.waitAjax()
-                    .ignoring(StaleElementReferenceException.class)
-                    .ignoring(NoSuchElementException.class)
-                    .until().element(webElement).is().not().visible();
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class)
+                .until().element(webElement).is().not().visible();
         }
     }
 
@@ -65,9 +66,9 @@ public final class PhotoalbumUtils {
     public static void checkVisible(List<WebElement> list) {
         for (WebElement webElement : list) {
             Graphene.waitAjax()
-                    .ignoring(StaleElementReferenceException.class)
-                    .ignoring(NoSuchElementException.class)
-                    .until().element(webElement).is().visible();
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class)
+                .until().element(webElement).is().visible();
         }
     }
 
@@ -118,7 +119,7 @@ public final class PhotoalbumUtils {
         }
     }
 
-    public static class NumberOfWindowsOpenedPredicate implements Predicate<WebDriver> {
+    public static class NumberOfWindowsOpenedPredicate implements Function<WebDriver, Boolean> {
 
         private final WebDriver browser;
         private final int numberOfWindows;
@@ -129,7 +130,7 @@ public final class PhotoalbumUtils {
         }
 
         @Override
-        public boolean apply(WebDriver input) {
+        public Boolean apply(WebDriver input) {
             return browser.getWindowHandles().size() == numberOfWindows;
         }
 

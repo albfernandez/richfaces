@@ -1,33 +1,34 @@
 /**
  * License Agreement.
- * <p>
+ *
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- * <p>
+ *
  * Copyright (C) 2007 Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.component;
 
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import java.util.LinkedHashMap;
-import java.util.Map;
+
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
@@ -37,7 +38,7 @@ public final class QueueRegistry {
     public static final String QUEUE_SCRIPT_ID = "_org_richfaces_queue";
     private static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
     private static final String REGISTRY_ATTRIBUTE_NAME = QueueRegistry.class.getName();
-    private Map<String, UIComponent> queuesData = new LinkedHashMap<String, UIComponent>();
+    private Map<String, UIComponent> queuesData = new LinkedHashMap<>();
 
     private QueueRegistry() {
     }

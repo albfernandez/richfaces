@@ -41,6 +41,18 @@ public class ITFocusTabindex {
         return deployment.getFinalArchive();
     }
 
+    @Test
+    public void when_there_are_inputs_with_tabindex_then_the_lowest_tabindex_will_obtain_focus() {
+        browser.get(contextPath.toExternalForm());
+        Graphene.waitGui().until(new ElementIsFocused(input1));
+    }
+
+    @Test
+    public void when_there_are_no_tabindex_components_then_first_input_will_obtain_focus() {
+        browser.get(contextPath.toExternalForm() + "no-tabindex.jsf");
+        Graphene.waitGui().until(new ElementIsFocused(input1));
+    }
+
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -67,17 +79,5 @@ public class ITFocusTabindex {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "no-tabindex.xhtml");
-    }
-
-    @Test
-    public void when_there_are_inputs_with_tabindex_then_the_lowest_tabindex_will_obtain_focus() {
-        browser.get(contextPath.toExternalForm());
-        Graphene.waitGui().until(new ElementIsFocused(input1));
-    }
-
-    @Test
-    public void when_there_are_no_tabindex_components_then_first_input_will_obtain_focus() {
-        browser.get(contextPath.toExternalForm() + "no-tabindex.jsf");
-        Graphene.waitGui().until(new ElementIsFocused(input1));
     }
 }

@@ -21,71 +21,22 @@
  */
 package org.richfaces.demo.core;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 /**
  * @author Nick Belaevski
+ *
  */
 @ManagedBean
 @SessionScoped
 public class RepeatBean implements Serializable {
     private static final long serialVersionUID = -4468004449310935853L;
-    private static final int MATRIX_DIMENSION = 4;
-    private List<Data> dataList;
-    private Data selectedDataItem = null;
-    private List<MatrixRow> matrixRows;
-    public RepeatBean() {
-        dataList = new ArrayList<Data>();
-
-        for (int i = 0; i < 10; i++) {
-            Data data = new Data();
-            data.setText(MessageFormat.format("Item {0}", i));
-            dataList.add(data);
-        }
-
-        matrixRows = new ArrayList<MatrixRow>();
-
-        for (int i = 0; i < MATRIX_DIMENSION; i++) {
-            MatrixRow matrixRow = new MatrixRow();
-
-            for (int j = 0; j < MATRIX_DIMENSION; j++) {
-                MatrixCell matrixCell = new MatrixCell();
-                matrixRow.addCell(matrixCell);
-            }
-
-            matrixRows.add(matrixRow);
-        }
-    }
-
-    /**
-     * @return the data
-     */
-    public List<Data> getDataList() {
-        return dataList;
-    }
-
-    /**
-     * @return the selectedDataItem
-     */
-    public Data getSelectedDataItem() {
-        return selectedDataItem;
-    }
-
-    /**
-     * @param selectedDataItem the selectedDataItem to set
-     */
-    public void setSelectedDataItem(Data selectedDataItem) {
-        this.selectedDataItem = selectedDataItem;
-    }
-
-    public List<MatrixRow> getMatrixRows() {
-        return matrixRows;
-    }
 
     public static final class MatrixCell implements Serializable {
         private static final long serialVersionUID = -5911659561854593681L;
@@ -142,5 +93,58 @@ public class RepeatBean implements Serializable {
         public void setText(String text) {
             this.text = text;
         }
+    }
+
+    private static final int MATRIX_DIMENSION = 4;
+    private List<Data> dataList;
+    private Data selectedDataItem = null;
+    private List<MatrixRow> matrixRows;
+
+    public RepeatBean() {
+        dataList = new ArrayList<Data>();
+
+        for (int i = 0; i < 10; i++) {
+            Data data = new Data();
+            data.setText(MessageFormat.format("Item {0}", i));
+            dataList.add(data);
+        }
+
+        matrixRows = new ArrayList<MatrixRow>();
+
+        for (int i = 0; i < MATRIX_DIMENSION; i++) {
+            MatrixRow matrixRow = new MatrixRow();
+
+            for (int j = 0; j < MATRIX_DIMENSION; j++) {
+                MatrixCell matrixCell = new MatrixCell();
+                matrixRow.addCell(matrixCell);
+            }
+
+            matrixRows.add(matrixRow);
+        }
+    }
+
+    /**
+     * @return the data
+     */
+    public List<Data> getDataList() {
+        return dataList;
+    }
+
+    /**
+     * @return the selectedDataItem
+     */
+    public Data getSelectedDataItem() {
+        return selectedDataItem;
+    }
+
+    /**
+     * @param selectedDataItem the selectedDataItem to set
+     */
+    public void setSelectedDataItem(Data selectedDataItem) {
+        this.selectedDataItem = selectedDataItem;
+    }
+
+    public List<MatrixRow> getMatrixRows() {
+        return matrixRows;
     }
 }

@@ -25,6 +25,7 @@ import org.richfaces.model.TreeNodeImpl;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class DataHolderTreeNodeImpl extends TreeNodeImpl {
     private Object data;

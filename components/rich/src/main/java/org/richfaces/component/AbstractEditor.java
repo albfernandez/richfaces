@@ -21,6 +21,9 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
@@ -31,9 +34,6 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.FocusProps;
 import org.richfaces.renderkit.EditorRendererBase;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIInput;
 
 /**
  * <p> The &lt;rich:editor&gt; component is used for creating a WYSIWYG editor on a page. </p>
@@ -62,9 +62,10 @@ public abstract class AbstractEditor extends UIInput implements CoreProps, Focus
     public abstract String getToolbar();
 
     /**
-     * <p>Set the skin of the richfaces editor. The only skin available by default is "moono".</p>
+     * <p>Set the skin of the richfaces editor. 
+     * Availables skins by default "moono" and moono-lisa.</p>
      */
-    @Attribute(defaultValue = "moono")
+    @Attribute(defaultValue = "moono-lisa")
     public abstract String getSkin();
 
     /**

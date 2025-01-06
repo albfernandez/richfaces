@@ -21,19 +21,6 @@
  */
 package org.richfaces.request;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.richfaces.util.StreamUtils;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Random;
-import java.util.UUID;
-
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -42,8 +29,23 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.Random;
+import java.util.UUID;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.google.common.io.ByteStreams;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class FileUploadResourcesTest {
     private FileUploadMemoryResource memoryResource;
@@ -78,7 +80,7 @@ public class FileUploadResourcesTest {
 
     private byte[] readFully(InputStream is) throws IOException {
         try {
-            return StreamUtils.toByteArray(is);
+            return ByteStreams.toByteArray(is);
         } finally {
             try {
                 is.close();
@@ -90,7 +92,7 @@ public class FileUploadResourcesTest {
 
     private byte[] readFully(File file) throws IOException {
         assertNotNull(file);
-        return readFully(new FileInputStream(file));
+        return readFully(Files.newInputStream(file.toPath()));
     }
 
     private File getSingleFile(String location) {

@@ -21,22 +21,23 @@
  */
 package org.richfaces.request;
 
-import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class FileUploadValueParamTest {
     private FileUploadValueParam param;
@@ -84,7 +85,7 @@ public class FileUploadValueParamTest {
                 char c = (char) new Random().nextInt(Character.MAX_VALUE);
 
                 if (charsetEncoder.canEncode(c)) {
-                    baos.write(charsetEncoder.encode(CharBuffer.wrap(new char[]{c})).array());
+                    baos.write(charsetEncoder.encode(CharBuffer.wrap(new char[] { c })).array());
                     count--;
                 }
             }

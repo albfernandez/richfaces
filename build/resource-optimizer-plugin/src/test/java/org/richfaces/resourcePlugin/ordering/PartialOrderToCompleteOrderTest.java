@@ -21,14 +21,15 @@
  */
 package org.richfaces.resourcePlugin.ordering;
 
-import com.google.common.collect.Ordering;
+import static java.util.Arrays.asList;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.resource.optimizer.ordering.IllegalPartialOrderingException;
 import org.richfaces.resource.optimizer.ordering.PartialOrderToCompleteOrder;
 
-import static java.util.Arrays.asList;
+import com.google.common.collect.Ordering;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>

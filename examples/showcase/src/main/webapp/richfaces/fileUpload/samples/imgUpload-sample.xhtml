@@ -16,7 +16,9 @@
     </h:outputStylesheet>
     <h:form id="form">
         <rich:fileUpload fileUploadListener="#{fileUploadBean.listener}" id="upload" acceptedTypes=".jpg, .gif, .png, .bmp"
-            ontyperejected="alert('Only JPG, GIF, PNG and BMP files are accepted');" maxFilesQuantity="5">
+            ontyperejected="alert('Only JPG, GIF, PNG and BMP files are accepted');" maxFilesQuantity="5"
+            onsizerejected="alert('2MB File size limit excedeed!');"
+            >
             <a4j:ajax event="uploadcomplete" execute="@none" render="info" />
         </rich:fileUpload>
         <h:panelGroup id="info" layout="block" style="width: 400px; margin-top: 10px">

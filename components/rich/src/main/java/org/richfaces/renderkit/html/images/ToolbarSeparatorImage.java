@@ -1,5 +1,14 @@
 package org.richfaces.renderkit.html.images;
 
+import java.awt.Color;
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Map;
+
+import jakarta.faces.context.FacesContext;
+
 import org.richfaces.resource.ImageType;
 import org.richfaces.resource.Java2DUserResource;
 import org.richfaces.resource.PostConstructResource;
@@ -7,14 +16,6 @@ import org.richfaces.resource.ResourceParameter;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
-
-import jakarta.faces.context.FacesContext;
-import java.awt.Color;
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
 
 public abstract class ToolbarSeparatorImage implements Java2DUserResource, StateHolderResource {
     private Integer headerBackgroundColor;

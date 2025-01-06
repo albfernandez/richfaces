@@ -25,6 +25,7 @@ import jakarta.faces.event.FacesListener;
 
 /**
  * @author abelevich
+ *
  */
 public interface DropListener extends FacesListener {
     void processDrop(DropEvent event);

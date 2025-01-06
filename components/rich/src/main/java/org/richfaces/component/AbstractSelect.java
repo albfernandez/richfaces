@@ -1,5 +1,21 @@
 package org.richfaces.component;
 
+import java.io.IOException;
+import java.util.Map;
+
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UISelectItems;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.validator.Validator;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -20,21 +36,6 @@ import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.SelectManyHelper;
 import org.richfaces.validator.SelectLabelValueValidator;
 import org.richfaces.view.facelets.AutocompleteHandler;
-
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UISelectItems;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitResult;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.ListenerFor;
-import jakarta.faces.event.PostAddToViewEvent;
-import jakarta.faces.validator.Validator;
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * <p>

@@ -22,37 +22,16 @@
 package org.richfaces.context;
 
 import jakarta.faces.FacesException;
-import jakarta.faces.FacesWrapper;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.ExternalContextFactory;
 import jakarta.faces.context.ExternalContextWrapper;
 
 /**
  * @author Nick Belaevski
+ *
  */
-public class SkinningExternalContextFactory extends ExternalContextFactory implements FacesWrapper<ExternalContextFactory> {
+public class SkinningExternalContextFactory extends ExternalContextFactory {
     private ExternalContextFactory factory;
-
-    public SkinningExternalContextFactory(ExternalContextFactory factory) {
-        super();
-        this.factory = factory;
-    }
-
-    @Override
-    public ExternalContextFactory getWrapped() {
-        return factory;
-    }
-
-    @Override
-    public ExternalContext getExternalContext(Object context, Object request, Object response) throws FacesException {
-        ExternalContext externalContext = factory.getExternalContext(context, request, response);
-
-        return wrap(externalContext);
-    }
-
-    private ExternalContext wrap(ExternalContext externalContext) {
-        return new ExternalContextWrapperImpl(externalContext);
-    }
 
     private static final class ExternalContextWrapperImpl extends ExternalContextWrapper {
         private ExternalContext externalContext;
@@ -84,5 +63,26 @@ public class SkinningExternalContextFactory extends ExternalContextFactory imple
         public boolean isSecure() {
             return getWrapped().isSecure();
         }
+    }
+
+    public SkinningExternalContextFactory(ExternalContextFactory factory) {
+        super();
+        this.factory = factory;
+    }
+
+    @Override
+    public ExternalContextFactory getWrapped() {
+        return factory;
+    }
+
+    @Override
+    public ExternalContext getExternalContext(Object context, Object request, Object response) throws FacesException {
+        ExternalContext externalContext = factory.getExternalContext(context, request, response);
+
+        return wrap(externalContext);
+    }
+
+    private ExternalContext wrap(ExternalContext externalContext) {
+        return new ExternalContextWrapperImpl(externalContext);
     }
 }

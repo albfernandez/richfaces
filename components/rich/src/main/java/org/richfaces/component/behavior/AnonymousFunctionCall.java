@@ -1,18 +1,18 @@
 package org.richfaces.component.behavior;
 
-import org.ajax4jsf.javascript.ScriptStringBase;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.ajax4jsf.javascript.ScriptStringBase;
+
 public class AnonymousFunctionCall extends ScriptStringBase {
 
-    private StringBuffer body = new StringBuffer();
+    private StringBuilder body = new StringBuilder();
 
-    private List<Object> parameterNames = new ArrayList<Object>();
-    private List<Object> parameterValues = new ArrayList<Object>();
+    private List<Object> parameterNames = new ArrayList<>();
+    private List<Object> parameterValues = new ArrayList<>();
 
     public AnonymousFunctionCall(Object... parameterNames) {
         this.parameterNames.addAll(Arrays.asList(parameterNames));

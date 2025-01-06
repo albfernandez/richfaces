@@ -1,21 +1,22 @@
 package org.richfaces.demo.tree;
 
-import org.richfaces.component.AbstractTree;
-import org.richfaces.demo.tree.model.CD;
-import org.richfaces.demo.tree.model.Company;
-import org.richfaces.demo.tree.model.Country;
-import org.richfaces.event.TreeSelectionChangeEvent;
-
-import javax.annotation.PostConstruct;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ManagedProperty;
-import jakarta.faces.bean.ViewScoped;
-import javax.swing.tree.TreeNode;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
+import javax.swing.tree.TreeNode;
+
+import org.richfaces.component.AbstractTree;
+import org.richfaces.demo.tree.model.CD;
+import org.richfaces.demo.tree.model.Company;
+import org.richfaces.demo.tree.model.Country;
+import org.richfaces.event.TreeSelectionChangeEvent;
 
 /**
  * @author Ilya Shaikovsky

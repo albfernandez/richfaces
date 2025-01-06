@@ -21,16 +21,20 @@
  */
 package org.richfaces.webapp;
 
-import com.google.common.collect.Maps;
+import java.util.Map;
+
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.atmosphere.cpr.ApplicationConfig;
 import org.atmosphere.cpr.AtmosphereHandler;
 import org.atmosphere.cpr.AtmosphereServlet;
 import org.atmosphere.handler.ReflectorServletProcessor;
 import org.richfaces.application.push.impl.PushContextFactoryImpl;
 
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletException;
-import java.util.Map;
+import com.google.common.collect.Maps;
 
 /**
  * Push servlet wraps {@link AtmosphereServlet} and during initialization it adds pre-initialized {@link AtmosphereHandler} for
@@ -57,12 +61,12 @@ public final class PushServlet extends AtmosphereServlet {
     /*
      * (non-Javadoc)
      *
-     * @see org.atmosphere.cpr.AtmosphereServlet#init(javax.servlet.ServletConfig)
+     * @see org.atmosphere.cpr.AtmosphereServlet#init(jakarta.servlet.ServletConfig)
      */
-    @Override
+    //MZ TODO  @Override
     public void init(final ServletConfig sc) throws ServletException {
         if (!initialized) {
-            super.init(new ServletConfigDefaultsFacade(sc, DEFAULT_INIT_PARAMETERS));
+            //MZ TODO super.init(new ServletConfigDefaultsFacade(sc, DEFAULT_INIT_PARAMETERS));
             this.initialized = true;
 
             String mapping = (String) sc.getServletContext()
@@ -75,7 +79,7 @@ public final class PushServlet extends AtmosphereServlet {
             ReflectorServletProcessor r = new ReflectorServletProcessor(this);
             r.setFilterClassName(PushHandlerFilter.class.getName());
 
-            framework().addAtmosphereHandler(mapping, r).initAtmosphereHandler(sc);
+            //MZ TODO framework().addAtmosphereHandler(mapping, r).initAtmosphereHandler(sc);
         }
     }
 
@@ -91,4 +95,10 @@ public final class PushServlet extends AtmosphereServlet {
             super.destroy();
         }
     }
+
+    //MZ TODO dummy
+	public void doGet(HttpServletRequest httpReq, HttpServletResponse httpResp) {
+		// TODO Auto-generated method stub
+		
+	}
 }

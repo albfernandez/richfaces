@@ -1,13 +1,5 @@
 package org.richfaces.renderkit.html;
 
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.renderkit.util.PanelIcons;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-
 import static org.richfaces.component.util.HtmlUtil.concatClasses;
 import static org.richfaces.renderkit.HtmlConstants.ALT_ATTRIBUTE;
 import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
@@ -18,6 +10,15 @@ import static org.richfaces.renderkit.HtmlConstants.TABLE_ELEMENT;
 import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
 import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
 import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
+
+import java.io.IOException;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.util.PanelIcons;
 
 public abstract class TableIconsRendererHelper<T extends UIComponent> {
     protected final String text;
@@ -32,39 +33,6 @@ public abstract class TableIconsRendererHelper<T extends UIComponent> {
 
     protected TableIconsRendererHelper(String text, String cssClassPrefix) {
         this(text, cssClassPrefix, cssClassPrefix + "-ico");
-    }
-
-    public static void writeFacetOrAttr(ResponseWriter writer, FacesContext context, UIComponent component, String attr,
-                                        String facetName) throws IOException {
-        writeFacetOrAttr(writer, context, component, attr, component.getFacet(facetName));
-    }
-
-    public static void writeFacetOrAttr(ResponseWriter writer, FacesContext context, UIComponent component, String attr,
-                                        UIComponent headerFacet) throws IOException {
-        if (headerFacet != null && headerFacet.isRendered()) {
-            headerFacet.encodeAll(context);
-        } else {
-            Object label = component.getAttributes().get(attr);
-            if (label != null && !label.equals("")) {
-                writer.writeText(label, null);
-            }
-        }
-    }
-
-    public static void encodeDivIcon(ResponseWriter writer, PanelIcons icon, String styleClass, PanelIcons.State state)
-            throws IOException {
-        writer.startElement(DIV_ELEM, null);
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(styleClass, state.getCssClass(icon)), null);
-        writer.endElement(DIV_ELEM);
-    }
-
-    public static void encodeImage(ResponseWriter writer, FacesContext context, String attrIconValue, String styleClass)
-            throws IOException {
-        writer.startElement(IMG_ELEMENT, null);
-        writer.writeAttribute(ALT_ATTRIBUTE, "", null);
-        writer.writeAttribute(CLASS_ATTRIBUTE, styleClass, null);
-        writer.writeURIAttribute(SRC_ATTRIBUTE, RenderKitUtils.getResourceURL(attrIconValue, context), null);
-        writer.endElement(IMG_ELEMENT);
     }
 
     public void encodeHeader(ResponseWriter writer, FacesContext context, T component) throws IOException {
@@ -95,12 +63,29 @@ public abstract class TableIconsRendererHelper<T extends UIComponent> {
         writeFacetOrAttr(writer, context, component, text, text);
     }
 
+    public static void writeFacetOrAttr(ResponseWriter writer, FacesContext context, UIComponent component, String attr,
+        String facetName) throws IOException {
+        writeFacetOrAttr(writer, context, component, attr, component.getFacet(facetName));
+    }
+
+    public static void writeFacetOrAttr(ResponseWriter writer, FacesContext context, UIComponent component, String attr,
+        UIComponent headerFacet) throws IOException {
+        if (headerFacet != null && headerFacet.isRendered()) {
+            headerFacet.encodeAll(context);
+        } else {
+            Object label = component.getAttributes().get(attr);
+            if (label != null && !label.equals("")) {
+                writer.writeText(label, null);
+            }
+        }
+    }
+
     protected abstract void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, T component) throws IOException;
 
     protected abstract void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, T menuItem) throws IOException;
 
     protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue,
-                                String attrIconExpandedValue, PanelIcons.State state) throws IOException {
+        String attrIconExpandedValue, PanelIcons.State state) throws IOException {
         if (isIconRendered(attrIconCollapsedValue) || isIconRendered(attrIconExpandedValue)) {
 
             writer.startElement(TD_ELEM, null);
@@ -125,7 +110,7 @@ public abstract class TableIconsRendererHelper<T extends UIComponent> {
     }
 
     protected void encodeIdIcon(ResponseWriter writer, FacesContext context, String attrIconValue, String styleClass,
-                                PanelIcons.State state) throws IOException {
+        PanelIcons.State state) throws IOException {
         if (attrIconValue == null || attrIconValue.trim().length() <= 0) {
             encodeDivIcon(writer, PanelIcons.none, styleClass, state);
         } else {
@@ -136,5 +121,21 @@ public abstract class TableIconsRendererHelper<T extends UIComponent> {
                 encodeImage(writer, context, attrIconValue, styleClass);
             }
         }
+    }
+
+    public static void encodeDivIcon(ResponseWriter writer, PanelIcons icon, String styleClass, PanelIcons.State state)
+        throws IOException {
+        writer.startElement(DIV_ELEM, null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(styleClass, state.getCssClass(icon)), null);
+        writer.endElement(DIV_ELEM);
+    }
+
+    public static void encodeImage(ResponseWriter writer, FacesContext context, String attrIconValue, String styleClass)
+        throws IOException {
+        writer.startElement(IMG_ELEMENT, null);
+        writer.writeAttribute(ALT_ATTRIBUTE, "", null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, styleClass, null);
+        writer.writeURIAttribute(SRC_ATTRIBUTE, RenderKitUtils.getResourceURL(attrIconValue, context), null);
+        writer.endElement(IMG_ELEMENT);
     }
 }

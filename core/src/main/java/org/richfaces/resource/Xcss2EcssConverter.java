@@ -22,13 +22,6 @@
 
 package org.richfaces.resource;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,8 +33,17 @@ import java.io.PrintStream;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 public final class Xcss2EcssConverter {
     private Xcss2EcssConverter() {
@@ -73,7 +75,7 @@ public final class Xcss2EcssConverter {
         private StringBuilder currentCssValue = new StringBuilder();
         private boolean hasAttribbute = false;
         private boolean verbatim = false;
-        private List<String> conditions = new ArrayList<String>();
+        private List<String> conditions = new ArrayList<>();
         private PrintStream outputStream;
 
         public Handler() {
@@ -221,7 +223,7 @@ public final class Xcss2EcssConverter {
             if (defaultValue == null || defaultValue.trim().length() == 0) {
                 defaultValue = "''";
             }
-            if (conditions.size() == 0) {
+            if (conditions.isEmpty()) {
                 return value;
             }
             if (isEl(defaultValue)) {
@@ -378,6 +380,7 @@ public final class Xcss2EcssConverter {
          *
          * @param handler - DefaultHandler for the SAX parser
          * @throws javax.xml.parsers.ParserConfigurationException
+         *
          * @throws org.xml.sax.SAXException
          */
         public CreateParser(DefaultHandler handler) throws SAXException, ParserConfigurationException {
@@ -441,7 +444,7 @@ public final class Xcss2EcssConverter {
             try {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 parse(toInputStream(in), baos);
-                this.in = new InputStreamReader(new ByteArrayInputStream(baos.toByteArray()), "utf-8");
+                this.in = new InputStreamReader(new ByteArrayInputStream(baos.toByteArray()), StandardCharsets.UTF_8);
             } catch (IOException e) {
                 throw new RuntimeException("Error while reading xcss content : " + e.toString(), e);
             } catch (SAXException e) {
@@ -468,11 +471,7 @@ public final class Xcss2EcssConverter {
         }
 
         private InputStream toInputStream(String value) {
-            try {
-                return new ByteArrayInputStream(value.getBytes("utf-8"));
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException("unexpected exception, utf-8 encoding should be supported : " + e, e);
-            }
+            return new ByteArrayInputStream(value.getBytes(StandardCharsets.UTF_8));
         }
 
         private void parse(InputStream inputStream, OutputStream outputStream) throws SAXException, ParserConfigurationException, IOException {

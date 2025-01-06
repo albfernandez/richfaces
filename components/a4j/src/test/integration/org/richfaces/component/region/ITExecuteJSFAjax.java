@@ -46,7 +46,7 @@ public class ITExecuteJSFAjax extends AbstractRegionTest {
     public static WebArchive createDeployment() {
         RegionTestDeployment deployment = new RegionTestDeployment(ITExecuteJSFAjax.class);
         deployment.archive()
-                .addAsWebResource(ITExecuteJSFAjax.class.getResource("ExecuteJSFAjax.xhtml"), "index.xhtml");
+            .addAsWebResource(ITExecuteJSFAjax.class.getResource("ExecuteJSFAjax.xhtml"), "index.xhtml");
         return deployment.getFinalArchive();
     }
 

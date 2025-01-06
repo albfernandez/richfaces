@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
  * @author Nick Belaevski
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ ElementType.FIELD, ElementType.METHOD })
 public @interface ResourceParameter {
     /**
      * Name of the parameter to be injected. Defaults to property name if it is omitted.

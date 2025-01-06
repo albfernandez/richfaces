@@ -21,14 +21,15 @@
  */
 package org.richfaces.resource.optimizer;
 
-import com.google.common.collect.Sets;
-import org.richfaces.application.ServiceTracker;
+import java.util.Collection;
+
 import org.richfaces.renderkit.html.ResourceLibraryRenderer;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
 import org.richfaces.resource.ResourceLibraryFactory;
+import org.richfaces.application.ServiceTracker;
 
-import java.util.Collection;
+import com.google.common.collect.Sets;
 
 /**
  * Expands resource libraries (.reslib).

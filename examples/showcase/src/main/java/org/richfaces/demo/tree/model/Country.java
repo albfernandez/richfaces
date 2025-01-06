@@ -1,11 +1,12 @@
 package org.richfaces.demo.tree.model;
 
-import com.google.common.collect.Iterators;
-
-import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+
+import javax.swing.tree.TreeNode;
+
+import com.google.common.collect.Iterators;
 
 public class Country extends NamedNode implements TreeNode {
     private List<Company> companies = new ArrayList<Company>();

@@ -22,6 +22,11 @@
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,11 +35,6 @@ import org.richfaces.fragment.popupPanel.RichFacesPopupPanel;
 import org.richfaces.fragment.tooltip.TextualRichFacesTooltip;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.HowItWorksPopupPanel.Controls;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.SlideShowPanel.Body;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>

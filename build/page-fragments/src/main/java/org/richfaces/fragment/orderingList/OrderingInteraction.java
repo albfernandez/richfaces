@@ -22,6 +22,7 @@
 package org.richfaces.fragment.orderingList;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface OrderingInteraction {

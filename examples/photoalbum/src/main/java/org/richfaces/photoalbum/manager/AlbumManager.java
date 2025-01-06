@@ -26,6 +26,20 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 import org.richfaces.photoalbum.model.Album;
 import org.richfaces.photoalbum.model.Shelf;
@@ -39,40 +53,33 @@ import org.richfaces.photoalbum.model.event.Events;
 import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.Preferred;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.inject.Any;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Set;
-
 @Named
 @RequestScoped
 public class AlbumManager implements Serializable {
 
     private static final long serialVersionUID = 2631634926126857691L;
-    @Inject
-    Model model;
-    @Inject
-    @EventType(Events.ADD_ERROR_EVENT)
-    Event<ErrorEvent> error;
-    @Inject
-    @Any
-    Event<AlbumEvent> albumEvent;
+
     private boolean validationSuccess = false;
+
     private boolean errorInCreate = false;
+
     @Inject
     private IAlbumAction albumAction;
+
     @Inject
     @Preferred
     private User user;
+    @Inject
+    Model model;
+
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    Event<ErrorEvent> error;
+
+    @Inject
+    @Any
+    Event<AlbumEvent> albumEvent;
+
     private Album album = new Album();
 
     public Album getAlbum() {
@@ -87,6 +94,7 @@ public class AlbumManager implements Serializable {
      * Method, that invoked on creation of the new album. Only registered users can create new albums.
      *
      * @param album - new album
+     *
      */
     public void addAlbum(Album album) {
         if (user == null) {
@@ -95,7 +103,7 @@ public class AlbumManager implements Serializable {
         // Shelf must be not-null
         if (album.getShelf() == null) {
             FacesContext.getCurrentInstance().addMessage(Constants.SHELF_ID,
-                    new FacesMessage("", Constants.SHELF_MUST_BE_NOT_NULL_ERROR));
+                new FacesMessage("", Constants.SHELF_MUST_BE_NOT_NULL_ERROR));
             return;
         }
         // Album name must be unique in shelf
@@ -121,8 +129,9 @@ public class AlbumManager implements Serializable {
     /**
      * Method, that invoked when user want to create new album. Only registered users can create new albums.
      *
-     * @param shelf                  - shelf, that will contain new album
+     * @param shelf - shelf, that will contain new album
      * @param isShowAlbumAfterCreate - indicate is we need to show created album after create.
+     *
      */
     public void createAlbum(Shelf shelf, boolean isShowAlbumAfterCreate) {
         if (user == null) {
@@ -148,7 +157,7 @@ public class AlbumManager implements Serializable {
     /**
      * Method, that invoked when user click 'Edit album' button. Only registered users can edit albums.
      *
-     * @param album           - edited album
+     * @param album - edited album
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
      */
     public void editAlbum(Album album, boolean editFromInplace) {
@@ -188,6 +197,7 @@ public class AlbumManager implements Serializable {
      * Method, that invoked when user click 'Delete album' button. Only registered users can delete albums.
      *
      * @param album - album to delete
+     *
      */
     public void deleteAlbum(Album album) {
         if (user == null) {

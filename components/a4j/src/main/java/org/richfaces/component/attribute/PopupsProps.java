@@ -35,6 +35,6 @@ public interface PopupsProps {
      * Attribute is similar to the standard HTML attribute and can specify window placement relative to the content. Default value is "3".
      */
     @Attribute(description = @Description("Attribute is similar to the standard HTML attribute and can specify window placement relative to the content. Default value is \"3\"."),
-            defaultValue = "3")
+               defaultValue = "3")
     int getZindex();
 }

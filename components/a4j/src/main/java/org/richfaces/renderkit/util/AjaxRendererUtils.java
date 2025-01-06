@@ -1,26 +1,31 @@
 /**
  * License Agreement.
- * <p>
+ *
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- * <p>
+ *
  * Copyright (C) 2007 Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.renderkit.util;
 
-import com.google.common.base.Strings;
+import java.util.Map;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.context.FacesContext;
+
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
@@ -30,10 +35,7 @@ import org.richfaces.renderkit.AjaxFunction;
 import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.renderkit.HtmlConstants;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.behavior.ClientBehaviorContext;
-import jakarta.faces.context.FacesContext;
-import java.util.Map;
+import com.google.common.base.Strings;
 
 /**
  * @author shura
@@ -68,6 +70,29 @@ public final class AjaxRendererUtils {
      * Static class - protect constructor
      */
     private AjaxRendererUtils() {
+    }
+
+    private static enum BehaviorOptionsData {
+        begin {
+            @Override
+            public String getAttributeValue(AjaxClientBehavior behavior) {
+                return behavior.getOnbegin();
+            }
+        },
+        error {
+            @Override
+            public String getAttributeValue(AjaxClientBehavior behavior) {
+                return behavior.getOnerror();
+            }
+        },
+        queueId {
+            @Override
+            public String getAttributeValue(AjaxClientBehavior behavior) {
+                return behavior.getQueueId();
+            }
+        };
+
+        public abstract String getAttributeValue(AjaxClientBehavior behavior);
     }
 
     /**
@@ -115,7 +140,7 @@ public final class AjaxRendererUtils {
      * @return <code>StringBuffer</code> with Javascript code
      */
     public static StringBuffer buildOnEvent(UIComponent uiComponent, FacesContext facesContext, String eventName,
-                                            boolean omitDefaultActionUrl) {
+        boolean omitDefaultActionUrl) {
         StringBuffer onEvent = new StringBuffer();
 
         // if (null != eventName) {
@@ -198,7 +223,7 @@ public final class AjaxRendererUtils {
     }
 
     private static void appenAjaxBehaviorOptions(ClientBehaviorContext behaviorContext, AjaxClientBehavior behavior,
-                                                 AjaxOptions ajaxOptions) {
+        AjaxOptions ajaxOptions) {
         ajaxOptions.setParameter(AjaxConstants.BEHAVIOR_EVENT_PARAMETER, behaviorContext.getEventName());
         ajaxOptions.setBeforesubmitHandler(behavior.getOnbeforesubmit());
 
@@ -212,7 +237,7 @@ public final class AjaxRendererUtils {
     }
 
     private static String getHandlerScript(FacesContext facesContext, UIComponent component, String attributeName,
-                                           String eventName) {
+        String eventName) {
         HandlersChain handlersChain = new HandlersChain(facesContext, component);
         String inlineHandler = (String) component.getAttributes().get(attributeName);
 
@@ -244,17 +269,6 @@ public final class AjaxRendererUtils {
         if (!Strings.isNullOrEmpty(status)) {
             ajaxOptions.set(STATUS_ATTR_NAME, status);
         }
-    }
-
-    /**
-     * Create call to Ajax Submit function with first two parameters
-     *
-     * @param facesContext
-     * @param component
-     * @return
-     */
-    public static AjaxFunction buildAjaxFunction(FacesContext facesContext, UIComponent component) {
-        return new AjaxFunction(component.getClientId(facesContext), buildEventOptions(facesContext, component));
     }
 
     // public static AjaxEventOptions buildEventOptions(FacesContext facesContext,
@@ -441,6 +455,13 @@ public final class AjaxRendererUtils {
     // return ajaxFunction;
     // }
 
+    /**
+     * Create call to Ajax Submit function with first two parameters
+     */
+    public static AjaxFunction buildAjaxFunction(FacesContext facesContext, UIComponent component) {
+        return new AjaxFunction(component.getClientId(facesContext), buildEventOptions(facesContext, component));
+    }
+
     public static AjaxFunction buildAjaxFunction(ClientBehaviorContext behaviorContext, AjaxClientBehavior behavior) {
         Object source;
 
@@ -459,16 +480,6 @@ public final class AjaxRendererUtils {
         }
 
         return new AjaxFunction(source, options);
-    }
-
-    /**
-     * Get status area Id for given component.
-     *
-     * @param component
-     * @return clientId of status area, or <code>null</code>
-     */
-    public static String getAjaxStatus(UIComponent component) {
-        return (String) component.getAttributes().get(STATUS_ATTR_NAME);
     }
 
     /**
@@ -540,6 +551,16 @@ public final class AjaxRendererUtils {
     //
     // }
 
+    /**
+     * Get status area Id for given component.
+     *
+     * @param component
+     * @return clientId of status area, or <code>null</code>
+     */
+    public static String getAjaxStatus(UIComponent component) {
+        return (String) component.getAttributes().get(STATUS_ATTR_NAME);
+    }
+
     public static String getQueueId(UIComponent component) {
         return (String) component.getAttributes().get(QUEUE_ID_ATTRIBUTE);
     }
@@ -558,28 +579,5 @@ public final class AjaxRendererUtils {
         function.addToBody(body);
 
         return function;
-    }
-
-    private static enum BehaviorOptionsData {
-        begin {
-            @Override
-            public String getAttributeValue(AjaxClientBehavior behavior) {
-                return behavior.getOnbegin();
-            }
-        },
-        error {
-            @Override
-            public String getAttributeValue(AjaxClientBehavior behavior) {
-                return behavior.getOnerror();
-            }
-        },
-        queueId {
-            @Override
-            public String getAttributeValue(AjaxClientBehavior behavior) {
-                return behavior.getQueueId();
-            }
-        };
-
-        public abstract String getAttributeValue(AjaxClientBehavior behavior);
     }
 }

@@ -21,7 +21,8 @@
  */
 package org.richfaces.fragment.log;
 
-import com.google.common.base.Predicate;
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -44,15 +45,18 @@ import org.richfaces.fragment.list.RichFacesListItem;
  */
 public class RichFacesLog implements Log, AdvancedVisibleComponentIteractions<RichFacesLog.AdvancedLogInteractions> {
 
-    private final AdvancedLogInteractions interactions = new AdvancedLogInteractions();
     @Root
     private GrapheneElement root;
+
     @FindBy(css = "div.rf-log-contents")
     private RichFacesLogEntries logEntries;
+
     @FindBy(tagName = "button")
     private GrapheneElement clearButton;
     @FindBy(tagName = "select")
     private Select levelSelect;
+
+    private final AdvancedLogInteractions interactions = new AdvancedLogInteractions();
 
     @Override
     public AdvancedLogInteractions advanced() {
@@ -62,10 +66,10 @@ public class RichFacesLog implements Log, AdvancedVisibleComponentIteractions<Ri
     @Override
     public void clear() {
         advanced().getClearButtonElement().click();
-        Graphene.waitGui().until(new Predicate<WebDriver>() {
+        Graphene.waitGui().until(new Function<WebDriver, Boolean>() {
 
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return getLogEntries().isEmpty();
             }
         });
@@ -79,32 +83,6 @@ public class RichFacesLog implements Log, AdvancedVisibleComponentIteractions<Ri
     @Override
     public ListComponent<? extends LogEntry> getLogEntries() {
         return logEntries;
-    }
-
-    private static enum RichFacesLogEntryLevel {
-
-        DEBUG(LogEntryLevel.DEBUG, "rf-log-entry-lbl-debug"),
-        INFO(LogEntryLevel.INFO, "rf-log-entry-lbl-info"),
-        WARN(LogEntryLevel.WARN, "rf-log-entry-lbl-warn"),
-        ERROR(LogEntryLevel.ERROR, "rf-log-entry-lbl-error");
-
-        private final LogEntryLevel level;
-        private final String containsClass;
-
-        private RichFacesLogEntryLevel(LogEntryLevel level, String containsClass) {
-            this.level = level;
-            this.containsClass = containsClass;
-        }
-
-        private static LogEntryLevel getLevelFromLabel(WebElement label) {
-            String styleClasses = label.getAttribute("class");
-            for (RichFacesLogEntryLevel logEntryLevel : values()) {
-                if (styleClasses.contains(logEntryLevel.containsClass)) {
-                    return logEntryLevel.level;
-                }
-            }
-            throw new RuntimeException("Cannot obtain level from label: " + label);
-        }
     }
 
     public static class RichFacesLogEntries extends AbstractListComponent<RichFacesLogEntry> {
@@ -153,6 +131,32 @@ public class RichFacesLog implements Log, AdvancedVisibleComponentIteractions<Ri
          */
         protected WebElement getMessageElement() {
             return messageElement;
+        }
+    }
+
+    private static enum RichFacesLogEntryLevel {
+
+        DEBUG(LogEntryLevel.DEBUG, "rf-log-entry-lbl-debug"),
+        INFO(LogEntryLevel.INFO, "rf-log-entry-lbl-info"),
+        WARN(LogEntryLevel.WARN, "rf-log-entry-lbl-warn"),
+        ERROR(LogEntryLevel.ERROR, "rf-log-entry-lbl-error");
+
+        private final LogEntryLevel level;
+        private final String containsClass;
+
+        private RichFacesLogEntryLevel(LogEntryLevel level, String containsClass) {
+            this.level = level;
+            this.containsClass = containsClass;
+        }
+
+        private static LogEntryLevel getLevelFromLabel(WebElement label) {
+            String styleClasses = label.getAttribute("class");
+            for (RichFacesLogEntryLevel logEntryLevel : values()) {
+                if (styleClasses.contains(logEntryLevel.containsClass)) {
+                    return logEntryLevel.level;
+                }
+            }
+            throw new RuntimeException("Cannot obtain level from label: " + label);
         }
     }
 

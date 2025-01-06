@@ -69,26 +69,6 @@ public class ITMultipleFormUpdate {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
-        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
-        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
-
-        p.body("<h:form id='firstForm'>");
-        p.body("    <h:inputText value='#{value}' />");
-        p.body("    <h:commandButton value='Submit 1' execute='@form' render='@form :secondForm' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;' />");
-        p.body("</h:form>");
-
-        p.body("<h:form id='secondForm'>");
-        p.body("    <h:inputText value='#{value}' />");
-        p.body("    <h:commandButton value='Submit 2' execute='@form' render='@form :firstForm' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;'  />");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void when_form_is_explicitly_listed_in_render_then_its_ViewState_should_be_updated_after_response() {
         browser.get(contextPath.toExternalForm());
@@ -110,5 +90,25 @@ public class ITMultipleFormUpdate {
         assertEquals("both forms should have same ViewState", secondForm.getViewState(), firstForm.getViewState());
         assertEquals("first form input should be 2", "2", firstForm.getInput());
         assertEquals("second form input should be 2", "2", secondForm.getInput());
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
+
+        p.body("<h:form id='firstForm'>");
+        p.body("    <h:inputText value='#{value}' />");
+        p.body("    <h:commandButton value='Submit 1' execute='@form' render='@form :secondForm' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;' />");
+        p.body("</h:form>");
+
+        p.body("<h:form id='secondForm'>");
+        p.body("    <h:inputText value='#{value}' />");
+        p.body("    <h:commandButton value='Submit 2' execute='@form' render='@form :firstForm' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;'  />");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

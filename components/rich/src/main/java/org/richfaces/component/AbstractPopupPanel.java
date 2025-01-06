@@ -1,24 +1,26 @@
 /**
  * License Agreement.
- * <p>
- * JBoss RichFaces - Ajax4jsf Component Library
- * <p>
+ *
+ *  JBoss RichFaces - Ajax4jsf Component Library
+ *
  * Copyright (C) 2007  Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.component;
+
+import jakarta.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
@@ -32,8 +34,6 @@ import org.richfaces.component.attribute.EventsPopupsProps;
 import org.richfaces.component.attribute.PopupsProps;
 import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.component.attribute.StyleProps;
-
-import jakarta.faces.component.UIComponentBase;
 
 /**
  * <p>The &lt;rich:popupPanel&gt; component provides a pop-up panel or window that appears in front of the rest of the

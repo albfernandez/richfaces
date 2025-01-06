@@ -46,21 +46,6 @@ public class ITAjaxCallbacksScope {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(CoreDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
-        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
-        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
-
-        p.form("<h:commandButton id='button' "
-                + "onclick='RichFaces.ajax(this, event, {}); return false;' "
-                + "onbeforedomupdate='window.onbeforedomupdateContext = this' "
-                + "oncomplete='window.oncompleteContext = this' />");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void test_that_context_of_ajax_request_handlers_invocation_is_the_source_of_event() {
         browser.get(contextPath.toExternalForm());
@@ -71,6 +56,21 @@ public class ITAjaxCallbacksScope {
                 (Boolean) executor.executeScript("return window.onbeforedomupdateContext === document.getElementById('button')"));
 
         assertTrue("the context of oncomplete function should be the source element (button)",
-                (Boolean) executor.executeScript("return window.oncompleteContext === document.getElementById('button')"));
+            (Boolean) executor.executeScript("return window.oncompleteContext === document.getElementById('button')"));
+    }
+
+    private static void addIndexPage(CoreDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.head("<h:outputScript name='jsf.js' library='jakarta.faces' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
+
+        p.form("<h:commandButton id='button' "
+                + "onclick='RichFaces.ajax(this, event, {}); return false;' "
+                + "onbeforedomupdate='window.onbeforedomupdateContext = this' "
+                + "oncomplete='window.oncompleteContext = this' />");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

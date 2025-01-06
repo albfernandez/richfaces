@@ -1,13 +1,14 @@
 package org.richfaces.el.model;
 
-import javax.validation.constraints.Size;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.constraints.Size;
+
 public class Bean {
     private List<String> list;
-    private Map<String, String> map = new HashMap<String, String>();
+    private Map<String, String> map = new HashMap<>();
     private String string;
 
     public List<String> getList() {

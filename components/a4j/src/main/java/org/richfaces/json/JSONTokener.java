@@ -52,6 +52,16 @@ public class JSONTokener {
     }
 
     /**
+     * Back up one character. This provides a sort of lookahead capability, so that you can test for a digit or letter before
+     * attempting to parse the next number or identifier.
+     */
+    public void back() {
+        if (this.myIndex > 0) {
+            this.myIndex -= 1;
+        }
+    }
+
+    /**
      * Get the hex value of a character (base16).
      *
      * @param c A character between '0' and '9' or between 'A' and 'F' or between 'a' and 'f'.
@@ -71,16 +81,6 @@ public class JSONTokener {
         }
 
         return -1;
-    }
-
-    /**
-     * Back up one character. This provides a sort of lookahead capability, so that you can test for a digit or letter before
-     * attempting to parse the next number or identifier.
-     */
-    public void back() {
-        if (this.myIndex > 0) {
-            this.myIndex -= 1;
-        }
     }
 
     /**
@@ -153,7 +153,7 @@ public class JSONTokener {
      * @throws JSONException
      */
     public char nextClean() throws JSONException {
-        for (; ; ) {
+        for (;;) {
             char c = next();
 
             if (c == '/') {
@@ -166,7 +166,7 @@ public class JSONTokener {
                         break;
 
                     case '*':
-                        for (; ; ) {
+                        for (;;) {
                             c = next();
 
                             if (c == 0) {
@@ -204,15 +204,15 @@ public class JSONTokener {
      * allow strings in single quotes, but an implementation is allowed to accept them.
      *
      * @param quote The quoting character, either <code>"</code>&nbsp;<small>(double quote)</small> or <code>'</code>
-     *              &nbsp;<small>(single quote)</small>.
+     *        &nbsp;<small>(single quote)</small>.
      * @return A String.
      * @throws JSONException Unterminated string.
      */
     public String nextString(char quote) throws JSONException {
         char c;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
-        for (; ; ) {
+        for (;;) {
             c = next();
 
             switch (c) {
@@ -283,9 +283,9 @@ public class JSONTokener {
      * @return A string.
      */
     public String nextTo(char d) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
-        for (; ; ) {
+        for (;;) {
             char c = next();
 
             if ((c == d) || (c == 0) || (c == '\n') || (c == '\r')) {
@@ -308,9 +308,9 @@ public class JSONTokener {
      */
     public String nextTo(String delimiters) {
         char c;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
-        for (; ; ) {
+        for (;;) {
             c = next();
 
             if ((delimiters.indexOf(c) >= 0) || (c == 0) || (c == '\n') || (c == '\r')) {
@@ -358,7 +358,7 @@ public class JSONTokener {
          *
          * Accumulate characters until we reach the end of the text or a formatting character.
          */
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         char b = c;
 
         while ((c >= ' ') && (",:]}/\\\"[{;=#".indexOf(c) < 0)) {
@@ -398,14 +398,14 @@ public class JSONTokener {
             if (b == '0') {
                 if ((s.length() > 2) && ((s.charAt(1) == 'x') || (s.charAt(1) == 'X'))) {
                     try {
-                        return new Integer(Integer.parseInt(s.substring(2), 16));
+                        return Integer.valueOf(Integer.parseInt(s.substring(2), 16));
                     } catch (Exception e) {
 
                         /* Ignore the error */
                     }
                 } else {
                     try {
-                        return new Integer(Integer.parseInt(s, 8));
+                        return Integer.valueOf(Integer.parseInt(s, 8));
                     } catch (Exception e) {
 
                         /* Ignore the error */
@@ -414,13 +414,13 @@ public class JSONTokener {
             }
 
             try {
-                return new Integer(s);
+                return Integer.valueOf(s);
             } catch (Exception e) {
                 try {
-                    return new Long(s);
+                    return Long.valueOf(s);
                 } catch (Exception f) {
                     try {
-                        return new Double(s);
+                        return Double.valueOf(s);
                     } catch (Exception g) {
                         return s;
                     }

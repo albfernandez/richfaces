@@ -52,7 +52,7 @@ public final class HTTP {
      *    "HTTP-Version": "HTTP/1.1" (for example)
      * }
      * </pre>
-     * <p>
+     *
      * A response header will contain
      *
      * <pre>
@@ -62,7 +62,7 @@ public final class HTTP {
      *    "Reason-Phrase": "OK" (for example)
      * }
      * </pre>
-     * <p>
+     *
      * In addition, the other parameters in the header will be captured, using the HTTP field names as JSON names, so that
      *
      * <pre>
@@ -70,7 +70,7 @@ public final class HTTP {
      *    Cookie: Q=q2=PPEAsg--; B=677gi6ouf29bn&b=2&f=s
      *    Cache-Control: no-cache
      * </pre>
-     * <p>
+     *
      * become
      *
      * <pre>
@@ -80,7 +80,7 @@ public final class HTTP {
      *    "Cache-Control": "no-cache",
      * ...}
      * </pre>
-     * <p>
+     *
      * It does no further checking or conversion. It does not parse dates. It does not do '%' transforms on URLs.
      *
      * @param string An HTTP header string.
@@ -131,7 +131,7 @@ public final class HTTP {
      *    "HTTP-Version": "HTTP/1.1" (for example)
      * }
      * </pre>
-     * <p>
+     *
      * A response header must contain
      *
      * <pre>
@@ -141,7 +141,7 @@ public final class HTTP {
      *    "Reason-Phrase": "OK" (for example)
      * }
      * </pre>
-     * <p>
+     *
      * Any other members of the JSONObject will be output as HTTP fields. The result will end with two CRLF pairs.
      *
      * @param o A JSONObject
@@ -151,7 +151,7 @@ public final class HTTP {
     public static String toString(JSONObject o) throws JSONException {
         Iterator keys = o.keys();
         String s;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         if (o.has("Status-Code") && o.has("Reason-Phrase")) {
             sb.append(o.getString("HTTP-Version"));
@@ -177,7 +177,7 @@ public final class HTTP {
             s = keys.next().toString();
 
             if (!s.equals("HTTP-Version") && !s.equals("Status-Code") && !s.equals("Reason-Phrase") && !s.equals("Method")
-                    && !s.equals("Request-URI") && !o.isNull(s)) {
+                && !s.equals("Request-URI") && !o.isNull(s)) {
                 sb.append(s);
                 sb.append(": ");
                 sb.append(o.getString(s));

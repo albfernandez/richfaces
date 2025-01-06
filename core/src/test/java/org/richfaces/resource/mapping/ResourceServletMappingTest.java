@@ -21,19 +21,20 @@
  */
 package org.richfaces.resource.mapping;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import jakarta.faces.application.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-
-import jakarta.faces.application.Resource;
-import java.util.Arrays;
-import java.util.Collection;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class ResourceServletMappingTest {
@@ -54,16 +55,16 @@ public class ResourceServletMappingTest {
 
     @Parameters
     public static Collection<?> primeNumbers() {
-        return Arrays.asList(new Object[][]{
-                // only library
-                {"org.richfaces.ckeditor", "skins/richfaces/editor.ecss", "/showcase/rfRes/skins/richfaces/editor.ecss?ln=org.richfaces.ckeditor", "org.richfaces.ckeditor/skins/richfaces/editor.ecss"},
-                // no library
-                {null, "skins/richfaces/editor.ecss", "/showcase/rfRes/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz", "skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz"},
-                {"", "skins/richfaces/editor.ecss", "/showcase/rfRes/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&ln=&test=xyz", "skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz"},
-                // library on difference places in query string
-                {"org.richfaces.ckeditor", "skins/richfaces/editor.ecss", "/showcase/rfRes/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&ln=org.richfaces.ckeditor&test=xyz", "org.richfaces.ckeditor/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz"},
-                {"org.richfaces.ckeditor", "skins/richfaces/editor.ecss", "/showcase/rfRes/skins/richfaces/editor.ecss?ln=org.richfaces.ckeditor&db=eAFbwPU8HAAExwHp&test=xyz", "org.richfaces.ckeditor/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz"},
-                {"org.richfaces.ckeditor", "skins/richfaces/editor.ecss", "/showcase/rfRes/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz&ln=org.richfaces.ckeditor", "org.richfaces.ckeditor/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz"}
+        return Arrays.asList(new Object[][] {
+            // only library
+            { "org.richfaces.ckeditor", "skins/richfaces/editor.ecss", "/showcase/rfRes/skins/richfaces/editor.ecss?ln=org.richfaces.ckeditor", "org.richfaces.ckeditor/skins/richfaces/editor.ecss" },
+            // no library
+            { null, "skins/richfaces/editor.ecss", "/showcase/rfRes/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz", "skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz" },
+            { "", "skins/richfaces/editor.ecss", "/showcase/rfRes/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&ln=&test=xyz", "skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz" },
+            // library on difference places in query string
+            { "org.richfaces.ckeditor", "skins/richfaces/editor.ecss", "/showcase/rfRes/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&ln=org.richfaces.ckeditor&test=xyz", "org.richfaces.ckeditor/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz" },
+            { "org.richfaces.ckeditor", "skins/richfaces/editor.ecss", "/showcase/rfRes/skins/richfaces/editor.ecss?ln=org.richfaces.ckeditor&db=eAFbwPU8HAAExwHp&test=xyz", "org.richfaces.ckeditor/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz" },
+            { "org.richfaces.ckeditor", "skins/richfaces/editor.ecss", "/showcase/rfRes/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz&ln=org.richfaces.ckeditor", "org.richfaces.ckeditor/skins/richfaces/editor.ecss?db=eAFbwPU8HAAExwHp&test=xyz" }
         });
     }
 

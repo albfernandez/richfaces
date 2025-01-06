@@ -21,9 +21,10 @@
  */
 package org.richfaces.photoalbum.manager;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  * Special wrapper for Map, that contains pairs(userId, sessionId) to track what sessionId is actual by specified user. Used to
@@ -39,7 +40,7 @@ public class LoggedUserTracker {
     /**
      * Add user id and session id to store after each successfull authentication. Last authentication will be current
      *
-     * @param id        - user id to add
+     * @param id - user id to add
      * @param sessionId - sessionId
      */
     public void addUserId(Long id, String sessionId) {
@@ -58,7 +59,7 @@ public class LoggedUserTracker {
     /**
      * Checks if in the store contained user with specified user id and session id
      *
-     * @param id        - user id to check
+     * @param id - user id to check
      * @param sessionId - session id to check
      * @return true if such user contained in the store, that indicating that current user is actual.
      */

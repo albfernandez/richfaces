@@ -21,14 +21,15 @@
  */
 package org.richfaces.event;
 
-import org.richfaces.model.UploadedFile;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.event.FacesEvent;
 import jakarta.faces.event.FacesListener;
 
+import org.richfaces.model.UploadedFile;
+
 /**
  * @author Konstantin Mishin
+ *
  */
 public class FileUploadEvent extends FacesEvent {
     private static final long serialVersionUID = -7645197191376210068L;

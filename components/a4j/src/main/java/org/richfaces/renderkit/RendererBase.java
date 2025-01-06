@@ -21,6 +21,13 @@
  */
 package org.richfaces.renderkit;
 
+import java.io.IOException;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.render.Renderer;
+
 import org.ajax4jsf.Messages;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.log.Logger;
@@ -28,12 +35,6 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.RendererUtils;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import jakarta.faces.render.Renderer;
-import java.io.IOException;
 
 /**
  * Base Renderer for all chameleon Skin's and components. At most, make all common procedures and realise concrete work in
@@ -60,12 +61,12 @@ public abstract class RendererBase extends Renderer {
 
         if (!getComponentClass().isInstance(component)) {
             throw new IllegalArgumentException(Messages.getMessage(Messages.COMPONENT_CLASS_ERROR, "", getComponentClass()
-                    .getName()));
+                .getName()));
         }
 
         if (LOG.isDebugEnabled()) {
             LOG.debug(Messages.getMessage(Messages.START_DECODING_COMPONENT_INFO, component.getClientId(context), component
-                    .getClass().getName()));
+                .getClass().getName()));
         }
 
         preDecode(context, component);
@@ -104,7 +105,7 @@ public abstract class RendererBase extends Renderer {
 
         if (LOG.isDebugEnabled()) {
             LOG.debug(Messages.getMessage(Messages.START_ENCODING_COMPONENT_INFO, component.getClientId(context), component
-                    .getClass().getName()));
+                .getClass().getName()));
         }
 
         preEncodeBegin(context, component);
@@ -121,7 +122,7 @@ public abstract class RendererBase extends Renderer {
 
         if (!getComponentClass().isInstance(component)) {
             throw new IllegalArgumentException(Messages.getMessage(Messages.COMPONENT_CLASS_ERROR,
-                    component.getClientId(context), getComponentClass().getName()));
+                component.getClientId(context), getComponentClass().getName()));
         }
     }
 
@@ -148,7 +149,7 @@ public abstract class RendererBase extends Renderer {
 
         if (LOG.isDebugEnabled()) {
             LOG.debug(Messages.getMessage(Messages.CHILDREN_ENCODING_COMPONENT_INFO, component.getClientId(context), component
-                    .getClass().getName()));
+                .getClass().getName()));
         }
 
         if (component.isRendered()) {
@@ -181,7 +182,7 @@ public abstract class RendererBase extends Renderer {
 
         if (LOG.isDebugEnabled()) {
             LOG.debug(Messages.getMessage(Messages.FINISH_ENCODING_COMPONENT_INFO, component.getClientId(context), component
-                    .getClass().getName()));
+                .getClass().getName()));
         }
     }
 
@@ -192,7 +193,7 @@ public abstract class RendererBase extends Renderer {
      * Calculate current Skin for rendering.
      *
      * @param context - current {@link FacesContext }
-     * @return
+     * @return current Skin for rendering.
      */
     protected Skin getSkin(FacesContext context) {
         if (skinFactory == null) {
@@ -215,9 +216,9 @@ public abstract class RendererBase extends Renderer {
     }
 
     /**
-     * Get base component slass , targetted for this renderer. Used for check arguments in decode/encode.
+     * Get base component class , targetted for this renderer. Used for check arguments in decode/encode.
      *
-     * @return
+     * @return base component class
      */
     protected Class<? extends UIComponent> getComponentClass() {
         // TODO - do we need this function?
@@ -225,8 +226,7 @@ public abstract class RendererBase extends Renderer {
     }
 
     /**
-     * Template method for custom decoding of concrete renderer. All parameters checking if performed in original {@see
-     * decode(FacesContext, UIComponent) }
+     * Template method for custom decoding of concrete renderer. All parameters checking if performed in original  {@link #decode(FacesContext, UIComponent)} 
      * method.
      *
      * @param context
@@ -237,7 +237,7 @@ public abstract class RendererBase extends Renderer {
 
     /**
      * Template method for custom start encoding of concrete renderer. All parameters checking and writer is performed in
-     * original {@link encodeBegin(FacesContext, UIComponent) } method.
+     * original {@link #encodeBegin(FacesContext, UIComponent)} method.
      *
      * @param writer
      * @param context
@@ -258,7 +258,7 @@ public abstract class RendererBase extends Renderer {
 
     /**
      * Template method for custom finish encoding of concrete renderer. All parameters checking and writer is performed in
-     * original {@link encodeEnd(FacesContext, UIComponent) } method.
+     * original {@link #encodeEnd(FacesContext, UIComponent) } method.
      *
      * @param writer
      * @param context

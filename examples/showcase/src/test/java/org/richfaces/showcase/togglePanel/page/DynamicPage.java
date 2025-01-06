@@ -21,14 +21,14 @@
  *******************************************************************************/
 package org.richfaces.showcase.togglePanel.page;
 
-import org.jboss.arquillian.graphene.findby.FindByJQuery;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.junit.Assert.assertTrue;
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -36,13 +36,16 @@ import static org.junit.Assert.assertTrue;
  */
 public class DynamicPage {
 
-    static final int NUMBER_OF_PANELS = 7;
     @FindByJQuery("input:visible:eq(3)")
     private WebElement nextButton;
+
     @FindByJQuery("input:visible:eq(1)")
     private WebElement skinSwitcher;
+
     @FindBy(className = "rf-p-hdr")
     private List<WebElement> panelHeaders;
+
+    static final int NUMBER_OF_PANELS = 7;
 
     public void iterateOverPanelsAndAssert() {
         for (int i = 1; i <= NUMBER_OF_PANELS; i++) {

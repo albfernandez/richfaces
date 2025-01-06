@@ -21,13 +21,13 @@
  */
 package org.richfaces.util;
 
-import com.google.common.base.Strings;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
+
+import com.google.common.base.Strings;
 
 /**
  * Coercing object as a set
@@ -38,7 +38,6 @@ public final class Sets {
 
     private static final Pattern ID_SPLIT_PATTERN = Pattern.compile("\\s*(\\s|,)\\s*");
     private static final String BRACKETS = "\\[.*\\]";
-
     private Sets() {
     }
 
@@ -48,11 +47,11 @@ public final class Sets {
 
             // Simplest case - set.
             if (valueToSet instanceof Set) {
-                return new LinkedHashSet<String>((Set<String>) valueToSet);
+                return new LinkedHashSet<>((Set<String>) valueToSet);
             } else if (valueToSet instanceof Collection) { // Other collections.
-                return new LinkedHashSet<String>((Collection<String>) valueToSet);
+                return new LinkedHashSet<>((Collection<String>) valueToSet);
             } else if (Object[].class.isAssignableFrom(valueToSet.getClass())) { // Array
-                return new LinkedHashSet<String>(Arrays.asList((String[]) valueToSet));
+                return new LinkedHashSet<>(Arrays.asList((String[]) valueToSet));
             } else if (valueToSet instanceof String) { // Tokenize string.
                 String areasString = ((String) valueToSet).trim();
 
@@ -63,7 +62,7 @@ public final class Sets {
                 if (areasString.contains(",") || areasString.contains(" ")) {
                     String[] values = ID_SPLIT_PATTERN.split(areasString);
 
-                    Set<String> result = new LinkedHashSet<String>(values.length);
+                    Set<String> result = new LinkedHashSet<>(values.length);
                     for (String value : values) {
                         if (Strings.isNullOrEmpty(value)) {
                             continue;
@@ -74,7 +73,7 @@ public final class Sets {
 
                     return result;
                 } else {
-                    Set<String> areasSet = new LinkedHashSet<String>(5);
+                    Set<String> areasSet = new LinkedHashSet<>(5);
 
                     if (!Strings.isNullOrEmpty(areasString)) {
                         areasSet.add(areasString);

@@ -21,21 +21,22 @@
  */
 package org.richfaces.fragment.panelMenu;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
-
-import java.util.Collections;
-import java.util.List;
+import org.richfaces.fragment.panelMenu.RichFacesPanelMenu.AdvancedPanelMenuInteractions;
 
 public class RichFacesPanelMenu extends AbstractPanelMenu {
 
-    private final AdvancedPanelMenuInteractions advancedInteractions = new AdvancedPanelMenuInteractions();
     @FindBy(css = ".rf-pm-top-gr,.rf-pm-gr")
     private List<WebElement> menuGroups;
     @FindBy(css = ".rf-pm-top-itm,.rf-pm-itm")
     private List<WebElement> menuItems;
+
     @FindBy(css = "div[class*=rf-pm-][class*=-itm-dis]")
     private List<WebElement> allDisabledItems;
     @FindBy(css = "div[class*=rf-pm-][class*=-gr-dis]")
@@ -46,6 +47,9 @@ public class RichFacesPanelMenu extends AbstractPanelMenu {
     private List<WebElement> allSelectedGroups;
     @FindBy(css = "div.rf-pm-hdr-exp")
     private List<WebElement> allExpandedGroups;
+
+    private final AdvancedPanelMenuInteractions advancedInteractions = new AdvancedPanelMenuInteractions();
+
     @Root
     private WebElement root;
 
@@ -65,7 +69,7 @@ public class RichFacesPanelMenu extends AbstractPanelMenu {
     }
 
     public class AdvancedPanelMenuInteractions extends AbstractPanelMenu.AdvancedAbstractPanelMenuInteractions
-            implements VisibleComponentInteractions {
+        implements VisibleComponentInteractions {
 
         public List<WebElement> getMenuGroupElements() {
             return getMenuGroups();

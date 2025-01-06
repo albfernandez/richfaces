@@ -21,27 +21,48 @@
  */
 package org.richfaces.application.push.impl;
 
-import org.richfaces.application.CoreConfiguration;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Pattern;
+
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.ServletContext;
+
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.application.push.PushContext;
 import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.application.push.PushContextInitializationException;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.servlet.ServletContext;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.regex.Pattern;
+import org.richfaces.application.CoreConfiguration;
 
 /**
- * @author Nick Belaevski
  * @see PushContextFactory
+ *
+ * @author Nick Belaevski
  */
 public class PushContextFactoryImpl implements PushContextFactory {
 
     public static final String PUSH_HANDLER_MAPPING_ATTRIBUTE = PushContextFactoryImpl.class.getName();
     public static final String PUSH_CONTEXT_RESOURCE_NAME = "__richfaces_push";
 
-    private static final AtomicReference<PushContext> PUSH_CONTEXT_HOLDER = new AtomicReference<PushContext>();
+    private static final AtomicReference<PushContext> PUSH_CONTEXT_HOLDER = new AtomicReference<>();
+
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.application.push.PushContextFactory#getPushContext()
+     */
+    @Override
+    public PushContext getPushContext() {
+        if (PUSH_CONTEXT_HOLDER.get() == null) {
+            synchronized (PUSH_CONTEXT_HOLDER) {
+                if (PUSH_CONTEXT_HOLDER.get() == null) {
+                    PushContext pushContext = createInstance();
+                    PUSH_CONTEXT_HOLDER.set(pushContext);
+                }
+            }
+        }
+        return PUSH_CONTEXT_HOLDER.get();
+    }
 
     private static PushContext createInstance() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -86,23 +107,5 @@ public class PushContextFactoryImpl implements PushContextFactory {
         }
 
         return "/";
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.richfaces.application.push.PushContextFactory#getPushContext()
-     */
-    @Override
-    public PushContext getPushContext() {
-        if (PUSH_CONTEXT_HOLDER.get() == null) {
-            synchronized (PUSH_CONTEXT_HOLDER) {
-                if (PUSH_CONTEXT_HOLDER.get() == null) {
-                    PushContext pushContext = createInstance();
-                    PUSH_CONTEXT_HOLDER.set(pushContext);
-                }
-            }
-        }
-        return PUSH_CONTEXT_HOLDER.get();
     }
 }

@@ -23,13 +23,14 @@ package org.richfaces.renderkit;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public interface AjaxConstants {
     String ALL = "@all";
     String FORM = "@form";
     String THIS = "@this";
     String NONE = "@none";
-    String BEHAVIOR_EVENT_PARAMETER = "javax.faces.behavior.event";
+    String BEHAVIOR_EVENT_PARAMETER = "jakarta.faces.behavior.event";
     String AJAX_COMPONENT_ID_PARAMETER = "org.richfaces.ajax.component";
-    String RESET_VALUES_PARAMETER = "javax.faces.partial.resetValues";
+    String RESET_VALUES_PARAMETER = "jakarta.faces.partial.resetValues";
 }

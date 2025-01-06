@@ -28,11 +28,17 @@ package org.richfaces.log;
  * @author shura
  */
 public interface Logger {
+    public enum Level {
+        DEBUG,
+        INFO,
+        WARNING,
+        ERROR
+    }
+
     /**
      * <p class="changed_added_4_0">
      * </p>
      *
-     * @return
      */
     boolean isDebugEnabled();
 
@@ -40,16 +46,12 @@ public interface Logger {
      * <p class="changed_added_4_0">
      * </p>
      *
-     * @param content
      */
     void debug(CharSequence content);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param messageKey
-     * @param args
      */
     void debug(Enum<?> messageKey, Object... args);
 
@@ -57,254 +59,162 @@ public interface Logger {
      * <p class="changed_added_4_0">
      * </p>
      *
-     * @param content
-     * @param error
      */
     void debug(CharSequence content, Throwable error);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param error
-     * @param messageKey
-     * @param args
      */
     void debug(Throwable error, Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param error
      */
     void debug(Throwable error);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param error
-     */
-
-    /**
-     * <p class="changed_added_4_0">
-     * </p>
-     *
-     * @return
      */
     boolean isInfoEnabled();
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param content
      */
     void info(CharSequence content);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param messageKey
-     * @param args
      */
     void info(Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param content
-     * @param error
      */
     void info(CharSequence content, Throwable error);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param error
-     * @param messageKey
-     * @param args
      */
     void info(Throwable error, Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param error
      */
     void info(Throwable error);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @return
      */
     boolean isWarnEnabled();
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param content
      */
     void warn(CharSequence content);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param messageKey
-     * @param args
      */
     void warn(Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param content
-     * @param error
      */
     void warn(CharSequence content, Throwable error);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param error
-     * @param messageKey
-     * @param args
      */
     void warn(Throwable error, Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param error
      */
     void warn(Throwable error);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @return
      */
     boolean isErrorEnabled();
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param content
      */
     void error(CharSequence content);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param messageKey
-     * @param args
      */
     void error(Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param content
-     * @param error
      */
     void error(CharSequence content, Throwable error);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param error
-     * @param messageKey
-     * @param args
      */
     void error(Throwable error, Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param error
      */
     void error(Throwable error);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param level
-     * @return
      */
     boolean isLogEnabled(Level level);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param level
-     * @param content
      */
     void log(Level level, CharSequence content);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param level
-     * @param content
-     * @param error
      */
     void log(Level level, CharSequence content, Throwable error);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param level
-     * @param error
      */
     void log(Level level, Throwable error);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param level
-     * @param messageKey
-     * @param args
      */
     void log(Level level, Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     *
-     * @param level
-     * @param error
-     * @param messageKey
-     * @param args
      */
     void log(Level level, Throwable error, Enum<?> messageKey, Object... args);
-
-    public enum Level {
-        DEBUG,
-        INFO,
-        WARNING,
-        ERROR
-    }
 }

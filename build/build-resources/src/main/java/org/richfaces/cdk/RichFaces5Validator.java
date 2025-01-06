@@ -22,12 +22,18 @@
  */
 package org.richfaces.cdk;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Sets;
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.NoSuchElementException;
+
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.behavior.ClientBehaviorBase;
+import jakarta.faces.render.Renderer;
+import jakarta.faces.view.facelets.BehaviorHandler;
+import jakarta.faces.view.facelets.ComponentHandler;
+import jakarta.faces.view.facelets.ConverterHandler;
+import javax.xml.validation.ValidatorHandler;
+
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.cdk.apt.DummyPropertyImpl;
 import org.richfaces.cdk.apt.SourceUtils;
@@ -54,34 +60,220 @@ import org.richfaces.cdk.model.validator.CallbackException;
 import org.richfaces.cdk.model.validator.NamingConventionsCallback;
 import org.richfaces.cdk.util.Strings;
 
-import jakarta.faces.component.UIComponentBase;
-import jakarta.faces.component.behavior.ClientBehaviorBase;
-import jakarta.faces.render.Renderer;
-import jakarta.faces.view.facelets.BehaviorHandler;
-import jakarta.faces.view.facelets.ComponentHandler;
-import jakarta.faces.view.facelets.ConverterHandler;
-import javax.xml.validation.ValidatorHandler;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.NoSuchElementException;
+import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * <p class="changed_added_4_0">
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public class RichFaces5Validator implements ModelValidator {
+    private final class ComponentTypeCallback implements NamingConventionsCallback {
+        @Override
+        public FacesId inferType(ClassName targetClass) {
+            return namingConventions.inferComponentType(targetClass);
+        }
+
+        @Override
+        public ClassName inferClass(FacesId id) {
+            return namingConventions.inferUIComponentClass(id);
+        }
+
+        @Override
+        public ClassName getDefaultBaseClass() throws CallbackException {
+            return ClassName.get(UIComponentBase.class);
+        }
+
+        @Override
+        public ClassName getDefaultClass() throws CallbackException {
+            throw new CallbackException("Cannot determine component class name");
+        }
+
+        @Override
+        public FacesId inferType() throws CallbackException {
+            throw new CallbackException("Cannot determine component type");
+        }
+    }
+
+    private final class BehaviorTypeCallback implements NamingConventionsCallback {
+        private final BehaviorModel behavior;
+
+        private BehaviorTypeCallback(BehaviorModel behavior) {
+            this.behavior = behavior;
+        }
+
+        @Override
+        public FacesId inferType(ClassName targetClass) {
+            return namingConventions.inferBehaviorType(targetClass);
+        }
+
+        @Override
+        public FacesId inferType() throws CallbackException {
+            throw new CallbackException("Cannot infer type for behavior " + this.behavior);
+        }
+
+        @Override
+        public ClassName inferClass(FacesId id) {
+            return namingConventions.inferBehaviorClass(id);
+        }
+
+        @Override
+        public ClassName getDefaultBaseClass() throws CallbackException {
+            return ClassName.get(ClientBehaviorBase.class);
+        }
+
+        @Override
+        public ClassName getDefaultClass() throws CallbackException {
+            throw new CallbackException("Cannot infer Java class name for behavior " + this.behavior);
+        }
+    }
+
+    private final class ConverterTypeCallback implements NamingConventionsCallback {
+        private final ConverterModel converter;
+
+        public ConverterTypeCallback(ConverterModel converter) {
+            this.converter = converter;
+        }
+
+        @Override
+        public FacesId inferType(ClassName targetClass) throws CallbackException {
+            // TODO use actual methods
+            return namingConventions.inferComponentType(targetClass);
+        }
+
+        @Override
+        public FacesId inferType() throws CallbackException {
+            throw new CallbackException("Cannot infer type for converter " + this.converter);
+        }
+
+        @Override
+        public ClassName inferClass(FacesId id) throws CallbackException {
+            throw new CallbackException("Cannot infer target Java class name for converter " + this.converter);
+        }
+
+        @Override
+        public ClassName getDefaultBaseClass() throws CallbackException {
+            throw new CallbackException("Cannot infer base Java class name for converter " + this.converter);
+        }
+
+        @Override
+        public ClassName getDefaultClass() throws CallbackException {
+            return ClassName.get(Object.class);
+        }
+    }
+
+    private final class ValidatorTypeCallback implements NamingConventionsCallback {
+        private final ValidatorModel validator;
+
+        public ValidatorTypeCallback(ValidatorModel validator) {
+            this.validator = validator;
+        }
+
+        @Override
+        public FacesId inferType(ClassName targetClass) throws CallbackException {
+            // TODO use actual methods
+            return namingConventions.inferComponentType(targetClass);
+        }
+
+        @Override
+        public FacesId inferType() throws CallbackException {
+            throw new CallbackException("Cannot infer type for validator " + this.validator);
+        }
+
+        @Override
+        public ClassName inferClass(FacesId id) throws CallbackException {
+            throw new CallbackException("Cannot infer target Java class name for validator " + this.validator);
+        }
+
+        @Override
+        public ClassName getDefaultBaseClass() throws CallbackException {
+            throw new CallbackException("Cannot infer default Java class name for validator " + this.validator);
+        }
+
+        @Override
+        public ClassName getDefaultClass() throws CallbackException {
+            return ClassName.get(Object.class);
+        }
+    }
+
+    private final class RendererTypeCallback implements NamingConventionsCallback {
+        private final ComponentLibrary library;
+        private final RendererModel renderer;
+
+        private RendererTypeCallback(ComponentLibrary library, RendererModel renderer) {
+            this.library = library;
+            this.renderer = renderer;
+        }
+
+        @Override
+        public FacesId inferType(ClassName targetClass) {
+            try {
+                return inferType();
+            } catch (CallbackException e) {
+                return namingConventions.inferRendererType(targetClass);
+            }
+        }
+
+        @Override
+        public FacesId inferType() throws CallbackException {
+            // For renderers with template - try to determine type by template file.
+            if (null != this.renderer.getTemplate()) {
+                for (ComponentModel component : this.library.getComponents()) {
+                    if (null != component.getRendererTemplate()
+                            && this.renderer.getTemplate().getTemplatePath().endsWith(component.getRendererTemplate())) {
+                        if (null != component.getRendererType()) {
+                            return component.getRendererType();
+                        } else {
+                            FacesId rendererType = namingConventions.inferRendererType(component.getId());
+                            component.setRendererType(rendererType);
+                            return rendererType;
+                        }
+                    }
+                }
+                // No component found, try to infer from template path.
+                return namingConventions.inferRendererTypeByTemplatePath(this.renderer.getTemplate().getTemplatePath());
+            }
+            // If previvious attempt fall, try to infer renderer type from family.
+            if (null != this.renderer.getFamily()) {
+                return namingConventions.inferRendererType(this.renderer.getFamily());
+            }
+            throw new CallbackException("Cannot determine renderer type");
+        }
+
+        @Override
+        public ClassName inferClass(FacesId id) {
+            return namingConventions.inferRendererClass(id);
+        }
+
+        @Override
+        public ClassName getDefaultClass() throws CallbackException {
+            throw new CallbackException("Cannot determine renderer class name");
+        }
+
+        @Override
+        public ClassName getDefaultBaseClass() throws CallbackException {
+            return ClassName.get(Renderer.class);
+        }
+    }
+
     public static final ClassName DEFAULT_COMPONENT_HANDLER = new ClassName(ComponentHandler.class);
     public static final ClassName DEFAULT_VALIDATOR_HANDLER = new ClassName(ValidatorHandler.class);
     public static final ClassName DEFAULT_CONVERTER_HANDLER = new ClassName(ConverterHandler.class);
     public static final ClassName DEFAULT_BEHAVIOR_HANDLER = new ClassName(BehaviorHandler.class);
     public static final ImmutableSet<String> SPECIAL_PROPERTIES = ImmutableSet.of("eventNames", "defaultEventName",
             "clientBehaviors", "family");
-    private final NamingConventions namingConventions;
-    private final Provider<SourceUtils> sourceUtilsProvider;
     @Inject
     private Logger log;
+    private final NamingConventions namingConventions;
+    private final Provider<SourceUtils> sourceUtilsProvider;
+
     @Inject
     public RichFaces5Validator(NamingConventions namingConventions, Provider<SourceUtils> sourceUtilsProvider) {
         this.namingConventions = namingConventions;
@@ -298,7 +490,7 @@ public class RichFaces5Validator implements ModelValidator {
      * @param verified
      */
     protected void verifyComponentAttributes(ComponentLibrary library, final ComponentModel component,
-                                             Collection<ComponentModel> verified) {
+            Collection<ComponentModel> verified) {
         // There is potential StackOverflow, so we process only components which have not been
         // verified before.
         if (!verified.contains(component)) {
@@ -387,8 +579,8 @@ public class RichFaces5Validator implements ModelValidator {
      * </p>
      *
      * @param component object to verify.
-     * @param callback  callback to corresponding naming conventions.
-     * @return
+     * @param callback callback to corresponding naming conventions.
+	 *
      */
     protected boolean verifyTypes(GeneratedFacesComponent component, NamingConventionsCallback callback) {
         // Check JsfComponent type.
@@ -457,10 +649,10 @@ public class RichFaces5Validator implements ModelValidator {
             attribute.setDefaultValue(attribute.getType().getDefaultValue());
         }
         // Check binding properties.
-        if ("javax.faces.el.MethodBinding".equals(attribute.getType().getName())) {
+        if ("jakarta.faces.el.MethodBinding".equals(attribute.getType().getName())) {
             attribute.setBinding(true);
             attribute.setBindingAttribute(true);
-        } else if ("javax.el.MethodExpression".equals(attribute.getType().getName())) {
+        } else if ("jakarta.el.MethodExpression".equals(attribute.getType().getName())) {
             attribute.setBindingAttribute(true);
         }
         // if(attribute.isBindingAttribute() && attribute.getSignature().isEmpty() && !attribute.isHidden()) {
@@ -504,193 +696,5 @@ public class RichFaces5Validator implements ModelValidator {
 
     protected void verifyDescription(DescriptionGroup element) {
 
-    }
-
-    private final class ComponentTypeCallback implements NamingConventionsCallback {
-        @Override
-        public FacesId inferType(ClassName targetClass) {
-            return namingConventions.inferComponentType(targetClass);
-        }
-
-        @Override
-        public ClassName inferClass(FacesId id) {
-            return namingConventions.inferUIComponentClass(id);
-        }
-
-        @Override
-        public ClassName getDefaultBaseClass() throws CallbackException {
-            return ClassName.get(UIComponentBase.class);
-        }
-
-        @Override
-        public ClassName getDefaultClass() throws CallbackException {
-            throw new CallbackException("Cannot determine component class name");
-        }
-
-        @Override
-        public FacesId inferType() throws CallbackException {
-            throw new CallbackException("Cannot determine component type");
-        }
-    }
-
-    private final class BehaviorTypeCallback implements NamingConventionsCallback {
-        private final BehaviorModel behavior;
-
-        private BehaviorTypeCallback(BehaviorModel behavior) {
-            this.behavior = behavior;
-        }
-
-        @Override
-        public FacesId inferType(ClassName targetClass) {
-            return namingConventions.inferBehaviorType(targetClass);
-        }
-
-        @Override
-        public FacesId inferType() throws CallbackException {
-            throw new CallbackException("Cannot infer type for behavior " + this.behavior);
-        }
-
-        @Override
-        public ClassName inferClass(FacesId id) {
-            return namingConventions.inferBehaviorClass(id);
-        }
-
-        @Override
-        public ClassName getDefaultBaseClass() throws CallbackException {
-            return ClassName.get(ClientBehaviorBase.class);
-        }
-
-        @Override
-        public ClassName getDefaultClass() throws CallbackException {
-            throw new CallbackException("Cannot infer Java class name for behavior " + this.behavior);
-        }
-    }
-
-    private final class ConverterTypeCallback implements NamingConventionsCallback {
-        private final ConverterModel converter;
-
-        public ConverterTypeCallback(ConverterModel converter) {
-            this.converter = converter;
-        }
-
-        @Override
-        public FacesId inferType(ClassName targetClass) throws CallbackException {
-            // TODO use actual methods
-            return namingConventions.inferComponentType(targetClass);
-        }
-
-        @Override
-        public FacesId inferType() throws CallbackException {
-            throw new CallbackException("Cannot infer type for converter " + this.converter);
-        }
-
-        @Override
-        public ClassName inferClass(FacesId id) throws CallbackException {
-            throw new CallbackException("Cannot infer target Java class name for converter " + this.converter);
-        }
-
-        @Override
-        public ClassName getDefaultBaseClass() throws CallbackException {
-            throw new CallbackException("Cannot infer base Java class name for converter " + this.converter);
-        }
-
-        @Override
-        public ClassName getDefaultClass() throws CallbackException {
-            return ClassName.get(Object.class);
-        }
-    }
-
-    private final class ValidatorTypeCallback implements NamingConventionsCallback {
-        private final ValidatorModel validator;
-
-        public ValidatorTypeCallback(ValidatorModel validator) {
-            this.validator = validator;
-        }
-
-        @Override
-        public FacesId inferType(ClassName targetClass) throws CallbackException {
-            // TODO use actual methods
-            return namingConventions.inferComponentType(targetClass);
-        }
-
-        @Override
-        public FacesId inferType() throws CallbackException {
-            throw new CallbackException("Cannot infer type for validator " + this.validator);
-        }
-
-        @Override
-        public ClassName inferClass(FacesId id) throws CallbackException {
-            throw new CallbackException("Cannot infer target Java class name for validator " + this.validator);
-        }
-
-        @Override
-        public ClassName getDefaultBaseClass() throws CallbackException {
-            throw new CallbackException("Cannot infer default Java class name for validator " + this.validator);
-        }
-
-        @Override
-        public ClassName getDefaultClass() throws CallbackException {
-            return ClassName.get(Object.class);
-        }
-    }
-
-    private final class RendererTypeCallback implements NamingConventionsCallback {
-        private final ComponentLibrary library;
-        private final RendererModel renderer;
-
-        private RendererTypeCallback(ComponentLibrary library, RendererModel renderer) {
-            this.library = library;
-            this.renderer = renderer;
-        }
-
-        @Override
-        public FacesId inferType(ClassName targetClass) {
-            try {
-                return inferType();
-            } catch (CallbackException e) {
-                return namingConventions.inferRendererType(targetClass);
-            }
-        }
-
-        @Override
-        public FacesId inferType() throws CallbackException {
-            // For renderers with template - try to determine type by template file.
-            if (null != this.renderer.getTemplate()) {
-                for (ComponentModel component : this.library.getComponents()) {
-                    if (null != component.getRendererTemplate()
-                            && this.renderer.getTemplate().getTemplatePath().endsWith(component.getRendererTemplate())) {
-                        if (null != component.getRendererType()) {
-                            return component.getRendererType();
-                        } else {
-                            FacesId rendererType = namingConventions.inferRendererType(component.getId());
-                            component.setRendererType(rendererType);
-                            return rendererType;
-                        }
-                    }
-                }
-                // No component found, try to infer from template path.
-                return namingConventions.inferRendererTypeByTemplatePath(this.renderer.getTemplate().getTemplatePath());
-            }
-            // If previvious attempt fall, try to infer renderer type from family.
-            if (null != this.renderer.getFamily()) {
-                return namingConventions.inferRendererType(this.renderer.getFamily());
-            }
-            throw new CallbackException("Cannot determine renderer type");
-        }
-
-        @Override
-        public ClassName inferClass(FacesId id) {
-            return namingConventions.inferRendererClass(id);
-        }
-
-        @Override
-        public ClassName getDefaultClass() throws CallbackException {
-            throw new CallbackException("Cannot determine renderer class name");
-        }
-
-        @Override
-        public ClassName getDefaultBaseClass() throws CallbackException {
-            return ClassName.get(Renderer.class);
-        }
     }
 }

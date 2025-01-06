@@ -1,5 +1,16 @@
 package org.richfaces.renderkit.html;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+
 import org.richfaces.component.AbstractDropDownMenu;
 import org.richfaces.component.AbstractMenuGroup;
 import org.richfaces.component.AbstractMenuItem;
@@ -10,17 +21,7 @@ import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.RendererBase;
 
-import jakarta.faces.application.ResourceDependencies;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -33,7 +34,7 @@ import java.util.Map;
         @ResourceDependency(library = "org.richfaces", name = "menu.js"),
         @ResourceDependency(library = "org.richfaces", name = "menugroup.js"),
         @ResourceDependency(library = "org.richfaces", name = "menuitem.js"),
-        @ResourceDependency(library = "org.richfaces", name = "dropdownmenu.ecss", target = "head")})
+        @ResourceDependency(library = "org.richfaces", name = "dropdownmenu.ecss", target = "head") })
 public abstract class DropDownMenuRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.DropDownMenuRenderer";
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
@@ -46,7 +47,7 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
         for (UIComponent child : dropDownMenu.getChildren()) {
             if (child.isRendered()
                     && (child instanceof AbstractMenuGroup || child instanceof AbstractMenuItem
-                    || child instanceof AbstractMenuSeparator || UIComponent.isCompositeComponent(child))) {
+                        || child instanceof AbstractMenuSeparator || UIComponent.isCompositeComponent(child))) {
 
                 child.encodeAll(facesContext);
             }
@@ -73,8 +74,8 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
     }
 
     public List<Map<String, Object>> getMenuGroups(FacesContext facesContext, UIComponent component) {
-        List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
-        List<AbstractMenuGroup> groups = new ArrayList<AbstractMenuGroup>();
+        List<Map<String, Object>> results = new ArrayList<>();
+        List<AbstractMenuGroup> groups = new ArrayList<>();
         if (component instanceof AbstractDropDownMenu) {
             if (component.isRendered() && !((AbstractDropDownMenu) component).isDisabled()) {
                 getMenuGroups(component, groups);
@@ -82,7 +83,7 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
         }
         for (AbstractMenuGroup group : groups) {
             if (group.isRendered() && !group.isDisabled()) {
-                Map<String, Object> map = new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<>();
                 map.put("id", group.getClientId(facesContext));
                 RenderKitUtils.addToScriptHash(map, "onhide", group.getOnhide(), null, ScriptHashVariableWrapper.eventHandler);
                 RenderKitUtils.addToScriptHash(map, "onshow", group.getOnshow(), null, ScriptHashVariableWrapper.eventHandler);

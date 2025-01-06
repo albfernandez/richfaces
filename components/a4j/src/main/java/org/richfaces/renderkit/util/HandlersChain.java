@@ -32,6 +32,7 @@ import jakarta.faces.component.behavior.ClientBehaviorContext.Parameter;
 import jakarta.faces.component.behavior.ClientBehaviorHint;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.context.FacesContext;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -53,7 +54,7 @@ public final class HandlersChain {
     private boolean hasSubmittingBehavior = false;
     private boolean includeClientId = false;
     // TODO: review for optimization
-    private List<String> handlers = new ArrayList<String>(2);
+    private List<String> handlers = new ArrayList<>(2);
     private FacesContext facesContext;
     private UIComponent component;
     private Collection<Parameter> parameters;
@@ -76,7 +77,7 @@ public final class HandlersChain {
     }
 
     public HandlersChain(FacesContext facesContext, UIComponent component, Collection<Parameter> parameters,
-                         boolean includeClientId) {
+        boolean includeClientId) {
         this.facesContext = facesContext;
         this.component = component;
         this.parameters = parameters;
@@ -85,16 +86,6 @@ public final class HandlersChain {
 
     private static boolean isNotEmpty(String s) {
         return (s != null) && (s.length() != 0);
-    }
-
-    public static List<Parameter> createParametersList(Map<String, Object> parametersMap) {
-        List<Parameter> parameters = new ArrayList<Parameter>(parametersMap.size());
-
-        for (Entry<String, Object> entry : parametersMap.entrySet()) {
-            parameters.add(new Parameter(entry.getKey(), entry.getValue()));
-        }
-
-        return parameters;
     }
 
     private List<ClientBehavior> getBehaviorsList(String behaviorName) {
@@ -154,7 +145,7 @@ public final class HandlersChain {
         }
 
         ClientBehaviorContext behaviorContext = ClientBehaviorContext.createClientBehaviorContext(facesContext, component,
-                name, includeClientId ? component.getClientId(facesContext) : null, getParameters());
+            name, includeClientId ? component.getClientId(facesContext) : null, getParameters());
 
         for (ClientBehavior clientBehavior : behaviorsList) {
             String behaviorScript = clientBehavior.getScript(behaviorContext);
@@ -196,5 +187,15 @@ public final class HandlersChain {
         }
 
         return result;
+    }
+
+    public static List<Parameter> createParametersList(Map<String, Object> parametersMap) {
+        List<Parameter> parameters = new ArrayList<>(parametersMap.size());
+
+        for (Entry<String, Object> entry : parametersMap.entrySet()) {
+            parameters.add(new Parameter(entry.getKey(), entry.getValue()));
+        }
+
+        return parameters;
     }
 }

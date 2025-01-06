@@ -26,6 +26,7 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public interface GenericsIntrospectionService {
     Class<?> getContainerClass(FacesContext facesContext, ValueExpression expression);

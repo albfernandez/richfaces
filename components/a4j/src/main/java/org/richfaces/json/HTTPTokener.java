@@ -49,7 +49,7 @@ public class HTTPTokener extends JSONTokener {
     public String nextToken() throws JSONException {
         char c;
         char q;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         do {
             c = next();
@@ -58,7 +58,7 @@ public class HTTPTokener extends JSONTokener {
         if ((c == '"') || (c == '\'')) {
             q = c;
 
-            for (; ; ) {
+            for (;;) {
                 c = next();
 
                 if (c < ' ') {
@@ -73,7 +73,7 @@ public class HTTPTokener extends JSONTokener {
             }
         }
 
-        for (; ; ) {
+        for (;;) {
             if ((c == 0) || Character.isWhitespace(c)) {
                 return sb.toString();
             }

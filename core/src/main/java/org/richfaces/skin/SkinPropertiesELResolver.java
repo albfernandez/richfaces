@@ -21,15 +21,17 @@
  */
 package org.richfaces.skin;
 
+import java.beans.FeatureDescriptor;
+import java.util.Iterator;
+
 import jakarta.el.ELContext;
 import jakarta.el.ELResolver;
 import jakarta.el.PropertyNotFoundException;
 import jakarta.faces.context.FacesContext;
-import java.beans.FeatureDescriptor;
-import java.util.Iterator;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class SkinPropertiesELResolver extends ELResolver {
     @Override
@@ -66,10 +68,12 @@ public class SkinPropertiesELResolver extends ELResolver {
         return true;
     }
 
+    /*MZ
     @Override
     public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
         return null;
     }
+	*/
 
     @Override
     public Class<?> getCommonPropertyType(ELContext context, Object base) {

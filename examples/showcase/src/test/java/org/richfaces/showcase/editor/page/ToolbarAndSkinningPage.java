@@ -21,13 +21,14 @@
  *******************************************************************************/
 package org.richfaces.showcase.editor.page;
 
+import java.util.List;
+
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
-
 /**
+ *
  * @author pmensik
  */
 public class ToolbarAndSkinningPage {

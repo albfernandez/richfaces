@@ -24,17 +24,17 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.richfaces</groupId>
+    <groupId>com.github.albfernandez.richfaces</groupId>
     <artifactId>richfaces-cache-bom</artifactId>
     <packaging>pom</packaging>
-    <version>4.5.18.Final</version>
+    <version>10.0.1-SNAPSHOT</version>
     <name>RichFaces BOM</name>
 
     <description>
         The RichFaces "Bill of Materials". This defines the optional cache dependency versions for RichFaces.
     </description>
 
-    <url>http://richfaces.org</url>
+    <url>https://github.com/albfernandez/richfaces</url>
 
     <licenses>
         <license>
@@ -50,26 +50,26 @@
         </developer>
     </developers>
 
+    <scm>
+        <connection>scm:git:git@github.com:albfernandez/richfaces.git</connection>
+        <developerConnection>scm:git:git@github.com:albfernandez/richfaces.git</developerConnection>
+        <url>git@github.com:albfernandez/richfaces.git</url>
+    </scm>
     <issueManagement>
-        <system>jira</system>
-        <url>https://jira.jboss.org/jira/browse/RF</url>
-    </issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/albfernandez/richfaces/issues</url>
+	</issueManagement>
+
 
     <properties>
-        <version.oscache>2.3</version.oscache>
-        <version.jbosscache>3.2.5.GA</version.jbosscache>
-        <version.ehcache>2.8.3</version.ehcache>
-
-        <!-- Release repositories -->
-        <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
-        <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
+        <version.oscache>2.4.1</version.oscache>
+        <version.jbosscache>3.2.7.GA</version.jbosscache>
+        <version.ehcache>2.10.9.2</version.ehcache>
 
         <maven.min.version>3.0</maven.min.version>
     </properties>
 
-    <prerequisites>
-        <maven>${maven.min.version}</maven>
-    </prerequisites>
+
 
     <!-- Runtime dependency management -->
     <dependencyManagement>
@@ -97,18 +97,33 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>${maven.min.version}</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.0.0-M1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -118,28 +133,46 @@
                     <localCheckout>true</localCheckout>
                     <pushChanges>false</pushChanges>
                 </configuration>
-            </plugin>
+            </plugin>            
         </plugins>
     </build>
-
-    <scm>
-        <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
-        <url>https://github.com/richfaces/richfaces</url>
-      <tag>HEAD</tag>
-  </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>jboss-releases-repository</id>
-            <name>JBoss Releases Repository</name>
-            <url>${jboss.releases.repo.url}</url>
-        </repository>
-        <snapshotRepository>
-            <id>jboss-snapshots-repository</id>
-            <name>JBoss Snapshots Repository</name>
-            <url>${jboss.snapshots.repo.url}</url>
-        </snapshotRepository>
-    </distributionManagement>
+    <profiles>
+    	<profile>
+    		<id>sign</id>
+    		<build>
+    			<plugins>
+    				<plugin>
+				        <groupId>org.apache.maven.plugins</groupId>
+				        <artifactId>maven-gpg-plugin</artifactId>
+				        <version>1.6</version>
+				        <configuration>
+				            <keyname>${gpg.keyname}</keyname>
+				            <passphraseServerId>${gpg.keyname}</passphraseServerId>
+				        </configuration>
+				        <executions>
+				            <execution>
+				                <id>sign-artifacts</id>
+				                <phase>verify</phase>
+				                <goals>
+				                    <goal>sign</goal>
+				                </goals>
+				            </execution>
+				        </executions>
+				    </plugin>
+				    <plugin>
+				        <groupId>org.sonatype.plugins</groupId>
+				        <artifactId>nexus-staging-maven-plugin</artifactId>
+				        <version>1.7.0</version>
+				        <extensions>true</extensions>
+				        <configuration>
+				            <serverId>ossrh</serverId>
+				            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+				            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+				        </configuration>
+				    </plugin>    			
+    			</plugins>
+    		</build>
+    	</profile>
+    </profiles>
 
 </project>

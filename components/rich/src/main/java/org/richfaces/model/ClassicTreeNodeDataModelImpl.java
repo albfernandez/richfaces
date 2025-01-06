@@ -21,14 +21,16 @@
  */
 package org.richfaces.model;
 
+import java.util.Iterator;
+
+import jakarta.faces.convert.Converter;
+
 import org.richfaces.convert.StringSequenceRowKeyConverter;
 import org.richfaces.model.iterators.ClassicTreeNodeTuplesIterator;
 
-import jakarta.faces.convert.Converter;
-import java.util.Iterator;
-
 /**
  * @author Nick Belaevski
+ *
  */
 public class ClassicTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNode> {
     private static final Converter DEFAULT_CONVERTER = new StringSequenceRowKeyConverter();

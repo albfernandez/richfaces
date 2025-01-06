@@ -25,25 +25,27 @@
  */
 package org.richfaces.validator.model;
 
-import com.google.common.collect.Lists;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Collection;
+
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author asmirnov
+ *
  */
 @XmlRootElement(name = "scripts")
 public class ClientSideScripts {
     private Collection<Component> component = Lists.newArrayList();
 
+    public void setComponent(Collection<Component> component) {
+        this.component = component;
+    }
+
     @XmlElement
     public Collection<Component> getComponent() {
         return component;
-    }
-
-    public void setComponent(Collection<Component> component) {
-        this.component = component;
     }
 }

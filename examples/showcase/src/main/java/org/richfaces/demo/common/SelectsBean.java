@@ -1,11 +1,12 @@
 package org.richfaces.demo.common;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.RequestScoped;
-import jakarta.faces.event.ValueChangeEvent;
-import jakarta.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
 
 /**
  * @author Ilya Shaikovsky
@@ -13,8 +14,8 @@ import java.util.List;
 @ManagedBean(name = "selectsBean")
 @RequestScoped
 public class SelectsBean {
-    private static final String[] FRUITS = {"", "Banana", "Cranberry", "Blueberry", "Orange"};
-    private static final String[] VEGETABLES = {"", "Potatoes", "Broccoli", "Garlic", "Carrot"};
+    private static final String[] FRUITS = { "", "Banana", "Cranberry", "Blueberry", "Orange" };
+    private static final String[] VEGETABLES = { "", "Potatoes", "Broccoli", "Garlic", "Carrot" };
     private String currentItem = "";
     private String currentType = "";
     private List<SelectItem> firstList = new ArrayList<SelectItem>();
@@ -34,20 +35,20 @@ public class SelectsBean {
         }
     }
 
-    public static String[] getFRUITS() {
-        return FRUITS;
-    }
-
-    public static String[] getVEGETABLES() {
-        return VEGETABLES;
-    }
-
     public List<SelectItem> getFirstList() {
         return firstList;
     }
 
     public List<SelectItem> getSecondList() {
         return secondList;
+    }
+
+    public static String[] getFRUITS() {
+        return FRUITS;
+    }
+
+    public static String[] getVEGETABLES() {
+        return VEGETABLES;
     }
 
     public void valueChanged(ValueChangeEvent event) {

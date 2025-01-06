@@ -21,19 +21,22 @@
  */
 package org.richfaces.resource.mapping;
 
-import com.google.common.collect.Lists;
-import org.richfaces.application.CoreConfiguration;
-import org.richfaces.application.configuration.ConfigurationService;
-import org.richfaces.application.configuration.ConfigurationServiceHelper;
-
-import jakarta.faces.context.FacesContext;
 import java.util.Arrays;
 import java.util.List;
+
+import jakarta.faces.context.FacesContext;
+
+import org.richfaces.application.configuration.ConfigurationService;
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
+import org.richfaces.application.CoreConfiguration;
+
+import com.google.common.collect.Lists;
 
 /**
  * <p>
  * Utility class for retrieving configuration options of resource mapping feature
  * </p>
+ *
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */

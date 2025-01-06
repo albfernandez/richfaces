@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class FileNameMapping {
     private String name;
@@ -38,6 +39,7 @@ public class FileNameMapping {
         this.name = name;
         this.value = value;
     }
+
 
 
     public String getName() {

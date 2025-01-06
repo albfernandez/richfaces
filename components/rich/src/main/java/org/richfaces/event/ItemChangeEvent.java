@@ -49,16 +49,18 @@ public class ItemChangeEvent extends FacesEvent {
      * </p>
      *
      * <p>
-     * The default {@link javax.faces.event.PhaseId} for this event is {@link javax.faces.event.PhaseId#ANY_PHASE}.
+     * The default {@link jakarta.faces.event.PhaseId} for this event is {@link jakarta.faces.event.PhaseId#ANY_PHASE}.
      * </p>
      *
-     * @param component   Source {@link UIComponent} for this event
+     * @param component Source {@link UIComponent} for this event
+     *
      * @param oldItemName
      * @param newItemName
+     *
      * @throws IllegalArgumentException if <code>component</code> is <code>null</code>
      */
     public ItemChangeEvent(UIComponent component, String oldItemName, UIComponent oldItem, String newItemName,
-                           UIComponent newItem) {
+        UIComponent newItem) {
         super(component);
         this.oldItemName = oldItemName;
         this.newItemName = newItemName;
@@ -92,7 +94,7 @@ public class ItemChangeEvent extends FacesEvent {
     }
 
     /**
-     * @throws javax.faces.event.AbortProcessingException {@inheritDoc}
+     * @throws jakarta.faces.event.AbortProcessingException {@inheritDoc}
      */
     @Override
     public void processListener(FacesListener listener) {

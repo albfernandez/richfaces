@@ -21,13 +21,14 @@
  */
 package org.richfaces.webapp;
 
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import java.util.Set;
 
 import jakarta.servlet.ServletContainerInitializer;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
-import java.util.Set;
+
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * <p>
@@ -40,9 +41,9 @@ public class ServletsInitializer implements ServletContainerInitializer {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
-    private Class<?>[] INITIALIZERS = new Class<?>[]{
+    private Class<?>[] INITIALIZERS = new Class<?>[] {
             PushServletContainerInitializer.class,
-            ResourceServletContainerInitializer.class};
+            ResourceServletContainerInitializer.class };
 
     /**
      * Takes classes listed in {@link #INITIALIZERS} and tries to initialize them as {@link ServletContainerInitializer}s.
@@ -54,7 +55,7 @@ public class ServletsInitializer implements ServletContainerInitializer {
             ServletContainerInitializer initializer = null;
 
             try {
-                initializer = (ServletContainerInitializer) clazz.newInstance();
+                initializer = (ServletContainerInitializer) clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 LOGGER.error("Failed to instantiate servlet initializer " + clazz.getName(), e);
             }

@@ -22,8 +22,8 @@
 
 package org.richfaces.demo.input;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import java.util.List;
 
 @SessionScoped

@@ -21,30 +21,31 @@
  */
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractPanelMenu;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.HtmlConstants;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestParamName;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import jakarta.faces.application.ResourceDependencies;
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestParamName;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractPanelMenu;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.HtmlConstants;
 
 /**
  * @author akolonitsky
  * @since 2010-10-25
  */
 @JsfRenderer(type = "org.richfaces.PanelMenuRenderer", family = AbstractPanelMenu.COMPONENT_FAMILY)
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -54,7 +55,7 @@ import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestPa
         @ResourceDependency(library = "org.richfaces", name = "panelMenuItem.js"),
         @ResourceDependency(library = "org.richfaces", name = "panelMenuGroup.js"),
         @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
-        @ResourceDependency(library = "org.richfaces", name = "panelMenu.ecss")})
+        @ResourceDependency(library = "org.richfaces", name = "panelMenu.ecss") })
 public class PanelMenuRenderer extends DivPanelRenderer {
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -93,14 +94,14 @@ public class PanelMenuRenderer extends DivPanelRenderer {
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.PanelMenu", component.getClientId(context),
-                getScriptObjectOptions(context, component));
+            getScriptObjectOptions(context, component));
     }
 
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractPanelMenu panelMenu = (AbstractPanelMenu) component;
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         // TODO nick - only options with non-default values should be rendered
         options.put("ajax", getAjaxOptions(context, panelMenu));
         options.put("disabled", panelMenu.isDisabled());

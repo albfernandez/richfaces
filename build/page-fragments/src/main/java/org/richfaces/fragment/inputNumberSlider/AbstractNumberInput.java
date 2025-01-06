@@ -66,13 +66,13 @@ public abstract class AbstractNumberInput implements NumberInput {
     }
 
     @Override
-    public double getValue() {
-        return Double.valueOf(advanced().getInput().getStringValue());
+    public void setValue(double value) {
+        advanced().getInput().advanced().clear(ClearType.BACKSPACE).sendKeys(String.valueOf(value));
     }
 
     @Override
-    public void setValue(double value) {
-        advanced().getInput().advanced().clear(ClearType.BACKSPACE).sendKeys(String.valueOf(value));
+    public double getValue() {
+        return Double.valueOf(advanced().getInput().getStringValue());
     }
 
     public abstract class AdvancedNumberInputInteractions {

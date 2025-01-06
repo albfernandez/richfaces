@@ -23,6 +23,7 @@ package org.richfaces.application.push;
 
 /**
  * @author Nick Belaevski
+ *
  */
 @Deprecated
 public class EventAbortedException extends Exception {

@@ -38,6 +38,7 @@ import jakarta.faces.validator.Validator;
 
 /**
  * @author asmirnov
+ *
  */
 public class FacesValidatorServiceImpl extends FacesServiceBase<Validator> implements FacesValidatorService {
     private static final String PATTERN = "pattern";
@@ -49,11 +50,11 @@ public class FacesValidatorServiceImpl extends FacesServiceBase<Validator> imple
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.validator.FacesValidatorService#getValidatorDescription(javax.faces.context.FacesContext,
-     * javax.faces.validator.Validator)
+     * @see org.richfaces.validator.FacesValidatorService#getValidatorDescription(jakarta.faces.context.FacesContext,
+     * jakarta.faces.validator.Validator)
      */
     public ValidatorDescriptor getValidatorDescription(FacesContext context, EditableValueHolder input, Validator validator,
-                                                       String validatorMessage) {
+        String validatorMessage) {
         FacesMessage message = getMessage(context, validator, input, validatorMessage);
         FacesValidatorDescriptor descriptor = new FacesValidatorDescriptor(validator.getClass(), message);
         setLabelParameter(input, descriptor);
@@ -78,7 +79,7 @@ public class FacesValidatorServiceImpl extends FacesServiceBase<Validator> imple
                 messageId = DoubleRangeValidator.MINIMUM_MESSAGE_ID;
             } else {
                 messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;// What to use for that case ( no min/max set,
-                // validator always pass ).
+                                                                         // validator always pass ).
             }
         } else if (component instanceof LengthValidator) {
             LengthValidator validator = (LengthValidator) component;
@@ -92,7 +93,7 @@ public class FacesValidatorServiceImpl extends FacesServiceBase<Validator> imple
                 messageId = LengthValidator.MINIMUM_MESSAGE_ID;
             } else {
                 messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;// What to use for that case ( no min/max set,
-                // validator always pass ).
+                                                                         // validator always pass ).
             }
         } else if (component instanceof LongRangeValidator) {
             LongRangeValidator validator = (LongRangeValidator) component;
@@ -106,7 +107,7 @@ public class FacesValidatorServiceImpl extends FacesServiceBase<Validator> imple
                 messageId = LongRangeValidator.MINIMUM_MESSAGE_ID;
             } else {
                 messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;// What to use for that case ( no min/max set,
-                // validator always pass ).
+                                                                         // validator always pass ).
             }
         } else if (component instanceof RegexValidator) {
             messageId = RegexValidator.NOT_MATCHED_MESSAGE_ID;

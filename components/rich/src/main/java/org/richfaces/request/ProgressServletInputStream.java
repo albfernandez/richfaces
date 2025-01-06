@@ -21,8 +21,10 @@
  */
 package org.richfaces.request;
 
-import jakarta.servlet.ServletInputStream;
 import java.io.IOException;
+
+import jakarta.servlet.ReadListener;
+import jakarta.servlet.ServletInputStream;
 
 class ProgressServletInputStream extends ServletInputStream {
     private ServletInputStream wrappedStream;
@@ -86,4 +88,22 @@ class ProgressServletInputStream extends ServletInputStream {
     public boolean markSupported() {
         return wrappedStream.markSupported();
     }
+
+	@Override
+	public boolean isFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	//MZ
+	@Override
+	public boolean isReady() {
+		return wrappedStream.isReady();
+	}
+
+	//MZ
+	@Override
+	public void setReadListener(ReadListener readListener) {
+		wrappedStream.setReadListener(readListener);
+	}
 }

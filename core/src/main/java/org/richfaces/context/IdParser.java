@@ -21,13 +21,14 @@
  */
 package org.richfaces.context;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.collect.Lists;
-import org.richfaces.util.SeparatorChar;
+import static org.richfaces.component.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
 
 import java.util.List;
 
-import static org.richfaces.component.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
+import org.richfaces.util.SeparatorChar;
+
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.Lists;
 
 /**
  * Helper class for parsing ids.
@@ -35,48 +36,6 @@ import static org.richfaces.component.MetaComponentResolver.META_COMPONENT_SEPAR
  * @author Nick Belaevski
  */
 final class IdParser {
-    private static final char FUNCTION_IMAGE_START_TOKEN = '(';
-    private static final char FUNCTION_IMAGE_END_TOKEN = ')';
-    private static final Node[] EMPTY_NODES_ARRAY = new Node[0];
-    private IdParser() {
-    }
-
-    public static Node[] parse(String id) {
-        if (id.length() == 0) {
-            return EMPTY_NODES_ARRAY;
-        }
-
-        List<Node> result = Lists.newArrayList();
-
-        Iterable<String> split = SeparatorChar.SPLITTER.split(id);
-        for (String s : split) {
-            if (s.charAt(0) == META_COMPONENT_SEPARATOR_CHAR) {
-                int startImageIdx = s.indexOf(FUNCTION_IMAGE_START_TOKEN);
-
-                if (startImageIdx < 0) {
-                    result.add(new Node(s));
-                } else {
-                    if (s.charAt(s.length() - 1) != FUNCTION_IMAGE_END_TOKEN) {
-                        throw new IllegalArgumentException(id);
-                    }
-
-                    if (startImageIdx + 1 > s.length() - 1) {
-                        throw new IllegalArgumentException(id);
-                    }
-
-                    String image = s.substring(startImageIdx + 1, s.length() - 1);
-                    String functionName = s.substring(1, startImageIdx);
-
-                    result.add(new Node(image, functionName));
-                }
-            } else {
-                result.add(new Node(s));
-            }
-        }
-
-        return result.toArray(new Node[result.size()]);
-    }
-
     public static final class Node {
         private String image;
         private String function;
@@ -141,5 +100,48 @@ final class IdParser {
             }
             return true;
         }
+    }
+
+    private static final char FUNCTION_IMAGE_START_TOKEN = '(';
+    private static final char FUNCTION_IMAGE_END_TOKEN = ')';
+    private static final Node[] EMPTY_NODES_ARRAY = new Node[0];
+
+    private IdParser() {
+    }
+
+    public static Node[] parse(String id) {
+        if (id.length() == 0) {
+            return EMPTY_NODES_ARRAY;
+        }
+
+        List<Node> result = Lists.newArrayList();
+
+        Iterable<String> split = SeparatorChar.SPLITTER.split(id);
+        for (String s : split) {
+            if (s.charAt(0) == META_COMPONENT_SEPARATOR_CHAR) {
+                int startImageIdx = s.indexOf(FUNCTION_IMAGE_START_TOKEN);
+
+                if (startImageIdx < 0) {
+                    result.add(new Node(s));
+                } else {
+                    if (s.charAt(s.length() - 1) != FUNCTION_IMAGE_END_TOKEN) {
+                        throw new IllegalArgumentException(id);
+                    }
+
+                    if (startImageIdx + 1 > s.length() - 1) {
+                        throw new IllegalArgumentException(id);
+                    }
+
+                    String image = s.substring(startImageIdx + 1, s.length() - 1);
+                    String functionName = s.substring(1, startImageIdx);
+
+                    result.add(new Node(image, functionName));
+                }
+            } else {
+                result.add(new Node(s));
+            }
+        }
+
+        return result.toArray(new Node[result.size()]);
     }
 }

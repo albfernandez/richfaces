@@ -54,6 +54,22 @@ public class ITClientValidation extends ValidationTestBase {
         return deployment.getFinalArchive();
     }
 
+    @Test
+    @Category(Smoke.class)
+    public void testSubmitTooShortValue() throws Exception {
+        submitValueAndCheckMessage("", not(equalTo("")));
+    }
+
+    @Test
+    public void testSubmitTooLongValue() throws Exception {
+        submitValueAndCheckMessage("123456", not(equalTo("")));
+    }
+
+    @Test
+    public void testSubmitProperValue() throws Exception {
+        submitValueAndCheckMessage("ab", equalTo(""));
+    }
+
     private static void addIndexPage(org.richfaces.deployment.BaseDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -70,21 +86,5 @@ public class ITClientValidation extends ValidationTestBase {
         p.body("<rich:message id='uiMessage' for='text' />");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    @Test
-    @Category(Smoke.class)
-    public void testSubmitTooShortValue() throws Exception {
-        submitValueAndCheckMessage("", not(equalTo("")));
-    }
-
-    @Test
-    public void testSubmitTooLongValue() throws Exception {
-        submitValueAndCheckMessage("123456", not(equalTo("")));
-    }
-
-    @Test
-    public void testSubmitProperValue() throws Exception {
-        submitValueAndCheckMessage("ab", equalTo(""));
     }
 }

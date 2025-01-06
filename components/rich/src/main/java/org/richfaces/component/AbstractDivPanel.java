@@ -28,6 +28,6 @@ import org.richfaces.component.attribute.I18nProps;
 /**
  * @author akolonitsky
  * @version 1.0
+ *
  */
-public interface AbstractDivPanel extends CoreProps, EventsMouseProps, I18nProps {
-}
+public interface AbstractDivPanel extends CoreProps, EventsMouseProps, I18nProps {}

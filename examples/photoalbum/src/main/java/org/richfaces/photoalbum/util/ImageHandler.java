@@ -5,37 +5,24 @@ import org.richfaces.photoalbum.model.Image;
 
 /**
  * Class to handle local (photoalbum.domain.Image) and remote images (JSONobject)
- *
+ * 
  * @author mpetrov
+ * 
  */
 public class ImageHandler {
+    private Image localImage;
+    private JSONObject remoteImage;
+
+    private int type;
+
     public static final int LOCAL = 1;
     public static final int FACEBOOK = 2;
     public static final int GOOGLE = 3;
-    private Image localImage;
-    private JSONObject remoteImage;
-    private int type;
 
     public ImageHandler(Object o) {
         setImage(o);
     }
-
-    public boolean isLocalImage() {
-        return type == LOCAL;
-    }
-
-    public boolean isFacebookImage() {
-        return type == FACEBOOK;
-    }
-
-    public boolean isGoogleImage() {
-        return type == GOOGLE;
-    }
-
-    public Object getImage() {
-        return isLocalImage() ? localImage : remoteImage;
-    }
-
+    
     public void setImage(Object o) {
         if (o == null) {
             return;
@@ -46,13 +33,29 @@ public class ImageHandler {
         } else if (o instanceof JSONObject) {
             remoteImage = (JSONObject) o;
             String imageType = remoteImage.optString("type");
-
+            
             if (imageType.equals("facebook")) {
                 type = FACEBOOK;
             } else if (imageType.equals("google")) {
                 type = GOOGLE;
             }
         }
+    }
+
+    public boolean isLocalImage() {
+        return type == LOCAL;
+    }
+    
+    public boolean isFacebookImage() {
+        return type == FACEBOOK;
+    }
+    
+    public boolean isGoogleImage() {
+        return type == GOOGLE;
+    }
+
+    public Object getImage() {
+        return isLocalImage() ? localImage : remoteImage;
     }
 
     public String getName() {
@@ -62,7 +65,7 @@ public class ImageHandler {
     public String getThumbUrl() {
         return isLocalImage() ? localImage.getFullPath() : remoteImage.optString("thumbUrl");
     }
-
+    
     public String getUrl() {
         return isLocalImage() ? localImage.getFullPath() : remoteImage.optString("url");
     }
@@ -74,7 +77,7 @@ public class ImageHandler {
     public String getAlbumId() {
         return isLocalImage() ? localImage.getAlbum().getId().toString() : remoteImage.optString("fullAlbumId");
     }
-
+    
     public int getType() {
         return type;
     }

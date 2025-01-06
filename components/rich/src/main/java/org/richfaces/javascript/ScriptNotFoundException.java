@@ -23,7 +23,9 @@
 package org.richfaces.javascript;
 
 public class ScriptNotFoundException extends Exception {
-    public ScriptNotFoundException() {
+	private static final long serialVersionUID = -4171420672895602639L;
+
+	public ScriptNotFoundException() {
         super();
     }
 

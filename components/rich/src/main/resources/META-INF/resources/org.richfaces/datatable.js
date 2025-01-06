@@ -19,11 +19,11 @@
         var self = this;
         var header = $(this.element).find('.rf-dt-thd');
         header.find(".rf-dt-c-srt").each(function() {
-            $(this).bind("click", {sortHandle: this}, $.proxy(self.sortHandler, self));
+            $(this).on("click", {sortHandle: this}, $.proxy(self.sortHandler, self));
         });
         header.find(".rf-dt-flt-i").each(function() {
-            $(this).bind("blur", {filterHandle: this}, $.proxy(self.filterHandler, self));
-            $(this).bind("keyup", {filterHandle: this}, $.proxy(self.filterHandler, self));
+            $(this).on("blur", {filterHandle: this}, $.proxy(self.filterHandler, self));
+            $(this).on("keyup", {filterHandle: this}, $.proxy(self.filterHandler, self));
         });
         $(this.element).trigger("rich:ready", this);
     };

@@ -21,10 +21,11 @@
  */
 package org.richfaces.el;
 
-import jakarta.el.ELContext;
-import jakarta.el.ELResolver;
 import java.beans.FeatureDescriptor;
 import java.util.Iterator;
+
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
 
 /**
  * @author Nick Belaevski
@@ -38,66 +39,33 @@ public class ELResolverWrapper extends ELResolver {
         this.resolver = resolver;
     }
 
-    /**
-     * @param context
-     * @param base
-     * @return
-     * @see javax.el.ELResolver#getCommonPropertyType(javax.el.ELContext, java.lang.Object)
-     */
+
     public Class<?> getCommonPropertyType(ELContext context, Object base) {
         return resolver.getCommonPropertyType(context, base);
     }
 
-    /**
-     * @param context
-     * @param base
-     * @return
-     * @see javax.el.ELResolver#getFeatureDescriptors(javax.el.ELContext, java.lang.Object)
-     */
+    /*MZ TODO
     public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
         return resolver.getFeatureDescriptors(context, base);
     }
+    */
 
-    /**
-     * @param context
-     * @param base
-     * @param property
-     * @return
-     * @see javax.el.ELResolver#getType(javax.el.ELContext, java.lang.Object, java.lang.Object)
-     */
+ 
     public Class<?> getType(ELContext context, Object base, Object property) {
         return resolver.getType(context, base, property);
     }
 
-    /**
-     * @param context
-     * @param base
-     * @param property
-     * @return
-     * @see javax.el.ELResolver#getValue(javax.el.ELContext, java.lang.Object, java.lang.Object)
-     */
+
     public Object getValue(ELContext context, Object base, Object property) {
         return resolver.getValue(context, base, property);
     }
 
-    /**
-     * @param context
-     * @param base
-     * @param property
-     * @return
-     * @see javax.el.ELResolver#isReadOnly(javax.el.ELContext, java.lang.Object, java.lang.Object)
-     */
+
     public boolean isReadOnly(ELContext context, Object base, Object property) {
         return resolver.isReadOnly(context, base, property);
     }
 
-    /**
-     * @param context
-     * @param base
-     * @param property
-     * @param value
-     * @see javax.el.ELResolver#setValue(javax.el.ELContext, java.lang.Object, java.lang.Object, java.lang.Object)
-     */
+
     public void setValue(ELContext context, Object base, Object property, Object value) {
         resolver.setValue(context, base, property, value);
     }

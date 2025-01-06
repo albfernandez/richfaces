@@ -130,21 +130,19 @@
                     var menuGroup = this;
 
                     if (!this.options.selectable) {
-
-                        //TODO nick - this can be replaced by jQuery.delegate on menu itself
                         if (this.options.expandEvent == this.options.collapseEvent) {
-                            this.__header().bind(this.options.expandEvent, function () {
+                            this.__header().on(this.options.expandEvent, function () {
                                 menuGroup.switchExpantion();
                             });
 
                         } else {
-                            this.__header().bind(this.options.expandEvent, function () {
+                            this.__header().on(this.options.expandEvent, function () {
                                 if (menuGroup.collapsed()) {
                                     return menuGroup.expand();
                                 }
                             });
 
-                            this.__header().bind(this.options.collapseEvent, function () {
+                            this.__header().on(this.options.collapseEvent, function () {
                                 if (menuGroup.expanded()) {
                                     return menuGroup.collapse();
                                 }
@@ -154,14 +152,14 @@
 
                         if (this.options.expandEvent == this.options.collapseEvent) {
                             if (this.options.expandEvent != 'click') {
-                                this.__header().bind(this.options.expandEvent, function () {
+                                this.__header().on(this.options.expandEvent, function () {
                                     menuGroup.switchExpantion();
                                 });
                             }
 
                         } else {
                             if (this.options.expandEvent != 'click') {
-                                this.__header().bind(this.options.expandEvent, function () {
+                                this.__header().on(this.options.expandEvent, function () {
                                     if (menuGroup.collapsed()) {
                                         return menuGroup.expand();
                                     }
@@ -169,7 +167,7 @@
                             }
 
                             if (this.options.collapseEvent != 'click') {
-                                this.__header().bind(this.options.collapseEvent, function () {
+                                this.__header().on(this.options.collapseEvent, function () {
                                     if (menuGroup.expanded()) {
                                         return menuGroup.collapse();
                                     }
@@ -180,7 +178,7 @@
                     }
 
                     if (this.options.selectable || this.options.bubbleSelection) {
-                        this.__content().bind("select", function (event) {
+                        this.__content().on("select", function (event) {
                             if (menuGroup.options.selectable && menuGroup.__isMyEvent(event)) {
                                 menuGroup.expand();
                             }
@@ -193,7 +191,7 @@
                             }
                         });
 
-                        this.__content().bind("unselect", function (event) {
+                        this.__content().on("unselect", function (event) {
                             if (menuGroup.options.selectable && menuGroup.__isMyEvent(event)) {
                                 menuGroup.collapse();
                             }

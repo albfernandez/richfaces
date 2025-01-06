@@ -22,9 +22,13 @@
 
 package org.richfaces.photoalbum.rest;
 
-import org.richfaces.photoalbum.manager.EventManager;
-import org.richfaces.photoalbum.model.Event;
-import org.richfaces.photoalbum.model.actions.IEventAction;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -40,13 +44,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import org.richfaces.photoalbum.manager.EventManager;
+import org.richfaces.photoalbum.model.Event;
+import org.richfaces.photoalbum.model.actions.IEventAction;
 
 @Path("/events")
 @RequestScoped

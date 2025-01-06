@@ -21,12 +21,13 @@
  */
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.Attribute;
-
 import jakarta.faces.convert.Converter;
+
+import org.richfaces.cdk.annotations.Attribute;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public interface TreeModelAdaptor {
     @Attribute

@@ -21,6 +21,16 @@
  */
 package org.richfaces.resource.css;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
+
 import org.richfaces.el.util.ELUtils;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -36,17 +46,9 @@ import org.w3c.dom.css.CSSStyleSheet;
 import org.w3c.dom.css.CSSUnknownRule;
 import org.w3c.dom.stylesheets.MediaList;
 
-import jakarta.faces.application.Resource;
-import jakarta.faces.context.FacesContext;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Nick Belaevski
+ *
  */
 public final class CSSVisitorImpl extends AbstractCSSVisitor {
     private static final String RESOURCE_START_PREFIX = "resource[";
@@ -55,7 +57,7 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
     private FacesContext facesContext;
     private String encoding;
     private StringBuilder buffer = new StringBuilder();
-    private List<String> prefixes = new ArrayList<String>(2);
+    private List<String> prefixes = new ArrayList<>(2);
 
     public CSSVisitorImpl(FacesContext facesContext) {
         super();
@@ -249,12 +251,12 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
         return encoding;
     }
 
-    public void setEncoding(String encoding) {
-        this.encoding = encoding;
-    }
-
     public String getCSSText() {
         return buffer.toString();
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
     }
 
     public String convertStreamToString(InputStream is, String encoding) throws IOException {

@@ -21,6 +21,8 @@
  */
 package org.richfaces.fragment.calendar;
 
+import java.util.concurrent.TimeUnit;
+
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -39,22 +41,18 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * Component for editing calendar's time
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class TimeEditor {
 
-    private static final int defaultHours = 12;
-    private static final int defaultMinutes = 0;
-    private static final int defaultSeconds = 0;
     @Root
     private WebElement root;
+
     @Drone
     private WebDriver browser;
+
     @FindByJQuery(".rf-cal-timepicker-inp table table:has('input[id$=TimeHours]')")
     private TimeSpinner12 hoursSpinner12;
     @FindByJQuery(".rf-cal-timepicker-inp table table:has('input[id$=TimeHours]')")
@@ -65,10 +63,16 @@ public class TimeEditor {
     private TimeSpinner60 secondsSpinner;
     @FindByJQuery(".rf-cal-timepicker-inp table table:has('input[id$=TimeSign]')")
     private TimeSignSpinner timeSignSpinner;
+
     @FindBy(css = "div[id$=TimeEditorButtonOk]")
     private GrapheneElement okButtonElement;
     @FindBy(css = "div[id$=TimeEditorButtonCancel]")
     private GrapheneElement cancelButtonElement;
+
+    private static final int defaultHours = 12;
+    private static final int defaultMinutes = 0;
+    private static final int defaultSeconds = 0;
+
     private long _timeoutForTimeEditorToBeNotVisible = -1;
     private long _timeoutForTimeEditorToBeVisible = -1;
 
@@ -96,10 +100,15 @@ public class TimeEditor {
         return hoursSpinner24;
     }
 
+    public enum SetValueBy {
+
+        TYPING, BUTTONS;
+    }
+
     public void cancelTime() {
         if (!isVisible()) {
             throw new RuntimeException("Cannot interact with TimePicker. "
-                    + "Ensure that it it is opened.");
+                + "Ensure that it it is opened.");
         }
         if (!getCancelButtonElement().isDisplayed()) {
             throw new RuntimeException("Cancel button is not visible.");
@@ -111,7 +120,7 @@ public class TimeEditor {
     public void confirmTime() {
         if (!isVisible()) {
             throw new RuntimeException("Cannot interact with TimePicker. "
-                    + "Ensure that it it is opened.");
+                + "Ensure that it it is opened.");
         }
         if (!getOkButtonElement().isDisplayed()) {
             throw new RuntimeException("Ok button is not visible.");
@@ -160,9 +169,9 @@ public class TimeEditor {
         int minutes = (getMinutesSpinner() != null ? getMinutesSpinner().getValue() : getDefaultMinutes());
         int hours = (getHoursSpinner() != null ? getHoursSpinner().getValue() : getDefaultHours());
         DateTime result = new DateTime()
-                .withHourOfDay(hours)
-                .withMinuteOfHour(minutes)
-                .withSecondOfMinute(seconds);
+            .withHourOfDay(hours)
+            .withMinuteOfHour(minutes)
+            .withSecondOfMinute(seconds);
         TimeSignSpinner tss = getTimeSignSpinner();
         if (tss != null) {
             switch (tss.getValue()) {
@@ -233,12 +242,12 @@ public class TimeEditor {
         return _timeoutForTimeEditorToBeNotVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForTimeEditorToBeNotVisible;
     }
 
-    public long getTimeoutForTimeEditorToBeVisible() {
-        return _timeoutForTimeEditorToBeVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForTimeEditorToBeVisible;
-    }
-
     public void setTimeoutForTimeEditorToBeVisible(long timeoutInMilliseconds) {
         this._timeoutForTimeEditorToBeVisible = timeoutInMilliseconds;
+    }
+
+    public long getTimeoutForTimeEditorToBeVisible() {
+        return _timeoutForTimeEditorToBeVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForTimeEditorToBeVisible;
     }
 
     public WaitingWrapper waitUntilIsNotVisible() {
@@ -257,10 +266,5 @@ public class TimeEditor {
                 wait.until().element(getRootElement()).is().visible();
             }
         }.withMessage("Waiting for time editor to be visible.").withTimeout(getTimeoutForTimeEditorToBeVisible(), TimeUnit.MILLISECONDS);
-    }
-
-    public enum SetValueBy {
-
-        TYPING, BUTTONS;
     }
 }

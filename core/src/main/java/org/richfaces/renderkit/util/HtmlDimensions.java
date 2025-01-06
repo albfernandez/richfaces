@@ -65,7 +65,7 @@ public final class HtmlDimensions {
                     }
                 } else if (PATTERN_PT.matcher(size).matches()) {
                     synchronized (PT_FORMAT) {
-                        d = PT_FORMAT.parse(size).doubleValue() * (4 / 3.0);
+                        d = PT_FORMAT.parse(size).doubleValue() * (4/3.0);
                     }
                 } else if (PATTERN_PCT.matcher(size).matches()) {
                     synchronized (PCT_FORMAT) {
@@ -74,11 +74,11 @@ public final class HtmlDimensions {
                 }
             }
         } catch (ParseException e) {
-            throw new IllegalArgumentException(Messages.getMessage(Messages.DECODE_PARAMETER_ERROR, new Object[]{"size",
-                    size, e.getMessage()}));
+            throw new IllegalArgumentException(Messages.getMessage(Messages.DECODE_PARAMETER_ERROR, new Object[] { "size",
+                    size, e.getMessage() }));
         }
 
-        return new Double(d);
+        return Double.valueOf(d);
     }
 
     public static String formatPx(Double value) {

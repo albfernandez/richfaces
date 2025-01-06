@@ -26,6 +26,20 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
+import java.io.File;
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Any;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.richfaces.json.JSONObject;
 import org.richfaces.photoalbum.model.Sex;
@@ -45,20 +59,6 @@ import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.Environment;
 import org.richfaces.photoalbum.util.HashUtils;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Any;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.File;
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-
 @Named
 @ApplicationScoped
 public class Authenticator implements Serializable {
@@ -70,29 +70,8 @@ public class Authenticator implements Serializable {
 
     @Inject
     IUserAction userAction;
-    @Inject
-    @Any
-    Event<SimpleEvent> event;
-    @Inject
-    @EventType(Events.ADD_ERROR_EVENT)
-    Event<ErrorEvent> error;
-    @Inject
-    @EventType(Events.UPDATE_MAIN_AREA_EVENT)
-    Event<NavEvent> navEvent;
-    @Inject
-    FileManager fileManager;
-    @Inject
-    UserBean userBean;
-    @Inject
-    FacebookBean fBean;
-    @Inject
-    GooglePlusBean gBean;
-    @Inject
-    UserPrefsHelper uph;
+
     private User user;
-    private boolean loginFailed = false;
-    private boolean conversationStarted = false;
-    private File avatarData;
 
     public User getUser() {
         return user;
@@ -102,10 +81,45 @@ public class Authenticator implements Serializable {
         this.user = user;
     }
 
+    private boolean loginFailed = false;
+
+    private boolean conversationStarted = false;
+
+    @Inject
+    @Any
+    Event<SimpleEvent> event;
+
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    Event<ErrorEvent> error;
+
+    @Inject
+    @EventType(Events.UPDATE_MAIN_AREA_EVENT)
+    Event<NavEvent> navEvent;
+
+    @Inject
+    FileManager fileManager;
+
+    @Inject
+    UserBean userBean;
+
+    @Inject
+    FacebookBean fBean;
+
+    @Inject
+    GooglePlusBean gBean;
+
+    @Inject
+    UserPrefsHelper uph;
+
+    private File avatarData;
+
+
     /**
      * Method, that invoked when user try to login to the application.
      *
      * @return boolean indicator, that denotative is user succesfully loginned to the system.
+     *
      */
     public boolean authenticate() {
         try {
@@ -252,6 +266,7 @@ public class Authenticator implements Serializable {
      * Method, that invoked when user logout from application.
      *
      * @return outcome string to redirect.
+     *
      */
     public void logout() {
         long id = userBean.getUser().getId();
@@ -268,6 +283,7 @@ public class Authenticator implements Serializable {
      * be loginned to the system.
      *
      * @param user - user object, that will be passed to registration procedure.
+     *
      */
     public void register(User user) {
         // Checks
@@ -303,11 +319,12 @@ public class Authenticator implements Serializable {
         UIComponent root = FacesContext.getCurrentInstance().getViewRoot();
         UIComponent component = root.findComponent("overForm");
         FacesContext.getCurrentInstance().addMessage(component.getClientId(FacesContext.getCurrentInstance()),
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Success!", "Registration was successful."));
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Success!", "Registration was successful."));
     }
 
     /**
      * Method, that invoked when user want to edit her profile.
+     *
      */
     public void editUser(@Observes @EventType(Events.EDIT_USER_EVENT) SimpleEvent se) {
         avatarData = uph.getAvatarData();
@@ -335,6 +352,7 @@ public class Authenticator implements Serializable {
 
     /**
      * Method, that invoked when user want to go to the registration screen
+     *
      */
     public void goToRegister() {
         // create new User object
@@ -347,6 +365,7 @@ public class Authenticator implements Serializable {
     /**
      * Method, that invoked when new conversation is started. This method prevent instantiation of couples of conversations when
      * user refresh the whole page.
+     *
      */
     @PostConstruct
     public void startConversation() {

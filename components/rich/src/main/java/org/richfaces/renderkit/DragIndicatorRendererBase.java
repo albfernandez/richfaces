@@ -21,23 +21,24 @@
  */
 package org.richfaces.renderkit;
 
-import org.richfaces.component.AbstractDragSource;
-
 import jakarta.faces.application.ResourceDependencies;
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 
+import org.richfaces.component.AbstractDragSource;
+
 /**
  * @author abelevich
+ *
  */
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "dnd-indicator.js"),
-        @ResourceDependency(library = "org.richfaces", name = "indicator.ecss")})
+        @ResourceDependency(library = "org.richfaces", name = "indicator.ecss") })
 public class DragIndicatorRendererBase extends RendererBase {
     public String getDragIndicatorClientId(FacesContext facesContext, AbstractDragSource dragSource) {
         String indicatorId = dragSource.getDragIndicator();

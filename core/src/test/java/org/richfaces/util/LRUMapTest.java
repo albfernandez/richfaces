@@ -21,13 +21,14 @@
  */
 package org.richfaces.util;
 
-import junit.framework.TestCase;
-
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import junit.framework.TestCase;
+
 /**
  * @author asmirnov
+ *
  */
 public class LRUMapTest extends TestCase {
     /**
@@ -59,10 +60,10 @@ public class LRUMapTest extends TestCase {
      * Test method for {@link org.richfaces.util.LRUMap#LRUMap(int)}.
      */
     public void testLRUMap() {
-        LRUMap map = new LRUMap(5);
+        LRUMap<Integer, String> map = new LRUMap<>(5);
 
         for (int i = 0; i < 10; i++) {
-            map.put(new Integer(i), "Val" + (new Integer(i)));
+            map.put(Integer.valueOf(i), "Val" + i);
         }
 
         assertEquals(map.size(), 5);
@@ -72,8 +73,10 @@ public class LRUMapTest extends TestCase {
      * Test method for {@link org.richfaces.util.LRUMap#removeEldestEntry(java.util.Map.Entry)}.
      */
     public void testRemoveEldestEntryEntry() {
-        LRUMap map = new LRUMap(5) {
-            protected boolean removeEldestEntry(Entry arg0) {
+        LRUMap<Integer, String> map = new LRUMap<Integer, String>(5) {
+			private static final long serialVersionUID = 1L;
+
+			protected boolean removeEldestEntry(Entry arg0) {
                 boolean eldestEntry = super.removeEldestEntry(arg0);
 
                 assertTrue(eldestEntry ^ size() <= 5);
@@ -83,7 +86,7 @@ public class LRUMapTest extends TestCase {
         };
 
         for (int i = 0; i < 10; i++) {
-            map.put(new Integer(i), "Val" + (new Integer(i)));
+            map.put(Integer.valueOf(i), "Val" + i);
         }
     }
 
@@ -91,19 +94,19 @@ public class LRUMapTest extends TestCase {
      * Test method for {@link java.util.HashMap#put(K, V)}.
      */
     public void testPut() {
-        LRUMap map = new LRUMap(5);
+        LRUMap<Integer, String> map = new LRUMap<>(5);
 
         for (int i = 0; i < 10; i++) {
-            map.put(new Integer(i), "Val" + (new Integer(i)));
+            map.put(Integer.valueOf(i), "Val" + i);
         }
 
         assertEquals(map.size(), 5);
 
-        Iterator iterator = map.values().iterator();
+        Iterator<String> iterator = map.values().iterator();
 
         for (int i = 5; i < 10; i++) {
             assertTrue(iterator.hasNext());
-            assertEquals("Val" + (new Integer(i)), iterator.next());
+            assertEquals("Val" + i, iterator.next());
         }
 
         assertFalse(iterator.hasNext());

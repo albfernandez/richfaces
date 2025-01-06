@@ -38,27 +38,6 @@ public abstract class GraphValidationTestBase extends ValidationTestBase {
     @FindBy(id = "form:submit")
     private WebElement element;
 
-    protected static void addIndexPage(org.richfaces.deployment.BaseDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form id='form'>");
-        p.body("    <rich:graphValidator id='validator' value='#{graphBean}' >");
-        p.body("    <h:inputText id='text' value='#{graphBean.value}'>");
-        p.body("    </h:inputText>");
-        p.body("    </rich:graphValidator>");
-        p.body("    <h:outputText id='out' value='#{graphBean.value}'></h:outputText>");
-        p.body("    <h:commandButton id='submit' value='Submit'/>");
-        p.body("</h:form>");
-        p.body("<br />");
-        p.body("<input id='blurButton' value='blur' type='button' />");
-        p.body("<br />");
-        p.body("<rich:message id='textMessage' for='text' />");
-        p.body("<rich:message id='graphMessage' for='validator' />");
-        p.body("<rich:messages id='uiMessage' />");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Override
     protected void submitValue() {
         element.click();
@@ -82,5 +61,26 @@ public abstract class GraphValidationTestBase extends ValidationTestBase {
     @Test
     public void testCorrectValue() throws Exception {
         submitValueAndCheckMessage("foobar", equalTo(""));
+    }
+
+    protected static void addIndexPage(org.richfaces.deployment.BaseDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='form'>");
+        p.body("    <rich:graphValidator id='validator' value='#{graphBean}' >");
+        p.body("    <h:inputText id='text' value='#{graphBean.value}'>");
+        p.body("    </h:inputText>");
+        p.body("    </rich:graphValidator>");
+        p.body("    <h:outputText id='out' value='#{graphBean.value}'></h:outputText>");
+        p.body("    <h:commandButton id='submit' value='Submit'/>");
+        p.body("</h:form>");
+        p.body("<br />");
+        p.body("<input id='blurButton' value='blur' type='button' />");
+        p.body("<br />");
+        p.body("<rich:message id='textMessage' for='text' />");
+        p.body("<rich:message id='graphMessage' for='validator' />");
+        p.body("<rich:messages id='uiMessage' />");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

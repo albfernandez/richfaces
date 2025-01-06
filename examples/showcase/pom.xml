@@ -26,7 +26,7 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-showcase</artifactId>
-    <version>4.5.18.Final</version>
+    <version>4.6.22-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>RichFaces Showcase</name>
 
@@ -34,7 +34,7 @@
         RichFaces showcase is an application created to show RichFaces components in action. It contains a set of small use-cases implemented using RichFaces components.
     </description>
 
-    <url>http://richfaces.org</url>
+    <url>https://github.com/albfernandez/richfaces</url>
 
     <licenses>
         <license>
@@ -50,25 +50,41 @@
         </developer>
     </developers>
 
+    <scm>
+        <connection>scm:git:git@github.com:albfernandez/richfaces.git</connection>
+        <developerConnection>scm:git:git@github.com:albfernandez/richfaces.git</developerConnection>
+        <url>git@github.com:albfernandez/richfaces.git</url>
+    </scm>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/albfernandez/richfaces/issues</url>
+    </issueManagement>
+
     <properties>
-        <version.richfaces>4.5.18.Final</version.richfaces>
+        <java.version>1.8</java.version>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <version.richfaces>4.6.22-SNAPSHOT</version.richfaces>
+
         <!-- Container Versions -->
-        <version.wildfly100>10.0.0.Final</version.wildfly100>
-        <version.wildfly90>9.0.1.Final</version.wildfly90>
+        <version.wildfly100>10.1.0.Final</version.wildfly100>
+        <version.wildfly90>9.0.2.Final</version.wildfly90>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
         <version.wildfly82>8.2.1.Final</version.wildfly82>
-        <version.tomcat7>7.0.69</version.tomcat7>
-        <version.tomcat8>8.0.35</version.tomcat8>
+        <version.tomcat7>7.0.94</version.tomcat7>
+        <version.tomcat8>8.0.53</version.tomcat8>
+        <version.tomcat85>8.5.40</version.tomcat85>
+        <version.tomcat9>9.0.19</version.tomcat9>
 
         <dependency.scope>compile</dependency.scope>
         <container.resources>${project.basedir}/src/main/resources-tomcat</container.resources>
         <container.resources.exclude />
         <container.webapp>${project.basedir}/src/main/webapp-tomcat</container.webapp>
-        
+
         <war.outputFileNameMapping>@{artifactId}@@{dashClassifier?}@-@{version}@.@{extension}@</war.outputFileNameMapping>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
@@ -118,13 +134,6 @@
         <testCategory.included.default>NOT category.None</testCategory.included.default>
         <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
 
-        <!-- Release repositories -->
-        <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
-        <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
-        
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        
         <!-- JVM values for surefire plugin -->
         <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->
         <surefire.jvm.params>-Xms1024m -Xmx2048m</surefire.jvm.params>
@@ -140,7 +149,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-cache-bom</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
@@ -148,7 +157,7 @@
             </dependency>
 
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-build</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
@@ -159,16 +168,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces-build-resources</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces-page-fragments</artifactId>
             <scope>test</scope>
             <optional>true</optional>
@@ -182,7 +191,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-jakartaee-8.0</artifactId>
+            <artifactId>jboss-javaee-6.0</artifactId>
             <scope>provided</scope>
             <type>pom</type>
             <exclusions>
@@ -203,11 +212,11 @@
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
+            <artifactId>ehcache</artifactId>			
         </dependency>
         <dependency>
             <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb-j5</artifactId>
+            <artifactId>hsqldb</artifactId>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
@@ -232,7 +241,7 @@
 
         <!-- Dependencies for Push -->
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces-push-depchain</artifactId>
             <type>pom</type>
             <version>${version.richfaces}</version>
@@ -303,9 +312,6 @@
 
         <plugins>
             <plugin>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <classifier>${showcase.war.classifier}</classifier>
@@ -361,27 +367,27 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.5.1</version>
+                    <version>3.8.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.2</version>
+                    <version>3.0.0-M3</version>
                     <configuration>
                         <!-- Travis build workaround -->
                         <argLine>${surefire.jvm.params}</argLine>
@@ -389,24 +395,21 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>3.2.3</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.9</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>3.1.1</version>
                 </plugin>
-                <plugin>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.13</version>
-                </plugin>
+
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.9.1</version>
+                    <version>3.0.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -422,13 +425,13 @@
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>jakarta.faces</groupId>
-                    <artifactId>jakarta.faces-api</artifactId>
+                    <groupId>javax.faces</groupId>
+                    <artifactId>javax.faces-api</artifactId>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.glassfish</groupId>
-                    <artifactId>jakarta.faces</artifactId>
+                    <artifactId>javax.faces</artifactId>
                     <scope>${dependency.scope}</scope>
                 </dependency>
             </dependencies>
@@ -497,15 +500,6 @@
                             <warSourceExcludes>${jee6.excluded.libraries}</warSourceExcludes>
                         </configuration>
                     </plugin>
-                    <!--
-                    <plugin>
-                        <groupId>org.jboss.as.plugins</groupId>
-                        <artifactId>jboss-as-maven-plugin</artifactId>
-                        <configuration>
-                            <filename>richfaces-showcase-jee6.war</filename>
-                        </configuration>
-                    </plugin>
-                    -->
                 </plugins>
             </build>
         </profile>
@@ -628,8 +622,7 @@
                                 </goals>
                                 <configuration>
                                     <classifier>jee6</classifier>
-                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6
-                                    </webappDirectory>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory>
 
                                     <packagingExcludes>${jee6.excluded.libraries}</packagingExcludes>
                                     <warSourceExcludes>${jee6.excluded.libraries}</warSourceExcludes>
@@ -713,8 +706,9 @@
                                 <configuration>
                                     <finalName>sources</finalName>
                                     <appendAssemblyId>false</appendAssemblyId>
-                                    <descriptor>assembler.xml
-                                    </descriptor>
+                                    <descriptors>
+                                    	<descriptor>src/main/assembly/assembler.xml</descriptor>
+                                    </descriptors>
                                 </configuration>
                             </execution>
                         </executions>
@@ -773,7 +767,7 @@
 
                 <!-- Arquillian Configuration -->
                 <arquillian.debug>false</arquillian.debug>
-                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
+                <arquillian.drone.browser>chromeHeadless</arquillian.drone.browser>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
                 <arquillian.richfaces.version />
                 <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
@@ -790,6 +784,8 @@
                 <arquillian.launch.jbosseap6>false</arquillian.launch.jbosseap6>
                 <arquillian.launch.tomcat7>false</arquillian.launch.tomcat7>
                 <arquillian.launch.tomcat8>false</arquillian.launch.tomcat8>
+                <arquillian.launch.tomcat85>false</arquillian.launch.tomcat85>
+                <arquillian.launch.tomcat9>false</arquillian.launch.tomcat9>
 
                 <!-- HTTPS testing -->
                 <firefoxProfileTemplate />
@@ -797,17 +793,16 @@
 
                 <!-- JUnit Categories Selection -->
                 <testCategory.excluded.container />
-                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
                 <testCategory.excluded.jsf />
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>org.richfaces</groupId>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
                     <artifactId>richfaces-build-resources</artifactId>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
-                    <groupId>org.richfaces</groupId>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
                     <artifactId>richfaces-build-resources</artifactId>
                     <type>zip</type>
                     <scope>test</scope>
@@ -815,7 +810,7 @@
                     <classifier>configuration-wildfly82-https</classifier>
                 </dependency>
                 <dependency>
-                    <groupId>org.richfaces</groupId>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
                     <artifactId>richfaces-build-resources</artifactId>
                     <type>zip</type>
                     <scope>test</scope>
@@ -878,7 +873,7 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>org.richfaces</groupId>
+                                            <groupId>com.github.albfernandez.richfaces</groupId>
                                             <artifactId>richfaces-build-resources</artifactId>
                                             <version>${version.richfaces}</version>
                                             <type>jar</type>
@@ -933,7 +928,7 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>org.richfaces</groupId>
+                                <groupId>com.github.albfernandez.richfaces</groupId>
                                 <artifactId>richfaces-build-resources</artifactId>
                                 <version>${version.richfaces}</version>
                             </dependency>
@@ -941,20 +936,7 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>browser-phantomjs</id>
-            <activation>
-                <property>
-                    <name>browser</name>
-                    <value>phantomjs</value>
-                </property>
-            </activation>
-            <properties>
-                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
-                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
-            </properties>
-        </profile>
+        </profile>       
         <profile>
             <id>browser-chrome</id>
             <activation>
@@ -965,7 +947,7 @@
             </activation>
             <properties>
                 <testCategory.excluded.browser />
-                <arquillian.drone.browser>chrome</arquillian.drone.browser>
+                <arquillian.drone.browser>chromeHeadless</arquillian.drone.browser>
             </properties>
         </profile>
         <profile>
@@ -1012,66 +994,6 @@
                 <dependency>
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-remote-10-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly100-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <showcase.war.classifier>jee6</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-managed-9-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly90</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.wildfly9>true</arquillian.launch.wildfly9>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly90}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly90}</arquillian.container.distribution>
-                <showcase.war.classifier>jee6</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-remote-9-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly90-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <showcase.war.classifier>jee6</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -1138,26 +1060,6 @@
             </build>
         </profile>
         <profile>
-            <id>wildfly-remote-8-2</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly82-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <showcase.war.classifier>jee6</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <version>${version.wildfly82}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
             <id>wildfly-managed-8-1</id>
             <activation>
                 <property>
@@ -1180,193 +1082,54 @@
                 </dependency>
             </dependencies>
         </profile>
+ 
         <profile>
-            <id>wildfly-remote-8-1</id>
+            <id>tomcat-managed-9</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>wildfly81-remote</value>
+                    <value>tomcat9</value>
                 </property>
             </activation>
             <properties>
-                <showcase.war.classifier>jee6</showcase.war.classifier>
+                <catalinaHome>${project.build.directory}/apache-tomcat-${version.tomcat9}</catalinaHome>
+                <arquillian.launch.tomcat9>true</arquillian.launch.tomcat9>
+                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+                <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat9}</arquillian.container.home>
+                <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat9}</arquillian.container.distribution>
+                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
+                <showcase.war.classifier>tomcat-mojarra</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <version>${version.wildfly81}</version>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-managed-8</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>
+        
         <profile>
-            <id>jbosseap-managed-6-4</id>
+            <id>tomcat-managed-85</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>jbosseap64</value>
+                    <value>tomcat85</value>
                 </property>
             </activation>
             <properties>
-                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
-                <arquillian.container.home>${project.build.directory}/jboss-eap-6.4</arquillian.container.home>
-                <arquillian.container.distribution>file:///path/to/jboss-eap-6.4.0.zip</arquillian.container.distribution>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-                <showcase.war.classifier>jee6</showcase.war.classifier>
+                <catalinaHome>${project.build.directory}/apache-tomcat-${version.tomcat85}</catalinaHome>
+                <arquillian.launch.tomcat85>true</arquillian.launch.tomcat85>
+                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+                <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat85}</arquillian.container.home>
+                <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat85}</arquillian.container.distribution>
+                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
+                <showcase.war.classifier>tomcat-mojarra</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-remote-6-4</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap64-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-                <showcase.war.classifier>jee6</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-managed-6-3</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap63</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
-                <arquillian.container.home>${project.build.directory}/jboss-eap-6.3</arquillian.container.home>
-                <arquillian.container.distribution>file:///path/to/jboss-eap-6.3.0.zip</arquillian.container.distribution>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-                <showcase.war.classifier>jee6</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-remote-6-3</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap63-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-                <showcase.war.classifier>jee6</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-managed-6-2</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap62</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
-                <arquillian.container.home>${project.build.directory}/jboss-eap-6.2</arquillian.container.home>
-                <arquillian.container.distribution>file:///path/to/jboss-eap-6.2.4.zip</arquillian.container.distribution>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-                <showcase.war.classifier>jee6</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-remote-6-2</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap62-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-                <showcase.war.classifier>jee6</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-managed-8</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -1391,110 +1154,11 @@
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-tomcat-managed-7</artifactId>
+                    <artifactId>arquillian-tomcat-managed-8</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
-        </profile>
-        <profile>
-            <id>tomcat-remote-8</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>tomcat8-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.tomcat8>true</arquillian.launch.tomcat8>
-                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
-                <showcase.war.classifier>tomcat-mojarra</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-tomcat-remote-7</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>tomcat-managed-7</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>tomcat7</value>
-                </property>
-            </activation>
-            <properties>
-                <catalinaHome>${project.build.directory}/apache-tomcat-${version.tomcat7}</catalinaHome>
-                <arquillian.launch.tomcat7>true</arquillian.launch.tomcat7>
-                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
-                <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat7}</arquillian.container.home>
-                <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat7}</arquillian.container.distribution>
-                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
-                <showcase.war.classifier>tomcat-mojarra</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-tomcat-managed-7</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>tomcat-remote-7</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>tomcat7-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.tomcat7>true</arquillian.launch.tomcat7>
-                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
-                <showcase.war.classifier>tomcat-mojarra</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-tomcat-remote-7</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <!-- Activate with any Tomcat container to use MyFaces. Has to be the last profile. -->
-        <profile>
-            <id>tomcat-with-myfaces</id>
-            <activation>
-                <property>
-                    <name>myfaces</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <properties>
-                <showcase.war.classifier>tomcat-myfaces</showcase.war.classifier>
-            </properties>
         </profile>
     </profiles>
 
-    <scm>
-        <connection>scm:git:git://github.com/richfaces/richfaces.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/richfaces.git</developerConnection>
-        <url>https://github.com/richfaces/richfaces</url>
-        <tag>HEAD</tag>
-    </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>jboss-releases-repository</id>
-            <name>JBoss Releases Repository</name>
-            <url>${jboss.releases.repo.url}</url>
-        </repository>
-        <snapshotRepository>
-            <id>jboss-snapshots-repository</id>
-            <name>JBoss Snapshots Repository</name>
-            <url>${jboss.snapshots.repo.url}</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>

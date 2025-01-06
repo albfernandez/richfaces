@@ -21,30 +21,6 @@
  */
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractTab;
-import org.richfaces.component.AbstractTabPanel;
-import org.richfaces.component.AbstractTogglePanel;
-import org.richfaces.component.AbstractTogglePanelItemInterface;
-import org.richfaces.component.AbstractTogglePanelTitledItem;
-import org.richfaces.component.TogglePanelVisitCallback;
-import org.richfaces.component.TogglePanelVisitState;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RenderKitUtils;
-
-import jakarta.faces.FacesException;
-import jakarta.faces.application.ResourceDependencies;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.visit.VisitResult;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.PartialResponseWriter;
-import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
-
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.active;
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.disabled;
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.inactive;
@@ -58,11 +34,36 @@ import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
 import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
+import java.io.IOException;
+import java.util.Map;
+
+import jakarta.faces.FacesException;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialResponseWriter;
+import jakarta.faces.context.ResponseWriter;
+
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractTab;
+import org.richfaces.component.AbstractTabPanel;
+import org.richfaces.component.AbstractTogglePanel;
+import org.richfaces.component.AbstractTogglePanelItemInterface;
+import org.richfaces.component.AbstractTogglePanelTitledItem;
+import org.richfaces.component.TogglePanelVisitCallback;
+import org.richfaces.component.TogglePanelVisitState;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils;
+
 /**
  * @author akolonitsky
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -70,7 +71,7 @@ import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
         @ResourceDependency(library = "org.richfaces", name = "tabPanel.js"),
-        @ResourceDependency(library = "org.richfaces", name = "tabPanel.ecss")})
+        @ResourceDependency(library = "org.richfaces", name = "tabPanel.ecss") })
 @JsfRenderer(type = "org.richfaces.TabPanelRenderer", family = AbstractTabPanel.COMPONENT_FAMILY)
 public class TabPanelRenderer extends TogglePanelRenderer {
     private static final RenderKitUtils.Attributes HEADER_ATTRIBUTES = RenderKitUtils.attributes()
@@ -186,21 +187,21 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     }
 
     @Override
-    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
-        if (AbstractTabPanel.HEADER_META_COMPONENT.equals(metaComponentId)) {
-            AbstractTabPanel panel = (AbstractTabPanel) component;
-            PartialResponseWriter w = context.getPartialViewContext().getPartialResponseWriter();
-            String id = component.getClientId() + AbstractTabPanel.HEADER_META_COMPONENT;
-            w.startUpdate(id);
-            writeTabsLine(w, context, panel);
-            w.endUpdate();
-        } else {
-            super.encodeMetaComponent(context, component, metaComponentId);
+        public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
+            if (AbstractTabPanel.HEADER_META_COMPONENT.equals(metaComponentId)) {
+                    AbstractTabPanel panel = (AbstractTabPanel) component;
+                    PartialResponseWriter w = context.getPartialViewContext().getPartialResponseWriter();
+                    String id = component.getClientId() + AbstractTabPanel.HEADER_META_COMPONENT;
+                    w.startUpdate(id);
+                    writeTabsLine(w, context, panel);
+                    w.endUpdate();
+                } else {
+                    super.encodeMetaComponent(context, component, metaComponentId);
+                }
         }
-    }
 
     private void encodeTabHeader(FacesContext context, AbstractTab tab, ResponseWriter writer,
-                                 AbstractTogglePanelTitledItem.HeaderStates state) throws IOException {
+            AbstractTogglePanelTitledItem.HeaderStates state) throws IOException {
 
         String headerStateClass = "rf-tab-hdr-" + state.abbreviation();
         String headerPositionClass = "rf-tab-hdr-" + positionAbbreviation(tab);

@@ -26,6 +26,7 @@ package org.ajax4jsf.javascript;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public interface FunctionDefWithDependencies extends ScriptWithDependencies {
     String getName();

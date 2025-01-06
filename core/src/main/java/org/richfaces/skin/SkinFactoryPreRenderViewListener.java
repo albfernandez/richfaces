@@ -28,6 +28,7 @@ import jakarta.faces.event.SystemEventListener;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class SkinFactoryPreRenderViewListener implements SystemEventListener {
     public void processEvent(SystemEvent event) throws AbortProcessingException {

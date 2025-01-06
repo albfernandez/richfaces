@@ -21,13 +21,14 @@
  */
 package org.richfaces.resource.external;
 
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.resource.ResourceKey;
+import java.util.concurrent.atomic.AtomicReference;
 
 import jakarta.faces.FactoryFinder;
 import jakarta.faces.context.FacesContext;
-import java.util.concurrent.atomic.AtomicReference;
+
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.resource.ResourceKey;
 
 /**
  * Wraps known implementations of {@link ResourceTracker} and decides which one to choose in runtime
@@ -40,15 +41,15 @@ public class ResourceTrackerImpl implements ResourceTracker {
 
     private static final String MYFACES_RESOURCE_UTILS_CLASS = "org.apache.myfaces.shared.renderkit.html.util.ResourceUtils";
     private static final String WEBSPHERE_BUNDLED_MYFACES_RESOURCE_UTILS_CLASS = "org.apache.myfaces.shared_impl.renderkit.html.util.ResourceUtils";
-    private static final String[] MYFACES_RESOURCE_UTILS_CLASSES = {MYFACES_RESOURCE_UTILS_CLASS,
-            WEBSPHERE_BUNDLED_MYFACES_RESOURCE_UTILS_CLASS};
+    private static final String[] MYFACES_RESOURCE_UTILS_CLASSES = { MYFACES_RESOURCE_UTILS_CLASS,
+            WEBSPHERE_BUNDLED_MYFACES_RESOURCE_UTILS_CLASS };
 
-    private AtomicReference<ResourceTracker> externalResourceTracker = new AtomicReference<ResourceTracker>();
+    private AtomicReference<ResourceTracker> externalResourceTracker = new AtomicReference<>();
 
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.resource.external.ExternalResourceTracker#isResourceRenderered(javax.faces.context.FacesContext,
+     * @see org.richfaces.resource.external.ExternalResourceTracker#isResourceRenderered(jakarta.faces.context.FacesContext,
      * org.richfaces.resource.ResourceKey)
      */
     @Override
@@ -59,7 +60,7 @@ public class ResourceTrackerImpl implements ResourceTracker {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.resource.external.ExternalResourceTracker#markResourceRendered(javax.faces.context.FacesContext,
+     * @see org.richfaces.resource.external.ExternalResourceTracker#markResourceRendered(jakarta.faces.context.FacesContext,
      * org.richfaces.resource.ResourceKey)
      */
     @Override

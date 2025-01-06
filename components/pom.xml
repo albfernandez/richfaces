@@ -28,15 +28,15 @@
          examples at once from trunk. -->
 
     <parent>
-        <groupId>org.richfaces</groupId>
+        <groupId>com.github.albfernandez.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>4.5.18.Final</version>
+        <version>10.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.richfaces</groupId>
+    <groupId>com.github.albfernandez.richfaces</groupId>
     <artifactId>richfaces-components-parent</artifactId>
-    <version>4.5.18.Final</version>
+    <version>10.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>RichFaces UI Components Parent</name>
 
@@ -46,7 +46,7 @@
     </modules>
 
     <properties>
-        <version.richfaces>4.5.18.Final</version.richfaces>
+        <version.richfaces>10.0.1-SNAPSHOT</version.richfaces>
     </properties>
 
     <build>
@@ -64,19 +64,28 @@
                         </execution>
                     </executions>
                 </plugin>
-<!--                <plugin>-->
-<!--                    <groupId>org.richfaces.cdk</groupId>-->
-<!--                    <artifactId>richfaces-cdk-maven-plugin</artifactId>-->
-<!--                    <executions>-->
-<!--                        <execution>-->
-<!--                            <id>cdk-generate-sources</id>-->
-<!--                            <phase>process-sources</phase>-->
-<!--                            <goals>-->
-<!--                                <goal>generate</goal>-->
-<!--                            </goals>-->
-<!--                        </execution>-->
-<!--                    </executions>-->
-<!--                </plugin>-->
+                <plugin>
+                    <groupId>com.github.albfernandez.richfaces.cdk</groupId>
+                    <artifactId>richfaces-cdk-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>cdk-generate-sources</id>
+                            <phase>process-sources</phase>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                    	<!--MZ
+                        <dependency>
+                            <groupId>javax.xml.bind</groupId>
+                            <artifactId>jaxb-api</artifactId>
+                            <version>2.3.1</version>
+                        </dependency>
+                        -->
+                    </dependencies>
+                </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
@@ -107,8 +116,9 @@
                 <configuration>
                     <rules>
                         <requirePluginVersions>
-                            <!-- During development SNAPSHOT versions of the CDK plugin are used. This setting ignores the no SNAPSHOT rule for the CDK  -->
-                            <unCheckedPluginList>org.richfaces.cdk:richfaces-cdk-maven-plugin, org.richfaces:richfaces-resource-optimizer-maven-plugin</unCheckedPluginList>
+                            <!-- During development SNAPSHOT versions of the CDK plugin are used.
+                                 This setting ignores the no SNAPSHOT rule for the CDK  -->
+                            <unCheckedPluginList>com.github.albfernandez.richfaces.cdk:richfaces-cdk-maven-plugin, com.github.albfernandez.richfaces:richfaces-resource-optimizer-maven-plugin</unCheckedPluginList>
                         </requirePluginVersions>
                     </rules>
                 </configuration>
@@ -120,59 +130,75 @@
     <dependencies>
         <!-- runtime -->
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces-core</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.richfaces.cdk</groupId>
+            <groupId>com.github.albfernandez.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jaxb-impl</artifactId>
+                    <groupId>com.sun.xml.bind</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jaxb-api</artifactId>
+                    <groupId>javax.xml.bind</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.2</version>
             <scope>provided</scope>
         </dependency>
 
         <!-- tests -->
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces-core</artifactId>
             <scope>test</scope>
             <type>test-jar</type>
             <version>${version.richfaces}</version>
         </dependency>
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces-page-fragments</artifactId>
             <scope>test</scope>
             <optional>true</optional>
             <version>${project.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.jboss.test-jsf</groupId>-->
-<!--            <artifactId>jsf-test-stage</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.github.albfernandez.test-jsf</groupId>
+            <artifactId>jsf-test-stage</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.jboss.test-jsf</groupId>-->
-<!--            <artifactId>htmlunit-client</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.jboss.test-jsf</groupId>-->
-<!--            <artifactId>jsf-mock</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.jboss.test-jsf</groupId>-->
-<!--            <artifactId>jsf-mockito</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.github.albfernandez.test-jsf</groupId>
+            <artifactId>htmlunit-client</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.albfernandez.test-jsf</groupId>
+            <artifactId>jsf-mock</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.albfernandez.test-jsf</groupId>
+            <artifactId>jsf-mockito</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -180,24 +206,24 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-build</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-core</artifactId>
                 <version>${version.richfaces}</version>
             </dependency>
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-a4j</artifactId>
                 <version>${version.richfaces}</version>
             </dependency>
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces</artifactId>
                 <version>${version.richfaces}</version>
             </dependency>
@@ -209,13 +235,14 @@
             <id>jsf_ri</id>
             <activation>
                 <property>
-                    <name>!jsf_profile</name>
+                    <name>jsf_profile</name>
+                    <value>jsfri</value>
                 </property>
             </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.glassfish</groupId>
-                    <artifactId>jakarta.faces</artifactId>
+                    <artifactId>javax.faces</artifactId>
                     <scope>compile</scope>
                     <optional>true</optional>
                 </dependency>
@@ -247,8 +274,7 @@
             <id>myfaces</id>
             <activation>
                 <property>
-                    <name>jsf_profile</name>
-                    <value>myfaces</value>
+                    <name>!jsf_profile</name>
                 </property>
             </activation>
             <properties>
@@ -260,12 +286,10 @@
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-api</artifactId>
                     <scope>compile</scope>
-                    <optional>true</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
-                    <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>
@@ -294,6 +318,12 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+							<source>7</source>
+							<links>
+		                        <link>https://docs.oracle.com/javase/7/docs/api/</link>
+		                    </links>
+						</configuration>
                         <executions>
                             <execution>
                                 <id>generate-javadoc</id>

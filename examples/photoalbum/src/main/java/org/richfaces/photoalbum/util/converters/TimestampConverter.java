@@ -22,14 +22,15 @@
 
 package org.richfaces.photoalbum.util.converters;
 
-import javax.enterprise.context.RequestScoped;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.FacesConverter;
-import javax.inject.Named;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.enterprise.context.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
 
 @Named
 @RequestScoped
@@ -44,9 +45,9 @@ public class TimestampConverter implements Converter {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         Date d = new Date(Long.parseLong((String) value));
-
+        
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-
+        
         return sdf.format(d);
     }
 

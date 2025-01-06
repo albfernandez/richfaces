@@ -21,19 +21,19 @@
  */
 package org.richfaces.fragment.orderingList;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.list.AbstractListComponent;
 import org.richfaces.fragment.list.ListComponent;
 
-import java.util.List;
-
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class RichFacesOrderingList extends AbstractOrderingList {
 
-    private final AdvancedRichOrderingListInteractions interactions = new AdvancedRichOrderingListInteractions();
     @FindBy(css = "button.rf-ord-dn")
     private WebElement downButtonElement;
     @FindBy(css = "button.rf-ord-up-tp")
@@ -42,35 +42,27 @@ public class RichFacesOrderingList extends AbstractOrderingList {
     private WebElement bottomButtonElement;
     @FindBy(css = "button.rf-ord-up")
     private WebElement upButtonElement;
+
     @FindBy(className = "rf-ord-cptn")
     private WebElement captionElement;
     @FindBy(css = "thead.rf-ord-lst-hdr > tr.rf-ord-hdr")
     private WebElement headerElement;
     @FindBy(className = "rf-ord-lst-scrl")
     private WebElement contentAreaElement;
+
     @FindBy(className = "rf-ord-opt")
     private List<WebElement> items;
     @FindBy(className = "rf-ord-sel")
     private List<WebElement> selectedItemsElements;
+
     @FindBy(css = "div.rf-ord-lst-scrl [id$=Items]")
     private SelectableListImpl list;
+
+    private final AdvancedRichOrderingListInteractions interactions = new AdvancedRichOrderingListInteractions();
 
     @Override
     public AdvancedRichOrderingListInteractions advanced() {
         return interactions;
-    }
-
-    public static class SelectableListItemImpl extends AbstractSelectableListItem {
-
-        private static final String styleClass = "rf-ord-sel";
-
-        @Override
-        protected String getStyleClassForSelectedItem() {
-            return styleClass;
-        }
-    }
-
-    public static class SelectableListImpl extends AbstractListComponent<SelectableListItemImpl> {
     }
 
     public class AdvancedRichOrderingListInteractions extends AdvancedOrderingListInteractions {
@@ -131,5 +123,18 @@ public class RichFacesOrderingList extends AbstractOrderingList {
         public WebElement getUpButtonElement() {
             return upButtonElement;
         }
+    }
+
+    public static class SelectableListItemImpl extends AbstractSelectableListItem {
+
+        private static final String styleClass = "rf-ord-sel";
+
+        @Override
+        protected String getStyleClassForSelectedItem() {
+            return styleClass;
+        }
+    }
+
+    public static class SelectableListImpl extends AbstractListComponent<SelectableListItemImpl> {
     }
 }

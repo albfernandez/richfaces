@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
  * @author Lukas Fryc
  */
 @Retention(RetentionPolicy.SOURCE)
-@Target({ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.FIELD, ElementType.LOCAL_VARIABLE, ElementType.METHOD,
-        ElementType.PACKAGE, ElementType.PARAMETER})
+@Target({ ElementType.TYPE, ElementType.CONSTRUCTOR, ElementType.FIELD, ElementType.LOCAL_VARIABLE, ElementType.METHOD,
+        ElementType.PACKAGE, ElementType.PARAMETER })
 public @interface Experimental {
 }

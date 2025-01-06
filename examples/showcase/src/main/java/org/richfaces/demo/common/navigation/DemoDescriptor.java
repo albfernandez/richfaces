@@ -1,12 +1,13 @@
 package org.richfaces.demo.common.navigation;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
+import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import java.util.Collection;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 
 public class DemoDescriptor extends BaseDescriptor {
     private static final long serialVersionUID = 6822187362271025752L;

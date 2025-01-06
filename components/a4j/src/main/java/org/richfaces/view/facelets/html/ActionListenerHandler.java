@@ -21,7 +21,7 @@
  */
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.view.facelets.TagHandlerUtils;
+import java.io.IOException;
 
 import jakarta.el.MethodExpression;
 import jakarta.el.ValueExpression;
@@ -39,10 +39,12 @@ import jakarta.faces.view.facelets.TagAttributeException;
 import jakarta.faces.view.facelets.TagConfig;
 import jakarta.faces.view.facelets.TagException;
 import jakarta.faces.view.facelets.TagHandler;
-import java.io.IOException;
+
+import org.richfaces.view.facelets.TagHandlerUtils;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class ActionListenerHandler extends TagHandler implements ActionSource2AttachedObjectHandler {
     private TagAttribute binding;
@@ -96,7 +98,7 @@ public class ActionListenerHandler extends TagHandler implements ActionSource2At
 
         if (this.listenerMethod != null) {
             MethodExpression listenerMethodExpression = this.listenerMethod.getMethodExpression(ctx, Void.TYPE,
-                    new Class<?>[]{ActionEvent.class});
+                new Class<?>[] { ActionEvent.class });
 
             as.addActionListener(new MethodExpressionActionListener(listenerMethodExpression));
         } else {
@@ -128,7 +130,7 @@ public class ActionListenerHandler extends TagHandler implements ActionSource2At
         if (UIComponent.isCompositeComponent(parent)) {
             if (null == getFor()) {
                 throw new TagException(this.tag,
-                        "actionListener tags nested within composite components must have a non-null 'for' attribute");
+                    "actionListener tags nested within composite components must have a non-null 'for' attribute");
             }
 
             TagHandlerUtils.getOrCreateRetargetableHandlersList(parent).add(this);

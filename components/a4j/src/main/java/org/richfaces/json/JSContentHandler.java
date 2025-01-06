@@ -21,6 +21,10 @@
  */
 package org.richfaces.json;
 
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Arrays;
+
 import org.ajax4jsf.Messages;
 import org.ajax4jsf.javascript.JSEncoder;
 import org.xml.sax.Attributes;
@@ -28,10 +32,6 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
-
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Arrays;
 
 /**
  * @author shura SAX content handler for serialise events as JavaScript function.
@@ -201,7 +201,7 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
      *
      * @param endElement Whether this method was called because an element is being closed or not.
      * @return <b>true </b> if this call successfully closed the element (and no further <code>&lt;/element&gt;</code> is
-     * required.
+     *         required.
      */
     protected boolean closeElement(boolean endElement) throws SAXException {
         if (!hangingElement) {
@@ -304,18 +304,18 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
             return "";
         }
 
-        StringBuffer buf = new StringBuffer(" (");
+        StringBuilder sb = new StringBuilder(" (");
 
         if (this.getSystemId() != null) {
-            buf.append(this.getSystemId());
-            buf.append(' ');
+            sb.append(this.getSystemId());
+            sb.append(' ');
         }
 
-        buf.append("line " + this.getLineNumber());
-        buf.append(" col " + this.getColumnNumber());
-        buf.append(')');
+        sb.append("line " + this.getLineNumber());
+        sb.append(" col " + this.getColumnNumber());
+        sb.append(')');
 
-        return buf.toString();
+        return sb.toString();
     }
 
     /* ====================================================================== */
@@ -442,7 +442,7 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
         this.outputWriter.write(C_QUOTE); // [']
     }
 
-    protected void encodeText(char[] chars, int start, int length) throws SAXException, IOException {
+    protected void encodeText(char[] chars, int start, int length) throws SAXException {
         this.encode(chars, start, length);
     }
 
@@ -646,7 +646,7 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
             for (int x = start; x < end; x++) {
                 char c = data[x];
 
-                if (JSContentHandler.ENCODER.compile(c)) {
+                if (JSEncoder.compile(c)) {
                     continue;
                 }
 
@@ -656,8 +656,6 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
 
                 this.outputWriter.write(JSContentHandler.ENCODER.encode(c));
                 start = x + 1;
-
-                continue;
             }
 
             if (start != end) {

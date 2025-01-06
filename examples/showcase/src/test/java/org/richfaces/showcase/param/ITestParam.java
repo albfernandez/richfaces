@@ -21,13 +21,13 @@
  *******************************************************************************/
 package org.richfaces.showcase.param;
 
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.param.page.ParamPage;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -50,11 +50,11 @@ public class ITestParam extends AbstractWebDriverTest {
     @Test
     public void testClickToButtonAndCheckTheSelectedName() {
         assertEquals("There can not be anything selected at first after page first load!", "Selected Name:", page.getOutput()
-                .getText().trim());
+            .getText().trim());
         for (ParamPage.Name name : ParamPage.Name.getAll()) {
             page.setName(name);
             Graphene.waitGui().until("After selecting name, the output should contain the name.").element(page.getOutput()).text()
-                    .equalTo("Selected Name:" + name);
+                .equalTo("Selected Name:" + name);
         }
     }
 }

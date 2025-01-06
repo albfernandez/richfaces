@@ -22,13 +22,14 @@
 
 package org.richfaces.demo.output;
 
-import org.richfaces.event.ItemChangeEvent;
+import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
-
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
-import java.io.Serializable;
+import org.richfaces.event.ItemChangeEvent;
 
 @ManagedBean
 @ViewScoped

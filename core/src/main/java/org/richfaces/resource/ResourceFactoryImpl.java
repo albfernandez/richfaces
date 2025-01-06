@@ -21,21 +21,6 @@
  */
 package org.richfaces.resource;
 
-import com.google.common.base.Function;
-import com.google.common.base.Strings;
-import org.richfaces.application.DependencyInjector;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.resource.external.MappedResourceFactory;
-import org.richfaces.resource.external.ResourceTracker;
-import org.richfaces.resource.mapping.ResourcePath;
-import org.richfaces.webapp.ResourceServlet;
-
-import jakarta.faces.application.ProjectStage;
-import jakarta.faces.application.Resource;
-import jakarta.faces.application.ResourceHandler;
-import jakarta.faces.context.FacesContext;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Collection;
@@ -46,8 +31,26 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.FacesContext;
+
+import org.richfaces.application.DependencyInjector;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.resource.external.MappedResourceFactory;
+import org.richfaces.resource.external.ResourceTracker;
+import org.richfaces.resource.mapping.ResourcePath;
+import org.richfaces.webapp.ResourceServlet;
+import org.richfaces.application.ServiceTracker;
+
+import com.google.common.base.Function;
+import com.google.common.base.Strings;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class ResourceFactoryImpl implements ResourceFactory {
 
@@ -177,10 +180,10 @@ public class ResourceFactoryImpl implements ResourceFactory {
         Resource result = null;
 
         if (Java2DUserResource.class.isAssignableFrom(loadedClass)) {
-            Java2DUserResource java2DUserResource = (Java2DUserResource) loadedClass.newInstance();
+            Java2DUserResource java2DUserResource = (Java2DUserResource) loadedClass.getDeclaredConstructor().newInstance();
             result = createResource(java2DUserResource);
         } else if (UserResource.class.isAssignableFrom(loadedClass)) {
-            UserResource userResource = (UserResource) loadedClass.newInstance();
+            UserResource userResource = (UserResource) loadedClass.getDeclaredConstructor().newInstance();
             result = createResource(userResource);
         }
 
@@ -211,17 +214,15 @@ public class ResourceFactoryImpl implements ResourceFactory {
         }
 
         Class<? extends Resource> resourceClass = loadedClass.asSubclass(Resource.class);
-        Resource result = (Resource) resourceClass.newInstance();
 
-        return result;
+        return resourceClass.getDeclaredConstructor().newInstance();
     }
 
     /**
-     * Should be called only if {@link #isResourceExists(String)} returns <code>true</code>
      *
      * @param resourceKey
      * @param parameters
-     * @return
+     * @return Resource
      */
     protected Resource createHandlerDependentResource(ResourceKey resourceKey, Map<String, String> parameters) {
         if (!Strings.isNullOrEmpty(resourceKey.getLibraryName())) {
@@ -369,7 +370,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug(String.format("Resource '%s' is redirected to following resource path: %s", resourceKey, path));
-            if (aggregatedResources.size() >= 1) {
+            if (!aggregatedResources.isEmpty()) {
                 LOGGER.debug(String.format("Following resources are marked as rendered: %s", resourceKey, aggregatedResources));
             }
         }
@@ -396,7 +397,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
     private Deque<ResourceKey> getMappedResourcesResolutionStack(FacesContext context) {
         LinkedList<ResourceKey> list = (LinkedList<ResourceKey>) context.getAttributes().get(MAPPED_RESOURCES_RESOLUTION_STACK);
         if (list == null) {
-            list = new LinkedList<ResourceKey>();
+            list = new LinkedList<>();
             context.getAttributes().put(MAPPED_RESOURCES_RESOLUTION_STACK, list);
         }
         return list;

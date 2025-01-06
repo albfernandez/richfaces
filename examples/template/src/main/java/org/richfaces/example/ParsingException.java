@@ -27,6 +27,7 @@ package org.richfaces.example;
 
 /**
  * @author leo
+ *
  */
 public class ParsingException extends Exception {
     /**

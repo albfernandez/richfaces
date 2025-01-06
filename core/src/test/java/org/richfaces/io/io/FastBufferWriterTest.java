@@ -22,6 +22,7 @@
 package org.richfaces.io.io;
 
 import junit.framework.TestCase;
+
 import org.ajax4jsf.io.CharBuffer;
 import org.ajax4jsf.io.FastBufferReader;
 import org.ajax4jsf.io.FastBufferWriter;

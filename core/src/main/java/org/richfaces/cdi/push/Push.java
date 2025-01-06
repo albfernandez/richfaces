@@ -21,15 +21,17 @@
  */
 package org.richfaces.cdi.push;
 
-import javax.inject.Qualifier;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import jakarta.inject.Qualifier;
+
 
 /**
  * Defines end-point for messages going through Push message bus.
@@ -37,7 +39,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @Retention(RUNTIME)
-@Target({TYPE, METHOD, FIELD, PARAMETER})
+@Target({ TYPE, METHOD, FIELD, PARAMETER })
 @Qualifier
 public @interface Push {
 

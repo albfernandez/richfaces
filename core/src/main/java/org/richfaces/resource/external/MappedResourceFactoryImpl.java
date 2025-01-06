@@ -21,8 +21,16 @@
  */
 package org.richfaces.resource.external;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.Sets;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
+
 import org.richfaces.application.Initializable;
 import org.richfaces.application.ServiceLoader;
 import org.richfaces.resource.ResourceKey;
@@ -36,30 +44,25 @@ import org.richfaces.resource.mapping.ResourceServletMapping;
 import org.richfaces.services.ServiceUtils;
 import org.richfaces.webapp.ResourceServlet;
 
-import jakarta.faces.application.Resource;
-import jakarta.faces.context.FacesContext;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import com.google.common.base.Strings;
+import com.google.common.collect.Sets;
 
 /**
  * Creates resources pointing outside of standard JSF resource handler using {@link ResourceServlet}.
  *
  * @author Lukas Fryc
+ *
  * @see ResourceServlet
  */
 public class MappedResourceFactoryImpl implements MappedResourceFactory, Initializable {
 
     private List<ResourceMapper> mappers;
 
-    private Set<String> RESOURCE_LIBRARIES_TO_MAP = new TreeSet<String>(Arrays.asList(
+    private Set<String> RESOURCE_LIBRARIES_TO_MAP = new TreeSet<>(Arrays.asList(
             "com.jqueryui",
             "org.richfaces",
             "org.richfaces.ckeditor"
-    ));
+        ));
 
     /*
      * (non-Javadoc)
@@ -68,7 +71,7 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
      */
     @Override
     public void init() {
-        List<ResourceMapper> mappers = new LinkedList<ResourceMapper>();
+        List<ResourceMapper> mappers = new LinkedList<>();
 
         // default mappers
         mappers.add(new PropertiesResourceMapper());
@@ -97,7 +100,7 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.resource.external.ExternalStaticResourceFactory#createResource(javax.faces.context.FacesContext,
+     * @see org.richfaces.resource.external.ExternalStaticResourceFactory#createResource(jakarta.faces.context.FacesContext,
      * org.richfaces.resource.ResourceKey)
      */
     @Override

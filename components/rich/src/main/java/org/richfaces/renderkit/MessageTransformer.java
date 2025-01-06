@@ -1,8 +1,8 @@
 package org.richfaces.renderkit;
 
-import com.google.common.base.Function;
-
 import jakarta.faces.application.FacesMessage;
+
+import com.google.common.base.Function;
 
 public class MessageTransformer implements Function<FacesMessage, MessageForRender> {
     private final String sourceId;

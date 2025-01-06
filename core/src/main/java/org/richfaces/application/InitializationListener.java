@@ -21,10 +21,17 @@
  */
 package org.richfaces.application;
 
-import org.richfaces.VersionBean;
-import org.richfaces.application.push.PushContextFactory;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.application.CoreConfiguration.Items.executeAWTInitializer;
+import static org.richfaces.application.CoreConfiguration.Items.pushInitializePushContextOnStartup;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSEnabled;
+
+import java.awt.Toolkit;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.faces.FacesException;
 import jakarta.faces.context.FacesContext;
@@ -35,18 +42,11 @@ import jakarta.faces.event.SystemEvent;
 import jakarta.faces.event.SystemEventListener;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
-import javax.xml.rpc.ServiceFactory;
-import java.awt.Toolkit;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.richfaces.application.CoreConfiguration.Items.executeAWTInitializer;
-import static org.richfaces.application.CoreConfiguration.Items.pushInitializePushContextOnStartup;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSEnabled;
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import org.richfaces.VersionBean;
+import org.richfaces.application.push.PushContextFactory;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * <p>Listens for application's {@link PostConstructApplicationEvent} and {@link PreDestroyApplicationEvent} events in order to initialize RichFaces services.</p>
@@ -84,7 +84,7 @@ public class InitializationListener implements SystemEventListener {
             initializePushContext();
         }
 
-        if (!jmsEnabled) {
+        if (getConfiguration(pushJMSEnabled) == null) {
             logWarningWhenConnectionFactoryPresent();
         }
     }
@@ -102,7 +102,7 @@ public class InitializationListener implements SystemEventListener {
     protected ServicesFactory createFactory() {
         ServicesFactoryImpl injector = new ServicesFactoryImpl();
         ServiceTracker.setFactory(injector);
-        ArrayList<Module> modules = new ArrayList<Module>();
+        ArrayList<Module> modules = new ArrayList<>();
         addDefaultModules(modules);
         try {
             modules.addAll(ServiceLoader.loadServices(Module.class));
@@ -149,7 +149,7 @@ public class InitializationListener implements SystemEventListener {
      */
     private void logWarningWhenConnectionFactoryPresent() {
         try {
-            Class.forName("javax.jms.ConnectionFactory");
+            Class.forName("jakarta.jms.ConnectionFactory");
             LOGGER.warn("JMS API was found on the classpath; if you want to enable RichFaces Push JMS integration, set context-param 'org.richfaces.push.jms.enabled' in web.xml");
         } catch (ClassNotFoundException e) {
         }
@@ -158,7 +158,7 @@ public class InitializationListener implements SystemEventListener {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.event.SystemEventListener#processEvent(javax.faces.event.SystemEvent)
+     * @see jakarta.faces.event.SystemEventListener#processEvent(jakarta.faces.event.SystemEvent)
      */
     @Override
     public void processEvent(SystemEvent event) throws AbortProcessingException {
@@ -174,7 +174,7 @@ public class InitializationListener implements SystemEventListener {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.event.SystemEventListener#isListenerForSource(java.lang.Object)
+     * @see jakarta.faces.event.SystemEventListener#isListenerForSource(java.lang.Object)
      */
     @Override
     public boolean isListenerForSource(Object source) {

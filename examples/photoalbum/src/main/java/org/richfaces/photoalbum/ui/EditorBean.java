@@ -21,16 +21,16 @@
  */
 package org.richfaces.photoalbum.ui;
 
+import javax.enterprise.event.Observes;
+import javax.inject.Named;
+
 import org.richfaces.photoalbum.model.event.EventType;
 import org.richfaces.photoalbum.model.event.Events;
 import org.richfaces.photoalbum.model.event.SimpleEvent;
 
-import javax.enterprise.event.Observes;
-import javax.inject.Named;
-
 /**
  * Convenience UI class for rich:editor component
- *
+ * 
  * @author Andrey Markhel
  */
 

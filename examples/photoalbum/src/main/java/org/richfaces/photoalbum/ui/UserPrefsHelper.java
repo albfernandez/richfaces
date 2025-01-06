@@ -21,17 +21,18 @@
  */
 package org.richfaces.photoalbum.ui;
 
+import java.io.File;
+import java.io.Serializable;
+import java.nio.file.Files;
+
+import javax.enterprise.context.SessionScoped;
+import javax.faces.model.SelectItem;
+import javax.inject.Named;
+
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.photoalbum.model.Sex;
 import org.richfaces.photoalbum.util.Constants;
-
-import javax.enterprise.context.SessionScoped;
-import jakarta.faces.model.SelectItem;
-import javax.inject.Named;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.Serializable;
 
 /**
  * Convenience UI class for userPrefs page
@@ -42,10 +43,10 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 public class UserPrefsHelper implements Serializable {
-    static final SelectItem[] sexs = new SelectItem[]{new SelectItem(Sex.MALE, Constants.MALE),
-            new SelectItem(Sex.FEMALE, Constants.FEMALE)};
     private static final long serialVersionUID = -1767281809514660171L;
+
     private File avatarData;
+
     private boolean edit = false;
 
     public boolean isEdit() {
@@ -59,13 +60,16 @@ public class UserPrefsHelper implements Serializable {
         this.edit = edit;
     }
 
+    static final SelectItem[] sexs = new SelectItem[] { new SelectItem(Sex.MALE, Constants.MALE),
+            new SelectItem(Sex.FEMALE, Constants.FEMALE) };
+
     public SelectItem[] getSexs() {
         return sexs;
     }
 
     /**
      * Convenience method invoked after user add avatar and outject avatar to conversation
-     * <p>
+     *
      * param event - upload event
      */
     public void uploadAvatar(FileUploadEvent event) {
@@ -77,10 +81,7 @@ public class UserPrefsHelper implements Serializable {
                 f.createNewFile();
             }
 
-            FileOutputStream fos = new FileOutputStream(f);
-            fos.write(file.getData());
-            fos.flush();
-            fos.close();
+            Files.write(f.toPath(), file.getData());
 
             avatarData = f;
         } catch (Exception e) {

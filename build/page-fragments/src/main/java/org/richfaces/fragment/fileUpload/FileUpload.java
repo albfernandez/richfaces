@@ -24,6 +24,7 @@ package org.richfaces.fragment.fileUpload;
 import java.io.File;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface FileUpload {

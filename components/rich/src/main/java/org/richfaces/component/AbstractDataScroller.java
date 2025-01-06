@@ -21,6 +21,20 @@
  */
 package org.richfaces.component;
 
+import java.util.List;
+import java.util.Map;
+
+import jakarta.el.ELException;
+import jakarta.el.MethodExpression;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.FacesEvent;
+
 import org.ajax4jsf.component.IterationStateHolder;
 import org.richfaces.DataScrollerUtils;
 import org.richfaces.application.FacesMessages;
@@ -40,25 +54,12 @@ import org.richfaces.event.DataScrollListener;
 import org.richfaces.event.DataScrollSource;
 import org.richfaces.taglib.DataScrollerHandler;
 
-import jakarta.el.ELException;
-import jakarta.el.MethodExpression;
-import jakarta.el.ValueExpression;
-import jakarta.faces.FacesException;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIComponentBase;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.FacesEvent;
-import java.util.List;
-import java.util.Map;
-
 /**
  * <p> The &lt;rich:dataScroller&gt; component is used for navigating through multiple pages of tables or grids. </p>
  */
 @JsfComponent(type = AbstractDataScroller.COMPONENT_TYPE, family = AbstractDataScroller.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"),
-        tag = @Tag(name = "dataScroller", handlerClass = DataScrollerHandler.class, type = TagType.Facelets))
+        tag = @Tag(name = "dataScroller", handlerClass = DataScrollerHandler.class, type = TagType.Facelets) )
 public abstract class AbstractDataScroller extends UIComponentBase implements DataScrollSource, IterationStateHolder, AjaxProps, CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.DataScroller";
     public static final String COMPONENT_FAMILY = "org.richfaces.DataScroller";
@@ -80,18 +81,6 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     public static final String PAGEMODE_FULL = "full";
     public static final String PAGEMODE_SHORT = "short";
     private Integer page;
-
-    private static boolean isRendered(UIComponent component) {
-        UIComponent c = component;
-        while (c != null) {
-            if (!c.isRendered()) {
-                return false;
-            }
-            c = c.getParent();
-        }
-
-        return true;
-    }
 
     /**
      * If renderIfSinglePage is "true" then datascroller is displayed on condition that the data hold on one page. Default value
@@ -146,7 +135,6 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     /**
      * The attribute indicates pages quantity to switch onto when fast scrolling is used. Default value is "1".
      *
-     * @return
      */
     @Attribute
     public abstract int getFastStep();
@@ -202,7 +190,7 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
             }
 
             String dataTableId = null;
-            if (dataTable instanceof MetaComponentResolver && !(dataTable instanceof UIDataTableBase && ((UIDataTableBase) dataTable).hasRowChildren())) {
+            if (dataTable instanceof MetaComponentResolver && ! (dataTable instanceof UIDataTableBase && ((UIDataTableBase)dataTable).hasRowChildren())) {
                 dataTableId = ((MetaComponentResolver) dataTable).resolveClientId(facesContext, dataTable, "body");
             }
 
@@ -278,9 +266,7 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         return DataScrollerUtils.getPageCount(data, rowCount, rows);
     }
 
-    /**
-     * @return the page count of the uidata
-     */
+    /** @return the page count of the uidata */
     public int getPageCount() {
         return getPageCount(getDataTable());
     }
@@ -289,9 +275,7 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         return (Integer) data.getAttributes().get("rowCount");
     }
 
-    /**
-     * @return int
-     */
+    /** @return int */
     public int getRowCount() {
         return getRowCount(getDataTable());
     }
@@ -320,6 +304,22 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
 
     @Facet
     public abstract UIComponent getFastRewind();
+
+    private static boolean isRendered(UIComponent component) {
+        UIComponent c = component;
+        while (c != null) {
+            if (!c.isRendered()) {
+                return false;
+            }
+            c = c.getParent();
+        }
+
+        return true;
+    }
+
+    public void setPage(int newPage) {
+        this.page = newPage;
+    }
 
     /**
      * If page >= 1 then it's a page number to show
@@ -355,10 +355,6 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         }
 
         return 1;
-    }
-
-    public void setPage(int newPage) {
-        this.page = newPage;
     }
 
     private MessageFactory getMessageFactory(FacesContext context) {

@@ -72,22 +72,6 @@ public class ITRenderAll {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
-        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
-        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
-
-        p.form("<h:commandButton id='incrementAndRenderAll' value='increment and render all' render='@all' action='#{counterBean.increment}' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;' />");
-        p.form("<br/>");
-        p.form("<h:commandButton id='appendOncompleteAndRenderAll' value='append oncomplete and render all' render='@all' action='#{counterBean.appendOncomplete}' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;' />");
-        p.form("<br/>");
-        p.form("<div id='counter'>#{counterBean.state}</div>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void button_replaced_with_render_all_should_keep_working() {
         browser.get(contextPath.toExternalForm());
@@ -112,5 +96,21 @@ public class ITRenderAll {
         browser.get(contextPath.toExternalForm());
         guardAjax(appendOncompleteAndRenderAllButton).click();
         assertEquals("title updated", "script executed", browser.getTitle());
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
+
+        p.form("<h:commandButton id='incrementAndRenderAll' value='increment and render all' render='@all' action='#{counterBean.increment}' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;' />");
+        p.form("<br/>");
+        p.form("<h:commandButton id='appendOncompleteAndRenderAll' value='append oncomplete and render all' render='@all' action='#{counterBean.appendOncomplete}' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;' />");
+        p.form("<br/>");
+        p.form("<div id='counter'>#{counterBean.state}</div>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

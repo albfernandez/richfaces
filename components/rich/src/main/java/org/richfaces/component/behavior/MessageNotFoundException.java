@@ -28,6 +28,7 @@ package org.richfaces.component.behavior;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 @SuppressWarnings("serial")
 public class MessageNotFoundException extends Exception {

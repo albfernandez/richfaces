@@ -27,6 +27,7 @@ import jakarta.faces.view.facelets.MetaRuleset;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class TreeModelRecursiveAdaptorHandler extends ComponentHandler {
     public TreeModelRecursiveAdaptorHandler(ComponentConfig config) {

@@ -21,12 +21,13 @@
  */
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.component.AbstractAttachQueue;
-
 import jakarta.faces.component.UIComponent;
+
+import org.richfaces.component.AbstractAttachQueue;
 
 /**
  * @author Nick Belaevski
+ *
  */
 final class AttachQueueInfo {
     private UIComponent parentComponent;
@@ -41,11 +42,11 @@ final class AttachQueueInfo {
         return parentComponent;
     }
 
-    public AbstractAttachQueue getAttachQueue() {
-        return attachQueue;
-    }
-
     public void setAttachQueue(AbstractAttachQueue attachQueue) {
         this.attachQueue = attachQueue;
+    }
+
+    public AbstractAttachQueue getAttachQueue() {
+        return attachQueue;
     }
 }

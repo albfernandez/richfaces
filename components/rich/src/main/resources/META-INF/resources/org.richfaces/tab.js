@@ -20,140 +20,141 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-(function ($, rf) {
+(function($, rf) {
 
-    rf.ui = rf.ui || {};
+	rf.ui = rf.ui || {};
 
-    rf.ui.Tab = rf.ui.TogglePanelItem.extendClass({
-            // class name
-            name:"Tab",
+	rf.ui.Tab = rf.ui.TogglePanelItem.extendClass({
+		// class name
+		name: "Tab",
 
-            /**
-             * Backing object for rich:tab
-             * 
-             * @extends RichFaces.ui.TogglePanelItem
-             * @memberOf! RichFaces.ui
-             * @constructs RichFaces.ui.Tab
-             * 
-             * @param {string} componentId - component id
-             * @param {Object} options - params
-             * */
-            init : function (componentId, options) {
-                $super.constructor.call(this, componentId, options);
-                this.attachToDom();
-                this.index = options["index"];
-                this.getTogglePanel().getItems()[this.index] = this;
-            },
+		/**
+		 * Backing object for rich:tab
+		 * 
+		 * @extends RichFaces.ui.TogglePanelItem
+		 * @memberOf! RichFaces.ui
+		 * @constructs RichFaces.ui.Tab
+		 * 
+		 * @param {string} componentId - component id
+		 * @param {Object} options - params
+		 * */
+		init: function(componentId, options) {
+			$super.constructor.call(this, componentId, options);
+			this.attachToDom();
+			this.index = options["index"];
+			this.getTogglePanel().getItems()[this.index] = this;
+		},
 
-            /**
-             * @private
-             * @memberOf! RichFaces.ui.Tab#
-             * @param newState {string} = inactive | active | disabled
-             *     in that case looking header by css class appropriate to this state
-             *
-             * @return {jQuery}
-             * */
-            __header : function (newState) {
-                var header = $(rf.getDomElement(this.id + ":header"));
+		/**
+		 * @private
+		 * @memberOf! RichFaces.ui.Tab#
+		 * @param newState {string} = inactive | active | disabled
+		 *     in that case looking header by css class appropriate to this state
+		 *
+		 * @return {jQuery}
+		 * */
+		__header: function(newState) {
+			var header = $(rf.getDomElement(this.id + ":header"));
 
-                for (var state in stateMap) {
-                    if (stateMap.hasOwnProperty(state)) {
-                        if (state !== newState) {
-                            header.removeClass(stateMap[state]);
-                        }
-                        if (!header.hasClass(stateMap[newState])) {
-                            header.addClass(stateMap[newState]);
-                        }
-                    }
-                }
-                return header;
-            },
+			for (var state in stateMap) {
+				if (stateMap.hasOwnProperty(state)) {
+					if (state !== newState) {
+						header.removeClass(stateMap[state]);
+					}
+					if (!header.hasClass(stateMap[newState])) {
+						header.addClass(stateMap[newState]);
+					}
+				}
+			}
+			return header;
+		},
 
-            /**
-             * @private
-             * @memberOf! RichFaces.ui.Tab#
-             * @return {jQuery}
-             * */
-            __content : function () {
-                if (!this.__content_) {
-                    this.__content_ = $(rf.getDomElement(this.id));
-                }
-                return this.__content_;
-            },
+		/**
+		 * @private
+		 * @memberOf! RichFaces.ui.Tab#
+		 * @return {jQuery}
+		 * */
+		__content: function() {
+			if (!this.__content_) {
+				this.__content_ = $(rf.getDomElement(this.id));
+			}
+			return this.__content_;
+		},
 
-            /**
-             * used in TogglePanel
-             * @private
-             **/
-            __enter : function () {
+		/**
+		 * used in TogglePanel
+		 * @private
+		 **/
+		__enter: function() {
 
-                this.__content().show();
-                this.__header("active");
+			this.__content().show();
+			this.__header("active");
 
-                return this.__fireEnter();
-            },
+			return this.__fireEnter();
+		},
 
-            __fireLeave : function () {
-                return rf.Event.fireById(this.id + ":content", "leave");
-            },
+		__fireLeave: function() {
+			return rf.Event.fireById(this.id + ":content", "leave");
+		},
 
-            __fireEnter : function () {
-                return rf.Event.fireById(this.id + ":content", "enter");
-            },
+		__fireEnter: function() {
+			return rf.Event.fireById(this.id + ":content", "enter");
+		},
 
-            __addUserEventHandler : function (name) {
-                var handler = this.options["on" + name];
-                if (handler) {
-                    var userHandler = rf.Event.bindById(this.id + ":content", name, handler);
-                }
-            },
+		__addUserEventHandler: function(name) {
+			var handler = this.options["on" + name];
+			if (handler) {
+				var userHandler = rf.Event.bindById(this.id + ":content", name, handler);
+			}
+		},
 
-            getHeight : function (recalculate) {
-                if (recalculate || !this.__height) {
-                    this.__height = $(rf.getDomElement(this.id)).outerHeight(true)
-                }
+		getHeight: function(recalculate) {
+			if (recalculate || !this.__height) {
+				this.__height = $(rf.getDomElement(this.id)).outerHeight(true)
+			}
 
-                return this.__height;
-            },
+			return this.__height;
+		},
 
-            /**
-             * @private
-             *
-             * used in TogglePanel
-             * */
-            __leave : function () {
-                var continueProcess = this.__fireLeave();
-                if (!continueProcess) {
-                    return false;
-                }
+		/**
+		 * used in TogglePanel
+		 * 
+		 * @private
+		 *
+		 * */
+		__leave: function() {
+			var continueProcess = this.__fireLeave();
+			if (!continueProcess) {
+				return false;
+			}
 
-                this.__content().hide();
-                this.__header("inactive");
+			this.__content().hide();
+			this.__header("inactive");
 
-                return true;
-            },
+			return true;
+		},
 
-            /***************************** Private Methods ********************************************************/
+		/***************************** Private Methods ********************************************************/
 
 
-            destroy: function () {
-                var parent = this.getTogglePanel();
-                if (parent && parent.getItems && parent.getItems()[this.index]) {
-                    delete parent.getItems()[this.index];
-                }
+		destroy: function() {
+			var parent = this.getTogglePanel();
+			if (parent && parent.getItems && parent.getItems()[this.index]) {
+				delete parent.getItems()[this.index];
+			}
 
-                rf.Event.unbindById(this.id);
+			rf.Event.unbindById(this.id);
 
-                $super.destroy.call(this);
-            }
-        });
+			$super.destroy.call(this);
+		}
+	});
 
-    // define super class link
-    var $super = rf.ui.Tab.$super;
+	// define super class link
+	var $super = rf.ui.Tab.$super;
 
-    var stateMap = {
-        active: 'rf-tab-hdr-act',
-        inactive: 'rf-tab-hdr-inact',
-        disabled: 'rf-tab-hdr-dis'
-    };
+	var stateMap = {
+		active: 'rf-tab-hdr-act',
+		inactive: 'rf-tab-hdr-inact',
+		disabled: 'rf-tab-hdr-dis'
+	};
 })(RichFaces.jQuery, RichFaces);

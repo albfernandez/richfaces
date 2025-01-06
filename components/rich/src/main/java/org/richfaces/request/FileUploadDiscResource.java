@@ -21,11 +21,13 @@
  */
 package org.richfaces.request;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.text.MessageFormat;
 
 /**
@@ -33,7 +35,7 @@ import java.text.MessageFormat;
  */
 final class FileUploadDiscResource extends FileUploadResource {
     private File file;
-    private FileOutputStream fos;
+    private OutputStream fos;
 
     public FileUploadDiscResource(String name, String uploadLocation) {
         super(name, uploadLocation);
@@ -41,7 +43,7 @@ final class FileUploadDiscResource extends FileUploadResource {
 
     @Override
     public InputStream getInputStream() throws IOException {
-        return new FileInputStream(file);
+        return new BufferedInputStream(Files.newInputStream(file.toPath()));
     }
 
     @Override
@@ -76,7 +78,7 @@ final class FileUploadDiscResource extends FileUploadResource {
     public void create() throws IOException {
         file = File.createTempFile("richfaces_uploaded_file_", null, getOutputFile(null));
         file.deleteOnExit();
-        fos = new FileOutputStream(file);
+        fos = new BufferedOutputStream(Files.newOutputStream(file.toPath()));
     }
 
     public void handle(byte[] bytes, int length) throws IOException {

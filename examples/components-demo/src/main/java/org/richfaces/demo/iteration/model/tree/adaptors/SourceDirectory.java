@@ -21,15 +21,17 @@
  */
 package org.richfaces.demo.iteration.model.tree.adaptors;
 
-import com.google.common.collect.Maps;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.google.common.collect.Maps;
+
 /**
  * @author Nick Belaevski mailto:nbelaevski@exadel.com created 24.07.2007
+ *
  */
 public class SourceDirectory extends Entry {
     @XmlElement(name = "package")

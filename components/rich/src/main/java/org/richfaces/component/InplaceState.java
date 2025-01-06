@@ -23,6 +23,7 @@ package org.richfaces.component;
 
 /**
  * @author Anton Belevich
+ *
  */
 public enum InplaceState {
     ready,

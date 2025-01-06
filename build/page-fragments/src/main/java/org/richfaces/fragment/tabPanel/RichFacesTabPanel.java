@@ -21,42 +21,44 @@
  */
 package org.richfaces.fragment.tabPanel;
 
-import com.google.common.base.Predicate;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.switchable.AbstractSwitchableComponent;
 
-import java.util.Collections;
-import java.util.List;
-
 public class RichFacesTabPanel extends AbstractSwitchableComponent<RichFacesTab> implements TabPanel<RichFacesTab> {
 
-    private final AdvancedTabPanelInteractions advancedInteractions = new AdvancedTabPanelInteractions();
     @FindByJQuery(".rf-tab-hdr")
     private List<WebElement> tabHeaders;
+
     @FindByJQuery(".rf-tab:visible")
     private WebElement visibleContent;
+
     @FindByJQuery(".rf-tab-hdr-act")
     private WebElement activeHeader;
+
     @FindBy(className = "rf-tab-hdr-inact")
     private List<WebElement> allInactiveHeaders;
+
     @FindBy(className = "rf-tab-hdr-dis")
     private List<WebElement> allDisabledHeaders;
+
     @FindByJQuery("> div:gt(1)")
     private List<WebElement> allTabContents;
+
     @FindByJQuery(".rf-tab-hdr:visible")
     private List<WebElement> allVisibleHeaders;
+
+    private final AdvancedTabPanelInteractions advancedInteractions = new AdvancedTabPanelInteractions();
 
     @Override
     public AdvancedTabPanelInteractions advanced() {
         return advancedInteractions;
-    }
-
-    @Override
-    public int getNumberOfTabs() {
-        return advanced().getSwitcherControllerElements().size();
     }
 
     public class AdvancedTabPanelInteractions extends AbstractSwitchableComponent<RichFacesTab>.AdvancedSwitchableComponentInteractions {
@@ -100,13 +102,18 @@ public class RichFacesTabPanel extends AbstractSwitchableComponent<RichFacesTab>
         }
 
         @Override
-        protected Predicate<WebDriver> getConditionForContentSwitched(final String textToContain) {
-            return new Predicate<WebDriver>() {
+        protected Function<WebDriver, Boolean> getConditionForContentSwitched(final String textToContain) {
+            return new Function<WebDriver, Boolean>() {
                 @Override
-                public boolean apply(WebDriver input) {
+                public Boolean apply(WebDriver input) {
                     return getActiveHeaderElement().getText().contains(textToContain);
                 }
             };
         }
+    }
+
+    @Override
+    public int getNumberOfTabs() {
+        return advanced().getSwitcherControllerElements().size();
     }
 }

@@ -21,12 +21,12 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-
-import jakarta.faces.component.UIComponentBase;
 
 /**
  * <p> The &lt;rich:collapsibleSubTableToggler&gt; component provides a toggle control for the user to expand and

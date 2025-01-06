@@ -30,11 +30,11 @@
         CacheManager.add(String cacheName). The defaultCache has an
         implicit name "default" which is a reserved cache name.
     -->
-    <defaultCache maxEntriesLocalHeap="10000"
+    <defaultCache maxElementsInMemory="10000"
                   eternal="false"
                   timeToIdleSeconds="120"
                   timeToLiveSeconds="120"
-                  maxEntriesLocalDisk="10000000"
+                  maxElementsOnDisk="10000000"
                   diskExpiryThreadIntervalSeconds="120"
                   memoryStoreEvictionPolicy="LRU">
         <persistence strategy="localTempSwap"/>

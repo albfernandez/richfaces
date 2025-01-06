@@ -21,18 +21,18 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.tabPanel.RichFacesTabPanel;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
-
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -63,7 +63,7 @@ public class SearchView {
         String actualCriterias = criteria.getText();
         for (String crit : criterias) {
             assertTrue("Actual criterias: " + actualCriterias + " should contain: [" + crit + ']',
-                    actualCriterias.contains(crit));
+                actualCriterias.contains(crit));
         }
     }
 

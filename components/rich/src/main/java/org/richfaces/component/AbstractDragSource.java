@@ -21,19 +21,18 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
-import jakarta.faces.component.UIComponentBase;
-
 /**
  * <p>
- * The &lt;rich:dragSource&gt; component can be added to a component to indicate it is capable of being dragged by the user.
- * The dragged item can then be dropped into a compatible drop area, designated using the &lt;rich:dropTarget&gt; component.
+ *     The &lt;rich:dragSource&gt; component can be added to a component to indicate it is capable of being dragged by the user.
+ *     The dragged item can then be dropped into a compatible drop area, designated using the &lt;rich:dropTarget&gt; component.
  * </p>
- *
  * @author abelevich
  */
 @JsfComponent(type = AbstractDragSource.COMPONENT_TYPE, family = AbstractDragSource.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DragSourceRenderer"), tag = @Tag(name = "dragSource"))

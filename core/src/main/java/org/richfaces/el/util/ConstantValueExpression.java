@@ -27,6 +27,7 @@ import jakarta.el.ValueExpression;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class ConstantValueExpression extends ValueExpression {
     private static final long serialVersionUID = -4455404133234988782L;

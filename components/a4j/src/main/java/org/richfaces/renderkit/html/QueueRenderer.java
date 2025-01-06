@@ -21,12 +21,12 @@
  */
 package org.richfaces.renderkit.html;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractQueue;
 import org.richfaces.renderkit.util.RendererUtils;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski Renderer for queue component

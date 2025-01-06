@@ -21,7 +21,9 @@
  */
 package org.richfaces.fragment.tree;
 
-import com.google.common.collect.Lists;
+import java.util.Collections;
+import java.util.List;
+
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
@@ -32,18 +34,19 @@ import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
-import java.util.Collections;
-import java.util.List;
+import com.google.common.collect.Lists;
 
 public class RichFacesTree implements Tree, AdvancedVisibleComponentIteractions<RichFacesTree.AdvancedTreeInteractionsImpl> {
 
-    private final AdvancedTreeInteractionsImpl interactions = new AdvancedTreeInteractionsImpl();
     @Root
     private WebElement root;
+
     @FindByJQuery("> .rf-tr-nd")
     private List<RichFacesTreeNode> childNodes;
     @FindByJQuery("> .rf-tr-nd")
     private List<WebElement> childNodesElements;
+
+    private final AdvancedTreeInteractionsImpl interactions = new AdvancedTreeInteractionsImpl();
 
     @Override
     public AdvancedTreeInteractionsImpl advanced() {
@@ -170,18 +173,8 @@ public class RichFacesTree implements Tree, AdvancedVisibleComponentIteractions<
             return toggleNodeEvent;
         }
 
-        @Override
-        public void setToggleNodeEvent(Event toggleNodeEvent) {
-            this.toggleNodeEvent = toggleNodeEvent;
-        }
-
         protected boolean isToggleByHandle() {
             return toggleByHandle;
-        }
-
-        @Override
-        public void setToggleByHandle(boolean toggleByHandle) {
-            this.toggleByHandle = toggleByHandle;
         }
 
         @Override
@@ -195,8 +188,18 @@ public class RichFacesTree implements Tree, AdvancedVisibleComponentIteractions<
         }
 
         @Override
+        public void setToggleByHandle(boolean toggleByHandle) {
+            this.toggleByHandle = toggleByHandle;
+        }
+
+        @Override
         public void setToggleNodeEvent() {
             this.toggleNodeEvent = DEFAULT_TOGGLE_NODE_EVENT;
+        }
+
+        @Override
+        public void setToggleNodeEvent(Event toggleNodeEvent) {
+            this.toggleNodeEvent = toggleNodeEvent;
         }
     }
 }

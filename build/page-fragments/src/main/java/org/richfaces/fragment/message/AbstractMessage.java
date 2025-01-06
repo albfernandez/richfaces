@@ -21,7 +21,8 @@
  */
 package org.richfaces.fragment.message;
 
-import com.google.common.base.Predicate;
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.graphene.wait.FluentWait;
@@ -33,7 +34,6 @@ import org.richfaces.fragment.common.WaitingWrapperImpl;
 
 /**
  * Abstract base for message component.
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public abstract class AbstractMessage implements Message, AdvancedInteractions<Message.AdvancedMessageInteractions> {
@@ -82,10 +82,10 @@ public abstract class AbstractMessage implements Message, AdvancedInteractions<M
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return !isVisible();
                         }
                     });
@@ -99,10 +99,10 @@ public abstract class AbstractMessage implements Message, AdvancedInteractions<M
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isVisible();
                         }
                     });

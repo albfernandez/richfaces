@@ -24,12 +24,13 @@ package org.richfaces.fragment.select;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface SelectSuggestions {
 
     /**
-     * Selects the first option according to the given rules in <code>picker<code> param.
+     * Selects the first option according to the given rules in <code>picker</code> param.
      *
      * @param picker
      */

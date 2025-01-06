@@ -21,15 +21,15 @@
  *******************************************************************************/
 package org.richfaces.showcase.poll;
 
-import org.jboss.arquillian.graphene.page.Page;
-import org.junit.Test;
-import org.richfaces.showcase.poll.page.PollingPage;
+import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
+import org.jboss.arquillian.graphene.page.Page;
+import org.junit.Test;
+import org.richfaces.showcase.poll.page.PollingPage;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

@@ -26,15 +26,10 @@
  */
 package org.richfaces.photoalbum.model;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.OrderBy;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.richfaces.photoalbum.util.DateUtils;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,10 +47,17 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.OrderBy;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.richfaces.photoalbum.util.DateUtils;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @NamedQueries({
         @NamedQuery(name = "tag-byName", query = "select m from MetaTag m where m.tag =:tag"),
@@ -63,7 +65,7 @@ import java.util.List;
         @NamedQuery(name = "user-shelves", query = "select distinct s from Shelf s where (s.shared = true and s.owner.preDefined = true and s.event = null) order by s.name"),
         @NamedQuery(name = "image-exist", query = "select i from Image i where i.path = :path and i.album = :album"),
         @NamedQuery(name = "image-countIdenticalImages", query = "select count(i) from Image i where i.path like :path and i.album = :album"),
-        @NamedQuery(name = "tag-suggest", query = "select m from MetaTag m where lower(m.tag) like :tag")}) // cannot use "... like lower(:tag)"
+        @NamedQuery(name = "tag-suggest", query = "select m from MetaTag m where lower(m.tag) like :tag") }) // cannot use "... like lower(:tag)"
 /**
  * Class for representing Image Entity
  *  EJB3 Entity Bean
@@ -71,7 +73,7 @@ import java.util.List;
  * @author Andrey Markhel
  */
 @Entity
-@JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.NONE, isGetterVisibility = Visibility.NONE)
+@JsonAutoDetect(fieldVisibility=Visibility.NONE, getterVisibility=Visibility.NONE, isGetterVisibility=Visibility.NONE)
 public class Image implements Serializable {
 
     private static final long serialVersionUID = -7042878411608396483L;
@@ -232,8 +234,13 @@ public class Image implements Serializable {
         return imageTags;
     }
 
-    public void setImageTags(final List<MetaTag> imageTags) {
-        this.imageTags = imageTags;
+    /**
+     * Setter for property meta
+     *
+     * @param meta - string representation of metatags, associated to image. Used at jsf page.
+     */
+    public void setMeta(String meta) {
+        this.meta = meta;
     }
 
     /**
@@ -328,6 +335,10 @@ public class Image implements Serializable {
         return covering;
     }
 
+    public void setImageTags(final List<MetaTag> imageTags) {
+        this.imageTags = imageTags;
+    }
+
     /**
      * @param covering - determine if this image is covering for containing album
      */
@@ -365,6 +376,8 @@ public class Image implements Serializable {
         return false;
     }
 
+    // ---------------------------Business methods
+
     /**
      * Add comment to this image.
      *
@@ -377,8 +390,6 @@ public class Image implements Serializable {
         comment.setImage(this);
         comments.add(comment);
     }
-
-    // ---------------------------Business methods
 
     /**
      * Remove comment from list of comments, belongs to that image.
@@ -457,15 +468,6 @@ public class Image implements Serializable {
     }
 
     /**
-     * Setter for property meta
-     *
-     * @param meta - string representation of metatags, associated to image. Used at jsf page.
-     */
-    public void setMeta(String meta) {
-        this.meta = meta;
-    }
-
-    /**
      * Return relative path of this image in file-system(relative to uploadRoot parameter)
      */
     public String getFullPath() {
@@ -497,7 +499,7 @@ public class Image implements Serializable {
         final Image image = (Image) obj;
 
         return (id == null ? image.getId() == null : id.equals(image.getId()))
-                && (path == null ? image.getPath() == null : path.equals(image.getPath()));
+            && (path == null ? image.getPath() == null : path.equals(image.getPath()));
     }
 
     @Override

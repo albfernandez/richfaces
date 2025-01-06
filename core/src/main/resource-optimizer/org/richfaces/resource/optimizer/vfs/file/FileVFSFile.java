@@ -21,21 +21,24 @@
  */
 package org.richfaces.resource.optimizer.vfs.file;
 
-import com.google.common.collect.Lists;
-import org.richfaces.resource.optimizer.vfs.VirtualFile;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
-import java.util.List;
-
 import static org.richfaces.resource.optimizer.strings.Constants.SLASH_JOINER;
 import static org.richfaces.resource.optimizer.strings.Constants.SLASH_SPLITTER;
 
+import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.Collection;
+import java.util.List;
+
+import org.richfaces.resource.optimizer.vfs.VirtualFile;
+
+import com.google.common.collect.Lists;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class FileVFSFile implements VirtualFile {
     private File file;
@@ -59,7 +62,7 @@ public class FileVFSFile implements VirtualFile {
 
     @Override
     public InputStream getInputStream() throws IOException {
-        return new FileInputStream(file);
+        return new BufferedInputStream(Files.newInputStream(file.toPath()));
     }
 
     @Override
@@ -114,7 +117,7 @@ public class FileVFSFile implements VirtualFile {
     protected File getFile() {
         return file;
     }
-
+    
     @Override
     public String toString() {
         return "FileVFSFile[" + file.getPath() + ", " + relativePath + "]";

@@ -29,6 +29,7 @@ import javax.validation.constraints.Min;
 
 /**
  * @author asmirnov
+ *
  */
 public class MinBean extends Validable<Integer> {
     @Min(2)

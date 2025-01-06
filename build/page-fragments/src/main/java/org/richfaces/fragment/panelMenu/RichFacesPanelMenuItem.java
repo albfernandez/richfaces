@@ -27,10 +27,10 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
+import org.richfaces.fragment.panelMenu.RichFacesPanelMenuItem.AdvancedPanelMenuItemInteractions;
 
 public class RichFacesPanelMenuItem implements PanelMenuItem, AdvancedVisibleComponentIteractions<RichFacesPanelMenuItem.AdvancedPanelMenuItemInteractions> {
 
-    private final AdvancedPanelMenuItemInteractions advancedInteractions = new AdvancedPanelMenuItemInteractions();
     @FindBy(css = "td[class*=rf-][class*=-itm-ico]")
     private WebElement leftIcon;
     @FindBy(css = "td[class*=rf-][class*=-itm-exp-ico]")
@@ -39,8 +39,11 @@ public class RichFacesPanelMenuItem implements PanelMenuItem, AdvancedVisibleCom
     private WebElement leftIconImg;
     @FindBy(css = "td[class*=rf-][class*=-itm-exp-ico] img")
     private WebElement rightIconImg;
+
     @Root
     private WebElement root;
+
+    private final AdvancedPanelMenuItemInteractions advancedInteractions = new AdvancedPanelMenuItemInteractions();
 
     @Override
     public void select() {

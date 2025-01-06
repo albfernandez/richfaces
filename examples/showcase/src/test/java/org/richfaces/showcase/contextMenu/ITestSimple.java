@@ -21,13 +21,13 @@
  */
 package org.richfaces.showcase.contextMenu;
 
+import static org.junit.Assert.assertTrue;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.showcase.contextMenu.page.SimpleContextMenuPage;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -65,6 +65,6 @@ public class ITestSimple extends AbstractContextMenuTest {
     @Test
     public void testContextMenuRenderedAtCorrectPosition() {
         checkContextMenuRenderedAtCorrectPosition(page.getPicture(), page.getContextMenu(),
-                Event.CLICK, null, false, false);
+            Event.CLICK, null, false, false);
     }
 }

@@ -21,11 +21,15 @@
  */
 package org.richfaces.renderkit.util;
 
-import org.ajax4jsf.Messages;
-import org.ajax4jsf.component.JavaScriptParameter;
-import org.ajax4jsf.javascript.JSReference;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RenderKitUtils;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.application.ViewHandler;
@@ -38,21 +42,19 @@ import jakarta.faces.component.behavior.ClientBehaviorContext.Parameter;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+
+import org.ajax4jsf.Messages;
+import org.ajax4jsf.component.JavaScriptParameter;
+import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils;
 
 /**
  * Util class for common render operations - render pass-through html attributes, iterate over child components etc.
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.6 $ $Date: 2007/02/08 19:07:16 $
+ *
  */
 public class RendererUtils {
     public static final String DUMMY_FORM_ID = ":_form";
@@ -61,7 +63,7 @@ public class RendererUtils {
     /**
      * Substitutions for components properies names and HTML attributes names.
      */
-    private static final Map<String, String> SUBSTITUTIONS = new HashMap<String, String>();
+    private static final Map<String, String> SUBSTITUTIONS = new HashMap<>();
 
     static {
         SUBSTITUTIONS.put(HtmlConstants.CLASS_ATTRIBUTE, "styleClass");
@@ -85,16 +87,6 @@ public class RendererUtils {
      */
     public static RendererUtils getInstance() {
         return INSTANCE;
-    }
-
-    /**
-     * Write state saving markers to context, include MyFaces view sequence.
-     *
-     * @param context
-     * @throws IOException
-     */
-    public static void writeState(FacesContext context) throws IOException {
-        context.getApplication().getViewHandler().writeState(context);
     }
 
     /**
@@ -141,7 +133,7 @@ public class RendererUtils {
     public void encodeCustomId(FacesContext context, UIComponent component) throws IOException {
         if (hasExplicitId(component)) {
             context.getResponseWriter().writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context),
-                    HtmlConstants.ID_ATTRIBUTE);
+                HtmlConstants.ID_ATTRIBUTE);
         }
     }
 
@@ -174,7 +166,7 @@ public class RendererUtils {
     }
 
     public Map<String, Object> createParametersMap(FacesContext context, UIComponent component) {
-        Map<String, Object> parameters = new LinkedHashMap<String, Object>();
+        Map<String, Object> parameters = new LinkedHashMap<>();
 
         if (component.getChildCount() > 0) {
             for (UIComponent child : component.getChildren()) {
@@ -185,7 +177,7 @@ public class RendererUtils {
 
                     if (null == name) {
                         throw new IllegalArgumentException(Messages.getMessage(Messages.UNNAMED_PARAMETER_ERROR,
-                                component.getClientId(context)));
+                            component.getClientId(context)));
                     }
                     parameters.put(name, value);
                 }
@@ -196,7 +188,7 @@ public class RendererUtils {
     }
 
     private void encodeBehaviors(FacesContext context, ClientBehaviorHolder behaviorHolder, String defaultHtmlEventName,
-                                 String[] attributesExclusions) throws IOException {
+        String[] attributesExclusions) throws IOException {
 
         // if (attributesExclusions != null && attributesExclusions.length != 0) {
         // assert false : "Not supported yet";
@@ -258,7 +250,7 @@ public class RendererUtils {
      * @throws IOException
      */
     public void encodePassThruWithExclusions(FacesContext context, UIComponent component, String exclusions,
-                                             String defaultHtmlEvent) throws IOException {
+        String defaultHtmlEvent) throws IOException {
 
         if (null != exclusions) {
             String[] exclusionsArray = exclusions.split(",");
@@ -268,7 +260,7 @@ public class RendererUtils {
     }
 
     public void encodePassThruWithExclusionsArray(FacesContext context, UIComponent component, String[] exclusions,
-                                                  String defaultHtmlEvent) throws IOException {
+        String defaultHtmlEvent) throws IOException {
 
         ResponseWriter writer = context.getResponseWriter();
         Map<String, Object> attributes = component.getAttributes();
@@ -307,7 +299,7 @@ public class RendererUtils {
      * @throws IOException
      */
     public void encodePassThruAttribute(FacesContext context, Map<String, Object> attributes, ResponseWriter writer,
-                                        String attribute) throws IOException {
+        String attribute) throws IOException {
 
         Object value = attributeValue(attribute, attributes.get(getComponentAttributeName(attribute)));
 
@@ -338,9 +330,9 @@ public class RendererUtils {
     /**
      * Encode attributes given by comma-separated string list.
      *
-     * @param context   current JSF context
+     * @param context current JSF context
      * @param component for with render attributes values
-     * @param attrs     comma separated list of attributes
+     * @param attrs comma separated list of attributes
      * @throws IOException
      */
     public void encodeAttributes(FacesContext context, UIComponent component, String attrs) throws IOException {
@@ -356,10 +348,11 @@ public class RendererUtils {
      * @param component
      * @param property
      * @param attributeName
+     *
      * @throws IOException
      */
     public void encodeAttribute(FacesContext context, UIComponent component, Object property, String attributeName)
-            throws IOException {
+        throws IOException {
 
         ResponseWriter writer = context.getResponseWriter();
         Object value = component.getAttributes().get(property);
@@ -382,8 +375,8 @@ public class RendererUtils {
      * - zero-length array<br />
      *
      * @param o object to check for emptiness
-     * @return <code>true</code> if the argument is empty, <code>false</code> otherwise
      * @since 3.3.2
+     * @return <code>true</code> if the argument is empty, <code>false</code> otherwise
      */
     public boolean isEmpty(Object o) {
         if (null == o) {
@@ -413,7 +406,6 @@ public class RendererUtils {
      * Convert HTML attribute name to component property name.
      *
      * @param key
-     * @return
      */
     protected Object getComponentAttributeName(Object key) {
         Object converted = SUBSTITUTIONS.get(key);
@@ -429,9 +421,8 @@ public class RendererUtils {
      * Convert attribute value to proper object. For known html boolean attributes return name for true value, otherthise -
      * null. For non-boolean attributes return same value.
      *
-     * @param name  attribute name.
+     * @param name attribute name.
      * @param value
-     * @return
      */
     protected Object attributeValue(String name, Object value) {
         if (null == value || Arrays.binarySearch(HtmlConstants.PASS_THRU_BOOLEAN, name) < 0) {
@@ -453,7 +444,7 @@ public class RendererUtils {
      * Get boolean value of logical attribute
      *
      * @param component
-     * @param name      attribute name
+     * @param name attribute name
      * @return true if attribute is equals Boolean.TRUE or String "true" , false otherwise.
      */
     public boolean isBooleanAttribute(UIComponent component, String name) {
@@ -479,7 +470,6 @@ public class RendererUtils {
      * formats given value to
      *
      * @param value
-     * @return
      */
     public String encodePctOrPx(String value) {
         if (value.indexOf('%') > 0) {
@@ -607,7 +597,7 @@ public class RendererUtils {
      * @throws IOException
      */
     public void encodeBeginForm(FacesContext context, UIComponent component, ResponseWriter writer, String clientId)
-            throws IOException {
+        throws IOException {
 
         String actionURL = getActionUrl(context);
         String encodeActionURL = context.getExternalContext().encodeActionURL(actionURL);
@@ -633,6 +623,16 @@ public class RendererUtils {
             // TODO - hidden form parameters ?
             encodeEndForm(context, writer);
         }
+    }
+
+    /**
+     * Write state saving markers to context, include MyFaces view sequence.
+     *
+     * @param context
+     * @throws IOException
+     */
+    public static void writeState(FacesContext context) throws IOException {
+        context.getApplication().getViewHandler().writeState(context);
     }
 
     /**
@@ -663,7 +663,7 @@ public class RendererUtils {
     }
 
     /**
-     * Simplified version of {@link encodeId(FacesContext, UIComponent)}
+     * Simplified version of {@link #encodeId(FacesContext, UIComponent)}
      *
      * @param context
      * @param component
@@ -702,6 +702,7 @@ public class RendererUtils {
      *
      * @param forAttr
      * @param component
+     *
      */
     public String correctForIdReference(String forAttr, UIComponent component) {
         int contains = forAttr.indexOf(UIViewRoot.UNIQUE_ID_PREFIX);
@@ -747,7 +748,7 @@ public class RendererUtils {
      *
      * @param component
      * @param id
-     * @return
+     * @return components
      */
     public UIComponent findComponentFor(UIComponent component, String id) {
         if (id == null) {
@@ -781,7 +782,7 @@ public class RendererUtils {
     private UIComponent findUIComponentBelow(UIComponent root, String id) {
         UIComponent target = null;
 
-        for (Iterator<UIComponent> iter = root.getFacetsAndChildren(); iter.hasNext(); ) {
+        for (Iterator<UIComponent> iter = root.getFacetsAndChildren(); iter.hasNext();) {
             UIComponent child = (UIComponent) iter.next();
 
             if (child instanceof NamingContainer) {

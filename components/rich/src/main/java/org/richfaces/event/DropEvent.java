@@ -27,6 +27,7 @@ import jakarta.faces.event.FacesListener;
 
 /**
  * @author abelevich
+ *
  */
 public class DropEvent extends FacesEvent {
     private static final long serialVersionUID = -8093828320587434589L;

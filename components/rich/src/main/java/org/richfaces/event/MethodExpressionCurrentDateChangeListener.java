@@ -26,6 +26,7 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * @author amarkhel
+ *
  */
 public class MethodExpressionCurrentDateChangeListener implements CurrentDateChangeListener {
     private MethodExpression methodExpression;
@@ -41,6 +42,6 @@ public class MethodExpressionCurrentDateChangeListener implements CurrentDateCha
 
     public void processCurrentDateChange(CurrentDateChangeEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        methodExpression.invoke(facesContext.getELContext(), new Object[]{event});
+        methodExpression.invoke(facesContext.getELContext(), new Object[] { event });
     }
 }

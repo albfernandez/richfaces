@@ -24,21 +24,28 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 @RunAsClient
 public class ITCommandButtonImage {
 
-    private static final String EXPETED_ROOT_CONTEXT_PATH = ITCommandButtonImage.class.getSimpleName();
     @Drone
     private WebDriver browser;
+
     @ArquillianResource
     private URL contextPath;
+
     @FindBy(id = "buttonEL")
     private WebElement imageButtonEL;
+
     @FindBy(id = "buttonELNoValue")
     private WebElement imageButtonELNoValue;
+
     @FindBy(id = "buttonNoEL")
     private WebElement imageButtonNoEL;
+
     @FindBy(id = "hCommandButton")
     private WebElement hCommandImageButtonEL;
+
     @FindBy(id = "hCommandButtonNoValue")
     private WebElement hCommandImageButtonNoValue;
+
+    private static final String EXPETED_ROOT_CONTEXT_PATH = ITCommandButtonImage.class.getSimpleName();
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -47,20 +54,6 @@ public class ITCommandButtonImage {
         addIndexPage(deployment);
 
         return deployment.getFinalArchive();
-    }
-
-    private static void addIndexPage(A4JDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form prependId='false'>");
-        p.body("  <a4j:commandButton id=\"buttonEL\" image=\"#{resource['square.jpg']}\" value=\"#{resource['square.jpg']}\" /> ");
-        p.body("  <a4j:commandButton id=\"buttonELNoValue\" image=\"#{resource['square.jpg']}\" /> ");
-        p.body("  <a4j:commandButton id=\"buttonNoEL\" image=\"resources/square.jpg\" value=\"resources/square.jpg\"/> ");
-        p.body("  <h:commandButton id=\"hCommandButton\" image=\"#{resource['square.jpg']}\" value=\"#{resource['square.jpg']}\" />");
-        p.body("  <h:commandButton id=\"hCommandButtonNoValue\" image=\"#{resource['square.jpg']}\" />");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
     @Test
@@ -101,7 +94,7 @@ public class ITCommandButtonImage {
     private void assertSrcValueOfImageButton(WebElement imageButton) {
         String src = imageButton.getAttribute("src");
         assertEquals("The root context should be once in the URL of the button picture!", 1,
-                countMatches(src, EXPETED_ROOT_CONTEXT_PATH));
+            countMatches(src, EXPETED_ROOT_CONTEXT_PATH));
     }
 
     private int countMatches(String str, String sub) {
@@ -119,5 +112,19 @@ public class ITCommandButtonImage {
 
     private boolean isEmpty(String str) {
         return str == null || str.length() == 0;
+    }
+
+    private static void addIndexPage(A4JDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form prependId='false'>");
+        p.body("  <a4j:commandButton id=\"buttonEL\" image=\"#{resource['square.jpg']}\" value=\"#{resource['square.jpg']}\" /> ");
+        p.body("  <a4j:commandButton id=\"buttonELNoValue\" image=\"#{resource['square.jpg']}\" /> ");
+        p.body("  <a4j:commandButton id=\"buttonNoEL\" image=\"resources/square.jpg\" value=\"resources/square.jpg\"/> ");
+        p.body("  <h:commandButton id=\"hCommandButton\" image=\"#{resource['square.jpg']}\" value=\"#{resource['square.jpg']}\" />");
+        p.body("  <h:commandButton id=\"hCommandButtonNoValue\" image=\"#{resource['square.jpg']}\" />");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

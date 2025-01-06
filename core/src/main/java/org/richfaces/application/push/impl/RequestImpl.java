@@ -21,6 +21,10 @@
  */
 package org.richfaces.application.push.impl;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.atmosphere.cpr.AtmosphereResourceEvent;
 import org.atmosphere.cpr.AtmosphereResourceEventListener;
 import org.atmosphere.cpr.BroadcasterLifeCyclePolicy;
@@ -30,9 +34,6 @@ import org.richfaces.application.push.Request;
 import org.richfaces.application.push.Session;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-
-import jakarta.servlet.http.HttpServletRequest;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * <p>
@@ -53,8 +54,9 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     private static final int SUSPEND_TIMEOUT = -1; // leave up forever
-    private final Meteor meteor;
+
     private Session session;
+    private final Meteor meteor;
     private AtomicBoolean hasActiveBroadcaster = new AtomicBoolean(false);
     private BroadcasterLifeCyclePolicy policy;
 
@@ -97,7 +99,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
      */
     @Override
     public boolean isPolling() {
-        HttpServletRequest req = meteor.getAtmosphereResource().getRequest();
+        HttpServletRequest req = (HttpServletRequest) meteor.getAtmosphereResource().getRequest();
         boolean isWebsocket = req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) != null
                 || req.getAttribute(WebSocket.WEBSOCKET_RESUME) != null;
 
@@ -156,10 +158,10 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
     }
 
     /*
-     * (non-Javadoc)
-     *
-     * @see org.atmosphere.cpr.AtmosphereResourceEventListener#onSuspend(org.atmosphere.cpr.AtmosphereResourceEvent)
-     */
+         * (non-Javadoc)
+         *
+         * @see org.atmosphere.cpr.AtmosphereResourceEventListener#onSuspend(org.atmosphere.cpr.AtmosphereResourceEvent)
+         */
     @Override
     public void onSuspend(AtmosphereResourceEvent event) {
         try {

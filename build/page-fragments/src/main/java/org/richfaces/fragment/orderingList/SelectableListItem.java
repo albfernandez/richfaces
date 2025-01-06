@@ -24,6 +24,7 @@ package org.richfaces.fragment.orderingList;
 import org.richfaces.fragment.list.ListItem;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface SelectableListItem extends ListItem {

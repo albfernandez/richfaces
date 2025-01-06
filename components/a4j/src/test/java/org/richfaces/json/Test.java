@@ -1,32 +1,33 @@
 /**
  * License Agreement.
- * <p>
- * JBoss RichFaces - Ajax4jsf Component Library
- * <p>
+ *
+ *  JBoss RichFaces - Ajax4jsf Component Library
+ *
  * Copyright (C) 2007  Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.json;
 
-import junit.framework.TestCase;
-import org.junit.Ignore;
-
 import java.io.StringWriter;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+
+import junit.framework.TestCase;
+
+import org.junit.Ignore;
 
 /**
  * Test class. This file is not formally a member of the org.json library. It is just a casual test tool.
@@ -44,17 +45,17 @@ public class Test extends TestCase {
 
         // Obj is a typical class that implements JSONString.
         try {
-            String[] sa = {"aString", "aNumber", "aBoolean"};
+            String[] sa = { "aString", "aNumber", "aBoolean" };
             Obj obj = new Obj("A string, a number, and a boolean", 42, true);
 
             j = XML.toJSONObject("<![CDATA[This is a collection of test patterns and examples for org.json.]]>");
             System.out.println(j.toString());
             jj = new JSONStringer();
             s = jj.object().key("foo").value("bar").key("baz").array().object().key("quux").value("Thanks, Josh!").endObject()
-                    .endArray().endObject().toString();
+                .endArray().endObject().toString();
             System.out.println(s);
             System.out.println(new JSONStringer().object().key("a").array().array().array().value("b").endArray().endArray()
-                    .endArray().endObject().toString());
+                .endArray().endObject().toString());
             jj = new JSONStringer();
             jj.array();
             jj.value(1);
@@ -94,14 +95,14 @@ public class Test extends TestCase {
             j.put("comment", "This object contains a test object that implements JSONString");
             System.out.println(j.toString(4));
             j = new JSONObject(
-                    "{slashes: '///', closetag: '</script>', backslash:'\\\\', ei: {quotes: '\"\\''},eo: {a: '\"quoted\"', b:\"don't\"}, quotes: [\"'\", '\"']}");
+                "{slashes: '///', closetag: '</script>', backslash:'\\\\', ei: {quotes: '\"\\''},eo: {a: '\"quoted\"', b:\"don't\"}, quotes: [\"'\", '\"']}");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
             j = new JSONObject(
-                    "/*comment*/{foo: [true, false,9876543210,    0.0, 1.00000001,  1.000000000001, 1.00000000000000001,"
-                            + " .00000000000000001, 2.00, 0.1, 2e100, -32,[],{}, \"string\"], " + "  to   : null, op : 'Good',"
-                            + "ten:10} postfix comment");
+                "/*comment*/{foo: [true, false,9876543210,    0.0, 1.00000001,  1.000000000001, 1.00000000000000001,"
+                    + " .00000000000000001, 2.00, 0.1, 2e100, -32,[],{}, \"string\"], " + "  to   : null, op : 'Good',"
+                    + "ten:10} postfix comment");
             j.put("String", "98.6");
             j.put("JSONObject", new JSONObject());
             j.put("JSONArray", new JSONArray());
@@ -132,52 +133,52 @@ public class Test extends TestCase {
             System.out.println("   ten: " + j.getInt("ten"));
             System.out.println("  oops: " + j.optBoolean("oops"));
             j = XML
-                    .toJSONObject("<xml one = 1 two=' \"2\" '><five></five>First \u0009&lt;content&gt;<five></five> This is \"content\". <three>  3  </three>JSON does not preserve the sequencing of elements and contents.<three>  III  </three>  <three>  T H R E E</three><four/>Content text is an implied structure in XML. <six content=\"6\"/>JSON does not have implied structure:<seven>7</seven>everything is explicit.<![CDATA[CDATA blocks<are><supported>!]]></xml>");
+                .toJSONObject("<xml one = 1 two=' \"2\" '><five></five>First \u0009&lt;content&gt;<five></five> This is \"content\". <three>  3  </three>JSON does not preserve the sequencing of elements and contents.<three>  III  </three>  <three>  T H R E E</three><four/>Content text is an implied structure in XML. <six content=\"6\"/>JSON does not have implied structure:<seven>7</seven>everything is explicit.<![CDATA[CDATA blocks<are><supported>!]]></xml>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
             j = XML
-                    .toJSONObject("<mapping><empty/>   <class name = \"Customer\">      <field name = \"ID\" type = \"string\">         <bind-xml name=\"ID\" node=\"attribute\"/>      </field>      <field name = \"FirstName\" type = \"FirstName\"/>      <field name = \"MI\" type = \"MI\"/>      <field name = \"LastName\" type = \"LastName\"/>   </class>   <class name = \"FirstName\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class>   <class name = \"MI\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class>   <class name = \"LastName\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class></mapping>");
+                .toJSONObject("<mapping><empty/>   <class name = \"Customer\">      <field name = \"ID\" type = \"string\">         <bind-xml name=\"ID\" node=\"attribute\"/>      </field>      <field name = \"FirstName\" type = \"FirstName\"/>      <field name = \"MI\" type = \"MI\"/>      <field name = \"LastName\" type = \"LastName\"/>   </class>   <class name = \"FirstName\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class>   <class name = \"MI\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class>   <class name = \"LastName\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class></mapping>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
             j = XML
-                    .toJSONObject("<?xml version=\"1.0\" ?><Book Author=\"Anonymous\"><Title>Sample Book</Title><Chapter id=\"1\">This is chapter 1. It is not very long or interesting.</Chapter><Chapter id=\"2\">This is chapter 2. Although it is longer than chapter 1, it is not any more interesting.</Chapter></Book>");
+                .toJSONObject("<?xml version=\"1.0\" ?><Book Author=\"Anonymous\"><Title>Sample Book</Title><Chapter id=\"1\">This is chapter 1. It is not very long or interesting.</Chapter><Chapter id=\"2\">This is chapter 2. Although it is longer than chapter 1, it is not any more interesting.</Chapter></Book>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
             j = XML
-                    .toJSONObject("<!DOCTYPE bCard 'http://www.cs.caltech.edu/~adam/schemas/bCard'><bCard><?xml default bCard        firstname = ''        lastname  = '' company   = '' email = '' homepage  = ''?><bCard        firstname = 'Rohit'        lastname  = 'Khare'        company   = 'MCI'        email     = 'khare@mci.net'        homepage  = 'http://pest.w3.org/'/><bCard        firstname = 'Adam'        lastname  = 'Rifkin'        company   = 'Caltech Infospheres Project'        email     = 'adam@cs.caltech.edu'        homepage  = 'http://www.cs.caltech.edu/~adam/'/></bCard>");
+                .toJSONObject("<!DOCTYPE bCard 'http://www.cs.caltech.edu/~adam/schemas/bCard'><bCard><?xml default bCard        firstname = ''        lastname  = '' company   = '' email = '' homepage  = ''?><bCard        firstname = 'Rohit'        lastname  = 'Khare'        company   = 'MCI'        email     = 'khare@mci.net'        homepage  = 'http://pest.w3.org/'/><bCard        firstname = 'Adam'        lastname  = 'Rifkin'        company   = 'Caltech Infospheres Project'        email     = 'adam@cs.caltech.edu'        homepage  = 'http://www.cs.caltech.edu/~adam/'/></bCard>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
             j = XML
-                    .toJSONObject("<?xml version=\"1.0\"?><customer>    <firstName>        <text>Fred</text>    </firstName>    <ID>fbs0001</ID>    <lastName> <text>Scerbo</text>    </lastName>    <MI>        <text>B</text>    </MI></customer>");
+                .toJSONObject("<?xml version=\"1.0\"?><customer>    <firstName>        <text>Fred</text>    </firstName>    <ID>fbs0001</ID>    <lastName> <text>Scerbo</text>    </lastName>    <MI>        <text>B</text>    </MI></customer>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
             j = XML
-                    .toJSONObject("<!ENTITY tp-address PUBLIC '-//ABC University::Special Collections Library//TEXT (titlepage: name and address)//EN' 'tpspcoll.sgm'><list type='simple'><head>Repository Address </head><item>Special Collections Library</item><item>ABC University</item><item>Main Library, 40 Circle Drive</item><item>Ourtown, Pennsylvania</item><item>17654 USA</item></list>");
+                .toJSONObject("<!ENTITY tp-address PUBLIC '-//ABC University::Special Collections Library//TEXT (titlepage: name and address)//EN' 'tpspcoll.sgm'><list type='simple'><head>Repository Address </head><item>Special Collections Library</item><item>ABC University</item><item>Main Library, 40 Circle Drive</item><item>Ourtown, Pennsylvania</item><item>17654 USA</item></list>");
             System.out.println(j.toString());
             System.out.println(XML.toString(j));
             System.out.println("");
             j = XML
-                    .toJSONObject("<test intertag status=ok><empty/>deluxe<blip sweet=true>&amp;&quot;toot&quot;&toot;&#x41;</blip><x>eks</x><w>bonus</w><w>bonus2</w></test>");
+                .toJSONObject("<test intertag status=ok><empty/>deluxe<blip sweet=true>&amp;&quot;toot&quot;&toot;&#x41;</blip><x>eks</x><w>bonus</w><w>bonus2</w></test>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
             j = HTTP
-                    .toJSONObject("GET / HTTP/1.0\nAccept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/vnd.ms-powerpoint, application/vnd.ms-excel, application/msword, */*\nAccept-Language: en-us\nUser-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows 98; Win 9x 4.90; T312461; Q312461)\nHost: www.nokko.com\nConnection: keep-alive\nAccept-encoding: gzip, deflate\n");
+                .toJSONObject("GET / HTTP/1.0\nAccept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/vnd.ms-powerpoint, application/vnd.ms-excel, application/msword, */*\nAccept-Language: en-us\nUser-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows 98; Win 9x 4.90; T312461; Q312461)\nHost: www.nokko.com\nConnection: keep-alive\nAccept-encoding: gzip, deflate\n");
             System.out.println(j.toString(2));
             System.out.println(HTTP.toString(j));
             System.out.println("");
             j = HTTP
-                    .toJSONObject("HTTP/1.1 200 Oki Doki\nDate: Sun, 26 May 2002 17:38:52 GMT\nServer: Apache/1.3.23 (Unix) mod_perl/1.26\nKeep-Alive: timeout=15, max=100\nConnection: Keep-Alive\nTransfer-Encoding: chunked\nContent-Type: text/html\n");
+                .toJSONObject("HTTP/1.1 200 Oki Doki\nDate: Sun, 26 May 2002 17:38:52 GMT\nServer: Apache/1.3.23 (Unix) mod_perl/1.26\nKeep-Alive: timeout=15, max=100\nConnection: Keep-Alive\nTransfer-Encoding: chunked\nContent-Type: text/html\n");
             System.out.println(j.toString(2));
             System.out.println(HTTP.toString(j));
             System.out.println("");
             j = new JSONObject(
-                    "{nix: null, nux: false, null: 'null', 'Request-URI': '/', Method: 'GET', 'HTTP-Version': 'HTTP/1.0'}");
+                "{nix: null, nux: false, null: 'null', 'Request-URI': '/', Method: 'GET', 'HTTP-Version': 'HTTP/1.0'}");
             System.out.println(j.toString(2));
             System.out.println("isNull: " + j.isNull("nix"));
             System.out.println("   has: " + j.has("nix"));
@@ -185,21 +186,21 @@ public class Test extends TestCase {
             System.out.println(HTTP.toString(j));
             System.out.println("");
             j = XML.toJSONObject("<?xml version='1.0' encoding='UTF-8'?>" + "\n\n" + "<SOAP-ENV:Envelope"
-                    + " xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\""
-                    + " xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\""
-                    + " xmlns:xsd=\"http://www.w3.org/1999/XMLSchema\">" + "<SOAP-ENV:Body><ns1:doGoogleSearch"
-                    + " xmlns:ns1=\"urn:GoogleSearch\"" + " SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">"
-                    + "<key xsi:type=\"xsd:string\">GOOGLEKEY</key> <q" + " xsi:type=\"xsd:string\">'+search+'</q> <start"
-                    + " xsi:type=\"xsd:int\">0</start> <maxResults" + " xsi:type=\"xsd:int\">10</maxResults> <filter"
-                    + " xsi:type=\"xsd:boolean\">true</filter> <restrict" + " xsi:type=\"xsd:string\"></restrict> <safeSearch"
-                    + " xsi:type=\"xsd:boolean\">false</safeSearch> <lr" + " xsi:type=\"xsd:string\"></lr> <ie"
-                    + " xsi:type=\"xsd:string\">latin1</ie> <oe" + " xsi:type=\"xsd:string\">latin1</oe>" + "</ns1:doGoogleSearch>"
-                    + "</SOAP-ENV:Body></SOAP-ENV:Envelope>");
+                + " xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\""
+                + " xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\""
+                + " xmlns:xsd=\"http://www.w3.org/1999/XMLSchema\">" + "<SOAP-ENV:Body><ns1:doGoogleSearch"
+                + " xmlns:ns1=\"urn:GoogleSearch\"" + " SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">"
+                + "<key xsi:type=\"xsd:string\">GOOGLEKEY</key> <q" + " xsi:type=\"xsd:string\">'+search+'</q> <start"
+                + " xsi:type=\"xsd:int\">0</start> <maxResults" + " xsi:type=\"xsd:int\">10</maxResults> <filter"
+                + " xsi:type=\"xsd:boolean\">true</filter> <restrict" + " xsi:type=\"xsd:string\"></restrict> <safeSearch"
+                + " xsi:type=\"xsd:boolean\">false</safeSearch> <lr" + " xsi:type=\"xsd:string\"></lr> <ie"
+                + " xsi:type=\"xsd:string\">latin1</ie> <oe" + " xsi:type=\"xsd:string\">latin1</oe>" + "</ns1:doGoogleSearch>"
+                + "</SOAP-ENV:Body></SOAP-ENV:Envelope>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
             j = new JSONObject(
-                    "{Envelope: {Body: {\"ns1:doGoogleSearch\": {oe: \"latin1\", filter: true, q: \"'+search+'\", key: \"GOOGLEKEY\", maxResults: 10, \"SOAP-ENV:encodingStyle\": \"http://schemas.xmlsoap.org/soap/encoding/\", start: 0, ie: \"latin1\", safeSearch:false, \"xmlns:ns1\": \"urn:GoogleSearch\"}}}}");
+                "{Envelope: {Body: {\"ns1:doGoogleSearch\": {oe: \"latin1\", filter: true, q: \"'+search+'\", key: \"GOOGLEKEY\", maxResults: 10, \"SOAP-ENV:encodingStyle\": \"http://schemas.xmlsoap.org/soap/encoding/\", start: 0, ie: \"latin1\", safeSearch:false, \"xmlns:ns1\": \"urn:GoogleSearch\"}}}}");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
@@ -212,7 +213,7 @@ public class Test extends TestCase {
             System.out.println(Cookie.toString(j));
             System.out.println("");
             j = new JSONObject(
-                    "{script: 'It is not allowed in HTML to send a close script tag in a string<script>because it confuses browsers</script>so we insert a backslash before the /'}");
+                "{script: 'It is not allowed in HTML to send a close script tag in a string<script>because it confuses browsers</script>so we insert a backslash before the /'}");
             System.out.println(j.toString());
             System.out.println("");
 
@@ -229,7 +230,7 @@ public class Test extends TestCase {
             System.out.println(j.toString());
             System.out.println("");
             a = CDL
-                    .toJSONArray("No quotes, 'Single Quotes', \"Double Quotes\"\n1,'2',\"3\"\n,'It is \"good,\"', \"It works.\"\n\n");
+                .toJSONArray("No quotes, 'Single Quotes', \"Double Quotes\"\n1,'2',\"3\"\n,'It is \"good,\"', \"It works.\"\n\n");
             System.out.println(CDL.toString(a));
             System.out.println("");
             System.out.println(a.toString(4));
@@ -240,7 +241,7 @@ public class Test extends TestCase {
             System.out.println(XML.toString(a));
             System.out.println("");
             j = new JSONObject(
-                    "{ fun => with non-standard forms ; forgiving => This package can be used to parse formats that are similar to but not stricting conforming to JSON; why=To make it easier to migrate existing data to JSON,one = [[1.00]]; uno=[[{1=>1}]];'+':+6e66 ;pluses=+++;empty = '' , 'double':0.666,true: TRUE, false: FALSE, null=NULL;[true] = [[!,@;*]]; string=>  o. k. ; # comment\r oct=0666; hex=0x666; dec=666; o=0999; noh=0x0x}");
+                "{ fun => with non-standard forms ; forgiving => This package can be used to parse formats that are similar to but not stricting conforming to JSON; why=To make it easier to migrate existing data to JSON,one = [[1.00]]; uno=[[{1=>1}]];'+':+6e66 ;pluses=+++;empty = '' , 'double':0.666,true: TRUE, false: FALSE, null=NULL;[true] = [[!,@;*]]; string=>  o. k. ; # comment\r oct=0666; hex=0x666; dec=666; o=0999; noh=0x0x}");
             System.out.println(j.toString(4));
             System.out.println("");
 
@@ -249,12 +250,12 @@ public class Test extends TestCase {
             }
 
             System.out.println("");
-            j = new JSONObject(j, new String[]{"dec", "oct", "hex", "missing"});
+            j = new JSONObject(j, new String[] { "dec", "oct", "hex", "missing" });
             System.out.println(j.toString(4));
             System.out.println("");
             System.out.println(new JSONStringer().array().value(a).value(j).endArray());
             j = new JSONObject(
-                    "{string: \"98.6\", long: 2147483648, int: 2147483647, longer: 9223372036854775807, double: 9223372036854775808}");
+                "{string: \"98.6\", long: 2147483648, int: 2147483647, longer: 9223372036854775807, double: 9223372036854775808}");
             System.out.println(j.toString(4));
             System.out.println("\ngetInt");
             System.out.println("int    " + j.getInt("int"));

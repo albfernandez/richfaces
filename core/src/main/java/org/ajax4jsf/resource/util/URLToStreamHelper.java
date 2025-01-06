@@ -21,18 +21,18 @@
  */
 package org.ajax4jsf.resource.util;
 
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
 /**
  * Utility class to solve JAR locking issue using {@link URLConnection#setUseCaches(boolean)} method. Contains one utility
  * method that gets {@link InputStream} from {@link URL} with caching disabled.
- * <p>
+ *
  * Created 07.02.2008
  *
  * @author Nick Belaevski

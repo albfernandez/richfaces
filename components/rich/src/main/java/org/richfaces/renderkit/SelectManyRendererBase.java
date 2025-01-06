@@ -33,14 +33,16 @@ import jakarta.faces.component.UIColumn;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ *
  */
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -55,11 +57,10 @@ import java.util.Map;
         @ResourceDependency(library = "org.richfaces", name = "pickList.js"),
         @ResourceDependency(library = "org.richfaces", name = "pickList.ecss")})
 public class SelectManyRendererBase extends InputRendererBase {
-    private static final String HIDDEN_SUFFIX = "Hidden";
 
     public List<ClientSelectItem> getClientSelectItems(FacesContext facesContext, UIComponent component) {
         AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
-        return SelectManyHelper.getClientSelectItems(facesContext, select, SelectUtils.getSelectItems(facesContext, component));
+        return  SelectManyHelper.getClientSelectItems(facesContext, select, SelectUtils.getSelectItems(facesContext, component));
     }
 
     public String csvEncodeSelectedItems(List<ClientSelectItem> clientSelectItems) {
@@ -96,13 +97,13 @@ public class SelectManyRendererBase extends InputRendererBase {
         String value = paramMap.get(hiddenClientId);
         if (value != null) {
             if (value.trim().equals("")) {
-                ((EditableValueHolder) picklist).setSubmittedValue(new String[]{});
+                ((EditableValueHolder) picklist).setSubmittedValue(new String[] {});
             } else {
                 String[] reqValues = value.split("\",'");
                 ((EditableValueHolder) picklist).setSubmittedValue(reqValues);
             }
         } else {
-            ((EditableValueHolder) picklist).setSubmittedValue(new String[]{});
+            ((EditableValueHolder) picklist).setSubmittedValue(new String[] {});
         }
     }
 

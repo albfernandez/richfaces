@@ -21,10 +21,10 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import org.richfaces.photoalbum.util.Environment;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+
+import org.richfaces.photoalbum.util.Environment;
 
 /**
  * Convenience UI class for application help system

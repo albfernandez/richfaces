@@ -21,15 +21,10 @@
  */
 package org.richfaces.webapp;
 
-import org.atmosphere.cpr.BroadcastFilter;
-import org.atmosphere.cpr.Broadcaster.SCOPE;
-import org.atmosphere.cpr.Meteor;
-import org.richfaces.application.push.PushContext;
-import org.richfaces.application.push.Request;
-import org.richfaces.application.push.Session;
-import org.richfaces.application.push.impl.RequestImpl;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import java.io.IOException;
+import java.io.Serializable;
+import java.text.MessageFormat;
+import java.util.Collections;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -40,21 +35,28 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.Serializable;
-import java.text.MessageFormat;
-import java.util.Collections;
+
+import org.atmosphere.cpr.BroadcastFilter;
+import org.atmosphere.cpr.Broadcaster.SCOPE;
+import org.atmosphere.cpr.Meteor;
+import org.richfaces.application.push.PushContext;
+import org.richfaces.application.push.Request;
+import org.richfaces.application.push.Session;
+import org.richfaces.application.push.impl.RequestImpl;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * Serves as delegate for Atmposphere servlets - should not be used directly
  *
  * @author Nick Belaevski
+ *
  */
 public class PushHandlerFilter implements Filter, Serializable {
     public static final String SESSION_ATTRIBUTE_NAME = Session.class.getName();
     public static final String REQUEST_ATTRIBUTE_NAME = Request.class.getName();
-    public static final String PUSH_SESSION_ID_PARAM = "pushSessionId";
     private static final long serialVersionUID = 5724886106704391903L;
+    public static final String PUSH_SESSION_ID_PARAM = "pushSessionId";
     private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
 
     private int servletMajorVersion;
@@ -97,7 +99,7 @@ public class PushHandlerFilter implements Filter, Serializable {
 
                 httpResp.setContentType("text/plain");
 
-                Meteor meteor = Meteor.build(httpReq, SCOPE.REQUEST, Collections.<BroadcastFilter>emptyList(), null);
+                /*MZ TODO Meteor meteor = Meteor.build(httpReq, SCOPE.REQUEST, Collections.<BroadcastFilter>emptyList(), null);
 
                 try {
                     Request pushRequest = new RequestImpl(meteor, session);
@@ -109,21 +111,20 @@ public class PushHandlerFilter implements Filter, Serializable {
                 } catch (Exception e) {
                     LOGGER.error(e.getMessage(), e);
                 }
-
-                return;
+                */
             }
         }
     }
 
     /**
      * Ensures that servletContext instance is available, or throws exception.
-     * <p>
+     *
      * This method ensures compatibility with Servlet &lt;3.0, which doesn't support obtaining {@link ServletContext} from
      * {@link ServletRequest}.
      *
      * @param request {@link ServletRequest}
      * @throws {@link IllegalStateException} when {@link ServletContext} won't be available in Servlets &lt;3.0 environments.
-     *                This can happen when this filter was serialized.
+     *         This can happen when this filter was serialized.
      */
     private void ensureServletContextAvailable(ServletRequest request) {
         if (servletContext == null) {

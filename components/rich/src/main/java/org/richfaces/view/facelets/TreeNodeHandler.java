@@ -21,8 +21,6 @@
  */
 package org.richfaces.view.facelets;
 
-import org.richfaces.component.AbstractTreeNode;
-
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.MetaRule;
@@ -31,8 +29,11 @@ import jakarta.faces.view.facelets.Metadata;
 import jakarta.faces.view.facelets.MetadataTarget;
 import jakarta.faces.view.facelets.TagAttribute;
 
+import org.richfaces.component.AbstractTreeNode;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class TreeNodeHandler extends ComponentHandler {
     private static final MetaRule RULE = new MetaRule() {

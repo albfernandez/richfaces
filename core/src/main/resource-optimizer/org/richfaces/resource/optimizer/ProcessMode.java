@@ -23,6 +23,7 @@ package org.richfaces.resource.optimizer;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public enum ProcessMode {
 

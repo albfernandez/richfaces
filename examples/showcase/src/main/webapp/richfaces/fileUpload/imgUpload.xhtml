@@ -17,7 +17,7 @@
             <b>Example limitations</b>
         </legend>
         This example allows you to upload <b>up to 5 files</b>. The file extension is limited to <b>GIF, JPG, BMP, PNG</b> and
-        the maximum size of each file must not exceed 100kB
+        the maximum size of each file must not exceed 2MB
     </fieldset>
     <ui:include src="#{demoNavigator.sampleIncludeURI}" />
     <ui:include src="/templates/includes/source-view.xhtml">
@@ -38,7 +38,7 @@
     <ul>
         <li><b>createTempFiles</b> boolean attribute which defines whether the uploaded files are stored in temporary files
             or available in the listener directly as byte[] data (false for this example).</li>
-        <li><b>maxRequestSize</b> attribute defines max size in bytes of the uploaded files (<i>100,000 for this
+        <li><b>maxRequestSize</b> attribute defines max size in bytes of the uploaded files (<i>2,000,000 for this
                 example</i>).</li>
     </ul>
 </ui:composition>

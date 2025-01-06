@@ -26,6 +26,7 @@ import jakarta.faces.model.DataModel;
 
 /**
  * @author shura
+ *
  */
 public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     private DataModel<E> wrappedModel;
@@ -62,7 +63,7 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
             wrappedModel.setRowIndex(currentRow);
 
             if (wrappedModel.isRowAvailable()) {
-                visitResult = visitor.process(context, new Integer(currentRow), argument);
+                visitResult = visitor.process(context, Integer.valueOf(currentRow), argument);
 
                 if (DataVisitResult.STOP.equals(visitResult)) {
                     break;
@@ -87,7 +88,7 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
             return null;
         }
 
-        return new Integer(index);
+        return Integer.valueOf(index);
     }
 
     /*
@@ -108,7 +109,7 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#getRowCount()
+     * @see jakarta.faces.model.DataModel#getRowCount()
      */
     public int getRowCount() {
         return wrappedModel.getRowCount();
@@ -117,7 +118,7 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#getRowData()
+     * @see jakarta.faces.model.DataModel#getRowData()
      */
     public E getRowData() {
         return wrappedModel.getRowData();
@@ -126,7 +127,7 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#getRowIndex()
+     * @see jakarta.faces.model.DataModel#getRowIndex()
      */
     public int getRowIndex() {
         return wrappedModel.getRowIndex();
@@ -135,16 +136,7 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#setRowIndex(int)
-     */
-    public void setRowIndex(int rowIndex) {
-        wrappedModel.setRowIndex(rowIndex);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.faces.model.DataModel#getWrappedData()
+     * @see jakarta.faces.model.DataModel#getWrappedData()
      */
     public Object getWrappedData() {
         return wrappedModel.getWrappedData();
@@ -153,19 +145,28 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#setWrappedData(java.lang.Object)
+     * @see jakarta.faces.model.DataModel#isRowAvailable()
      */
-    public void setWrappedData(Object data) {
-        wrappedModel.setWrappedData(data);
+    public boolean isRowAvailable() {
+        return wrappedModel.isRowAvailable();
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#isRowAvailable()
+     * @see jakarta.faces.model.DataModel#setRowIndex(int)
      */
-    public boolean isRowAvailable() {
-        return wrappedModel.isRowAvailable();
+    public void setRowIndex(int rowIndex) {
+        wrappedModel.setRowIndex(rowIndex);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see jakarta.faces.model.DataModel#setWrappedData(java.lang.Object)
+     */
+    public void setWrappedData(Object data) {
+        wrappedModel.setWrappedData(data);
     }
 
     /**

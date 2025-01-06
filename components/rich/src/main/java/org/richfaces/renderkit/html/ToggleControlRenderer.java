@@ -21,19 +21,20 @@
  */
 package org.richfaces.renderkit.html;
 
-import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
-import org.richfaces.component.behavior.ToggleControl;
-
 import jakarta.faces.application.ResourceDependencies;
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.component.behavior.ClientBehavior;
 import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.render.ClientBehaviorRenderer;
 
+import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
+import org.richfaces.component.behavior.ToggleControl;
+
 /**
  * @author akolonitsky
+ *
  */
-@ResourceDependencies({@ResourceDependency(library = "org.richfaces", name = "jquery.js"), @ResourceDependency(library = "org.richfaces", name = "richfaces.js")})
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "jquery.js"), @ResourceDependency(library = "org.richfaces", name = "richfaces.js") })
 @JsfBehaviorRenderer(type = "org.richfaces.component.behavior.ToggleControl")
 public class ToggleControlRenderer extends ClientBehaviorRenderer {
     @Override
@@ -42,7 +43,7 @@ public class ToggleControlRenderer extends ClientBehaviorRenderer {
 
         StringBuilder builder = new StringBuilder();
         builder.append("RichFaces.component('").append(control.getPanelId(behaviorContext)).append("').switchToItem('")
-                .append(control.getTargetItem()).append("'); return ").append(!control.getDisableDefault()).append(';');
+            .append(control.getTargetItem()).append("'); return ").append(!control.getDisableDefault()).append(';');
 
         return builder.toString();
     }

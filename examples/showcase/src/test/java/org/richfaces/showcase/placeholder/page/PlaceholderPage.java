@@ -21,13 +21,13 @@
  *******************************************************************************/
 package org.richfaces.showcase.placeholder.page;
 
-import org.jboss.arquillian.graphene.findby.FindByJQuery;
-import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.TextInputComponentImpl;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.common.TextInputComponentImpl;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -35,13 +35,15 @@ import static org.junit.Assert.assertEquals;
  */
 public class PlaceholderPage {
 
+    @FindByJQuery("*[type='text']")
+    private List<TextInputComponentImpl> inputsWithPlaceHolders;
+
+    @FindBy(tagName = "textarea")
+    private TextInputComponentImpl textarea;
+
     public static final String FIRST_PLACEHOLDER = "Type text here...";
     public static final String SECOND_PLACEHOLDER = "A space for long content...";
     public static final String THIRD_PLACEHOLDER = "dd/mm/yyyy";
-    @FindByJQuery("*[type='text']")
-    private List<TextInputComponentImpl> inputsWithPlaceHolders;
-    @FindBy(tagName = "textarea")
-    private TextInputComponentImpl textarea;
 
     public void assertInputPlaceholder(int numberOfInput, String expectedPlaceholderValue) {
         String placeHolderValue = inputsWithPlaceHolders.get(numberOfInput).getStringValue();

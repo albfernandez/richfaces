@@ -21,8 +21,6 @@
  */
 package org.richfaces.application.push.impl;
 
-import org.richfaces.application.push.Session;
-
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -30,10 +28,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.richfaces.application.push.Session;
+
 /**
  * Based on DelayQueue by Doug Lea: http://gee.cs.oswego.edu/
  *
  * @author Nick Belaevski
+ *
  */
 // TODO - optimize algorithm
 // TODO - use BlockingQueue ?
@@ -46,7 +47,7 @@ public final class SessionQueue {
             return expTime1.compareTo(expTime2);
         }
     };
-    private final Queue<Session> queue = new PriorityQueue<Session>(1, SESSIONS_COMPARATOR);
+    private final Queue<Session> queue = new PriorityQueue<>(1, SESSIONS_COMPARATOR);
     private final ReentrantLock lock = new ReentrantLock();
     private final Condition available = lock.newCondition();
     private boolean active = true;
@@ -84,7 +85,7 @@ public final class SessionQueue {
                     } else {
                         Session x = queue.poll();
                         assert x != null;
-                        if (queue.size() != 0) {
+                        if (!queue.isEmpty()) {
                             available.signalAll(); // wake up other takers
                         }
                         return x;

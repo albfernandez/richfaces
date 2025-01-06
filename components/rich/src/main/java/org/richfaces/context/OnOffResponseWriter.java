@@ -21,13 +21,15 @@
  */
 package org.richfaces.context;
 
-import jakarta.faces.context.ResponseWriter;
-import jakarta.faces.context.ResponseWriterWrapper;
 import java.io.IOException;
 import java.io.Writer;
 
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.context.ResponseWriterWrapper;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class OnOffResponseWriter extends ResponseWriterWrapper {
     private static final Writer NO_OP_WRITER = new Writer() {
@@ -40,25 +42,25 @@ public class OnOffResponseWriter extends ResponseWriterWrapper {
             // do nothing
         }
 
-
+        ;
 
         public void write(int c) throws IOException {
             // do nothing
         }
 
-
+        ;
 
         public void write(String str) throws IOException {
             // do nothing
         }
 
-
+        ;
 
         public void write(String str, int off, int len) throws IOException {
             // do nothing
         }
 
-
+        ;
 
         @Override
         public void flush() throws IOException {
@@ -92,11 +94,11 @@ public class OnOffResponseWriter extends ResponseWriterWrapper {
         }
     }
 
-    public boolean isSwitchedOn() {
-        return switchedOn;
-    }
-
     public void setSwitchedOn(boolean newState) {
         switchedOn = newState;
+    }
+
+    public boolean isSwitchedOn() {
+        return switchedOn;
     }
 }

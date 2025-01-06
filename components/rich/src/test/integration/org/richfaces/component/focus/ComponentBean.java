@@ -56,10 +56,6 @@ public class ComponentBean {
         return (T) component;
     }
 
-    public void setComponent(AbstractFocus component) {
-        this.component = component;
-    }
-
     public String getCreateGlobalMessageAndCheckFocusResult() {
         return createGlobalMessageAndCheckFocusResult;
     }
@@ -97,7 +93,7 @@ public class ComponentBean {
         }
 
         // invalidate first two inputs
-        for (String invalidate : new String[]{"form:input1", "form:input2"}) {
+        for (String invalidate : new String[] { "form:input1", "form:input2" }) {
             facesContext.addMessage(invalidate, new FacesMessage("invalidated " + invalidate));
         }
 
@@ -114,6 +110,10 @@ public class ComponentBean {
             return;
         }
         invalidateBothInputsAndCheckFocusResult = PASSED;
+    }
+
+    public void setComponent(AbstractFocus component) {
+        this.component = component;
     }
 
     public void setFocusToSecondInput(ComponentSystemEvent event) {

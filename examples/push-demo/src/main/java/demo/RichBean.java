@@ -22,12 +22,13 @@
 
 package demo;
 
+import java.util.Date;
+
+import javax.faces.bean.ManagedBean;
+
 import org.richfaces.application.push.MessageException;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
-
-import jakarta.faces.bean.ManagedBean;
-import java.util.Date;
 
 
 @ManagedBean

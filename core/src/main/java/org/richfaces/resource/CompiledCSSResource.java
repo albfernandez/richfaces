@@ -21,8 +21,18 @@
  */
 package org.richfaces.resource;
 
-import com.steadystate.css.parser.CSSOMParser;
-import com.steadystate.css.parser.SACParserCSS3;
+import java.io.ByteArrayInputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.MessageFormat;
+
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
+
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.css.CSSVisitorImpl;
@@ -34,16 +44,8 @@ import org.w3c.css.sac.ErrorHandler;
 import org.w3c.css.sac.InputSource;
 import org.w3c.dom.css.CSSStyleSheet;
 
-import jakarta.faces.application.ProjectStage;
-import jakarta.faces.application.Resource;
-import jakarta.faces.context.FacesContext;
-import java.io.ByteArrayInputStream;
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.MessageFormat;
+import com.steadystate.css.parser.CSSOMParser;
+import com.steadystate.css.parser.SACParserCSS3;
 
 /**
  * @author amarkhel Class, that represented dynamic CSS resource.
@@ -58,11 +60,6 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
         assert sourceResource != null;
 
         this.sourceResource = sourceResource;
-    }
-
-    private static int getSkinHashCode(FacesContext context) {
-        Skin skin = SkinFactory.getInstance(context).getSkin(context);
-        return skin.hashCode(context);
     }
 
     @Override
@@ -142,6 +139,11 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
         return "text/css";
     }
 
+    private static int getSkinHashCode(FacesContext context) {
+        Skin skin = SkinFactory.getInstance(context).getSkin(context);
+        return skin.hashCode(context);
+    }
+
     @Override
     public boolean userAgentNeedsUpdate(FacesContext context) {
         // TODO nick - review
@@ -151,18 +153,6 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
             return true;
         }
         return super.userAgentNeedsUpdate(context);
-    }
-
-    public boolean isTransient() {
-        return false;
-    }
-
-    public void readState(FacesContext context, DataInput dataInput) throws IOException {
-        // do nothing
-    }
-
-    public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
-        dataOutput.writeInt(getSkinHashCode(context));
     }
 
     private static final class ErrorHandlerImpl implements ErrorHandler {
@@ -194,7 +184,7 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
 
         private void logException(CSSParseException e) {
             String formattedMessage = MessageFormat.format("Problem parsing ''{0}'' resource: {1}", getResourceLocator(),
-                    e.getMessage());
+                e.getMessage());
 
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug(formattedMessage, e);
@@ -214,5 +204,17 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
         public void warning(CSSParseException e) throws CSSException {
             logException(e);
         }
+    }
+
+    public boolean isTransient() {
+        return false;
+    }
+
+    public void readState(FacesContext context, DataInput dataInput) throws IOException {
+        // do nothing
+    }
+
+    public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
+        dataOutput.writeInt(getSkinHashCode(context));
     }
 }

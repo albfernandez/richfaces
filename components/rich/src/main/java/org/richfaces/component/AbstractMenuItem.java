@@ -1,10 +1,13 @@
 package org.richfaces.component;
 
+import jakarta.faces.component.UIComponent;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.renderkit.html.MenuItemRendererBase;
 import org.richfaces.component.attribute.AjaxProps;
 import org.richfaces.component.attribute.BypassProps;
 import org.richfaces.component.attribute.CoreProps;
@@ -12,16 +15,13 @@ import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
-import org.richfaces.renderkit.html.MenuItemRendererBase;
-
-import jakarta.faces.component.UIComponent;
 
 /**
  * <p>The &lt;rich:menuItem&gt; component represents a single item in a menu control. The &lt;rich:menuItem&gt;
  * component can be also be used as a seperate component without a parent menu component, such as on a toolbar.</p>
  */
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuItem.COMPONENT_TYPE,
-        facets = {@Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false)},
+        facets = {@Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) },
         renderer = @JsfRenderer(type = MenuItemRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuItem"))
 public abstract class AbstractMenuItem extends AbstractActionComponent implements AjaxProps, BypassProps, CoreProps, DisabledProps, EventsKeyProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuItem";
@@ -75,6 +75,11 @@ public abstract class AbstractMenuItem extends AbstractActionComponent implement
         return cssRoot;
     }
 
+    public enum Facets {
+        icon,
+        iconDisabled
+    }
+
     public UIComponent findMenuComponent() {
         if (parent != null) {
             return parent;
@@ -86,10 +91,5 @@ public abstract class AbstractMenuItem extends AbstractActionComponent implement
 
         parent = c;
         return parent;
-    }
-
-    public enum Facets {
-        icon,
-        iconDisabled
     }
 }

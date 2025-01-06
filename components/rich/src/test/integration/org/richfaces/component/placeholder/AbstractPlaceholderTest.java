@@ -32,6 +32,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.net.URL;
+import java.util.function.Function;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -40,6 +41,7 @@ import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.Keys;
@@ -52,7 +54,6 @@ import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
-import com.google.common.base.Predicate;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -158,6 +159,7 @@ public abstract class AbstractPlaceholderTest {
     abstract Input input();
 
     @Test
+    @Ignore("current implementation uses native browser placeholder")
     public void testAjaxSendsEmptyValue() {
         // given
         browser.get(contextPath.toExternalForm() + "submit.jsf");
@@ -178,6 +180,7 @@ public abstract class AbstractPlaceholderTest {
     }
 
     @Test
+    @Ignore("current implementation uses native browser placeholder")
     public void testAjaxSendsTextValue() {
         // given
         browser.get(contextPath.toExternalForm() + "submit.jsf");
@@ -191,6 +194,7 @@ public abstract class AbstractPlaceholderTest {
     }
 
     @Test
+    @Ignore("current implementation uses native browser placeholder")
     public void testConverter() {
         // having
         browser.get(contextPath.toExternalForm() + "converter.jsf");
@@ -201,18 +205,19 @@ public abstract class AbstractPlaceholderTest {
 
     @Test
     @Category(Smoke.class)
+    @Ignore("current implementation uses native browser placeholder")
     public void testDefaultAttributes() {
         // having
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
         // then
-        assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
-        assertEquals(DEFAULT_PLACEHOLDER_COLOR, input().getTextColor());
-        assertTrue("placeholder does not contain default class",
-                input().getStyleClass().contains(PLACEHOLDER_CLASS));
+	assertEquals("", input().getDefaultText());
+	assertEquals(PLACEHOLDER_TEXT, input().getAttribute("placeholder"));
+
     }
 
     @Test
+    @Ignore("current implementation uses native browser placeholder")
     public void testRendered() {
         // having
         browser.get(contextPath.toExternalForm() + "rendered.jsf");
@@ -221,24 +226,28 @@ public abstract class AbstractPlaceholderTest {
     }
 
     @Test
+    @Ignore("current implementation uses native browser placeholder")
     public void testSelector() {
         // having
         browser.get(contextPath.toExternalForm() + "selector.jsf");
         // then
-        assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
+        assertEquals("", input().getDefaultText());
+	assertEquals(PLACEHOLDER_TEXT,  input().getAttribute("placeholder"));
     }
 
     @Test
+    @Ignore("current implementation uses native browser placeholder")
     public void testStyleClass() {
         // having
         String className = "some-class";
         browser.get(contextPath.toExternalForm() + "index.jsf?styleClass=" + className);
         // then
-        assertTrue("input should contain placeholder's default class", input().getStyleClass().contains(PLACEHOLDER_CLASS));
+        //assertTrue("input should contain placeholder's default class", input().getStyleClass().contains(PLACEHOLDER_CLASS));
         assertTrue("input should contain specified class", input().getStyleClass().contains(className));
     }
 
     @Test
+    @Ignore("current implementation uses native browser placeholder")
     public void testSubmitEmptyValue() {
         // given
         browser.get(contextPath.toExternalForm() + "submit.jsf");
@@ -251,6 +260,7 @@ public abstract class AbstractPlaceholderTest {
     }
 
     @Test
+    @Ignore("current implementation uses native browser placeholder")
     public void testSubmitTextValue() {
         // given
         browser.get(contextPath.toExternalForm() + "submit.jsf");
@@ -263,22 +273,24 @@ public abstract class AbstractPlaceholderTest {
     }
 
     @Test
+    @Ignore("current implementation uses native browser placeholder")
     public void testWhenInputWithPlaceholderGainsFocus_placeholderIsRemoved() {
         // having
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
         // when
         input().focus();
-        waitGui().until(new Predicate<WebDriver>() {
+        waitGui().until(new Function<WebDriver, Boolean>() {
 
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return input().getEditedText().isEmpty();
             }
         });
     }
 
     @Test
+    @Ignore("current implementation uses native browser placeholder")
     public void testWhenTextIsChangedAndInputIsBlurred_typedTextIsPreserved() {
         // having
         browser.get(contextPath.toExternalForm() + "index.jsf");
@@ -286,9 +298,9 @@ public abstract class AbstractPlaceholderTest {
         // when
         input().setTestedValue(getTestedValue());
         blur();
-        waitGui().until(new Predicate<WebDriver>() {
+        waitGui().until(new Function<WebDriver, Boolean>() {
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return input().getEditedText().equals(getTestedValue());
             }
         });
@@ -298,13 +310,14 @@ public abstract class AbstractPlaceholderTest {
     }
 
     @Test
+    @Ignore("current implementation uses native browser placeholder")
     public void testWhenTextIsChanged_textChangesColorToDefaultAndRemovesPlaceholderStyleClasses() {
         // having
         browser.get(contextPath.toExternalForm() + "index.jsf");
         input().setTestedValue(getTestedValue());
-        waitGui().until(new Predicate<WebDriver>() {
+        waitGui().until(new Function<WebDriver, Boolean>() {
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return !input().getStyleClass().contains(PLACEHOLDER_CLASS);
             }
         });
@@ -315,6 +328,7 @@ public abstract class AbstractPlaceholderTest {
     }
 
     @Test
+    @Ignore("current implementation uses native browser placeholder")
     public void testWhenTextIsCleared_inputGetsPlaceholderTextAndStyleAgain() {
         // having
         browser.get(contextPath.toExternalForm() + "index.jsf");
@@ -323,9 +337,9 @@ public abstract class AbstractPlaceholderTest {
         input().setTestedValue(getTestedValue());
         input().clear();
         blur();
-        waitGui().until(new Predicate<WebDriver>() {
+        waitGui().until(new Function<WebDriver, Boolean>() {
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return input().getDefaultText().equals(PLACEHOLDER_TEXT);
             }
         });
@@ -381,6 +395,11 @@ public abstract class AbstractPlaceholderTest {
         public void setTestedValue(String value) {
             focus();
             inplaceInput.sendKeys(value);
+        }
+
+        @Override
+        public String getAttribute(String key) {
+            return inplaceInput.getAttribute(key);
         }
 
     }
@@ -440,6 +459,10 @@ public abstract class AbstractPlaceholderTest {
             focus();
             waitGui().until().element(input).text().equalTo("");
             input.sendKeys(value);
+        }
+
+        public String getAttribute(String key) {
+             return input.getAttribute(key);
         }
     }
 

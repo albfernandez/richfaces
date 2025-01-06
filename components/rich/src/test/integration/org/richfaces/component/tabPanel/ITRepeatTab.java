@@ -52,6 +52,19 @@ public class ITRepeatTab {
         return deployment.getFinalArchive();
     }
 
+    @Test
+    @Category(Smoke.class)
+    public void check_tab_switch() {
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+        tabTestHelper.check_tab_switch(tabPanel, a4jCreateTabButton);
+    }
+
+    @Test
+    public void check_row_removal() throws InterruptedException {
+        browser.get(contextPath.toExternalForm());
+        tabTestHelper.check_row_removal(tabPanel, a4jCreateTabButton);
+    }
+
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.body("<h:form id='myForm'>");
@@ -79,19 +92,6 @@ public class ITRepeatTab {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    @Test
-    @Category(Smoke.class)
-    public void check_tab_switch() {
-        browser.get(contextPath.toExternalForm() + "index.jsf");
-        tabTestHelper.check_tab_switch(tabPanel, a4jCreateTabButton);
-    }
-
-    @Test
-    public void check_row_removal() throws InterruptedException {
-        browser.get(contextPath.toExternalForm());
-        tabTestHelper.check_row_removal(tabPanel, a4jCreateTabButton);
     }
 
 }

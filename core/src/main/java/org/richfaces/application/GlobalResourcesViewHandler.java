@@ -21,8 +21,8 @@
  */
 package org.richfaces.application;
 
-import org.richfaces.application.configuration.ConfigurationService;
-import org.richfaces.el.BaseReadOnlyValueExpression;
+import java.io.ObjectStreamException;
+import java.util.List;
 
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
@@ -33,11 +33,13 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIOutput;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
-import java.io.ObjectStreamException;
-import java.util.List;
+
+import org.richfaces.application.configuration.ConfigurationService;
+import org.richfaces.el.BaseReadOnlyValueExpression;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
     private static final String SKINNING_RESOURCE_ID = "__rf_skinning_resource";
@@ -68,6 +70,64 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
     @Override
     public ViewHandler getWrapped() {
         return viewHandler;
+    }
+
+    private static final class SkinningResourceNameExpression extends BaseReadOnlyValueExpression {
+        public static final ValueExpression INSTANCE = new SkinningResourceNameExpression();
+        private static final long serialVersionUID = 7520575496522682120L;
+
+        private SkinningResourceNameExpression() {
+            super(String.class);
+        }
+
+        @Override
+        public Object getValue(ELContext context) {
+            FacesContext facesContext = getFacesContext(context);
+
+            ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
+
+            boolean controls = configurationService.getBooleanValue(facesContext,
+                CoreConfiguration.Items.standardControlsSkinning);
+            boolean classes = configurationService.getBooleanValue(facesContext,
+                CoreConfiguration.Items.standardControlsSkinningClasses);
+
+            if (controls && classes) {
+                return BOTH_SKINNING;
+            }
+
+            if (classes) {
+                return CLASSES_SKINNING;
+            }
+
+            return CONTROLS_SKINNING;
+        }
+
+        private Object readResolve() throws ObjectStreamException {
+            return INSTANCE;
+        }
+    }
+
+    private static final class SkinningResourceRenderedExpression extends BaseReadOnlyValueExpression {
+        public static final ValueExpression INSTANCE = new SkinningResourceRenderedExpression();
+        private static final long serialVersionUID = -1579256471133808739L;
+
+        private SkinningResourceRenderedExpression() {
+            super(Boolean.TYPE);
+        }
+
+        @Override
+        public Object getValue(ELContext context) {
+            FacesContext facesContext = getFacesContext(context);
+
+            ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
+
+            return configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinning)
+                || configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinningClasses);
+        }
+
+        private Object readResolve() throws ObjectStreamException {
+            return INSTANCE;
+        }
     }
 
     private UIComponent createComponentResource(FacesContext context) {
@@ -126,63 +186,5 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
         UIViewRoot viewRoot = super.createView(context, viewId);
 
         return addSkinningResourcesToViewRoot(context, viewRoot);
-    }
-
-    private static final class SkinningResourceNameExpression extends BaseReadOnlyValueExpression {
-        public static final ValueExpression INSTANCE = new SkinningResourceNameExpression();
-        private static final long serialVersionUID = 7520575496522682120L;
-
-        private SkinningResourceNameExpression() {
-            super(String.class);
-        }
-
-        @Override
-        public Object getValue(ELContext context) {
-            FacesContext facesContext = getFacesContext(context);
-
-            ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
-
-            boolean controls = configurationService.getBooleanValue(facesContext,
-                    CoreConfiguration.Items.standardControlsSkinning);
-            boolean classes = configurationService.getBooleanValue(facesContext,
-                    CoreConfiguration.Items.standardControlsSkinningClasses);
-
-            if (controls && classes) {
-                return BOTH_SKINNING;
-            }
-
-            if (classes) {
-                return CLASSES_SKINNING;
-            }
-
-            return CONTROLS_SKINNING;
-        }
-
-        private Object readResolve() throws ObjectStreamException {
-            return INSTANCE;
-        }
-    }
-
-    private static final class SkinningResourceRenderedExpression extends BaseReadOnlyValueExpression {
-        public static final ValueExpression INSTANCE = new SkinningResourceRenderedExpression();
-        private static final long serialVersionUID = -1579256471133808739L;
-
-        private SkinningResourceRenderedExpression() {
-            super(Boolean.TYPE);
-        }
-
-        @Override
-        public Object getValue(ELContext context) {
-            FacesContext facesContext = getFacesContext(context);
-
-            ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
-
-            return configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinning)
-                    || configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinningClasses);
-        }
-
-        private Object readResolve() throws ObjectStreamException {
-            return INSTANCE;
-        }
     }
 }

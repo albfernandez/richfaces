@@ -38,13 +38,13 @@ mvn clean richfaces-resources:process -Dskins=blueSky -DstaticResourceMappingFil
 <plugin>
     <groupId>org.richfaces.cdk</groupId>
     <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
-    <version>4.5.17.Final</version>
+    <version>4.6.0.ayg</version>
     <configuration>
         <skins>
             <skin>blueSky</skin>
         </skins>
         <excludedFiles>
-            <exclude>^javax.faces</exclude>
+            <exclude>^jakarta.faces</exclude>
             <exclude>^flot</exclude>
             <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
             <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>

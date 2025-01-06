@@ -24,24 +24,27 @@ package org.richfaces.demo.input;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import org.richfaces.demo.model.person.Person;
 
-import javax.annotation.PostConstruct;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.model.SelectItem;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+
+import org.richfaces.demo.model.person.Person;
+
 @ManagedBean
 @ViewScoped
 public class SelectBean implements Serializable {
 
-    private List<SelectItem> values;
+	private static final long serialVersionUID = -8254376540070086906L;
+	private List<SelectItem> values;
     private String value;
 
     private Person person;
@@ -49,7 +52,7 @@ public class SelectBean implements Serializable {
     @PostConstruct
     public void init() {
         values = new ArrayList<SelectItem>();
-        for (String s : new String[]{"a", "b", "c", "d"}) {
+        for (String s : new String[] { "a", "b", "c", "d" }) {
             values.add(new SelectItem(s));
         }
     }
@@ -86,6 +89,10 @@ public class SelectBean implements Serializable {
                     return true;
                 }
                 return input.getName().toLowerCase().startsWith(prefix.toLowerCase());
+            }
+            @Override
+            public boolean test(Person input) {
+                return apply(input);
             }
         });
         return persons;

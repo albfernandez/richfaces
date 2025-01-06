@@ -38,7 +38,7 @@ public class AccordionShowcase {
         firstAccordion = accordion.switchTo("First accordion").getContent(TheFirstAccordion.class);
 
         firstAccordion = accordion.switchTo(ChoicePickerHelper.byIndex().beforeLast(3))
-                .getContent(TheFirstAccordion.class);
+                                  .getContent(TheFirstAccordion.class);
     }
 
     public class TheFirstAccordion {

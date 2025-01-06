@@ -27,6 +27,7 @@ package org.richfaces.validator;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public interface CustomGroup {
 }

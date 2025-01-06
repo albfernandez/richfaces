@@ -20,7 +20,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.component;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
@@ -28,12 +27,11 @@ import org.richfaces.cdk.annotations.Tag;
 /**
  * The &lt;rich:chartPoint&gt; tag defines the value of point. It is supposed to be used
  * inside the &lt;r:series&lt; tag.
- *
  * @author Lukas Macko
  */
 @JsfComponent(tag = @Tag(name = "chartPoint"))
 public abstract class AbstractChartPoint extends
-        javax.faces.component.UIComponentBase implements AxisAttributes {
+        jakarta.faces.component.UIComponentBase implements AxisAttributes {
 
     public static final String COMPONENT_TYPE = "org.richfaces.ui.output.Point";
     public static final String COMPONENT_FAMILY = "org.richfaces.ui.output.ChartFamily";

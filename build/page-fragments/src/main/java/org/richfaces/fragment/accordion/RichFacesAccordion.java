@@ -21,25 +21,28 @@
  */
 package org.richfaces.fragment.accordion;
 
-import com.google.common.base.Predicate;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.switchable.AbstractSwitchableComponent;
 
-import java.util.Collections;
-import java.util.List;
-
 public class RichFacesAccordion extends AbstractSwitchableComponent<RichFacesAccordionItem> implements Accordion {
 
-    private final AdvancedAccordionInteractions advancedInteractions = new AdvancedAccordionInteractions();
     @FindBy(className = "rf-ac-itm-hdr")
     private List<WebElement> accordionHeaders;
+
     @FindBy(className = "rf-ac-itm")
     private List<RichFacesAccordionItem> accordionItems;
+
     @FindByJQuery(".rf-ac-itm-cnt:visible")
     private WebElement visibleContent;
+
+    private final AdvancedAccordionInteractions advancedInteractions = new AdvancedAccordionInteractions();
 
     @Override
     public AdvancedAccordionInteractions advanced() {
@@ -67,10 +70,10 @@ public class RichFacesAccordion extends AbstractSwitchableComponent<RichFacesAcc
         }
 
         @Override
-        protected Predicate<WebDriver> getConditionForContentSwitched(final String textToContain) {
-            return new Predicate<WebDriver>() {
+        protected Function<WebDriver, Boolean> getConditionForContentSwitched(final String textToContain) {
+            return new Function<WebDriver, Boolean>() {
                 @Override
-                public boolean apply(WebDriver input) {
+                public Boolean apply(WebDriver input) {
                     return getActiveItem().advanced().getActiveHeaderElement().getText().contains(textToContain);
                 }
             };

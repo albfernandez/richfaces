@@ -21,16 +21,6 @@
  */
 package org.richfaces.renderkit;
 
-import org.richfaces.component.AbstractSelectComponent;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.component.util.InputUtils;
-import org.richfaces.component.util.SelectUtils;
-
-import jakarta.el.ELException;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import jakarta.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,9 +28,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.el.ELException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.model.SelectItem;
+
+import org.richfaces.component.AbstractSelectComponent;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.component.util.InputUtils;
+import org.richfaces.component.util.SelectUtils;
+
 /**
  * @author abelevich
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ *
  */
 public final class SelectHelper {
     public static final String OPTIONS_SHOWCONTROL = "showControl";
@@ -49,32 +51,32 @@ public final class SelectHelper {
     public static final String OPTIONS_LIST_SELECT_FIRST = "selectFirst";
     public static final String OPTIONS_INPUT_DEFAULT_LABEL = "defaultLabel";
     public static final Map<String, ComponentAttribute> SELECT_LIST_HANDLER_ATTRIBUTES = Collections
-            .unmodifiableMap(ComponentAttribute.createMap(
-                    new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("listclick").setComponentAttributeName(
-                            "onlistclick"),
-                    new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("listdblclick").setComponentAttributeName(
-                            "onlistdblclick"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("listmousedown")
-                            .setComponentAttributeName("onlistmousedown"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("listmouseup").setComponentAttributeName(
-                            "onlistmouseup"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("listmouseover")
-                            .setComponentAttributeName("onlistmouseover"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("listmousemove")
-                            .setComponentAttributeName("onlistmousemove"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("listmouseout").setComponentAttributeName(
-                            "onlistmouseout"),
-                    new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("listkeypress").setComponentAttributeName(
-                            "onlistkeypress"), new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("listkeydown")
-                            .setComponentAttributeName("onlistkeydown"), new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE)
-                            .setEventNames("listkeyup").setComponentAttributeName("onlistkeyup")));
+        .unmodifiableMap(ComponentAttribute.createMap(
+            new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("listclick").setComponentAttributeName(
+                "onlistclick"),
+            new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("listdblclick").setComponentAttributeName(
+                "onlistdblclick"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("listmousedown")
+                .setComponentAttributeName("onlistmousedown"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("listmouseup").setComponentAttributeName(
+                "onlistmouseup"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("listmouseover")
+                .setComponentAttributeName("onlistmouseover"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("listmousemove")
+                .setComponentAttributeName("onlistmousemove"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("listmouseout").setComponentAttributeName(
+                "onlistmouseout"),
+            new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("listkeypress").setComponentAttributeName(
+                "onlistkeypress"), new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("listkeydown")
+                .setComponentAttributeName("onlistkeydown"), new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE)
+                .setEventNames("listkeyup").setComponentAttributeName("onlistkeyup")));
 
     private SelectHelper() {
     }
 
     public static List<ClientSelectItem> getConvertedSelectItems(FacesContext facesContext, UIComponent component) {
         Iterator<SelectItem> selectItems = SelectUtils.getSelectItems(facesContext, component);
-        List<ClientSelectItem> clientSelectItems = new ArrayList<ClientSelectItem>();
+        List<ClientSelectItem> clientSelectItems = new ArrayList<>();
 
         while (selectItems.hasNext()) {
             SelectItem selectItem = selectItems.next();
@@ -84,7 +86,7 @@ public final class SelectHelper {
     }
 
     public static ClientSelectItem generateClientSelectItem(FacesContext facesContext, UIComponent component,
-                                                            SelectItem selectItem, int sortOrder, boolean selected) {
+        SelectItem selectItem, int sortOrder, boolean selected) {
         String convertedStringValue = InputUtils.getConvertedStringValue(facesContext, component, selectItem.getValue());
         String label = selectItem.getLabel();
         ClientSelectItem clientSelectItem = new ClientSelectItem(selectItem, convertedStringValue, label, sortOrder, selected);
@@ -92,7 +94,7 @@ public final class SelectHelper {
     }
 
     public static void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems,
-                                   String itemHtmlElement, String defaultItemCss) throws IOException {
+        String itemHtmlElement, String defaultItemCss) throws IOException {
         AbstractSelectComponent select = (AbstractSelectComponent) component;
         if (clientSelectItems != null && !clientSelectItems.isEmpty()) {
             ResponseWriter writer = facesContext.getResponseWriter();
@@ -106,8 +108,8 @@ public final class SelectHelper {
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, itemClientId, null);
 
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
-                        HtmlUtil.concatClasses(defaultItemCss + (clientSelectItem.getSelectItem().isDisabled() ? "-dis" : ""),
-                                select.getItemClass()), null);
+                    HtmlUtil.concatClasses(defaultItemCss + (clientSelectItem.getSelectItem().isDisabled() ? "-dis" : ""),
+                        select.getItemClass()), null);
 
                 String label = clientSelectItem.getLabel();
                 if (label != null && label.trim().length() > 0) {
@@ -135,7 +137,7 @@ public final class SelectHelper {
 
                     try {
                         compareValue = facesContext.getApplication().getExpressionFactory()
-                                .coerceToType(item.getValue(), value.getClass());
+                            .coerceToType(item.getValue(), value.getClass());
                     } catch (ELException el) {
                         compareValue = item.getValue();
                     }
@@ -151,7 +153,7 @@ public final class SelectHelper {
     }
 
     public static void addSelectCssToOptions(AbstractSelectComponent abstractSelect, Map<String, Object> options,
-                                             String[] defaultCss) {
+        String[] defaultCss) {
         String itemCss = abstractSelect.getItemClass();
         if (itemCss != null && itemCss.trim().length() > 0) {
             options.put(PopupConstants.OPTIONS_ITEM_CLASS, HtmlUtil.concatClasses(defaultCss[0], itemCss));

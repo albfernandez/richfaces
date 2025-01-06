@@ -25,9 +25,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.richfaces</groupId>
+        <groupId>com.github.albfernandez.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>4.5.18.Final</version>
+        <version>10.0.1-SNAPSHOT</version>
         <relativePath>../../</relativePath>
     </parent>
 
@@ -37,17 +37,17 @@
     <description>Maven plugin for packaging resources with web application</description>
 
     <properties>
-        <version.maven-core>3.0.5</version.maven-core>
-        <version.maven-archiver>2.6</version.maven-archiver>
-        <version.maven-file-management>1.2.1</version.maven-file-management>
-        <version.plexus-utils>3.0.21</version.plexus-utils>
-        <version.plexus-velocity>1.1.8</version.plexus-velocity>
+        <version.maven-core>3.8.2</version.maven-core>
+        <version.maven-archiver>3.5.2</version.maven-archiver>
+        <version.maven-file-management>3.0.0</version.maven-file-management>
+        <version.plexus-utils>3.3.0</version.plexus-utils>
+        <version.plexus-velocity>1.3</version.plexus-velocity>
     </properties>
 
     <dependencies>
         <!-- Compile dependencies -->
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces-build-resources</artifactId>
         </dependency>
         <dependency>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.4</version>
+            <version>3.6.0</version>
             <scope>provided</scope><!-- annotations are needed only to build the plugin -->
         </dependency>
         <dependency>
@@ -112,10 +112,23 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.26</version>
+        </dependency>
+        
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-simple</artifactId>
+		    <version>1.7.26</version>
+		</dependency>
+		
+		<!--MZ
         <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-jakartaee-8.0</artifactId>
+            <artifactId>jboss-javaee-6.0</artifactId>
             <type>pom</type>
             <exclusions>
                 <exclusion>
@@ -128,9 +141,27 @@
             <groupId>org.jboss.el</groupId>
             <artifactId>jboss-el</artifactId>
         </dependency>
+        -->
+        
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+        </dependency>
+        <dependency>
+			<groupId>jakarta.el</groupId>
+			<artifactId>jakarta.el-api</artifactId>
+		</dependency>
+		<dependency>
+	    	<groupId>org.glassfish</groupId>
+	    	<artifactId>jakarta.el</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+		</dependency>
 
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces-core</artifactId>
             <version>${version.richfaces}</version>
         </dependency>
@@ -139,7 +170,7 @@
             <groupId>com.yahoo.platform.yui</groupId>
             <artifactId>yuicompressor</artifactId>
         </dependency>
-        
+
         <!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
@@ -148,34 +179,33 @@
         </dependency>
     </dependencies>
 
-<!--    <build>-->
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-plugin-plugin</artifactId>-->
-<!--                <version>3.4</version>-->
-<!--                <configuration>-->
-<!--                    &lt;!&ndash; see http://jira.codehaus.org/browse/MNG-5346 &ndash;&gt;-->
-<!--                    <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>mojo-descriptor</id>-->
-<!--                        <goals>-->
-<!--                            <goal>descriptor</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    &lt;!&ndash; if you want to generate help goal &ndash;&gt;-->
-<!--                    <execution>-->
-<!--                        <id>help-goal</id>-->
-<!--                        <goals>-->
-<!--                            <goal>helpmojo</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
-<!--    </build>-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <configuration>
+                    <!-- see http://jira.codehaus.org/browse/MNG-5346 -->
+                    <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>mojo-descriptor</id>
+                        <goals>
+                            <goal>descriptor</goal>
+                        </goals>
+                    </execution>
+                    <!-- if you want to generate help goal -->
+                    <execution>
+                        <id>help-goal</id>
+                        <goals>
+                            <goal>helpmojo</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <reporting>
         <plugins>
@@ -207,9 +237,7 @@
             <id>it</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <artifactId>maven-checkstyle-plugin</artifactId>
-                    </plugin>
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-invoker-plugin</artifactId>

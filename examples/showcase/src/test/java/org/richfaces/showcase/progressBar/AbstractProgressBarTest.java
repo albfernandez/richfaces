@@ -21,12 +21,12 @@
  *******************************************************************************/
 package org.richfaces.showcase.progressBar;
 
-import org.richfaces.showcase.AbstractWebDriverTest;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import org.richfaces.showcase.AbstractWebDriverTest;
 
 /**
  * @author pmensik
@@ -45,7 +45,7 @@ public class AbstractProgressBarTest extends AbstractWebDriverTest {
     protected void checkTheDeviationInList(int maxDeviation) {
         for (int i = 0; i < numbersOfProcess.size() - 1; i++) {
             assertTrue("The deviation between each step in the progress should not be higher than " + maxDeviation,
-                    (numbersOfProcess.get(i + 1) - numbersOfProcess.get(i)) <= maxDeviation);
+                (numbersOfProcess.get(i + 1) - numbersOfProcess.get(i)) <= maxDeviation);
         }
     }
 }

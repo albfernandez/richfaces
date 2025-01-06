@@ -66,31 +66,6 @@ public class ITFocusSubmissionMethods {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form id='form'>");
-        p.body("    <rich:focus id='focus' preserve='true' />");
-
-        p.body("    <h:inputText id='input1' />");
-        p.body("    <h:inputText id='input2' />");
-
-        p.body("    <h:commandButton id='submit' value='Submit' />");
-
-        p.body("    <h:commandButton id='ajaxJSF' value='Ajax JSF'>");
-        p.body("        <f:ajax render='@form' />");
-        p.body("    </h:commandButton>");
-
-        p.body("    <h:commandButton id='ajaxRF' value='Ajax RF'>");
-        p.body("        <a4j:ajax render='@form' />");
-        p.body("    </h:commandButton>");
-
-        p.body("    <a4j:commandButton id='ajaxCommandButton' render='@form' value='Ajax Command Button' />");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Before
     public void openInitialPage() {
         browser.get(contextPath.toExternalForm());
@@ -140,5 +115,30 @@ public class ITFocusSubmissionMethods {
 
         // then
         waitAjax().until(new ElementIsFocused(input2));
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='form'>");
+        p.body("    <rich:focus id='focus' preserve='true' />");
+
+        p.body("    <h:inputText id='input1' />");
+        p.body("    <h:inputText id='input2' />");
+
+        p.body("    <h:commandButton id='submit' value='Submit' />");
+
+        p.body("    <h:commandButton id='ajaxJSF' value='Ajax JSF'>");
+        p.body("        <f:ajax render='@form' />");
+        p.body("    </h:commandButton>");
+
+        p.body("    <h:commandButton id='ajaxRF' value='Ajax RF'>");
+        p.body("        <a4j:ajax render='@form' />");
+        p.body("    </h:commandButton>");
+
+        p.body("    <a4j:commandButton id='ajaxCommandButton' render='@form' value='Ajax Command Button' />");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

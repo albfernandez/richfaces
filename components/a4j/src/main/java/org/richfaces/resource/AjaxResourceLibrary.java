@@ -21,29 +21,31 @@
  */
 package org.richfaces.resource;
 
-import com.google.common.collect.ImmutableList;
-import org.richfaces.application.CommonComponentsConfiguration;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
 import jakarta.faces.context.FacesContext;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import org.richfaces.application.CommonComponentsConfiguration;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * deprecated in RF-13314
  *
  * @author Nick Belaevski
+ *
  */
 @Deprecated
 public class AjaxResourceLibrary implements ResourceLibrary {
 
     private static final ImmutableList<ResourceKey> AJAX_ONLY_KEYS = ImmutableList.of(
-            ResourceKey.create("jsf.js", "javax.faces"),
-            ResourceKey.create("jquery.js", "org.richfaces"),
-            ResourceKey.create("richfaces.js", "org.richfaces"));
+        ResourceKey.create("jsf.js", "javax.faces"),
+        ResourceKey.create("jquery.js", "org.richfaces"),
+        ResourceKey.create("richfaces.js", "org.richfaces"));
 
     private static final ImmutableList<ResourceKey> AJAX_WITH_QUEUE_KEYS = ImmutableList.<ResourceKey>builder()
-            .addAll(AJAX_ONLY_KEYS)
-            .add(ResourceKey.create("richfaces-queue.js", "org.richfaces")).build();
+        .addAll(AJAX_ONLY_KEYS)
+        .add(ResourceKey.create("richfaces-queue.js", "org.richfaces")).build();
 
     public Iterable<ResourceKey> getResources() {
         // TODO - initialize at creation.

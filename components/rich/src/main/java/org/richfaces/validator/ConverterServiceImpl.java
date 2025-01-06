@@ -46,6 +46,7 @@ import jakarta.faces.convert.ShortConverter;
 
 /**
  * @author asmirnov
+ *
  */
 public class ConverterServiceImpl extends FacesServiceBase<Converter> implements FacesConverterService {
     private static final String DEFAULT_CONVERTER_MESSAGE_ID = UIInput.CONVERSION_MESSAGE_ID;
@@ -53,11 +54,11 @@ public class ConverterServiceImpl extends FacesServiceBase<Converter> implements
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.validator.FacesConverterService#getConverterDescription(javax.faces.context.FacesContext,
-     * javax.faces.convert.Converter)
+     * @see org.richfaces.validator.FacesConverterService#getConverterDescription(jakarta.faces.context.FacesContext,
+     * jakarta.faces.convert.Converter)
      */
     public ConverterDescriptor getConverterDescription(FacesContext context, EditableValueHolder input, Converter converter,
-                                                       String converterMessage) {
+        String converterMessage) {
         // determine converter message.
         FacesMessage message = getMessage(context, converter, input, converterMessage);
         ConverterDescriptorImpl descriptor = new ConverterDescriptorImpl(converter.getClass(), message);

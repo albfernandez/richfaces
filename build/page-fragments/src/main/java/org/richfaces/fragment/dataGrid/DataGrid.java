@@ -34,14 +34,14 @@ import java.util.List;
  * record </p>
  *
  * <p>Note 1: Grid does not take into account <b>pagination</b>. Thus one has to
- * switch to a different page manually in order to access all records.
- * All indexes used by methods are relative to one page.</p>
+ *  switch to a different page manually in order to access all records.
+ *  All indexes used by methods are relative to one page.</p>
  *
  * <p>Note 2: that one can use <tt>org.richfaces.fragment.common.NullFragment</tt>
  * as a Null Object pattern for RECORD generic type.</p>
  *
- * @param <RECORD> the smallest data unit of this data grid
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
+ * @param <RECORD> the smallest data unit of this data grid
  */
 public interface DataGrid<RECORD> {
 
@@ -49,7 +49,7 @@ public interface DataGrid<RECORD> {
      * Returns all RECORDs in a particular row.
      *
      * @param rowIndex zero based index of the row, from which all records will be returned
-     * @return
+     * @return all RECORDs in a particular row.
      */
     List<RECORD> getRecordsInRow(int rowIndex);
 
@@ -64,28 +64,28 @@ public interface DataGrid<RECORD> {
      * Return a particular record from actual page.
      *
      * @param n zero based index of the record to be returned
-     * @return
+     * @return particular record from actual page.
      */
     RECORD getRecord(int n);
 
     /**
      * Returns number of the rows in this data grid.
      *
-     * @return
+     * @return  number of the rows in this data grid.
      */
     int getNumberOfRows();
 
     /**
      * Returns number of the columns in this data grid.
      *
-     * @return
+     * @return  number of the columns in this data grid.
      */
     int getNumberOfColumns();
 
     /**
      * Returns number of records on the current page.
      *
-     * @return
+     * @return number of records on the current page.
      */
     int getNumberOfRecords();
 }

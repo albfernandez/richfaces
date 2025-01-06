@@ -1,37 +1,32 @@
 <?xml version="1.0"?>
 <!DOCTYPE module PUBLIC
-        "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
-        "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 
 <module name="Checker">
-    <property name="cacheFile" value="${checkstyle.cache.file}"/>
-
-<!--    <module name="FileTabCharacter">-->
-<!--        <property name="eachLine" value="true"/>-->
-<!--    </module>-->
-
-    <module name="SuppressionFilter">
-        <property name="file" value="build/build-resources/src/main/resources/richfaces-checkstyle/file-suppressions.xml"/>
-        <property name="optional" value="false"/>
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
     </module>
 
-    <!--    <module name="RegexpSingleline">-->
-    <!--        &lt;!&ndash; \s matches whitespace character, $ matches end of line. &ndash;&gt;-->
-    <!--        <property name="format" value="\s+$"/>-->
-    <!--        <property name="message" value="Line has trailing spaces."/>-->
-    <!--    </module>-->
+    <module name="RegexpSingleline">
+        <!-- \s matches whitespace character, $ matches end of line. -->
+        <property name="format" value="\s+$"/>
+        <property name="message" value="Line has trailing spaces."/>
+    </module>
 
     <module name="TreeWalker">
 
+        <property name="cacheFile" value="${checkstyle.cache.file}"/>
+
         <!-- Checks for imports                              -->
-<!--        <module name="AvoidStarImport"/>-->
+        <module name="AvoidStarImport"/>
         <module name="RedundantImport"/>
         <!-- Disabled until checkstyle can recognize imports which are used only by javadoc -->
         <!--<module name="UnusedImports"/>-->
 
         <!-- Modifier Checks                                    -->
         <module name="ModifierOrder"/>
-        <!--        <module name="RedundantModifier"/>-->
+        <module name="RedundantModifier"/>
 
         <!-- Checks for blocks. You know, those {}'s         -->
         <module name="LeftCurly"/>
@@ -42,9 +37,9 @@
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
         <module name="IllegalInstantiation"/>
-        <!--        <module name="RedundantThrows">-->
-        <!--            <property name="allowUnchecked" value="true"/>-->
-        <!--        </module>-->
+        <module name="RedundantThrows">
+            <property name="allowUnchecked" value="true"/>
+        </module>
 
         <!-- Miscellaneous other checks.                   -->
         <module name="UpperEll"/>
@@ -55,3 +50,4 @@
     </module>
 
 </module>
+

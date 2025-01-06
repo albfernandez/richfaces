@@ -37,7 +37,6 @@ public interface LogEntry extends ListItem {
 
     /**
      * Return the level of this log entry.
-     *
      * @see LogEntryLevel
      */
     LogEntryLevel getLevel();

@@ -27,18 +27,23 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 @RunWith(Arquillian.class)
 public class ITAutocompleteTokenizing {
 
-    @FindBy(css = ".rf-au-lst-cord")
-    WebElement suggestionList;
     @Drone
     private WebDriver browser;
+
     @ArquillianResource
     private URL contextPath;
+
     @FindBy(css = "input.rf-au-inp")
     private WebElement autocompleteInput;
+
     @FindBy(css = ".rf-au-itm")
     private List<WebElement> autocompleteItems;
+
     @ArquillianResource
     private Actions actions;
+
+    @FindBy(css = ".rf-au-lst-cord")
+    WebElement suggestionList;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -49,16 +54,6 @@ public class ITAutocompleteTokenizing {
         addIndexPage(deployment);
 
         return deployment.getFinalArchive();
-    }
-
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form id='form'>");
-        p.body("    <rich:autocomplete id='autocomplete' mode='client' autocompleteList='#{autocompleteBean.suggestions}' tokens=',' autofill='#{param.autofill}' />");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
     @Test
@@ -159,5 +154,15 @@ public class ITAutocompleteTokenizing {
 
         autocompleteInput.sendKeys(" ");
         waitGui().until().element(suggestionList).is().not().visible();
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='form'>");
+        p.body("    <rich:autocomplete id='autocomplete' mode='client' autocompleteList='#{autocompleteBean.suggestions}' tokens=',' autofill='#{param.autofill}' />");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

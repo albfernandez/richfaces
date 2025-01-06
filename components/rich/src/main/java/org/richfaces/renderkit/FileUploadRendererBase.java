@@ -21,6 +21,19 @@
  */
 package org.richfaces.renderkit;
 
+import java.io.File;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+
 import org.richfaces.component.AbstractFileUpload;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.exception.FileUploadException;
@@ -30,18 +43,6 @@ import org.richfaces.request.MultipartRequest25;
 import org.richfaces.request.MultipartRequestParser;
 import org.richfaces.request.UploadedFile30;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
-import java.io.File;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * @author Konstantin Mishin
  * @author Nick Belaevski
@@ -50,19 +51,6 @@ import java.util.List;
  * @author Michal Petrov
  */
 public class FileUploadRendererBase extends RendererBase {
-
-    public static long getMaxRequestSize(ServletContext servletContext) {
-        String param = servletContext.getInitParameter("org.richfaces.fileUpload.maxRequestSize");
-        if (param != null) {
-            return Long.parseLong(param);
-        }
-
-        return 0;
-    }
-
-    public static long getMaxRequestSize() {
-        return getMaxRequestSize((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext());
-    }
 
     private boolean isCreateTempFiles(ServletContext servletContext) {
         String param = servletContext.getInitParameter("org.richfaces.fileUpload.createTempFiles");
@@ -90,7 +78,7 @@ public class FileUploadRendererBase extends RendererBase {
 
     private Iterable<UploadedFile> initializeUploadedFiles(ExternalContext context, HttpServletRequest request, String uploadId) {
         try {
-            List<UploadedFile> files = new LinkedList<UploadedFile>();
+            List<UploadedFile> files = new LinkedList<>();
 
             // check if Servlet 3.0+ is being used
             if (request.getParts().size() > 0) {
@@ -107,7 +95,7 @@ public class FileUploadRendererBase extends RendererBase {
                             encoding = "iso-8859-1";
                         }
                         files
-                                .add(new UploadedFile30(part.getName(), new String(filename.getBytes(encoding), "utf-8"), part));
+                            .add(new UploadedFile30(part.getName(), new String(filename.getBytes(encoding), "utf-8"), part));
                     }
                 }
             } else {
@@ -123,6 +111,19 @@ public class FileUploadRendererBase extends RendererBase {
             context.setResponseStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             throw new FileUploadException("couldn't parse request parts", e);
         }
+    }
+
+    public static long getMaxRequestSize(ServletContext servletContext) {
+        String param = servletContext.getInitParameter("org.richfaces.fileUpload.maxRequestSize");
+        if (param != null) {
+            return Long.parseLong(param);
+        }
+
+        return 0;
+    }
+
+    public static long getMaxRequestSize() {
+        return getMaxRequestSize((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext());
     }
 
     @Override
@@ -141,7 +142,7 @@ public class FileUploadRendererBase extends RendererBase {
                     long contentLength = Long.parseLong(httpRequest.getHeader("Content-Length"));
 
                     long maxRequestSize = fileUpload.getMaxFileSize() != 0 ? fileUpload.getMaxFileSize()
-                            : getMaxRequestSize(httpRequest.getServletContext());
+                        : getMaxRequestSize(httpRequest.getServletContext());
 
                     if (maxRequestSize != 0 && contentLength > maxRequestSize) {
                         externalContext.setResponseStatus(HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE);

@@ -28,6 +28,7 @@ import org.richfaces.application.configuration.ConfigurationItemsBundle;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public final class CoreConfiguration {
     public static final String SKIN_PARAM_NAME = "org.richfaces.skin";
@@ -63,11 +64,11 @@ public final class CoreConfiguration {
         resourceMappingLocation,
         @ConfigurationItem(names = "org.richfaces.resourceMapping.mappingFile")
         resourceMappingFile,
-        @ConfigurationItem(defaultValue = "false", names = {"org.richfaces.resourceOptimization.enabled", "org.richfaces.resourceMapping.enabled"}, literal = true)
+        @ConfigurationItem(defaultValue = "false", names = { "org.richfaces.resourceOptimization.enabled", "org.richfaces.resourceMapping.enabled" }, literal = true)
         resourceOptimizationEnabled,
-        @ConfigurationItem(defaultValue = "Production,SystemTest", names = {"org.richfaces.resourceOptimization.compressionStages", "org.richfaces.resourceMapping.compressedStages"}, literal = true)
+        @ConfigurationItem(defaultValue = "Production,SystemTest", names = { "org.richfaces.resourceOptimization.compressionStages", "org.richfaces.resourceMapping.compressedStages" }, literal = true)
         resourceOptimizationCompressionStages,
-        @ConfigurationItem(defaultValue = "All", names = {"org.richfaces.resourceOptimization.packagingStages", "org.richfaces.resourceMapping.packedStages"}, literal = true)
+        @ConfigurationItem(defaultValue = "All", names = { "org.richfaces.resourceOptimization.packagingStages", "org.richfaces.resourceMapping.packedStages" }, literal = true)
         resourceOptimizationPackagingStages,
         @ConfigurationItem(defaultValue = "true", names = "org.richfaces.executeAWTInitializer", literal = true)
         executeAWTInitializer,
@@ -87,13 +88,13 @@ public final class CoreConfiguration {
         pushJMSConnectionPassword,
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionPassword", source = ConfigurationItemSource.webEnvironmentEntry)
         pushJMSConnectionPasswordEnvRef,
-        @ConfigurationItem(defaultValue = "false", names = "org.richfaces.push.initializeOnStartup")
+        @ConfigurationItem(defaultValue = "false", names="org.richfaces.push.initializeOnStartup")
         pushInitializePushContextOnStartup,
         /**
          * The interval of Push session invalidation when inactive (experimental configuration option: RF-12370)
          */
         @Experimental
-        @ConfigurationItem(defaultValue = "300000", names = "org.richfaces.push.session.maxInactiveInterval")
+        @ConfigurationItem(defaultValue = "300000", names="org.richfaces.push.session.maxInactiveInterval")
         pushSessionMaxInactiveInterval,
         /**
          * Whether or not to display the built in sort controls when the sorting attributes are present on a column

@@ -21,13 +21,14 @@
  */
 package org.richfaces.skin;
 
+import java.util.Arrays;
+import java.util.List;
+
+import jakarta.faces.context.FacesContext;
+
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
-
-import jakarta.faces.context.FacesContext;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author nick belaevski

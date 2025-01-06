@@ -21,12 +21,12 @@
  */
 package org.richfaces.fragment.editor.toolbar;
 
+import java.util.List;
+
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.List;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -44,7 +44,7 @@ public class RichFacesEditorToolbar implements EditorToolbar {
 
     @Override
     public int numberOfToolbarItems() {
-        List<WebElement> toolbarItems = browser.findElements(By.className("cke_toolbar"));
+        List<WebElement> toolbarItems= browser.findElements(By.className("cke_toolbar"));
         return toolbarItems.size();
     }
 
@@ -52,8 +52,8 @@ public class RichFacesEditorToolbar implements EditorToolbar {
     public boolean isBasic() {
         if (numberOfToolbarItems() == 1) {
             return true;
-        } else {
-            return false;
+        }else {
+         return false;
         }
     }
 
@@ -61,8 +61,8 @@ public class RichFacesEditorToolbar implements EditorToolbar {
     public boolean isAdvanced() {
         if (numberOfToolbarItems() == 11) {
             return true;
-        } else {
-            return false;
+        }else {
+         return false;
         }
     }
 }

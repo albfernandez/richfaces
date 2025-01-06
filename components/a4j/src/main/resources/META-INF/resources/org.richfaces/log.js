@@ -111,7 +111,7 @@
                 clearBtn = $("<button type='button' name='clear' class='rf-log-element'>Clear</button>", doc).appendTo(console);
             }
 
-            clearBtn.click($.proxy(this.clear, this));
+            clearBtn.on("click", $.proxy(this.clear, this));
 
             var levelSelect = console.children("select.rf-log-element");
             if (levelSelect.length == 0) {
@@ -125,7 +125,7 @@
             }
 
             levelSelect.val(this.getLevel());
-            levelSelect.change($.proxy(this.__setLevelFromSelect, this));
+            levelSelect.on("change", $.proxy(this.__setLevelFromSelect, this));
 
             var consoleEntries = console.children(".rf-log-contents");
             if (consoleEntries.length == 0) {

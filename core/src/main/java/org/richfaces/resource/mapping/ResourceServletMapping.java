@@ -21,17 +21,19 @@
  */
 package org.richfaces.resource.mapping;
 
-import com.google.common.base.Strings;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.resource.ResourceKey;
-import org.richfaces.webapp.ResourceServlet;
-
-import jakarta.faces.application.Resource;
-import jakarta.faces.context.FacesContext;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
+
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.webapp.ResourceServlet;
+
+import com.google.common.base.Strings;
 
 /**
  * Maps resource with given key to RichFaces {@link ResourceServlet}.
@@ -62,38 +64,6 @@ public class ResourceServletMapping implements ResourceMapping {
         this.resourcePath = resourcePath;
     }
 
-    static String getResourcePath(Resource resource) {
-        final StringBuffer buffer = new StringBuffer();
-
-        String ln = Strings.nullToEmpty(resource.getLibraryName());
-        if (!ln.isEmpty()) {
-            buffer.append(ln).append("/");
-        }
-
-        buffer.append(resource.getResourceName());
-
-        try {
-            URI originalRequestPath = new URI("path://" + resource.getRequestPath());
-            String query = originalRequestPath.getQuery();
-            Matcher matcher = LN_PATTERN.matcher(query);
-            if (matcher.matches()) {
-                ln = matcher.group(2);
-                query = matcher.replaceFirst("$1$3");
-                matcher = AMP_CLEANUP_PATTERN.matcher(query);
-                if (matcher.matches()) {
-                    query = matcher.replaceAll("$1$2$3");
-                }
-            }
-            if (!query.isEmpty()) {
-                buffer.append("?").append(query);
-            }
-            return buffer.toString();
-        } catch (URISyntaxException e) {
-            throw new IllegalStateException(String.format("Failed to parse requestPath '%s' for resource '%s': %s",
-                    resource.getRequestPath(), ResourceKey.create(resource), e.getMessage()), e);
-        }
-    }
-
     @Override
     public ResourcePath getResourcePath(FacesContext context) {
         ResourceMappingConfiguration service = ServiceTracker.getService(ResourceMappingConfiguration.class);
@@ -114,6 +84,38 @@ public class ResourceServletMapping implements ResourceMapping {
                 return "RESOURCE_NOT_FOUND";
             }
             return getResourcePath(resource);
+        }
+    }
+
+    static String getResourcePath(Resource resource) {
+        final StringBuilder sb = new StringBuilder();
+
+        String ln = Strings.nullToEmpty(resource.getLibraryName());
+        if (!ln.isEmpty()) {
+            sb.append(ln).append("/");
+        }
+
+        sb.append(resource.getResourceName());
+
+        try {
+            URI originalRequestPath = new URI("path://" + resource.getRequestPath());
+            String query = originalRequestPath.getQuery();
+            Matcher matcher = LN_PATTERN.matcher(query);
+            if (matcher.matches()) {
+                ln = matcher.group(2);
+                query = matcher.replaceFirst("$1$3");
+                matcher = AMP_CLEANUP_PATTERN.matcher(query);
+                if (matcher.matches()) {
+                    query = matcher.replaceAll("$1$2$3");
+                }
+            }
+            if (!query.isEmpty()) {
+                sb.append("?").append(query);
+            }
+            return sb.toString();
+        } catch (URISyntaxException e) {
+            throw new IllegalStateException(String.format("Failed to parse requestPath '%s' for resource '%s': %s",
+                    resource.getRequestPath(), ResourceKey.create(resource), e.getMessage()), e);
         }
     }
 }

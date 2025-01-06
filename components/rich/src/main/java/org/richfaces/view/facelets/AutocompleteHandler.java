@@ -21,8 +21,6 @@
  */
 package org.richfaces.view.facelets;
 
-import org.richfaces.component.attribute.AutocompleteProps;
-
 import jakarta.el.ValueExpression;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.ValueHolder;
@@ -36,6 +34,8 @@ import jakarta.faces.view.facelets.MetaRuleset;
 import jakarta.faces.view.facelets.Metadata;
 import jakarta.faces.view.facelets.MetadataTarget;
 import jakarta.faces.view.facelets.TagAttribute;
+
+import org.richfaces.component.attribute.AutocompleteProps;
 
 /**
  * @author Nick Belaevski
@@ -68,7 +68,7 @@ public class AutocompleteHandler extends ComponentHandler {
                     return new ConverterMetadata(attribute) {
                         public void applyMetadata(FaceletContext ctx, Object instance) {
                             ((ValueHolder) instance).setConverter(this.getConverter(ctx,
-                                    this.getAttr().getValueExpression(ctx, Converter.class)));
+                                this.getAttr().getValueExpression(ctx, Converter.class)));
                         }
                     };
                 }

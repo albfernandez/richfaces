@@ -41,7 +41,7 @@ public interface Hotkey {
      * Invokes the hotkey on a specified element.
      *
      * @param element element on which the hotkey will be invoked. In case the element is null, the actually focused element is
-     *                used, otherwise the <code>body</code> element is used.
+     * used, otherwise the <code>body</code> element is used.
      * @throws IllegalArgumentException if you have not set hotkey correctly
      * @see #setHotkey
      */
@@ -51,7 +51,7 @@ public interface Hotkey {
      * Sets the hotkey which will be invoked
      *
      * @param hotkey key sequence which will be invoked, keys are separated with '+' sign and are in lowercase. For example:
-     *               'alt+x'.
+     * 'alt+x'.
      * @throws IllegalArgumentException if the given <code>hotkey</code> is null, or empty
      */
     void setHotkey(String hotkey);

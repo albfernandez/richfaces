@@ -25,9 +25,21 @@ import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.message.Message;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface NotifyMessage extends Message {
+
+    /**
+     * The position of this notify message on the display.
+     *
+     * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
+     *
+     */
+    enum NotifyMessagePosition {
+
+        BOTTOM_LEFT, BOTTOM_RIGHT, TOP_LEFT, TOP_RIGHT;
+    }
 
     /**
      * Closes this notify message prior it disappears.
@@ -36,16 +48,6 @@ public interface NotifyMessage extends Message {
 
     @Override
     AdvancedNotifyMessageIteractions advanced();
-
-    /**
-     * The position of this notify message on the display.
-     *
-     * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
-     */
-    enum NotifyMessagePosition {
-
-        BOTTOM_LEFT, BOTTOM_RIGHT, TOP_LEFT, TOP_RIGHT;
-    }
 
     public interface AdvancedNotifyMessageIteractions extends AdvancedMessageInteractions {
 

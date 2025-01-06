@@ -21,10 +21,14 @@
  */
 package org.richfaces.resource.optimizer.resource.scan.impl;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Sets;
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Modifier;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.reflections.scanners.Scanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ConfigurationBuilder;
@@ -37,22 +41,20 @@ import org.richfaces.resource.optimizer.resource.scan.impl.reflections.Reflectio
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
 import org.richfaces.resource.optimizer.vfs.VFSType;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Modifier;
-import java.net.URL;
-import java.util.Collection;
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Sets;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class DynamicResourcesScanner implements ResourcesScanner {
     private static final Function<Class<?>, ResourceKey> RESOURCE_LOCATOR_FUNCTION = new Function<Class<?>, ResourceKey>() {
         @Override
         public ResourceKey apply(Class<?> from) {
-            ResourceKey key = ResourceKey.create(from.getName());
-
-            return key;
+            return ResourceKey.create(from.getName());
         }
     };
     private static final Predicate<Class<?>> UNINSTANTIATABLE_CLASSES_PREDICATE = new Predicate<Class<?>>() {
@@ -90,7 +92,10 @@ public class DynamicResourcesScanner implements ResourcesScanner {
         }
 
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder().setUrls(urls);
-        configurationBuilder.setScanners(new SubTypesScanner(), new TypeAnnotationsScanner(), new MarkerResourcesScanner());
+        
+        Scanner[] scanners = {new SubTypesScanner(), new TypeAnnotationsScanner(), new MarkerResourcesScanner()};
+        
+        configurationBuilder.setScanners();
 
         ReflectionsExt refl = new ReflectionsExt(configurationBuilder);
         Collection<Class<?>> allClasses = Sets.newHashSet();
@@ -105,7 +110,7 @@ public class DynamicResourcesScanner implements ResourcesScanner {
     }
 
     private void addAnnotatedClasses(Class<? extends Annotation> annotationClass, ReflectionsExt refl,
-                                     Collection<Class<?>> allClasses) {
+            Collection<Class<?>> allClasses) {
         // TODO - reflections library doesn't handle @Inherited correctly
         for (Class<?> annotatedClass : refl.getTypesAnnotatedWith(annotationClass)) {
             allClasses.add(annotatedClass);

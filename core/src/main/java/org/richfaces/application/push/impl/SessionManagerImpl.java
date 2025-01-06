@@ -21,17 +21,18 @@
  */
 package org.richfaces.application.push.impl;
 
-import com.google.common.collect.MapMaker;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+
 import org.richfaces.application.push.DestroyableSession;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.SessionManager;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
+import com.google.common.collect.MapMaker;
 
 /**
  * @author Nick Belaevski

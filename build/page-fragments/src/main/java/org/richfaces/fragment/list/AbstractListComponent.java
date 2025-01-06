@@ -21,7 +21,9 @@
  */
 package org.richfaces.fragment.list;
 
-import com.google.common.collect.Lists;
+import java.util.Collections;
+import java.util.List;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -32,22 +34,23 @@ import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.common.picker.MultipleChoicePicker;
 
-import java.util.Collections;
-import java.util.List;
+import com.google.common.collect.Lists;
 
 /**
  * Base for ListComponents implementations.
  *
- * @param <T>
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
+ * @param <T>
  */
 public abstract class AbstractListComponent<T extends ListItem> implements ListComponent<T> {
 
-    private final Class<T> listItemClass;
     @Root
     private WebElement root;
+
     @FindByJQuery("> *")
     private List<WebElement> items;
+
+    private final Class<T> listItemClass;
 
     public AbstractListComponent() {
         listItemClass = (Class<T>) TypeResolver.resolveRawArgument(ListComponent.class, getClass());

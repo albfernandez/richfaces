@@ -22,11 +22,12 @@
 
 package org.richfaces.demo.output;
 
-import org.richfaces.event.ItemChangeEvent;
-
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
 import java.util.Date;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+import org.richfaces.event.ItemChangeEvent;
 
 @ManagedBean
 @SessionScoped
@@ -52,6 +53,14 @@ public class ModalPanel {
     private String domElementAttachment;
     private Date date;
 
+    public String getInputTextTest() {
+        return inputTextTest;
+    }
+
+    public void setInputTextTest(String inputTextTest) {
+        this.inputTextTest = inputTextTest;
+    }
+
     public ModalPanel() {
         this.inputTextTest = "text";
         this.minHeight = 100;
@@ -72,14 +81,6 @@ public class ModalPanel {
         this.show = false;
         this.domElementAttachment = "body";
         this.zindex = 123;
-    }
-
-    public String getInputTextTest() {
-        return inputTextTest;
-    }
-
-    public void setInputTextTest(String inputTextTest) {
-        this.inputTextTest = inputTextTest;
     }
 
     public int getZindex() {
@@ -146,6 +147,10 @@ public class ModalPanel {
         this.resizeable = resizeable;
     }
 
+    public void setAutosized(boolean autosized) {
+        this.autosized = autosized;
+    }
+
     public int getWidth() {
         return width;
     }
@@ -156,10 +161,6 @@ public class ModalPanel {
 
     public boolean isAutosized() {
         return autosized;
-    }
-
-    public void setAutosized(boolean autosized) {
-        this.autosized = autosized;
     }
 
     public boolean isKeepVisualState() {

@@ -21,15 +21,15 @@
  */
 package org.richfaces.renderkit.html;
 
-import org.richfaces.renderkit.RendererBase;
-
 import jakarta.faces.application.ResourceDependencies;
 import jakarta.faces.application.ResourceDependency;
+
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -37,6 +37,6 @@ import jakarta.faces.application.ResourceDependency;
         @ResourceDependency(library = "org.richfaces", name = "jquery.pnotify.js", target = "head"),
         @ResourceDependency(library = "org.richfaces", name = "notify.js", target = "head"),
         @ResourceDependency(library = "org.richfaces", name = "notifyStack.js", target = "head"),
-        @ResourceDependency(library = "org.richfaces", name = "notify.ecss", target = "head")})
+        @ResourceDependency(library = "org.richfaces", name = "notify.ecss", target = "head") })
 public class NotifyRendererBase extends RendererBase {
 }

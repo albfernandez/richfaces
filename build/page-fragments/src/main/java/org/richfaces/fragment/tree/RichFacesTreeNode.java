@@ -21,7 +21,9 @@
  */
 package org.richfaces.fragment.tree;
 
-import com.google.common.base.Predicate;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
+
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.wait.FluentWait;
@@ -34,25 +36,29 @@ import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 
-import java.util.concurrent.TimeUnit;
-
 public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
 
-    private final AdvancedNodeInteractionsImpl interactions = new AdvancedNodeInteractionsImpl();
     @FindBy(className = "rf-trn")
     private WebElement infoElement;
+
     @FindBy(css = ".rf-trn > .rf-trn-hnd")
     private WebElement handleElement;
+
     @FindBy(css = ".rf-trn > .rf-trn-hnd-ldn-fct")
     private WebElement handleLoadingElement;
+
     @FindBy(css = ".rf-trn > .rf-trn-cnt")
     private WebElement containerElement;
+
     @FindByJQuery(".rf-trn > .rf-trn-cnt > .rf-trn-ico:visible")
     private WebElement iconElement;
     @FindBy(css = ".rf-trn > .rf-trn-cnt > .rf-trn-lbl")
     private WebElement labelElement;
+
     @Drone
     private WebDriver driver;
+
+    private final AdvancedNodeInteractionsImpl interactions = new AdvancedNodeInteractionsImpl();
 
     @Override
     public AdvancedNodeInteractionsImpl advanced() {
@@ -140,22 +146,22 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
         @Override
         public boolean isCollapsed() {
             return getRootElement().getAttribute("class").contains("rf-tr-nd-colps")
-                    && getHandleElement().getAttribute("class").contains("rf-trn-hnd-colps")
-                    && getIconElement().getAttribute("class").contains("rf-trn-ico-colps");
+                && getHandleElement().getAttribute("class").contains("rf-trn-hnd-colps")
+                && getIconElement().getAttribute("class").contains("rf-trn-ico-colps");
         }
 
         @Override
         public boolean isExpanded() {
             return getRootElement().getAttribute("class").contains("rf-tr-nd-exp")
-                    && getHandleElement().getAttribute("class").contains("rf-trn-hnd-exp")
-                    && getIconElement().getAttribute("class").contains("rf-trn-ico-exp");
+                && getHandleElement().getAttribute("class").contains("rf-trn-hnd-exp")
+                && getIconElement().getAttribute("class").contains("rf-trn-ico-exp");
         }
 
         @Override
         public boolean isLeaf() {
             return getRootElement().getAttribute("class").contains("rf-tr-nd-lf")
-                    && getHandleElement().getAttribute("class").contains("rf-trn-hnd-lf")
-                    && getIconElement().getAttribute("class").contains("rf-trn-ico-lf");
+                && getHandleElement().getAttribute("class").contains("rf-trn-hnd-lf")
+                && getIconElement().getAttribute("class").contains("rf-trn-ico-lf");
         }
 
         @Override
@@ -180,20 +186,20 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
             return _timeoutForNodeToBeExpanded == -1 ? Utils.getWaitAjaxDefaultTimeout(driver) : _timeoutForNodeToBeExpanded;
         }
 
-        public long getTimeoutForNodeToBeCollapsed() {
-            return _timeoutForNodeToBeCollapsed == -1 ? Utils.getWaitAjaxDefaultTimeout(driver) : _timeoutForNodeToBeCollapsed;
-        }
-
         public void setTimeoutForNodeToBeCollapsed(long timeoutInMilliseconds) {
             _timeoutForNodeToBeCollapsed = timeoutInMilliseconds;
         }
 
-        public long getTimeoutForNodeToBeSelected() {
-            return _timeoutForNodeToBeSelected == -1 ? Utils.getWaitAjaxDefaultTimeout(driver) : _timeoutForNodeToBeSelected;
+        public long getTimeoutForNodeToBeCollapsed() {
+            return _timeoutForNodeToBeCollapsed == -1 ? Utils.getWaitAjaxDefaultTimeout(driver) : _timeoutForNodeToBeCollapsed;
         }
 
         public void setTimeoutForNodeToBeSelected(long timeoutInMilliseconds) {
             _timeoutForNodeToBeSelected = timeoutInMilliseconds;
+        }
+
+        public long getTimeoutForNodeToBeSelected() {
+            return _timeoutForNodeToBeSelected == -1 ? Utils.getWaitAjaxDefaultTimeout(driver) : _timeoutForNodeToBeSelected;
         }
 
         @Override
@@ -202,16 +208,16 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isCollapsed();
                         }
                     });
                 }
             }.withMessage("Waiting for node to be collapsed")
-                    .withTimeout(getTimeoutForNodeToBeCollapsed(), TimeUnit.MILLISECONDS);
+                .withTimeout(getTimeoutForNodeToBeCollapsed(), TimeUnit.MILLISECONDS);
         }
 
         @Override
@@ -220,16 +226,16 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isExpanded();
                         }
                     });
                 }
             }.withMessage("Waiting for node to be expanded")
-                    .withTimeout(getTimeoutForNodeToBeExpanded(), TimeUnit.MILLISECONDS);
+                .withTimeout(getTimeoutForNodeToBeExpanded(), TimeUnit.MILLISECONDS);
         }
 
         @Override
@@ -238,10 +244,10 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return !isSelected();
                         }
                     });
@@ -255,16 +261,16 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isSelected();
                         }
                     });
                 }
             }.withMessage("Waiting for node to be selected")
-                    .withTimeout(getTimeoutForNodeToBeSelected(), TimeUnit.MILLISECONDS);
+                .withTimeout(getTimeoutForNodeToBeSelected(), TimeUnit.MILLISECONDS);
         }
     }
 }

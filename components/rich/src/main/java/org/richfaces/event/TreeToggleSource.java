@@ -23,6 +23,7 @@ package org.richfaces.event;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public interface TreeToggleSource {
     void addTreeToggleListener(TreeToggleListener listener);

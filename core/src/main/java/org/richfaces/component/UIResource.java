@@ -32,6 +32,7 @@ import jakarta.faces.render.Renderer;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public class UIResource extends UITransient {
     private final String name;
@@ -106,7 +107,7 @@ public class UIResource extends UITransient {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.component.UIComponent#getFamily()
+     * @see jakarta.faces.component.UIComponent#getFamily()
      */
     @Override
     public String getFamily() {

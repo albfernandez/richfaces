@@ -25,23 +25,24 @@
  */
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.component.UIScripts;
-import org.richfaces.resource.ResourceKey;
+import java.io.IOException;
+import java.util.Collection;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Collection;
+
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.component.UIScripts;
+import org.richfaces.resource.ResourceKey;
 
 /**
  * @author asmirnov
+ *
  */
 public class ScriptsRenderer extends ResourceRenderer {
     public static final String RENDERER_TYPE = "org.richfaces.renderer.ScriptsRenderer";
     private static final String TEXT_JAVASCRIPT = "text/javascript";
-    private static final String SRC = "src";
     private static final String TYPE = "type";
     private static final String SCRIPT = "script";
     private static final ResourceKey JQUERY = ResourceKey.create("jquery.js", "org.richfaces");

@@ -22,13 +22,10 @@
 
 package org.richfaces.photoalbum.manager;
 
-import org.richfaces.photoalbum.model.User;
-import org.richfaces.photoalbum.model.event.ErrorEvent;
-import org.richfaces.photoalbum.model.event.EventType;
-import org.richfaces.photoalbum.social.facebook.FacebookBean;
-import org.richfaces.photoalbum.social.gplus.GooglePlusBean;
-import org.richfaces.photoalbum.util.Constants;
-import org.richfaces.photoalbum.util.Preferred;
+import static org.richfaces.photoalbum.model.event.Events.ADD_ERROR_EVENT;
+
+import java.io.Serializable;
+import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
@@ -36,10 +33,14 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import java.io.Serializable;
-import java.util.List;
 
-import static org.richfaces.photoalbum.model.event.Events.ADD_ERROR_EVENT;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.social.facebook.FacebookBean;
+import org.richfaces.photoalbum.social.gplus.GooglePlusBean;
+import org.richfaces.photoalbum.util.Constants;
+import org.richfaces.photoalbum.util.Preferred;
 
 /**
  * This bean will work as a part of a simple security checking
@@ -58,20 +59,22 @@ public class UserBean implements Serializable {
 
     @Inject
     UserManager um;
+
+    private User user;
+
+    private String username;
+
+    private String fbPhotoUrl;
+
     @Inject
     FacebookBean fbBean;
+
     @Inject
     GooglePlusBean gPlusBean;
+
     @Inject
     @EventType(ADD_ERROR_EVENT)
     Event<ErrorEvent> event;
-    private User user;
-    private String username;
-    private String fbPhotoUrl;
-    private String password;
-    private boolean logged = false;
-    private boolean loggedInFB = false;
-    private boolean loggedInGPlus = false;
 
     public String getUsername() {
         return username;
@@ -89,9 +92,16 @@ public class UserBean implements Serializable {
         this.password = password;
     }
 
+    private String password;
+
+    private boolean logged = false;
+
+    private boolean loggedInFB = false;
+    private boolean loggedInGPlus = false;
+
     public User logIn(String username, String passwordHash) throws Exception {
         user = (User) em.createNamedQuery(Constants.USER_LOGIN_QUERY).setParameter(Constants.USERNAME_PARAMETER, username)
-                .setParameter(Constants.PASSWORD_PARAMETER, passwordHash).getSingleResult();
+            .setParameter(Constants.PASSWORD_PARAMETER, passwordHash).getSingleResult();
         logged = user != null;
 
         return user;
@@ -119,7 +129,7 @@ public class UserBean implements Serializable {
     public User gPlusLogIn(String gPlusId) {
         if (!logged) {
             List<?> users = em.createNamedQuery(Constants.USER_GPLUS_LOGIN_QUERY).setParameter("gPlusId", gPlusId)
-                    .getResultList();
+                .getResultList();
 
             if (users.isEmpty()) {
                 logged = false;

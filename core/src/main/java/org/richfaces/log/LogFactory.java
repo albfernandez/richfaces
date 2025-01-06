@@ -27,9 +27,27 @@ package org.richfaces.log;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public final class LogFactory {
-    private static final Logger DEFAULT_LOGGER = new JavaLogger();
+    private static final Logger DEFAULT_LOGGER;
+    private static final boolean isLog4JAvailable;
+
+    static {
+        boolean available;
+        try {
+            Class.forName("org.apache.log4j.Logger");
+            available = true;
+        } catch (ClassNotFoundException cnfe) {
+            available = false;
+        }
+        isLog4JAvailable = available;
+        if (isLog4JAvailable) {
+            DEFAULT_LOGGER = new Log4jLogger();
+        } else {
+            DEFAULT_LOGGER = new JavaLogger();
+        }
+    }
 
     private LogFactory() {
         // This class is not instantiable.
@@ -40,7 +58,7 @@ public final class LogFactory {
      * This method creates default logger.
      * </p>
      *
-     * @return
+     * @return Logger
      */
     public static Logger getLogger() {
         return DEFAULT_LOGGER;
@@ -51,10 +69,13 @@ public final class LogFactory {
      * This method produces logger instance for given category.
      * </p>
      *
-     * @param category
-     * @return
+     * @param category logger category
+     * @return Logger
      */
     public static Logger getLogger(String category) {
+        if (isLog4JAvailable) {
+            return new Log4jLogger(category);
+        }
         return new JavaLogger(category);
     }
 

@@ -21,6 +21,17 @@
  */
 package org.richfaces.renderkit;
 
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.Map;
+
+import jakarta.faces.FacesException;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.richfaces.component.AbstractList;
@@ -30,42 +41,146 @@ import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.RendererUtils;
 
-import jakarta.faces.FacesException;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.Collections;
-import java.util.Map;
-
 /**
  * @author Nick Belaevski
+ *
  */
 @ResourceDependency(library = "org.richfaces", name = "list.ecss")
 public abstract class ListRendererBase extends RendererBase {
     private static final Map<String, ComponentAttribute> ROW_HANDLER_ATTRIBUTES = Collections
-            .unmodifiableMap(ComponentAttribute.createMap(
-                    new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("rowclick").setComponentAttributeName(
-                            "onrowclick"),
-                    new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("rowdblclick").setComponentAttributeName(
-                            "onrowdblclick"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("rowmousedown")
-                            .setComponentAttributeName("onrowmousedown"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("rowmouseup").setComponentAttributeName(
-                            "onrowmouseup"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("rowmouseover")
-                            .setComponentAttributeName("onrowmouseover"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("rowmousemove")
-                            .setComponentAttributeName("onrowmousemove"),
-                    new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("rowmouseout").setComponentAttributeName(
-                            "onrowmouseout"),
-                    new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("rowkeypress").setComponentAttributeName(
-                            "onrowkeypress"), new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("rowkeydown")
-                            .setComponentAttributeName("onrowkeydown"), new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE)
-                            .setEventNames("rowkeyup").setComponentAttributeName("onrowkeyup")));
+        .unmodifiableMap(ComponentAttribute.createMap(
+            new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("rowclick").setComponentAttributeName(
+                "onrowclick"),
+            new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("rowdblclick").setComponentAttributeName(
+                "onrowdblclick"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("rowmousedown")
+                .setComponentAttributeName("onrowmousedown"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("rowmouseup").setComponentAttributeName(
+                "onrowmouseup"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("rowmouseover")
+                .setComponentAttributeName("onrowmouseover"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("rowmousemove")
+                .setComponentAttributeName("onrowmousemove"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("rowmouseout").setComponentAttributeName(
+                "onrowmouseout"),
+            new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("rowkeypress").setComponentAttributeName(
+                "onrowkeypress"), new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("rowkeydown")
+                .setComponentAttributeName("onrowkeydown"), new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE)
+                .setEventNames("rowkeyup").setComponentAttributeName("onrowkeyup")));
     private RendererUtils rendererUtils = RendererUtils.getInstance();
+
+    /**
+     * @author Nick Belaevski
+     *
+     */
+    private class SimpleItemsEncoder extends ItemsEncoder {
+        private String itemClass;
+
+        public SimpleItemsEncoder(String itemClass) {
+            super();
+            this.itemClass = itemClass;
+        }
+
+        @Override
+        protected void encodeRow(FacesContext context, UISequence sequence, SequenceRendererHelper helper) throws IOException {
+            ResponseWriter writer = context.getResponseWriter();
+
+            writer.startElement(HtmlConstants.LI_ELEMENT, sequence);
+
+            if (rendererUtils.hasExplicitId(sequence)) {
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getContainerClientId(context), null);
+            }
+
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
+                HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), itemClass), null);
+            renderHandlers(context, sequence);
+            rendererUtils.encodeChildren(context, sequence);
+            writer.endElement(HtmlConstants.LI_ELEMENT);
+        }
+
+        public void encodeFakeItem(FacesContext context, UIComponent component) throws IOException {
+            ResponseWriter writer = context.getResponseWriter();
+            writer.startElement(HtmlConstants.LI_ELEMENT, component);
+            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
+            writer.endElement(HtmlConstants.LI_ELEMENT);
+        }
+    }
+
+    /**
+     * @author Nick Belaevski
+     *
+     */
+    private final class DefinitionItemsEncoder extends ItemsEncoder {
+        @Override
+        protected void encodeRow(FacesContext context, UISequence sequence, SequenceRendererHelper helper) throws IOException {
+            ResponseWriter writer = context.getResponseWriter();
+
+            UIComponent termFacet = sequence.getFacet(AbstractList.TERM);
+            if (termFacet != null) {
+                writer.startElement(HtmlConstants.DT_ELEMENT, sequence);
+
+                if (rendererUtils.hasExplicitId(sequence)) {
+                    writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getContainerClientId(context) + ".dt", null);
+                }
+
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
+                    HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-trm"), null);
+                renderHandlers(context, sequence);
+                termFacet.encodeAll(context);
+                writer.endElement(HtmlConstants.DT_ELEMENT);
+            }
+
+            writer.startElement(HtmlConstants.DD_ELEMENT, sequence);
+
+            if (rendererUtils.hasExplicitId(sequence)) {
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getContainerClientId(context), null);
+            }
+
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
+                HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-dfn"), null);
+            renderHandlers(context, sequence);
+            rendererUtils.encodeChildren(context, sequence);
+            writer.endElement(HtmlConstants.DD_ELEMENT);
+        }
+
+        public void encodeFakeItem(FacesContext context, UIComponent component) throws IOException {
+            ResponseWriter writer = context.getResponseWriter();
+            writer.startElement(HtmlConstants.DD_ELEMENT, component);
+            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
+            writer.endElement(HtmlConstants.DD_ELEMENT);
+        }
+    }
+
+    private abstract class ItemsEncoder implements DataVisitor {
+        protected void renderHandlers(FacesContext context, UISequence sequence) throws IOException {
+            RenderKitUtils.renderPassThroughAttributesOptimized(context, sequence, ROW_HANDLER_ATTRIBUTES);
+        }
+
+        protected abstract void encodeRow(FacesContext context, UISequence sequence, SequenceRendererHelper helper)
+            throws IOException;
+
+        public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
+            SequenceRendererHelper helper = (SequenceRendererHelper) argument;
+            UISequence sequence = helper.getSequence();
+            sequence.setRowKey(context, rowKey);
+            if (sequence.isRowAvailable()) {
+                helper.nextRow();
+
+                try {
+                    encodeRow(context, sequence, helper);
+                } catch (IOException e) {
+                    throw new FacesException(e.getMessage(), e);
+                }
+
+                return DataVisitResult.CONTINUE;
+            } else {
+                return DataVisitResult.STOP;
+            }
+        }
+
+        public abstract void encodeFakeItem(FacesContext context, UIComponent component) throws IOException;
+    }
+
     private ItemsEncoder unorderedListItemsEncoder = new SimpleItemsEncoder("rf-ulst-itm");
     private ItemsEncoder orderedListItemsEncoder = new SimpleItemsEncoder("rf-olst-itm");
     private ItemsEncoder definitionItemsEncoder = new DefinitionItemsEncoder();
@@ -102,7 +217,7 @@ public abstract class ListRendererBase extends RendererBase {
         ListType type = ((AbstractList) component).getType();
         if (type == null) {
             String exceptionMessage = MessageFormat.format("Type for rich:list {0} is required!",
-                    RichfacesLogger.getComponentPath(component));
+                RichfacesLogger.getComponentPath(component));
             throw new IllegalArgumentException(exceptionMessage);
         }
 
@@ -154,115 +269,5 @@ public abstract class ListRendererBase extends RendererBase {
     @Override
     public void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         // do nothing
-    }
-
-    /**
-     * @author Nick Belaevski
-     */
-    private class SimpleItemsEncoder extends ItemsEncoder {
-        private String itemClass;
-
-        public SimpleItemsEncoder(String itemClass) {
-            super();
-            this.itemClass = itemClass;
-        }
-
-        @Override
-        protected void encodeRow(FacesContext context, UISequence sequence, SequenceRendererHelper helper) throws IOException {
-            ResponseWriter writer = context.getResponseWriter();
-
-            writer.startElement(HtmlConstants.LI_ELEMENT, sequence);
-
-            if (rendererUtils.hasExplicitId(sequence)) {
-                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getContainerClientId(context), null);
-            }
-
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
-                    HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), itemClass), null);
-            renderHandlers(context, sequence);
-            rendererUtils.encodeChildren(context, sequence);
-            writer.endElement(HtmlConstants.LI_ELEMENT);
-        }
-
-        public void encodeFakeItem(FacesContext context, UIComponent component) throws IOException {
-            ResponseWriter writer = context.getResponseWriter();
-            writer.startElement(HtmlConstants.LI_ELEMENT, component);
-            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
-            writer.endElement(HtmlConstants.LI_ELEMENT);
-        }
-    }
-
-    /**
-     * @author Nick Belaevski
-     */
-    private final class DefinitionItemsEncoder extends ItemsEncoder {
-        @Override
-        protected void encodeRow(FacesContext context, UISequence sequence, SequenceRendererHelper helper) throws IOException {
-            ResponseWriter writer = context.getResponseWriter();
-
-            UIComponent termFacet = sequence.getFacet(AbstractList.TERM);
-            if (termFacet != null) {
-                writer.startElement(HtmlConstants.DT_ELEMENT, sequence);
-
-                if (rendererUtils.hasExplicitId(sequence)) {
-                    writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getContainerClientId(context) + ".dt", null);
-                }
-
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
-                        HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-trm"), null);
-                renderHandlers(context, sequence);
-                termFacet.encodeAll(context);
-                writer.endElement(HtmlConstants.DT_ELEMENT);
-            }
-
-            writer.startElement(HtmlConstants.DD_ELEMENT, sequence);
-
-            if (rendererUtils.hasExplicitId(sequence)) {
-                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getContainerClientId(context), null);
-            }
-
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
-                    HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-dfn"), null);
-            renderHandlers(context, sequence);
-            rendererUtils.encodeChildren(context, sequence);
-            writer.endElement(HtmlConstants.DD_ELEMENT);
-        }
-
-        public void encodeFakeItem(FacesContext context, UIComponent component) throws IOException {
-            ResponseWriter writer = context.getResponseWriter();
-            writer.startElement(HtmlConstants.DD_ELEMENT, component);
-            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
-            writer.endElement(HtmlConstants.DD_ELEMENT);
-        }
-    }
-
-    private abstract class ItemsEncoder implements DataVisitor {
-        protected void renderHandlers(FacesContext context, UISequence sequence) throws IOException {
-            RenderKitUtils.renderPassThroughAttributesOptimized(context, sequence, ROW_HANDLER_ATTRIBUTES);
-        }
-
-        protected abstract void encodeRow(FacesContext context, UISequence sequence, SequenceRendererHelper helper)
-                throws IOException;
-
-        public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
-            SequenceRendererHelper helper = (SequenceRendererHelper) argument;
-            UISequence sequence = helper.getSequence();
-            sequence.setRowKey(context, rowKey);
-            if (sequence.isRowAvailable()) {
-                helper.nextRow();
-
-                try {
-                    encodeRow(context, sequence, helper);
-                } catch (IOException e) {
-                    throw new FacesException(e.getMessage(), e);
-                }
-
-                return DataVisitResult.CONTINUE;
-            } else {
-                return DataVisitResult.STOP;
-            }
-        }
-
-        public abstract void encodeFakeItem(FacesContext context, UIComponent component) throws IOException;
     }
 }

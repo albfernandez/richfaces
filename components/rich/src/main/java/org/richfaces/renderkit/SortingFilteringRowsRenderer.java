@@ -21,11 +21,13 @@
  */
 package org.richfaces.renderkit;
 
-import org.richfaces.component.AbstractColumn;
-import org.richfaces.component.SortOrder;
-import org.richfaces.component.UIDataTableBase;
-import org.richfaces.model.SortMode;
-import org.richfaces.validator.MessageFactory;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
@@ -35,16 +37,16 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
+import org.richfaces.component.AbstractColumn;
+import org.richfaces.component.SortOrder;
+import org.richfaces.component.UIDataTableBase;
+import org.richfaces.model.SortMode;
+import org.richfaces.validator.MessageFactory;
 
 /**
  * @author Anton Belevich
+ *
  */
 public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer {
     private static final String FILTERING_STRING = "rich:filtering";
@@ -76,7 +78,7 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
     protected void decodeFiltering(FacesContext context, UIDataTableBase dataTableBase, String value) {
         String[] values = value.split(SEPARATOR);
         if (Boolean.parseBoolean(values[2])) {
-            for (Iterator<UIComponent> iterator = dataTableBase.columns(); iterator.hasNext(); ) {
+            for (Iterator<UIComponent> iterator = dataTableBase.columns(); iterator.hasNext();) {
                 UIComponent column = iterator.next();
                 if (values[0].equals(column.getId())) {
                     updateAttribute(context, column, FILTER_VALUE_STRING, values[1]);
@@ -90,7 +92,7 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
 
                 updateAttribute(context, child, FILTER_VALUE_STRING, values[1]);
             } catch (FacesException e) {
-                if (child instanceof AbstractColumn && ((AbstractColumn) child).isBuiltInFilterControlsEnabled() && e.getCause() instanceof ELException) {
+                if (child instanceof AbstractColumn && ((AbstractColumn)child).isBuiltInFilterControlsEnabled() && e.getCause() instanceof ELException) {
                     addFilterConverterErrorMessage(context, (AbstractColumn) child, values[1], e);
                 } else {
                     throw e;
@@ -115,7 +117,7 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
     }
 
     protected void decodeSorting(FacesContext context, UIDataTableBase dataTableBase, String value) {
-        Set<Object> sortPriority = new LinkedHashSet<Object>();
+        Set<Object> sortPriority = new LinkedHashSet<>();
 
         String[] values = value.split(SEPARATOR);
         String columnId = values[0];
@@ -123,7 +125,7 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
         boolean isClear = Boolean.parseBoolean(values[2]);
 
         if (isClear || SortMode.single.equals(dataTableBase.getSortMode())) {
-            for (Iterator<UIComponent> iterator = dataTableBase.columns(); iterator.hasNext(); ) {
+            for (Iterator<UIComponent> iterator = dataTableBase.columns(); iterator.hasNext();) {
                 UIComponent column = iterator.next();
                 if (columnId.equals(column.getId())) {
                     updateSortOrder(context, column, sortOrder);
@@ -188,13 +190,13 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, String.format("%1$s-flt-c %1$s-td-%2$s", cssPrefix, column.getId()), null);
                 writer.startElement(HtmlConstants.DIV_ELEM, column);
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, String.format("%1$s-flt-cnt %1$s-c-%2$s", cssPrefix, column.getId()), null);
-                if (column.getAttributes().get("filterField") != null && !"custom".equals(column.getAttributes().get("filterType"))) {
+                if (column.getAttributes().get("filterField") != null &&  ! "custom".equals(column.getAttributes().get("filterType"))) {
                     writer.startElement(HtmlConstants.INPUT_ELEM, column);
                     writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
                     writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
                     String inputClass = String.format("%s-flt-i", cssPrefix);
                     List<FacesMessage> messages = context.getMessageList(column.getClientId());
-                    if (!messages.isEmpty()) {
+                    if (! messages.isEmpty()) {
                         inputClass += String.format(" %s-flt-i-err", cssPrefix);
                         writer.writeAttribute("value", column.getAttributes().get("submittedFilterValue"), null);
                     } else {

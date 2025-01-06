@@ -20,15 +20,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.model;
-
-import org.richfaces.json.JSONArray;
-import org.richfaces.json.JSONObject;
 import org.richfaces.renderkit.ChartRendererBase;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+import org.richfaces.json.JSONArray;
+import org.richfaces.json.JSONObject;
 
 
 /**
@@ -43,7 +41,7 @@ class DateLineStrategy implements ChartStrategy {
 
         // data
         jsdata = new JSONArray();
-        for (Iterator it = model.getData().entrySet().iterator(); it.hasNext(); ) {
+        for (Iterator it = model.getData().entrySet().iterator(); it.hasNext();) {
             JSONArray point = new JSONArray();
             Map.Entry entry = (Map.Entry) it.next();
             point.put(((Date) entry.getKey()).getTime());

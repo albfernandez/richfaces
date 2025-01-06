@@ -21,7 +21,14 @@
  */
 package org.richfaces.demo.iteration;
 
-import com.google.common.collect.Lists;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.List;
+import java.util.Locale;
+
+import javax.swing.tree.TreeNode;
+
 import org.richfaces.model.SwingTreeNodeImpl;
 import org.richfaces.util.FastJoiner;
 import org.xml.sax.Attributes;
@@ -32,12 +39,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import javax.swing.tree.TreeNode;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.List;
-import java.util.Locale;
+import com.google.common.collect.Lists;
 
 /**
  * @author Nick Belaevski

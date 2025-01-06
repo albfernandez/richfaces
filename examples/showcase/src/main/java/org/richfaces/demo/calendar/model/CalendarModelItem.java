@@ -6,20 +6,20 @@ public class CalendarModelItem implements CalendarDataModelItem {
     private boolean enabled;
     private String styleClass;
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
-    public String getStyleClass() {
-        return styleClass;
-    }
-
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public String getStyleClass() {
+        return styleClass;
     }
 
     public Object getData() {

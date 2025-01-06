@@ -32,13 +32,13 @@ public class ITPartialResponseEnding {
 
     @ArquillianResource
     private JavascriptExecutor executor;
-
+    
     @FindBy
     private WebElement inputText;
-
+    
     @FindBy
     private WebElement outputPanel;
-
+    
     @FindBy
     private WebElement btn;
 
@@ -46,11 +46,19 @@ public class ITPartialResponseEnding {
     public static WebArchive deployment() {
         CoreDeployment deployment = new CoreDeployment(ITPartialResponseEnding.class);
         deployment.withA4jComponents();
-
+        
         addIndexPage(deployment);
         deployment.addMavenDependency("org.omnifaces:omnifaces:1.3");
 
         return deployment.getFinalArchive().addClass(SimpleBean.class);
+    }
+    
+    @Test
+    public void should_update_components_after_button_click() {
+        browser.get(contextPath + "index.jsf");
+        inputText.sendKeys("test value");
+        Graphene.guardAjax(btn).click();
+        assertEquals("test value", outputPanel.getText());
     }
 
     private static void addIndexPage(CoreDeployment deployment) {
@@ -60,18 +68,10 @@ public class ITPartialResponseEnding {
         p.form("<a4j:outputPanel id='outputPanel'>");
         p.form("  <h:outputText value='#{simpleBean.test}'/>");
         p.form("</a4j:outputPanel>");
-
+        
         p.form("<a4j:commandButton value='Test' action='#{simpleBean.doAction}'  " +
-                "id='btn' execute='@form' render='outputPanel' />");
-
+        		"id='btn' execute='@form' render='outputPanel' />");
+        
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    @Test
-    public void should_update_components_after_button_click() {
-        browser.get(contextPath + "index.jsf");
-        inputText.sendKeys("test value");
-        Graphene.guardAjax(btn).click();
-        assertEquals("test value", outputPanel.getText());
     }
 }

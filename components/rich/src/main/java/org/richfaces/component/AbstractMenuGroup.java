@@ -1,5 +1,9 @@
 package org.richfaces.component;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.convert.Converter;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -14,17 +18,13 @@ import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.PositionProps;
 import org.richfaces.renderkit.html.MenuGroupRendererBase;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIOutput;
-import jakarta.faces.convert.Converter;
-
 /**
  * <p>The &lt;rich:menuGroup&gt; component represents an expandable sub-menu in a menu control. The
  * &lt;rich:menuGroup&gt; component can contain a number of &lt;rich:menuItem&gt; components, or further nested
  * &lt;rich:menuGroup&gt; components.</p>
  */
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuGroup.COMPONENT_TYPE,
-        facets = {@Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false)},
+        facets = {@Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) },
         renderer = @JsfRenderer(type = MenuGroupRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuGroup"))
 public abstract class AbstractMenuGroup extends UIOutput implements CoreProps, DisabledProps, EventsKeyProps, EventsMouseProps, EventsPopupsProps, I18nProps, PositionProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuGroup";
@@ -60,6 +60,11 @@ public abstract class AbstractMenuGroup extends UIOutput implements CoreProps, D
         return findMenuComponent().getAttributes().get("cssRoot");
     }
 
+    public enum Facets {
+        icon,
+        iconDisabled
+    }
+
     public AbstractMenuContainer findMenuComponent() {
         if (parent != null) {
             return parent;
@@ -71,10 +76,5 @@ public abstract class AbstractMenuGroup extends UIOutput implements CoreProps, D
 
         parent = (AbstractMenuContainer) c;
         return parent;
-    }
-
-    public enum Facets {
-        icon,
-        iconDisabled
     }
 }

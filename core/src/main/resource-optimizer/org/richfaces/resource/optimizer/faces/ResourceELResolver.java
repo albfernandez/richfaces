@@ -21,7 +21,13 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
-import com.google.common.collect.Lists;
+import static org.richfaces.resource.optimizer.strings.Constants.SLASH_JOINER;
+import static org.richfaces.resource.optimizer.strings.Constants.SLASH_SPLITTER;
+
+import java.beans.FeatureDescriptor;
+import java.text.MessageFormat;
+import java.util.Iterator;
+import java.util.List;
 
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
@@ -30,16 +36,12 @@ import jakarta.el.PropertyNotFoundException;
 import jakarta.faces.application.Resource;
 import jakarta.faces.application.ResourceHandler;
 import jakarta.faces.context.FacesContext;
-import java.beans.FeatureDescriptor;
-import java.text.MessageFormat;
-import java.util.Iterator;
-import java.util.List;
 
-import static org.richfaces.resource.optimizer.strings.Constants.SLASH_JOINER;
-import static org.richfaces.resource.optimizer.strings.Constants.SLASH_SPLITTER;
+import com.google.common.collect.Lists;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class ResourceELResolver extends ELResolver {
     private void checkBaseAndProperty(Object base, Object property) {
@@ -135,10 +137,12 @@ public class ResourceELResolver extends ELResolver {
         return true;
     }
 
+    /*MZ
     @Override
     public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
         return null;
     }
+	*/
 
     @Override
     public Class<?> getCommonPropertyType(ELContext context, Object base) {

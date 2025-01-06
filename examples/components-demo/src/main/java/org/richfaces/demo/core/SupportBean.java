@@ -22,10 +22,11 @@
 
 package org.richfaces.demo.core;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-import jakarta.faces.event.AjaxBehaviorEvent;
 import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 
 @SessionScoped
 @ManagedBean(name = "supportBean")

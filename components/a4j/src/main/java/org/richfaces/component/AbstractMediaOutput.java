@@ -20,6 +20,11 @@
  */
 package org.richfaces.component;
 
+import jakarta.el.MethodExpression;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.convert.Converter;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -33,11 +38,6 @@ import org.richfaces.component.attribute.LinkProps;
 import org.richfaces.resource.MediaOutputResource;
 import org.richfaces.view.facelets.html.MediaOutputHandler;
 
-import jakarta.el.MethodExpression;
-import jakarta.faces.application.Resource;
-import jakarta.faces.application.ResourceHandler;
-import jakarta.faces.component.UIOutput;
-import jakarta.faces.convert.Converter;
 import java.util.Date;
 
 /**

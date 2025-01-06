@@ -21,13 +21,15 @@
  */
 package org.richfaces.model.iterators;
 
-import org.richfaces.model.SequenceRowKey;
+import java.util.Iterator;
 
 import jakarta.faces.component.UIComponent;
-import java.util.Iterator;
+
+import org.richfaces.model.SequenceRowKey;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class IterableDataTuplesIterator extends BaseTupleIterator {
     private Iterator<?> iterator;

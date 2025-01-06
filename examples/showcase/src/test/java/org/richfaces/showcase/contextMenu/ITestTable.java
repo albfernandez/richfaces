@@ -21,7 +21,10 @@
  */
 package org.richfaces.showcase.contextMenu;
 
-import category.FailingOnPhantomJS;
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
@@ -33,20 +36,19 @@ import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.showcase.contextMenu.page.TableContextMenuPage;
 
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 public class ITestTable extends AbstractContextMenuTest {
 
-    public static final int NUMBER_OF_LINES_TO_TEST_ON = 3;
-    @Drone
-    protected WebDriver webDriver;
     @Page
     private TableContextMenuPage page;
+
+    @Drone
+    protected WebDriver webDriver;
+
+    public static final int NUMBER_OF_LINES_TO_TEST_ON = 3;
 
     @Test
     public void testContextMenuOnSomeLines() {
@@ -72,7 +74,7 @@ public class ITestTable extends AbstractContextMenuTest {
             String priceFromPopup = page.getPriceFromPopup().getAttribute("value");
 
             assertEquals("The price is different in the table and in the popup invoked from context menu!", priceFromTable,
-                    priceFromPopup);
+                priceFromPopup);
 
             page.closePopup();
             step++;
@@ -80,7 +82,6 @@ public class ITestTable extends AbstractContextMenuTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void testContextMenuRenderedOnTheCorrectPosition() {
         // resize browser window to enforce same conditions on all machines
         // this is a workaround for Jenkins where this test was failing
@@ -89,6 +90,6 @@ public class ITestTable extends AbstractContextMenuTest {
         WebElement elementToTryOn = page.getPrices().get(5);
 
         checkContextMenuRenderedAtCorrectPosition(elementToTryOn, page.getContextMenu(),
-                Event.CONTEXTCLICK, page.getWaitConditionOnSelectingRow(elementToTryOn), false, false);
+            Event.CONTEXTCLICK, page.getWaitConditionOnSelectingRow(elementToTryOn), false, false);
     }
 }

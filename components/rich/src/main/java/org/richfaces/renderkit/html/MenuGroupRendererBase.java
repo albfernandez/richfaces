@@ -1,12 +1,13 @@
 package org.richfaces.renderkit.html;
 
-import org.richfaces.component.AbstractDropDownMenu;
-import org.richfaces.component.AbstractMenuGroup;
-import org.richfaces.renderkit.RendererBase;
+import java.io.IOException;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
-import java.io.IOException;
+
+import org.richfaces.component.AbstractDropDownMenu;
+import org.richfaces.component.AbstractMenuGroup;
+import org.richfaces.renderkit.RendererBase;
 
 public abstract class MenuGroupRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.MenuGroupRenderer";

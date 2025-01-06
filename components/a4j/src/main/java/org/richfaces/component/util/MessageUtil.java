@@ -21,13 +21,14 @@
  */
 package org.richfaces.component.util;
 
-import com.google.common.base.Strings;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 
+import com.google.common.base.Strings;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public final class MessageUtil {
     private MessageUtil() {

@@ -21,18 +21,8 @@
  */
 package org.richfaces.context;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
-import com.google.common.collect.Iterators;
-import org.richfaces.component.AjaxContainer;
-import org.richfaces.component.ComponentIterators;
-import org.richfaces.component.MetaComponentResolver;
-import org.richfaces.context.IdParser.Node;
-import org.richfaces.util.SeparatorChar;
+import static org.richfaces.component.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
 
-import jakarta.faces.component.NamingContainer;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,14 +32,27 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
-import static org.richfaces.component.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+
+import org.richfaces.component.AjaxContainer;
+import org.richfaces.component.ComponentIterators;
+import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.context.IdParser.Node;
+import org.richfaces.util.SeparatorChar;
+
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
+import com.google.common.collect.Iterators;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public final class ComponentIdResolver {
     private static final Joiner EMPTY_STRING_JOINER = Joiner.on("").skipNulls();
-    private static Map<String, String> metaComponentSubstitutions = new HashMap<String, String>();
+    private static Map<String, String> metaComponentSubstitutions = new HashMap<>();
 
     static {
         metaComponentSubstitutions.put(AjaxContainer.META_COMPONENT_ID, AjaxContainer.DEFAULT_RENDER_ID);
@@ -68,8 +71,8 @@ public final class ComponentIdResolver {
 
         this.facesContext = facesContext;
 
-        this.resolvedIds = new HashSet<String>();
-        this.unresolvedIds = new HashSet<String>();
+        this.resolvedIds = new HashSet<>();
+        this.unresolvedIds = new HashSet<>();
         this.rootNode = new ComponentIdResolverNode(null, null);
     }
 
@@ -106,7 +109,7 @@ public final class ComponentIdResolver {
     }
 
     private static String substituteUnresolvedMetaComponentId(FacesContext context, UIComponent component,
-                                                              String metaComponentId) {
+        String metaComponentId) {
         Iterator<MetaComponentResolver> iterator = createResolversChainIterator(component);
 
         while (iterator.hasNext()) {
@@ -164,12 +167,12 @@ public final class ComponentIdResolver {
     }
 
     private Collection<String> computeClientIds(FacesContext context, UIComponent topMatchComponent,
-                                                UIComponent bottomMatchComponent, String id) {
+        UIComponent bottomMatchComponent, String id) {
 
         Node[] nodes = IdParser.parse(id);
         if (!hasFunctionNodes(nodes)) {
             return Collections.singleton(EMPTY_STRING_JOINER.join(bottomMatchComponent.getClientId(facesContext),
-                    getMetaComponentId(id)));
+                getMetaComponentId(id)));
         } else {
             String topMatchClientId = topMatchComponent.getClientId(facesContext);
             Node[] topMatchNodes = IdParser.parse(topMatchClientId);
@@ -219,7 +222,7 @@ public final class ComponentIdResolver {
     public void addId(String id) {
         if (isAbsolute(id)) {
             if (absoluteIds == null) {
-                absoluteIds = new HashSet<String>();
+                absoluteIds = new HashSet<>();
             }
 
             absoluteIds.add(id.substring(1));
@@ -347,7 +350,7 @@ public final class ComponentIdResolver {
                 } else {
                     if (resolvedId != null) {
                         String predefinedMetaComponentId = ContextUtils.INSTANCE.getPredefinedMetaComponentId(
-                                facesContext, bottomMatch, resolvedId);
+                            facesContext, bottomMatch, resolvedId);
 
                         if (predefinedMetaComponentId != null) {
                             resolvedId = predefinedMetaComponentId;
@@ -451,7 +454,7 @@ public final class ComponentIdResolver {
 
     protected boolean findComponentsBelow(UIComponent component) {
         if (componentsStack == null) {
-            componentsStack = new LinkedList<UIComponent>();
+            componentsStack = new LinkedList<>();
         }
 
         componentsStack.addFirst(component);

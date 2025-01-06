@@ -1,14 +1,15 @@
 package org.richfaces.renderkit.html;
 
-import com.google.common.collect.ImmutableSet;
+import java.io.IOException;
+
 import org.richfaces.resource.ResourceKey;
 
-import java.io.IOException;
+import com.google.common.collect.ImmutableSet;
 
 public class AjaxOnlyScript extends ValidatorScriptBase {
 
     public static final Iterable<ResourceKey> AJAX_LIBRARIES = ImmutableSet.of(
-            ResourceKey.create("javax.faces:jsf.js"),
+            ResourceKey.create("jakarta.faces:jsf.js"),
             ResourceKey.create("org.richfaces:jquery.js"),
             ResourceKey.create("org.richfaces:richfaces.js"),
             ResourceKey.create("org.richfaces:richfaces-queue.reslib"),

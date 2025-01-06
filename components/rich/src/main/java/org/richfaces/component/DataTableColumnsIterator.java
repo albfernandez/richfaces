@@ -21,16 +21,18 @@
  */
 package org.richfaces.component;
 
-import com.google.common.collect.AbstractIterator;
+import java.util.Iterator;
 
 import jakarta.faces.component.UIColumn;
 import jakarta.faces.component.UIComponent;
-import java.util.Iterator;
+
+import com.google.common.collect.AbstractIterator;
 
 /**
  * Iterator for all children table columns.
  *
  * @author asmirnov
+ *
  */
 class DataTableColumnsIterator extends AbstractIterator<UIComponent> {
     private Iterator<UIComponent> childrenIterator;

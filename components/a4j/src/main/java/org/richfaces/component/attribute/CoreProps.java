@@ -47,7 +47,7 @@ public interface CoreProps {
     @Attribute(passThrough = false,
             description = @Description(
                     value = "Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the \"class\" attribute on generated markup.",
-                    displayName = "CSS Style Classes"))
+                displayName = "CSS Style Classes"))
     String getStyleClass();
 
     /**

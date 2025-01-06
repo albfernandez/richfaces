@@ -26,6 +26,7 @@ import java.util.Locale;
 
 /**
  * @author Konstantin Mishin
+ *
  */
 public interface ArrangeableState {
     List<FilterField> getFilterFields();

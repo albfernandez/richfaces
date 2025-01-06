@@ -24,10 +24,10 @@ package org.richfaces.fragment.collapsibleSubTable;
 import org.richfaces.fragment.dataTable.DataTable;
 
 /**
+ * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  * @param <HEADER>
  * @param <ROW>
  * @param <FOOTER>
- * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface CollapsibleSubTable<HEADER, ROW, FOOTER> extends DataTable<HEADER, ROW, FOOTER> {
 

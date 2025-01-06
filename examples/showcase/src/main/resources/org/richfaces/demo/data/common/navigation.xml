@@ -314,7 +314,7 @@
                 <id>extendedDataTable</id>
                 <name>rich:extendedDataTable</name>
                 <samples>
-                    <sample new="true">
+                    <sample>
                         <id>simpleTable</id>
                         <name>Basic Usage</name>
                     </sample>
@@ -393,7 +393,7 @@
                         <id>tree</id>
                         <name>Simple tree from XML</name>
                     </sample>
-                    <sample new="true">
+                    <sample>
                         <id>defaultNode</id>
                         <name>Default treeNode</name>
                     </sample>

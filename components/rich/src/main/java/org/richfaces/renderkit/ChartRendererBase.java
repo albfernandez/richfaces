@@ -21,6 +21,27 @@
  */
 package org.richfaces.renderkit;
 
+import static java.util.Arrays.asList;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import static org.richfaces.renderkit.RenderKitUtils.attributes;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import jakarta.el.MethodExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+
 import org.richfaces.component.AbstractChart;
 import org.richfaces.component.AbstractChartLegend;
 import org.richfaces.component.AbstractChartPoint;
@@ -36,26 +57,6 @@ import org.richfaces.model.NumberChartDataModel;
 import org.richfaces.model.PlotClickEvent;
 import org.richfaces.model.RawJSONString;
 import org.richfaces.model.StringChartDataModel;
-
-import jakarta.el.MethodExpression;
-import jakarta.faces.FacesException;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitResult;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import static java.util.Arrays.asList;
-import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
-import static org.richfaces.renderkit.RenderKitUtils.attributes;
 
 
 /**
@@ -74,15 +75,11 @@ public abstract class ChartRendererBase extends RendererBase {
 
     /**
      * Method adds key-value pair to object.
-     *
-     * @param obj
-     * @param key
-     * @param value
-     * @return
-     * @throws IOException if put to JSONObject fails
+     * @throws IOException
+     *             if put to JSONObject fails
      */
     public static JSONObject addAttribute(JSONObject obj, String key,
-                                          Object value) throws IOException {
+            Object value) throws IOException {
         try {
             if (value != null && !value.equals("")) {
                 obj.put(key, value);
@@ -95,11 +92,6 @@ public abstract class ChartRendererBase extends RendererBase {
 
     /**
      * Method creates JSON containing chart options
-     *
-     * @param context
-     * @param component
-     * @return
-     * @throws IOException
      */
     public JSONObject getOpts(FacesContext context, UIComponent component)
             throws IOException {
@@ -185,10 +177,6 @@ public abstract class ChartRendererBase extends RendererBase {
 
     /**
      * Returns chart chart data
-     *
-     * @param ctx
-     * @param component
-     * @return
      */
     public JSONArray getChartData(FacesContext ctx, UIComponent component) {
         return (JSONArray) component.getAttributes().get("chartData");
@@ -221,18 +209,18 @@ public abstract class ChartRendererBase extends RendererBase {
         }
 
         //set flag whether request to server should be sent
-        boolean anyServerSideListener = chart.getPlotClickListener() != null ? true : false;
-        if (!anyServerSideListener) {
+        boolean anyServerSideListener = chart.getPlotClickListener()!=null?true:false;
+        if(!anyServerSideListener){
             //check if there is particular series listener
             List<MethodExpression> listeners = visitCallback.getParticularSeriesListeners();
             for (MethodExpression methodExpression : listeners) {
-                if (methodExpression != null) {
-                    anyServerSideListener = true;
+                if(methodExpression!=null){
+                    anyServerSideListener=true;
                     break;
                 }
             }
         }
-        component.getAttributes().put("serverSideListener", anyServerSideListener);
+        component.getAttributes().put("serverSideListener",anyServerSideListener);
 
 
         //client-side handlers for particular series
@@ -247,9 +235,6 @@ public abstract class ChartRendererBase extends RendererBase {
     /**
      * Converts class name of data type used in axes to shorter string
      * representation ie. class java.lang.String -> string
-     *
-     * @param c
-     * @return
      */
     public String axisDataTypeToString(Class c) {
         if (c == String.class) {
@@ -264,18 +249,12 @@ public abstract class ChartRendererBase extends RendererBase {
     }
 
     public JSONObject getParticularSeriesHandler(FacesContext context,
-                                                 UIComponent component) {
+            UIComponent component) {
         return (JSONObject) component.getAttributes().get("handlers");
-    }
-
-
+    };
 
     /**
      * Method creates unique identifier for request parameter.
-     *
-     * @param component
-     * @param attribute
-     * @return
      */
     public String getFieldId(UIComponent component, String attribute) {
         return component.getClientId() + attribute;
@@ -292,10 +271,10 @@ public abstract class ChartRendererBase extends RendererBase {
         private final JSONArray plotClickHandlers;
         private final JSONArray plothoverHandlers;
         private final List<MethodExpression> particularSeriesListeners;
-        private final RenderKitUtils.ScriptHashVariableWrapper eventWrapper = RenderKitUtils.ScriptHashVariableWrapper.eventHandler;
         private ChartDataModel.ChartType chartType;
         private Class keyType;
         private Class valType;
+        private final RenderKitUtils.ScriptHashVariableWrapper eventWrapper = RenderKitUtils.ScriptHashVariableWrapper.eventHandler;
         private boolean nodata;
 
         public VisitChart(AbstractChart ch) {
@@ -306,7 +285,7 @@ public abstract class ChartRendererBase extends RendererBase {
             this.particularSeriesHandlers = new JSONObject();
             this.plotClickHandlers = new JSONArray();
             this.plothoverHandlers = new JSONArray();
-            this.particularSeriesListeners = new LinkedList<MethodExpression>();
+            this.particularSeriesListeners = new LinkedList<>();
 
 
             try {
@@ -320,7 +299,7 @@ public abstract class ChartRendererBase extends RendererBase {
         }
 
         private void copyAttr(UIComponent src, UIComponent target,
-                              String prefix, String attr) {
+                String prefix, String attr) {
             Object val = src.getAttributes().get(attr);
             if (val != null) {
                 target.getAttributes().put(prefix + attr, val);
@@ -329,15 +308,10 @@ public abstract class ChartRendererBase extends RendererBase {
 
         /**
          * Copy attributes from source UIComponent to target.
-         *
-         * @param src
-         * @param target
-         * @param prefix
-         * @param attrs
          */
         private void copyAttrs(UIComponent src, UIComponent target,
-                               String prefix, List<String> attrs) {
-            for (Iterator<String> it = attrs.iterator(); it.hasNext(); ) {
+                String prefix, List<String> attrs) {
+            for (Iterator<String> it = attrs.iterator(); it.hasNext();) {
                 String attr = it.next();
                 copyAttr(src, target, prefix, attr);
             }
@@ -355,7 +329,7 @@ public abstract class ChartRendererBase extends RendererBase {
 
 
                 // Collect Series specific handlers
-                Map<String, Object> optMap = new HashMap<String, Object>();
+                Map<String, Object> optMap = new HashMap<>();
                 RenderKitUtils.Attributes seriesEvents = attributes().generic(
                         "onplothover", "onplothover", "plothover").generic(
                         "onplotclick", "onplotclick", "plotclick");
@@ -393,17 +367,17 @@ public abstract class ChartRendererBase extends RendererBase {
                     // if series has no data create empty model
                     if (model == null) {
                         switch (s.getType()) {
-                            case line:
-                                model = new NumberChartDataModel(ChartType.line);
-                                break;
-                            case bar:
-                                model = new NumberChartDataModel(ChartType.bar);
-                                break;
-                            case pie:
-                                model = new StringChartDataModel(ChartType.pie);
-                                break;
-                            default:
-                                break;
+                        case line:
+                            model = new NumberChartDataModel(ChartType.line);
+                            break;
+                        case bar:
+                            model = new NumberChartDataModel(ChartType.bar);
+                            break;
+                        case pie:
+                            model = new StringChartDataModel(ChartType.pie);
+                            break;
+                        default:
+                            break;
                         }
                     } else {
                         nodata = false;
@@ -484,8 +458,8 @@ public abstract class ChartRendererBase extends RendererBase {
      */
     class VisitSeries implements VisitCallback {
 
-        private final ChartDataModel.ChartType type;
         private ChartDataModel model = null;
+        private final ChartDataModel.ChartType type;
 
         public VisitSeries(ChartDataModel.ChartType type) {
             this.type = type;

@@ -22,6 +22,17 @@
 
 package org.ircclient.controller;
 
+import java.io.IOException;
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.util.Date;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
 import org.jibble.pircbot.PircBot;
@@ -31,16 +42,6 @@ import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
-
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.ValueChangeEvent;
-import java.io.IOException;
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.util.Date;
 
 @ManagedBean
 @SessionScoped
@@ -191,16 +192,16 @@ public class ChatBean extends PircBot implements Serializable {
         return SERVER_URL;
     }
 
+    public void setUserName(String userName) {
+        this.setName(userName);
+    }
+
     public String getUserName() {
         if (this.getName().equalsIgnoreCase("PircBot")) {
             return "";
         } else {
             return this.getName();
         }
-    }
-
-    public void setUserName(String userName) {
-        this.setName(userName);
     }
 
     public String getChannelName() {

@@ -21,6 +21,14 @@
  */
 package org.richfaces.renderkit;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.push.PushContext;
@@ -28,15 +36,9 @@ import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.component.AbstractPush;
 import org.richfaces.resource.PushResource;
 
-import jakarta.faces.application.Resource;
-import jakarta.faces.application.ResourceHandler;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author Nick Belaevski
+ *
  */
 public class PushRendererBase extends RendererBase {
     private static final String PUSH_URL_ENCODED_ATTRIBUTE = PushRendererBase.class.getName();
@@ -68,7 +70,7 @@ public class PushRendererBase extends RendererBase {
     protected String getOptionsString(FacesContext context, UIComponent component) {
         AbstractPush push = (AbstractPush) component;
 
-        Map<String, Object> options = new HashMap<String, Object>(2);
+        Map<String, Object> options = new HashMap<>(2);
 
         options.put("address", push.getAddress());
         options.put("dataHandler", push.getOndataavailable());

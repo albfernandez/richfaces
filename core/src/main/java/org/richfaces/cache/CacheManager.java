@@ -21,78 +21,37 @@
  */
 package org.richfaces.cache;
 
-import org.ajax4jsf.resource.util.URLToStreamHelper;
-import org.richfaces.cache.lru.LRUMapCacheFactory;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-
-import jakarta.faces.context.FacesContext;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
+
+import jakarta.faces.context.FacesContext;
+
+import org.ajax4jsf.resource.util.URLToStreamHelper;
+import org.richfaces.cache.lru.LRUMapCacheFactory;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * TODO stop caches on application stop CacheManager is used in J2SE environments for looking up named caches.
  */
 public class CacheManager {
     public static final String CACHE_MANAGER_FACTORY_CLASS = "org.richfaces.cache.CACHE_MANAGER_FACTORY_CLASS";
-    private static final String[] DEFAULT_FACTORIES_CHAIN = {"org.richfaces.cache.JBossCacheCacheFactory",
-            "org.richfaces.cache.EhCacheCacheFactory"};
+    private static final String[] DEFAULT_FACTORIES_CHAIN = { "org.richfaces.cache.JBossCacheCacheFactory",
+            "org.richfaces.cache.EhCacheCacheFactory" };
     private static final String FACTORY_PROPERTY_NAME = "org.richfaces.cache.CacheFactory";
     private static final Logger LOG = RichfacesLogger.CACHE.getLogger();
-    private final Map<String, Cache> caches = new ConcurrentHashMap<String, Cache>(1, 0.75f, 1);
     private CacheFactory cacheFactory;
-
-    private static boolean isEmptyString(String s) {
-        return (s == null) || "".equals(s);
-    }
-
-    private static String searchInJcacheProperties(String factoryId) {
-        try {
-            String configFile = System.getProperty("java.home") + File.separator + "lib" + File.separator + "jcache.properties";
-            File file = new File(configFile);
-
-            if (file.exists()) {
-                InputStream in = new FileInputStream(file);
-
-                try {
-                    Properties props = new Properties();
-
-                    props.load(in);
-
-                    return props.getProperty(factoryId);
-                } finally {
-                    in.close();
-                }
-            }
-        } catch (SecurityException ignore) {
-
-            // TODO Refactoring
-        } catch (IOException ignore) {
-
-            // TODO Refactoring
-        }
-
-        return null;
-    }
-
-    private static String searchInSystemProperty(String factoryId) {
-        try {
-            return System.getProperty(factoryId);
-        } catch (SecurityException ignore) {
-
-            // TODO Refactoring
-        }
-
-        return null;
-    }
+    private final Map<String, Cache> caches = new ConcurrentHashMap<>(1, 0.75f, 1);
 
     public Cache getCache(String cacheName) {
         return caches.get(cacheName);
@@ -124,7 +83,7 @@ public class CacheManager {
 
         if (configuredFactoryName != null) {
             LOG.info(MessageFormat.format("Configured to use [{0}] cache factory", configuredFactoryName));
-            factories = new String[]{configuredFactoryName};
+            factories = new String[] { configuredFactoryName };
         } else {
             factories = DEFAULT_FACTORIES_CHAIN;
         }
@@ -134,7 +93,7 @@ public class CacheManager {
         for (String factoryName : factories) {
             try {
                 Class<?> spiClass = Class.forName(factoryName, true, loader);
-                cacheFactory = CacheFactory.class.cast(spiClass.newInstance());
+                cacheFactory = CacheFactory.class.cast(spiClass.getDeclaredConstructor().newInstance());
                 LOG.info(MessageFormat.format("Selected [{0}]", factoryName));
                 break;
             } catch (LinkageError iae) {
@@ -164,6 +123,10 @@ public class CacheManager {
         }
 
         return cl;
+    }
+
+    private static boolean isEmptyString(String s) {
+        return (s == null) || "".equals(s);
     }
 
     String findFactory(String factoryId, Map<?, ?> env) {
@@ -198,20 +161,48 @@ public class CacheManager {
     }
 
     private String searchInClasspath(String factoryId) {
-        try {
-            ClassLoader cl = findClassLoader();
-            InputStream is = URLToStreamHelper.urlToStreamSafe(cl.getResource("META-INF/services/" + factoryId));
-
+        ClassLoader cl = findClassLoader();
+        try (InputStream is = URLToStreamHelper.urlToStream(cl.getResource("META-INF/services/" + factoryId))) {
             if (is != null) {
-                BufferedReader r = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-
-                try {
+                try (BufferedReader r = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
                     return r.readLine();
-                } finally {
-                    r.close();
                 }
             }
         } catch (IOException ignore) {
+            // TODO Refactoring
+        }
+
+        return null;
+    }
+
+    private static String searchInJcacheProperties(String factoryId) {
+        try {
+            String configFile = System.getProperty("java.home") + File.separator + "lib" + File.separator + "jcache.properties";
+            File file = new File(configFile);
+
+            if (file.exists()) {
+                try (InputStream in = new BufferedInputStream(Files.newInputStream(file.toPath()))) {
+                    Properties props = new Properties();
+                    props.load(in);
+
+                    return props.getProperty(factoryId);
+                }
+            }
+        } catch (SecurityException ignore) {
+
+            // TODO Refactoring
+        } catch (IOException ignore) {
+
+            // TODO Refactoring
+        }
+
+        return null;
+    }
+
+    private static String searchInSystemProperty(String factoryId) {
+        try {
+            return System.getProperty(factoryId);
+        } catch (SecurityException ignore) {
 
             // TODO Refactoring
         }

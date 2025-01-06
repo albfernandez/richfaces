@@ -22,8 +22,9 @@
 
 package org.richfaces.validator;
 
-import jakarta.faces.application.FacesMessage;
 import java.lang.annotation.Annotation;
+
+import jakarta.faces.application.FacesMessage;
 
 public class BeanValidatorDescriptor extends BaseFacesObjectDescriptor<Annotation> implements ValidatorDescriptor {
     public BeanValidatorDescriptor(Class<? extends Annotation> validatorClass, FacesMessage message) {

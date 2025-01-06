@@ -25,6 +25,7 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * @author Konstantin Mishin
+ *
  */
 public interface Arrangeable {
     void arrange(FacesContext context, ArrangeableState state);

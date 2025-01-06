@@ -22,6 +22,26 @@
 
 package org.richfaces.photoalbum.manager;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.MalformedInputException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
 import org.richfaces.photoalbum.model.Album;
@@ -36,30 +56,11 @@ import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.FileHandler;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
 
-import javax.enterprise.context.SessionScoped;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.MalformedInputException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 /**
  * This class takes care of downloading a list of images from given URLs and putting them into a new album
- *
+ * 
  * @author mpetrov
+ * 
  */
 
 @Named
@@ -136,7 +137,7 @@ public class FileDownloadManager implements Serializable {
         } catch (JSONException je) {
             error.fire(new ErrorEvent("Error", "error saving album<br/>" + je.getMessage()));
         }
-
+        
         size = imageUrls.size();
         count = 0;
 
@@ -180,7 +181,7 @@ public class FileDownloadManager implements Serializable {
             event.getRemoteAlbumIds().remove("F" + albumId);
         } else if (event.getRemoteAlbumIds().contains("G" + albumId)) {
             event.getRemoteAlbumIds().remove("G" + albumId);
-        }
+        } 
 
         try {
             eventAction.editEvent(event);
@@ -190,11 +191,11 @@ public class FileDownloadManager implements Serializable {
 
         pBarText = "";
         pBarValue = -1;
-
+        
         UIComponent root = FacesContext.getCurrentInstance().getViewRoot();
         UIComponent component = root.findComponent("overForm");
         FacesContext.getCurrentInstance().addMessage(component.getClientId(FacesContext.getCurrentInstance()),
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Success!", "Album has been successfully imported"));
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Success!", "Album has been successfully imported"));
 
         // reset the view
         shelfEvent.fire(new ShelfEvent(event));
@@ -202,16 +203,11 @@ public class FileDownloadManager implements Serializable {
 
     private void uploadImage(String imageUrl, String imageName, Album album) {
         File file = new File(imageName);
-        int i;
         try {
             URL url = new URL(imageUrl);
             URLConnection con = url.openConnection();
             BufferedInputStream bis = new BufferedInputStream(con.getInputStream());
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file.getName()));
-            while ((i = bis.read()) != -1) {
-                bos.write(i);
-            }
-            bos.flush();
+            Files.copy(bis, file.toPath());            
             bis.close();
         } catch (MalformedInputException malformedInputException) {
             error.fire(new ErrorEvent("Error", "error uploading image<br/>" + malformedInputException.getMessage()));

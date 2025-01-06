@@ -26,7 +26,6 @@ import org.richfaces.skin.Skin;
 import jakarta.faces.context.FacesContext;
 
 /**
- *
  */
 public class ButtonHoverBackgroundImage extends BaseControlBackgroundImage {
     @Override

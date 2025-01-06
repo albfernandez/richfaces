@@ -21,10 +21,10 @@
  */
 package org.richfaces.renderkit.html;
 
-import org.richfaces.cdk.annotations.JsfRenderer;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
 
 /**
  * @author Nick Belaevski Renderer for attachedQueue component

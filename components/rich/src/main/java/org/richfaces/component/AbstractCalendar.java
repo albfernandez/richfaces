@@ -21,6 +21,30 @@
  */
 package org.richfaces.component;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import jakarta.el.ELContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.DateTimeConverter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.FacesEvent;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -44,29 +68,6 @@ import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.utils.CalendarHelper;
 import org.richfaces.view.facelets.CalendarHandler;
 
-import jakarta.el.ELContext;
-import jakarta.el.ValueExpression;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIInput;
-import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitResult;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.DateTimeConverter;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.FacesEvent;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-
 /**
  * <p> The &lt;rich:calendar&gt; component allows the user to enter a date and time through an in-line or pop-up
  * calendar. The pop-up calendar can navigate through months and years, and its look and feel can be highly customized.
@@ -86,27 +87,12 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public static final String DEFAULT_DATE_PATTERN = "MMM d, yyyy";
     Logger log = RichfacesLogger.COMPONENTS.getLogger();
 
-    public static Object getDefaultValueOfDefaultTime(FacesContext facesContext, AbstractCalendar calendarComponent) {
-        if (calendarComponent == null) {
-            return null;
-        }
-
-        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarComponent);
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        return calendar.getTime();
+    protected enum PropertyKeys {
+        locale
     }
 
-    public static Object formatStartDate(Date date) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        AbstractCalendar calendarInstance = (AbstractCalendar) AbstractCalendar.getCurrentComponent(facesContext);
-        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarInstance);
-        calendar.setTime(date);
-        HashMap<String, Object> hashDate = new HashMap<String, Object>();
-        hashDate.put("month", calendar.get(Calendar.MONTH));
-        hashDate.put("year", calendar.get(Calendar.YEAR));
-        return hashDate;
+    public enum Mode {
+        client, ajax
     }
 
     /**
@@ -734,6 +720,18 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         return (CurrentDateChangeListener[]) getFacesListeners(CurrentDateChangeListener.class);
     }
 
+    public static Object getDefaultValueOfDefaultTime(FacesContext facesContext, AbstractCalendar calendarComponent) {
+        if (calendarComponent == null) {
+            return null;
+        }
+
+        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarComponent);
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return calendar.getTime();
+    }
+
     protected Date getDefaultPreloadBegin(Date date) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Calendar calendar = Calendar.getInstance(CalendarHelper.getTimeZoneOrDefault(this),
@@ -842,7 +840,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
             if (calendarDataModel != null) {
                 CalendarDataModelItem[] calendarDataModelItems = calendarDataModel.getData(preloadDateRange);
 
-                HashMap<String, Object> args = new HashMap<String, Object>();
+                HashMap<String, Object> args = new HashMap<>();
 
                 args.put("startDate", formatStartDate(preloadDateRange[0]));
                 args.put("days", deleteEmptyPropeties(calendarDataModelItems));
@@ -852,10 +850,21 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         return null;
     }
 
+    public static Object formatStartDate(Date date) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        AbstractCalendar calendarInstance = (AbstractCalendar) AbstractCalendar.getCurrentComponent(facesContext);
+        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarInstance);
+        calendar.setTime(date);
+        HashMap<String, Object> hashDate = new HashMap<>();
+        hashDate.put("month", calendar.get(Calendar.MONTH));
+        hashDate.put("year", calendar.get(Calendar.YEAR));
+        return hashDate;
+    }
+
     public ArrayList<Object> deleteEmptyPropeties(CalendarDataModelItem[] calendarDataModelItems) {
-        ArrayList<Object> hashItems = new ArrayList<Object>();
+        ArrayList<Object> hashItems = new ArrayList<>();
         for (CalendarDataModelItem item : calendarDataModelItems) {
-            HashMap<String, Object> itemPropertiesMap = new HashMap<String, Object>();
+            HashMap<String, Object> itemPropertiesMap = new HashMap<>();
             if (null != item) {
                 if (!item.isEnabled()) {
                     itemPropertiesMap.put("enabled", item.isEnabled());
@@ -910,7 +919,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
                 throw new IllegalArgumentException();
             }
 
-            List<Date> dates = new ArrayList<Date>();
+            List<Date> dates = new ArrayList<>();
 
             Calendar calendar = Calendar.getInstance(CalendarHelper.getTimeZoneOrDefault(this),
                     CalendarHelper.getAsLocale(facesContext, this, this.getLocale()));
@@ -925,13 +934,5 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
 
             return (Date[]) dates.toArray(new Date[dates.size()]);
         }
-    }
-
-    protected enum PropertyKeys {
-        locale
-    }
-
-    public enum Mode {
-        client, ajax
     }
 }

@@ -25,6 +25,7 @@ package org.richfaces.demo.push;
  * Initializer which manages start of associated MessageProducer.
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
+ *
  */
 public abstract class AbstractMessageProducerInitializer extends AbstractCapabilityInitializer {
 

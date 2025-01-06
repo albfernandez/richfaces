@@ -21,10 +21,10 @@
  */
 package org.richfaces.cache;
 
+import java.util.Date;
+
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-
-import java.util.Date;
 
 /**
  * @author Nick Belaevski
@@ -70,8 +70,6 @@ public class EhCacheCache implements Cache {
             ttl = (int) (expired.getTime() - System.currentTimeMillis()) / 1000;
         }
 
-        Element element = new Element(key, value, 0, ttl);
-
-        cache.putQuiet(element);
+        cache.putQuiet(new Element(key, value, 0, ttl));
     }
 }

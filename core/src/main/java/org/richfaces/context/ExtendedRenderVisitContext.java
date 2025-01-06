@@ -21,7 +21,8 @@
  */
 package org.richfaces.context;
 
-import org.ajax4jsf.component.AjaxOutput;
+import java.util.Collection;
+import java.util.Set;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.visit.VisitCallback;
@@ -30,8 +31,8 @@ import jakarta.faces.component.visit.VisitContextWrapper;
 import jakarta.faces.component.visit.VisitHint;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
-import java.util.Collection;
-import java.util.Set;
+
+import org.ajax4jsf.component.AjaxOutput;
 
 
 /**
@@ -48,30 +49,10 @@ public class ExtendedRenderVisitContext extends BaseExtendedVisitContext {
     private boolean limitRender;
 
     public ExtendedRenderVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
-                                      boolean limitRender) {
+        boolean limitRender) {
         super(visitContextToWrap, facesContext, clientIds, hints, ExtendedVisitContextMode.RENDER);
 
         this.limitRender = limitRender;
-    }
-
-    /**
-     * Determine if the VisitContext is, or wraps, the RenderExtendedVisitContext
-     *
-     * @param visitContext The VisitContext of the component tree visit.
-     */
-    public static boolean isExtendedRenderVisitContext(VisitContext visitContext) {
-        if (visitContext instanceof ExtendedRenderVisitContext) {
-            return true;
-        } else {
-            VisitContext wrapped = visitContext;
-            while (wrapped instanceof VisitContextWrapper) {
-                wrapped = ((VisitContextWrapper) wrapped).getWrapped();
-                if (wrapped instanceof ExtendedRenderVisitContext) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     /**
@@ -86,7 +67,7 @@ public class ExtendedRenderVisitContext extends BaseExtendedVisitContext {
 
     /*
      * (non-Javadoc)
-     * @see org.richfaces.context.BaseExtendedVisitContext#hasImplicitSubtreeIdsToVisit(javax.faces.component.UIComponent)
+     * @see org.richfaces.context.BaseExtendedVisitContext#hasImplicitSubtreeIdsToVisit(jakarta.faces.component.UIComponent)
      */
     @Override
     protected boolean hasImplicitSubtreeIdsToVisit(UIComponent component) {
@@ -95,7 +76,7 @@ public class ExtendedRenderVisitContext extends BaseExtendedVisitContext {
 
     /*
      * (non-Javadoc)
-     * @see org.richfaces.context.BaseExtendedVisitContext#addDirectSubtreeIdsToVisitForImplicitComponents(javax.faces.component.UIComponent, java.util.Set)
+     * @see org.richfaces.context.BaseExtendedVisitContext#addDirectSubtreeIdsToVisitForImplicitComponents(jakarta.faces.component.UIComponent, java.util.Set)
      */
     protected void addDirectSubtreeIdsToVisitForImplicitComponents(UIComponent component, Set<String> result) {
         if (!limitRender) {
@@ -108,7 +89,7 @@ public class ExtendedRenderVisitContext extends BaseExtendedVisitContext {
 
     /*
      * (non-Javadoc)
-     * @see org.richfaces.context.BaseExtendedVisitContext#invokeVisitCallbackForImplicitComponent(javax.faces.component.UIComponent, javax.faces.component.visit.VisitCallback)
+     * @see org.richfaces.context.BaseExtendedVisitContext#invokeVisitCallbackForImplicitComponent(jakarta.faces.component.UIComponent, jakarta.faces.component.visit.VisitCallback)
      */
     @Override
     protected VisitResult invokeVisitCallbackForImplicitComponent(UIComponent component, VisitCallback callback) {
@@ -132,5 +113,24 @@ public class ExtendedRenderVisitContext extends BaseExtendedVisitContext {
     @Override
     protected boolean shouldCompleteOnEmptyIds() {
         return limitRender;
+    }
+
+    /**
+     * Determine if the VisitContext is, or wraps, the RenderExtendedVisitContext
+     * @param visitContext The VisitContext of the component tree visit.
+     */
+    public static boolean isExtendedRenderVisitContext(VisitContext visitContext) {
+        if  (visitContext instanceof ExtendedRenderVisitContext) {
+            return true;
+        } else {
+            VisitContext wrapped = visitContext;
+            while (wrapped instanceof VisitContextWrapper) {
+                wrapped = ((VisitContextWrapper) wrapped).getWrapped();
+                if  (wrapped instanceof ExtendedRenderVisitContext) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

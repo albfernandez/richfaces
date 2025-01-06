@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
+ *
  * @author <a href="mailto:pmensik@redhat.com">Petr Mensik</a>
  */
 public class AttachQueuePage {

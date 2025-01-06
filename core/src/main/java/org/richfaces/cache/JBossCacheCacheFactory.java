@@ -25,6 +25,17 @@
  */
 package org.richfaces.cache;
 
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.text.MessageFormat;
+import java.util.Map;
+
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
+
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.jboss.cache.Cache;
 import org.jboss.cache.DefaultCacheFactory;
@@ -39,16 +50,6 @@ import org.richfaces.application.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import jakarta.faces.FacesException;
-import jakarta.faces.context.FacesContext;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.text.MessageFormat;
-import java.util.Map;
-
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
-
 /**
  * @author Nick Belaevski
  * @since 4.0
@@ -59,13 +60,13 @@ public class JBossCacheCacheFactory implements CacheFactory {
 
     public JBossCacheCacheFactory() {
         super();
-        cacheFactory = new DefaultCacheFactory<String, Object>();
+        cacheFactory = new DefaultCacheFactory<>();
     }
 
     private void setupMaxSizeEviction(FacesContext facesContext, Cache<String, Object> cache) {
         EvictionConfig evictionConfig = cache.getConfiguration().getEvictionConfig();
         EvictionAlgorithmConfig evictionAlgorithmConfig = evictionConfig.getDefaultEvictionRegionConfig()
-                .getEvictionAlgorithmConfig();
+            .getEvictionAlgorithmConfig();
 
         if (evictionAlgorithmConfig instanceof EvictionAlgorithmConfigBase) {
             EvictionAlgorithmConfigBase baseEvicitonConfig = (EvictionAlgorithmConfigBase) evictionAlgorithmConfig;

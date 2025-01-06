@@ -21,19 +21,20 @@
  */
 package org.richfaces.io.io;
 
-import org.ajax4jsf.io.FastBufferInputStream;
-import org.ajax4jsf.io.FastBufferOutputStream;
-import org.ajax4jsf.io.FastBufferReader;
-import org.ajax4jsf.io.FastBufferWriter;
-import org.junit.Ignore;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import org.ajax4jsf.io.FastBufferInputStream;
+import org.ajax4jsf.io.FastBufferOutputStream;
+import org.ajax4jsf.io.FastBufferReader;
+import org.ajax4jsf.io.FastBufferWriter;
+import org.junit.Ignore;
+
 @Ignore
+@SuppressWarnings("unused")
 public final class Test {
     private static final int ARRAY_LENGTH = 27;
     private static final int READ_LENGTH = 22;
@@ -65,7 +66,7 @@ public final class Test {
         }
 
         FastBufferInputStream input = new FastBufferInputStream(output.getFirstBuffer());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         byte[] bs = new byte[ARRAY_LENGTH];
@@ -104,7 +105,7 @@ public final class Test {
         }
 
         ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         byte[] bs = new byte[ARRAY_LENGTH];
@@ -142,7 +143,7 @@ public final class Test {
         }
 
         FastBufferReader input = new FastBufferReader(output.getFirstBuffer());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         char[] bs = new char[ARRAY_LENGTH];
@@ -180,7 +181,7 @@ public final class Test {
         }
 
         StringReader input = new StringReader(output.toString());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         char[] bs = new char[ARRAY_LENGTH];
@@ -219,7 +220,7 @@ public final class Test {
 
         FastBufferOutputStream output2 = output.convertToOutputStream("UTF-8");
         FastBufferInputStream input = new FastBufferInputStream(output2.getFirstBuffer());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         byte[] bs = new byte[ARRAY_LENGTH];
@@ -258,49 +259,10 @@ public final class Test {
 
         String str = output.toString();
         ByteArrayInputStream input = new ByteArrayInputStream(str.getBytes());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // use for reading unconvenient array length.
         byte[] bs = new byte[ARRAY_LENGTH];
-        int l = 0;
-
-        while ((l = input.read(bs, READ_OFF, READ_LENGTH)) >= 0) {
-            if (BUILD_STRING) {
-                sb.append(new String(bs, READ_OFF, l));
-            }
-        }
-
-        if (BUILD_STRING && OUT_STRING) {
-            System.out.println(sb);
-        }
-    }
-
-    static void testTransitionFromStreamToWriter() throws IOException {
-        String s = "This is a senseless text to test transform from stream to writer.\n";
-
-        for (int i = 0; i < 10; i++) {
-            s = s + s; // repeated 16 times
-        }
-
-        byte[] bytes = s.getBytes();
-        FastBufferOutputStream output = new FastBufferOutputStream(16);
-
-        // write it several times.
-        for (int i = 0; i < 4; i++) {
-            output.write(bytes);
-        }
-
-        // write it one more time by one byte
-        for (int i = 0; i < bytes.length; i++) {
-            output.write(bytes[i]);
-        }
-
-        FastBufferWriter output2 = output.convertToWriter("UTF-8");
-        FastBufferReader input = new FastBufferReader(output2.getFirstBuffer());
-        StringBuffer sb = new StringBuffer();
-
-        // use for reading unconvenient array length.
-        char[] bs = new char[ARRAY_LENGTH];
         int l = 0;
 
         while ((l = input.read(bs, READ_OFF, READ_LENGTH)) >= 0) {
@@ -329,8 +291,6 @@ public final class Test {
                 // testStandardReaders();
                 // testTransitionFromWriterToStream();
                 testStandardTransitionFromWriterToStream();
-
-                // testTransitionFromStreamToWriter();
             }
         } catch (Exception e) {
             e.printStackTrace();

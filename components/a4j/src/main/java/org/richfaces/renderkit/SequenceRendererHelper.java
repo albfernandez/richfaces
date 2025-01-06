@@ -26,6 +26,7 @@ import org.richfaces.component.util.HtmlUtil;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class SequenceRendererHelper {
     private UISequence sequence;

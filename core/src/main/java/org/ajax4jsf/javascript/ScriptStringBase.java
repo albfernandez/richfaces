@@ -27,6 +27,7 @@ import java.io.IOException;
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.2 $ $Date: 2007/01/26 10:38:52 $
+ *
  */
 public abstract class ScriptStringBase implements ScriptString {
     public static final String FUNCTION = "function";

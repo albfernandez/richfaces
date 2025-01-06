@@ -21,15 +21,6 @@
  */
 package org.richfaces.resource;
 
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.push.PushContext;
-import org.richfaces.application.push.PushContextFactory;
-import org.richfaces.application.push.Session;
-import org.richfaces.application.push.TopicKey;
-
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
@@ -37,8 +28,19 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.application.push.PushContext;
+import org.richfaces.application.push.PushContextFactory;
+import org.richfaces.application.push.Session;
+import org.richfaces.application.push.TopicKey;
+import org.richfaces.application.ServiceTracker;
+
 /**
  * @author Nick Belaevski
+ *
  */
 @DynamicResource
 public class PushResource extends AbstractUserResource {
@@ -46,7 +48,7 @@ public class PushResource extends AbstractUserResource {
     private static final String FORGET_PUSH_SESSION_ID_PARAM = "forgetPushSessionId";
 
     private Map<String, String> getFailuresMap(Map<TopicKey, String> failedSubscriptions) {
-        Map<String, String> result = new HashMap<String, String>();
+        Map<String, String> result = new HashMap<>();
 
         for (Entry<TopicKey, String> entry : failedSubscriptions.entrySet()) {
             result.put(entry.getKey().getTopicAddress(), entry.getValue());
@@ -85,7 +87,7 @@ public class PushResource extends AbstractUserResource {
 
         session.subscribe(topicNames);
 
-        Map<String, Object> subscriptionData = new HashMap<String, Object>(4);
+        Map<String, Object> subscriptionData = new HashMap<>(4);
         subscriptionData.put("sessionId", session.getId());
 
         Map<TopicKey, String> failedSubscriptions = session.getFailedSubscriptions();

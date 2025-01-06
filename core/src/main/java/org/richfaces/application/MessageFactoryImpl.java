@@ -21,23 +21,30 @@
  */
 package org.richfaces.application;
 
-import com.google.common.base.Strings;
-import org.richfaces.l10n.BundleLoader;
-import org.richfaces.l10n.MessageBundle;
-
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.application.FacesMessage.Severity;
-import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.context.FacesContext;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+
+import org.richfaces.l10n.BundleLoader;
+import org.richfaces.l10n.MessageBundle;
+
+import com.google.common.base.Strings;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class MessageFactoryImpl implements MessageFactory {
+    protected interface Factory<T> {
+        T create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException;
+    }
+
     private static final Factory<FacesMessage> MESSAGE_FACTORY = new Factory<FacesMessage>() {
         public FacesMessage create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException {
 
@@ -75,11 +82,11 @@ public class MessageFactoryImpl implements MessageFactory {
     };
     private static final Factory<String> FORMAT_FACTORY = new Factory<String>() {
         public String create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException {
-            String format = bundle.getString(messageKey.toString());
-            return format;
+            return bundle.getString(messageKey.toString());
         }
     };
     private BundleLoader bundleLoader;
+
     public MessageFactoryImpl(BundleLoader bundleLoader) {
         super();
         this.bundleLoader = bundleLoader;
@@ -185,9 +192,5 @@ public class MessageFactoryImpl implements MessageFactory {
         }
 
         return result;
-    }
-
-    protected interface Factory<T> {
-        T create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException;
     }
 }

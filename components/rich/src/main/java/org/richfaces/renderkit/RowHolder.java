@@ -21,13 +21,14 @@
  */
 package org.richfaces.renderkit;
 
-import org.richfaces.component.Row;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 
+import org.richfaces.component.Row;
+
 /**
  * @author Anton Belevich
+ *
  */
 public class RowHolder extends RowHolderBase {
     private Row row;

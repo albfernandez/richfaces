@@ -25,22 +25,24 @@
  */
 package org.richfaces.validator;
 
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIInput;
-import jakarta.faces.context.FacesContext;
-import javax.validation.MessageInterpolator;
-import javax.validation.MessageInterpolator.Context;
-import javax.validation.Validation;
-import javax.validation.ValidationException;
-import javax.validation.Validator;
-import javax.validation.ValidatorContext;
-import javax.validation.ValidatorFactory;
-import javax.validation.metadata.ConstraintDescriptor;
 import java.lang.annotation.Annotation;
 import java.util.Locale;
 
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
+import jakarta.validation.MessageInterpolator;
+import jakarta.validation.MessageInterpolator.Context;
+import jakarta.validation.Validation;
+import jakarta.validation.ValidationException;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorContext;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.metadata.ConstraintDescriptor;
+
 /**
  * @author asmirnov
+ *
  */
 public class RichFacesBeanValidatorFactory implements BeanValidatorFactory {
     private ValidatorFactory validatorFactory;
@@ -67,7 +69,7 @@ public class RichFacesBeanValidatorFactory implements BeanValidatorFactory {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.validator.BeanValidatorFactory#getValidator(javax.faces.context.FacesContext)
+     * @see org.richfaces.validator.BeanValidatorFactory#getValidator(jakarta.faces.context.FacesContext)
      */
     public Validator getValidator(FacesContext context) {
         return validatorContext.getValidator();
@@ -85,6 +87,13 @@ public class RichFacesBeanValidatorFactory implements BeanValidatorFactory {
                 public ConstraintDescriptor<?> getConstraintDescriptor() {
                     return constrain;
                 }
+                
+                //MZ
+				@Override
+				public <T> T unwrap(Class<T> type) {
+					throw new ValidationException();
+				}
+				
             }, MessageFactory.getCurrentLocale(context));
             return new FacesMessage(interpolatedMessage);
         } else {

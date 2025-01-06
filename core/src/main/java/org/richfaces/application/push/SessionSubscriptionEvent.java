@@ -25,6 +25,7 @@ import java.util.EventListener;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class SessionSubscriptionEvent extends SessionTopicEvent {
     private static final long serialVersionUID = -463481692840464586L;

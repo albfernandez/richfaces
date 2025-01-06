@@ -1,10 +1,10 @@
 package org.richfaces.arquillian.configuration;
 
+import java.lang.reflect.Method;
+
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy.FutureTarget;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxyHandler;
-
-import java.lang.reflect.Method;
 
 /**
  * <p>
@@ -25,12 +25,6 @@ import java.lang.reflect.Method;
 public class FundamentalTestConfigurationContext {
 
     private static final ThreadLocal<FundamentalTestConfiguration> REFERENCE = new ThreadLocal<FundamentalTestConfiguration>();
-    private static FutureTarget TARGET = new FutureTarget() {
-        @Override
-        public Object getTarget() {
-            return get();
-        }
-    };
 
     /**
      * Returns the context of configuration for current thread
@@ -91,5 +85,12 @@ public class FundamentalTestConfigurationContext {
         }
         REFERENCE.set(configuration);
     }
+
+    private static FutureTarget TARGET = new FutureTarget() {
+        @Override
+        public Object getTarget() {
+            return get();
+        }
+    };
 
 }

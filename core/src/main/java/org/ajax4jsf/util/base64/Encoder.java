@@ -33,7 +33,7 @@ public interface Encoder {
      * @param pObject An object ot encode
      * @return An "encoded" Object
      * @throws EncoderException an encoder exception is thrown if the encoder experiences a failure condition during the
-     *                          encoding process.
+     *         encoding process.
      */
     Object encode(Object pObject) throws EncoderException;
 }

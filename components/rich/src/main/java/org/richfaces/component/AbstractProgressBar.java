@@ -1,19 +1,19 @@
 /**
  * License Agreement.
- * <p>
+ *
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- * <p>
+ *
  * Copyright (C) 2007 Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
@@ -25,6 +25,16 @@
  * $Revision$ $Date$
  */
 package org.richfaces.component;
+
+import java.io.IOException;
+import java.util.Iterator;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -39,15 +49,6 @@ import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIComponentBase;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitResult;
-import jakarta.faces.context.FacesContext;
-import java.io.IOException;
-import java.util.Iterator;
 
 /**
  * <p> The &lt;rich:progressBar&gt; component displays a progress bar to indicate the status of a process to the user.
@@ -222,7 +223,7 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
 
         if (STATE_META_COMPONENT_ID.equals(metaComponentId)) {
             return contextComponent.getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
-                    + metaComponentId;
+                + metaComponentId;
         }
 
         return null;

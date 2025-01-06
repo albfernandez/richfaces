@@ -22,17 +22,16 @@
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
 
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AllAlbumsView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AllImagesView;
-import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class TestToolbarLinks extends AbstractPhotoalbumTest {

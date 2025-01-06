@@ -21,17 +21,8 @@
  */
 package org.richfaces.model;
 
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.Range;
-import org.ajax4jsf.model.SequenceRange;
-import org.richfaces.application.IterationComponentsConfiguration;
-import org.richfaces.component.SortOrder;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
-import jakarta.el.ValueExpression;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.model.DataModelListener;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,10 +32,21 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.DataModelListener;
+
+import org.ajax4jsf.model.DataVisitResult;
+import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.ExtendedDataModel;
+import org.ajax4jsf.model.Range;
+import org.ajax4jsf.model.SequenceRange;
+import org.richfaces.application.IterationComponentsConfiguration;
+import org.richfaces.component.SortOrder;
 
 /**
  * @author Konstantin Mishin
+ *
  */
 public class ArrangeableModel extends ExtendedDataModel<Object> implements Arrangeable {
     private ArrangeableState state;
@@ -93,7 +95,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.model.ExtendedDataModel#walk(javax.faces.context.FacesContext, org.richfaces.model.DataVisitor,
+     * @see org.richfaces.model.ExtendedDataModel#walk(jakarta.faces.context.FacesContext, org.richfaces.model.DataVisitor,
      * org.richfaces.model.Range, java.lang.Object)
      */
     public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
@@ -115,7 +117,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#getRowCount()
+     * @see jakarta.faces.model.DataModel#getRowCount()
      */
     public int getRowCount() {
         if (rowKeys == null) {
@@ -128,7 +130,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#getRowData()
+     * @see jakarta.faces.model.DataModel#getRowData()
      */
     public Object getRowData() {
         return originalModel.getRowData();
@@ -137,7 +139,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#getRowIndex()
+     * @see jakarta.faces.model.DataModel#getRowIndex()
      */
     public int getRowIndex() {
         return rowKeys.indexOf(originalModel.getRowKey());
@@ -146,7 +148,25 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#setRowIndex(int)
+     * @see jakarta.faces.model.DataModel#getWrappedData()
+     */
+    public Object getWrappedData() {
+        return originalModel.getWrappedData();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see jakarta.faces.model.DataModel#isRowAvailable()
+     */
+    public boolean isRowAvailable() {
+        return originalModel.isRowAvailable();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see jakarta.faces.model.DataModel#setRowIndex(int)
      */
     public void setRowIndex(int rowIndex) {
         Object originalKey = null;
@@ -159,28 +179,10 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.model.DataModel#getWrappedData()
-     */
-    public Object getWrappedData() {
-        return originalModel.getWrappedData();
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.faces.model.DataModel#setWrappedData(java.lang.Object)
+     * @see jakarta.faces.model.DataModel#setWrappedData(java.lang.Object)
      */
     public void setWrappedData(Object data) {
         originalModel.setWrappedData(data);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.faces.model.DataModel#isRowAvailable()
-     */
-    public boolean isRowAvailable() {
-        return originalModel.isRowAvailable();
     }
 
     /*
@@ -215,9 +217,9 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     private void initializeRowKeys(FacesContext context) {
         int rowCount = originalModel.getRowCount();
         if (rowCount > 0) {
-            rowKeys = new ArrayList<Object>(rowCount);
+            rowKeys = new ArrayList<>(rowCount);
         } else {
-            rowKeys = new ArrayList<Object>();
+            rowKeys = new ArrayList<>();
         }
         Object rowKey = originalModel.getRowKey();
         originalModel.walk(context, new DataVisitor() {
@@ -235,7 +237,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     private void filter(FacesContext context) {
         List<FilterField> filterFields = state.getFilterFields();
         if (filterFields != null && !filterFields.isEmpty()) {
-            List<Object> filteredCollection = new ArrayList<Object>();
+            List<Object> filteredCollection = new ArrayList<>();
             for (Object rowKey : rowKeys) {
                 if (accept(context, rowKey)) {
                     filteredCollection.add(rowKey);
@@ -283,7 +285,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
         originalModel.setRowKey(rowKey2);
         Object object2 = originalModel.getRowData();
         int result = 0;
-        for (Iterator<SortField> iterator = state.getSortFields().iterator(); iterator.hasNext() && result == 0; ) {
+        for (Iterator<SortField> iterator = state.getSortFields().iterator(); iterator.hasNext() && result == 0;) {
             SortField sortField = iterator.next();
             SortOrder sortOrder = sortField.getSortOrder();
             if (sortOrder != null && !SortOrder.unsorted.equals(sortOrder)) {
@@ -329,7 +331,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
         Comparator<? super String> comparator = null;
         Locale locale = state.getLocale();
         if (locale != null
-                && getBooleanConfigurationValue(context, IterationComponentsConfiguration.Items.datatableUsesViewLocale)) {
+            && getBooleanConfigurationValue(context, IterationComponentsConfiguration.Items.datatableUsesViewLocale)) {
             comparator = Collator.getInstance(locale);
         } else {
             comparator = new Comparator<String>() {

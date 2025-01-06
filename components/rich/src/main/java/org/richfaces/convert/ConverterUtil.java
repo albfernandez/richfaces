@@ -21,30 +21,18 @@
  */
 package org.richfaces.convert;
 
-import com.google.common.base.Strings;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.IntegerConverter;
 
+import com.google.common.base.Strings;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public final class ConverterUtil {
-    private static final Converter STRING_CONVERTER = new StringConverter();
-    private static final Converter INTEGER_CONVERTER = new IntegerConverter();
-    private ConverterUtil() {
-    }
-
-    public static Converter stringConverter() {
-        return STRING_CONVERTER;
-    }
-
-    public static Converter integerConverter() {
-        return INTEGER_CONVERTER;
-    }
-
     public static final class StringConverter implements Converter {
         public String getAsString(FacesContext context, UIComponent component, Object value) {
             if (value == null) {
@@ -61,5 +49,19 @@ public final class ConverterUtil {
 
             return value;
         }
+    }
+
+    private static final Converter STRING_CONVERTER = new StringConverter();
+    private static final Converter INTEGER_CONVERTER = new IntegerConverter();
+
+    private ConverterUtil() {
+    }
+
+    public static Converter stringConverter() {
+        return STRING_CONVERTER;
+    }
+
+    public static Converter integerConverter() {
+        return INTEGER_CONVERTER;
     }
 }

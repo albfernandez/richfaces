@@ -27,8 +27,7 @@ import org.richfaces.fragment.collapsibleSubTable.RichFacesCollapsibleSubTable;
  * This class is used when you don't want to insert particular fragment to some components.
  * EX: There is header, row and footer in {@link RichFacesCollapsibleSubTable}
  * if there should be displayed only rows then {@link NullFragment} is used this way:
- * RichFacesCollapsibleSubTable<NullFragment, EmployeeRecord, NullFragment>
- *
+ * RichFacesCollapsibleSubTable&lt;NullFragment, EmployeeRecord, NullFragment&gt;
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 public class NullFragment {

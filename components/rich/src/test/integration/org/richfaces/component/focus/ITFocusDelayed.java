@@ -52,24 +52,6 @@ public class ITFocusDelayed {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form id='form'>");
-        p.body("    <rich:focus id='focus' delayed='true' />");
-
-        p.body("    <h:inputText id='input1' />");
-        p.body("    <h:inputText id='input2' />");
-
-        p.body("    <h:commandButton id='submit' value='Submit' />");
-
-        p.body("    <a4j:commandButton id='ajax' render='@form' value='Ajax' />");
-
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void when_focus_is_delayed_then_it_is_not_applied_on_initial_request() {
         browser.get(contextPath.toExternalForm());
@@ -102,5 +84,23 @@ public class ITFocusDelayed {
 
     private WebElement getFocusedElement() {
         return FocusRetriever.retrieveActiveElement();
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='form'>");
+        p.body("    <rich:focus id='focus' delayed='true' />");
+
+        p.body("    <h:inputText id='input1' />");
+        p.body("    <h:inputText id='input2' />");
+
+        p.body("    <h:commandButton id='submit' value='Submit' />");
+
+        p.body("    <a4j:commandButton id='ajax' render='@form' value='Ajax' />");
+
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

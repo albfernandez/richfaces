@@ -3,28 +3,42 @@ package org.richfaces.component;
 import static org.richfaces.component.Framework.Family.cf;
 import static org.richfaces.component.Framework.Family.dotNet;
 import static org.richfaces.component.Framework.Family.php;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.ViewScoped;
-
 import org.richfaces.component.Framework.Family;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 
 @ManagedBean
-@ViewScoped
+@ViewScope
 public class DragDropBean implements Serializable {
 
     private static final long serialVersionUID = 1416925735640720492L;
     private static final FrameworkFamilyPredicate CF_PREDICATE = new FrameworkFamilyPredicate(cf);
     private static final FrameworkFamilyPredicate DOT_NET_PREDICATE = new FrameworkFamilyPredicate(dotNet);
     private static final FrameworkFamilyPredicate PHP_PREDICATE = new FrameworkFamilyPredicate(php);
+
+    private static final class FrameworkFamilyPredicate implements Predicate<Framework> {
+
+        private Framework.Family family;
+
+        public FrameworkFamilyPredicate(Family family) {
+            super();
+            this.family = family;
+        }
+
+        @Override
+        public boolean apply(Framework input) {
+            return family.equals(input.getFamily());
+        }
+    }
     private List<Framework> source;
     private List<Framework> target;
+
     public DragDropBean() {
         initList();
     }
@@ -74,20 +88,5 @@ public class DragDropBean implements Serializable {
         source.add(new Framework("PAJAJ", php));
         source.add(new Framework("Symfony", php));
         source.add(new Framework("PowerWEB", dotNet));
-    }
-
-    private static final class FrameworkFamilyPredicate implements Predicate<Framework> {
-
-        private Framework.Family family;
-
-        public FrameworkFamilyPredicate(Family family) {
-            super();
-            this.family = family;
-        }
-
-        @Override
-        public boolean apply(Framework input) {
-            return family.equals(input.getFamily());
-        }
     }
 }

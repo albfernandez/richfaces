@@ -27,13 +27,14 @@ import jakarta.faces.event.FacesListener;
 /**
  * <p>
  * A listener interface for receiving {@link PanelToggleEvent}s. A class that is interested in receiving such events implements
- * this interface, and then registers itself with the source {@link javax.faces.component.UIComponent} of interest, by calling
+ * this interface, and then registers itself with the source {@link jakarta.faces.component.UIComponent} of interest, by calling
  * <code>addPanelToggleListener()</code>.
  * </p>
  *
  * @author akolonitsky
  * @version 1.0
  * @since 2010-08-27
+ *
  */
 public interface PanelToggleListener extends FacesListener {
     /**
@@ -42,8 +43,9 @@ public interface PanelToggleListener extends FacesListener {
      * </p>
      *
      * @param event The {@link PanelToggleEvent} that has occurred
+     *
      * @throws AbortProcessingException Signal the JavaServer Faces implementation that no further processing on the current
-     *                                  event should be performed
+     *         event should be performed
      */
     void processPanelToggle(PanelToggleEvent event) throws AbortProcessingException;
 }

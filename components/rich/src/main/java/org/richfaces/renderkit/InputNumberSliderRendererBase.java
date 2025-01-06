@@ -28,6 +28,7 @@ import jakarta.faces.component.UIComponent;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public abstract class InputNumberSliderRendererBase extends InputRendererBase {
     protected boolean isInputPosition(UIComponent component, String name) {

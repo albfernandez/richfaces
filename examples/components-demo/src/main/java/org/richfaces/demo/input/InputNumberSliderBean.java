@@ -24,9 +24,10 @@ package org.richfaces.demo.input;
 import org.richfaces.component.InputNumberSliderHandleType;
 import org.richfaces.component.InputNumberSliderInputPosition;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
 import java.util.Date;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 
 @ManagedBean(name = "inputNumberSliderBean")
@@ -48,20 +49,20 @@ public class InputNumberSliderBean {
     private double step = 1;
     private InputNumberSliderHandleType handleType;
 
-    public double getValue() {
-        return value;
-    }
-
     public void setValue(double value) {
         this.value = value;
     }
 
-    public String getAccesskey() {
-        return accesskey;
+    public double getValue() {
+        return value;
     }
 
     public void setAccesskey(String accesskey) {
         this.accesskey = accesskey;
+    }
+
+    public String getAccesskey() {
+        return accesskey;
     }
 
     public int getDelay() {
@@ -72,20 +73,20 @@ public class InputNumberSliderBean {
         this.delay = delay;
     }
 
-    public boolean getEnableManualInput() {
-        return enableManualInput;
-    }
-
     public void setEnableManualInput(boolean enableManualInput) {
         this.enableManualInput = enableManualInput;
     }
 
-    public InputNumberSliderInputPosition getInputPosition() {
-        return inputPosition;
+    public boolean getEnableManualInput() {
+        return enableManualInput;
     }
 
     public void setInputPosition(InputNumberSliderInputPosition inputPosition) {
         this.inputPosition = inputPosition;
+    }
+
+    public InputNumberSliderInputPosition getInputPosition() {
+        return inputPosition;
     }
 
     public InputNumberSliderInputPosition[] getPositionTypes() {
@@ -148,20 +149,20 @@ public class InputNumberSliderBean {
         this.step = step;
     }
 
-    public boolean isDisabled() {
-        return disabled;
-    }
-
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
 
-    public int getInputSize() {
-        return inputSize;
+    public boolean isDisabled() {
+        return disabled;
     }
 
     public void setInputSize(int inputSize) {
         this.inputSize = inputSize;
+    }
+
+    public int getInputSize() {
+        return inputSize;
     }
 
     public Date getDate() {

@@ -42,19 +42,19 @@ public class ITPushServletMapping extends AbstractPushTest {
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
                 return webXml
-                        .createServlet()
-                        .servletName(PushServlet.class.getSimpleName())
-                        .servletClass(PushServlet.class.getName())
-                        .asyncSupported(true)
-                        .up()
-                        .createServletMapping()
-                        .servletName(PushServlet.class.getSimpleName())
-                        .urlPattern("/__custom_mapping")
-                        .up()
-                        .createContextParam()
-                        .paramName("org.richfaces.push.handlerMapping")
-                        .paramValue("/__custom_mapping")
-                        .up();
+                    .createServlet()
+                    .servletName(PushServlet.class.getSimpleName())
+                    .servletClass(PushServlet.class.getName())
+                    .asyncSupported(true)
+                    .up()
+                    .createServletMapping()
+                    .servletName(PushServlet.class.getSimpleName())
+                    .urlPattern("/__custom_mapping")
+                    .up()
+                    .createContextParam()
+                    .paramName("org.richfaces.push.handlerMapping")
+                    .paramValue("/__custom_mapping")
+                    .up();
             }
         });
 

@@ -21,14 +21,15 @@
  */
 package org.richfaces.context;
 
+import java.util.Collection;
+import java.util.Set;
+
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
 import jakarta.faces.component.visit.VisitHint;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
-import java.util.Collection;
-import java.util.Set;
 
 /**
  * Wraps parent {@link VisitContext} and executes {@link MetaComponentProcessingVisitCallback} during its
@@ -39,7 +40,7 @@ import java.util.Set;
 public class ExtendedExecuteVisitContext extends BaseExtendedVisitContext {
 
     public ExtendedExecuteVisitContext(VisitContext visitContextToWrap, FacesContext facesContext,
-                                       Collection<String> clientIds, Set<VisitHint> hints) {
+            Collection<String> clientIds, Set<VisitHint> hints) {
         super(visitContextToWrap, facesContext, clientIds, hints, ExtendedVisitContextMode.EXECUTE);
     }
 

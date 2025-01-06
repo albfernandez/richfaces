@@ -21,6 +21,9 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,9 +32,6 @@ import org.richfaces.fragment.fileUpload.RichFacesFileUpload;
 import org.richfaces.fragment.select.RichFacesSelect;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView.PhotoInfo;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -52,7 +52,7 @@ public class AddImagesView {
 
     public void checkAllVisible() {
         PhotoalbumUtils.checkVisible(fileUploadHelpLink, fileUpload.advanced().getRootElement(),
-                buttonHelpLink, select.advanced().getRootElement());
+            buttonHelpLink, select.advanced().getRootElement());
     }
 
     public WebElement getButtonHelpLink() {

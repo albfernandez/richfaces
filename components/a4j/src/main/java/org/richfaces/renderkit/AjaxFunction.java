@@ -21,15 +21,16 @@
  */
 package org.richfaces.renderkit;
 
+import java.io.IOException;
+
 import org.ajax4jsf.javascript.JSChainJSFFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptStringBase;
 import org.ajax4jsf.javascript.ScriptUtils;
 
-import java.io.IOException;
-
 /**
  * @author Nick Belaevski
+ *
  */
 public class AjaxFunction extends ScriptStringBase {
     public static final String FUNCTION_NAME = "RichFaces.ajax";

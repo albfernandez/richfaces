@@ -40,10 +40,11 @@
 
 package org.richfaces.model;
 
+import java.util.Collection;
+
 import jakarta.faces.model.DataModel;
 import jakarta.faces.model.DataModelEvent;
 import jakarta.faces.model.DataModelListener;
-import java.util.Collection;
 
 
 /**
@@ -58,14 +59,6 @@ public class CollectionDataModel<E> extends DataModel<E> {
     // ------------------------------------------------------------ Constructors
 
 
-    // The current row index (zero relative)
-    private int index = -1;
-    private Collection<E> inner;
-
-
-    // ------------------------------------------------------ Instance Variables
-    private E[] arrayFromInner;
-
     /**
      * <p>Construct a new {@link CollectionDataModel} with no specified
      * wrapped data.</p>
@@ -75,6 +68,8 @@ public class CollectionDataModel<E> extends DataModel<E> {
         this(null);
 
     }
+
+
     /**
      * <p>Construct a new {@link CollectionDataModel} wrapping the specified
      * list.</p>
@@ -88,7 +83,17 @@ public class CollectionDataModel<E> extends DataModel<E> {
 
     }
 
+
+    // ------------------------------------------------------ Instance Variables
+
+    // The current row index (zero relative)
+    private int index = -1;
+
+    private Collection<E> inner;
+    private E[] arrayFromInner;
+
     // -------------------------------------------------------------- Properties
+
 
     /**
      * <p>Return <code>true</code> if there is <code>wrappedData</code>
@@ -96,12 +101,12 @@ public class CollectionDataModel<E> extends DataModel<E> {
      * than or equal to zero, and less than the size of the list.  Otherwise,
      * return <code>false</code>.</p>
      *
-     * @throws javax.faces.FacesException if an error occurs getting the row availability
+     * @throws jakarta.faces.FacesException if an error occurs getting the row availability
      */
     public boolean isRowAvailable() {
 
         if (arrayFromInner == null) {
-            return (false);
+	    return (false);
         } else if ((index >= 0) && (index < arrayFromInner.length)) {
             return (true);
         } else {
@@ -115,12 +120,12 @@ public class CollectionDataModel<E> extends DataModel<E> {
      * length of the list.  If no <code>wrappedData</code> is available,
      * return -1.</p>
      *
-     * @throws javax.faces.FacesException if an error occurs getting the row count
+     * @throws jakarta.faces.FacesException if an error occurs getting the row count
      */
     public int getRowCount() {
 
         if (arrayFromInner == null) {
-            return (-1);
+	    return (-1);
         }
         return (arrayFromInner.length);
 
@@ -132,14 +137,14 @@ public class CollectionDataModel<E> extends DataModel<E> {
      * specified by <code>rowIndex</code>.  If no wrapped data is available,
      * return <code>null</code>.</p>
      *
-     * @throws javax.faces.FacesException if an error occurs getting the row data
-     * @throws IllegalArgumentException   if now row data is available
-     *                                    at the currently specified row index
+     * @throws jakarta.faces.FacesException if an error occurs getting the row data
+     * @throws IllegalArgumentException if now row data is available
+     *  at the currently specified row index
      */
     public E getRowData() {
 
         if (arrayFromInner == null) {
-            return (null);
+	    return (null);
         } else if (!isRowAvailable()) {
             throw new NoRowAvailableException();
         } else {
@@ -149,7 +154,7 @@ public class CollectionDataModel<E> extends DataModel<E> {
     }
 
     /**
-     * @throws javax.faces.FacesException {@inheritDoc}
+     * @throws jakarta.faces.FacesException {@inheritDoc}
      */
     public int getRowIndex() {
 
@@ -159,8 +164,8 @@ public class CollectionDataModel<E> extends DataModel<E> {
 
 
     /**
-     * @throws javax.faces.FacesException {@inheritDoc}
-     * @throws IllegalArgumentException   {@inheritDoc}
+     * @throws jakarta.faces.FacesException {@inheritDoc}
+     * @throws IllegalArgumentException {@inheritDoc}
      */
     public void setRowIndex(int rowIndex) {
 
@@ -169,22 +174,22 @@ public class CollectionDataModel<E> extends DataModel<E> {
         }
         int old = index;
         index = rowIndex;
-        if (arrayFromInner == null) {
-            return;
-        }
-        DataModelListener[] listeners = getDataModelListeners();
+	if (arrayFromInner == null) {
+	    return;
+	}
+	DataModelListener [] listeners = getDataModelListeners();
         if ((old != index) && (listeners != null)) {
             Object rowData = null;
             if (isRowAvailable()) {
                 rowData = getRowData();
             }
             DataModelEvent event =
-                    new DataModelEvent(this, index, rowData);
+                new DataModelEvent(this, index, rowData);
             int n = listeners.length;
             for (int i = 0; i < n; i++) {
-                if (null != listeners[i]) {
-                    listeners[i].rowSelected(event);
-                }
+		if (null != listeners[i]) {
+		    listeners[i].rowSelected(event);
+		}
             }
         }
 
@@ -204,7 +209,7 @@ public class CollectionDataModel<E> extends DataModel<E> {
      *
      * @param data the wrapped data.
      * @throws ClassCastException if <code>data</code> is
-     *                            non-<code>null</code> and is not a <code>Collection</code>
+     *  non-<code>null</code> and is not a <code>Collection</code>
      */
     public void setWrappedData(Object data) {
         if (data == null) {

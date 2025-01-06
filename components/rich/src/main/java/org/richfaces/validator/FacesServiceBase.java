@@ -22,18 +22,19 @@
 
 package org.richfaces.validator;
 
-import com.google.common.collect.ImmutableSet;
-
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+
+import com.google.common.collect.ImmutableSet;
 
 public abstract class FacesServiceBase<T> {
     private static final ImmutableSet<String> HIDDEN_PROPERTIES = ImmutableSet.of("class", "transient");
@@ -76,7 +77,7 @@ public abstract class FacesServiceBase<T> {
      *
      * @param context
      * @param component
-     * @param input     TODO
+     * @param input TODO
      * @param msg
      */
     public FacesMessage getMessage(FacesContext context, T component, EditableValueHolder input, String msg) {

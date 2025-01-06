@@ -22,15 +22,16 @@
 
 package org.richfaces.photoalbum.model.actions;
 
-import org.richfaces.photoalbum.model.Event;
-import org.richfaces.photoalbum.model.EventCategory;
-import org.richfaces.photoalbum.util.PhotoAlbumException;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import java.util.List;
+
+import org.richfaces.photoalbum.model.Event;
+import org.richfaces.photoalbum.model.EventCategory;
+import org.richfaces.photoalbum.util.PhotoAlbumException;
 
 @Stateless
 public class EventAction implements IEventAction {
@@ -40,7 +41,7 @@ public class EventAction implements IEventAction {
 
     /**
      * Persist event entity to database
-     *
+     * 
      * @param event - event to add
      * @throws PhotoAlbumException
      */
@@ -55,7 +56,7 @@ public class EventAction implements IEventAction {
 
     /**
      * Remove event entity from database
-     *
+     * 
      * @param event - event to delete
      * @throws PhotoAlbumException
      */
@@ -70,7 +71,7 @@ public class EventAction implements IEventAction {
 
     /**
      * Synchronize state of event entity with database
-     *
+     * 
      * @param event - event to Synchronize
      * @throws PhotoAlbumException
      */
@@ -85,7 +86,7 @@ public class EventAction implements IEventAction {
 
     /**
      * Refresh state of given event
-     *
+     * 
      * @param event - event to Synchronize
      */
     public void resetEvent(Event event) {

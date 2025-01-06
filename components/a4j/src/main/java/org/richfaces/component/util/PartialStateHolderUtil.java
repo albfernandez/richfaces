@@ -21,17 +21,39 @@
  */
 package org.richfaces.component.util;
 
+import java.io.Serializable;
+
 import jakarta.faces.component.PartialStateHolder;
 import jakarta.faces.component.StateHolder;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.context.FacesContext;
-import java.io.Serializable;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public final class PartialStateHolderUtil {
+    private static final class StateHolderObject implements Serializable {
+        private static final long serialVersionUID = 6157742187482213801L;
+        private boolean partialState;
+        private Object savedState;
+
+        public StateHolderObject(boolean partialState, Object savedState) {
+            super();
+            this.partialState = partialState;
+            this.savedState = savedState;
+        }
+
+        public boolean isPartialState() {
+            return partialState;
+        }
+
+        public Object getSavedState() {
+            return savedState;
+        }
+    }
+
     private PartialStateHolderUtil() {
         // utility class constructor
     }
@@ -86,26 +108,6 @@ public final class PartialStateHolderUtil {
             }
         } else {
             return null;
-        }
-    }
-
-    private static final class StateHolderObject implements Serializable {
-        private static final long serialVersionUID = 6157742187482213801L;
-        private boolean partialState;
-        private Object savedState;
-
-        public StateHolderObject(boolean partialState, Object savedState) {
-            super();
-            this.partialState = partialState;
-            this.savedState = savedState;
-        }
-
-        public boolean isPartialState() {
-            return partialState;
-        }
-
-        public Object getSavedState() {
-            return savedState;
         }
     }
 }

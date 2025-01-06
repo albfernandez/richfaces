@@ -38,13 +38,16 @@ import org.openqa.selenium.interactions.Actions;
  */
 public class TextInputComponentImpl implements TextInputComponent {
 
-    private final AdvancedTextInputInteractions advancedInteractions = new AdvancedTextInputInteractions();
     @Root
     private WebElement root;
+
     @ArquillianResource
     private JavascriptExecutor executor;
+
     @Drone
     private WebDriver driver;
+
+    private final AdvancedTextInputInteractions advancedInteractions = new AdvancedTextInputInteractions();
 
     public AdvancedTextInputInteractions advanced() {
         return advancedInteractions;
@@ -80,8 +83,8 @@ public class TextInputComponentImpl implements TextInputComponent {
             switch (clearType) {
                 case BACKSPACE:
                     for (int i = 0; i < valueLength; i++) {
-                        builder.sendKeys(root, Keys.BACK_SPACE);
-                    }
+                    builder.sendKeys(root, Keys.BACK_SPACE);
+                }
                     builder.build().perform();
                     break;
                 case DELETE:

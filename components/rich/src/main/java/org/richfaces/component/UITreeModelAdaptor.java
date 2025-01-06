@@ -36,6 +36,11 @@ public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements Tree
     public static final String COMPONENT_TYPE = "org.richfaces.TreeModelAdaptor";
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelAdaptor";
 
+    private enum PropertyKeys {
+        nodes,
+        leaf
+    }
+
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
@@ -61,10 +66,5 @@ public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements Tree
 
     public void setLeaf(boolean leaf) {
         getStateHelper().put(PropertyKeys.leaf, leaf);
-    }
-
-    private enum PropertyKeys {
-        nodes,
-        leaf
     }
 }

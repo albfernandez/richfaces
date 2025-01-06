@@ -111,7 +111,7 @@ public class JSONArray implements Serializable {
 
         x.back();
 
-        for (; ; ) {
+        for (;;) {
             if (x.nextClean() == ',') {
                 x.back();
                 this.myArrayList.add(null);
@@ -144,7 +144,7 @@ public class JSONArray implements Serializable {
      * Construct a JSONArray from a source sJSON text.
      *
      * @param string A string that begins with <code>[</code>&nbsp;<small>(left bracket)</small> and ends with <code>]</code>
-     *               &nbsp;<small>(right bracket)</small>.
+     *        &nbsp;<small>(right bracket)</small>.
      * @throws JSONException If there is a syntax error.
      */
     public JSONArray(String string) throws JSONException {
@@ -210,7 +210,7 @@ public class JSONArray implements Serializable {
      * @param index The index must be between 0 and length() - 1.
      * @return The value.
      * @throws JSONException If the key is not found or if the value cannot be converted to a number. if the value cannot be
-     *                       converted to a number.
+     *         converted to a number.
      */
     public int getInt(int index) throws JSONException {
         Object o = get(index);
@@ -296,7 +296,7 @@ public class JSONArray implements Serializable {
      */
     public String join(String separator) throws JSONException {
         int len = length();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < len; i += 1) {
             if (i > 0) {
@@ -343,7 +343,7 @@ public class JSONArray implements Serializable {
      * Get the optional boolean value associated with an index. It returns the defaultValue if there is no value at that index
      * or if it is not a Boolean or the String "true" or "false" (case insensitive).
      *
-     * @param index        The index must be between 0 and length() - 1.
+     * @param index The index must be between 0 and length() - 1.
      * @param defaultValue A boolean default.
      * @return The truth.
      */
@@ -370,7 +370,7 @@ public class JSONArray implements Serializable {
      * Get the optional double value associated with an index. The defaultValue is returned if there is no value for the index,
      * or if the value is not a number and cannot be converted to a number.
      *
-     * @param index        subscript
+     * @param index subscript
      * @param defaultValue The default value.
      * @return The value.
      */
@@ -397,7 +397,7 @@ public class JSONArray implements Serializable {
      * Get the optional int value associated with an index. The defaultValue is returned if there is no value for the index, or
      * if the value is not a number and cannot be converted to a number.
      *
-     * @param index        The index must be between 0 and length() - 1.
+     * @param index The index must be between 0 and length() - 1.
      * @param defaultValue The default value.
      * @return The value.
      */
@@ -449,7 +449,7 @@ public class JSONArray implements Serializable {
      * Get the optional long value associated with an index. The defaultValue is returned if there is no value for the index, or
      * if the value is not a number and cannot be converted to a number.
      *
-     * @param index        The index must be between 0 and length() - 1.
+     * @param index The index must be between 0 and length() - 1.
      * @param defaultValue The default value.
      * @return The value.
      */
@@ -475,7 +475,7 @@ public class JSONArray implements Serializable {
     /**
      * Get the optional string associated with an index. The defaultValue is returned if the key is not found.
      *
-     * @param index        The index must be between 0 and length() - 1.
+     * @param index The index must be between 0 and length() - 1.
      * @param defaultValue The default value.
      * @return A String value.
      */
@@ -517,7 +517,7 @@ public class JSONArray implements Serializable {
      * @throws JSONException if the value is not finite.
      */
     public JSONArray put(double value) throws JSONException {
-        Double d = new Double(value);
+        Double d = Double.valueOf(value);
 
         JSONObject.testValidity(d);
         put(d);
@@ -532,7 +532,7 @@ public class JSONArray implements Serializable {
      * @return this.
      */
     public JSONArray put(int value) {
-        put(new Integer(value));
+        put(Integer.valueOf(value));
 
         return this;
     }
@@ -544,7 +544,7 @@ public class JSONArray implements Serializable {
      * @return this.
      */
     public JSONArray put(long value) {
-        put(new Long(value));
+        put(Long.valueOf(value));
 
         return this;
     }
@@ -565,7 +565,7 @@ public class JSONArray implements Serializable {
      * Append an object value. This increases the array's length by one.
      *
      * @param value An object value. The value should be a Boolean, Double, Integer, JSONArray, JSONObject, Long, or String, or
-     *              the JSONObject.NULL object.
+     *        the JSONObject.NULL object.
      * @return this.
      */
     public JSONArray put(Object value) {
@@ -613,7 +613,7 @@ public class JSONArray implements Serializable {
      * @throws JSONException If the index is negative or if the value is not finite.
      */
     public JSONArray put(int index, double value) throws JSONException {
-        put(index, new Double(value));
+        put(index, Double.valueOf(value));
 
         return this;
     }
@@ -628,7 +628,7 @@ public class JSONArray implements Serializable {
      * @throws JSONException If the index is negative.
      */
     public JSONArray put(int index, int value) throws JSONException {
-        put(index, new Integer(value));
+        put(index, Integer.valueOf(value));
 
         return this;
     }
@@ -643,7 +643,7 @@ public class JSONArray implements Serializable {
      * @throws JSONException If the index is negative.
      */
     public JSONArray put(int index, long value) throws JSONException {
-        put(index, new Long(value));
+        put(index, Long.valueOf(value));
 
         return this;
     }
@@ -668,7 +668,7 @@ public class JSONArray implements Serializable {
      *
      * @param index The subscript.
      * @param value The value to put into the array. The value should be a Boolean, Double, Integer, JSONArray, JSONObject,
-     *              Long, or String, or the JSONObject.NULL object.
+     *        Long, or String, or the JSONObject.NULL object.
      * @return this.
      * @throws JSONException If the index is negative or if the the value is an invalid number.
      */
@@ -735,7 +735,7 @@ public class JSONArray implements Serializable {
      *
      * @param indentFactor The number of spaces to add to each level of indentation.
      * @return a printable, displayable, transmittable representation of the object, beginning with <code>[</code>
-     * &nbsp;<small>(left bracket)</small> and ending with <code>]</code>&nbsp;<small>(right bracket)</small>.
+     *         &nbsp;<small>(left bracket)</small> and ending with <code>]</code>&nbsp;<small>(right bracket)</small>.
      * @throws JSONException
      */
     public String toString(int indentFactor) throws JSONException {
@@ -746,7 +746,7 @@ public class JSONArray implements Serializable {
      * Make a prettyprinted JSON text of this JSONArray. Warning: This method assumes that the data structure is acyclical.
      *
      * @param indentFactor The number of spaces to add to each level of indentation.
-     * @param indent       The indention of the top level.
+     * @param indent The indention of the top level.
      * @return a printable, displayable, transmittable representation of the array.
      * @throws JSONException
      */
@@ -758,7 +758,7 @@ public class JSONArray implements Serializable {
         }
 
         int i;
-        StringBuffer sb = new StringBuffer("[");
+        StringBuilder sb = new StringBuilder("[");
 
         if (len == 1) {
             sb.append(JSONObject.valueToString(this.myArrayList.get(0), indentFactor, indent));

@@ -276,7 +276,6 @@
 .rf-cal-edtr-shdw {
     background: '#{a4jSkin.tableBackgroundColor}';
     opacity: 0.5;
-    filter: 'alpha(opacity=50)';
 }
 
 .rf-cal-timepicker-cnt {
@@ -391,7 +390,6 @@
     background-color: '#{a4jSkin.shadowBackgroundColor}';
     position: absolute;
     opacity: 0.3;
-    filter: 'alpha(opacity=30)';
 }
 
 .rf-cal-edtr-btn {

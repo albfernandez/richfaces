@@ -21,15 +21,16 @@
  */
 package org.richfaces.skin;
 
-import org.ajax4jsf.Messages;
-import org.richfaces.application.CoreConfiguration;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getConfigurationValue;
 
-import jakarta.faces.context.FacesContext;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getConfigurationValue;
+import jakarta.faces.context.FacesContext;
+
+import org.ajax4jsf.Messages;
+import org.richfaces.application.CoreConfiguration;
 
 /**
  * Implementation of {@link SkinFactory} with building skins from properties files.
@@ -45,14 +46,9 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
      * Name of default skin . "DEFAULT" in this realisation.
      */
     private static final String DEFAULT_SKIN_NAME = "DEFAULT";
-    private static final String[] THEME_PATHS = {"META-INF/themes/%s.theme.properties", "%s.theme.properties"};
+    private static final String[] THEME_PATHS = { "META-INF/themes/%s.theme.properties", "%s.theme.properties" };
     // private Properties defaultSkinProperties = null;
-    private Map<String, Theme> themes = new HashMap<String, Theme>();
-
-    static void clearSkinCaches(FacesContext context) {
-        context.getAttributes().remove(BASE_SKIN_KEY);
-        context.getAttributes().remove(SKIN_KEY);
-    }
+    private Map<String, Theme> themes = new HashMap<>();
 
     public Skin getDefaultSkin(FacesContext context) {
         return getSkin(context, DEFAULT_SKIN_NAME);
@@ -95,6 +91,11 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
         return skin;
     }
 
+    static void clearSkinCaches(FacesContext context) {
+        context.getAttributes().remove(BASE_SKIN_KEY);
+        context.getAttributes().remove(SKIN_KEY);
+    }
+
     // protected Properties getDefaultSkinProperties() {
     // if (defaultSkinProperties == null) {
     // defaultSkinProperties = loadProperties(DEFAULT_SKIN_NAME,DEFAULT_SKIN_PATHS);
@@ -108,11 +109,11 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
      * @param context
      * @param useBase
      * @return name of currens skin from init parameter ( "DEFAULT" if no parameter ) or {@link Skin } as result of evaluation EL
-     * expression.
+     *         expression.
      */
     protected Skin getSkinOrName(FacesContext context, boolean useBase) {
         Object skinObject = getConfigurationValue(context, useBase ? CoreConfiguration.Items.baseSkin
-                : CoreConfiguration.Items.skin);
+            : CoreConfiguration.Items.skin);
 
         Skin result = null;
 

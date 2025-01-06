@@ -21,9 +21,6 @@
  */
 package org.richfaces.view.facelets;
 
-import org.richfaces.component.AbstractDropTarget;
-import org.richfaces.event.MethodExpressionDropListener;
-
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.FaceletContext;
@@ -33,8 +30,12 @@ import jakarta.faces.view.facelets.Metadata;
 import jakarta.faces.view.facelets.MetadataTarget;
 import jakarta.faces.view.facelets.TagAttribute;
 
+import org.richfaces.component.AbstractDropTarget;
+import org.richfaces.event.MethodExpressionDropListener;
+
 /**
  * @author abelevich
+ *
  */
 public class DropHandler extends ComponentHandler {
     private static final DropHandlerMetaRule METARULE = new DropHandlerMetaRule();
@@ -59,7 +60,7 @@ public class DropHandler extends ComponentHandler {
     }
 
     static class DropTargetMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[]{org.richfaces.event.DropEvent.class};
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.DropEvent.class };
         private final TagAttribute attribute;
 
         public DropTargetMapper(TagAttribute attribute) {
@@ -68,7 +69,7 @@ public class DropHandler extends ComponentHandler {
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
             ((AbstractDropTarget) instance).addDropListener((new MethodExpressionDropListener(this.attribute
-                    .getMethodExpression(ctx, null, SIGNATURE))));
+                .getMethodExpression(ctx, null, SIGNATURE))));
         }
     }
 }

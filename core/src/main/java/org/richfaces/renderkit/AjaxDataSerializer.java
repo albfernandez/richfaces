@@ -23,6 +23,7 @@ package org.richfaces.renderkit;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public interface AjaxDataSerializer {
     String asString(Object o);

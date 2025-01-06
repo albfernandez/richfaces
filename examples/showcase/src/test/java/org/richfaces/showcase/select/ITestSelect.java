@@ -21,16 +21,16 @@
  *******************************************************************************/
 package org.richfaces.showcase.select;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.select.RichFacesSelect;
 import org.richfaces.showcase.AbstractWebDriverTest;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -75,7 +75,7 @@ public class ITestSelect extends AbstractWebDriverTest {
 
         for (WebElement option : second.advanced().getSuggestionsElements()) {
             assertTrue("The option '" + option.getText() + "' doesn't start with '" + capital.substring(0, 2) + "'.", option
-                    .getText().startsWith(capital.substring(0, 2)));
+                .getText().startsWith(capital.substring(0, 2)));
         }
 
         Graphene.guardNoRequest(second.openSelect()).select(0);

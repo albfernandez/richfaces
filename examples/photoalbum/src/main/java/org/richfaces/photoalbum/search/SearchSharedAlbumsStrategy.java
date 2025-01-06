@@ -21,11 +21,12 @@
  */
 package org.richfaces.photoalbum.search;
 
-import org.richfaces.photoalbum.util.Constants;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.Map;
+
+import org.richfaces.photoalbum.util.Constants;
 
 /**
  * Strategy to retrieve albums, that are shared
@@ -36,8 +37,8 @@ public class SearchSharedAlbumsStrategy implements ISearchStrategy {
     /**
      * Create query to retrieve albums, that are shared
      *
-     * @param em          - entityManager
-     * @param params      - map of additional params for this query
+     * @param em - entityManager
+     * @param params - map of additional params for this query
      * @param searchQuery - string to search
      * @return List of albums that are shared
      */

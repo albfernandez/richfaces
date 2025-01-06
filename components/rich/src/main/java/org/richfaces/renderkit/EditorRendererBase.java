@@ -21,17 +21,18 @@
  */
 package org.richfaces.renderkit;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import jakarta.faces.application.Resource;
 import jakarta.faces.application.ResourceDependencies;
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.context.FacesContext;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -40,7 +41,7 @@ import java.util.regex.Pattern;
         @ResourceDependency(library = "org.richfaces", name = "richfaces-utils.js"),
         @ResourceDependency(library = "org.richfaces.ckeditor", name = "ckeditor.js"),
         @ResourceDependency(library = "org.richfaces.ckeditor", name = "config.js"),
-        @ResourceDependency(library = "org.richfaces", name = "editor.js")})
+        @ResourceDependency(library = "org.richfaces", name = "editor.js") })
 public class EditorRendererBase extends InputRendererBase {
 
     public static final String DEFAULT_WIDTH = "100%";

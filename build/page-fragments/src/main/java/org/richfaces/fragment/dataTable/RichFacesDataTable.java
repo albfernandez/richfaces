@@ -21,12 +21,12 @@
  */
 package org.richfaces.fragment.dataTable;
 
+import java.util.List;
+
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import java.util.List;
 
 /**
  * Class representing a page fragment for RichFaces DataTable.
@@ -35,32 +35,41 @@ import java.util.List;
  * into the test with <tt>@FindBy</tt>), but to be extended so the generic types
  * are substituted with a regular type representing particular part of the table.</p>
  *
+ * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @param <HEADER>
  * @param <ROW>
  * @param <FOOTER>
- * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 public abstract class RichFacesDataTable<HEADER, ROW, FOOTER> extends AbstractTable<HEADER, ROW, FOOTER> {
 
-    private final AbstractTable.AdvancedTableInteractions advancedInteractions = new AdvancedDataTableInteractions();
     @FindBy(css = ".rf-dt-b .rf-dt-r")
     private List<WebElement> tableRowsElements;
+
     @FindByJQuery(".rf-dt-b .rf-dt-r:eq(0) .rf-dt-c")
     private List<WebElement> firstRowCellsElements;
+
     @FindBy(css = ".rf-dt-nd > .rf-dt-nd-c")
     private WebElement noDataElement;
+
     @FindBy(className = "rf-dt-thd")
     private WebElement wholeTableHeaderElement;
+
     @FindBy(className = "rf-dt-tft")
     private WebElement wholeTableFooterElement;
+
     @FindBy(css = "th.rf-dt-hdr-c")
     private WebElement headerElement;
+
     @FindBy(className = "rf-dt-ftr-c")
     private WebElement footerElement;
+
     @FindBy(className = "rf-dt-shdr-c")
     private List<WebElement> columnHeaderElements;
+
     @FindBy(className = "rf-dt-sftr-c")
     private List<WebElement> columnFooterElements;
+
+    private final AbstractTable.AdvancedTableInteractions advancedInteractions = new AdvancedDataTableInteractions();
 
     @Override
     public AdvancedTableInteractions advanced() {

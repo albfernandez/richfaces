@@ -23,7 +23,7 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 @RunAsClient
 @RunWith(Arquillian.class)
 public class ITForEachTab {
-
+    
     @FindByJQuery("[id$='tabPanel']")
     private RichFacesTabPanel tabPanel;
 
@@ -47,6 +47,18 @@ public class ITForEachTab {
         addIndexPage(deployment);
 
         return deployment.getFinalArchive();
+    }
+
+    @Test
+    public void check_tab_switch() {
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+        tabTestHelper.check_tab_switch(tabPanel, a4jCreateTabButton);
+    }
+
+    @Test
+    public void check_row_removal() throws InterruptedException {
+        browser.get(contextPath.toExternalForm());
+        tabTestHelper.check_row_removal(tabPanel, a4jCreateTabButton);
     }
 
     private static void addIndexPage(RichDeployment deployment) {
@@ -76,18 +88,6 @@ public class ITForEachTab {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    @Test
-    public void check_tab_switch() {
-        browser.get(contextPath.toExternalForm() + "index.jsf");
-        tabTestHelper.check_tab_switch(tabPanel, a4jCreateTabButton);
-    }
-
-    @Test
-    public void check_row_removal() throws InterruptedException {
-        browser.get(contextPath.toExternalForm());
-        tabTestHelper.check_row_removal(tabPanel, a4jCreateTabButton);
     }
 
 }

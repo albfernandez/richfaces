@@ -21,17 +21,18 @@
  */
 package org.richfaces.resource.optimizer.skin;
 
+import jakarta.faces.context.FacesContext;
+
 import org.richfaces.skin.AbstractSkinFactory;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.Theme;
 
-import jakarta.faces.context.FacesContext;
-
 /**
  * @author Nick Belaevski
+ *
  */
 public class SkinFactoryImpl extends AbstractSkinFactory {
-    private static ThreadLocal<String> skinNames = new ThreadLocal<String>();
+    private static ThreadLocal<String> skinNames = new ThreadLocal<>();
 
     public static void setSkinName(String skinName) {
         skinNames.set(skinName);
@@ -50,7 +51,7 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.skin.SkinFactory#getBaseSkin(javax.faces.context.FacesContext)
+     * @see org.richfaces.skin.SkinFactory#getBaseSkin(jakarta.faces.context.FacesContext)
      */
     @Override
     public Skin getBaseSkin(FacesContext facesContext) {
@@ -61,7 +62,7 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.skin.SkinFactory#getTheme(javax.faces.context.FacesContext, java.lang.String)
+     * @see org.richfaces.skin.SkinFactory#getTheme(jakarta.faces.context.FacesContext, java.lang.String)
      */
     @Override
     public Theme getTheme(FacesContext facesContext, String name) {

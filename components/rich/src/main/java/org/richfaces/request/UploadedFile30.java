@@ -21,12 +21,13 @@
  */
 package org.richfaces.request;
 
-import org.richfaces.model.UploadedFile;
-
-import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+
+import jakarta.servlet.http.Part;
+
+import org.richfaces.model.UploadedFile;
 
 /**
  * {@link UploadedFile} that delegates calls to instance of {@link Part} (from Servlet 3.0 API)

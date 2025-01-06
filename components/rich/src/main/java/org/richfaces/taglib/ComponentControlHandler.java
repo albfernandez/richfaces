@@ -21,10 +21,9 @@
  */
 package org.richfaces.taglib;
 
-import org.richfaces.component.AbstractParameter;
-import org.richfaces.component.UIHashParameter;
-import org.richfaces.component.behavior.ComponentControlBehavior;
-import org.richfaces.view.facelets.html.CustomBehaviorHandler;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIParameter;
@@ -37,12 +36,15 @@ import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.CompositeFaceletHandler;
 import jakarta.faces.view.facelets.FaceletContext;
 import jakarta.faces.view.facelets.FaceletHandler;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+
+import org.richfaces.component.AbstractParameter;
+import org.richfaces.component.UIHashParameter;
+import org.richfaces.component.behavior.ComponentControlBehavior;
+import org.richfaces.view.facelets.html.CustomBehaviorHandler;
 
 /**
  * @author Anton Belevich
+ *
  */
 public class ComponentControlHandler extends CustomBehaviorHandler {
     public ComponentControlHandler(BehaviorConfig config) {
@@ -106,7 +108,7 @@ public class ComponentControlHandler extends CustomBehaviorHandler {
 
     private boolean isUIParameter(String type) {
         return (UIParameter.COMPONENT_TYPE.equals(type) || UIHashParameter.COMPONENT_TYPE.equals(type) || AbstractParameter.COMPONENT_TYPE
-                .equals(type));
+            .equals(type));
     }
 
     @Override

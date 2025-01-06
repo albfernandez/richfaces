@@ -58,6 +58,63 @@ public class ITFocusManager {
         return deployment.getFinalArchive();
     }
 
+    @Test
+    @Category(Smoke.class)
+    public void test_FocusManager_on_initial_request() {
+        Graphene.guardHttp(browser).get(contextPath.toString());
+        Graphene.waitGui().until(new ElementIsFocused(input2));
+    }
+
+    @Test
+    public void test_FocusManager_on_form_submit_postback() {
+        // given
+        Graphene.guardHttp(browser).get(contextPath.toExternalForm());
+        // when
+        guardHttp(submitButton).click();
+        // then
+        Graphene.waitGui().until(new ElementIsFocused(input2));
+    }
+
+    @Test
+    public void test_FocusManager_on_ajax_postback() {
+        // given
+        Graphene.guardHttp(browser).get(contextPath.toExternalForm());
+        // when
+        guardAjax(ajaxButton).click();
+        // then
+        Graphene.waitGui().until(new ElementIsFocused(input2));
+    }
+
+    @Test
+    public void when_there_is_form_based_focus_but_focus_was_enforced_using_FocusManager_then_it_is_not_aplied() {
+
+        Graphene.guardHttp(browser).get(contextPath.toExternalForm() + "form.jsf");
+        Graphene.waitGui().until(new ElementIsFocused(input2));
+
+        guardHttp(submitButton).click();
+        Graphene.waitGui().until(new ElementIsFocused(input2));
+
+        guardAjax(ajaxButton).click();
+        Graphene.waitGui().until(new ElementIsFocused(input2));
+    }
+
+    @Test
+    public void when_there_is_view_based_focus_but_focus_was_enforced_using_FocusManager_then_it_is_not_aplied() {
+
+        Graphene.guardHttp(browser).get(contextPath.toExternalForm() + "view.jsf");
+        Graphene.waitGui().until(new ElementIsFocused(input2));
+
+        guardHttp(submitButton).click();
+        Graphene.waitGui().until(new ElementIsFocused(input2));
+
+        guardAjax(ajaxButton).click();
+        Graphene.waitGui().until(new ElementIsFocused(input2));
+    }
+
+    private WebElement getFocusedElement() {
+        return FocusRetriever.retrieveActiveElement();
+    }
+
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -116,62 +173,5 @@ public class ITFocusManager {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "view.xhtml");
-    }
-
-    @Test
-    @Category(Smoke.class)
-    public void test_FocusManager_on_initial_request() {
-        Graphene.guardHttp(browser).get(contextPath.toString());
-        Graphene.waitGui().until(new ElementIsFocused(input2));
-    }
-
-    @Test
-    public void test_FocusManager_on_form_submit_postback() {
-        // given
-        Graphene.guardHttp(browser).get(contextPath.toExternalForm());
-        // when
-        guardHttp(submitButton).click();
-        // then
-        Graphene.waitGui().until(new ElementIsFocused(input2));
-    }
-
-    @Test
-    public void test_FocusManager_on_ajax_postback() {
-        // given
-        Graphene.guardHttp(browser).get(contextPath.toExternalForm());
-        // when
-        guardAjax(ajaxButton).click();
-        // then
-        Graphene.waitGui().until(new ElementIsFocused(input2));
-    }
-
-    @Test
-    public void when_there_is_form_based_focus_but_focus_was_enforced_using_FocusManager_then_it_is_not_aplied() {
-
-        Graphene.guardHttp(browser).get(contextPath.toExternalForm() + "form.jsf");
-        Graphene.waitGui().until(new ElementIsFocused(input2));
-
-        guardHttp(submitButton).click();
-        Graphene.waitGui().until(new ElementIsFocused(input2));
-
-        guardAjax(ajaxButton).click();
-        Graphene.waitGui().until(new ElementIsFocused(input2));
-    }
-
-    @Test
-    public void when_there_is_view_based_focus_but_focus_was_enforced_using_FocusManager_then_it_is_not_aplied() {
-
-        Graphene.guardHttp(browser).get(contextPath.toExternalForm() + "view.jsf");
-        Graphene.waitGui().until(new ElementIsFocused(input2));
-
-        guardHttp(submitButton).click();
-        Graphene.waitGui().until(new ElementIsFocused(input2));
-
-        guardAjax(ajaxButton).click();
-        Graphene.waitGui().until(new ElementIsFocused(input2));
-    }
-
-    private WebElement getFocusedElement() {
-        return FocusRetriever.retrieveActiveElement();
     }
 }

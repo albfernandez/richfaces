@@ -21,8 +21,6 @@
  */
 package org.richfaces.view.facelets;
 
-import org.richfaces.component.TreeModelAdaptor;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.view.facelets.FaceletContext;
@@ -31,8 +29,9 @@ import jakarta.faces.view.facelets.Metadata;
 import jakarta.faces.view.facelets.MetadataTarget;
 import jakarta.faces.view.facelets.TagAttribute;
 
+import org.richfaces.component.TreeModelAdaptor;
+
 /**
- *
  */
 public class TreeAdaptorRowKeyConverterRule extends MetaRule {
     public static final TreeAdaptorRowKeyConverterRule INSTANCE = new TreeAdaptorRowKeyConverterRule();

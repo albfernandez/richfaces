@@ -3,19 +3,22 @@
  */
 package org.richfaces.renderkit.html;
 
+import java.util.Collections;
+
 import org.ajax4jsf.javascript.JSLiteral;
 import org.ajax4jsf.javascript.ScriptWithDependencies;
 import org.richfaces.resource.ResourceKey;
-
-import java.util.Collections;
 
 /**
  * This class represents "dummy" converter call ( just refference to "value" variable )
  *
  * @author asmirnov
+ *
  */
 public class NullConverterScript extends JSLiteral implements ScriptWithDependencies {
-    private String name;
+
+	private static final long serialVersionUID = 1678587132664004495L;
+	private String name;
 
     public NullConverterScript() {
         super(ClientValidatorRenderer.VALUE_VAR);

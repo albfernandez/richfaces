@@ -21,15 +21,16 @@
  */
 package org.richfaces.webapp;
 
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import java.text.MessageFormat;
+import java.util.Set;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRegistration;
 import jakarta.servlet.ServletRegistration.Dynamic;
-import java.text.MessageFormat;
-import java.util.Set;
+
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * <p>
@@ -37,32 +38,24 @@ import java.util.Set;
  * </p>
  *
  * <p>
- * Initialization can be turned of by "org.richfaces.resources.skipResourceServletRegistration" context parameter.
+ * Initialization can be turned off by "org.richfaces.resources.skipResourceServletRegistration" context parameter.
  * </p>
  */
 public class ResourceServletContainerInitializer extends AbstractServletContainerInitializer {
 
-    public static final String RICHFACES_RESOURCES_DEFAULT_MAPPING = "/org.richfaces.resources/*";
     private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
+
     private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.resources.skipResourceServletRegistration";
-
-    private static void registerServlet(ServletContext context) {
-        Dynamic dynamicRegistration = context.addServlet("AutoRegisteredResourceServlet", ResourceServlet.class);
-        dynamicRegistration.addMapping(RICHFACES_RESOURCES_DEFAULT_MAPPING);
-
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("Auto-registered servlet " + ResourceServlet.class.getSimpleName() + " with mapping '" + RICHFACES_RESOURCES_DEFAULT_MAPPING + "'");
-        }
-    }
+    public static final String RICHFACES_RESOURCES_DEFAULT_MAPPING = "/org.richfaces.resources/*";
 
     /*
      * (non-Javadoc)
      *
-     * @see javax.servlet.ServletContainerInitializer#onStartup(java.util.Set, javax.servlet.ServletContext)
+     * @see jakarta.servlet.ServletContainerInitializer#onStartup(java.util.Set, jakarta.servlet.ServletContext)
      */
     @Override
     public void onStartup(Set<Class<?>> c, ServletContext servletContext) throws ServletException {
-        if (Boolean.valueOf(servletContext.getInitParameter(SKIP_SERVLET_REGISTRATION_PARAM))) {
+        if (Boolean.parseBoolean(servletContext.getInitParameter(SKIP_SERVLET_REGISTRATION_PARAM))) {
             return;
         }
 
@@ -74,6 +67,15 @@ public class ResourceServletContainerInitializer extends AbstractServletContaine
         } catch (Exception e) {
             servletContext
                     .log(MessageFormat.format("Exception registering RichFaces Resource Servlet: {0}", e.getMessage()), e);
+        }
+    }
+
+    private static void registerServlet(ServletContext context) {
+        Dynamic dynamicRegistration = context.addServlet("AutoRegisteredResourceServlet", ResourceServlet.class);
+        dynamicRegistration.addMapping(RICHFACES_RESOURCES_DEFAULT_MAPPING);
+
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Auto-registered servlet " + ResourceServlet.class.getSimpleName() + " with mapping '" + RICHFACES_RESOURCES_DEFAULT_MAPPING + "'");
         }
     }
 }

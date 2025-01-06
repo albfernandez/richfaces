@@ -22,6 +22,8 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.component.UIMessage;
+
 import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -31,8 +33,6 @@ import org.richfaces.component.attribute.AjaxOutputProps;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.OutputFormatProps;
-
-import jakarta.faces.component.UIMessage;
 
 /**
  * <p>The &lt;rich:message&gt; component renders a single FacesMessage message instance added for the component. The

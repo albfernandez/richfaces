@@ -21,14 +21,15 @@
  */
 package org.richfaces.taglib;
 
-import org.richfaces.view.facelets.RowKeyConverterRule;
-
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.MetaRuleset;
 
+import org.richfaces.view.facelets.RowKeyConverterRule;
+
 /**
  * @author Anton Belevich
+ *
  */
 public class DataGridHandler extends ComponentHandler {
     private static final String ELEMENTS = "elements";

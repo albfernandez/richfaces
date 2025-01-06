@@ -21,12 +21,13 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
-import com.google.common.collect.Lists;
+import static org.junit.Assert.assertTrue;
+
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
-import static org.junit.Assert.assertTrue;
+import com.google.common.collect.Lists;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>

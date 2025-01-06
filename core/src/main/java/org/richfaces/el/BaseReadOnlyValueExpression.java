@@ -27,6 +27,7 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public abstract class BaseReadOnlyValueExpression extends ValueExpression {
     /**

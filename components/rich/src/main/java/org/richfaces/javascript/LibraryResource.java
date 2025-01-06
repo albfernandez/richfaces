@@ -30,6 +30,7 @@ import java.util.LinkedHashSet;
  * This class represent information about external JavaScript library as JSF resource
  *
  * @author asmirnov
+ *
  */
 public class LibraryResource {
     private final String library;
@@ -42,14 +43,6 @@ public class LibraryResource {
     public LibraryResource(String library, String resourceName) {
         this.library = library;
         this.resourceName = resourceName;
-    }
-
-    public static Iterable<LibraryResource> of(Iterable<LibraryScriptString> scripts) {
-        LinkedHashSet<LibraryResource> resources = Sets.newLinkedHashSet();
-        for (LibraryScriptString scriptString : scripts) {
-            resources.add(scriptString.getResource());
-        }
-        return resources;
     }
 
     /**
@@ -117,5 +110,13 @@ public class LibraryResource {
     @Override
     public String toString() {
         return getLibrary() + ':' + getResourceName();
+    }
+
+    public static Iterable<LibraryResource> of(Iterable<LibraryScriptString> scripts) {
+        LinkedHashSet<LibraryResource> resources = Sets.newLinkedHashSet();
+        for (LibraryScriptString scriptString : scripts) {
+            resources.add(scriptString.getResource());
+        }
+        return resources;
     }
 }

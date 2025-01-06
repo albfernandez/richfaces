@@ -21,12 +21,12 @@
  */
 package org.richfaces.fragment.common;
 
+import java.util.concurrent.TimeUnit;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.wait.FluentWait;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -58,7 +58,6 @@ public abstract class WaitingWrapperImpl implements WaitingWrapper {
 
     /**
      * Use @wait parameter to wait for the condition.
-     *
      * @param wait
      */
     protected abstract void performWait(FluentWait<WebDriver, Void> wait);

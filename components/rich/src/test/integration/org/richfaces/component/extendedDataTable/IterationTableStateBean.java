@@ -3,17 +3,17 @@
  * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
- * <p>
+ *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- * <p>
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
@@ -50,19 +50,20 @@ public class IterationTableStateBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String[] array = {"3", "6", "4", "8", "2", "1", "5", "7", "9", "0"};
-    private final String[] columnsOrder = null; //{"column1", "column2"};
-    private final String filterState = "{'columnsFilterState':{'column2':'6'}}";
-    private final String orderState = "{'columnsOrderState':['column2','column1','column3']}";
-    private final String sortState = "{'columnsSortState':{'column2':'descending'}}";
-    private final List<String> values = Arrays.asList(array);
+    private final String[] array = { "3", "6", "4", "8", "2", "1", "5", "7", "9", "0" };
     private String checkAscendingSortOrderResult = NOT_RUN;
     private String checkColumnFilterEquals3Result = NOT_RUN;
     private String checkColumnOrderAfterDndResult = NOT_RUN;
     private String checkWidthResizedAfterDnDResult = NOT_RUN;
+    private final String[] columnsOrder = null; //{"column1", "column2"};
+    private final String filterState = "{'columnsFilterState':{'column2':'6'}}";
     private Long filterValue = 10L;
+    private final String orderState = "{'columnsOrderState':['column2','column1','column3']}";
+
     private SortOrder sortOrder;// = SortOrder.ascending;
     private SortOrder sortOrder2;// = SortOrder.ascending;
+    private final String sortState = "{'columnsSortState':{'column2':'descending'}}";
+    private final List<String> values = Arrays.asList(array);
     private String widthState = "{'columnsWidthState':{'column1':'210px','column2':'75px'}}";
 
     public IterationTableStateBean() {
@@ -104,7 +105,7 @@ public class IterationTableStateBean implements Serializable {
         AbstractExtendedDataTable edtComponent = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("myForm").findComponent("edt");
         ExtendedDataTableState tableState = new ExtendedDataTableState(edtComponent);
 
-        String[] expectedOrder = {"column3", "column1", "column2"};
+        String[] expectedOrder = { "column3", "column1", "column2" };
         String[] order = tableState.getColumnsOrder();
         if (!Arrays.deepEquals(expectedOrder, order)) {
             checkColumnOrderAfterDndResult = MessageFormat.format("Expected columns order <{0}>, but have <{1}>.", Lists.newArrayList(expectedOrder), Lists.newArrayList(order));
@@ -162,20 +163,12 @@ public class IterationTableStateBean implements Serializable {
         return filterValue;
     }
 
-    public void setFilterValue(Long filterValue) {
-        this.filterValue = filterValue;
-    }
-
     public String getOrderState() {
         return orderState;
     }
 
     public SortOrder getSortOrder() {
         return sortOrder;
-    }
-
-    public void setSortOrder(SortOrder sortOrder) {
-        this.sortOrder = sortOrder;
     }
 
     public SortOrder getSortOrder2() {
@@ -192,6 +185,14 @@ public class IterationTableStateBean implements Serializable {
 
     public String getWidthState() {
         return widthState;
+    }
+
+    public void setFilterValue(Long filterValue) {
+        this.filterValue = filterValue;
+    }
+
+    public void setSortOrder(SortOrder sortOrder) {
+        this.sortOrder = sortOrder;
     }
 
     public void setWidthState(String widthState) {

@@ -26,6 +26,7 @@ import com.google.common.base.MoreObjects.ToStringHelper;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class TreeDataModelTuple {
     private Object rowKey;

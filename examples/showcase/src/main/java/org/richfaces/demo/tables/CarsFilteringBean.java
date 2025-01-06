@@ -1,11 +1,12 @@
 package org.richfaces.demo.tables;
 
+import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import org.richfaces.demo.tables.model.cars.InventoryItem;
 import org.richfaces.model.Filter;
-
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
-import java.io.Serializable;
 
 @ManagedBean
 @ViewScoped

@@ -21,10 +21,10 @@
  */
 package org.richfaces.webapp;
 
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Sets;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Set;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -36,16 +36,18 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Set;
+
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Sets;
 
 /**
+ *
  * @author Nick Belaevski
  */
 public class PushFilter implements Filter {
-    private static final long serialVersionUID = 7616370505508715222L;
     private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
 
     private PushServlet pushServlet;
@@ -70,17 +72,17 @@ public class PushFilter implements Filter {
 
     /*
      * (non-Javadoc)
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     * @see jakarta.servlet.Filter#doFilter(jakarta.servlet.ServletRequest, jakarta.servlet.ServletResponse, jakarta.servlet.FilterChain)
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
-            ServletException {
+        ServletException {
         if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpServletResponse httpResp = (HttpServletResponse) response;
 
             if ("GET".equals(httpReq.getMethod()) && httpReq.getQueryString() != null
-                    && httpReq.getQueryString().contains("__richfacesPushAsync")) {
+                && httpReq.getQueryString().contains("__richfacesPushAsync")) {
                 if (pushServlet == null) {
                     pushServlet = new PushServlet();
                     pushServlet.init(servletConfig);
@@ -95,7 +97,7 @@ public class PushFilter implements Filter {
 
     /*
      * (non-Javadoc)
-     * @see javax.servlet.Filter#destroy()
+     * @see jakarta.servlet.Filter#destroy()
      */
     @Override
     public void destroy() {

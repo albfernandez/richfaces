@@ -52,6 +52,22 @@ public class ITGraphValidatorGroups {
         return deployment.getFinalArchive();
     }
 
+    @Test
+    public void when_validation_group_is_empty_then_bean_validator_should_be_used() {
+        browser.get(contextPath.toExternalForm());
+        guardHttp(removeValidationGroupButton).click();
+        guardAjax(applyChanges).click();
+        assertThat(inputTextMsg.getText(), containsString("may not be empty"));
+    }
+
+    @Test
+    public void when_validation_group_is_set_then_bean_validator_should_not_be_used() {
+        browser.get(contextPath.toExternalForm());
+        guardHttp(setAlwaysPassingValidationGroupButton).click();
+        guardAjax(applyChanges).click();
+        assertThat(inputTextMsg.getText(), equalTo(""));
+    }
+
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -74,21 +90,5 @@ public class ITGraphValidatorGroups {
         p.form("</rich:graphValidator>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    @Test
-    public void when_validation_group_is_empty_then_bean_validator_should_be_used() {
-        browser.get(contextPath.toExternalForm());
-        guardHttp(removeValidationGroupButton).click();
-        guardAjax(applyChanges).click();
-        assertThat(inputTextMsg.getText(), containsString("may not be empty"));
-    }
-
-    @Test
-    public void when_validation_group_is_set_then_bean_validator_should_not_be_used() {
-        browser.get(contextPath.toExternalForm());
-        guardHttp(setAlwaysPassingValidationGroupButton).click();
-        guardAjax(applyChanges).click();
-        assertThat(inputTextMsg.getText(), equalTo(""));
     }
 }

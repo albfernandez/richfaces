@@ -21,18 +21,20 @@
  */
 package org.richfaces.renderkit.html;
 
+import java.io.IOException;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+
 import org.richfaces.component.AbstractProgressBar;
 import org.richfaces.component.NumberUtils;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.HtmlConstants;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-
 /**
  * @author Nick Belaevski
+ *
  */
 class ProgressBarStateEncoder {
     private static final int DEFAULT_MIN_VALUE = 0;
@@ -49,7 +51,7 @@ class ProgressBarStateEncoder {
     }
 
     private void encodeStateFacet(FacesContext context, UIComponent component, ProgressBarState state,
-                                  ProgressBarState currentState) throws IOException {
+        ProgressBarState currentState) throws IOException {
 
         if (!state.hasContent(context, component)) {
             return;
@@ -73,7 +75,7 @@ class ProgressBarStateEncoder {
     }
 
     public void encodeInitialState(FacesContext context, UIComponent component, ProgressBarState currentState)
-            throws IOException {
+        throws IOException {
         encodeStateFacet(context, component, ProgressBarState.initialState, currentState);
     }
 
@@ -96,7 +98,7 @@ class ProgressBarStateEncoder {
     protected Number calculatePercent(Number value, Number minValue, Number maxValue) {
         if (minValue.doubleValue() < value.doubleValue() && value.doubleValue() < maxValue.doubleValue()) {
             return (Number) ((value.doubleValue() - minValue.doubleValue()) * 100.0 / (maxValue.doubleValue() - minValue
-                    .doubleValue()));
+                .doubleValue()));
         } else if (value.doubleValue() <= minValue.doubleValue()) {
             return 0;
         } else if (value.doubleValue() >= maxValue.doubleValue()) {
@@ -106,7 +108,7 @@ class ProgressBarStateEncoder {
     }
 
     public void encodeProgressStateContent(FacesContext context, UIComponent component, ProgressBarState currentState)
-            throws IOException {
+        throws IOException {
 
         if (!ProgressBarState.progressState.hasContent(context, component)) {
             return;
@@ -117,7 +119,7 @@ class ProgressBarStateEncoder {
 
         responseWriter.startElement(HtmlConstants.DIV_ELEM, component);
         responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
-                ProgressBarState.progressState.getStyleClass(context, component), null);
+            ProgressBarState.progressState.getStyleClass(context, component), null);
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, stateClientId, null);
 
         if (!renderContentAsPlaceHolders || currentState == ProgressBarState.progressState) {
@@ -128,34 +130,34 @@ class ProgressBarStateEncoder {
     }
 
     protected void encodeProgressStateProlog(FacesContext context, UIComponent component, ProgressBarState currentState)
-            throws IOException {
+        throws IOException {
 
         ResponseWriter responseWriter = context.getResponseWriter();
         responseWriter.startElement(HtmlConstants.DIV_ELEM, component);
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ".rmng", null);
         responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
-                HtmlUtil.concatClasses("rf-pb-rmng", component.getAttributes().get("remainingClass")), null);
+            HtmlUtil.concatClasses("rf-pb-rmng", component.getAttributes().get("remainingClass")), null);
 
         responseWriter.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE,
-                getContentStyle(currentState == ProgressBarState.progressState), null);
+            getContentStyle(currentState == ProgressBarState.progressState), null);
 
         responseWriter.startElement(HtmlConstants.DIV_ELEM, component);
         responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
-                HtmlUtil.concatClasses("rf-pb-prgs", component.getAttributes().get("progressClass")), null);
+            HtmlUtil.concatClasses("rf-pb-prgs", component.getAttributes().get("progressClass")), null);
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ".prgs", null);
         responseWriter.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "width: " + getWidth(component) + "%", null);
         responseWriter.endElement(HtmlConstants.DIV_ELEM);
     }
 
     protected void encodeProgressStateEpilog(FacesContext context, UIComponent component, ProgressBarState currentState)
-            throws IOException {
+        throws IOException {
 
         ResponseWriter responseWriter = context.getResponseWriter();
         responseWriter.endElement(HtmlConstants.DIV_ELEM);
     }
 
     public void encodeProgressState(FacesContext context, UIComponent component, ProgressBarState currentState)
-            throws IOException {
+        throws IOException {
 
         encodeProgressStateProlog(context, component, currentState);
         encodeProgressStateContent(context, component, currentState);
@@ -163,7 +165,7 @@ class ProgressBarStateEncoder {
     }
 
     public void encodeCompleteState(FacesContext context, UIComponent component, ProgressBarState currentState)
-            throws IOException {
+        throws IOException {
         encodeStateFacet(context, component, ProgressBarState.finishState, currentState);
     }
 

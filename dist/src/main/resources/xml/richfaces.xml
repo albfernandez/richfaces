@@ -51,21 +51,21 @@
         <!-- RichFaces jars -->
         <dependencySet>
             <includes>
-                <include>org.richfaces:richfaces:jar:${project.version}</include>
-                <include>org.richfaces:richfaces:jar:sources:4.5.18.Final</include>
+                <include>com.github.albfernandez.richfaces:richfaces:jar:${project.version}</include>
+                <include>com.github.albfernandez.richfaces:richfaces:jar:sources:${project.version}</include>
             </includes>
             <outputFileNameMapping>richfaces-rich-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
         <dependencySet>
             <includes>
-                <include>org.richfaces:richfaces-a4j:jar:${project.version}</include>
-                <include>org.richfaces:richfaces-a4j:jar:sources:4.5.18.Final</include>
+                <include>com.github.albfernandez.richfaces:richfaces-a4j:jar:${project.version}</include>
+                <include>com.github.albfernandez.richfaces:richfaces-a4j:jar:sources:${project.version}</include>
             </includes>
         </dependencySet>
         <dependencySet>
             <includes>
-                <include>org.richfaces:richfaces-core:jar:${project.version}</include>
-                <include>org.richfaces:richfaces-core:jar:sources:4.5.18.Final</include>
+                <include>com.github.albfernandez.richfaces:richfaces-core:jar:${project.version}</include>
+                <include>com.github.albfernandez.richfaces:richfaces-core:jar:sources:${project.version}</include>
             </includes>
         </dependencySet>
 
@@ -76,7 +76,7 @@
                 <include>net.sourceforge.cssparser</include>
                 <include>org.w3c.css</include>
                 <include>com.google.guava</include>
-                <include>org.richfaces:richfaces-page-fragments</include>
+                <include>com.github.albfernandez.richfaces:richfaces-page-fragments</include>
             </includes>
         </dependencySet>
         <dependencySet>

@@ -21,7 +21,9 @@
  */
 package org.richfaces.fragment.notify;
 
-import com.google.common.base.Predicate;
+import java.util.List;
+import java.util.function.Function;
+
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.GrapheneElementImpl;
@@ -37,8 +39,6 @@ import org.richfaces.fragment.message.Message.MessageType;
 import org.richfaces.fragment.messages.Messages;
 import org.richfaces.fragment.notify.RichFacesNotify.NotifyMessageItemImpl;
 
-import java.util.List;
-
 /**
  * This fragment ignores its findBy. Global component.
  *
@@ -46,10 +46,12 @@ import java.util.List;
  */
 public class RichFacesNotify extends AbstractListComponent<NotifyMessageItemImpl> implements Notify<NotifyMessageItemImpl> {
 
-    private final AdvancedNotifyInteractionsImpl interactions = new AdvancedNotifyInteractionsImpl();
     @Drone
     private WebDriver driver;
+
     private String styleClass = "";
+
+    private final AdvancedNotifyInteractionsImpl interactions = new AdvancedNotifyInteractionsImpl();
 
     @Override
     public AdvancedNotifyInteractionsImpl advanced() {
@@ -58,9 +60,9 @@ public class RichFacesNotify extends AbstractListComponent<NotifyMessageItemImpl
 
     private By getByForNotifyWithStyleClass(String additionalStyleClass) {
         return By.cssSelector("div"
-                + getSelectorForStyleClassOrEmpty(advanced().getNotifyMessageStyleClass())
-                + getSelectorForStyleClassOrEmpty(this.getStyleClass())
-                + getSelectorForStyleClassOrEmpty(additionalStyleClass));
+            + getSelectorForStyleClassOrEmpty(advanced().getNotifyMessageStyleClass())
+            + getSelectorForStyleClassOrEmpty(this.getStyleClass())
+            + getSelectorForStyleClassOrEmpty(additionalStyleClass));
     }
 
     private String getSelectorForStyleClassOrEmpty(String styleClass) {
@@ -98,19 +100,6 @@ public class RichFacesNotify extends AbstractListComponent<NotifyMessageItemImpl
         this.styleClass = styleClass;
     }
 
-    public static class NotifyMessageItemImpl extends RichFacesNotifyMessage implements NotifyMessage, ListItem {
-
-        @Override
-        public GrapheneElement getRootElement() {
-            return new GrapheneElementImpl(advanced().getRootElement());
-        }
-
-        @Override
-        public String getText() {
-            return getRootElement().getText();
-        }
-    }
-
     public class AdvancedNotifyInteractionsImpl implements Messages.AdvancedMessagesInteractions {
 
         private static final String NOTIFY_MSG_STYLECLASS = "rf-ntf";
@@ -141,22 +130,22 @@ public class RichFacesNotify extends AbstractListComponent<NotifyMessageItemImpl
 
         public List<NotifyMessageItemImpl> getWarnMessages() {
             return instantiateFragments(NotifyMessageItemImpl.class,
-                    driver.findElements(getByForNotifyWithStyleClass(getNotifyMessageWarnStyleClass())));
+                driver.findElements(getByForNotifyWithStyleClass(getNotifyMessageWarnStyleClass())));
         }
 
         public List<NotifyMessageItemImpl> getErrorMessages() {
             return instantiateFragments(NotifyMessageItemImpl.class,
-                    driver.findElements(getByForNotifyWithStyleClass(getNotifyMessageErrorStyleClass())));
+                driver.findElements(getByForNotifyWithStyleClass(getNotifyMessageErrorStyleClass())));
         }
 
         public List<NotifyMessageItemImpl> getFatalMessages() {
             return instantiateFragments(NotifyMessageItemImpl.class,
-                    driver.findElements(getByForNotifyWithStyleClass(getNotifyMessageFatalStyleClass())));
+                driver.findElements(getByForNotifyWithStyleClass(getNotifyMessageFatalStyleClass())));
         }
 
         public List<NotifyMessageItemImpl> getInfoMessages() {
             return instantiateFragments(NotifyMessageItemImpl.class,
-                    driver.findElements(getByForNotifyWithStyleClass(getNotifyMessageInfoStyleClass())));
+                driver.findElements(getByForNotifyWithStyleClass(getNotifyMessageInfoStyleClass())));
         }
 
         public void setStyleClassToContain(String styleClass) {
@@ -174,10 +163,10 @@ public class RichFacesNotify extends AbstractListComponent<NotifyMessageItemImpl
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return !isVisible();
                         }
                     });
@@ -191,15 +180,28 @@ public class RichFacesNotify extends AbstractListComponent<NotifyMessageItemImpl
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isVisible();
                         }
                     });
                 }
             }.withMessage("Waiting for notify to be visible.");
+        }
+    }
+
+    public static class NotifyMessageItemImpl extends RichFacesNotifyMessage implements NotifyMessage, ListItem {
+
+        @Override
+        public GrapheneElement getRootElement() {
+            return new GrapheneElementImpl(advanced().getRootElement());
+        }
+
+        @Override
+        public String getText() {
+            return getRootElement().getText();
         }
     }
 

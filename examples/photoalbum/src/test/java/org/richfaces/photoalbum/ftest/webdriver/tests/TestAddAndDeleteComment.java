@@ -21,7 +21,10 @@
  */
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import category.FailingOnPhantomJS;
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -30,9 +33,6 @@ import org.junit.experimental.categories.Category;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView.CommentsPanel;
 
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
@@ -54,13 +54,12 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void addComment() {
         login();
 
         // open first photo in album 'Monuments and just buildings'
         PhotoView photoView = getPage().getLeftPanel().openAlbumInPredefinedGroup("Monuments and just buildings", "Monuments")
-                .getPhotos().get(0).open();
+            .getPhotos().get(0).open();
         CommentsPanel commentPanel = photoView.getCommentPanel();
 
         // check previous comments
@@ -98,7 +97,6 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void deleteComment() {
         // firstly need to add comment if its not already present (includes login)
         addSingleComment();

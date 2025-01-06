@@ -18,13 +18,12 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
-package org.richfaces.demo.push;
+ */package org.richfaces.demo.push;
 
-import jakarta.faces.bean.ApplicationScoped;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  * Determines from the faces config whether or not Push is enabled.
@@ -32,6 +31,7 @@ import jakarta.faces.context.FacesContext;
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>,
  * @author <a href="http://community.jboss.org/people/kenfinni">Ken Finnigan</a>
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ *
  */
 @ApplicationScoped
 @ManagedBean

@@ -21,18 +21,20 @@
  */
 package org.richfaces.demo.iteration.model.tree.adaptors;
 
-import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
+import java.util.List;
 
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import java.util.List;
+
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 
 /**
  * @author Nick Belaevski mailto:nbelaevski@exadel.com created 29.07.2007
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Entry {

@@ -21,18 +21,19 @@
  */
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.Tag;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import jakarta.faces.FacesException;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.UIParameter;
 import jakarta.faces.view.facelets.ComponentHandler;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
 
 /**
  * <p>The &lt;r:hashParam&gt; component allows client-side parameters to be grouped into a hash map. The hash map can
@@ -45,15 +46,17 @@ public class UIHashParameter extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.HashParameter";
     public static final String COMPONENT_FAMILY = "org.richfaces.HashParameter";
 
+    enum PropertyKeys {
+        name
+    }
+
     public UIHashParameter() {
         super();
         setRendererType(null);
     }
 
     @Attribute(hidden = true)
-    public boolean isRendered() {
-        return true;
-    }
+    public boolean isRendered() {return true;};
 
     /**
      * The name of the javascript hash property which this hash should be assigned to (can be used as nested hashParameter) or
@@ -74,7 +77,7 @@ public class UIHashParameter extends UIComponentBase {
     @Attribute(hidden = true)
     public Map<String, Object> getValue() {
         List<UIComponent> children = getChildren();
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
 
         for (UIComponent child : children) {
             if (child instanceof UIParameter) {
@@ -101,9 +104,5 @@ public class UIHashParameter extends UIComponentBase {
     @Override
     public String getFamily() {
         return (COMPONENT_FAMILY);
-    }
-
-    enum PropertyKeys {
-        name
     }
 }

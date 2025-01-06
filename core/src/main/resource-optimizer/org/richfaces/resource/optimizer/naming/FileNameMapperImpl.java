@@ -21,13 +21,14 @@
  */
 package org.richfaces.resource.optimizer.naming;
 
+import java.util.regex.Matcher;
+
 import org.richfaces.resource.optimizer.FileNameMapper;
 import org.richfaces.resource.optimizer.FileNameMapping;
 
-import java.util.regex.Matcher;
-
 /**
  * @author Nick Belaevski
+ *
  */
 public class FileNameMapperImpl implements FileNameMapper {
     private FileNameMapping[] fileNameMappings;

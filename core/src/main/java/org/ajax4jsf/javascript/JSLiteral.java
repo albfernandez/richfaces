@@ -28,14 +28,13 @@ import java.io.Serializable;
  * Class provides creation of simple literal javascript to be set in ajax response data
  *
  * @author Andrey Markavtsov
+ *
  */
 @SuppressWarnings("serial")
 public class JSLiteral extends ScriptStringBase implements Serializable {
     public static final JSLiteral EMPTY_HASH = new JSLiteral("{}");
     public static final JSLiteral EMPTY_LIST = new JSLiteral("[]");
-    /**
-     * Javascript literal text
-     */
+    /** Javascript literal text */
     private final String literal;
 
     /**

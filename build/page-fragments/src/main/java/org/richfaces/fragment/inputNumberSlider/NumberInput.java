@@ -39,7 +39,7 @@ public interface NumberInput {
 
     /**
      * Increases the current value of this number input by the value of the step <code>n</code> times.
-     * <p>
+     *
      * In other words, if the step is 2, and given param <code>n</code> is 3, the input value is increased by 6.
      *
      * @param n how many times the increasing should be executed
@@ -49,7 +49,7 @@ public interface NumberInput {
 
     /**
      * Dcreases the current value of this number input by the value of the step <code>n</code> times.
-     * <p>
+     *
      * In other words, if the step is 2, and given param <code>n</code> is 3, the input value is decreased by 6.
      *
      * @param n how many times the decreasing should be executed
@@ -58,16 +58,16 @@ public interface NumberInput {
     void decrease(int n);
 
     /**
-     * Gets the current number value of this number input.
-     *
-     * @return the current value of the number input
-     */
-    double getValue();
-
-    /**
      * Sets the exact number value to the input.
      *
      * @param value value to be set
      */
     void setValue(double value);
+
+    /**
+     * Gets the current number value of this number input.
+     *
+     * @return the current value of the number input
+     */
+    double getValue();
 }

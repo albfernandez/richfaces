@@ -40,22 +40,6 @@ public class IT_RF12512 {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(A4JDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form id='myForm'> ");
-        p.body("    <h:inputText id='input' value='#{ajaxBean.value}'/> ");
-        p.body("    <h:commandButton id='submit' value = 'Submit Input'> ");
-        p.body("        <f:ajax execute='input' render='input' /> ");
-        p.body("    </h:commandButton> ");
-        p.body("    <h:commandButton id='clear' value = 'Clear Input'> ");
-        p.body("        <f:ajax listener='#{ajaxBean.clearValue}' render='input' /> ");
-        p.body("    </h:commandButton> ");
-        p.body("</h:form> ");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void input_matrix() {
         browser.get(contextPath.toExternalForm() + "a4jrepeatMatrix.jsf");
@@ -89,6 +73,22 @@ public class IT_RF12512 {
         Graphene.guardAjax(clear).click();
         input = browser.findElement(By.id("myForm:input"));
         Assert.assertEquals("0", input.getAttribute("value"));
+    }
+
+    private static void addIndexPage(A4JDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='myForm'> ");
+        p.body("    <h:inputText id='input' value='#{ajaxBean.value}'/> ");
+        p.body("    <h:commandButton id='submit' value = 'Submit Input'> ");
+        p.body("        <f:ajax execute='input' render='input' /> ");
+        p.body("    </h:commandButton> ");
+        p.body("    <h:commandButton id='clear' value = 'Clear Input'> ");
+        p.body("        <f:ajax listener='#{ajaxBean.clearValue}' render='input' /> ");
+        p.body("    </h:commandButton> ");
+        p.body("</h:form> ");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
 }

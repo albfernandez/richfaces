@@ -21,13 +21,13 @@
  */
 package org.richfaces.component;
 
-import org.ajax4jsf.component.IterationStateHolder;
-
 import jakarta.faces.component.EditableValueHolder;
 import jakarta.faces.component.StateHolder;
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.UIForm;
 import jakarta.faces.context.FacesContext;
+
+import org.ajax4jsf.component.IterationStateHolder;
 
 
 //from RI
@@ -39,7 +39,6 @@ import jakarta.faces.context.FacesContext;
  */
 public final class SavedState implements StateHolder {
     public static final SavedState EMPTY = new SavedState();
-    private static final long serialVersionUID = -1563864456074187422L;
     private boolean valid = true;
     private boolean localValueSet;
     private boolean submitted;
@@ -124,7 +123,7 @@ public final class SavedState implements StateHolder {
             return "iterationState: " + iterationState;
         } else {
             return "submittedValue: " + submittedValue + " value: " + value + " localValueSet: " + localValueSet
-                    + " submitted: " + submitted;
+                + " submitted: " + submitted;
         }
     }
 
@@ -155,6 +154,10 @@ public final class SavedState implements StateHolder {
         return false;
     }
 
+    public void setTransient(boolean newTransientValue) {
+        throw new UnsupportedOperationException();
+    }
+
     public boolean isTransient() {
         if (iterationState != null) {
             return isObjectTransient(iterationState);
@@ -171,21 +174,17 @@ public final class SavedState implements StateHolder {
         return isObjectTransient(submittedValue) && isObjectTransient(value);
     }
 
-    public void setTransient(boolean newTransientValue) {
-        throw new UnsupportedOperationException();
-    }
-
     public Object saveState(FacesContext context) {
         if (isTransient()) {
             return null;
         }
 
         if (iterationState != null) {
-            return new Object[]{UIComponentBase.saveAttachedState(context, iterationState)};
+            return new Object[] { UIComponentBase.saveAttachedState(context, iterationState) };
         } else {
-            return new Object[]{valid ? Boolean.TRUE : Boolean.FALSE, localValueSet ? Boolean.TRUE : Boolean.FALSE,
+            return new Object[] { valid ? Boolean.TRUE : Boolean.FALSE, localValueSet ? Boolean.TRUE : Boolean.FALSE,
                     submitted ? Boolean.TRUE : Boolean.FALSE, UIComponentBase.saveAttachedState(context, submittedValue),
-                    UIComponentBase.saveAttachedState(context, value)};
+                    UIComponentBase.saveAttachedState(context, value) };
         }
     }
 

@@ -43,6 +43,12 @@ public class ITTogglePanel {
         return archive;
     }
 
+    @Test
+    public void check_toggle_panel() {
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+        guardAjax(button).click();
+    }
+
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -60,12 +66,6 @@ public class ITTogglePanel {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    @Test
-    public void check_toggle_panel() {
-        browser.get(contextPath.toExternalForm() + "index.jsf");
-        guardAjax(button).click();
     }
 
 }

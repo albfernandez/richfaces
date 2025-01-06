@@ -21,11 +21,11 @@
  */
 package org.richfaces.fragment.messages;
 
+import java.util.List;
+
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.message.Message;
 import org.richfaces.fragment.message.Message.MessageType;
-
-import java.util.List;
 
 public class MessagesShowcase {
 

@@ -21,6 +21,8 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.Facet;
@@ -29,8 +31,6 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.OutputFormatProps;
 import org.richfaces.component.attribute.StyleClassProps;
-
-import jakarta.faces.component.UIComponentBase;
 
 /**
  * <p>

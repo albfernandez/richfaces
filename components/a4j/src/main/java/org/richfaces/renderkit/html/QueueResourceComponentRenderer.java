@@ -21,11 +21,13 @@
  */
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.application.CommonComponentsConfiguration;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.QueueRegistry;
-import org.richfaces.renderkit.HtmlConstants;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import jakarta.faces.application.ResourceDependencies;
 import jakarta.faces.application.ResourceDependency;
@@ -34,20 +36,20 @@ import jakarta.faces.component.UIOutput;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
 import jakarta.faces.render.Renderer;
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
-import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.application.CommonComponentsConfiguration;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.QueueRegistry;
+import org.richfaces.renderkit.HtmlConstants;
 
 /**
  * @author Nick Belaevski
+ *
  */
 @JsfRenderer(type = QueueResourceComponentRenderer.TYPE, family = UIOutput.COMPONENT_FAMILY)
 @ResourceDependencies({
-        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")
@@ -55,6 +57,20 @@ import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
 public class QueueResourceComponentRenderer extends Renderer {
     static final String TYPE = "org.richfaces.QueueResourceComponentRenderer";
     private static final String FUNCTION_NAME = "RichFaces.queue.setQueueOptions";
+
+    private enum QueueOptions {
+        onbeforedomupdate,
+        oncomplete,
+        onerror,
+        onrequestdequeue,
+        onrequestqueue,
+        onsubmit,
+        requestDelay,
+        queueId,
+        ignoreDupResponses,
+        requestGroupingId,
+        status
+    }
 
     private void appendOptions(UIComponent queue, Map<String, Object> optionsHash) {
         Map<String, Object> attributes = queue.getAttributes();
@@ -85,7 +101,7 @@ public class QueueResourceComponentRenderer extends Renderer {
             writer.writeText(FUNCTION_NAME, null);
             writer.writeText("({", null);
 
-            Map<String, Object> queueOptionsMap = new LinkedHashMap<String, Object>();
+            Map<String, Object> queueOptionsMap = new LinkedHashMap<>();
 
             boolean isFirst = true;
             Map<String, UIComponent> registeredQueues = registry.getRegisteredQueues();
@@ -115,19 +131,5 @@ public class QueueResourceComponentRenderer extends Renderer {
 
             writer.endElement(HtmlConstants.SCRIPT_ELEM);
         }
-    }
-
-    private enum QueueOptions {
-        onbeforedomupdate,
-        oncomplete,
-        onerror,
-        onrequestdequeue,
-        onrequestqueue,
-        onsubmit,
-        requestDelay,
-        queueId,
-        ignoreDupResponses,
-        requestGroupingId,
-        status
     }
 }

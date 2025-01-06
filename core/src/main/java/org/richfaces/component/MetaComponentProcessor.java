@@ -25,6 +25,7 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public interface MetaComponentProcessor {
     void processMetaComponent(FacesContext context, String metaComponentId);

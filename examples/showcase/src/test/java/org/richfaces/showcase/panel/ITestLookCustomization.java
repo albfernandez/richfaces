@@ -21,15 +21,15 @@
  */
 package org.richfaces.showcase.panel;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -45,19 +45,19 @@ public class ITestLookCustomization extends AbstractPanelTest {
     // the order of panels is from top left to bottom right corner of sample page with panels
     protected final String PANEL1_HEADER = "Panel #1. Changing Style Synchronously";
     protected final String PANEL1_BODY = "Each component in RichFaces has a pre-defined set "
-            + "of CSS classes you can manipulate. If defined, those classes overwrite the " + "ones that come from the skin.";
+        + "of CSS classes you can manipulate. If defined, those classes overwrite the " + "ones that come from the skin.";
     protected final String PANEL2_HEADER = "Panel #2. Changing Style Synchronously";
     protected final String PANEL2_BODY = "In this example, we define header color using "
-            + "the .rf-panel-header class and all panels located on the same page inherit " + "this color";
+        + "the .rf-panel-header class and all panels located on the same page inherit " + "this color";
     protected final String PANEL3_HEADER = "Panel header";
     protected final String PANEL3_BODY = "Based on the previous layout, but with CSS visual effects added.";
     protected final String PANEL4_HEADER = "Scrolling Text Panel";
     protected final String PANEL4_BODY = "Long Text Long Text Long Text Long Text Long "
-            + "Text Long Text Long Text Long Text Long Text Long Text Long Text Long "
-            + "Text Long Text Long Text Long Text Long Text Long Text Long Text "
-            + "Long Text Long Text Long Text Long Text Long Text Long Text "
-            + "Long Text Long Text Long Text Long Text Long Text Long Text "
-            + "Long Text Long Text Long Text Long Text Long Text Long Text Long Text Long " + "Text Long Text";
+        + "Text Long Text Long Text Long Text Long Text Long Text Long Text Long "
+        + "Text Long Text Long Text Long Text Long Text Long Text Long Text "
+        + "Long Text Long Text Long Text Long Text Long Text Long Text "
+        + "Long Text Long Text Long Text Long Text Long Text Long Text "
+        + "Long Text Long Text Long Text Long Text Long Text Long Text Long Text Long " + "Text Long Text";
     protected final String PANEL5_BODY = "This is a panel without the header";
 
     @ArquillianResource
@@ -78,7 +78,7 @@ public class ITestLookCustomization extends AbstractPanelTest {
         checkContentOfPanel(outputPanelScrolling + " > " + BODY, PANEL4_BODY);
 
         Graphene.waitModel().until("There should not be the header!")
-                .element(ByJQuery.selector(outputPanelWithoutHeader + HEADER)).is().not().present();
+            .element(ByJQuery.selector(outputPanelWithoutHeader + HEADER)).is().not().present();
         checkContentOfPanel(outputPanelWithoutHeader, PANEL5_BODY);
     }
 
@@ -97,18 +97,18 @@ public class ITestLookCustomization extends AbstractPanelTest {
         String colorOfBodyAfter = getBackgroundColor(outputPanelCSSEffect + " > " + BODY);
 
         assertFalse("The color of header should be different after the mouse moved over the panel.",
-                colorOfHeaderBefore.equals(colorOfHeaderAfter));
+            colorOfHeaderBefore.equals(colorOfHeaderAfter));
         assertFalse("The color of body should be different after the mouse moved over the panel..",
-                colorOfBodyBefore.equals(colorOfBodyAfter));
+            colorOfBodyBefore.equals(colorOfBodyAfter));
 
         mouseOut();
         colorOfHeaderAfter = getBackgroundColor(outputPanelCSSEffect + " > " + HEADER);
         colorOfBodyAfter = getBackgroundColor(outputPanelCSSEffect + " > " + BODY);
 
         assertEquals("The color of header should change back after the mouse moved out of the panel.", colorOfHeaderBefore,
-                colorOfHeaderAfter);
+            colorOfHeaderAfter);
         assertEquals("The color of body should change back after the mouse moved out of the panel.", colorOfBodyBefore,
-                colorOfBodyAfter);
+            colorOfBodyAfter);
     }
 
     private String getBackgroundColor(String locator) {

@@ -1,24 +1,28 @@
 /**
  * License Agreement.
- * <p>
+ *
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- * <p>
+ *
  * Copyright (C) 2007 Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.component;
+
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -28,10 +32,6 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.component.attribute.StyleProps;
 
-import jakarta.faces.application.ResourceDependencies;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.UIComponentBase;
-
 /**
  * <p>
  * The &lt;a4j:log&gt; component generates JavaScript that opens a debug window, logging application information such as
@@ -39,12 +39,12 @@ import jakarta.faces.component.UIComponentBase;
  * </p>
  * @author Nick Belaevski
  */
-@ResourceDependencies(value = {@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies(value = { @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "log.js"),
-        @ResourceDependency(library = "org.richfaces", name = "log.ecss")})
+        @ResourceDependency(library = "org.richfaces", name = "log.ecss") })
 @JsfComponent(tag = @Tag(name = "log", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.AjaxLogRenderer"))
 public abstract class AbstractAjaxLog extends UIComponentBase implements StyleProps, StyleClassProps {
     public static final String COMPONENT_TYPE = "org.richfaces.AjaxLog";

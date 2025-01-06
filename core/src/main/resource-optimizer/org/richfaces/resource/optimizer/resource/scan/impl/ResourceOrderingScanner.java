@@ -21,12 +21,16 @@
  */
 package org.richfaces.resource.optimizer.resource.scan.impl;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
-import com.google.common.collect.Sets;
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ConfigurationBuilder;
@@ -40,17 +44,16 @@ import org.richfaces.resource.optimizer.resource.scan.impl.reflections.Reflectio
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
 import org.richfaces.resource.optimizer.vfs.VFSType;
 
-import jakarta.faces.application.ResourceDependencies;
-import jakarta.faces.application.ResourceDependency;
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class ResourceOrderingScanner implements ResourcesScanner {
     private static final Function<ResourceDependency, ResourceKey> RESOURCE_DEPENDENCY_TO_KEY = new Function<ResourceDependency, ResourceKey>() {
@@ -68,7 +71,7 @@ public class ResourceOrderingScanner implements ResourcesScanner {
     };
 
     private Collection<ResourceKey> resources = Lists.newLinkedList();
-    private PartialOrderToCompleteOrder<ResourceKey> ordering = new PartialOrderToCompleteOrder<ResourceKey>();
+    private PartialOrderToCompleteOrder<ResourceKey> ordering = new PartialOrderToCompleteOrder<>();
     private Collection<VFSRoot> cpFiles;
     private Logger log;
 
@@ -128,7 +131,7 @@ public class ResourceOrderingScanner implements ResourcesScanner {
     }
 
     private void addAnnotatedClasses(Class<? extends Annotation> annotationClass, ReflectionsExt refl,
-                                     Collection<Class<?>> allClasses) {
+            Collection<Class<?>> allClasses) {
         for (Class<?> annotatedClass : refl.getTypesAnnotatedWith(annotationClass)) {
             allClasses.add(annotatedClass);
         }

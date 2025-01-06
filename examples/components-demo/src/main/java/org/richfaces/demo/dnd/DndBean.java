@@ -22,10 +22,11 @@
 
 package org.richfaces.demo.dnd;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
@@ -85,10 +86,6 @@ public class DndBean {
         return dropValues;
     }
 
-    public void setDropValues(List<String> dropValues) {
-        this.dropValues = dropValues;
-    }
-
     public String getDragValue1() {
         return dragValue1;
     }
@@ -111,6 +108,10 @@ public class DndBean {
 
     public void setDragValue3(String dragValue3) {
         this.dragValue3 = dragValue3;
+    }
+
+    public void setDropValues(List<String> dropValues) {
+        this.dropValues = dropValues;
     }
 
     public String getAcceptedTypes() {

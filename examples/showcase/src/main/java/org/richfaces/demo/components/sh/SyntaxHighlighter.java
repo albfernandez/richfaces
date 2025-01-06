@@ -22,22 +22,23 @@
 
 package org.richfaces.demo.components.sh;
 
-import org.ajax4jsf.javascript.JSFunction;
-
-import jakarta.faces.FacesException;
-import jakarta.faces.application.ResourceDependencies;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.FacesComponent;
-import jakarta.faces.component.UIComponentBase;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import javax.faces.FacesException;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponentBase;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
+import org.ajax4jsf.javascript.JSFunction;
+
 @FacesComponent(value = "syntaxHighlighter")
-@ResourceDependencies({@ResourceDependency(library = "org.richfaces", name = "jquery.js"), @ResourceDependency(library = "js", name = "xregexp.js"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "jquery.js"), @ResourceDependency(library = "js", name = "xregexp.js"),
         @ResourceDependency(library = "js", name = "shCore.js"),
         @ResourceDependency(library = "js", name = "shBrushJScript.js"),
         @ResourceDependency(library = "js", name = "shBrushJava.js"),
@@ -50,12 +51,19 @@ public class SyntaxHighlighter extends UIComponentBase {
     private static final String COMPONENT_FAMILY = "org.richfaces.SyntaxHighlighter";
     private static final String DEFAULT_SOURCE_TYPE = "xhtml";
 
+    enum propertyKeys {
+        sourceType,
+        src,
+        style,
+        styleClass
+    }
+
+    ;
+
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
     }
-
-    ;
 
     private void renderStream(FacesContext context, InputStream stream) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
@@ -144,12 +152,5 @@ public class SyntaxHighlighter extends UIComponentBase {
 
     public void setStyleClass(String styleClass) {
         getStateHelper().put(propertyKeys.styleClass, styleClass);
-    }
-
-    enum propertyKeys {
-        sourceType,
-        src,
-        style,
-        styleClass
     }
 }

@@ -30,6 +30,7 @@ import jakarta.faces.context.FacesContext;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public interface JavaScriptService {
     /**
@@ -52,13 +53,12 @@ public interface JavaScriptService {
      * @param facesContext TODO
      * @param script
      * @param <S>
-     * @return
      */
     <S> S addPageReadyScript(FacesContext facesContext, S script);
 
     /**
      * <p class="changed_added_4_0">
-     * Get object with collection of scripts designeted for deffered rendering.
+     * Get object with collection of scripts designated for deffered rendering.
      * </p>
      *
      * @param context

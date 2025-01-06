@@ -21,16 +21,7 @@
  */
 package org.richfaces.application.push.impl;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import org.richfaces.application.CoreConfiguration;
-import org.richfaces.application.configuration.ConfigurationServiceHelper;
-import org.richfaces.application.push.PushContext;
-import org.richfaces.application.push.SessionFactory;
-import org.richfaces.application.push.SessionManager;
-import org.richfaces.application.push.TopicsContext;
-import org.richfaces.application.push.impl.jms.JMSTopicsContextImpl;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import java.util.concurrent.ThreadFactory;
 
 import jakarta.faces.FacesException;
 import jakarta.faces.context.FacesContext;
@@ -38,12 +29,24 @@ import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.PreDestroyApplicationEvent;
 import jakarta.faces.event.SystemEvent;
 import jakarta.faces.event.SystemEventListener;
-import java.util.concurrent.ThreadFactory;
+
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
+import org.richfaces.application.push.PushContext;
+import org.richfaces.application.push.SessionFactory;
+import org.richfaces.application.push.SessionManager;
+import org.richfaces.application.push.TopicsContext;
+import org.richfaces.application.push.impl.jms.JMSTopicsContextImpl;
+import org.richfaces.application.CoreConfiguration;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * {@inheritDoc}
  *
  * @author Nick Belaevski
+ *
  * @see PushContext
  */
 public class PushContextImpl implements PushContext, SystemEventListener {
@@ -67,7 +70,7 @@ public class PushContextImpl implements PushContext, SystemEventListener {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.application.push.PushContext#init(javax.faces.context.FacesContext)
+     * @see org.richfaces.application.push.PushContext#init(jakarta.faces.context.FacesContext)
      */
     @Override
     public void init(FacesContext facesContext) {

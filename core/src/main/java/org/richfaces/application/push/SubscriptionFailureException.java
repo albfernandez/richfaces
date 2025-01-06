@@ -23,6 +23,7 @@ package org.richfaces.application.push;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class SubscriptionFailureException extends Exception {
     private static final long serialVersionUID = -2070837902276133333L;

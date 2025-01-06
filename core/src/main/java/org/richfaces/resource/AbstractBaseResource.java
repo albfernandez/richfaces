@@ -21,14 +21,6 @@
  */
 package org.richfaces.resource;
 
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.Uptime;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-
-import jakarta.faces.FacesException;
-import jakarta.faces.application.Resource;
-import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -40,6 +32,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import jakarta.faces.FacesException;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
+
+import org.richfaces.application.Uptime;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.application.ServiceTracker;
 
 /**
  * @author Nick Belaevski
@@ -75,9 +76,9 @@ public abstract class AbstractBaseResource extends Resource {
 
             if (LOGGER.isDebugEnabled()) {
                 LOGGER
-                        .debug(MessageFormat.format(
-                                "Using resource handler start time as last modified date: {0,date,dd MMM yyyy HH:mm:ss zzz}",
-                                lastModified));
+                    .debug(MessageFormat.format(
+                        "Using resource handler start time as last modified date: {0,date,dd MMM yyyy HH:mm:ss zzz}",
+                        lastModified));
             }
         }
 
@@ -152,13 +153,13 @@ public abstract class AbstractBaseResource extends Resource {
         Object resourceData = ResourceUtils.saveResourceState(context, this);
         String resourceVersion = getResourceVersion();
         String resourceUri = resourceCodec.encodeResourceRequestPath(context, libraryName, resourceName, resourceData,
-                resourceVersion);
+            resourceVersion);
 
         resourceUri = resourceCodec.encodeJSFMapping(context, resourceUri);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug(MessageFormat.format("Request path for {0} resource is: {1}", String.valueOf(resourceName),
-                    String.valueOf(resourceUri)));
+                String.valueOf(resourceUri)));
         }
 
         return resourceUri;
@@ -186,7 +187,7 @@ public abstract class AbstractBaseResource extends Resource {
 
     @Override
     public Map<String, String> getResponseHeaders() {
-        Map<String, String> headers = new HashMap<String, String>();
+        Map<String, String> headers = new HashMap<>();
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
         if (isResourceRequest()) {

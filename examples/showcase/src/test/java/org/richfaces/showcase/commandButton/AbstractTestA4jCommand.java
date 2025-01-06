@@ -21,14 +21,14 @@
  */
 package org.richfaces.showcase.commandButton;
 
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.showcase.AbstractWebDriverTest;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

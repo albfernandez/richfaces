@@ -75,6 +75,15 @@ public class ITMetaComponentRendering {
         return deployment.getFinalArchive();
     }
 
+    @Test
+    public void meta_components_can_be_rendered_using_at_sign_syntax() {
+        browser.get(contextPath.toExternalForm());
+        assertThat(panel.getText(), equalTo("1"));
+
+        guardAjax(button).click();
+        assertThat(panel.getText(), equalTo("2"));
+    }
+
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -87,14 +96,5 @@ public class ITMetaComponentRendering {
         p.form("</rich:togglePanel>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    @Test
-    public void meta_components_can_be_rendered_using_at_sign_syntax() {
-        browser.get(contextPath.toExternalForm());
-        assertThat(panel.getText(), equalTo("1"));
-
-        guardAjax(button).click();
-        assertThat(panel.getText(), equalTo("2"));
     }
 }

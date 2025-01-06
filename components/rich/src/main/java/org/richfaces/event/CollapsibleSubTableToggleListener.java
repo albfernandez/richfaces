@@ -25,6 +25,7 @@ import jakarta.faces.event.FacesListener;
 
 /**
  * @author Anton Belevich
+ *
  */
 public interface CollapsibleSubTableToggleListener extends FacesListener {
     void processCollapsibleSubTableToggle(CollapsibleSubTableToggleEvent event);

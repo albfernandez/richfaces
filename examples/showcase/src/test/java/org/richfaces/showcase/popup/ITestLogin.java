@@ -21,13 +21,13 @@
  *******************************************************************************/
 package org.richfaces.showcase.popup;
 
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
+
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.panel.AbstractPanelTest;
 import org.richfaces.showcase.popup.page.LoginPage;
-
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -51,8 +51,10 @@ public class ITestLogin extends AbstractPanelTest {
     /**
      * Call the poppup panel, and then hides it, check for presence
      *
-     * @param callPopupButton    the button by which the poppup is called
-     * @param closingPopupButton the button by which the poppup is closed
+     * @param callPopupButton
+     *            the button by which the poppup is called
+     * @param closingPopupButton
+     *            the button by which the poppup is closed
      */
     private void checkPopupPanel(WebElement callPopupButton, WebElement closingPopupButton) {
         callPopupButton.click();

@@ -21,16 +21,16 @@
  */
 package org.richfaces.cache.lru;
 
-import org.richfaces.util.LRUMap;
-
 import java.util.PriorityQueue;
+
+import org.richfaces.util.LRUMap;
 
 /**
  * User: akolonitsky Date: Oct 13, 2009
  */
 public final class CacheMap extends LRUMap<Object, CacheEntry> {
     private static final long serialVersionUID = -5422668357346537621L;
-    private PriorityQueue<CacheEntry> expirationQueue = new PriorityQueue<CacheEntry>();
+    private PriorityQueue<CacheEntry> expirationQueue = new PriorityQueue<>();
 
     public CacheMap() {
         super();

@@ -26,6 +26,7 @@ import java.util.Map;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public interface UserResource extends ContentProducerResource {
     Map<String, String> getResponseHeaders();

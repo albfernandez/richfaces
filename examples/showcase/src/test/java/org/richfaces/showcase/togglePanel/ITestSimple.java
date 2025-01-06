@@ -21,14 +21,14 @@
  *******************************************************************************/
 package org.richfaces.showcase.togglePanel;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.junit.Assert.assertTrue;
+
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.togglePanel.page.SimplePage;
-
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

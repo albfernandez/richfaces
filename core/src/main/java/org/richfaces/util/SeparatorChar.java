@@ -21,10 +21,10 @@
  */
 package org.richfaces.util;
 
-import com.google.common.base.Splitter;
-
 import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.context.FacesContext;
+
+import com.google.common.base.Splitter;
 
 /**
  * Caches JSF separator char for a context of current classloader and exposes useful utilities for joining and splitting by
@@ -32,9 +32,10 @@ import jakarta.faces.context.FacesContext;
  */
 public final class SeparatorChar {
 
+    private SeparatorChar() {
+    }
+
     public static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
     public static final FastJoiner JOINER = FastJoiner.on(SEPARATOR_CHAR);
     public static final Splitter SPLITTER = Splitter.on(SEPARATOR_CHAR);
-    private SeparatorChar() {
-    }
 }

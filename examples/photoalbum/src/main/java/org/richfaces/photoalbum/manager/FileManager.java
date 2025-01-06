@@ -26,8 +26,19 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
-import com.google.common.io.Files;
+import javax.activation.MimetypesFileTypeMap;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.richfaces.photoalbum.model.Album;
 import org.richfaces.photoalbum.model.Image;
 import org.richfaces.photoalbum.model.User;
@@ -43,32 +54,24 @@ import org.richfaces.photoalbum.util.FileHandler;
 import org.richfaces.photoalbum.util.FileManipulation;
 import org.richfaces.photoalbum.util.ImageDimension;
 
-import javax.activation.MimetypesFileTypeMap;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import com.google.common.io.Files;
 
 @Named
 @ApplicationScoped
 public class FileManager {
 
     @Inject
+    private File uploadRoot;
+
+    @Inject
+    private String uploadRootPath;
+
+    @Inject
     UserBean userBean;
+
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
     Event<ErrorEvent> error;
-    @Inject
-    private File uploadRoot;
-    @Inject
-    private String uploadRootPath;
 
     /**
      * Method, that invoked at startup application. Used to determine where application will be write new images. This method
@@ -107,7 +110,8 @@ public class FileManager {
      * delete album directory from the disk
      *
      * @param album - deleted album
-     * @param path  - relative path of the album directory
+     * @param path - relative path of the album directory
+     *
      */
     public void onAlbumDeleted(@Observes @EventType(Events.ALBUM_DELETED_EVENT) AlbumEvent ae) {
         if (!userBean.isLoggedIn()) {
@@ -121,7 +125,7 @@ public class FileManager {
      * delete shelf directory from the disk
      *
      * @param shelf - deleted shelf
-     * @param path  - relative path of the shelf directory
+     * @param path - relative path of the shelf directory
      */
     public void onShelfDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
         if (!userBean.isLoggedIn()) {
@@ -167,13 +171,13 @@ public class FileManager {
      * This method invoked after user set new avatar icon
      *
      * @param avatarData - avatar file
-     * @param user       - user, that add avatar
+     * @param user - user, that add avatar
      */
     public boolean saveAvatar(File avatarData, User user) {
         String avatarPath = File.separator + user.getLogin() + File.separator + Constants.AVATAR_JPG;
         createDirectoryIfNotExist(avatarPath);
         try {
-            InputStream is = new FileInputStream(avatarData);
+            InputStream is = java.nio.file.Files.newInputStream(avatarData.toPath());
             return writeFile(avatarPath, is, "", Constants.AVATAR_SIZE, true);
         } catch (IOException ioe) {
             error.fire(new ErrorEvent("error saving avatar"));
@@ -186,7 +190,7 @@ public class FileManager {
      * delete image and all thumbnails of this image from the disk
      *
      * @param image - deleted image
-     * @param path  - relative path of the image file
+     * @param path - relative path of the image file
      */
     public void deleteImage(@Observes @EventType(Events.IMAGE_DELETED_EVENT) ImageEvent ie) {
         if (!userBean.isLoggedIn()) {
@@ -200,7 +204,7 @@ public class FileManager {
     /**
      * This method invoked after user upload new image
      *
-     * @param fileName     - new relative path to the image file
+     * @param fileName - new relative path to the image file
      * @param tempFilePath - absolute path to uploaded image
      * @throws IOException
      */
@@ -229,7 +233,7 @@ public class FileManager {
      * This method used to transform one path to another. For example you want get path of the file with dimensioms 80 of image
      * with path /user/1/2/image.jpg, this method return /user/1/2/image_substitute.jpg
      *
-     * @param target     - path to transform
+     * @param target - path to transform
      * @param substitute - new 'addon' to the path
      */
     public String transformPath(String target, String substitute) {
@@ -277,7 +281,7 @@ public class FileManager {
      * This method observes <code>Constants.ALBUM_DRAGGED_EVENT</code> and invoked after the user dragged album form one shelf
      * to the another. This method rename album directory to the new directory
      *
-     * @param album   - dragged album
+     * @param album - dragged album
      * @param pathOld - old path of album directory
      */
     public void renameAlbumDirectory(@Observes @EventType(Events.ALBUM_DRAGGED_EVENT) AlbumEvent ae) {
@@ -306,7 +310,7 @@ public class FileManager {
      * This method observes <code>Constants.IMAGE_DRAGGED_EVENT</code> and invoked after the user dragged image form one album
      * to the another. This method rename image file and all thumbnails to the new name
      *
-     * @param image   - dragged image
+     * @param image - dragged image
      * @param pathOld - old path of image file
      */
     public void renameImageFile(@Observes @EventType(Events.IMAGE_DRAGGED_EVENT) ImageEvent ie) {
@@ -352,10 +356,10 @@ public class FileManager {
         }
         // scale image if need
         BufferedImage bdest = FileManipulation
-                .getScaledInstance(bsrc, width, height, RenderingHints.VALUE_INTERPOLATION_BICUBIC, true);
+            .getScaledInstance(bsrc, width, height, RenderingHints.VALUE_INTERPOLATION_BICUBIC, true);
         // Determine new path of image file
         String dest = includeUploadRoot ? this.uploadRootPath + transformPath(newFileName, pattern) : transformPath(
-                newFileName, pattern);
+            newFileName, pattern);
         try {
             // save to disk
             FileManipulation.imageToBitmap(bdest, dest, format);

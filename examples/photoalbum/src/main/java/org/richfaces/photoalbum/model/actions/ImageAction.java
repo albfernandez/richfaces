@@ -21,6 +21,15 @@
  */
 package org.richfaces.photoalbum.model.actions;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+
 import org.richfaces.photoalbum.model.Album;
 import org.richfaces.photoalbum.model.Comment;
 import org.richfaces.photoalbum.model.Image;
@@ -28,14 +37,6 @@ import org.richfaces.photoalbum.model.MetaTag;
 import org.richfaces.photoalbum.model.User;
 import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Class for manipulating with image entity. Analogous to DAO pattern. EJB3 Bean
@@ -72,7 +73,7 @@ public class ImageAction implements IImageAction {
     /**
      * Synchronize state of image entity with database
      *
-     * @param image           - image to Synchronize
+     * @param image - image to Synchronize
      * @param metatagsChanged - boolean value, that indicates is metatags of this image were changed(add new or delete older)
      * @throws PhotoAlbumException
      */
@@ -80,9 +81,9 @@ public class ImageAction implements IImageAction {
         try {
             if (metatagsChanged) {
                 String tagsByImageId = "select m from MetaTag m join m.images i where i.id = :id"; // all Metatags associated
-                // with given Image
+                                                                                                   // with given Image
                 List<MetaTag> pointsToImage = em.createQuery(tagsByImageId, MetaTag.class).setParameter("id", image.getId())
-                        .getResultList();
+                    .getResultList();
                 List<MetaTag> imageTags = image.getImageTags();
 
                 for (MetaTag m : pointsToImage) {
@@ -209,7 +210,7 @@ public class ImageAction implements IImageAction {
     /**
      * Add MetaTag to image
      *
-     * @param image    - image to which the tag is added
+     * @param image - image to which the tag is added
      * @param metaTage - metaTag to be added
      * @throws PhotoAlbumException
      */
@@ -229,7 +230,7 @@ public class ImageAction implements IImageAction {
     /**
      * Remove MetaTag to image
      *
-     * @param image    - image to which the tag is added
+     * @param image - image to which the tag is added
      * @param metaTage - metaTag to be added
      * @throws PhotoAlbumException
      */
@@ -253,7 +254,7 @@ public class ImageAction implements IImageAction {
         final MetaTag t;
         try {
             t = (MetaTag) em.createNamedQuery(Constants.TAG_BY_NAME_QUERY).setParameter(Constants.TAG_PARAMETER, tag)
-                    .getSingleResult();
+                .getSingleResult();
         } catch (NoResultException nre) {
             // If not found
             return null;
@@ -280,32 +281,32 @@ public class ImageAction implements IImageAction {
     @SuppressWarnings("unchecked")
     public List<MetaTag> getTagsLikeString(String suggest) {
         return (List<MetaTag>) em.createNamedQuery(Constants.TAG_SUGGEST_QUERY)
-                .setParameter(Constants.TAG_PARAMETER, suggest.toLowerCase() + Constants.PERCENT).getResultList();
+            .setParameter(Constants.TAG_PARAMETER, suggest.toLowerCase() + Constants.PERCENT).getResultList();
     }
 
     /**
      * Check if image with specified path already exist in specified album
      *
      * @param album - album to check
-     * @param path  - path to check
+     * @param path - path to check
      * @return is image with specified path already exist
      */
     public boolean isImageWithThisPathExist(Album album, String path) {
         return em.createNamedQuery(Constants.IMAGE_PATH_EXIST_QUERY).setParameter(Constants.PATH_PARAMETER, path)
-                .setParameter(Constants.ALBUM_PARAMETER, album).getResultList().size() != 0;
+            .setParameter(Constants.ALBUM_PARAMETER, album).getResultList().size() != 0;
     }
 
     /**
      * Return count of images with path, that started from specified path already exist in specified album
      *
      * @param album - album to check
-     * @param path  - path to check
+     * @param path - path to check
      * @return count of images
      */
     public Long getCountIdenticalImages(Album album, String path) {
         return (Long) em.createNamedQuery(Constants.IMAGE_IDENTICAL_QUERY)
-                .setParameter(Constants.PATH_PARAMETER, path + Constants.PERCENT).setParameter(Constants.ALBUM_PARAMETER, album)
-                .getSingleResult();
+            .setParameter(Constants.PATH_PARAMETER, path + Constants.PERCENT).setParameter(Constants.ALBUM_PARAMETER, album)
+            .getSingleResult();
     }
 
     /**
@@ -316,7 +317,7 @@ public class ImageAction implements IImageAction {
     @SuppressWarnings("unchecked")
     public List<Comment> findAllUserComments(User user) {
         return (List<Comment>) em.createNamedQuery(Constants.USER_COMMENTS_QUERY)
-                .setParameter(Constants.AUTHOR_PARAMETER, user).getResultList();
+            .setParameter(Constants.AUTHOR_PARAMETER, user).getResultList();
     }
 
     /**

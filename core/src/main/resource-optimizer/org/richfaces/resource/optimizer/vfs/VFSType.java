@@ -23,6 +23,7 @@ package org.richfaces.resource.optimizer.vfs;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public enum VFSType {
 

@@ -1,11 +1,12 @@
 package org.richfaces.renderkit.focus;
 
-import org.richfaces.focus.FocusManager;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIForm;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
+
+import org.richfaces.focus.FocusManager;
+
 
 
 public final class FocusRendererUtils {

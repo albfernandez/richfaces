@@ -25,18 +25,20 @@
  */
 package org.richfaces.cache;
 
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Ehcache;
-import org.richfaces.application.CoreConfiguration;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
 
-import jakarta.faces.context.FacesContext;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Map;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
+import jakarta.faces.context.FacesContext;
+
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
+
+import org.richfaces.application.CoreConfiguration;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
@@ -77,11 +79,9 @@ public class EhCacheCacheFactory implements CacheFactory {
             ehcache = new net.sf.ehcache.Cache(cacheName, maxCacheSize, false, true, 0, 0);
         } else {
             preconfiguredCache = true;
-
-            if (ehcache.getCacheConfiguration().getMaxEntriesLocalHeap() <= 0) {
-                LOG.info(MessageFormat.format("Maximum cache size hasn''t been set, resetting to {0} max items", maxCacheSize));
-
-                ehcache.getCacheConfiguration().setMaxEntriesLocalHeap(maxCacheSize);
+            if (ehcache.getCacheConfiguration().getMaxEntriesLocalHeap() <=0) {
+                 LOG.info(MessageFormat.format("Maximum cache size hasn''t been set, resetting to {0} max items", maxCacheSize));
+                 ehcache.getCacheConfiguration().setMaxEntriesLocalHeap(maxCacheSize);
             }
         }
         ehcache.setCacheManager(cacheManager);

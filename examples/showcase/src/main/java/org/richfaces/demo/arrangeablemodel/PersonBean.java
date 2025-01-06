@@ -1,15 +1,17 @@
 package org.richfaces.demo.arrangeablemodel;
 
-import com.google.common.collect.Maps;
-import org.richfaces.component.SortOrder;
-
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-import jakarta.faces.context.FacesContext;
-import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+
+import org.richfaces.component.SortOrder;
+
+import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
@@ -18,9 +20,22 @@ import java.util.Map.Entry;
 @SessionScoped
 public class PersonBean implements Serializable {
     private static final long serialVersionUID = -5156711102367948040L;
+
+    private static final class PersonDataModel extends JPADataModel<Person> {
+        private PersonDataModel(EntityManager entityManager) {
+            super(entityManager, Person.class);
+        }
+
+        @Override
+        protected Object getId(Person t) {
+            return t.getId();
+        }
+    }
+
     private Map<String, SortOrder> sortOrders = Maps.newHashMapWithExpectedSize(1);
     private Map<String, String> filterValues = Maps.newHashMap();
     private String sortProperty;
+
     public PersonBean() {
         sortOrders.put("name", SortOrder.unsorted);
         sortOrders.put("surname", SortOrder.unsorted);
@@ -70,16 +85,5 @@ public class PersonBean implements Serializable {
 
     public Object getDataModel() {
         return new PersonDataModel(lookupEntityManager());
-    }
-
-    private static final class PersonDataModel extends JPADataModel<Person> {
-        private PersonDataModel(EntityManager entityManager) {
-            super(entityManager, Person.class);
-        }
-
-        @Override
-        protected Object getId(Person t) {
-            return t.getId();
-        }
     }
 }

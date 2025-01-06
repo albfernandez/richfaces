@@ -21,21 +21,23 @@
  */
 package org.richfaces.renderkit;
 
-import org.richfaces.component.AbstractInplaceSelect;
-import org.richfaces.component.InplaceComponent;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import java.io.IOException;
+import java.util.List;
 
 import jakarta.faces.application.ResourceDependencies;
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
-import java.io.IOException;
-import java.util.List;
+
+import org.richfaces.component.AbstractInplaceSelect;
+import org.richfaces.component.InplaceComponent;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 /**
  * @author Anton Belevich
+ *
  */
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -49,7 +51,7 @@ import java.util.List;
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceInput.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.js"),
-        @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.ecss")})
+        @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.ecss") })
 public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     public static final String ITEM_CSS = "rf-is-opt";
 

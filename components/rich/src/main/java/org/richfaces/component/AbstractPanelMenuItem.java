@@ -21,7 +21,8 @@
  */
 package org.richfaces.component;
 
-import com.google.common.base.Predicate;
+import jakarta.faces.component.UIComponent;
+
 import org.richfaces.PanelMenuMode;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -29,13 +30,14 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.AjaxProps;
+
+import com.google.common.base.Predicate;
+
 import org.richfaces.component.attribute.BypassProps;
 import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.component.attribute.StyleProps;
-
-import jakarta.faces.component.UIComponent;
 
 /**
  * <p>The &lt;rich:panelMenuItem&gt; component represents a single item inside a &lt;rich:panelMenuGroup&gt; component,
@@ -125,6 +127,11 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
 
     public void setExecute(Object execute) {
         getStateHelper().put(Properties.execute, execute);
+    }
+
+    // ------------------------------------------------ Html Attributes
+    enum Properties {
+        leftIcon, leftDisabledIcon, rightIcon, rightDisabledIcon, styleClass, disabledClass, execute, name, value
     }
 
     /**
@@ -226,20 +233,6 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     @Attribute(events = @EventName("beforeselect"))
     public abstract String getOnbeforeselect();
 
-    @Attribute(generate = false, hidden = true)
-    public Object getValue() {
-        return getStateHelper().eval(Properties.value);
-    }
-
-    public void setValue(Object value) {
-        getStateHelper().put(Properties.value, value);
-    }
-
-    // ------------------------------------------------ Html Attributes
-    enum Properties {
-        leftIcon, leftDisabledIcon, rightIcon, rightDisabledIcon, styleClass, disabledClass, execute, name, value
-    }
-
     private static class ParentItemPredicate implements Predicate<UIComponent> {
         public boolean apply(UIComponent comp) {
             return comp instanceof AbstractPanelMenuGroup || comp instanceof AbstractPanelMenu;
@@ -248,13 +241,22 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
 
     private static class DisabledParentItemPredicate implements Predicate<UIComponent> {
         public boolean apply(UIComponent comp) {
-            if (comp instanceof AbstractPanelMenuGroup && ((AbstractPanelMenuGroup) comp).isDisabled()) {
+            if (comp instanceof AbstractPanelMenuGroup && ((AbstractPanelMenuGroup)comp).isDisabled()) {
                 return true;
             }
-            if (comp instanceof AbstractPanelMenu && ((AbstractPanelMenu) comp).isDisabled()) {
+            if (comp instanceof AbstractPanelMenu && ((AbstractPanelMenu)comp).isDisabled()) {
                 return true;
             }
             return false;
         }
+    }
+
+    @Attribute(generate = false, hidden = true)
+    public Object getValue() {
+        return getStateHelper().eval(Properties.value);
+    }
+
+    public void setValue(Object value) {
+        getStateHelper().put(Properties.value, value);
     }
 }

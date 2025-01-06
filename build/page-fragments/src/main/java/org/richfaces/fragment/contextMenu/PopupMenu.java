@@ -52,10 +52,10 @@ public interface PopupMenu extends PopupMenuGroup {
     /**
      * Selects the menu item from this menu according to its index in the list of all menu items.
      * Opens menu, if it is not visible.
-     * <p>
+     *
      * Items are indexed from 0. A top menu item (the one which is the closest to the root of the popup menu component) has index 0.
      *
-     * @param index  zero based index of the item to be selected
+     * @param index zero based index of the item to be selected
      * @param target for defining the popup menu which will be invoked and from which the item will be selected
      * @throws IllegalArgumentException if there is no such element with index <code>index</code>
      */
@@ -67,8 +67,8 @@ public interface PopupMenu extends PopupMenuGroup {
      *
      * @param picker object to define which group should be expanded
      * @param target for defining the popup menu which will be invoked and from which the item will be selected
-     * @return the group which was expanded
      * @throws IllegalArgumentException if there is no such element which satisfies the rules given by <code>picker</code>
+     * @return the group which was expanded
      */
     PopupMenuGroup expandGroup(ChoicePicker picker, WebElement target);
 
@@ -78,8 +78,8 @@ public interface PopupMenu extends PopupMenuGroup {
      *
      * @param header the header of the group which should be expanded
      * @param target for defining the popup menu which will be invoked and from which the item will be selected
-     * @return the group which was expanded
      * @throws IllegalArgumentException if there is no such element with text representation matching the given <code>header</code>
+     * @return the group which was expanded
      */
     PopupMenuGroup expandGroup(String header, WebElement target);
 
@@ -87,10 +87,10 @@ public interface PopupMenu extends PopupMenuGroup {
      * Expands group from this menu, which index equals the given <code>index</code> param.
      * Opens menu, if it is not visible.
      *
-     * @param index  zero based index of the group to expand
+     * @param index zero based index of the group to expand
      * @param target for defining the popup menu which will be invoked and from which the item will be selected
-     * @return the group which was expanded
      * @throws IllegalArgumentException if there is no such element with index <code>index</code>
+     * @return the group which was expanded
      */
     PopupMenuGroup expandGroup(int index, WebElement target);
 }

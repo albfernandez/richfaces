@@ -21,6 +21,8 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -28,14 +30,11 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.ErrorProps;
 
-import jakarta.faces.component.UIComponentBase;
-
 /**
  * <p>
  * The &lt;a4j:queue&gt; component manages the JSF queue of Ajax requests. It provides additional options for a finer
  * control of request processing.
  * </p>
- *
  * @author Nick Belaevski
  */
 @JsfComponent(tag = @Tag(name = "queue", generate = false, type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.QueueRenderer"))

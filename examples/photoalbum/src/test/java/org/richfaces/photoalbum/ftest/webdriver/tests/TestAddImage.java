@@ -21,6 +21,12 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.net.URISyntaxException;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
 import org.richfaces.fragment.fileUpload.FileUploadItem;
@@ -29,15 +35,8 @@ import org.richfaces.fragment.notify.RichFacesNotifyMessage;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AddImagesView;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
-import java.io.File;
-import java.net.URISyntaxException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class TestAddImage extends AbstractPhotoalbumTest {

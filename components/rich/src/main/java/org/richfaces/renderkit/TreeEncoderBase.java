@@ -21,6 +21,13 @@
  */
 package org.richfaces.renderkit;
 
+import java.io.IOException;
+import java.util.LinkedList;
+
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
@@ -29,18 +36,49 @@ import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.model.TreeDataModelTuple;
 import org.richfaces.model.TreeDataVisitor;
 
-import jakarta.faces.FacesException;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.LinkedList;
-
 abstract class TreeEncoderBase implements TreeDataVisitor {
+    private static final class QueuedData {
+        private enum State {
+            initial,
+            visited,
+            encoded
+        }
+
+        private State state = State.initial;
+        private TreeDataModelTuple tuple;
+
+        public QueuedData(TreeDataModelTuple tuple) {
+            super();
+            this.tuple = tuple;
+        }
+
+        public boolean isEncoded() {
+            return state == State.encoded;
+        }
+
+        public void makeEncoded() {
+            this.state = State.encoded;
+        }
+
+        public void makeVisited() {
+            this.state = State.visited;
+        }
+
+        public boolean isVisited() {
+            return state == State.visited;
+        }
+
+        public TreeDataModelTuple getTuple() {
+            return tuple;
+        }
+    }
+
     static final String TREE_NODE_STATE_ATTRIBUTE = "__treeNodeState";
     protected final FacesContext context;
     protected final ResponseWriter responseWriter;
     protected final AbstractTree tree;
-    private LinkedList<QueuedData> queuedDataList = new LinkedList<QueuedData>();
+    private LinkedList<QueuedData> queuedDataList = new LinkedList<>();
+
     public TreeEncoderBase(FacesContext context, AbstractTree tree) {
         super();
         this.context = context;
@@ -129,7 +167,7 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
 
         responseWriter.startElement(HtmlConstants.DIV_ELEM, tree);
         responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
-                HtmlUtil.concatClasses("rf-tr-nd", nodeState.getNodeClass()), null);
+            HtmlUtil.concatClasses("rf-tr-nd", nodeState.getNodeClass()), null);
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, treeNodeComponent.getClientId(context), null);
 
         emitClientToggleEvent(treeNodeComponent, nodeState);
@@ -144,48 +182,13 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
     private void emitClientToggleEvent(AbstractTreeNode treeNode, TreeNodeState nodeState) {
         if (treeNode.getClientId(context).equals(context.getAttributes().get(TreeNodeRendererBase.AJAX_TOGGLED_NODE_ATTRIBUTE))) {
             TreeNodeState initialState = (TreeNodeState) context.getAttributes().get(
-                    TreeNodeRendererBase.AJAX_TOGGLED_NODE_STATE_ATTRIBUTE);
+                TreeNodeRendererBase.AJAX_TOGGLED_NODE_STATE_ATTRIBUTE);
 
             if (initialState.isDifferentThan(nodeState)) {
                 ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(context);
                 partialContext.appendOncomplete(new JSFunction("RichFaces.ui.TreeNode.emitToggleEvent", treeNode
-                        .getClientId(context)));
+                    .getClientId(context)));
             }
-        }
-    }
-
-    private static final class QueuedData {
-        private State state = State.initial;
-        private TreeDataModelTuple tuple;
-        public QueuedData(TreeDataModelTuple tuple) {
-            super();
-            this.tuple = tuple;
-        }
-
-        public boolean isEncoded() {
-            return state == State.encoded;
-        }
-
-        public void makeEncoded() {
-            this.state = State.encoded;
-        }
-
-        public void makeVisited() {
-            this.state = State.visited;
-        }
-
-        public boolean isVisited() {
-            return state == State.visited;
-        }
-
-        public TreeDataModelTuple getTuple() {
-            return tuple;
-        }
-
-        private enum State {
-            initial,
-            visited,
-            encoded
         }
     }
 }

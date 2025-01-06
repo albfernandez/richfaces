@@ -47,18 +47,23 @@ import org.richfaces.integration.RichDeployment;
 @RunWith(Arquillian.class)
 public class ITPlainSkin {
 
-    @FindBy(className = "rf-p-hdr")
-    WebElement panel;
-    @FindBy(id = "input")
-    WebElement input;
-    @FindBy(id = "buttonPlain")
-    WebElement buttonPlain;
-    @FindBy(id = "buttonDefault")
-    WebElement buttonDefault;
     @Drone
     private WebDriver browser;
+
     @ArquillianResource
     private URL contextPath;
+
+    @FindBy(className = "rf-p-hdr")
+    WebElement panel;
+
+    @FindBy(id = "input")
+    WebElement input;
+
+    @FindBy(id = "buttonPlain")
+    WebElement buttonPlain;
+
+    @FindBy(id = "buttonDefault")
+    WebElement buttonDefault;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -71,24 +76,13 @@ public class ITPlainSkin {
                         .paramValue("plain");
 
                 return input;
-            }
-
-
+            };
         });
 
 
         addIndexPage(deployment);
 
         return deployment.getFinalArchive();
-    }
-
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-        p.form("<rich:panel id='panel' header='Header Text'>Some content ");
-        p.form("    <h:inputText id='input' /> ");
-        p.form("</rich:panel> ");
-        p.form("<h:commandButton id='buttonDefault' value = 'Some Button' /> ");
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
     /**
@@ -99,5 +93,14 @@ public class ITPlainSkin {
         browser.get(contextPath.toExternalForm());
         String expectedUrl = "none";
         Assert.assertEquals(expectedUrl, buttonDefault.getCssValue("background-image"));
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+        p.form("<rich:panel id='panel' header='Header Text'>Some content ");
+        p.form("    <h:inputText id='input' /> ");
+        p.form("</rich:panel> ");
+        p.form("<h:commandButton id='buttonDefault' value = 'Some Button' /> ");
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

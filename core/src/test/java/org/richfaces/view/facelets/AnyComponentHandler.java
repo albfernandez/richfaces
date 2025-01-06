@@ -30,26 +30,9 @@ import jakarta.faces.view.facelets.TagAttributes;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class AnyComponentHandler extends ComponentHandler {
-    public AnyComponentHandler(ComponentConfig config) {
-        super(wrapConfig(config));
-    }
-
-    private static ComponentConfig wrapConfig(ComponentConfig config) {
-        TagAttributes attributes = config.getTag().getAttributes();
-
-        TagAttribute rendererType = attributes.get("rendererType");
-        TagAttribute componentType = attributes.get("componentType");
-
-        return new ComponentConfigWrapper(getLiteralAttributeValue(componentType), getLiteralAttributeValue(rendererType),
-                config);
-    }
-
-    private static String getLiteralAttributeValue(TagAttribute attr) {
-        return attr != null ? attr.getValue() : null;
-    }
-
     private static class ComponentConfigWrapper implements ComponentConfig {
         private String componentType;
         private String rendererType;
@@ -81,5 +64,23 @@ public class AnyComponentHandler extends ComponentHandler {
         public String getTagId() {
             return config.getTagId();
         }
+    }
+
+    public AnyComponentHandler(ComponentConfig config) {
+        super(wrapConfig(config));
+    }
+
+    private static ComponentConfig wrapConfig(ComponentConfig config) {
+        TagAttributes attributes = config.getTag().getAttributes();
+
+        TagAttribute rendererType = attributes.get("rendererType");
+        TagAttribute componentType = attributes.get("componentType");
+
+        return new ComponentConfigWrapper(getLiteralAttributeValue(componentType), getLiteralAttributeValue(rendererType),
+            config);
+    }
+
+    private static String getLiteralAttributeValue(TagAttribute attr) {
+        return attr != null ? attr.getValue() : null;
     }
 }

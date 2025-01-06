@@ -25,7 +25,7 @@ import org.richfaces.resource.ResourceKey;
 
 /**
  * Allows to programatically configure Resource Mapping, it means for resource key it can decide that the resource is re-mapped to another resource.
- * <p>
+ *
  * All the ResourceMappers will be checked to determine mapping - first resource mapper which comes will be used.
  *
  * @author Lukas Fryc

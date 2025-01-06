@@ -21,15 +21,15 @@
  */
 package org.richfaces.showcase.toolBar;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.toolBar.page.ToolbarIconsPage;
-
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -48,7 +48,7 @@ public class ITestToolBarIcons extends AbstractWebDriverTest {
         Graphene.guardAjax(page.getNoneItemSep()).click();
         checkNumberOfAllGroupsOrItemsSeparators(0, page.getLineGroupSep(), page.getGridGroupSep(), page.getDiscGroupSep(), page.getSquareGroupSep());
         checkNumberOfAllGroupsOrItemsSeparators(NUMBER_OF_GROUP_SEP, page.getLineGroupSep(), page.getGridGroupSep(), page.getDiscGroupSep(),
-                page.getSquareGroupSep());
+            page.getSquareGroupSep());
     }
 
     @Test
@@ -56,9 +56,9 @@ public class ITestToolBarIcons extends AbstractWebDriverTest {
         Graphene.guardAjax(page.getNoneGroupSep()).click();
         Graphene.guardAjax(page.getNoneItemSep()).click();
         checkNumberOfAllGroupsOrItemsSeparators(0, page.getLineItemSeparator(), page.getGridItemSep(), page.getDiscItemSep(),
-                page.getSquareItemSep());
+            page.getSquareItemSep());
         checkNumberOfAllGroupsOrItemsSeparators(NUMBER_OF_ITEMS_SEP, page.getLineItemSeparator(), page.getGridItemSep(),
-                page.getDiscItemSep(), page.getSquareItemSep());
+            page.getDiscItemSep(), page.getSquareItemSep());
     }
 
     /**
@@ -67,7 +67,7 @@ public class ITestToolBarIcons extends AbstractWebDriverTest {
      * @param numberOfSeparators the expected number of all groups/items separators
      */
     private void checkNumberOfAllGroupsOrItemsSeparators(int numberOfSeparators, WebElement whichLineSep,
-                                                         WebElement whichGridSep, WebElement whichDicsSep, WebElement whichSquareSep) {
+        WebElement whichGridSep, WebElement whichDicsSep, WebElement whichSquareSep) {
         if (numberOfSeparators != 0) {
             guardAjax(whichLineSep).click();
         }

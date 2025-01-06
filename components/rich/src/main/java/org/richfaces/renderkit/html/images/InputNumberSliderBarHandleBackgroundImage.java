@@ -21,17 +21,6 @@
  */
 package org.richfaces.renderkit.html.images;
 
-import org.richfaces.renderkit.util.ColorUtils;
-import org.richfaces.resource.AbstractJava2DUserResource;
-import org.richfaces.resource.DynamicUserResource;
-import org.richfaces.resource.ImageType;
-import org.richfaces.resource.PostConstructResource;
-import org.richfaces.resource.ResourceParameter;
-import org.richfaces.resource.StateHolderResource;
-import org.richfaces.skin.Skin;
-import org.richfaces.skin.SkinFactory;
-
-import jakarta.faces.context.FacesContext;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
@@ -41,6 +30,18 @@ import java.awt.image.BufferedImage;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import jakarta.faces.context.FacesContext;
+
+import org.richfaces.renderkit.util.ColorUtils;
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.DynamicUserResource;
+import org.richfaces.resource.ImageType;
+import org.richfaces.resource.PostConstructResource;
+import org.richfaces.resource.ResourceParameter;
+import org.richfaces.resource.StateHolderResource;
+import org.richfaces.skin.Skin;
+import org.richfaces.skin.SkinFactory;
 
 @DynamicUserResource
 public class InputNumberSliderBarHandleBackgroundImage extends AbstractJava2DUserResource implements StateHolderResource {
@@ -81,8 +82,8 @@ public class InputNumberSliderBarHandleBackgroundImage extends AbstractJava2DUse
             g.setColor(progressbarBackgroundColor);
             g.fillRect(0, 0, dimension.width, dimension.height * 2);
             g.setColor(progressbarSpiralColor);
-            for (int k : new int[]{-24, 0, 24, 48, 72}) {
-                g.fillPolygon(new int[]{0, 24, 24, 0}, new int[]{24 + k, k, 12 + k, 36 + k}, 4);
+            for (int k : new int[] { -24, 0, 24, 48, 72 }) {
+                g.fillPolygon(new int[] { 0, 24, 24, 0 }, new int[] { 24 + k, k, 12 + k, 36 + k }, 4);
             }
         } finally {
             if (g != null) {

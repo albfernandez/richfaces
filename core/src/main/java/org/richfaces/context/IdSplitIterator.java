@@ -21,9 +21,10 @@
  */
 package org.richfaces.context;
 
+import org.richfaces.util.SeparatorChar;
+
 import com.google.common.base.Strings;
 import com.google.common.collect.AbstractIterator;
-import org.richfaces.util.SeparatorChar;
 
 final class IdSplitIterator extends AbstractIterator<String> {
     private String s;

@@ -21,13 +21,6 @@
  */
 package org.richfaces.context;
 
-import jakarta.faces.component.NamingContainer;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitHint;
-import jakarta.faces.component.visit.VisitResult;
-import jakarta.faces.context.FacesContext;
 import java.util.AbstractCollection;
 import java.util.Collection;
 import java.util.Collections;
@@ -35,14 +28,40 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitHint;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+
 final class NamingContainerVisitContext extends ExtendedVisitContext {
-    private Set<String> ids;
+    private final class IdsProxyCollection extends AbstractCollection<String> {
+        @Override
+        public Iterator<String> iterator() {
+            throw new UnsupportedOperationException("iterator() method is not supported by this collection implementation");
+        }
+
+        @Override
+        public int size() {
+            throw new UnsupportedOperationException("size() method is not supported by this collection implementation");
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return ids.isEmpty();
+        }
+    }
 
     ;
+
+    private Set<String> ids;
     private IdsProxyCollection idsToVisit;
     private UIComponent startingComponent;
+
     public NamingContainerVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, ExtendedVisitContextMode visitMode, UIComponent component,
-                                       Collection<String> ids) {
+        Collection<String> ids) {
 
         super(visitContextToWrap, facesContext, visitMode);
 
@@ -51,7 +70,7 @@ final class NamingContainerVisitContext extends ExtendedVisitContext {
             throw new IllegalArgumentException("Component is not a NamingContainer: " + component);
         }
 
-        this.ids = new HashSet<String>(ids);
+        this.ids = new HashSet<>(ids);
         this.idsToVisit = new IdsProxyCollection();
         this.startingComponent = component;
     }
@@ -116,22 +135,5 @@ final class NamingContainerVisitContext extends ExtendedVisitContext {
 
     public VisitContext createNamingContainerVisitContext(UIComponent component, Collection<String> directIds) {
         return new NamingContainerVisitContext(getWrapped(), getFacesContext(), getVisitMode(), component, directIds);
-    }
-
-    private final class IdsProxyCollection extends AbstractCollection<String> {
-        @Override
-        public Iterator<String> iterator() {
-            throw new UnsupportedOperationException("iterator() method is not supported by this collection implementation");
-        }
-
-        @Override
-        public int size() {
-            throw new UnsupportedOperationException("size() method is not supported by this collection implementation");
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return ids.isEmpty();
-        }
     }
 }

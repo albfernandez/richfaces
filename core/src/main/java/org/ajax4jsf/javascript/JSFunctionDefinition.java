@@ -29,10 +29,11 @@ import java.util.List;
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.2 $ $Date: 2007/01/24 13:22:31 $
+ *
  */
-public class JSFunctionDefinition extends ScriptStringBase implements ScriptString {
-    private List<Object> parameters = new ArrayList<Object>();
-    private StringBuffer body = new StringBuffer();
+public class JSFunctionDefinition extends ScriptStringBase {
+    private List<Object> parameters = new ArrayList<>();
+    private StringBuilder body = new StringBuilder();
     private String name;
 
     /**

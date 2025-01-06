@@ -28,6 +28,7 @@ import static org.junit.Assert.fail;
 
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import jakarta.faces.context.PartialViewContext;
 
@@ -47,8 +48,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import com.google.common.base.Predicate;
 
 /**
  * Tests r:commandButton processing using {@link PartialViewContext}. (RF-12145)
@@ -79,32 +78,16 @@ public class ITActivatorComponentNotRenderedProcessing {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
-        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
-        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
-
-        p.form("<h:panelGroup id='panel'>");
-        p.form("    <h:commandButton id='button' onclick='RichFaces.ajax(this, event, {}); return false;' render='panel output' oncomplete='window.oncompleteEvaluated = true' rendered='#{!facesContext.postback}' />");
-        p.form("</h:panelGroup>");
-
-        p.form("<h:panelGroup id='output'>#{facesContext.postback ? 'postback' : 'initial'}</h:panelGroup>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void when_executed_component_is_not_rendered_after_ajax_request_then_its_oncomplete_handler_should_be_executed() {
         browser.get(contextPath.toExternalForm());
 
         guardAjax(button).click();
 
-        waitAjax().withTimeout(1, TimeUnit.SECONDS).until(new Predicate<WebDriver>() {
+        waitAjax().withTimeout(1, TimeUnit.SECONDS).until(new Function<WebDriver, Boolean>() {
 
             @Override
-            public boolean apply(WebDriver input) {
+            public Boolean apply(WebDriver input) {
                 return (Boolean) ((JavascriptExecutor) browser).executeScript("return !!window.oncompleteEvaluated");
             }
         });
@@ -124,5 +107,21 @@ public class ITActivatorComponentNotRenderedProcessing {
             fail();
         } catch (NoSuchElementException e) {
         }
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
+
+        p.form("<h:panelGroup id='panel'>");
+        p.form("    <h:commandButton id='button' onclick='RichFaces.ajax(this, event, {}); return false;' render='panel output' oncomplete='window.oncompleteEvaluated = true' rendered='#{!facesContext.postback}' />");
+        p.form("</h:panelGroup>");
+
+        p.form("<h:panelGroup id='output'>#{facesContext.postback ? 'postback' : 'initial'}</h:panelGroup>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

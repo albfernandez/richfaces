@@ -1,24 +1,36 @@
 /**
  * License Agreement.
- * <p>
+ *
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- * <p>
+ *
  * Copyright (C) 2007 Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.component;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Collection;
+
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.Validator;
 
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.Attribute;
@@ -29,17 +41,6 @@ import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.FacesBeanValidator;
 import org.richfaces.validator.GraphValidatorState;
 import org.richfaces.view.facelets.html.GraphValidatorHandler;
-
-import jakarta.el.ValueExpression;
-import jakarta.faces.FacesException;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponentBase;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.validator.Validator;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.Collection;
 
 /**
  * <p>The &lt;rich:graphValidator&gt; component is used to wrap a set of input components related to one object. The

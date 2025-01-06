@@ -21,12 +21,13 @@
  */
 package org.richfaces.resource.mapping;
 
-import org.richfaces.resource.ResourceKey;
-import org.richfaces.util.URLUtils;
-import org.richfaces.webapp.ResourceServlet;
+import java.net.URL;
 
 import jakarta.faces.application.Resource;
-import java.net.URL;
+
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.webapp.ResourceServlet;
+import org.richfaces.util.URLUtils;
 
 /**
  * <p>Represents a path to the resource.</p>
@@ -39,30 +40,30 @@ import java.net.URL;
  */
 public class ResourcePath {
 
-    public String resourcePath;
+    private final String path;
 
     /**
      * Creates resource path from given that can be either absolute or relative URL
      */
     public ResourcePath(String resourcePath) {
-        this.resourcePath = resourcePath;
+        this.path = resourcePath;
     }
 
     /**
      * Creates resource path from provided absolute URL
      */
     public ResourcePath(URL url) {
-        this.resourcePath = url.toExternalForm();
+        this.path = url.toExternalForm();
     }
 
     /**
      * Creates a relative resource path from given {@link ResourceKey}
      */
     public ResourcePath(ResourceKey key) {
-        this.resourcePath = key.getResourceName();
-
         if (key.getLibraryName() != null && !key.getLibraryName().isEmpty()) {
-            this.resourcePath = key.getLibraryName() + "/" + key.getResourceName();
+            this.path = key.getLibraryName() + "/" + key.getResourceName();
+        } else {
+            this.path = key.getResourceName();
         }
     }
 
@@ -70,21 +71,21 @@ public class ResourcePath {
      * Exports given resource path to its external form that is
      */
     public String toExternalForm() {
-        return resourcePath;
+        return path;
     }
 
     /**
      * Is given resource path an absolute URL?
      */
     public boolean isAbsoluteURL() {
-        return URLUtils.isValidURL(resourcePath);
+        return URLUtils.isValidURL(path);
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((resourcePath == null) ? 0 : resourcePath.hashCode());
+        result = prime * result + ((path == null) ? 0 : path.hashCode());
         return result;
     }
 
@@ -97,16 +98,16 @@ public class ResourcePath {
         if (getClass() != obj.getClass())
             return false;
         ResourcePath other = (ResourcePath) obj;
-        if (resourcePath == null) {
-            if (other.resourcePath != null)
+        if (path == null) {
+            if (other.path != null)
                 return false;
-        } else if (!resourcePath.equals(other.resourcePath))
+        } else if (!path.equals(other.path))
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "ResourcePath [resourcePath=" + resourcePath + "]";
+        return "ResourcePath [path=" + path + "]";
     }
 }

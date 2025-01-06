@@ -1,12 +1,13 @@
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.Attribute;
-
 import java.util.Arrays;
 import java.util.List;
 
+import org.richfaces.cdk.annotations.Attribute;
+
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ *
  */
 public abstract class AbstractOrderingComponent extends AbstractSelectManyComponent {
 
@@ -16,25 +17,25 @@ public abstract class AbstractOrderingComponent extends AbstractSelectManyCompon
     /**
      * The text to display in the move-to-top button
      */
-    @Attribute(defaultValue = "⇑ First")
+    @Attribute(defaultValue = "\\u21D1 First")
     public abstract String getUpTopText();
 
     /**
      * The text to display in the move-up button
      */
-    @Attribute(defaultValue = "↑ Up")
+    @Attribute(defaultValue = "\\u2191 Up")
     public abstract String getUpText();
 
     /**
      * The text to display in the move-down button
      */
-    @Attribute(defaultValue = "↓ Down")
+    @Attribute(defaultValue = "\\u2193 Down")
     public abstract String getDownText();
 
     /**
      * The text to display in the move-to-bottom button
      */
-    @Attribute(defaultValue = "⇓ Last")
+    @Attribute(defaultValue = "\\u21D3 Last")
     public abstract String getDownBottomText();
 
     protected boolean compareValues(Object previous, Object value) {

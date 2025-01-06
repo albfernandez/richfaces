@@ -21,9 +21,9 @@
  */
 package org.richfaces.fragment.fileUpload;
 
-import org.openqa.selenium.support.FindBy;
-
 import java.io.File;
+
+import org.openqa.selenium.support.FindBy;
 
 public class FileUploadShowcase {
 

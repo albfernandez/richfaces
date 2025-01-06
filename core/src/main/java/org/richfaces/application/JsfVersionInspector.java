@@ -22,7 +22,6 @@
 
 package org.richfaces.application;
 
-import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -32,12 +31,14 @@ import java.util.jar.JarFile;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jakarta.faces.context.FacesContext;
+
 /**
  * In RichFaces 4.5.0 a new EPVC was intorduced that exposed a bug in Mojarra (MyFaces is Ok).
- * <p>
+ *
  * This Mojarra issue was resolved in the following versions: * JAVASERVERFACES-3157 fixed in 2.1.28 and 2.1.27.redhat-9 *
  * JAVASERVERFACES-3151 fixed in 2.2.6 and 2.2.5-jbossorg-3
- * <p>
+ *
  * The public verifyJsfImplVersion method of this class can be used to inspect the runtime and ensure an appropriately patched
  * JSF implementation is present to work with the new EPVC
  *
@@ -46,6 +47,20 @@ import java.util.regex.Pattern;
 public class JsfVersionInspector {
 
     String versionString;
+
+    class Version {
+        final int major;
+        final int minor;
+        final int micro;
+        final String qualifier;
+
+        private Version(int major, int minor, int micro, String qualifier) {
+            this.major = major;
+            this.minor = minor;
+            this.micro = micro;
+            this.qualifier = qualifier;
+        }
+    }
 
     public JsfVersionInspector() {
         versionString = getPackageImplementationVersion();
@@ -122,7 +137,7 @@ public class JsfVersionInspector {
     String getPackageImplementationVersion() {
         Package facesPackage = FacesContext.getCurrentInstance().getClass().getPackage();
         // if (facesPackage.getImplementationVersion() == null) {
-        // facesPackage = Package.getPackage("javax.faces");
+        // facesPackage = Package.getPackage("jakarta.faces");
         // }
         return facesPackage.getImplementationVersion();
     }
@@ -192,10 +207,10 @@ public class JsfVersionInspector {
 
         try {
             version = new Version(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]), Integer.parseInt(numbers[2]),
-                    qualifier);
+                qualifier);
         } catch (NumberFormatException e) {
             throw new RuntimeException(MessageFormat.format("Error parsing detected JSF version string: {0} ", versionString),
-                    e);
+                e);
         }
 
         return version;
@@ -204,20 +219,6 @@ public class JsfVersionInspector {
     boolean isMojarra() {
         String contextClassName = FacesContext.getCurrentInstance().getClass().getName();
         return ("com.sun.faces.context.FacesContextImpl".equals(contextClassName) || "com.sun.faces.config.InitFacesContext"
-                .equals(contextClassName));
-    }
-
-    class Version {
-        final int major;
-        final int minor;
-        final int micro;
-        final String qualifier;
-
-        private Version(int major, int minor, int micro, String qualifier) {
-            this.major = major;
-            this.minor = minor;
-            this.micro = micro;
-            this.qualifier = qualifier;
-        }
+            .equals(contextClassName));
     }
 }

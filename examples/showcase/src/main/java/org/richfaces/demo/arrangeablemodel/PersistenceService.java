@@ -21,20 +21,6 @@
  */
 package org.richfaces.demo.arrangeablemodel;
 
-import com.google.common.collect.Lists;
-import org.w3c.dom.Node;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import jakarta.faces.bean.ApplicationScoped;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.context.FacesContext;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -42,6 +28,22 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Node;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author Nick Belaevski
@@ -150,7 +152,8 @@ public class PersistenceService {
         } finally {
             try {
                 dataStream.close();
-            } catch (IOException e) {
+            }
+            catch (IOException e){
                 // Swallow
             }
         }

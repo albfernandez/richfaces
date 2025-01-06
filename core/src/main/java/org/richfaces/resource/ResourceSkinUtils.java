@@ -36,7 +36,7 @@ public final class ResourceSkinUtils {
      *
      * @param path the path
      * @return true when path skin is dependent, it means when it contains {@link ResourceFactory#SKINNED_RESOURCE_PLACEHOLDER};
-     * false otherwise
+     *         false otherwise
      */
     public static boolean isSkinDependent(String path) {
         return path.contains(ResourceFactory.SKINNED_RESOURCE_PLACEHOLDER);
@@ -45,7 +45,7 @@ public final class ResourceSkinUtils {
     /**
      * Returns path with {@link ResourceFactory#SKINNED_RESOURCE_PLACEHOLDER} replaced with actual skinName.
      *
-     * @param path     the path to evaluate skin
+     * @param path the path to evaluate skin
      * @param skinName the name of the skin
      * @return path with {@link ResourceFactory#SKINNED_RESOURCE_PLACEHOLDER} replaced with actual skinName.
      */

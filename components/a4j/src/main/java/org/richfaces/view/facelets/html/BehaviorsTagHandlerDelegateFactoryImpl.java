@@ -33,7 +33,7 @@ import jakarta.faces.view.facelets.ValidatorHandler;
  * @author Nick Belaevski
  */
 public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFactory implements
-        FacesWrapper<TagHandlerDelegateFactory> {
+    FacesWrapper<TagHandlerDelegateFactory> {
     private TagHandlerDelegateFactory factory;
 
     public BehaviorsTagHandlerDelegateFactoryImpl(TagHandlerDelegateFactory factory) {

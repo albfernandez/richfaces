@@ -21,19 +21,21 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import category.FailingOnFirefox;
-import com.google.common.collect.Lists;
+import static org.jboss.arquillian.graphene.Graphene.waitAjax;
+
+import java.util.List;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.SlideShowPanel;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
 
-import java.util.List;
-
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
+import category.FailingOnFirefox;
+import com.google.common.collect.Lists;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class TestAlbumViewActivities extends AbstractPhotoalbumTest {
@@ -43,7 +45,7 @@ public class TestAlbumViewActivities extends AbstractPhotoalbumTest {
         getPage().getLeftPanel().openAlbumInPredefinedGroup("Animals", "Nature");
         AlbumView albumView = getPage().getContentPanel().albumView();
         waitAjax().until().element(albumView.getSlider()
-                .advanced().getRootElement()).is().visible();
+            .advanced().getRootElement()).is().visible();
         Graphene.guardAjax(albumView.getSlider()).slideToValue(1);
         List<AlbumView.PhotoInfo> photos = albumView.getPhotos();
         photos.get(0).checkAll(200, "1750979205_6e51b47ce9_o.jpg", IMAGES_DEC_DATE);
@@ -58,7 +60,7 @@ public class TestAlbumViewActivities extends AbstractPhotoalbumTest {
 
     @Test
     //currently fails with FF && is unstable with PhantomJS on Jenkins
-    @Category({FailingOnFirefox.class}) // failures on Jenkins are due to latest selenium release being much slower
+    @Category({ FailingOnFirefox.class }) // failures on Jenkins are due to latest selenium release being much slower
     public void testSlideShow() {
         getPage().getLeftPanel().openAlbumInPredefinedGroup("Monuments and just buildings", "Monuments");
         AlbumView albumView = getPage().getContentPanel().albumView();

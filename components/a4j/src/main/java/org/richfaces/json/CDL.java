@@ -89,7 +89,7 @@ public final class CDL {
     public static JSONArray rowToJSONArray(JSONTokener x) throws JSONException {
         JSONArray ja = new JSONArray();
 
-        for (; ; ) {
+        for (;;) {
             String value = getValue(x);
 
             if (value == null) {
@@ -98,7 +98,7 @@ public final class CDL {
 
             ja.put(value);
 
-            for (; ; ) {
+            for (;;) {
                 char c = x.next();
 
                 if (c == ',') {
@@ -121,8 +121,8 @@ public final class CDL {
      * the elements.
      *
      * @param names A JSONArray of names. This is commonly obtained from the first row of a comma delimited text file using the
-     *              rowToJSONArray method.
-     * @param x     A JSONTokener of the source text.
+     *        rowToJSONArray method.
+     * @param x A JSONTokener of the source text.
      * @return A JSONObject combining the names and values.
      * @throws JSONException
      */
@@ -158,7 +158,7 @@ public final class CDL {
      * Produce a JSONArray of JSONObjects from a comma delimited text string using a supplied JSONArray as the source of element
      * names.
      *
-     * @param names  A JSONArray of strings.
+     * @param names A JSONArray of strings.
      * @param string The comma delimited text.
      * @return A JSONArray of JSONObjects.
      * @throws JSONException
@@ -172,7 +172,7 @@ public final class CDL {
      * names.
      *
      * @param names A JSONArray of strings.
-     * @param x     A JSONTokener of the source text.
+     * @param x A JSONTokener of the source text.
      * @return A JSONArray of JSONObjects.
      * @throws JSONException
      */
@@ -183,7 +183,7 @@ public final class CDL {
 
         JSONArray ja = new JSONArray();
 
-        for (; ; ) {
+        for (;;) {
             JSONObject jo = rowToJSONObject(names, x);
 
             if (jo == null) {
@@ -207,7 +207,7 @@ public final class CDL {
      * @return A string ending in NEWLINE.
      */
     public static String rowToString(JSONArray ja) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < ja.length(); i += 1) {
             if (i > 0) {
@@ -267,7 +267,7 @@ public final class CDL {
      * included in the output.
      *
      * @param names A JSONArray of strings.
-     * @param ja    A JSONArray of JSONObjects.
+     * @param ja A JSONArray of JSONObjects.
      * @return A comma delimited text.
      * @throws JSONException
      */
@@ -276,7 +276,7 @@ public final class CDL {
             return null;
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < ja.length(); i += 1) {
             JSONObject jo = ja.optJSONObject(i);

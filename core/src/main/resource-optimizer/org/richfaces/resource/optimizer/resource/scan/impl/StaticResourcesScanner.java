@@ -21,16 +21,18 @@
  */
 package org.richfaces.resource.optimizer.resource.scan.impl;
 
-import com.google.common.collect.Sets;
+import java.util.Collection;
+
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.optimizer.resource.scan.ResourcesScanner;
 import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
 import org.richfaces.resource.optimizer.vfs.VirtualFile;
 
-import java.util.Collection;
+import com.google.common.collect.Sets;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class StaticResourcesScanner implements ResourcesScanner {
     private Collection<ResourceKey> resources = Sets.newHashSet();
@@ -62,7 +64,7 @@ public class StaticResourcesScanner implements ResourcesScanner {
     private void scanLibrary(String libraryName, String resourceNamePrefix, VirtualFile dir) {
         Collection<VirtualFile> children = dir.getChildren();
         for (VirtualFile child : children) {
-            String resourceName = resourceNamePrefix + child.getName();
+        	String resourceName = resourceNamePrefix + child.getName();
             if (child.isFile()) {
                 resources.add(new ResourceKey(resourceName, libraryName));
             } else if (child.isDirectory()) {
@@ -70,7 +72,7 @@ public class StaticResourcesScanner implements ResourcesScanner {
                 if (resource != null) {
                     resources.add(new ResourceKey(resourceName, libraryName));
                 } else {
-                    scanLibrary(libraryName, resourceName + "/", child);
+                	scanLibrary(libraryName, resourceName + "/", child);
                 }
             }
         }

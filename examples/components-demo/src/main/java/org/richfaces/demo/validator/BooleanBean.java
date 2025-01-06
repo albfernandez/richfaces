@@ -25,12 +25,13 @@
  */
 package org.richfaces.demo.validator;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.validation.constraints.AssertTrue;
 
 /**
  * @author asmirnov
+ *
  */
 @ManagedBean
 @RequestScoped

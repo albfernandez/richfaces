@@ -21,14 +21,14 @@
  *******************************************************************************/
 package org.richfaces.showcase.region;
 
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.region.page.RegionPage;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -64,7 +64,7 @@ public class ITestRegion extends AbstractWebDriverTest {
     public void testFirstWrongSubmitUserNameAndEmail() {
 
         typeSomethingToTwoInputsTestWhetherOuputIsEmpty(page.getBrokenNameInput(), page.getBrokenEmailInput(), page.getBrokenNameOutput(),
-                page.getBrokenEmailOutput(), page.getBrokenSubmit(), true);
+            page.getBrokenEmailOutput(), page.getBrokenSubmit(), true);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class ITestRegion extends AbstractWebDriverTest {
     public void testSecondRightSubmitUserNameAndEmail() {
 
         typeSomethingToTwoInputsTestWhetherOuputIsEmpty(page.getNameInput(), page.getEmailInput(), page.getNameOutput(), page.getEmailOutput(),
-                page.getSubmit(), false);
+            page.getSubmit(), false);
     }
 
     /* ********************************************************************************************************
@@ -92,12 +92,12 @@ public class ITestRegion extends AbstractWebDriverTest {
 
     /**
      * Types some string to the input and checks whether the output is empty string
-     *
-     * @param input  input where string will be typed
+     * 
+     * @param input input where string will be typed
      * @param output output which should be empty
      */
     private void typeSomethingToInputTestWhetherOutputIsEmpty(WebElement input, WebElement output, WebElement submit,
-                                                              boolean shouldBeEmpty) {
+        boolean shouldBeEmpty) {
 
         String testString = "Test String";
 
@@ -118,16 +118,16 @@ public class ITestRegion extends AbstractWebDriverTest {
 
     /**
      * Types something to two inputs and checks outputs whether they are empty or not
-     *
-     * @param input1        first input where something will be typed
-     * @param input2        second input where something will be typed
-     * @param output1       first checked output
-     * @param output2       second checked output
-     * @param submit        submit button where will be clicked
+     * 
+     * @param input1 first input where something will be typed
+     * @param input2 second input where something will be typed
+     * @param output1 first checked output
+     * @param output2 second checked output
+     * @param submit submit button where will be clicked
      * @param shouldBeEmpty should be outputs empty?
      */
     private void typeSomethingToTwoInputsTestWhetherOuputIsEmpty(WebElement input1, WebElement input2, WebElement output1,
-                                                                 WebElement output2, WebElement submit, boolean shouldBeEmpty) {
+        WebElement output2, WebElement submit, boolean shouldBeEmpty) {
 
         String testStringUserName = "Test String user name";
         String testStringEmail = "Test String email";

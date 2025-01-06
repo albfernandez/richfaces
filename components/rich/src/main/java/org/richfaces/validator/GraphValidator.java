@@ -25,17 +25,19 @@
  */
 package org.richfaces.validator;
 
+import java.util.Collection;
+
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.validator.ValidatorException;
-import java.util.Collection;
 
 /**
  * This interface should be implemented by the JSF {@link Validator} which able to validate entire graph.
  *
  * @author asmirnov
+ *
  */
 public interface GraphValidator {
     Collection<String> validateGraph(FacesContext context, UIComponent component, Object value, Class<?>[] groups)
-            throws ValidatorException;
+        throws ValidatorException;
 }

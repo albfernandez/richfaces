@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * @author asmirnov
+ *
  */
 public class Person {
     public static final String FOO_BAR = "http://foo.bar/baz#";
@@ -62,27 +63,27 @@ public class Person {
         this.dummy = dummy;
     }
 
-    public String getString() {
-        return string;
-    }
-
     public void setString(String string) {
         this.string = string;
     }
 
-    public String getProperty() {
-        return property;
+    public String getString() {
+        return string;
     }
 
     public void setProperty(String property) {
         this.property = property;
     }
 
-    public Map<Integer, Object> getOptions() {
-        return options;
+    public String getProperty() {
+        return property;
     }
 
     public void setOptions(Map<Integer, Object> options) {
         this.options = options;
+    }
+
+    public Map<Integer, Object> getOptions() {
+        return options;
     }
 }

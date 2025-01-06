@@ -21,6 +21,8 @@
  */
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
+import java.util.concurrent.TimeUnit;
+
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.enricher.WebElementUtils;
@@ -41,8 +43,6 @@ import org.richfaces.photoalbum.ftest.webdriver.pages.FBLoginPage;
 import org.richfaces.photoalbum.ftest.webdriver.pages.GPlusLoginPage;
 import org.richfaces.photoalbum.ftest.webdriver.pages.SocialLoginPage;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>

@@ -22,21 +22,22 @@
 
 package org.richfaces.photoalbum.social.gplus;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
 import org.richfaces.photoalbum.model.event.ErrorEvent;
 import org.richfaces.photoalbum.model.event.EventType;
 import org.richfaces.photoalbum.model.event.Events;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Named
 @ApplicationScoped
@@ -94,9 +95,9 @@ public class GooglePlusAlbumCache {
                 // these images are already cached
                 return;
             }
-
+            
             int size = ja.length();
-
+            
             // put size in the album
             albums.get(albumId).put("size", size);
 
@@ -196,7 +197,7 @@ public class GooglePlusAlbumCache {
 
             String albumId = jAlbum.getString("fullId");
             int size = albumImages.length();
-
+            
             jAlbum.put("size", size);
             albums.put(albumId, jAlbum);
             images.put(albumId, new HashMap<String, JSONObject>());

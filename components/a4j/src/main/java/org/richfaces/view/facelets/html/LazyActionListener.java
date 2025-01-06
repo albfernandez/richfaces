@@ -21,22 +21,24 @@
  */
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.cdk.annotations.Event;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.view.facelets.TagHandlerUtils;
+import java.io.Serializable;
 
 import jakarta.el.ValueExpression;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.ActionListener;
-import java.io.Serializable;
+
+import org.richfaces.cdk.annotations.Event;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.view.facelets.TagHandlerUtils;
 
 /**
  * @author Nick Belaevski
+ *
  */
-//@Event(listener = ActionListener.class, source = "org.richfaces.event.DummyActionListenerSource", tag = {@Tag(name = "actionListener", handlerClass = ActionListenerHandler.class, generate = false, type = TagType.Facelets)})
+@Event(listener = ActionListener.class, source = "org.richfaces.event.DummyActionListenerSource", tag = { @Tag(name = "actionListener", handlerClass = ActionListenerHandler.class, generate = false, type = TagType.Facelets) })
 class LazyActionListener implements ActionListener, Serializable {
     /**
      *
@@ -63,7 +65,7 @@ class LazyActionListener implements ActionListener, Serializable {
 
         if (instance == null && this.type != null) {
             try {
-                instance = TagHandlerUtils.loadClass(this.type, ActionListener.class).newInstance();
+                instance = TagHandlerUtils.loadClass(this.type, ActionListener.class).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 throw new AbortProcessingException("Couldn't lazily instantiate ActionListener", e);
             }

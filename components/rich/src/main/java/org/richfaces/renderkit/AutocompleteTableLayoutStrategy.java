@@ -2,11 +2,12 @@ package org.richfaces.renderkit;
 
 import org.richfaces.component.util.HtmlUtil;
 
+import java.io.IOException;
+
 import jakarta.faces.component.UIColumn;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
 
 public class AutocompleteTableLayoutStrategy extends AbstractAutocompleteLayoutStrategy implements AutocompleteEncodeStrategy {
     public void encodeFakeItem(FacesContext facesContext, UIComponent component) throws IOException {

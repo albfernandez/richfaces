@@ -21,12 +21,12 @@
  *******************************************************************************/
 package org.richfaces.showcase.dataTable;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.AbstractWebDriverTest;
-
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -34,62 +34,6 @@ import java.util.List;
  * @version $Revision$
  */
 public class AbstractDataIterationWithCars extends AbstractWebDriverTest {
-
-    /**
-     * retrieves info about car from the row, it starts collecting data on the row specified by startingIndexTd and ends on the
-     * endIndexOfTd, other values from car lets uninitialized
-     *
-     * @param row
-     * @param startingIndexOfTd
-     * @param endIndexOfTd
-     * @return car
-     */
-    public Car retrieveCarFromRow(WebElement row, int startingIndexOfTd, int endIndexOfTd) {
-
-        Car car = new Car();
-
-        List<WebElement> tds = row.findElements(By.tagName("td"));
-
-        int j = 0;
-        for (Iterator<WebElement> i = tds.iterator(); i.hasNext(); ) {
-
-            if (j < startingIndexOfTd) {
-                i.next();
-            }
-
-            if (j == startingIndexOfTd) {
-                car.setVendor(i.next().getText());
-            } else if (j == (startingIndexOfTd + 1)) {
-                car.setModel(i.next().getText());
-            } else if (j == (startingIndexOfTd + 2)) {
-                car.setPrice(i.next().getText());
-            } else if (j == (startingIndexOfTd + 3)) {
-                car.setMileage(i.next().getText());
-            } else if (j == (startingIndexOfTd + 4)) {
-                car.setVin(i.next().getText());
-            } else if (j > endIndexOfTd) {
-                break;
-            }
-
-            j++;
-        }
-
-        return car;
-    }
-
-    public Car parseSimplifiedCarFromListItem(WebElement listItem) {
-        String[] partsOfContent = listItem.getText().split("-");
-        return new Car(partsOfContent[0].trim(), partsOfContent[1].trim());
-    }
-
-    public static enum Field {
-        VENDOR,
-        MODEL,
-        PRICE,
-        MILEAGE,
-        VIN,
-        STOCK;
-    }
 
     // help class for saving data about car
     public static class Car {
@@ -107,7 +51,7 @@ public class AbstractDataIterationWithCars extends AbstractWebDriverTest {
         /**
          * Creates car with @vendor and @model fields set. Other fields are null. Equals to new Car(vendor, model, null, null,
          * null, null).
-         *
+         * 
          * @param vendor
          * @param model
          */
@@ -252,7 +196,73 @@ public class AbstractDataIterationWithCars extends AbstractWebDriverTest {
         @Override
         public String toString() {
             return "Car [vendor=" + vendor + ", model=" + model + ", price=" + price + ", mileage=" + mileage + ", vin=" + vin
-                    + "]";
+                + "]";
         }
+    }
+
+    /**
+     * retrieves info about car from the row, it starts collecting data on the row specified by startingIndexTd and ends on the
+     * endIndexOfTd, other values from car lets uninitialized
+     * 
+     * @param row
+     * @param startingIndexOfTd
+     * @param endIndexOfTd
+     * @return car
+     */
+    public Car retrieveCarFromRow(WebElement row, int startingIndexOfTd, int endIndexOfTd) {
+
+        Car car = new Car();
+
+        List<WebElement> tds = row.findElements(By.tagName("td"));
+
+        int j = 0;
+        for (Iterator<WebElement> i = tds.iterator(); i.hasNext();) {
+
+            if (j < startingIndexOfTd) {
+                i.next();
+            }
+
+            if (j == startingIndexOfTd) {
+                car.setVendor(i.next().getText());
+            }
+
+            else if (j == (startingIndexOfTd + 1)) {
+                car.setModel(i.next().getText());
+            }
+
+            else if (j == (startingIndexOfTd + 2)) {
+                car.setPrice(i.next().getText());
+            }
+
+            else if (j == (startingIndexOfTd + 3)) {
+                car.setMileage(i.next().getText());
+            }
+
+            else if (j == (startingIndexOfTd + 4)) {
+                car.setVin(i.next().getText());
+            }
+
+            else if (j > endIndexOfTd) {
+                break;
+            }
+
+            j++;
+        }
+
+        return car;
+    }
+
+    public Car parseSimplifiedCarFromListItem(WebElement listItem) {
+        String[] partsOfContent = listItem.getText().split("-");
+        return new Car(partsOfContent[0].trim(), partsOfContent[1].trim());
+    }
+
+    public static enum Field {
+        VENDOR,
+        MODEL,
+        PRICE,
+        MILEAGE,
+        VIN,
+        STOCK;
     }
 }

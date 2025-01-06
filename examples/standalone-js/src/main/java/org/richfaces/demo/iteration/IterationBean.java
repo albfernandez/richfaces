@@ -27,8 +27,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import org.richfaces.demo.iteration.model.Employee;
 import org.richfaces.demo.iteration.utils.EmployeeUtils;
@@ -109,15 +109,15 @@ public class IterationBean {
         this.dataTableState = dataTableState;
     }
 
+    public void setEmployeeList(Collection<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
+
     public Collection<Employee> getEmployeeList() {
         if (employeeList == null) {
             employeeList = EmployeeUtils.obtainDefaultEmployeeList();
         }
         return employeeList;
-    }
-
-    public void setEmployeeList(Collection<Employee> employeeList) {
-        this.employeeList = employeeList;
     }
 
     public boolean isState() {
@@ -136,32 +136,32 @@ public class IterationBean {
         return new Date();
     }
 
-    public boolean isRendered() {
-        return rendered;
-    }
-
     public void setRendered(boolean rendered) {
         this.rendered = rendered;
     }
 
-    public SelectionMode getSelectionMode() {
-        return selectionMode;
+    public boolean isRendered() {
+        return rendered;
     }
 
     public void setSelectionMode(SelectionMode selectionMode) {
         this.selectionMode = selectionMode;
     }
 
+    public SelectionMode getSelectionMode() {
+        return selectionMode;
+    }
+
     public SelectionMode[] getSelectionModes() {
         return SelectionMode.values();
     }
 
-    public Collection<Object> getSelectedRowKeys() {
-        return selectedRowKeys;
-    }
-
     public void setSelectedRowKeys(Collection<Object> selectedRowKeys) {
         this.selectedRowKeys = selectedRowKeys;
+    }
+
+    public Collection<Object> getSelectedRowKeys() {
+        return selectedRowKeys;
     }
 
     public boolean isRenderIfSinglePage() {

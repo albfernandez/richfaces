@@ -20,41 +20,45 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.model;
-
-import org.richfaces.json.JSONArray;
-import org.richfaces.json.JSONObject;
-import org.richfaces.renderkit.ChartRendererBase;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.richfaces.json.JSONArray;
+import org.richfaces.json.JSONObject;
+import org.richfaces.renderkit.ChartRendererBase;
+
 
 /**
+ *
  * @author Lukas Macko
  */
 public abstract class ChartDataModel<T, S> {
 
-    protected ChartType type;
-    protected ChartStrategy strategy;
-    protected List<T> keys;
     private Map<T, S> data;
+
+    protected ChartType type;
+
+    protected ChartStrategy strategy;
+
+    protected List<T> keys;
+
     private Map<String, Object> attributes;
 
     public ChartDataModel(ChartType type) {
-        data = new HashMap<T, S>();
-        keys = new LinkedList<T>();
+        data = new HashMap<>();
+        keys = new LinkedList<>();
         this.type = type;
-    }
-
-    public Map<T, S> getData() {
-        return data;
     }
 
     public void setData(Map<T, S> data) {
         this.data = data;
+    }
+
+    public Map<T, S> getData() {
+        return data;
     }
 
     public void put(T key, S value) {

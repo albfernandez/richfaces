@@ -33,6 +33,7 @@ import jakarta.faces.event.AbortProcessingException;
  *
  * @author akolonitsky
  * @version 1.0
+ *
  */
 public class MethodExpressionPanelToggleListener extends MethodExpressionEventListener implements PanelToggleListener {
     public MethodExpressionPanelToggleListener() {

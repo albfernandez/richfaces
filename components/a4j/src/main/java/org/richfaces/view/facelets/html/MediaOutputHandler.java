@@ -20,9 +20,6 @@
  */
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.component.AbstractMediaOutput;
-import org.richfaces.view.facelets.MethodMetadata;
-
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.FaceletContext;
@@ -31,6 +28,9 @@ import jakarta.faces.view.facelets.MetaRuleset;
 import jakarta.faces.view.facelets.Metadata;
 import jakarta.faces.view.facelets.MetadataTarget;
 import jakarta.faces.view.facelets.TagAttribute;
+import org.richfaces.component.AbstractMediaOutput;
+import org.richfaces.view.facelets.MethodMetadata;
+
 import java.io.OutputStream;
 
 /**

@@ -21,6 +21,8 @@
  */
 package org.richfaces.fragment.notify;
 
+import java.util.List;
+
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.By;
@@ -32,16 +34,14 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.message.AbstractMessage;
 
-import java.util.List;
-
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class RichFacesNotifyMessage extends AbstractMessage implements NotifyMessage {
 
-    private final AdvancedNotifyMessageInteractionsImpl interactions = new AdvancedNotifyMessageInteractionsImpl();
     @Drone
     private WebDriver driver;
+
     @FindBy(className = "rf-ntf-det")
     private WebElement messageDetailElement;
     @FindBy(className = "rf-ntf-sum")
@@ -53,22 +53,7 @@ public class RichFacesNotifyMessage extends AbstractMessage implements NotifyMes
     @FindBy(className = "rf-ntf-shdw")
     private WebElement shadowElement;
 
-    public static String getStyleClassForMessageType(MessageType type) {
-        switch (type) {
-            case ERROR:
-                return "rf-ntf-err";
-            case FATAL:
-                return "rf-ntf-ftl";
-            case INFORMATION:
-                return "rf-ntf-inf";
-            case OK:
-                return "rf-ntf-ok";
-            case WARNING:
-                return "rf-ntf-wrn";
-            default:
-                throw new UnsupportedOperationException("Unknown message type " + type);
-        }
-    }
+    private final AdvancedNotifyMessageInteractionsImpl interactions = new AdvancedNotifyMessageInteractionsImpl();
 
     @Override
     public AdvancedNotifyMessageInteractionsImpl advanced() {
@@ -95,29 +80,20 @@ public class RichFacesNotifyMessage extends AbstractMessage implements NotifyMes
         return getStyleClassForMessageType(type);
     }
 
-    private enum RichFacesNotifyMessagePosition {
-
-        BOTTOM_LEFT(NotifyMessagePosition.BOTTOM_LEFT, "rf-ntf-pos-bl"),
-        BOTTOM_RIGHT(NotifyMessagePosition.BOTTOM_RIGHT, "rf-ntf-pos-br"),
-        TOP_LEFT(NotifyMessagePosition.TOP_LEFT, "rf-ntf-pos-tl"),
-        TOP_RIGHT(NotifyMessagePosition.TOP_RIGHT, "rf-ntf-pos-tr");
-
-        private final String containsClass;
-        private final NotifyMessagePosition position;
-
-        private RichFacesNotifyMessagePosition(NotifyMessagePosition position, String containsClass) {
-            this.position = position;
-            this.containsClass = containsClass;
-        }
-
-        static NotifyMessagePosition getPositionFromElement(WebElement element) {
-            String styleClasses = element.getAttribute("class");
-            for (RichFacesNotifyMessagePosition messagePosition : values()) {
-                if (styleClasses.contains(messagePosition.containsClass)) {
-                    return messagePosition.position;
-                }
-            }
-            throw new RuntimeException("Cannot obtain position from element: " + element);
+    public static String getStyleClassForMessageType(MessageType type) {
+        switch (type) {
+            case ERROR:
+                return "rf-ntf-err";
+            case FATAL:
+                return "rf-ntf-ftl";
+            case INFORMATION:
+                return "rf-ntf-inf";
+            case OK:
+                return "rf-ntf-ok";
+            case WARNING:
+                return "rf-ntf-wrn";
+            default:
+                throw new UnsupportedOperationException("Unknown message type " + type);
         }
     }
 
@@ -156,6 +132,32 @@ public class RichFacesNotifyMessage extends AbstractMessage implements NotifyMes
         @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
+        }
+    }
+
+    private enum RichFacesNotifyMessagePosition {
+
+        BOTTOM_LEFT(NotifyMessagePosition.BOTTOM_LEFT, "rf-ntf-pos-bl"),
+        BOTTOM_RIGHT(NotifyMessagePosition.BOTTOM_RIGHT, "rf-ntf-pos-br"),
+        TOP_LEFT(NotifyMessagePosition.TOP_LEFT, "rf-ntf-pos-tl"),
+        TOP_RIGHT(NotifyMessagePosition.TOP_RIGHT, "rf-ntf-pos-tr");
+
+        private final String containsClass;
+        private final NotifyMessagePosition position;
+
+        private RichFacesNotifyMessagePosition(NotifyMessagePosition position, String containsClass) {
+            this.position = position;
+            this.containsClass = containsClass;
+        }
+
+        static NotifyMessagePosition getPositionFromElement(WebElement element) {
+            String styleClasses = element.getAttribute("class");
+            for (RichFacesNotifyMessagePosition messagePosition : values()) {
+                if (styleClasses.contains(messagePosition.containsClass)) {
+                    return messagePosition.position;
+                }
+            }
+            throw new RuntimeException("Cannot obtain position from element: " + element);
         }
     }
 }

@@ -21,13 +21,15 @@
  */
 package org.richfaces.resource.optimizer.resource.handler.impl;
 
+import java.io.IOException;
+
 import jakarta.faces.application.Resource;
 import jakarta.faces.application.ResourceHandler;
 import jakarta.faces.context.FacesContext;
-import java.io.IOException;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public abstract class AbstractResourceHandler extends ResourceHandler {
     @Override

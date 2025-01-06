@@ -54,18 +54,6 @@ public class ITSelectKeyboardSelection {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form id='form'>");
-        p.body("    <rich:select id='select'  enableManualInput='true'>");
-        p.body("        <f:selectItems value='#{autocompleteBean.suggestions}' />");
-        p.body("    </rich:select>");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void test_selection_by_keyboard() {
         browser.get(contextPath.toExternalForm());
@@ -82,5 +70,17 @@ public class ITSelectKeyboardSelection {
             keyboard.pressKey(Keys.ENTER);
         }
         waitGui().until().element(selectInput).attribute("value").equalTo("Tampa Bay");
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='form'>");
+        p.body("    <rich:select id='select'  enableManualInput='true'>");
+        p.body("        <f:selectItems value='#{autocompleteBean.suggestions}' />");
+        p.body("    </rich:select>");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

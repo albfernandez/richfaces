@@ -28,13 +28,9 @@ import jakarta.faces.model.DataModel;
  * Extesion for {@link DataModel} , for support complex data structure, like tree, spreadsheet etc in iterable components.
  *
  * @author shura
+ *
  */
 public abstract class ExtendedDataModel<E> extends DataModel<E> {
-    /**
-     * @return key for selected data or <code>null</code>
-     */
-    public abstract Object getRowKey();
-
     /**
      * <p>
      * Instead of simple <code>int</code> for current state selection, this model can use any object for select current data.
@@ -43,7 +39,7 @@ public abstract class ExtendedDataModel<E> extends DataModel<E> {
      * <ol>
      * <li>key must be {@link java.io.Serializable}.</li>
      * <li>{@link Object#toString()} method must return representation compatible with
-     * {@link javax.faces.component.UIComponent#getClientId(javax.faces.context.FacesContext)}, as far as this string will be
+     * {@link jakarta.faces.component.UIComponent#getClientId(jakarta.faces.context.FacesContext)}, as far as this string will be
      * appended to clientId of iterator component.</li>
      * </ol>
      *
@@ -52,11 +48,16 @@ public abstract class ExtendedDataModel<E> extends DataModel<E> {
     public abstract void setRowKey(Object key);
 
     /**
+     * @return key for selected data or <code>null</code>
+     */
+    public abstract Object getRowKey();
+
+    /**
      * Iterate over model by "visitor" pattern, for given range
      *
-     * @param context  current JSF context.
-     * @param visitor  instance of {@link DataVisitor}, for process each row.
-     * @param range    Implementation-specific range of data keys.
+     * @param context current JSF context.
+     * @param visitor instance of {@link DataVisitor}, for process each row.
+     * @param range Implementation-specific range of data keys.
      * @param argument Implementation-specific argument
      * @throws java.io.IOException
      */

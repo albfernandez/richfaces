@@ -21,9 +21,9 @@
  */
 package org.richfaces.cdi.push;
 
-import org.richfaces.application.push.TopicKey;
+import jakarta.enterprise.context.ApplicationScoped;
 
-import javax.enterprise.context.ApplicationScoped;
+import org.richfaces.application.push.TopicKey;
 
 /**
  * Bean for resolving {@link TopicKey} from {@link Push} annotation properties.

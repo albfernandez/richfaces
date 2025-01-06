@@ -1,5 +1,7 @@
 package org.richfaces.showcase.contextMenu.page;
 
+import java.util.List;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,19 +9,21 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.richfaces.fragment.contextMenu.RichFacesContextMenu;
 
-import java.util.List;
-
 public class TableContextMenuPage {
 
-    private static final String CLASS_OF_SELECTED_ROW = "rf-edt-r-act";
     @FindBy(css = ".rf-edt-b > div > table > tbody > tr > td:nth-of-type(2) tr")
     private List<WebElement> prices;
+
     @FindBy(className = "rf-ctx-lbl")
     private RichFacesContextMenu contextMenu;
+
     @FindBy(css = "#popupContent tr:nth-of-type(3) input")
     private WebElement priceFromPopup;
+
     @FindBy(css = "input[type='button']")
     private WebElement closeButton;
+
+    private static final String CLASS_OF_SELECTED_ROW = "rf-edt-r-act";
 
     public ExpectedCondition<Boolean> getWaitConditionOnSelectingRow(final WebElement row) {
         return new ExpectedCondition<Boolean>() {
@@ -36,7 +40,7 @@ public class TableContextMenuPage {
         closeButton.click();
 
         Graphene.waitModel().withMessage("The popup was not closed in a given timeout!")
-                .until().element(closeButton).is().not().visible();
+            .until().element(closeButton).is().not().visible();
     }
 
     public List<WebElement> getPrices() {

@@ -23,6 +23,11 @@ package org.ajax4jsf.util.base64;
  */
 public class DecoderException extends Exception {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8547275116309072389L;
+
+	/**
      * Creates a DecoderException
      *
      * @param pMessage A message with meaning to a human

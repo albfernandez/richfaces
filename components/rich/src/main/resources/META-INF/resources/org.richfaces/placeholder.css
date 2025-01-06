@@ -1,3 +1,39 @@
-input.rf-plhdr, textarea.rf-plhdr {
-    color: #777
+input.rf-plhdr,
+textarea.rf-plhdr {
+	color: #777
+}
+
+/* - Chrome <= 56 */
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+	color: #777;
+	font-weight: 400;
+}
+
+/* Firefox 19-50 */
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+	color: #777;
+	font-weight: 400;
+}
+
+/* Internet Explorer 10–11 */
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+	color: #777 !important;
+	font-weight: 400 !important;
+}
+
+/* Edge (also supports ::-webkit-input-placeholder) */
+input::-ms-input-placeholder,
+textarea::-ms-input-placeholder {
+	color: #777;
+	font-weight: 400;
+}
+
+/* CSS Pseudo-Elements Level 4 Editor's Draft */
+input::placeholder,
+textarea::placeholder {
+	color: #777;
+	font-weight: 400;
 }

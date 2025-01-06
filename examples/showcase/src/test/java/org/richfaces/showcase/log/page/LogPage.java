@@ -48,6 +48,25 @@ public class LogPage {
     @FindByJQuery("input[type='submit']:nth(0)")
     private WebElement submit;
 
+    public static enum Severity {
+
+        DEBUG(0), INFO(1), WARN(2), ERROR(3);
+        private int index;
+
+        private Severity(int index) {
+            this.index = index;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
+    }
+
     public WebElement getClear() {
         return clear;
     }
@@ -70,25 +89,6 @@ public class LogPage {
 
     public WebElement getSubmit() {
         return submit;
-    }
-
-    public static enum Severity {
-
-        DEBUG(0), INFO(1), WARN(2), ERROR(3);
-        private int index;
-
-        private Severity(int index) {
-            this.index = index;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString().toLowerCase();
-        }
     }
 
 }

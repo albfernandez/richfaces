@@ -21,15 +21,16 @@
  */
 package org.richfaces.photoalbum.search;
 
+import java.util.List;
+
+import javax.ejb.Local;
+
 import org.richfaces.photoalbum.model.Album;
 import org.richfaces.photoalbum.model.Image;
 import org.richfaces.photoalbum.model.MetaTag;
 import org.richfaces.photoalbum.model.Shelf;
 import org.richfaces.photoalbum.model.User;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
-
-import javax.ejb.Local;
-import java.util.List;
 
 /**
  * Interface for search actions
@@ -41,13 +42,13 @@ public interface ISearchAction {
     public List<Image> searchByImage(String query, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException;
 
     public List<MetaTag> searchByTags(String query, boolean searchInMyAlbums, boolean searchInShared)
-            throws PhotoAlbumException;
+        throws PhotoAlbumException;
 
     public List<Album> searchByAlbum(String query, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException;
 
     public List<User> searchByUsers(String query, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException;
 
     public List<Shelf> searchByShelves(String query, boolean searchInMyAlbums, boolean searchInShared)
-            throws PhotoAlbumException;
+        throws PhotoAlbumException;
 
 }

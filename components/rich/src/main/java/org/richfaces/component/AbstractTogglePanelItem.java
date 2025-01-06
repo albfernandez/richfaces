@@ -21,6 +21,11 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.convert.Converter;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -30,11 +35,6 @@ import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.context.ExtendedRenderVisitContext;
-
-import jakarta.faces.component.UIOutput;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.convert.Converter;
 
 /**
  * <p>The &lt;rich:togglePanelItem&gt; component is a switchable panel for use with the &lt;rich:togglePanel&gt;
@@ -50,6 +50,10 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelItem";
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelItem";
     public static final String NAME = "name";
+
+    enum Properties {
+        switchType
+    }
 
     protected AbstractTogglePanelItem() {
         setRendererType("org.richfaces.TogglePanelItemRenderer");
@@ -87,6 +91,8 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
         return isActive() || getSwitchType() == SwitchType.client;
     }
 
+    // ------------------------------------------------ Component Attributes
+
     /**
      * The name of the panel, used for identifying and manipulating the active panel.
      * If you do not specify a name, the clientId will be used as the name.
@@ -95,8 +101,6 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
     public String getName() {
         return (String) getStateHelper().eval(NAME, getClientId());
     }
-
-    // ------------------------------------------------ Component Attributes
 
     public void setName(String name) {
         getStateHelper().put(NAME, name);
@@ -130,15 +134,11 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
      * UIComponent#visitTree modified to delegate to AbstractTab#getVisitableChildren() to retrieve the children iterator
      */
     public boolean visitTree(VisitContext context, VisitCallback callback) {
-        if (ExtendedRenderVisitContext.isExtendedRenderVisitContext(context) && !shouldVisitChildren()) {
+        if (ExtendedRenderVisitContext.isExtendedRenderVisitContext(context) && ! shouldVisitChildren()) {
             // Return false to allow the visit to continue
             return false;
         } else {
             return super.visitTree(context, callback);
         }
-    }
-
-    enum Properties {
-        switchType
     }
 }

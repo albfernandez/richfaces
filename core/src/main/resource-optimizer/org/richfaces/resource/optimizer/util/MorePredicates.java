@@ -21,15 +21,16 @@
  */
 package org.richfaces.resource.optimizer.util;
 
+import java.util.regex.Pattern;
+
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 
-import java.util.regex.Pattern;
-
 /**
  * @author Nick Belaevski
+ *
  */
 public final class MorePredicates {
     private MorePredicates() {

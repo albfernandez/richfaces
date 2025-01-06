@@ -21,26 +21,24 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import category.FailingOnPhantomJS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.net.URISyntaxException;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.richfaces.fragment.inplaceInput.RichFacesInplaceInput;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView.AlbumHeader;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView;
 
-import java.io.File;
-import java.net.URISyntaxException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
@@ -59,7 +57,6 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void testEditAlbumName() {
         login();
 
@@ -74,7 +71,7 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
         // check the change in left panel (navigation tree) and on current content view
         assertEquals("Animals album", albumHeader.getNameElement().getText().trim());
         assertEquals("Animals album", getPage().getLeftPanel().getMyGroupsTree().advanced().getFirstNode() // animals are first album in first own group
-                .advanced().getFirstNode().advanced().getLabelElement().getText().trim());
+            .advanced().getFirstNode().advanced().getLabelElement().getText().trim());
         // check the change in the name of the link of inner photo
         PhotoView photoView = getPage().getContentPanel().albumView().getPhotos().get(0).open();
         String albumLinkText = photoView.getPhotoHeader().getLinks().get(1).getText();
@@ -82,7 +79,6 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void testEditPhotoName() {
         login();
 
@@ -100,7 +96,6 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void testEditAlbumGroupName() {
         login();
 
@@ -116,7 +111,7 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
         // check the change in left panel (navigation tree) and on current content view
         assertEquals(albumGroupNewName, albumGroupHeader.getNameElement().getText().trim());
         assertEquals(albumGroupNewName, getPage().getLeftPanel().getMyGroupsTree().advanced().getFirstNode()
-                .advanced().getLabelElement().getText().trim());
+            .advanced().getLabelElement().getText().trim());
 
         // check the change in the name of the link of inner album
         AlbumView albumView = getPage().getContentPanel().groupView().getAlbumPreviews().get(0).open();

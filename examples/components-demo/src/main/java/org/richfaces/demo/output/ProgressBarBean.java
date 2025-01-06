@@ -25,14 +25,16 @@
  */
 package org.richfaces.demo.output;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 /**
  * @author Ilya Shaikovsky
+ *
  */
 @ManagedBean
 @ViewScoped

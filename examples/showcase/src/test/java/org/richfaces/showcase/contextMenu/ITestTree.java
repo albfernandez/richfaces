@@ -21,19 +21,17 @@
  */
 package org.richfaces.showcase.contextMenu;
 
-import category.FailingOnPhantomJS;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
+import static org.junit.Assert.assertTrue;
+
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.contextMenu.RichFacesContextMenu;
 import org.richfaces.showcase.contextMenu.page.TreeContextMenuPage;
 
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -61,20 +59,15 @@ public class ITestTree extends AbstractContextMenuTest {
 
             RichFacesContextMenu contextMenu = page.getContextMenu();
             contextMenu.advanced().setShowEvent(Event.CONTEXTMENU);
-            if (webDriver instanceof PhantomJSDriver) {
-                // the menu is invoked by JavaScript, which does not invoke any ajax request
-                contextMenu.advanced().show(leaf);
-            } else {
-                guardAjax(contextMenu.advanced()).show(leaf);
-            }
+            guardAjax(contextMenu.advanced()).show(leaf);
             guardAjax(contextMenu).selectItem(0);
             waitModel().until().element(page.getArtistFromPopup()).is().visible();
 
             String artistFromPopup = page.getArtistFromPopup().getText();
 
             assertTrue(
-                    "The context menu was not invoked correctly! The popup contains different artist name than the node in the tree!",
-                    artistFromTree.contains(artistFromPopup));
+                "The context menu was not invoked correctly! The popup contains different artist name than the node in the tree!",
+                artistFromTree.contains(artistFromPopup));
 
             page.getCloseButton().click();
             waitModel().until().element(page.getArtistFromPopup()).is().not().visible();
@@ -83,13 +76,12 @@ public class ITestTree extends AbstractContextMenuTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void testContextMenuRenderedAtCorrectPosition() {
         page.expandNodes(4);
         WebElement elementToTryOn = page.getLeaves().get(0);
         waitModel().until().element(elementToTryOn).is().visible();
 
         checkContextMenuRenderedAtCorrectPosition(elementToTryOn, page.getContextMenu(),
-                Event.CONTEXTCLICK, page.getExpextedConditionOnNodeSelected(elementToTryOn), true, true);
+            Event.CONTEXTCLICK, page.getExpextedConditionOnNodeSelected(elementToTryOn), true, true);
     }
 }

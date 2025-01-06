@@ -21,15 +21,11 @@
  */
 package org.richfaces.renderkit;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractCollapsibleSubTable;
-import org.richfaces.component.AbstractDataTable;
-import org.richfaces.component.Row;
-import org.richfaces.component.UIDataAdaptor;
-import org.richfaces.component.UIDataTableBase;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.util.AjaxRendererUtils;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import jakarta.faces.application.ResourceDependencies;
 import jakarta.faces.application.ResourceDependency;
@@ -40,25 +36,63 @@ import jakarta.faces.component.behavior.ClientBehavior;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+
+import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractCollapsibleSubTable;
+import org.richfaces.component.AbstractDataTable;
+import org.richfaces.component.Row;
+import org.richfaces.component.UIDataAdaptor;
+import org.richfaces.component.UIDataTableBase;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 /**
  * @author Anton Belevich
  */
 @JsfRenderer(type = "org.richfaces.DataTableRenderer", family = AbstractDataTable.COMPONENT_FAMILY)
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "datatable.js"),
-        @ResourceDependency(library = "org.richfaces", name = "datatable.ecss")})
+        @ResourceDependency(library = "org.richfaces", name = "datatable.ecss") })
 public class DataTableRenderer extends AbstractTableRenderer {
-    private static final String BEHAVIOR_EVENT_NAME = "javax.faces.behavior.event";
+    private static final String BEHAVIOR_EVENT_NAME = "jakarta.faces.behavior.event";
     private static final String ROW = "row";
+
+    private class DataTableHiddenEncodeStrategy implements EncodeStrategy {
+        public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
+            throws IOException {
+            AbstractDataTable dataTable = (AbstractDataTable) component;
+
+            writer.startElement(HtmlConstants.TBODY_ELEMENT, dataTable);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, dataTable.getContainerClientId(context) + HIDDEN_CONTAINER_ID,
+                null);
+            writer.startElement(HtmlConstants.TR_ELEMENT, dataTable);
+            writer.startElement(HtmlConstants.TD_ELEM, dataTable);
+            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display: none", null);
+        }
+
+        public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
+            writer.endElement(HtmlConstants.TD_ELEM);
+            writer.endElement(HtmlConstants.TR_ELEMENT);
+            writer.endElement(HtmlConstants.TBODY_ELEMENT);
+        }
+    }
+
+    ;
+
+    private class RichHeaderEncodeStrategy implements EncodeStrategy {
+        public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
+            throws IOException {
+            org.richfaces.component.AbstractColumn column = (org.richfaces.component.AbstractColumn) component;
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, column.getClientId(context), null);
+        }
+
+        public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
+        }
+    }
 
     protected void doDecode(FacesContext context, final UIComponent component) {
         super.doDecode(context, component);
@@ -98,8 +132,6 @@ public class DataTableRenderer extends AbstractTableRenderer {
         }
     }
 
-
-
     public void encodeTableStructure(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable) throws IOException {
         if (dataTable instanceof AbstractDataTable) {
             encodeStyle(writer, context, dataTable, null);
@@ -127,7 +159,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
 
     @Override
     public void encodeBeforeRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
-                                 boolean encodeParentTBody, boolean partialUpdate) throws IOException {
+        boolean encodeParentTBody, boolean partialUpdate) throws IOException {
         if (encodeParentTBody) {
             if (partialUpdate) {
                 partialStart(facesContext, dataTableBase.getContainerClientId(facesContext) + ":tb");
@@ -138,7 +170,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
 
     @Override
     public void encodeAfterRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
-                                boolean encodeParentTBody, boolean partialUpdate) throws IOException {
+        boolean encodeParentTBody, boolean partialUpdate) throws IOException {
         if (encodeParentTBody) {
             encodeTableBodyEnd(writer);
             if (partialUpdate) {
@@ -313,7 +345,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
 
     public EncodeStrategy getHeaderEncodeStrategy(UIComponent column, String facetName) {
         return (column instanceof org.richfaces.component.AbstractColumn && UIDataTableBase.HEADER.equals(facetName)) ? new RichHeaderEncodeStrategy()
-                : new SimpleHeaderEncodeStrategy();
+            : new SimpleHeaderEncodeStrategy();
     }
 
     public boolean containsThead() {
@@ -321,7 +353,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
     }
 
     public void encodeClientScript(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase)
-            throws IOException {
+        throws IOException {
         AbstractDataTable dataTable = (AbstractDataTable) dataTableBase;
 
         writer.startElement(HtmlConstants.SCRIPT_ELEM, dataTable);
@@ -332,7 +364,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
 
         AjaxOptions ajaxOptions = AjaxRendererUtils.buildEventOptions(facesContext, dataTable);
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         options.put("ajaxEventOptions", ajaxOptions.getParameters());
         function.addParameter(options);
 
@@ -428,36 +460,5 @@ public class DataTableRenderer extends AbstractTableRenderer {
 
     public EncodeStrategy getHiddenContainerStrategy(UIDataTableBase dataTableBase) {
         return new DataTableHiddenEncodeStrategy();
-    }
-
-    private class DataTableHiddenEncodeStrategy implements EncodeStrategy {
-        public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
-                throws IOException {
-            AbstractDataTable dataTable = (AbstractDataTable) component;
-
-            writer.startElement(HtmlConstants.TBODY_ELEMENT, dataTable);
-            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, dataTable.getContainerClientId(context) + HIDDEN_CONTAINER_ID,
-                    null);
-            writer.startElement(HtmlConstants.TR_ELEMENT, dataTable);
-            writer.startElement(HtmlConstants.TD_ELEM, dataTable);
-            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display: none", null);
-        }
-
-        public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
-            writer.endElement(HtmlConstants.TD_ELEM);
-            writer.endElement(HtmlConstants.TR_ELEMENT);
-            writer.endElement(HtmlConstants.TBODY_ELEMENT);
-        }
-    }
-
-    private class RichHeaderEncodeStrategy implements EncodeStrategy {
-        public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
-                throws IOException {
-            org.richfaces.component.AbstractColumn column = (org.richfaces.component.AbstractColumn) component;
-            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, column.getClientId(context), null);
-        }
-
-        public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
-        }
     }
 }

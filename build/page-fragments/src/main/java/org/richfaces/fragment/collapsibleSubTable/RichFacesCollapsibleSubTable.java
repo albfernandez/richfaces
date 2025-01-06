@@ -21,7 +21,11 @@
  */
 package org.richfaces.fragment.collapsibleSubTable;
 
-import com.google.common.base.Predicate;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.wait.FluentWait;
@@ -34,15 +38,11 @@ import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.dataTable.AbstractTable;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 /**
+ * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  * @param <HEADER>
  * @param <ROW>
  * @param <FOOTER>
- * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public abstract class RichFacesCollapsibleSubTable<HEADER, ROW, FOOTER> extends AbstractTable<HEADER, ROW, FOOTER> implements CollapsibleSubTable<HEADER, ROW, FOOTER> {
 
@@ -187,33 +187,33 @@ public abstract class RichFacesCollapsibleSubTable<HEADER, ROW, FOOTER> extends 
             return (timeoutForTableToCollapse == -1L) ? Utils.getWaitAjaxDefaultTimeout(browser) : timeoutForTableToCollapse;
         }
 
-        public void setTimeoutForTableToCollapse(long timeoutInMilliseconds) {
-            this.timeoutForTableToCollapse = timeoutInMilliseconds;
-        }
-
         public long getTimeoutForTableToExpand() {
             return (timeoutForTableToExpand == -1L) ? Utils.getWaitAjaxDefaultTimeout(browser) : timeoutForTableToExpand;
-        }
-
-        public void setTimeoutForTableToExpand(long timeoutInMilliseconds) {
-            this.timeoutForTableToExpand = timeoutInMilliseconds;
         }
 
         public void setTimeoutForTableToCollapse() {
             this.timeoutForTableToCollapse = -1;
         }
 
+        public void setTimeoutForTableToCollapse(long timeoutInMilliseconds) {
+            this.timeoutForTableToCollapse = timeoutInMilliseconds;
+        }
+
         public void setTimeoutForTableToExpand() {
             this.timeoutForTableToExpand = -1;
+        }
+
+        public void setTimeoutForTableToExpand(long timeoutInMilliseconds) {
+            this.timeoutForTableToExpand = timeoutInMilliseconds;
         }
 
         public WaitingWrapper waitUntilTableCollapses() {
             return new WaitingWrapperImpl() {
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return !isExpanded();
                         }
                     });
@@ -225,9 +225,9 @@ public abstract class RichFacesCollapsibleSubTable<HEADER, ROW, FOOTER> extends 
             return new WaitingWrapperImpl() {
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isExpanded();
                         }
                     });

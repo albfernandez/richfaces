@@ -54,7 +54,7 @@
                     <a class="search-option-link"
                        href="#"
                        onclick="show('searchOptions');
-                               $('[id$=searchQuery].search-input').focus();
+                               $('[id$=searchQuery].search-input').trigger('focus');
                                hide('openSeach');">
                         #{messages['options']}
                         <img height="7" border="0" width="7" alt="" src="resources/img/search/bull_arr_down.gif" />
@@ -89,7 +89,7 @@
                    <a class="search-hide-options-link "
                       href="#"
                       onclick="hide('searchOptions');
-                              $('.search-input').focus();
+                              $('.search-input').trigger('focus');
                               show('openSeach');">
                         #{messages['hide_options']}
                        <img height="7" border="0" width="7" alt="" src="resources/img/search/bull_arr_up.gif" />

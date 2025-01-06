@@ -21,16 +21,7 @@
  */
 package org.ajax4jsf.renderkit;
 
-import com.google.common.base.Strings;
-import org.ajax4jsf.component.AjaxClientBehavior;
-import org.ajax4jsf.component.behavior.AjaxBehavior;
-import org.ajax4jsf.javascript.JSReference;
-import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
-import org.richfaces.renderkit.AjaxConstants;
-import org.richfaces.renderkit.AjaxFunction;
-import org.richfaces.renderkit.AjaxOptions;
-import org.richfaces.renderkit.util.AjaxRendererUtils;
-import org.richfaces.renderkit.util.RendererUtils;
+import java.util.Map;
 
 import jakarta.faces.application.ResourceDependencies;
 import jakarta.faces.application.ResourceDependency;
@@ -45,14 +36,26 @@ import jakarta.faces.event.PhaseId;
 import jakarta.faces.render.ClientBehaviorRenderer;
 import jakarta.faces.render.FacesBehaviorRenderer;
 import jakarta.faces.render.RenderKitFactory;
-import java.util.Map;
+
+import org.ajax4jsf.component.AjaxClientBehavior;
+import org.ajax4jsf.component.behavior.AjaxBehavior;
+import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
+import org.richfaces.renderkit.AjaxConstants;
+import org.richfaces.renderkit.AjaxFunction;
+import org.richfaces.renderkit.AjaxOptions;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
+
+import com.google.common.base.Strings;
 
 /**
  * @author Anton Belevich
+ *
  */
 @FacesBehaviorRenderer(rendererType = "org.ajax4jsf.behavior.Ajax", renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
 @ResourceDependencies({
-        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")
@@ -126,13 +129,13 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
     public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
         String script = null;
         if (behavior instanceof AjaxBehavior && !((AjaxBehavior) behavior).isDisabled()) {
-            script = buildAjaxCommand(behaviorContext, (AjaxBehavior) behavior);
+            script = buildAjaxCommand(behaviorContext, (AjaxClientBehavior) behavior);
         }
 
         return script;
     }
 
-    public String buildAjaxCommand(ClientBehaviorContext bContext, AjaxBehavior behavior) {
+    public String buildAjaxCommand(ClientBehaviorContext bContext, AjaxClientBehavior behavior) {
         return buildAjaxFunction(bContext, behavior).toString();
     }
 
@@ -161,6 +164,7 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
     }
 
 
+
     private AjaxOptions buildAjaxOptions(ClientBehaviorContext behaviorContext, AjaxClientBehavior ajaxBehavior) {
         FacesContext facesContext = behaviorContext.getFacesContext();
         UIComponent component = behaviorContext.getComponent();
@@ -184,7 +188,7 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
     }
 
     private void appenAjaxBehaviorOptions(ClientBehaviorContext behaviorContext, AjaxClientBehavior behavior,
-                                          AjaxOptions ajaxOptions) {
+        AjaxOptions ajaxOptions) {
         ajaxOptions.setParameter(AjaxConstants.BEHAVIOR_EVENT_PARAMETER, behaviorContext.getEventName());
         ajaxOptions.setBeforesubmitHandler(behavior.getOnbeforesubmit());
 

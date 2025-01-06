@@ -1,16 +1,5 @@
 package org.richfaces.renderkit.html;
 
-import org.richfaces.component.AbstractPopupPanel;
-import org.richfaces.json.JSONException;
-import org.richfaces.json.JSONMap;
-import org.richfaces.renderkit.RendererBase;
-
-import jakarta.faces.FacesException;
-import jakarta.faces.application.ResourceDependencies;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,8 +8,20 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import jakarta.faces.FacesException;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+
+import org.richfaces.component.AbstractPopupPanel;
+import org.richfaces.json.JSONException;
+import org.richfaces.json.JSONMap;
+import org.richfaces.renderkit.RendererBase;
+
 //TODO nick - JSF have concept of library, it should be used instead of '/' in resource names
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
@@ -28,7 +29,7 @@ import java.util.Set;
         @ResourceDependency(library = "org.richfaces", name = "popupPanel.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupPanelBorders.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupPanelSizer.js"),
-        @ResourceDependency(library = "org.richfaces", name = "popupPanel.ecss")})
+        @ResourceDependency(library = "org.richfaces", name = "popupPanel.ecss") })
 public class PopupPanelBaseRenderer extends RendererBase {
     private static final String CONTROLS_FACET = "controls";
     private static final String HEADER_FACET = "header";
@@ -37,7 +38,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
     private static final String DEFAULT_LEFT = "auto";
     private static final String DEFAULT_TOP = "auto";
     // TODO nick - use enums
-    private static final Set<String> ALLOWED_ATTACHMENT_OPTIONS = new HashSet<String>();
+    private static final Set<String> ALLOWED_ATTACHMENT_OPTIONS = new HashSet<>();
 
     static {
         ALLOWED_ATTACHMENT_OPTIONS.add("body");
@@ -58,7 +59,6 @@ public class PopupPanelBaseRenderer extends RendererBase {
         headerFacet.encodeAll(context);
     }
 
-    @SuppressWarnings("unchecked")
     protected void doDecode(FacesContext context, UIComponent component) {
         super.doDecode(context, component);
 
@@ -105,7 +105,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
         if (domElementAttachment != null && domElementAttachment.trim().length() != 0) {
             if (!ALLOWED_ATTACHMENT_OPTIONS.contains(domElementAttachment)) {
                 throw new IllegalArgumentException("Value '" + domElementAttachment
-                        + "' of domElementAttachment attribute is illegal. " + "Allowed values are: " + ALLOWED_ATTACHMENT_OPTIONS);
+                    + "' of domElementAttachment attribute is illegal. " + "Allowed values are: " + ALLOWED_ATTACHMENT_OPTIONS);
             }
         }
 
@@ -126,7 +126,6 @@ public class PopupPanelBaseRenderer extends RendererBase {
         return true;
     }
 
-    @SuppressWarnings("unchecked")
     public String buildShowScript(FacesContext context, UIComponent component) {
         AbstractPopupPanel panel = (AbstractPopupPanel) component;
         StringBuilder result = new StringBuilder();
@@ -139,7 +138,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
 
             // TODO nick - use ScriptUtils.toScript
             Iterator<Map.Entry<String, Object>> it = ((Map<String, Object>) getHandledVisualOptions(panel)).entrySet()
-                    .iterator();
+                .iterator();
             while (it.hasNext()) {
                 Map.Entry<String, Object> entry = it.next();
 
@@ -182,12 +181,6 @@ public class PopupPanelBaseRenderer extends RendererBase {
         return res.toString();
     }
 
-    private Object buildEventFunction(Object eventFunction) {
-        if (eventFunction != null && eventFunction.toString().length() > 0) {
-            return "new Function(\"" + eventFunction.toString() + "\");";
-        }
-        return null;
-    }
 
     public Map<String, Object> getHandledVisualOptions(UIComponent component) {
         AbstractPopupPanel panel = (AbstractPopupPanel) component;
@@ -196,14 +189,14 @@ public class PopupPanelBaseRenderer extends RendererBase {
         result = prepareVisualOptions(options, panel);
 
         if (null == result) {
-            result = new HashMap<String, Object>();
+            result = new HashMap<>();
         }
         return result;
     }
 
     private Map<String, Object> prepareVisualOptions(Object value, AbstractPopupPanel panel) {
         if (null == value) {
-            return new HashMap<String, Object>();
+            return new HashMap<>();
         } else if (value instanceof Map) {
             return (Map<String, Object>) value;
         } else if (value instanceof String) {
@@ -218,8 +211,8 @@ public class PopupPanelBaseRenderer extends RendererBase {
             }
         } else {
             throw new FacesException("Attribute visualOptions of component ["
-                    + panel.getClientId(FacesContext.getCurrentInstance())
-                    + "] must be instance of Map or String, but its type is " + value.getClass().getSimpleName());
+                + panel.getClientId(FacesContext.getCurrentInstance())
+                + "] must be instance of Map or String, but its type is " + value.getClass().getSimpleName());
         }
     }
 

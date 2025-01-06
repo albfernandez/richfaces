@@ -23,6 +23,7 @@ package org.ajax4jsf.model;
 
 /**
  * @author shura
+ *
  */
 public class SequenceState implements DataComponentState {
     private int first;

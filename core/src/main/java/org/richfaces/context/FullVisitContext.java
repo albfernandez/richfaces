@@ -36,6 +36,7 @@ import java.util.Set;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public class FullVisitContext extends VisitContext {
+	
     private final FacesContext facesContext;
     private final Set<VisitHint> visitHints;
 

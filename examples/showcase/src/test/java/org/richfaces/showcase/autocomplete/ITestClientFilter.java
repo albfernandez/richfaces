@@ -22,6 +22,9 @@
 package org.richfaces.showcase.autocomplete;
 
 import category.Smoke;
+
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
@@ -30,8 +33,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.autocomplete.page.ClientFilterPage;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -49,10 +50,10 @@ public class ITestClientFilter extends AbstractWebDriverTest {
     @Category(Smoke.class)
     public void testClientFilterFunctionContains() {
         page.getAutocomplete()
-                .type("ska")
-                .select(ChoicePickerHelper.byVisibleText().contains("ska"));
-        assertEquals("The content should be Alaska, since it contains string ska",
-                "Alaska",
+            .type("ska")
+            .select(ChoicePickerHelper.byVisibleText().contains("ska"));
+        assertEquals("The content should be Alaska, since it contains string ska", 
+                "Alaska", 
                 page.getAutocomplete().advanced().getInput().getStringValue());
     }
 

@@ -21,14 +21,6 @@
  */
 package org.richfaces.resource;
 
-import org.ajax4jsf.io.ByteBuffer;
-import org.ajax4jsf.io.FastBufferInputStream;
-import org.ajax4jsf.io.FastBufferOutputStream;
-
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.ExternalContextWrapper;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.FacesContextWrapper;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,52 +30,21 @@ import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.Map;
 
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContextWrapper;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.FacesContextWrapper;
+
+import org.ajax4jsf.io.ByteBuffer;
+import org.ajax4jsf.io.FastBufferInputStream;
+import org.ajax4jsf.io.FastBufferOutputStream;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class UserResourceWrapperImpl extends BaseResourceWrapper<UserResource> implements ContentProducerResource {
     private static final InputStream EMPTY_STREAM = new ByteArrayInputStream(new byte[0]);
-
-    public UserResourceWrapperImpl(UserResource resourceObject, boolean cacheable, boolean versioned) {
-        super(resourceObject, cacheable, versioned);
-    }
-
-    @Override
-    public InputStream getInputStream() throws IOException {
-        Charset charset = ResourceUtils.getCharsetFromContentType(getContentType());
-        FacesContextWrapperImpl wrappedContext = FacesContextWrapperImpl.wrap(charset);
-        try {
-            encode(wrappedContext);
-
-            return wrappedContext.getWrittenDataAsStream();
-        } finally {
-            FacesContextWrapperImpl.unwrap();
-        }
-    }
-
-    @Override
-    protected Map<String, String> getWrappedResourceResponseHeaders() {
-        return getWrapped().getResponseHeaders();
-    }
-
-    @Override
-    public String getContentType() {
-        return getWrapped().getContentType();
-    }
-
-    @Override
-    protected int getContentLength(FacesContext context) {
-        return getWrapped().getContentLength();
-    }
-
-    @Override
-    protected Date getLastModified(FacesContext context) {
-        return getWrapped().getLastModified();
-    }
-
-    public void encode(FacesContext context) throws IOException {
-        getWrapped().encode(context);
-    }
 
     private static final class FacesContextWrapperImpl extends FacesContextWrapper {
         private FacesContext facesContext;
@@ -96,23 +57,6 @@ public class UserResourceWrapperImpl extends BaseResourceWrapper<UserResource> i
             this.externalContext = externalContextWrapper;
         }
 
-        public static FacesContextWrapperImpl wrap(Charset charset) {
-            FacesContext originalFacesContext = FacesContext.getCurrentInstance();
-
-            ExternalContextWrapperImpl externalContextWrapper = new ExternalContextWrapperImpl(
-                    originalFacesContext.getExternalContext(), charset);
-            FacesContextWrapperImpl facesContextWrapper = new FacesContextWrapperImpl(originalFacesContext,
-                    externalContextWrapper);
-
-            setCurrentInstance(facesContextWrapper);
-            return facesContextWrapper;
-        }
-
-        public static void unwrap() {
-            FacesContext originalContext = ((FacesContextWrapper) FacesContext.getCurrentInstance()).getWrapped();
-            setCurrentInstance(originalContext);
-        }
-
         @Override
         public FacesContext getWrapped() {
             return facesContext;
@@ -121,6 +65,23 @@ public class UserResourceWrapperImpl extends BaseResourceWrapper<UserResource> i
         @Override
         public ExternalContextWrapperImpl getExternalContext() {
             return externalContext;
+        }
+
+        public static FacesContextWrapperImpl wrap(Charset charset) {
+            FacesContext originalFacesContext = FacesContext.getCurrentInstance();
+
+            ExternalContextWrapperImpl externalContextWrapper = new ExternalContextWrapperImpl(
+                originalFacesContext.getExternalContext(), charset);
+            FacesContextWrapperImpl facesContextWrapper = new FacesContextWrapperImpl(originalFacesContext,
+                externalContextWrapper);
+
+            setCurrentInstance(facesContextWrapper);
+            return facesContextWrapper;
+        }
+
+        public static void unwrap() {
+            FacesContext originalContext = ((FacesContextWrapper) FacesContext.getCurrentInstance()).getWrapped();
+            setCurrentInstance(originalContext);
         }
 
         public InputStream getWrittenDataAsStream() throws IOException {
@@ -183,5 +144,46 @@ public class UserResourceWrapperImpl extends BaseResourceWrapper<UserResource> i
                 stream.flush();
             }
         }
+    }
+
+    public UserResourceWrapperImpl(UserResource resourceObject, boolean cacheable, boolean versioned) {
+        super(resourceObject, cacheable, versioned);
+    }
+
+    @Override
+    public InputStream getInputStream() throws IOException {
+        Charset charset = ResourceUtils.getCharsetFromContentType(getContentType());
+        FacesContextWrapperImpl wrappedContext = FacesContextWrapperImpl.wrap(charset);
+        try {
+            encode(wrappedContext);
+
+            return wrappedContext.getWrittenDataAsStream();
+        } finally {
+            FacesContextWrapperImpl.unwrap();
+        }
+    }
+
+    @Override
+    protected Map<String, String> getWrappedResourceResponseHeaders() {
+        return getWrapped().getResponseHeaders();
+    }
+
+    @Override
+    public String getContentType() {
+        return getWrapped().getContentType();
+    }
+
+    @Override
+    protected int getContentLength(FacesContext context) {
+        return getWrapped().getContentLength();
+    }
+
+    @Override
+    protected Date getLastModified(FacesContext context) {
+        return getWrapped().getLastModified();
+    }
+
+    public void encode(FacesContext context) throws IOException {
+        getWrapped().encode(context);
     }
 }

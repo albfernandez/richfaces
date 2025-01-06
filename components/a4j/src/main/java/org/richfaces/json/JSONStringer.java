@@ -39,7 +39,7 @@ import java.io.StringWriter;
  * <pre>
  * myString = new JSONStringer().object().key(&quot;JSON&quot;).value(&quot;Hello, World!&quot;).endObject().toString();
  * </pre>
- * <p>
+ *
  * which produces the string
  *
  * <pre>

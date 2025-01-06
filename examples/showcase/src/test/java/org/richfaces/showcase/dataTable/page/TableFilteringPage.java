@@ -21,6 +21,11 @@
  */
 package org.richfaces.showcase.dataTable.page;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
@@ -35,11 +40,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars;
 import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars.Car;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 /**
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
@@ -96,7 +96,7 @@ public class TableFilteringPage {
         for (WebElement row : tBody.findElements(By.tagName("tr"))) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
             result.add(new Car(cells.get(0).getText(), cells.get(1).getText(), cells.get(2).getText(), cells.get(3).getText(),
-                    cells.get(4).getText(), null));
+                cells.get(4).getText(), null));
         }
         return result;
     }

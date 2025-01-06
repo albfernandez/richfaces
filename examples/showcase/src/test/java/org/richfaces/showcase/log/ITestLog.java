@@ -21,14 +21,14 @@
  */
 package org.richfaces.showcase.log;
 
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.support.ui.Select;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.log.page.LogPage;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -52,16 +52,16 @@ public class ITestLog extends AbstractWebDriverTest {
         select.selectByIndex(LogPage.Severity.INFO.getIndex());
         Graphene.guardAjax(page.getSubmit()).click();
         Graphene
-                .waitAjax()
-                .until(
-                        "After setting severity to <info> and submitting, the logging area should contain a message with severity <info>.")
-                .element(page.getLoggingArea()).text().contains("info");
+            .waitAjax()
+            .until(
+                "After setting severity to <info> and submitting, the logging area should contain a message with severity <info>.")
+            .element(page.getLoggingArea()).text().contains("info");
         page.getClear().click();
         Graphene
-                .waitAjax()
-                .until(
-                        "After setting severity to <info>, submitting and clicking on the clear button, the logging area should be empty.")
-                .element(page.getLoggingArea()).text().equalTo("");
+            .waitAjax()
+            .until(
+                "After setting severity to <info>, submitting and clicking on the clear button, the logging area should be empty.")
+            .element(page.getLoggingArea()).text().equalTo("");
     }
 
     @Test
@@ -70,15 +70,15 @@ public class ITestLog extends AbstractWebDriverTest {
         select.selectByIndex(LogPage.Severity.DEBUG.getIndex());
         Graphene.guardAjax(page.getSubmit()).click();
         Graphene
-                .waitAjax()
-                .until(
-                        "After setting severity to <debug> and submitting, the logging area should contain a message with severity <debug>.")
-                .element(page.getLoggingArea()).text().contains("debug");
+            .waitAjax()
+            .until(
+                "After setting severity to <debug> and submitting, the logging area should contain a message with severity <debug>.")
+            .element(page.getLoggingArea()).text().contains("debug");
         Graphene
-                .waitAjax()
-                .until(
-                        "After setting severity to <debug> and submitting, the logging area should contain a message with severity <info>.")
-                .element(page.getLoggingArea()).text().contains("info");
+            .waitAjax()
+            .until(
+                "After setting severity to <debug> and submitting, the logging area should contain a message with severity <info>.")
+            .element(page.getLoggingArea()).text().contains("info");
     }
 
     @Test
@@ -87,8 +87,8 @@ public class ITestLog extends AbstractWebDriverTest {
         select.selectByIndex(LogPage.Severity.ERROR.getIndex());
         Graphene.guardAjax(page.getSubmit()).click();
         Graphene.waitAjax()
-                .until("After setting severity to <error> and submitting, the logging area should contain no message.")
-                .element(page.getLoggingArea()).text().equalTo("");
+            .until("After setting severity to <error> and submitting, the logging area should contain no message.")
+            .element(page.getLoggingArea()).text().equalTo("");
     }
 
     @Test
@@ -98,10 +98,10 @@ public class ITestLog extends AbstractWebDriverTest {
         Graphene.guardAjax(page.getSubmit()).click();
         Thread.sleep(400); // workaround till ARQGRA-259 is resolved
         Graphene
-                .waitAjax()
-                .until(
-                        "After setting severity to <info> and submitting, the logging area should contain a message with severity <info>.")
-                .element(page.getLoggingArea()).text().contains("info");
+            .waitAjax()
+            .until(
+                "After setting severity to <info> and submitting, the logging area should contain a message with severity <info>.")
+            .element(page.getLoggingArea()).text().contains("info");
     }
 
     @Test
@@ -110,15 +110,15 @@ public class ITestLog extends AbstractWebDriverTest {
         select.selectByIndex(LogPage.Severity.WARN.getIndex());
         Graphene.guardAjax(page.getSubmit()).click();
         Graphene.waitAjax()
-                .until("After setting severity to <warn> and submitting, the logging area should contain no message.")
-                .element(page.getLoggingArea()).text().equalTo("");
+            .until("After setting severity to <warn> and submitting, the logging area should contain no message.")
+            .element(page.getLoggingArea()).text().equalTo("");
     }
 
     @Test
     public void testSubmitEmpty() {
         Graphene.guardAjax(page.getSubmit()).click();
         Graphene.waitAjax().until("After submitting empty input, the output should contain nothing.").element(page.getOutput())
-                .text().equalTo("");
+            .text().equalTo("");
     }
 
     @Test
@@ -127,7 +127,7 @@ public class ITestLog extends AbstractWebDriverTest {
         page.getInput().sendKeys("something");
         Graphene.guardAjax(page.getSubmit()).click();
         Graphene.waitAjax().until("After submitting the input, the content of the output should match.").element(page.getOutput())
-                .text().equalTo("Hello something!");
+            .text().equalTo("Hello something!");
     }
 
 }

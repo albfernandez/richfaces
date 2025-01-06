@@ -21,7 +21,12 @@
  */
 package org.richfaces.showcase.dataTable;
 
-import com.google.common.base.Predicate;
+import static org.junit.Assert.assertTrue;
+
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.page.Page;
@@ -31,11 +36,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.dataTable.page.ArrangableModelPage;
-
-import java.text.MessageFormat;
-import java.util.List;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -77,11 +77,11 @@ public class ITestArrangeableModel extends AbstractWebDriverTest {
 
     private boolean doesColumnContainsOnlyRowsWithData(By column, String data, final int numberOfVisibleRows) {
         final List<WebElement> rows = page.getTable().findElements(By.tagName("tr"));
-        Graphene.waitAjax().until(new Predicate<WebDriver>() {
+        Graphene.waitAjax().until(new Function<WebDriver, Boolean>() {
             private int lastVisibleRowsCount;
 
             @Override
-            public boolean apply(WebDriver t) {
+            public Boolean apply(WebDriver t) {
                 return (lastVisibleRowsCount = rows.size()) == numberOfVisibleRows;
             }
 
@@ -107,7 +107,7 @@ public class ITestArrangeableModel extends AbstractWebDriverTest {
 
         boolean result = doesColumnContainsOnlyRowsWithData(column, filterValue, numberOfVisibleRows);
         assertTrue("The table should contains only rows, which column " + column + " contains only data '" + filterValue + "'",
-                result);
+            result);
     }
 
     private void ascendingDescendingSortingOnColumn(int column, String firstCharOfRowWhenDescending) {
@@ -115,11 +115,11 @@ public class ITestArrangeableModel extends AbstractWebDriverTest {
         Graphene.guardAjax(page.getUnsortedLink(column)).click();
         String checkedValue = page.getFirstRowSomeColumn(column).getText();
         assertTrue("Rows should be sorted in an ascending order, by column " + page.getFirstRowSomeColumn(column), String
-                .valueOf(checkedValue.charAt(0)).equalsIgnoreCase("A"));
+            .valueOf(checkedValue.charAt(0)).equalsIgnoreCase("A"));
         // descending
         Graphene.guardAjax(page.getAscendingLink()).click();
         checkedValue = page.getFirstRowSomeColumn(column).getText();
         assertTrue("Rows should be sorted in an descending order, by column " + page.getFirstRowSomeColumn(column).getText(),
-                String.valueOf(checkedValue.charAt(0)).equalsIgnoreCase(firstCharOfRowWhenDescending));
+            String.valueOf(checkedValue.charAt(0)).equalsIgnoreCase(firstCharOfRowWhenDescending));
     }
 }

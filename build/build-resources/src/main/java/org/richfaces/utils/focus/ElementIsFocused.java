@@ -1,14 +1,15 @@
 package org.richfaces.utils.focus;
 
-import com.google.common.base.Predicate;
+import java.util.function.Function;
+
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ElementIsFocused implements Predicate<WebDriver> {
+public class ElementIsFocused implements Function<WebDriver, Boolean> {
 
-    private final WebElement element;
     private WebElement activeElement;
+    private final WebElement element;
 
     /**
      * Provide element to wait to gain focus or null if you want to fail for no element having focus
@@ -18,13 +19,21 @@ public class ElementIsFocused implements Predicate<WebDriver> {
     }
 
     @Override
-    public boolean apply(WebDriver browser) {
+    public Boolean apply(WebDriver browser) {
         try {
             activeElement = FocusRetriever.retrieveActiveElement();
-            if (element == null) {
-                return activeElement == null;
+            if (element == null && activeElement == null) {
+                return true;
             }
-            return activeElement.equals(element);
+            if (element == null || activeElement == null) {
+            	return false;
+            }
+            String elementId = element.getAttribute("id");
+            String activeId = activeElement.getAttribute("id");
+            if (elementId == null) {
+            	elementId = "x";
+            }
+            return element.equals(activeElement) || elementId.equals(activeId); 
         } catch (StaleElementReferenceException e) {
             return false;
         }

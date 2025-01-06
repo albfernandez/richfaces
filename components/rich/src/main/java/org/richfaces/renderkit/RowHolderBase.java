@@ -21,9 +21,9 @@
  */
 package org.richfaces.renderkit;
 
-import org.richfaces.component.Row;
-
 import jakarta.faces.context.FacesContext;
+
+import org.richfaces.component.Row;
 
 public abstract class RowHolderBase {
     private FacesContext context;
@@ -49,12 +49,12 @@ public abstract class RowHolderBase {
         return currentRow;
     }
 
-    public void setCurrentRow(int currentRow) {
-        this.currentRow = currentRow;
-    }
-
     public int nextRow() {
         return ++currentRow;
+    }
+
+    public void setCurrentRow(int currentRow) {
+        this.currentRow = currentRow;
     }
 
     public void resetCurrentRow() {

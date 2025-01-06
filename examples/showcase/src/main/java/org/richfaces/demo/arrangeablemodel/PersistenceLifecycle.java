@@ -21,12 +21,20 @@
  */
 package org.richfaces.demo.arrangeablemodel;
 
-import jakarta.faces.FacesException;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.PhaseListener;
-import jakarta.faces.lifecycle.Lifecycle;
+import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseListener;
+import javax.faces.lifecycle.Lifecycle;
 
 class PersistenceLifecycle extends Lifecycle {
+    private static final class PersistenceServiceRef {
+        static final PersistenceService PERSISTENCE_SERVICE = (PersistenceService) FacesContext.getCurrentInstance()
+                .getExternalContext().getApplicationMap().get("persistenceService");
+
+        private PersistenceServiceRef() {
+        }
+    }
+
     private Lifecycle lifecycle;
 
     public PersistenceLifecycle(Lifecycle lifecycle) {
@@ -58,14 +66,6 @@ class PersistenceLifecycle extends Lifecycle {
             lifecycle.render(context);
         } finally {
             PersistenceServiceRef.PERSISTENCE_SERVICE.closeEntityManager();
-        }
-    }
-
-    private static final class PersistenceServiceRef {
-        static final PersistenceService PERSISTENCE_SERVICE = (PersistenceService) FacesContext.getCurrentInstance()
-                .getExternalContext().getApplicationMap().get("persistenceService");
-
-        private PersistenceServiceRef() {
         }
     }
 }

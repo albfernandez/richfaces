@@ -25,15 +25,17 @@
  */
 package org.richfaces.validator;
 
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.context.FacesContext;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+
 /**
  * @author asmirnov
+ *
  */
 public final class MessageFactory {
     private MessageFactory() {
@@ -61,7 +63,7 @@ public final class MessageFactory {
     }
 
     private static FacesMessage getMessageFromBundle(Locale locale, String messageBundle, String messageId)
-            throws MissingResourceException {
+        throws MissingResourceException {
         ResourceBundle bundle = ResourceBundle.getBundle(messageBundle, locale, getCurrentLoader(messageId));
         String summary = bundle.getString(messageId);
         String detail;

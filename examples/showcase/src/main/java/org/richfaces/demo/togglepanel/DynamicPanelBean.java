@@ -1,7 +1,7 @@
 package org.richfaces.demo.togglepanel;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 @SessionScoped
 @ManagedBean

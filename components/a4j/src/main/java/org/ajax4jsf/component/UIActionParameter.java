@@ -1,26 +1,24 @@
 /**
  * License Agreement.
- * <p>
+ *
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- * <p>
+ *
  * Copyright (C) 2007 Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.ajax4jsf.component;
-
-import org.ajax4jsf.Messages;
 
 import jakarta.el.ELContext;
 import jakarta.el.MethodExpression;
@@ -33,6 +31,8 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.ActionListener;
+
+import org.ajax4jsf.Messages;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
@@ -65,12 +65,12 @@ public class UIActionParameter extends UIParameter implements ActionListener, Ja
      */
     private Boolean noEscape = null;
 
-    public ValueExpression getAssignToBinding() {
-        return assignToBinding;
-    }
-
     public void setAssignToBinding(ValueExpression propertyBinding) {
         this.assignToBinding = propertyBinding;
+    }
+
+    public ValueExpression getAssignToBinding() {
+        return assignToBinding;
     }
 
     public MethodExpression getActionListener() {
@@ -81,21 +81,12 @@ public class UIActionParameter extends UIParameter implements ActionListener, Ja
         this.actionListener = actionListener;
     }
 
-    public Converter getConverter() {
-        return converter;
-    }
-
     public void setConverter(Converter converter) {
         this.converter = converter;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.ajax4jsf.framework.ajax.JavaScriptParameter#isNoEscape()
-     */
-    public boolean isNoEscape() {
-        return isValueOrBinding(noEscape, noEscapeAttr);
+    public Converter getConverter() {
+        return converter;
     }
 
     /*
@@ -105,6 +96,15 @@ public class UIActionParameter extends UIParameter implements ActionListener, Ja
      */
     public void setNoEscape(boolean noEscape) {
         this.noEscape = Boolean.valueOf(noEscape);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.ajax4jsf.framework.ajax.JavaScriptParameter#isNoEscape()
+     */
+    public boolean isNoEscape() {
+        return isValueOrBinding(noEscape, noEscapeAttr);
     }
 
     /*
@@ -171,7 +171,7 @@ public class UIActionParameter extends UIParameter implements ActionListener, Ja
             MethodExpression listener = getActionListener();
 
             if (listener != null) {
-                listener.invoke(elContext, new Object[]{actionEvent});
+                listener.invoke(elContext, new Object[] { actionEvent });
             }
         }
     }

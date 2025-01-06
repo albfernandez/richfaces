@@ -1,24 +1,24 @@
 package org.richfaces.demo.validation;
 
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.validator.FacesValidator;
-import jakarta.faces.validator.Validator;
-import jakarta.faces.validator.ValidatorException;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 
 @FacesValidator("safeHtml")
 public class SafeHtmlValidator implements Validator {
 
-    private static Whitelist whitelist = Whitelist.simpleText();
+    private static Safelist safelist = Safelist.simpleText();
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         if (value != null) {
-            if (!Jsoup.isValid(value.toString(), whitelist)) {
+            if (!Jsoup.isValid(value.toString(), safelist)) {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "message contains unsafe character sequence", "");
                 throw new ValidatorException(message);
             }

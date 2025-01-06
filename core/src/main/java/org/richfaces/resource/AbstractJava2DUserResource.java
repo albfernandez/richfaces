@@ -27,6 +27,7 @@ import java.util.Map;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public abstract class AbstractJava2DUserResource implements Java2DUserResource {
     private ImageType imageType;

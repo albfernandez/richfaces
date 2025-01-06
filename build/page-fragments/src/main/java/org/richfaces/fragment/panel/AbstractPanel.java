@@ -29,10 +29,11 @@ import org.richfaces.fragment.common.TypeResolver;
 
 public abstract class AbstractPanel<HEADER, BODY> implements Panel<HEADER, BODY> {
 
-    private final Class<BODY> bodyClass = (Class<BODY>) TypeResolver.resolveRawArguments(Panel.class, getClass())[1];
-    private final Class<HEADER> headerClass = (Class<HEADER>) TypeResolver.resolveRawArguments(Panel.class, getClass())[0];
     @Root
     private WebElement root;
+
+    private final Class<BODY> bodyClass = (Class<BODY>) TypeResolver.resolveRawArguments(Panel.class, getClass())[1];
+    private final Class<HEADER> headerClass = (Class<HEADER>) TypeResolver.resolveRawArguments(Panel.class, getClass())[0];
 
     public abstract AdvancedPanelInteractions advanced();
 

@@ -21,13 +21,13 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>

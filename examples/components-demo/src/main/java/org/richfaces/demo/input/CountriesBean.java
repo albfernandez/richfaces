@@ -21,24 +21,37 @@
  */
 package org.richfaces.demo.input;
 
+import java.net.URL;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
-import jakarta.faces.FacesException;
-import jakarta.faces.bean.ApplicationScoped;
-import jakarta.faces.bean.ManagedBean;
+import javax.faces.FacesException;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.List;
 
 /**
  * @author nick
+ *
  */
 @ManagedBean(eager = true)
 @ApplicationScoped
 public class CountriesBean {
     private List<Country> countries;
+
+    @XmlRootElement(name = "countries", namespace = Country.NAMESPACE)
+    private static class Countries {
+        @XmlElement(name = "country", namespace = Country.NAMESPACE)
+        private List<Country> countries;
+
+        public List<Country> getCountries() {
+            return countries;
+        }
+    }
 
     public CountriesBean() {
     }
@@ -57,15 +70,5 @@ public class CountriesBean {
 
     public List<Country> getCountries() {
         return countries;
-    }
-
-    @XmlRootElement(name = "countries", namespace = Country.NAMESPACE)
-    private static class Countries {
-        @XmlElement(name = "country", namespace = Country.NAMESPACE)
-        private List<Country> countries;
-
-        public List<Country> getCountries() {
-            return countries;
-        }
     }
 }

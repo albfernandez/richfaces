@@ -40,24 +40,6 @@
  */
 package org.richfaces.resource;
 
-import com.google.common.base.Function;
-import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
-import org.ajax4jsf.Messages;
-import org.ajax4jsf.util.base64.Codec;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.util.FastJoiner;
-import org.richfaces.util.LookAheadObjectInputStream;
-import org.richfaces.util.PropertiesUtil;
-
-import jakarta.faces.FacesException;
-import jakarta.faces.application.ViewHandler;
-import jakarta.faces.component.StateHolder;
-import jakarta.faces.component.UINamingContainer;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -77,6 +59,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -89,8 +72,29 @@ import java.util.Map.Entry;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
+
+import jakarta.faces.FacesException;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+
+import org.ajax4jsf.Messages;
+import org.ajax4jsf.util.base64.Codec;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.util.FastJoiner;
+import org.richfaces.util.LookAheadObjectInputStream;
+import org.richfaces.util.PropertiesUtil;
+
+import com.google.common.base.Function;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
@@ -108,10 +112,19 @@ public final class ResourceUtils {
     private static final String QUESTION_SIGN = "?";
     private static final String EQUALS_SIGN = "=";
     private static final Pattern CHARSET_IN_CONTENT_TYPE_PATTERN = Pattern.compile(";\\s*charset\\s*=\\s*([^\\s;]+)",
-            Pattern.CASE_INSENSITIVE);
+        Pattern.CASE_INSENSITIVE);
     private static final long MILLISECOND_IN_SECOND = 1000L;
     private static final String QUOTED_STRING_REGEX = "(?:\\\\[\\x00-\\x7F]|[^\"\\\\])+";
     private static final Pattern ETAG_PATTERN = Pattern.compile("(?:W/)?\"(" + QUOTED_STRING_REGEX + ")\"(?:,\\s*)?");
+
+    public static final class NamingContainerDataHolder {
+        public static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
+        public static final FastJoiner SEPARATOR_CHAR_JOINER = FastJoiner.on(SEPARATOR_CHAR);
+        public static final Splitter SEPARATOR_CHAR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
+
+        private NamingContainerDataHolder() {
+        }
+    }
 
     static {
         SimpleDateFormat format = new SimpleDateFormat(RFC1123_DATE_PATTERN, Locale.US);
@@ -174,57 +187,72 @@ public final class ResourceUtils {
 
     protected static byte[] encrypt(byte[] src) {
         try {
-            Deflater compressor = new Deflater(Deflater.BEST_SPEED);
-            byte[] compressed = new byte[src.length + 100];
-
-            compressor.setInput(src);
-            compressor.finish();
-
-            int totalOut = compressor.deflate(compressed);
-            byte[] zipsrc = new byte[totalOut];
-
-            System.arraycopy(compressed, 0, zipsrc, 0, totalOut);
-            compressor.end();
+        	byte[] zipsrc = deflate(src);
 
             return CODEC.encode(zipsrc);
         } catch (Exception e) {
             throw new FacesException("Error encode resource data", e);
         }
     }
+    
+    private static byte[] deflate(byte[] src) {
+        Deflater compressor = null;
+        try {
+	        compressor = new Deflater(Deflater.BEST_SPEED);
+	        byte[] compressed = new byte[src.length + 100];
+	
+	        compressor.setInput(src);
+	        compressor.finish();
+	
+	        int totalOut = compressor.deflate(compressed);
+	        byte[] zipsrc = new byte[totalOut];
+	
+	        System.arraycopy(compressed, 0, zipsrc, 0, totalOut);
+	        return zipsrc;
+        }
+        finally {
+        	if (compressor != null) {
+        		compressor.end();
+        	}
+        }
+        
+    }
 
     protected static byte[] decrypt(byte[] src) {
         try {
             byte[] zipsrc = CODEC.decode(src);
-            Inflater decompressor = new Inflater();
-            byte[] uncompressed = new byte[zipsrc.length * 5];
-
-            decompressor.setInput(zipsrc);
-
-            int totalOut = decompressor.inflate(uncompressed);
-            byte[] out = new byte[totalOut];
-
-            System.arraycopy(uncompressed, 0, out, 0, totalOut);
-            decompressor.end();
-
+            byte[] out = inflate(zipsrc);
             return out;
         } catch (Exception e) {
             throw new FacesException("Error decode resource data", e);
         }
     }
+    
+    private static byte[] inflate(byte[] zipsrc) throws DataFormatException {
+    	Inflater decompressor = null;
+    	try {
+	    	decompressor = new Inflater();
+	        byte[] uncompressed = new byte[zipsrc.length * 5];
+	
+	        decompressor.setInput(zipsrc);
+	
+	        int totalOut = decompressor.inflate(uncompressed);
+	        byte[] out = new byte[totalOut];
+	
+	        System.arraycopy(uncompressed, 0, out, 0, totalOut);
+	        return out;
+    	}
+    	finally {
+    		if (decompressor != null) {
+    			decompressor.end();
+    		}
+    	}
+    }
 
     public static byte[] decodeBytesData(String encodedData) {
-        byte[] objectArray = null;
+        byte[] dataArray = encodedData.getBytes(StandardCharsets.ISO_8859_1);
 
-        try {
-            byte[] dataArray = encodedData.getBytes("ISO-8859-1");
-
-            objectArray = decrypt(dataArray);
-        } catch (UnsupportedEncodingException e1) {
-
-            // default encoding always presented.
-        }
-
-        return objectArray;
+        return decrypt(dataArray);
     }
 
     public static Object decodeObjectData(String encodedData) {
@@ -246,13 +274,9 @@ public final class ResourceUtils {
 
     public static String encodeBytesData(byte[] data) {
         if (data != null) {
-            try {
-                byte[] dataArray = encrypt(data);
+            byte[] dataArray = encrypt(data);
 
-                return new String(dataArray, "ISO-8859-1");
-            } catch (Exception e) {
-                RESOURCE_LOGGER.error(Messages.getMessage(Messages.QUERY_STRING_BUILDING_ERROR), e);
-            }
+            return new String(dataArray, StandardCharsets.ISO_8859_1);
         }
 
         return null;
@@ -282,14 +306,14 @@ public final class ResourceUtils {
         String mapping = ResourceUtils.getMappingForRequest(context);
         String resourcePath = url;
 
-        if (mapping.startsWith("/")) {
+        if (mapping != null && mapping.startsWith("/")) {
             if (mapping.length() != 1) {
                 resourcePath = mapping + url;
             }
         } else {
             int paramsSeparator = resourcePath.indexOf(QUESTION_SIGN);
             if (paramsSeparator >= 0) {
-                StringBuilder resourcePathBuilder = new StringBuilder(resourcePath.length() + mapping.length());
+                StringBuilder resourcePathBuilder = new StringBuilder(resourcePath.length() + (mapping != null ? mapping.length() : 0));
 
                 resourcePathBuilder.append(resourcePath.substring(0, paramsSeparator));
                 resourcePathBuilder.append(mapping);
@@ -307,7 +331,7 @@ public final class ResourceUtils {
     }
 
     public static Map<String, String> parseResourceParameters(String resourceName) {
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<>();
 
         Matcher matcher = RESOURCE_PARAMS.matcher(resourceName);
         if (matcher.find()) {
@@ -420,7 +444,7 @@ public final class ResourceUtils {
                 builder.append(s.substring(start, idx));
 
                 if (encoder == null) {
-                    encoder = Charset.forName("UTF-8").newEncoder();
+                    encoder = StandardCharsets.UTF_8.newEncoder();
                 }
                 if (buffer == null) {
                     buffer = CharBuffer.allocate(1);
@@ -589,15 +613,6 @@ public final class ResourceUtils {
 
         result = Collections.unmodifiableMap(result);
         return result;
-    }
-
-    public static final class NamingContainerDataHolder {
-        public static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
-        public static final FastJoiner SEPARATOR_CHAR_JOINER = FastJoiner.on(SEPARATOR_CHAR);
-        public static final Splitter SEPARATOR_CHAR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
-
-        private NamingContainerDataHolder() {
-        }
     }
 
 }

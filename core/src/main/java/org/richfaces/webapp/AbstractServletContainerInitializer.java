@@ -22,13 +22,14 @@
 
 package org.richfaces.webapp;
 
+import java.util.Collection;
+
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterRegistration;
 import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletContainerInitializer;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletRegistration;
-import java.util.Collection;
 
 /**
  * <p>
@@ -43,7 +44,7 @@ public abstract class AbstractServletContainerInitializer implements ServletCont
      * Detects if given {@link Filter} class has been already registered.
      *
      * @param filterClass {@link Filter} implementation class
-     * @param context     to search for registration
+     * @param context to search for registration
      * @return true if given {@link Filter} class has been already registered.
      */
     protected boolean hasFilterMapping(Class<? extends Filter> filterClass, ServletContext context) {
@@ -66,9 +67,9 @@ public abstract class AbstractServletContainerInitializer implements ServletCont
      * </p>
      *
      * @param servletClass {@link Servlet} implementation class
-     * @param context      to search for registration
+     * @param context to search for registration
      * @return the servlet registration for given {@link Servlet} class, which has at least one mapping registered, null
-     * otherwise.
+     *         otherwise.
      */
     protected ServletRegistration getServletRegistration(Class<? extends Servlet> servletClass, ServletContext context) {
         Collection<? extends ServletRegistration> servletRegistrations = context.getServletRegistrations().values();

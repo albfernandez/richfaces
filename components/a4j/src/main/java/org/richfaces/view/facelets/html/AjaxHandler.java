@@ -21,11 +21,11 @@
  */
 package org.richfaces.view.facelets.html;
 
-import org.ajax4jsf.component.behavior.AjaxBehavior;
-import org.richfaces.component.AbstractAttachQueue;
-import org.richfaces.view.facelets.TagHandlerUtils;
-import org.richfaces.view.facelets.html.BehaviorStack.BehaviorInfo;
-import org.richfaces.view.facelets.tag.AjaxBehaviorRule;
+import java.beans.BeanDescriptor;
+import java.beans.BeanInfo;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
 
 import jakarta.faces.application.Application;
 import jakarta.faces.component.UIComponent;
@@ -43,14 +43,16 @@ import jakarta.faces.view.facelets.FaceletHandler;
 import jakarta.faces.view.facelets.MetaRule;
 import jakarta.faces.view.facelets.TagException;
 import jakarta.faces.view.facelets.TagHandler;
-import java.beans.BeanDescriptor;
-import java.beans.BeanInfo;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
+
+import org.ajax4jsf.component.behavior.AjaxBehavior;
+import org.richfaces.component.AbstractAttachQueue;
+import org.richfaces.view.facelets.TagHandlerUtils;
+import org.richfaces.view.facelets.html.BehaviorStack.BehaviorInfo;
+import org.richfaces.view.facelets.tag.AjaxBehaviorRule;
 
 /**
  * @author Anton Belevich
+ *
  */
 public class AjaxHandler extends CustomBehaviorHandler {
     public AjaxHandler(BehaviorConfig config) {
@@ -154,7 +156,7 @@ public class AjaxHandler extends CustomBehaviorHandler {
 
             @SuppressWarnings("unchecked")
             List<AttachedObjectTarget> targetList = (List<AttachedObjectTarget>) componentDescriptor
-                    .getValue(AttachedObjectTarget.ATTACHED_OBJECT_TARGETS_KEY);
+                .getValue(AttachedObjectTarget.ATTACHED_OBJECT_TARGETS_KEY);
 
             if (null == targetList) {
                 throw new TagException(tag, "Error: enclosing composite component does not support behavior events");
@@ -167,7 +169,7 @@ public class AjaxHandler extends CustomBehaviorHandler {
                     BehaviorHolderAttachedObjectTarget behaviorTarget = (BehaviorHolderAttachedObjectTarget) target;
 
                     if ((null != eventName && eventName.equals(behaviorTarget.getName()))
-                            || (null == eventName && behaviorTarget.isDefaultEvent())) {
+                        || (null == eventName && behaviorTarget.isDefaultEvent())) {
                         supportedEvent = true;
 
                         break;
@@ -202,7 +204,7 @@ public class AjaxHandler extends CustomBehaviorHandler {
 
             if (!eventNames.contains(eventName)) {
                 throw new TagException(this.tag, eventName + "event is not supported for the "
-                        + bHolder.getClass().getSimpleName());
+                    + bHolder.getClass().getSimpleName());
             }
         }
 
@@ -211,6 +213,6 @@ public class AjaxHandler extends CustomBehaviorHandler {
 
     @Override
     public MetaRule[] getMetaRules() {
-        return new MetaRule[]{AjaxBehaviorRule.INSTANCE};
+        return new MetaRule[] { AjaxBehaviorRule.INSTANCE };
     }
 }

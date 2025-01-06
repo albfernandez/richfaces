@@ -25,6 +25,7 @@ import jakarta.faces.FacesException;
 
 /**
  * Thrown when an exception occurs while uploading a file.
+ *
  */
 public class FileUploadException extends FacesException {
     private static final long serialVersionUID = -3579917878909990838L;

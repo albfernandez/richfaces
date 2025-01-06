@@ -21,6 +21,8 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
@@ -28,8 +30,6 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-
-import jakarta.faces.component.UIComponentBase;
 
 /**
  * <p>The &lt;rich:hotKey&gt; component allows registering hot keys on the page or particular elements and defining

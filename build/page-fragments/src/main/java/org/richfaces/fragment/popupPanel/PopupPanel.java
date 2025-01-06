@@ -39,6 +39,7 @@ public interface PopupPanel<HEADER, HEADERCONTROLS, BODY> extends Panel<HEADER, 
      * Represents the direction where the popup panel should be resized.
      *
      * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
+     *
      */
     enum ResizerLocation {
 

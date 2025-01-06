@@ -30,8 +30,9 @@ import jakarta.faces.validator.LengthValidator;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
-@FacesValidator(value = "custom")
+@FacesValidator(value="custom")
 public class CustomValidator extends LengthValidator {
     public CustomValidator() {
         setMinimum(1);

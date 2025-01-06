@@ -21,7 +21,11 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import com.google.common.collect.Lists;
+import static org.jboss.arquillian.graphene.Graphene.waitAjax;
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
 import org.richfaces.fragment.tree.Tree.TreeNode;
@@ -30,12 +34,10 @@ import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
-import java.util.List;
-
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.junit.Assert.assertEquals;
+import com.google.common.collect.Lists;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {

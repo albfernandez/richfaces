@@ -23,6 +23,7 @@ package org.richfaces.l10n;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class InterpolationException extends Exception {
     /**

@@ -25,20 +25,30 @@
  */
 package org.richfaces.demo.validator;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
-import javax.validation.Valid;
-import javax.validation.constraints.Max;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+
 /**
  * @author asmirnov
+ *
  */
 @ManagedBean
 @SessionScoped
 public class ValidatorBean {
     private final List<Validable<?>> beans;
+
+    /**
+     * @return the beans
+     */
+    @Valid
+    public List<Validable<?>> getBeans() {
+        return beans;
+    }
 
     public ValidatorBean() {
         beans = new ArrayList<Validable<?>>(7);
@@ -49,14 +59,6 @@ public class ValidatorBean {
         beans.add(new MaxBean());
         beans.add(new MinMaxBean());
         beans.add(new PatternBean());
-    }
-
-    /**
-     * @return the beans
-     */
-    @Valid
-    public List<Validable<?>> getBeans() {
-        return beans;
     }
 
     @Max(value = 20, message = "Total value should be less then 20")

@@ -21,21 +21,35 @@
  */
 package org.richfaces.demo.jpa;
 
-import com.google.common.collect.Maps;
+import java.util.Map;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+import javax.persistence.EntityManager;
+
 import org.richfaces.component.SortOrder;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ManagedProperty;
-import jakarta.faces.bean.SessionScoped;
-import javax.persistence.EntityManager;
-import java.util.Map;
+import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
+ *
  */
 @ManagedBean
 @SessionScoped
 public class PersonBean {
+    private static final class PersonDataModel extends JPADataModel<Person> {
+        private PersonDataModel(EntityManager entityManager) {
+            super(entityManager, Person.class);
+        }
+
+        @Override
+        protected Object getId(Person t) {
+            return t.getId();
+        }
+    }
+
     @ManagedProperty(value = "#{persistenceService}")
     private PersistenceService persistenceService;
     private Map<String, SortOrder> sortOrders = Maps.newHashMapWithExpectedSize(1);
@@ -86,16 +100,5 @@ public class PersonBean {
 
     public Object getDataModel() {
         return new PersonDataModel(persistenceService.getEntityManager());
-    }
-
-    private static final class PersonDataModel extends JPADataModel<Person> {
-        private PersonDataModel(EntityManager entityManager) {
-            super(entityManager, Person.class);
-        }
-
-        @Override
-        protected Object getId(Person t) {
-            return t.getId();
-        }
     }
 }

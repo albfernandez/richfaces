@@ -21,6 +21,19 @@
  */
 package org.richfaces.component;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import jakarta.el.MethodExpression;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PreRenderComponentEvent;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -39,18 +52,6 @@ import org.richfaces.model.UploadedFile;
 import org.richfaces.renderkit.FileUploadRendererBase;
 import org.richfaces.view.facelets.FileUploadHandler;
 
-import jakarta.el.MethodExpression;
-import jakarta.faces.component.UIComponentBase;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.FacesEvent;
-import jakarta.faces.event.ListenerFor;
-import jakarta.faces.event.PostAddToViewEvent;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * <p>
  * The &lt;rich:fileUpload&gt; component allows the user to upload files to a server. It features multiple uploads, progress
@@ -62,14 +63,18 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Simone Cinti
  */
 @JsfComponent(tag = @Tag(generate = false, handlerClass = FileUploadHandler.class), renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"))
-@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+@ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractFileUpload extends UIComponentBase implements AjaxProps, CoreProps, DisabledProps,
-        EventsKeyProps, EventsMouseProps, ErrorProps, I18nProps {
+    EventsKeyProps, EventsMouseProps, ErrorProps, I18nProps {
 
     public static final String COMPONENT_TYPE = "org.richfaces.FileUpload";
     public static final String COMPONENT_FAMILY = "org.richfaces.FileUpload";
 
     private static final String QUEUED_FILE_UPLOAD_EVENTS_ATTR = "queuedFileUploadEvents";
+
+    enum Properties {
+        maxFileSize
+    }
 
     /**
      * Defines comma separated list of file extensions accepted by component. The format of the file extension can be "png" or
@@ -142,7 +147,7 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
 
     /**
      * Javascript code executed when a file exceeds the allowed size defined by maxFileSize parameter
-     * or 'org.richfaces.fileUpload.maxRequestSize' context parameter.
+     *  or 'org.richfaces.fileUpload.maxRequestSize' context parameter.
      */
     @Attribute(events = @EventName("sizerejected"))
     public abstract String getOnsizerejected();
@@ -228,10 +233,8 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         super.processEvent(event);
 
-        if (event.getSource() == this) {
-            if (event instanceof PostAddToViewEvent) {
-                this.getAttributes().put("queuedFileUploadEvents", new AtomicInteger(0));
-            }
+        if (event.getSource() == this && event instanceof PreRenderComponentEvent) {
+            getAttributes().put(QUEUED_FILE_UPLOAD_EVENTS_ATTR, new AtomicInteger());
         }
     }
 
@@ -293,9 +296,9 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
 
     /**
      * Checks whether this component can accept given {@link UploadedFile}..
-     * <p>
+     *
      * First, the number of enqueued {@link FileUploadEvent} events can't exceed {@link #getMaxFilesQuantity()}.
-     * <p>
+     *
      * Then, the file extension of uploaded file needs to be acceptable by this component (see {@link #getAcceptedTypes()}).
      */
     public boolean acceptsFile(UploadedFile file) {
@@ -303,7 +306,7 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
         final int maxFilesQuantity = this.getMaxFilesQuantity();
         final List<String> acceptedTypes = this.getAcceptedTypesList();
 
-        if ((maxFilesQuantity > 0) && (queuedFileUploadEvents().get() >= maxFilesQuantity)) {
+        if ((maxFilesQuantity > 0) && (getQueuedFileUploadEvents().get() >= maxFilesQuantity)) {
             return false;
         }
 
@@ -326,7 +329,7 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
     @Override
     public void queueEvent(FacesEvent event) {
         if (event instanceof FileUploadEvent) {
-            queuedFileUploadEvents().addAndGet(1);
+            getQueuedFileUploadEvents().incrementAndGet();
         }
         super.queueEvent(event);
     }
@@ -334,12 +337,7 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
     /**
      * Returns a number of {@link FileUploadEvent} which were already queued for this component
      */
-    private AtomicInteger queuedFileUploadEvents() {
-        AtomicInteger i = (AtomicInteger) this.getAttributes().get(QUEUED_FILE_UPLOAD_EVENTS_ATTR);
-        return i;
-    }
-
-    enum Properties {
-        maxFileSize
+    private AtomicInteger getQueuedFileUploadEvents() {
+        return (AtomicInteger) getAttributes().get(QUEUED_FILE_UPLOAD_EVENTS_ATTR);
     }
 }

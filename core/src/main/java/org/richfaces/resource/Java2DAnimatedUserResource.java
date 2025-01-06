@@ -25,6 +25,7 @@ import java.awt.Graphics2D;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public interface Java2DAnimatedUserResource extends Java2DUserResource {
     boolean isLooped();

@@ -21,8 +21,7 @@
  */
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.convert.ConverterUtil;
+import java.util.Map;
 
 import jakarta.el.ValueExpression;
 import jakarta.faces.component.PartialStateHolder;
@@ -31,7 +30,9 @@ import jakarta.faces.component.StateHolder;
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
-import java.util.Map;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.convert.ConverterUtil;
 
 /**
  * <p>The &lt;rich:treeModelAdaptor&gt; component takes an object which implements the Map or Iterable interfaces. It
@@ -40,6 +41,11 @@ import java.util.Map;
  * @author Nick Belaevski
  */
 public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
+    private enum PropertyKeys {
+        rowKeyConverter,
+        rowKeyConverterSet
+    }
+
     private Converter rowKeyConverter;
 
     @Attribute
@@ -155,11 +161,6 @@ public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
             converterState = saveAttachedState(context, rowKeyConverter);
         }
 
-        return new Object[]{parentState, converterHasPartialState, converterState};
-    }
-
-    private enum PropertyKeys {
-        rowKeyConverter,
-        rowKeyConverterSet
+        return new Object[] { parentState, converterHasPartialState, converterState };
     }
 }

@@ -21,16 +21,17 @@
  */
 package org.richfaces.photoalbum.search;
 
-import org.richfaces.photoalbum.model.User;
-import org.richfaces.photoalbum.util.Constants;
-import org.richfaces.photoalbum.util.PhotoAlbumException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.util.Constants;
+import org.richfaces.photoalbum.util.PhotoAlbumException;
 
 /**
  * This class is factory to retrieve query object, dependent of type of searched entity and other parameters
@@ -46,16 +47,16 @@ public class SearchQueryFactory {
     /**
      * This method is return query object,that dependent of type of searched entity and other parameters
      *
-     * @param entity         - one of instances from SearchEntityEnum enumeration, indicate waht type of entities user want to search
-     * @param user           - user, that perform search
-     * @param searchInMy     - boolean parameter that indicate, is user want search in her space
+     * @param entity - one of instances from SearchEntityEnum enumeration, indicate waht type of entities user want to search
+     * @param user - user, that perform search
+     * @param searchInMy - boolean parameter that indicate, is user want search in her space
      * @param searchInShared - boolean parameter that indicate, is user want search in all shared entities
-     * @param queryString    - string to search
-     * @return query object, that dependent of type of searched entity and other parameters
+     * @param queryString - string to search
      * @throws PhotoAlbumException - in case of wrong search parameters
+     * @return query object, that dependent of type of searched entity and other parameters
      */
     public Query getQuery(SearchEntityEnum entity, User user, boolean searchInShared, boolean searchInMy, String queryString)
-            throws PhotoAlbumException {
+        throws PhotoAlbumException {
         ISearchStrategy strategy = null;
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(Constants.USER_PARAMETER, user);

@@ -21,18 +21,19 @@
  */
 package org.richfaces.photoalbum.ui;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Named;
+
 import org.richfaces.photoalbum.model.Image;
 import org.richfaces.photoalbum.model.event.EventType;
 import org.richfaces.photoalbum.model.event.Events;
 import org.richfaces.photoalbum.model.event.ImageEvent;
 import org.richfaces.photoalbum.model.event.SimpleEvent;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 @ApplicationScoped
@@ -45,6 +46,32 @@ public class FileWrapper implements Serializable {
     private List<Image> files = new ArrayList<Image>();
 
     private List<ErrorImage> errorFiles = new ArrayList<ErrorImage>();
+
+    class ErrorImage {
+        private Image image;
+        private String errorDescription;
+
+        ErrorImage(Image i, String description) {
+            image = i;
+            errorDescription = description;
+        }
+
+        public Image getImage() {
+            return image;
+        }
+
+        public void setImage(Image image) {
+            this.image = image;
+        }
+
+        public String getErrorDescription() {
+            return errorDescription;
+        }
+
+        public void setErrorDescription(String errorDescription) {
+            this.errorDescription = errorDescription;
+        }
+    }
 
     public int getSize() {
         return getFiles().size();
@@ -95,31 +122,5 @@ public class FileWrapper implements Serializable {
 
     public void setErrorFiles(List<ErrorImage> errorFiles) {
         this.errorFiles = errorFiles;
-    }
-
-    class ErrorImage {
-        private Image image;
-        private String errorDescription;
-
-        ErrorImage(Image i, String description) {
-            image = i;
-            errorDescription = description;
-        }
-
-        public Image getImage() {
-            return image;
-        }
-
-        public void setImage(Image image) {
-            this.image = image;
-        }
-
-        public String getErrorDescription() {
-            return errorDescription;
-        }
-
-        public void setErrorDescription(String errorDescription) {
-            this.errorDescription = errorDescription;
-        }
     }
 }

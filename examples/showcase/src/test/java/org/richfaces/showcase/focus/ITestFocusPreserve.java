@@ -21,13 +21,13 @@
  *******************************************************************************/
 package org.richfaces.showcase.focus;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.focus.page.FocusPreservePage;
-
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -35,9 +35,10 @@ import static org.junit.Assert.assertEquals;
  */
 public class ITestFocusPreserve extends AbstractWebDriverTest {
 
-    private static final String EXPECTED_OUTCOME = "RichFaces";
     @Page
     private FocusPreservePage page;
+
+    private static final String EXPECTED_OUTCOME = "RichFaces";
 
     @Test
     public void testFocusIsPreserved() {

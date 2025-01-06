@@ -26,21 +26,21 @@ public class A4JDeployment extends BaseDeployment {
             addCurrentProjectClasses();
 
             this.addMavenDependency(
-                    "org.richfaces:richfaces");
+                    "com.github.albfernandez.richfaces:richfaces");
 
         } else {
             String version = configuration.getRichFacesVersion();
             this.addMavenDependency(
-                    "org.richfaces:richfaces:" + version,
-                    "org.richfaces:richfaces-a4j:" + version);
+                    "com.github.albfernandez.richfaces:richfaces:" + version,
+                    "com.github.albfernandez.richfaces:richfaces-a4j:" + version);
         }
     }
 
     private void addCurrentProjectClasses() {
         JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces-a4j.jar");
         jar.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
-                        .importDirectory("target/classes/").as(GenericArchive.class),
-                "/", Filters.includeAll());
+            .importDirectory("target/classes/").as(GenericArchive.class),
+            "/", Filters.includeAll());
         archive().addAsLibrary(jar);
     }
 

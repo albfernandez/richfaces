@@ -30,6 +30,7 @@ import org.richfaces.fragment.common.Actions;
 import org.richfaces.fragment.list.RichFacesListItem;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public abstract class AbstractSelectableListItem extends RichFacesListItem implements SelectableListItem {
@@ -53,7 +54,20 @@ public abstract class AbstractSelectableListItem extends RichFacesListItem imple
     public void select(boolean deselectOthers) {
         if (deselectOthers) {
             new Actions(driver)
+                .click(getRootElement())
+                .addAction(new Action() {
+                    @Override
+                    public void perform() {
+                        Graphene.waitGui().until().element(getRootElement()).attribute("class").contains(getStyleClassForSelectedItem());
+                    }
+                })
+                .perform();
+        } else {
+            if (!isSelected()) {
+                new Actions(driver)
+                    .keyDown(Keys.CONTROL)
                     .click(getRootElement())
+                    .keyUp(Keys.CONTROL)
                     .addAction(new Action() {
                         @Override
                         public void perform() {
@@ -61,19 +75,6 @@ public abstract class AbstractSelectableListItem extends RichFacesListItem imple
                         }
                     })
                     .perform();
-        } else {
-            if (!isSelected()) {
-                new Actions(driver)
-                        .keyDown(Keys.CONTROL)
-                        .click(getRootElement())
-                        .keyUp(Keys.CONTROL)
-                        .addAction(new Action() {
-                            @Override
-                            public void perform() {
-                                Graphene.waitGui().until().element(getRootElement()).attribute("class").contains(getStyleClassForSelectedItem());
-                            }
-                        })
-                        .perform();
             }
         }
     }
@@ -82,16 +83,16 @@ public abstract class AbstractSelectableListItem extends RichFacesListItem imple
     public void deselect() {
         if (isSelected()) {
             new Actions(driver)
-                    .keyDown(Keys.CONTROL)
-                    .click(getRootElement())
-                    .keyUp(Keys.CONTROL)
-                    .addAction(new Action() {
-                        @Override
-                        public void perform() {
-                            Graphene.waitGui().until().element(getRootElement()).attribute("class").not().contains(getStyleClassForSelectedItem());
-                        }
-                    })
-                    .perform();
+                .keyDown(Keys.CONTROL)
+                .click(getRootElement())
+                .keyUp(Keys.CONTROL)
+                .addAction(new Action() {
+                    @Override
+                    public void perform() {
+                        Graphene.waitGui().until().element(getRootElement()).attribute("class").not().contains(getStyleClassForSelectedItem());
+                    }
+                })
+                .perform();
         }
     }
 

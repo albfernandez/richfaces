@@ -21,6 +21,16 @@
  */
 package org.richfaces.component;
 
+import jakarta.el.MethodExpression;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.PhaseId;
+
 import org.richfaces.PanelMenuMode;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -38,16 +48,6 @@ import org.richfaces.event.ItemChangeSource;
 import org.richfaces.renderkit.util.PanelIcons;
 import org.richfaces.view.facelets.html.PanelMenuTagHandler;
 
-import jakarta.el.MethodExpression;
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIOutput;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.FacesEvent;
-import jakarta.faces.event.PhaseId;
-
 /**
  * <p>The &lt;rich:panelMenu&gt; component is used in conjunction with &lt;rich:panelMenuItem&gt; and
  * &lt;rich:panelMenuGroup&gt; to create an expanding, hierarchical menu. The &lt;rich:panelMenu&gt; component's
@@ -61,6 +61,10 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenu";
     private String submittedActiveItem;
+
+    private enum PropertyKeys {
+        immediate
+    }
 
     protected AbstractPanelMenu() {
         setRendererType("org.richfaces.PanelMenuRenderer");
@@ -183,13 +187,13 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         return COMPONENT_FAMILY;
     }
 
+    // ------------------------------------------------ Component Attributes
+
     /**
      * The mouse event used for expansion.
      */
     @Attribute
     public abstract String getExpandEvent();
-
-    // ------------------------------------------------ Component Attributes
 
     /**
      * The mouse event used for collapsing.
@@ -227,6 +231,12 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
      */
     @Attribute
     public abstract MethodExpression getItemChangeListener();
+
+    // ------------------------------------------------ Html Attributes
+    enum Properties {
+        itemRightIcon, itemDisabledLeftIcon, itemDisabledRightIcon, topItemLeftIcon, topItemRightIcon, topItemDisabledLeftIcon, topItemDisabledRightIcon, groupExpandedLeftIcon, groupExpandedRightIcon, groupCollapsedLeftIcon, groupCollapsedRightIcon, groupDisabledLeftIcon, groupDisabledRightIcon, topGroupExpandedLeftIcon, topGroupExpandedRightIcon, topGroupCollapsedLeftIcon, topGroupCollapsedRightIcon, topGroupDisabledLeftIcon, topGroupDisabledRightIcon, itemLeftIcon, value,
+        topItemClass, topItemDisabledClass, topGroupClass, topGroupDisabledClass
+    }
 
     /**
      * The width of the panel menu in pixels.
@@ -574,6 +584,8 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         return null;
     }
 
+    // ------------------------------------------------ Event Processing Methods
+
     public void addItemChangeListener(ItemChangeListener listener) {
         addFacesListener(listener);
     }
@@ -581,8 +593,6 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public ItemChangeListener[] getItemChangeListeners() {
         return (ItemChangeListener[]) getFacesListeners(ItemChangeListener.class);
     }
-
-    // ------------------------------------------------ Event Processing Methods
 
     public void removeItemChangeListener(ItemChangeListener listener) {
         removeFacesListener(listener);
@@ -595,15 +605,5 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     public void setValue(Object value) {
         getStateHelper().put(Properties.value, value);
-    }
-
-    private enum PropertyKeys {
-        immediate
-    }
-
-    // ------------------------------------------------ Html Attributes
-    enum Properties {
-        itemRightIcon, itemDisabledLeftIcon, itemDisabledRightIcon, topItemLeftIcon, topItemRightIcon, topItemDisabledLeftIcon, topItemDisabledRightIcon, groupExpandedLeftIcon, groupExpandedRightIcon, groupCollapsedLeftIcon, groupCollapsedRightIcon, groupDisabledLeftIcon, groupDisabledRightIcon, topGroupExpandedLeftIcon, topGroupExpandedRightIcon, topGroupCollapsedLeftIcon, topGroupCollapsedRightIcon, topGroupDisabledLeftIcon, topGroupDisabledRightIcon, itemLeftIcon, value,
-        topItemClass, topItemDisabledClass, topGroupClass, topGroupDisabledClass
     }
 }

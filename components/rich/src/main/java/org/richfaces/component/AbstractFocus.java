@@ -1,5 +1,14 @@
 package org.richfaces.component;
 
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
+
 import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -9,15 +18,6 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.FocusRendererBase;
 import org.richfaces.renderkit.focus.FocusRendererInterface;
 import org.richfaces.renderkit.util.RendererUtils;
-
-import jakarta.faces.component.UIForm;
-import jakarta.faces.component.UIOutput;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.ListenerFor;
-import jakarta.faces.event.PostAddToViewEvent;
 
 /**
  * <p>
@@ -102,6 +102,21 @@ public abstract class AbstractFocus extends UIOutput implements AjaxOutput {
         return Mode.FORM;
     }
 
+    public static enum Mode {
+        /**
+         * In this mode, focus is processed every time form is submitted.
+         *
+         * There can be only one focus of this type per form.
+         */
+        FORM,
+        /**
+         * This mode brings focus functionality to all forms in a view.
+         *
+         * The view focus settings can be overridden for each specific form by using {{@link #FORM} mode.
+         */
+        VIEW
+    }
+
     @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
 
@@ -117,20 +132,5 @@ public abstract class AbstractFocus extends UIOutput implements AjaxOutput {
         }
 
         super.processEvent(event);
-    }
-
-    public static enum Mode {
-        /**
-         * In this mode, focus is processed every time form is submitted.
-         * <p>
-         * There can be only one focus of this type per form.
-         */
-        FORM,
-        /**
-         * This mode brings focus functionality to all forms in a view.
-         * <p>
-         * The view focus settings can be overridden for each specific form by using {{@link #FORM} mode.
-         */
-        VIEW
     }
 }

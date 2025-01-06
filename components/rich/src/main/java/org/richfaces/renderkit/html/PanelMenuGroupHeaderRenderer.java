@@ -1,13 +1,14 @@
 package org.richfaces.renderkit.html;
 
+import java.io.IOException;
+
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+
 import org.richfaces.component.AbstractPanelMenuGroup;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.util.PanelIcons;
 import org.richfaces.renderkit.util.PanelIcons.State;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
 
 class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPanelMenuGroup> {
     PanelMenuGroupHeaderRenderer(String cssClassPrefix) {
@@ -17,19 +18,19 @@ class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPane
     private PanelIcons.State getState(AbstractPanelMenuGroup group) {
         if (group.isTopItem()) {
             return PanelMenuItemRenderer.isParentPanelMenuDisabled(group) || group.isDisabled() ? State.headerDisabled
-                    : State.header;
+                : State.header;
         } else {
             return PanelMenuItemRenderer.isParentPanelMenuDisabled(group) || group.isDisabled() ? State.commonDisabled
-                    : State.common;
+                : State.common;
         }
     }
 
     protected void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuGroup group)
-            throws IOException {
+        throws IOException {
         String iconCollapsed = PanelMenuItemRenderer.isParentPanelMenuDisabled(group) || group.isDisabled() ? group
-                .getLeftDisabledIcon() : group.getLeftCollapsedIcon();
+            .getLeftDisabledIcon() : group.getLeftCollapsedIcon();
         String iconExpanded = PanelMenuItemRenderer.isParentPanelMenuDisabled(group) || group.isDisabled() ? group
-                .getLeftDisabledIcon() : group.getLeftExpandedIcon();
+            .getLeftDisabledIcon() : group.getLeftExpandedIcon();
 
         if (iconCollapsed == null || iconCollapsed.trim().length() == 0) {
             iconCollapsed = PanelIcons.transparent.toString();
@@ -40,15 +41,15 @@ class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPane
         }
 
         encodeTdIcon(writer, context, HtmlUtil.concatClasses(cssClassPrefix + "-ico", group.getLeftIconClass()), iconCollapsed,
-                iconExpanded, getState(group));
+            iconExpanded, getState(group));
     }
 
     protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuGroup group)
-            throws IOException {
+        throws IOException {
         String iconCollapsed = PanelMenuItemRenderer.isParentPanelMenuDisabled(group) || group.isDisabled() ? group
-                .getRightDisabledIcon() : group.getRightCollapsedIcon();
+            .getRightDisabledIcon() : group.getRightCollapsedIcon();
         String iconExpanded = PanelMenuItemRenderer.isParentPanelMenuDisabled(group) || group.isDisabled() ? group
-                .getRightDisabledIcon() : group.getRightExpandedIcon();
+            .getRightDisabledIcon() : group.getRightExpandedIcon();
 
         if (iconCollapsed == null || iconCollapsed.trim().length() == 0) {
             iconCollapsed = PanelIcons.transparent.toString();
@@ -59,6 +60,6 @@ class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPane
         }
         // TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
         encodeTdIcon(writer, context, HtmlUtil.concatClasses(cssClassPrefix + "-exp-ico", group.getRightIconClass()),
-                iconCollapsed, iconExpanded, getState(group));
+            iconCollapsed, iconExpanded, getState(group));
     }
 }

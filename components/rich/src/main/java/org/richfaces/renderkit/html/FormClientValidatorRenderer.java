@@ -29,6 +29,7 @@ import jakarta.faces.render.ClientBehaviorRenderer;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public class FormClientValidatorRenderer extends ClientBehaviorRenderer {
     public static final String RENDERER_TYPE = "org.richfaces.FormValidatorRenderer";

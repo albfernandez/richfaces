@@ -54,41 +54,6 @@ public class ITBuiltInSort {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<script type='text/javascript'>");
-        p.body("function sortEdt(currentSortOrder) { ");
-        p.body("  var edt = RichFaces.component('myForm:edt'); ");
-        p.body("  var sortOrder = currentSortOrder == 'ascending' ? 'descending' : 'ascending'; ");
-        p.body("  edt.sort('column2', sortOrder, true); ");
-        p.body("} ");
-        p.body("</script>");
-        p.body("<h:form id='myForm'> ");
-        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBuiltInBean.values}' var='bean' > ");
-        p.body("        <rich:column id='column1' width='150px' > ");
-        p.body("            <f:facet name='header'>Column 1</f:facet> ");
-        p.body("            <h:outputText value='Bean:' /> ");
-        p.body("        </rich:column> ");
-        p.body("        <rich:column id='column2' width='150px' ");
-        p.body("                         sortBy='#{bean}' ");
-        p.body("                         sortOrder='#{iterationBuiltInBean.sortOrder}' > ");
-        p.body("            <f:facet name='header'>Column 2</f:facet> ");
-        p.body("            <h:outputText value='#{bean}' /> ");
-        p.body("        </rich:column> ");
-        p.body("        <rich:column id='column3' width='150px'");
-        p.body("                     sortBy='#{bean}' ");
-        p.body("                     sortOrder='#{iterationBuiltInBean.sortOrder2}' > ");
-        p.body("            <f:facet name='header'>Column 3</f:facet> ");
-        p.body("            <h:outputText value='Row #{bean}, Column 3' /> ");
-        p.body("        </rich:column> ");
-        p.body("    </rich:extendedDataTable> ");
-        p.body("    <a4j:commandButton id='ajax' execute='edt' render='edt' value='Ajax' /> ");
-        p.body("</h:form> ");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void table_sort() throws InterruptedException {
         // given
@@ -111,6 +76,41 @@ public class ITBuiltInSort {
         cell = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt")).get(0);
         Assert.assertEquals("0", cell.getText());
 
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<script type='text/javascript'>");
+        p.body("function sortEdt(currentSortOrder) { ");
+        p.body("  var edt = RichFaces.component('myForm:edt'); ");
+        p.body("  var sortOrder = currentSortOrder == 'ascending' ? 'descending' : 'ascending'; ");
+        p.body("  edt.sort('column2', sortOrder, true); ");
+        p.body("} ");
+        p.body("</script>");
+        p.body("<h:form id='myForm'> ");
+        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBuiltInBean.values}' var='bean' > ");
+        p.body("        <rich:column id='column1' width='150px' > ");
+        p.body("            <f:facet name='header'>Column 1</f:facet> ");
+        p.body("            <h:outputText value='Bean:' /> ");
+        p.body("        </rich:column> ");
+        p.body("        <rich:column id='column2' width='150px' ");
+        p.body("                         sortBy='#{bean}' ");
+        p.body("                         sortOrder='#{iterationBuiltInBean.sortOrder}' > ");
+        p.body("            <f:facet name='header'>Column 2</f:facet> ");
+        p.body("            <h:outputText value='#{bean}' /> ");
+        p.body("        </rich:column> ");
+        p.body("        <rich:column id='column3' width='150px'" );
+        p.body("                     sortBy='#{bean}' ");
+        p.body("                     sortOrder='#{iterationBuiltInBean.sortOrder2}' > ");
+        p.body("            <f:facet name='header'>Column 3</f:facet> ");
+        p.body("            <h:outputText value='Row #{bean}, Column 3' /> ");
+        p.body("        </rich:column> ");
+        p.body("    </rich:extendedDataTable> ");
+        p.body("    <a4j:commandButton id='ajax' execute='edt' render='edt' value='Ajax' /> ");
+        p.body("</h:form> ");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
 }

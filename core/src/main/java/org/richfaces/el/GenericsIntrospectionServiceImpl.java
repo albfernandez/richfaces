@@ -21,15 +21,6 @@
  */
 package org.richfaces.el;
 
-import com.google.common.base.Function;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-
-import jakarta.el.ELContext;
-import jakarta.el.ValueExpression;
-import jakarta.faces.FacesException;
-import jakarta.faces.context.FacesContext;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -42,56 +33,21 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
+import jakarta.el.ELContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
+
+import com.google.common.base.Function;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class GenericsIntrospectionServiceImpl implements GenericsIntrospectionService {
-    private final LoadingCache<Class<?>, GenericsCacheEntry> cache = CacheBuilder.newBuilder().weakKeys().softValues()
-            .build(CacheLoader.from(new Function<Class<?>, GenericsCacheEntry>() {
-                public GenericsCacheEntry apply(java.lang.Class<?> input) {
-                    return new GenericsCacheEntry(input);
-                }
-            }));
-
-    private Class<?> getGenericCollectionType(FacesContext context, Object base, String propertyName) {
-        Class<?> genericPropertyClass = null;
-
-        if ((base != null) && (propertyName != null)) {
-            Class<? extends Object> beanClass = base.getClass();
-
-            // Map and ResourceBundle have special resolvers that we doesn't support
-            if (!Map.class.isAssignableFrom(beanClass) && !ResourceBundle.class.isAssignableFrom(beanClass)) {
-                try {
-                    return cache.get(beanClass).getContainerClass(propertyName);
-                } catch (ExecutionException e) {
-                    throw new FacesException(String.format("Can't resolve the beanClass '%s' from propertyName '%s'", beanClass, propertyName), e);
-                }
-            }
-        }
-
-        return genericPropertyClass;
-    }
-
-    public Class<?> getContainerClass(FacesContext facesContext, ValueExpression expression) {
-        ELContext initialELContext = facesContext.getELContext();
-        CapturingELResolver capturingELResolver = new CapturingELResolver(initialELContext.getELResolver());
-        Class<?> type = expression.getType(new ELContextWrapper(initialELContext, capturingELResolver));
-        Class<?> containerType = type.getComponentType();
-
-        if ((containerType == null) && (type != null)) {
-            if (Collection.class.isAssignableFrom(type)) {
-                Object base = capturingELResolver.getBase();
-                Object property = capturingELResolver.getProperty();
-
-                if ((base != null) && (property != null)) {
-                    containerType = getGenericCollectionType(facesContext, base, property.toString());
-                }
-            }
-        }
-
-        return containerType;
-    }
-
     private static final class GenericsCacheEntry {
         private Class<?> beanClass;
 
@@ -166,5 +122,51 @@ public class GenericsIntrospectionServiceImpl implements GenericsIntrospectionSe
         public Class<?> getContainerClass(String propertyName) throws ExecutionException {
             return containerClassesMap.get(propertyName);
         }
+    }
+
+    private final LoadingCache<Class<?>, GenericsCacheEntry> cache = CacheBuilder.newBuilder().weakKeys().softValues()
+            .build(CacheLoader.from(new Function<Class<?>, GenericsCacheEntry>() {
+                public GenericsCacheEntry apply(java.lang.Class<?> input) {
+                    return new GenericsCacheEntry(input);
+                }
+            }));
+
+    private Class<?> getGenericCollectionType(FacesContext context, Object base, String propertyName) {
+        Class<?> genericPropertyClass = null;
+
+        if ((base != null) && (propertyName != null)) {
+            Class<? extends Object> beanClass = base.getClass();
+
+            // Map and ResourceBundle have special resolvers that we doesn't support
+            if (!Map.class.isAssignableFrom(beanClass) && !ResourceBundle.class.isAssignableFrom(beanClass)) {
+                try {
+                    return cache.get(beanClass).getContainerClass(propertyName);
+                } catch (ExecutionException e) {
+                    throw new FacesException(String.format("Can't resolve the beanClass '%s' from propertyName '%s'", beanClass, propertyName), e);
+                }
+            }
+        }
+
+        return genericPropertyClass;
+    }
+
+    public Class<?> getContainerClass(FacesContext facesContext, ValueExpression expression) {
+        ELContext initialELContext = facesContext.getELContext();
+        CapturingELResolver capturingELResolver = new CapturingELResolver(initialELContext.getELResolver());
+        Class<?> type = expression.getType(new ELContextWrapper(initialELContext, capturingELResolver));
+        Class<?> containerType = type.getComponentType();
+
+        if ((containerType == null) && (type != null)) {
+            if (Collection.class.isAssignableFrom(type)) {
+                Object base = capturingELResolver.getBase();
+                Object property = capturingELResolver.getProperty();
+
+                if ((base != null) && (property != null)) {
+                    containerType = getGenericCollectionType(facesContext, base, property.toString());
+                }
+            }
+        }
+
+        return containerType;
     }
 }

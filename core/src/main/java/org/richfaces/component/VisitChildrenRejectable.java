@@ -30,7 +30,7 @@ public interface VisitChildrenRejectable {
 
     /**
      * Indicates whether processing logic such as renderer and visitors should visit (process) the children of this component.
-     * <p>
+     *
      * Prevents visiting (processing) of subtrees which are not for any reason "active".
      *
      * @return true if the component's subtree should be visited; false otherwise

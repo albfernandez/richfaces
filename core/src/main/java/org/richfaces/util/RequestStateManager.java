@@ -21,9 +21,10 @@
  */
 package org.richfaces.util;
 
-import jakarta.faces.context.FacesContext;
 import java.util.HashMap;
 import java.util.Map;
+
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
@@ -35,13 +36,32 @@ public final class RequestStateManager {
     private RequestStateManager() {
     }
 
+    // TODO remove this stuff
+    public static enum BooleanRequestStateVariable {
+        LegacyResourceRequest("org.richfaces.LEGACY_RESOURCE_REQUEST"),
+        ResourceRequest("org.richfaces.RESOURCE_REQUEST");
+        private String attributeName;
+
+        private BooleanRequestStateVariable(String attributeName) {
+            this.attributeName = attributeName;
+        }
+
+        public Boolean get(FacesContext context) {
+            return (Boolean) RequestStateManager.get(context, this.attributeName);
+        }
+
+        public void set(FacesContext context, Boolean value) {
+            RequestStateManager.set(context, this.attributeName, value);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     private static Map<String, Object> getStateMap(FacesContext context, boolean create) {
         Map<Object, Object> attributesMap = context.getAttributes();
         Map<String, Object> result = (Map<String, Object>) attributesMap.get(CONTEXT_ATTRIBUTE_NAME);
 
         if (create && (result == null)) {
-            result = new HashMap<String, Object>();
+            result = new HashMap<>();
             attributesMap.put(CONTEXT_ATTRIBUTE_NAME, result);
         }
 
@@ -103,25 +123,6 @@ public final class RequestStateManager {
             if (stateMap != null) {
                 stateMap.remove(key);
             }
-        }
-    }
-
-    // TODO remove this stuff
-    public static enum BooleanRequestStateVariable {
-        LegacyResourceRequest("org.richfaces.LEGACY_RESOURCE_REQUEST"),
-        ResourceRequest("org.richfaces.RESOURCE_REQUEST");
-        private String attributeName;
-
-        private BooleanRequestStateVariable(String attributeName) {
-            this.attributeName = attributeName;
-        }
-
-        public Boolean get(FacesContext context) {
-            return (Boolean) RequestStateManager.get(context, this.attributeName);
-        }
-
-        public void set(FacesContext context, Boolean value) {
-            RequestStateManager.set(context, this.attributeName, value);
         }
     }
 }

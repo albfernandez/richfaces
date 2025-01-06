@@ -29,6 +29,7 @@ import org.richfaces.photoalbum.model.Shelf;
  * Shelf event, carries a shelf and its (relative) path. Temporary solution.
  *
  * @author mpetrov
+ *
  */
 public class ShelfEvent extends SimpleEvent {
     private Shelf shelf;

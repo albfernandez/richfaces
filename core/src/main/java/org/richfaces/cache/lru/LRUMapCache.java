@@ -21,9 +21,9 @@
  */
 package org.richfaces.cache.lru;
 
-import org.richfaces.cache.Cache;
-
 import java.util.Date;
+
+import org.richfaces.cache.Cache;
 
 /**
  * @author Nick - mailto:nbelaevski@exadel.com

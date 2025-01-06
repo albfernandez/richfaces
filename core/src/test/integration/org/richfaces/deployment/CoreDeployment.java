@@ -194,9 +194,9 @@ public class CoreDeployment extends BaseDeployment {
 
     /**
      * Avoids to load given feature several times.
-     * <p>
+     *
      * Adds given {@link CoreFeature} to the list of loaded features.
-     * <p>
+     *
      * Returns whether the given feature was already loaded.
      *
      * @param feature a feature to load
@@ -233,7 +233,7 @@ public class CoreDeployment extends BaseDeployment {
         this.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor descriptor) {
                 descriptor.getOrCreateContextParam().paramName("org.richfaces.enableControlSkinning")
-                        .paramValue("false");
+                    .paramValue("false");
                 return descriptor;
             }
         });
@@ -258,10 +258,10 @@ public class CoreDeployment extends BaseDeployment {
 
         withService(ConfigurationService.class, ConfigurationServiceImpl.class);
         archive()
-                .addClasses(ConfigurationService.class, ConfigurationServiceImpl.class)
-                .addClasses(ConfigurationServiceHelper.class)
-                .addClasses(ConfigurationItem.class, ConfigurationItemsBundle.class, ConfigurationItemSource.class)
-                .addClasses(ValueExpressionHolder.class);
+            .addClasses(ConfigurationService.class, ConfigurationServiceImpl.class)
+            .addClasses(ConfigurationServiceHelper.class)
+            .addClasses(ConfigurationItem.class, ConfigurationItemsBundle.class, ConfigurationItemSource.class)
+            .addClasses(ValueExpressionHolder.class);
         return this;
     }
 
@@ -288,7 +288,7 @@ public class CoreDeployment extends BaseDeployment {
         }
 
         archive()
-                .addClasses(BundleLoader.class, InterpolationException.class, MessageBundle.class, MessageInterpolator.class);
+            .addClasses(BundleLoader.class, InterpolationException.class, MessageBundle.class, MessageInterpolator.class);
 
 
         return this;
@@ -296,7 +296,6 @@ public class CoreDeployment extends BaseDeployment {
 
     /**
      * Adds {@link ResourceCodec} service
-     *
      * @return
      */
     public CoreDeployment withResourceCodec() {
@@ -343,7 +342,7 @@ public class CoreDeployment extends BaseDeployment {
 
 
         archive()
-                .addAsLibrary(servletInitializer);
+            .addAsLibrary(servletInitializer);
 
         addMavenDependency(
                 "org.atmosphere:atmosphere-runtime");
@@ -353,7 +352,6 @@ public class CoreDeployment extends BaseDeployment {
 
     /**
      * Adds Resource Libraries feature
-     *
      * @return
      */
     public CoreDeployment withResourceLibraries() {
@@ -362,9 +360,9 @@ public class CoreDeployment extends BaseDeployment {
         }
 
         archive()
-                .addClasses(ResourceLibrary.class, ResourceLibraryFactory.class, ResourceLibraryFactoryImpl.class)
-                .addClasses(ResourceLibraryRenderer.class, StaticResourceLibrary.class)
-                .addClasses(ResourceRenderer.class, UIResource.class, UITransient.class);
+            .addClasses(ResourceLibrary.class, ResourceLibraryFactory.class, ResourceLibraryFactoryImpl.class)
+            .addClasses(ResourceLibraryRenderer.class, StaticResourceLibrary.class)
+            .addClasses(ResourceRenderer.class, UIResource.class, UITransient.class);
 
         withService(ResourceLibraryFactory.class, ResourceLibraryFactoryImpl.class);
 
@@ -374,11 +372,11 @@ public class CoreDeployment extends BaseDeployment {
             public WebFacesConfigDescriptor apply(WebFacesConfigDescriptor input) {
                 return input
                         .getOrCreateRenderKit()
-                        .createRenderer()
-                        .componentFamily(UIOutput.COMPONENT_FAMILY)
-                        .rendererType(ResourceLibraryRenderer.RENDERER_TYPE)
-                        .rendererClass(ResourceLibraryRenderer.class.getName())
-                        .up()
+                            .createRenderer()
+                                .componentFamily(UIOutput.COMPONENT_FAMILY)
+                                .rendererType(ResourceLibraryRenderer.RENDERER_TYPE)
+                                .rendererClass(ResourceLibraryRenderer.class.getName())
+                            .up()
                         .up();
             }
         });
@@ -395,8 +393,8 @@ public class CoreDeployment extends BaseDeployment {
         }
 
         archive()
-                // log
-                .addClasses(RichfacesLogger.class, JavaLogger.class, LogFactory.class, Logger.class);
+            // log
+            .addClasses(RichfacesLogger.class, JavaLogger.class, LogFactory.class, Logger.class);
 
         this.withLocalization();
 
@@ -412,14 +410,14 @@ public class CoreDeployment extends BaseDeployment {
         }
 
         archive()
-                // resource
-                .addPackage("org.richfaces.resource")
-                .addPackage("org.richfaces.resource.css")
-                .addPackage("org.richfaces.resource.external")
-                // codec
-                .addClasses(Codec.class)
-                // cache
-                .addClasses(Cache.class);
+            // resource
+            .addPackage("org.richfaces.resource")
+            .addPackage("org.richfaces.resource.css")
+            .addPackage("org.richfaces.resource.external")
+            // codec
+            .addClasses(Codec.class)
+            // cache
+            .addClasses(Cache.class);
 
         withService(MappedResourceFactory.class, MappedResourceFactoryImpl.class);
         withService(ResourceTracker.class, ResourceTrackerImpl.class);
@@ -429,9 +427,9 @@ public class CoreDeployment extends BaseDeployment {
             @Override
             public WebFacesConfigDescriptor apply(WebFacesConfigDescriptor facesConfig) {
                 return facesConfig
-                        .getOrCreateApplication()
+                    .getOrCreateApplication()
                         .resourceHandler(ResourceHandlerImpl.class.getName())
-                        .up();
+                    .up();
             }
         });
 
@@ -441,20 +439,20 @@ public class CoreDeployment extends BaseDeployment {
     public CoreDeployment withWholeCore() {
         JavaArchive coreArchive = ShrinkWrap.create(JavaArchive.class, "dynamic-richfaces-core.jar");
         coreArchive.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
-                        .importDirectory("target/classes/").as(GenericArchive.class),
-                "/", Filters.includeAll());
+            .importDirectory("target/classes/").as(GenericArchive.class),
+            "/", Filters.includeAll());
         archive().addAsLibrary(coreArchive);
 
         return this;
     }
-
+    
     public void withA4jComponents() {
-        addMavenDependency("org.richfaces:richfaces-a4j:4.5.18.Final");
+        addMavenDependency("com.github.albfernandez.richfaces:richfaces-a4j:4.6.22-SNAPSHOT");
         excludeMavenDependency("richfaces-core");
     }
-
+    
     public void withRichComponents() {
-        addMavenDependency("org.richfaces:richfaces:4.5.18.Final");
+        addMavenDependency("com.github.albfernandez.richfaces:richfaces:4.6.5.ayg");
         excludeMavenDependency("richfaces-core");
     }
 
@@ -464,7 +462,6 @@ public class CoreDeployment extends BaseDeployment {
 
     /**
      * Adds {@link CoreTestingRemoteExtension} (for testing Core with Arquillian) and its dependencies
-     *
      * @return
      */
     private CoreDeployment withArquillianExtensions() {
@@ -505,8 +502,8 @@ public class CoreDeployment extends BaseDeployment {
 
         // add base dependencies
         archive()
-                .addClasses(InitializationListener.class, CoreConfiguration.class, ServicesFactory.class, ServicesFactoryImpl.class)
-                .addClasses(ServiceLoader.class, ServiceException.class, ServiceTracker.class, Module.class, Initializable.class);
+            .addClasses(InitializationListener.class, CoreConfiguration.class, ServicesFactory.class, ServicesFactoryImpl.class)
+            .addClasses(ServiceLoader.class, ServiceException.class, ServiceTracker.class, Module.class, Initializable.class);
 
         withConfigurationService();
 
@@ -544,7 +541,7 @@ public class CoreDeployment extends BaseDeployment {
 
     /**
      * Loads the list of services from properties file.
-     * <p>
+     *
      * You can add those using {@link CoreDeployment#withService(Class, Class)}.
      */
     public static class TestingModule implements Module {
@@ -560,7 +557,7 @@ public class CoreDeployment extends BaseDeployment {
                     Class<?> implementationClass = classLoader.loadClass(entry.getValue());
                     Object implementationInstance = implementationClass.newInstance();
 
-                    Method method = factory.getClass().getMethod("setInstance", new Class<?>[]{Class.class, Object.class});
+                    Method method = factory.getClass().getMethod("setInstance", new Class<?>[] { Class.class, Object.class });
                     method.invoke(factory, factoryClass, implementationInstance);
                 } catch (Exception e) {
                     throw new IllegalStateException(e);

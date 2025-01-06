@@ -158,7 +158,7 @@ API.txt for details.
 			return makeUtcWrapper(new Date(ts));
 		}
 	}
-	
+
 	// map of app. size of time units in milliseconds
 
 	var timeUnitSize = {
@@ -176,9 +176,9 @@ API.txt for details.
 
 	var baseSpec = [
 		[1, "second"], [2, "second"], [5, "second"], [10, "second"],
-		[30, "second"], 
+		[30, "second"],
 		[1, "minute"], [2, "minute"], [5, "minute"], [10, "minute"],
-		[30, "minute"], 
+		[30, "minute"],
 		[1, "hour"], [2, "hour"], [4, "hour"],
 		[8, "hour"], [12, "hour"],
 		[1, "day"], [2, "day"], [3, "day"],
@@ -190,12 +190,12 @@ API.txt for details.
 	// cheap
 
 	var specMonths = baseSpec.concat([[3, "month"], [6, "month"],
-		[1, "year"]]);
+	[1, "year"]]);
 	var specQuarters = baseSpec.concat([[1, "quarter"], [2, "quarter"],
-		[1, "year"]]);
+	[1, "year"]]);
 
 	function init(plot) {
-		plot.hooks.processOptions.push(function (plot, options) {
+		plot.hooks.processOptions.push(function(plot, options) {
 			$.each(plot.getAxes(), function(axisName, axis) {
 
 				var opts = axis.options;
@@ -213,7 +213,7 @@ API.txt for details.
 						var spec = (opts.tickSize && opts.tickSize[1] ===
 							"quarter") ||
 							(opts.minTickSize && opts.minTickSize[1] ===
-							"quarter") ? specQuarters : specMonths;
+								"quarter") ? specQuarters : specMonths;
 
 						if (opts.minTickSize != null) {
 							if (typeof opts.tickSize == "number") {
@@ -225,7 +225,7 @@ API.txt for details.
 
 						for (var i = 0; i < spec.length - 1; ++i) {
 							if (axis.delta < (spec[i][0] * timeUnitSize[spec[i][1]]
-											  + spec[i + 1][0] * timeUnitSize[spec[i + 1][1]]) / 2
+								+ spec[i + 1][0] * timeUnitSize[spec[i + 1][1]]) / 2
 								&& spec[i][0] * timeUnitSize[spec[i][1]] >= minSize) {
 								break;
 							}
@@ -355,7 +355,7 @@ API.txt for details.
 						return ticks;
 					};
 
-					axis.tickFormatter = function (v, axis) {
+					axis.tickFormatter = function(v, axis) {
 
 						var d = dateGenerator(v, axis.options);
 
@@ -369,7 +369,7 @@ API.txt for details.
 						// any of these places
 
 						var useQuarters = (axis.options.tickSize &&
-								axis.options.tickSize[1] == "quarter") ||
+							axis.options.tickSize[1] == "quarter") ||
 							(axis.options.minTickSize &&
 								axis.options.minTickSize[1] == "quarter");
 

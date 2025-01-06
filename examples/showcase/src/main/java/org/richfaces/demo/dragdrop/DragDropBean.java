@@ -1,19 +1,21 @@
 package org.richfaces.demo.dragdrop;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
-import org.richfaces.demo.dragdrop.Framework.Family;
+import static org.richfaces.demo.dragdrop.Framework.Family.cf;
+import static org.richfaces.demo.dragdrop.Framework.Family.dotNet;
+import static org.richfaces.demo.dragdrop.Framework.Family.php;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-import static org.richfaces.demo.dragdrop.Framework.Family.cf;
-import static org.richfaces.demo.dragdrop.Framework.Family.dotNet;
-import static org.richfaces.demo.dragdrop.Framework.Family.php;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import org.richfaces.demo.dragdrop.Framework.Family;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 
 @ManagedBean
 @ViewScoped
@@ -22,8 +24,23 @@ public class DragDropBean implements Serializable {
     private static final FrameworkFamilyPredicate CF_PREDICATE = new FrameworkFamilyPredicate(cf);
     private static final FrameworkFamilyPredicate DOT_NET_PREDICATE = new FrameworkFamilyPredicate(dotNet);
     private static final FrameworkFamilyPredicate PHP_PREDICATE = new FrameworkFamilyPredicate(php);
+
+    private static final class FrameworkFamilyPredicate implements Predicate<Framework> {
+        private Framework.Family family;
+
+        public FrameworkFamilyPredicate(Family family) {
+            super();
+            this.family = family;
+        }
+
+        public boolean apply(Framework input) {
+            return family.equals(input.getFamily());
+        }
+    }
+
     private List<Framework> source;
     private List<Framework> target;
+
     public DragDropBean() {
         initList();
     }
@@ -73,18 +90,5 @@ public class DragDropBean implements Serializable {
         source.add(new Framework("PAJAJ", php));
         source.add(new Framework("Symfony", php));
         source.add(new Framework("PowerWEB", dotNet));
-    }
-
-    private static final class FrameworkFamilyPredicate implements Predicate<Framework> {
-        private Framework.Family family;
-
-        public FrameworkFamilyPredicate(Family family) {
-            super();
-            this.family = family;
-        }
-
-        public boolean apply(Framework input) {
-            return family.equals(input.getFamily());
-        }
     }
 }

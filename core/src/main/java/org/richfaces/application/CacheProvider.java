@@ -21,32 +21,27 @@
  */
 package org.richfaces.application;
 
+import java.util.Date;
+import java.util.Map;
+
+import jakarta.faces.context.FacesContext;
+
 import org.richfaces.cache.Cache;
 import org.richfaces.cache.CacheManager;
 import org.richfaces.resource.ResourceHandlerImpl;
-
-import jakarta.faces.context.FacesContext;
-import java.util.Date;
-import java.util.Map;
 
 /**
  * <p class="changed_added_4_0">
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public class CacheProvider implements Initializable, Cache {
     private Cache instance;
     private CacheManager cacheManager;
 
-    /**
-     * <p class="changed_added_4_0">
-     * </p>
-     *
-     * @param key
-     * @return
-     * @see org.richfaces.cache.Cache#get(java.lang.Object)
-     */
+
     public Object get(Object key) {
         return this.instance.get(key);
     }

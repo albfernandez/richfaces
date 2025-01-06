@@ -36,43 +36,13 @@ public class IT_RF14257_WithContextParam extends IT_RF14257 {
             @Override
             public WebAppDescriptor apply(@Nullable WebAppDescriptor input) {
                 input
-                        .getOrCreateContextParam()
-                        .paramName("org.richfaces.fileUpload.maxRequestSize")
-                        .paramValue(String.valueOf(contextParamSizeLimit_4KB));
+                    .getOrCreateContextParam()
+                    .paramName("org.richfaces.fileUpload.maxRequestSize")
+                    .paramValue(String.valueOf(contextParamSizeLimit_4KB));
                 return input;
             }
         });
         return deployment.getFinalArchive();
-    }
-
-    private static void addPageWithAttributeSizeLimitGreaterThanContextParamLimit(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.head("<script type='text/javascript'>window.onsizerejected=0;</script>");
-
-        p.form("<rich:fileUpload id='fileUpload' fileUploadListener='#{fileUploadBean.listener}' onsizerejected='window.onsizerejected++;' maxFileSize='" + attributeSizeLimit_6KB + "' />");
-
-        deployment.archive().addAsWebResource(p, "withAttributeLimit6KB.xhtml");
-    }
-
-    private static void addPageWithAttributeSizeLimitLesserThanContextParamLimit(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.head("<script type='text/javascript'>window.onsizerejected=0;</script>");
-
-        p.form("<rich:fileUpload id='fileUpload' fileUploadListener='#{fileUploadBean.listener}' onsizerejected='window.onsizerejected++;' maxFileSize='" + attributeSizeLimit_2KB + "' />");
-
-        deployment.archive().addAsWebResource(p, "withAttributeLimit2KB.xhtml");
-    }
-
-    private static void addPageWithoutAttribute(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.head("<script type='text/javascript'>window.onsizerejected=0;</script>");
-
-        p.form("<rich:fileUpload id='fileUpload' fileUploadListener='#{fileUploadBean.listener}' onsizerejected='window.onsizerejected++;' />");
-
-        deployment.archive().addAsWebResource(p, "withoutAttribute.xhtml");
     }
 
     @Test
@@ -126,5 +96,35 @@ public class IT_RF14257_WithContextParam extends IT_RF14257 {
         // add file not passing context param size limit
         fileUpload.addFile(createFileWithSize(contextParamSizeLimit_4KB + ONE_KB));
         assertOnsizeRejectedTriggered(1);
+    }
+
+    private static void addPageWithAttributeSizeLimitGreaterThanContextParamLimit(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.head("<script type='text/javascript'>window.onsizerejected=0;</script>");
+
+        p.form("<rich:fileUpload id='fileUpload' fileUploadListener='#{fileUploadBean.listener}' onsizerejected='window.onsizerejected++;' maxFileSize='" + attributeSizeLimit_6KB + "' />");
+
+        deployment.archive().addAsWebResource(p, "withAttributeLimit6KB.xhtml");
+    }
+
+    private static void addPageWithAttributeSizeLimitLesserThanContextParamLimit(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.head("<script type='text/javascript'>window.onsizerejected=0;</script>");
+
+        p.form("<rich:fileUpload id='fileUpload' fileUploadListener='#{fileUploadBean.listener}' onsizerejected='window.onsizerejected++;' maxFileSize='" + attributeSizeLimit_2KB + "' />");
+
+        deployment.archive().addAsWebResource(p, "withAttributeLimit2KB.xhtml");
+    }
+
+    private static void addPageWithoutAttribute(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.head("<script type='text/javascript'>window.onsizerejected=0;</script>");
+
+        p.form("<rich:fileUpload id='fileUpload' fileUploadListener='#{fileUploadBean.listener}' onsizerejected='window.onsizerejected++;' />");
+
+        deployment.archive().addAsWebResource(p, "withoutAttribute.xhtml");
     }
 }

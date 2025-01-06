@@ -34,6 +34,7 @@ import jakarta.faces.event.AbortProcessingException;
  * @author akolonitsky
  * @version 1.0
  * @since -4712-01-01
+ *
  */
 public class MethodExpressionItemChangeListener extends MethodExpressionEventListener implements ItemChangeListener {
     public MethodExpressionItemChangeListener() {

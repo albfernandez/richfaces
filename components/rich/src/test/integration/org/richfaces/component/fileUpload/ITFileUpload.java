@@ -58,6 +58,30 @@ public class ITFileUpload {
         return deployment.getFinalArchive();
     }
 
+    @Test
+    @Category({ Smoke.class })
+    public void test_file_upload() throws InterruptedException, URISyntaxException {
+        browser.get(contextPath.toExternalForm());
+
+        File file = new File(ITFileUpload.class.getResource("ITFileUpload.class").toURI());
+
+        ListComponent<? extends FileUploadItem> items = fileUpload.advanced().getItems();
+        Assert.assertTrue("List of uploaded file should be empty.", items.isEmpty());
+
+        fileUpload.addFile(file);
+        Assert.assertFalse("List of uploaded file should not be empty.", items.isEmpty());
+        Assert.assertEquals("There should be Delete link in first item", "Delete", items.getItem(0)
+            .getClearOrDeleteElement().getText());
+
+        Graphene.guardAjax(fileUpload).upload();
+
+        Assert.assertFalse("List of uploaded file should not be empty.", items.isEmpty());
+        Assert.assertEquals("There should be Clear link in first item", "Clear", items.getItem(0)
+            .getClearOrDeleteElement().getText());
+
+        Assert.assertEquals("Uploaded file", "ITFileUpload.class", output.getText());
+    }
+
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -71,29 +95,5 @@ public class ITFileUpload {
         p.form("<h:outputText id='output' value='#{fileUploadBean.uploadedFile.name}'/>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    @Test
-    @Category({Smoke.class})
-    public void test_file_upload() throws InterruptedException, URISyntaxException {
-        browser.get(contextPath.toExternalForm());
-
-        File file = new File(ITFileUpload.class.getResource("ITFileUpload.class").toURI());
-
-        ListComponent<? extends FileUploadItem> items = fileUpload.advanced().getItems();
-        Assert.assertTrue("List of uploaded file should be empty.", items.isEmpty());
-
-        fileUpload.addFile(file);
-        Assert.assertFalse("List of uploaded file should not be empty.", items.isEmpty());
-        Assert.assertEquals("There should be Delete link in first item", "Delete", items.getItem(0)
-                .getClearOrDeleteElement().getText());
-
-        Graphene.guardAjax(fileUpload).upload();
-
-        Assert.assertFalse("List of uploaded file should not be empty.", items.isEmpty());
-        Assert.assertEquals("There should be Clear link in first item", "Clear", items.getItem(0)
-                .getClearOrDeleteElement().getText());
-
-        Assert.assertEquals("Uploaded file", "ITFileUpload.class", output.getText());
     }
 }

@@ -27,10 +27,11 @@ import org.richfaces.log.RichfacesLogger;
 
 import jakarta.faces.FacesException;
 import jakarta.faces.context.ResponseWriter;
+
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
@@ -112,7 +113,7 @@ public final class ScriptUtils {
 
             boolean first = true;
 
-            for (Iterator<Object> iter = collection.iterator(); iter.hasNext(); ) {
+            for (Iterator<Object> iter = collection.iterator(); iter.hasNext();) {
                 Object element = iter.next();
 
                 if (!first) {
@@ -174,7 +175,7 @@ public final class ScriptUtils {
             }
 
             boolean ignorePropertyReadException = obj.getClass().getName().startsWith("java.sql.")
-                    || obj.getClass().equals(SimpleTimeZone.class);
+                || obj.getClass().equals(SimpleTimeZone.class);
             boolean first = true;
 
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
@@ -233,8 +234,8 @@ public final class ScriptUtils {
      */
     public static String toScript(Object obj) {
         StringBuilder sb = new StringBuilder();
-        if ((obj != null) && (obj instanceof String))
-            sb.ensureCapacity((int) (((String) obj).length() * 1.66));
+        if (obj instanceof String)
+            sb.ensureCapacity((int)(((String) obj).length() * 1.66));
 
         try {
             appendScript(sb, obj, new IdentityHashMap<Object, Boolean>());
@@ -262,7 +263,7 @@ public final class ScriptUtils {
         int start = 0;
         int end = s.length();
 
-        for (int i = start; i < end; i++) {
+        for(int i = start; i < end; i++){
             char c = s.charAt(i);
 
             if (JSEncoder.compile(c))
@@ -273,16 +274,16 @@ public final class ScriptUtils {
 
             appendable.append(JSEncoder.encodeCharBuffer(c));
             start = i + 1;
-        }
+       }
 
-        if (start != end)
+       if (start != end)
             appendable.append(s, start, end);
-    }
+   }
 
 
     public static String getValidJavascriptName(String script) {
-        String s = "av_" + getMD5scriptHash(script);
-        StringBuffer buf = null;
+        String s = "av_" + getScriptHash(script);
+        StringBuilder sb = null;
         final int len = s.length();
 
         for (int i = 0; i < len; i++) {
@@ -291,35 +292,29 @@ public final class ScriptUtils {
             if (Character.isLetterOrDigit(c) || c == '_') {
 
                 // allowed char
-                if (buf != null) {
-                    buf.append(c);
+                if (sb != null) {
+                    sb.append(c);
                 }
             } else {
-                if (buf == null) {
-                    buf = new StringBuffer(s.length() + 10);
-                    buf.append(s.substring(0, i));
+                if (sb == null) {
+                    sb = new StringBuilder(s.length() + 10);
+                    sb.append(s.substring(0, i));
                 }
 
-                buf.append('_');
+                sb.append('_');
 
                 if (c < 16) {
 
                     // pad single hex digit values with '0' on the left
-                    buf.append('0');
+                    sb.append('0');
                 }
 
                 if (c < 128) {
 
                     // first 128 chars match their byte representation in UTF-8
-                    buf.append(Integer.toHexString(c).toUpperCase());
+                    sb.append(Integer.toHexString(c).toUpperCase());
                 } else {
-                    byte[] bytes;
-
-                    try {
-                        bytes = Character.toString(c).getBytes("UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        throw new RuntimeException(e);
-                    }
+                    byte[] bytes = Character.toString(c).getBytes(StandardCharsets.UTF_8);
 
                     for (int j = 0; j < bytes.length; j++) {
                         int intVal = bytes[j];
@@ -331,37 +326,32 @@ public final class ScriptUtils {
                         } else if (intVal < 16) {
 
                             // pad single hex digit values with '0' on the left
-                            buf.append('0');
+                            sb.append('0');
                         }
 
-                        buf.append(Integer.toHexString(intVal).toUpperCase());
+                        sb.append(Integer.toHexString(intVal).toUpperCase());
                     }
                 }
             }
         }
 
-        return buf == null ? s : buf.toString();
+        return sb == null ? s : sb.toString();
     }
 
-    public static String getMD5scriptHash(String script) {
-        byte[] bytesOfScript = new byte[0];
-        try {
-            bytesOfScript = script.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("UTF-8 appears to be an unsupported character set on this platform", e);
-        }
+    public static String getScriptHash(String script) {
+        byte[] bytesOfScript = script.getBytes(StandardCharsets.UTF_8);
 
         MessageDigest md = null;
         try {
-            md = MessageDigest.getInstance("MD5");
+            md = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Unable to locate MD5 hash algorithm", e);
+            throw new RuntimeException("Unable to locate SHA-256 hash algorithm", e);
         }
         md.reset();
         //byte[] thedigest = md.digest(bytesOfScript);
         md.update(bytesOfScript);
         byte[] messageDigest = md.digest();
-        StringBuffer hexString = new StringBuffer();
+        StringBuilder hexString = new StringBuilder();
         for (int i = 0; i < messageDigest.length; i++) {
             String hex = Integer.toHexString(0xFF & messageDigest[i]);
             if (hex.length() == 1) {
@@ -392,7 +382,7 @@ public final class ScriptUtils {
      * Test for valid value of property. by default, for non-setted properties with Java primitive types of JSF component return
      * appropriate MIN_VALUE .
      *
-     * @param property - value of property returned from {@link javax.faces.component.UIComponent#getAttributes()}
+     * @param property - value of property returned from {@link jakarta.faces.component.UIComponent#getAttributes()}
      * @return true for setted property, false otherthise.
      */
     public static boolean isValidProperty(Object property) {

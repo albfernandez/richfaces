@@ -21,8 +21,9 @@
  */
 package org.richfaces.context;
 
-import org.ajax4jsf.component.AjaxClientBehavior;
-import org.richfaces.util.Sets;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.behavior.ClientBehavior;
@@ -31,9 +32,9 @@ import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
+
+import org.ajax4jsf.component.AjaxClientBehavior;
+import org.richfaces.util.Sets;
 
 /**
  * User: akolonitsky Date: Oct 13, 2009
@@ -76,7 +77,7 @@ abstract class ActivatorComponentCallbackBase implements VisitCallback {
         // TODO - unit tests check for "@none" element
         Collection<String> result = Sets.asSet(value);
         if (result == null) {
-            result = new LinkedHashSet<String>(1);
+            result = new LinkedHashSet<>(1);
         }
 
         return result;

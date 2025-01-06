@@ -21,17 +21,6 @@
  */
 package org.richfaces.application.configuration;
 
-import com.google.common.base.Strings;
-import org.ajax4jsf.resource.util.URLToStreamHelper;
-import org.richfaces.el.util.ELUtils;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-
-import jakarta.el.ValueExpression;
-import jakarta.faces.context.FacesContext;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -43,13 +32,26 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import org.ajax4jsf.resource.util.URLToStreamHelper;
+import org.richfaces.el.util.ELUtils;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
+import com.google.common.base.Strings;
+
 /**
  * @author Nick Belaevski
  */
 public class ConfigurationServiceImpl implements ConfigurationService {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     private static final String JNDI_COMP_PREFIX = "java:comp/env/";
-    private Map<Enum<?>, ValueExpressionHolder> itemsMap = new ConcurrentHashMap<Enum<?>, ValueExpressionHolder>();
+    private Map<Enum<?>, ValueExpressionHolder> itemsMap = new ConcurrentHashMap<>();
     private AtomicBoolean webEnvironmentUnavailableLogged = new AtomicBoolean();
 
     private ConfigurationItem getConfigurationItem(Enum<?> enumKey) {
@@ -172,7 +174,8 @@ public class ConfigurationServiceImpl implements ConfigurationService {
                 synchronized (key.getClass()) {
                     Properties properties = loadProperties(configurationItemsBundle.propertiesFile());
 
-                    Iterator<? extends Enum> keys = EnumSet.allOf(key.getClass()).iterator();
+                    @SuppressWarnings({ "unchecked", "rawtypes" })
+					Iterator<? extends Enum> keys = EnumSet.allOf(key.getClass()).iterator();
                     while (keys.hasNext()) {
                         Enum<?> nextBundleKey = (Enum<?>) keys.next();
 

@@ -25,6 +25,7 @@ import java.awt.Graphics2D;
 
 /**
  * @author Konstantin Mishin
+ *
  */
 public class SpinnerArrowTop extends SpinnerArrowBase {
     @Override

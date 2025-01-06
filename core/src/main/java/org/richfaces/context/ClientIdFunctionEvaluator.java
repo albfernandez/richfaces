@@ -21,15 +21,17 @@
  */
 package org.richfaces.context;
 
-import com.google.common.collect.Lists;
-import org.richfaces.context.IdParser.Node;
-import org.richfaces.util.SeparatorChar;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+
+import org.richfaces.context.IdParser.Node;
+import org.richfaces.util.SeparatorChar;
+
+import com.google.common.collect.Lists;
 
 class ClientIdFunctionEvaluator {
     private FacesContext context;

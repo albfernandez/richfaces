@@ -21,13 +21,14 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import org.richfaces.photoalbum.util.Constants;
-import org.richfaces.photoalbum.util.ImageDimension;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
+import org.richfaces.photoalbum.util.Constants;
+import org.richfaces.photoalbum.util.ImageDimension;
+
 /**
+ *
  * Convenience UI class for image resizing
  *
  * @author Andrey Markhel
@@ -50,6 +51,7 @@ public class ImageSizeHelper {
     }
 
     /**
+     *
      * Convenience method invoked after user want to change image dimensions
      *
      * @param value - new image dimension value

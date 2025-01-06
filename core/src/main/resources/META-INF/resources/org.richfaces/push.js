@@ -146,7 +146,7 @@
           var message = {
               topic: messageToken[1],
               number: parseInt(messageToken[2]),
-              data: $.parseJSON(messageToken[3])
+              data: JSON.parse(messageToken[3])
           };
 
           if (message.number <= this._lastMessageNumber) {
@@ -210,7 +210,7 @@
         type: 'POST',
         url: this._pushResourceUrl,
         success: $.proxy(function(response) {
-          var data = $.parseJSON(response);
+          var data = JSON.parse(response);
 
           for (var address in data.failures) {
             $(document).trigger('error.push.RICH.' + address);

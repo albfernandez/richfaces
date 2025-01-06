@@ -21,9 +21,6 @@
  */
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.component.AbstractChart;
-import org.richfaces.model.PlotClickEvent;
-
 import jakarta.el.MethodExpression;
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
@@ -34,23 +31,29 @@ import jakarta.faces.view.facelets.Metadata;
 import jakarta.faces.view.facelets.MetadataTarget;
 import jakarta.faces.view.facelets.TagAttribute;
 
+import org.richfaces.component.AbstractChart;
+import org.richfaces.model.PlotClickEvent;
+
 public class ChartTagHandler extends ComponentHandler {
 
 
-    private static final MetaRule META_RULE = new MetaRule() {
+    public ChartTagHandler(ComponentConfig config) {
+        super(config);
+
+    }
+
+    private static final MetaRule META_RULE = new MetaRule(){
 
         public Metadata applyRule(String name, final TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(AbstractChart.class)) {
                 if ("plotClickListener".equals(name)) {
                     return new Metadata() {
-                        private final Class<?>[] SIGNATURE = {PlotClickEvent.class};
-
+                        private final Class<?>[] SIGNATURE={PlotClickEvent.class};
                         public void applyMetadata(FaceletContext ctx, Object instance) {
                             ((AbstractChart) instance).setPlotClickListener(getValue(ctx));
                         }
-
-                        private MethodExpression getValue(FaceletContext ctx) {
-                            return attribute.getMethodExpression(ctx, Void.class, SIGNATURE);
+                        private MethodExpression getValue(FaceletContext ctx){
+                           return attribute.getMethodExpression(ctx, Void.class, SIGNATURE);
                         }
                     };
                 }
@@ -58,11 +61,6 @@ public class ChartTagHandler extends ComponentHandler {
             return null;
         }
     };
-
-    public ChartTagHandler(ComponentConfig config) {
-        super(config);
-
-    }
 
     protected MetaRuleset createMetaRuleset(Class type) {
         MetaRuleset m = super.createMetaRuleset(type);

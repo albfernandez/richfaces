@@ -21,11 +21,12 @@
  */
 package org.richfaces.demo.iteration.model.tree;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  * @author Nick Belaevski
+ *
  */
 @ManagedBean
 @ViewScoped

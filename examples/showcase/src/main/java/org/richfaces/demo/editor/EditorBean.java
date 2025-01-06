@@ -1,9 +1,10 @@
 package org.richfaces.demo.editor;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ManagedProperty;
-import jakarta.faces.bean.ViewScoped;
 import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
@@ -14,7 +15,7 @@ public class EditorBean implements Serializable {
     private transient FairyTailBean fairyTailBean;
 
     private String toolbar = "basic";
-    private String skin = "moono";
+    private String skin = "moono-lisa";
     private String language = "fr";
     private String value = null;
 

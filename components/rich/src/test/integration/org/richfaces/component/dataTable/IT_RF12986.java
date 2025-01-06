@@ -50,11 +50,27 @@ public class IT_RF12986 {
         return deployment.getFinalArchive();
     }
 
+    @Test
+    public void check_row_selection() throws InterruptedException {
+        browser.get(contextPath.toExternalForm());
+        // click on the 2nd row
+        Graphene.guardAjax(rows.get(1)).click();
+        Assert.assertEquals("6", selection.getText());
+        // move forward one page and click on the row with the same index
+        Graphene.guardAjax(nextButton).click();
+        Graphene.guardAjax(rows.get(1)).click();
+        Assert.assertEquals("2", selection.getText());
+        // got to the last page and click on the only row
+        Graphene.guardAjax(lastButton).click();
+        Graphene.guardAjax(rows.get(0)).click();
+        Assert.assertEquals("0", selection.getText());
+    }
+
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.form("<rich:dataTable id='tableId' value='#{iterationBean.values}' var='bean' rows='3'> ");
         p.form(
-                "    <a4j:ajax execute='@this' event='rowclick' listener='#{iterationBean.setSelectedValue(bean)}' render=':res'/>");
+            "    <a4j:ajax execute='@this' event='rowclick' listener='#{iterationBean.setSelectedValue(bean)}' render=':res'/>");
         p.form("    <rich:collapsibleSubTable id='collapsibleTableId' rows='3'/> ");
         p.form("    <rich:column> ");
         p.form("        <f:facet name='header'> ");
@@ -73,22 +89,6 @@ public class IT_RF12986 {
         p.body("</a4j:outputPanel>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    @Test
-    public void check_row_selection() throws InterruptedException {
-        browser.get(contextPath.toExternalForm());
-        // click on the 2nd row
-        Graphene.guardAjax(rows.get(1)).click();
-        Assert.assertEquals("6", selection.getText());
-        // move forward one page and click on the row with the same index
-        Graphene.guardAjax(nextButton).click();
-        Graphene.guardAjax(rows.get(1)).click();
-        Assert.assertEquals("2", selection.getText());
-        // got to the last page and click on the only row
-        Graphene.guardAjax(lastButton).click();
-        Graphene.guardAjax(rows.get(0)).click();
-        Assert.assertEquals("0", selection.getText());
     }
 
 }

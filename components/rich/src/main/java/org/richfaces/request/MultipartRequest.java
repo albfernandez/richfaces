@@ -25,9 +25,16 @@ import org.richfaces.model.UploadedFile;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public interface MultipartRequest {
     String REQUEST_ATTRIBUTE_NAME = MultipartRequest.class.getName();
+
+    public enum ResponseState {
+        ok,
+        sizeExceeded,
+        serverError
+    }
 
     Iterable<UploadedFile> getUploadedFiles();
 
@@ -36,10 +43,4 @@ public interface MultipartRequest {
     void release();
 
     String getUploadId();
-
-    public enum ResponseState {
-        ok,
-        sizeExceeded,
-        serverError
-    }
 }

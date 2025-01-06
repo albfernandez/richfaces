@@ -1,5 +1,9 @@
 package org.richfaces.renderkit;
 
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.context.FacesContext;
+
 import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.AbstractFocus;
@@ -9,16 +13,12 @@ import org.richfaces.renderkit.focus.FocusRendererInterface;
 import org.richfaces.renderkit.focus.FormFocusRenderStrategy;
 import org.richfaces.renderkit.focus.ViewFocusRenderStrategy;
 
-import jakarta.faces.application.ResourceDependencies;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.context.FacesContext;
-
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
-        @ResourceDependency(library = "com.jqueryui", name = "core.js"),
-        @ResourceDependency(library = "org.richfaces", name = "focus.js")})
+        @ResourceDependency(library = "com.jqueryui", name = "jquery-ui.js"),
+        @ResourceDependency(library = "org.richfaces", name = "focus.js") })
 public class FocusRendererBase extends RendererBase implements FocusRendererInterface {
 
     public static final String RENDERER_TYPE = "org.richfaces.FocusRenderer";

@@ -33,8 +33,8 @@
 
         this.isMouseDown = false;
         this.list
-            .bind("mousedown", $.proxy(this.__onMouseDown, this))
-            .bind("mouseup", $.proxy(this.__onMouseUp, this));
+            .on("mousedown", $.proxy(this.__onMouseDown, this))
+            .on("mouseup", $.proxy(this.__onMouseUp, this));
 
 
         bindEventHandlers.call(this);
@@ -463,7 +463,7 @@
             },
 
             setFocus : function() {
-    		    this.focusKeeper.focus();
+    		    this.focusKeeper.trigger("focus");
 	        }
 
         }

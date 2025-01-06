@@ -21,7 +21,10 @@
  */
 package org.richfaces.fragment.messages;
 
-import com.google.common.base.Predicate;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.GrapheneElementImpl;
 import org.jboss.arquillian.graphene.wait.FluentWait;
@@ -39,17 +42,12 @@ import org.richfaces.fragment.message.Message;
 import org.richfaces.fragment.message.Message.MessageType;
 import org.richfaces.fragment.messages.RichFacesMessages.MessageImpl;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Component for rich:messages.
- *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class RichFacesMessages extends AbstractListComponent<MessageImpl> implements Messages<MessageImpl>, AdvancedInteractions<Messages.AdvancedMessagesInteractions> {
 
-    private final AdvancedMessagesInteractionsImpl interactions = new AdvancedMessagesInteractionsImpl();
     @FindBy(css = "span.rf-msgs-err")
     private List<MessageImpl> errorMessages;
     @FindBy(css = "span.rf-msgs-ftl")
@@ -60,6 +58,8 @@ public class RichFacesMessages extends AbstractListComponent<MessageImpl> implem
     private List<MessageImpl> okMessages;
     @FindBy(css = "span.rf-msgs-wrn")
     private List<MessageImpl> warnMessages;
+
+    private final AdvancedMessagesInteractionsImpl interactions = new AdvancedMessagesInteractionsImpl();
 
     @Override
     public AdvancedMessagesInteractionsImpl advanced() {
@@ -86,11 +86,22 @@ public class RichFacesMessages extends AbstractListComponent<MessageImpl> implem
 
     public static class MessageImpl extends AbstractMessage implements Message, ListItem {
 
-        private final AdvancedMessageInMessagesInteractions interactions = new AdvancedMessageInMessagesInteractions();
         @FindBy(className = "rf-msgs-det")
         private WebElement messageDetailElement;
         @FindBy(className = "rf-msgs-sum")
         private WebElement messageSummaryElement;
+
+        private final AdvancedMessageInMessagesInteractions interactions = new AdvancedMessageInMessagesInteractions();
+
+        @Override
+        public AdvancedMessageInteractions advanced() {
+            return interactions;
+        }
+
+        @Override
+        protected String getCssClass(MessageType type) {
+            return getCssClassForMessageType(type);
+        }
 
         public static String getCssClassForMessageType(MessageType type) {
             switch (type) {
@@ -107,16 +118,6 @@ public class RichFacesMessages extends AbstractListComponent<MessageImpl> implem
                 default:
                     throw new UnsupportedOperationException("Unknown message type " + type);
             }
-        }
-
-        @Override
-        public AdvancedMessageInteractions advanced() {
-            return interactions;
-        }
-
-        @Override
-        protected String getCssClass(MessageType type) {
-            return getCssClassForMessageType(type);
         }
 
         @Override
@@ -160,10 +161,10 @@ public class RichFacesMessages extends AbstractListComponent<MessageImpl> implem
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return !isVisible();
                         }
                     });
@@ -177,10 +178,10 @@ public class RichFacesMessages extends AbstractListComponent<MessageImpl> implem
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until(new Predicate<WebDriver>() {
+                    wait.until(new Function<WebDriver, Boolean>() {
 
                         @Override
-                        public boolean apply(WebDriver input) {
+                        public Boolean apply(WebDriver input) {
                             return isVisible();
                         }
                     });

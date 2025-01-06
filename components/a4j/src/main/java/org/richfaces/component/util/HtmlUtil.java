@@ -1,35 +1,37 @@
 /**
  * License Agreement.
- * <p>
- * JBoss RichFaces - Ajax4jsf Component Library
- * <p>
+ *
+ *  JBoss RichFaces - Ajax4jsf Component Library
+ *
  * Copyright (C) 2007  Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.component.util;
 
-import com.google.common.base.Strings;
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.renderkit.util.HtmlDimensions;
-import org.richfaces.renderkit.util.RendererUtils;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.renderkit.util.HtmlDimensions;
+import org.richfaces.renderkit.util.RendererUtils;
+
+import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com created 09.02.2007
@@ -49,7 +51,7 @@ public final class HtmlUtil {
         Double doubleDelta = HtmlDimensions.decode(delta);
         Double decoded = HtmlDimensions.decode(declaration);
 
-        return HtmlDimensions.formatPx(new Double(decoded.doubleValue() + doubleDelta.doubleValue()));
+        return HtmlDimensions.formatPx(Double.valueOf(decoded.doubleValue() + doubleDelta.doubleValue()));
     }
 
     private static String escapeReplacement(String s) {
@@ -76,6 +78,7 @@ public final class HtmlUtil {
      */
     public static String expandIdSelector(String selector, UIComponent component, FacesContext context) {
         Matcher matcher = ID_SELECTOR_PATTERN.matcher(selector);
+        // NOTE: can't use StringBuilder here since Matcher.appendReplacement() and Matcher.appendTail() won't accept a StringBuilder as parameter until Java 9
         StringBuffer sb = new StringBuffer();
 
         while (matcher.find()) {
@@ -96,22 +99,22 @@ public final class HtmlUtil {
     }
 
     public static String idsToIdSelector(String ids) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         if (ids != null) {
             String[] idString = ids.split("\\s*,\\s*");
 
             for (int i = 0; i < idString.length; i++) {
                 if (i > 0) {
-                    buffer.append(",");
+                    sb.append(",");
                 }
 
                 idString[i] = idString[i].replaceAll(":", "\\\\:");
-                buffer.append("#").append(idString[i]);
+                sb.append("#").append(idString[i]);
             }
         }
 
-        return buffer.toString();
+        return sb.toString();
     }
 
     public static boolean shouldWriteId(UIComponent component) {
@@ -156,9 +159,9 @@ public final class HtmlUtil {
 
     public static String escapeHtml(String html) {
         return html.replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll("\"", "&quot;")
-                .replaceAll("'", "&#39;");
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll("\"", "&quot;")
+        .replaceAll("'", "&#39;");
     }
 }

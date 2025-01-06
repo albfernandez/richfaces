@@ -20,7 +20,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.component;
-
 import org.richfaces.cdk.annotations.Attribute;
 
 /**
@@ -53,7 +52,7 @@ public interface AxisAttributes {
     String getMax();
 
     /**
-     * It’s the fraction of margin that the scaling algorithm will add to avoid
+     * It's the fraction of margin that the scaling algorithm will add to avoid
      * that the outermost points ends up on the grid border.
      */
     @Attribute

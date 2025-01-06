@@ -21,14 +21,14 @@
  */
 package org.richfaces.showcase.functions;
 
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.Keys;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.functions.page.FunctionsPage;
-
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -43,15 +43,15 @@ public class ITestFunctions extends AbstractWebDriverTest {
     public void testFunctionFindComponentCall() {
         String testString = "test string";
         waitModel().until()
-                .element(page.getInput())
-                .is()
-                .visible();
+            .element(page.getInput())
+            .is()
+            .visible();
         page.getInput().sendKeys(testString);
         Graphene.guardHttp(page.getInput()).sendKeys(Keys.ENTER);
         Graphene.waitGui().until("The output should be test string")
-                .element(page.getOutput())
-                .text()
-                .equalTo(testString);
+            .element(page.getOutput())
+            .text()
+            .equalTo(testString);
     }
 
 }

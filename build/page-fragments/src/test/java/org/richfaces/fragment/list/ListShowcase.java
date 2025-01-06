@@ -37,9 +37,9 @@ public class ListShowcase {
         list.getItems();
 
         list.getItems(ChoicePickerHelper.byWebElement()
-                .attribute("class").contains("even")
-                .and()
-                .attribute("class").contains("odd"));
+            .attribute("class").contains("even")
+            .and()
+            .attribute("class").contains("odd"));
 
         int size = list.size();
         list.isEmpty();

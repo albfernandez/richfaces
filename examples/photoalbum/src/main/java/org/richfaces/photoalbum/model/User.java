@@ -21,12 +21,11 @@
  */
 package org.richfaces.photoalbum.model;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.OrderBy;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.persistence.CascadeType;
@@ -44,11 +43,13 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import java.io.File;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.OrderBy;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Class for representing User Entity EJB3 Entity Bean
@@ -57,18 +58,18 @@ import java.util.List;
  */
 
 @NamedQueries({
-        @NamedQuery(name = "user-login", query = "select u from User u where u.login = :username and u.passwordHash = :password"),
-        @NamedQuery(name = "user-comments", query = "select c from Comment c where c.author = :author"),
-        @NamedQuery(name = "user-exist", query = "select u from User u where u.login = :login"),
-        @NamedQuery(name = "email-exist", query = "select u from User u where u.email = :email"),
-        @NamedQuery(name = "user-user", query = "select u from User u where u.login = :login"),
-        @NamedQuery(name = "user-fb-login", query = "select u from User u where u.fbId = :fbId"),
-        @NamedQuery(name = "user-gplus-login", query = "select u from User u where u.gPlusId = :gPlusId")})
+    @NamedQuery(name = "user-login", query = "select u from User u where u.login = :username and u.passwordHash = :password"),
+    @NamedQuery(name = "user-comments", query = "select c from Comment c where c.author = :author"),
+    @NamedQuery(name = "user-exist", query = "select u from User u where u.login = :login"),
+    @NamedQuery(name = "email-exist", query = "select u from User u where u.email = :email"),
+    @NamedQuery(name = "user-user", query = "select u from User u where u.login = :login"),
+    @NamedQuery(name = "user-fb-login", query = "select u from User u where u.fbId = :fbId"),
+    @NamedQuery(name = "user-gplus-login", query = "select u from User u where u.gPlusId = :gPlusId") })
 @Entity
 @SessionScoped
 @Table(name = "User", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "login"),
-        @UniqueConstraint(columnNames = "email")})
+    @UniqueConstraint(columnNames = "login"),
+    @UniqueConstraint(columnNames = "email") })
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -81,7 +82,7 @@ public class User implements Serializable {
     @NotEmpty
     @Column(length = 30)
     private String fbId = "1";
-
+    
     @NotNull
     @NotEmpty
     @Column(length = 30)

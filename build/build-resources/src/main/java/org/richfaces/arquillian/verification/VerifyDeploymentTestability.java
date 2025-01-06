@@ -52,7 +52,7 @@ public class VerifyDeploymentTestability {
             // Deployment is testable
             if (deployment.testable()) {
                 throw new IllegalArgumentException("Test that is marked as @RunAsClient should not use @Deployment(testable=true): "
-                        + testClass.getJavaClass().getName());
+                    + testClass.getJavaClass().getName());
             }
         }
     }

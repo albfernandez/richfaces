@@ -21,8 +21,14 @@
  */
 package org.richfaces.showcase.push;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
+import static java.text.MessageFormat.format;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -31,12 +37,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.showcase.AbstractWebDriverTest;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
-import static java.text.MessageFormat.format;
+import com.google.common.collect.Lists;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -48,11 +49,11 @@ public class ITestPushCdi extends AbstractWebDriverTest {
     private static final String TEST_STRING_TEMPLATE = "Test string {0}";
 
     private final List<String> EXPECTED_MESSAGES_ON_CONSUMERS = Lists.newArrayList(
-            "Test string 5\nTest string 4\nTest string 3\nTest string 2\nTest string 1",
-            "Test string 5\nTest string 4\nTest string 3\nTest string 2",
-            "Test string 5\nTest string 4\nTest string 3",
-            "Test string 5\nTest string 4",
-            "Test string 5"
+        "Test string 5\nTest string 4\nTest string 3\nTest string 2\nTest string 1",
+        "Test string 5\nTest string 4\nTest string 3\nTest string 2",
+        "Test string 5\nTest string 4\nTest string 3",
+        "Test string 5\nTest string 4",
+        "Test string 5"
     );
 
     @FindBy(className = "message")
@@ -104,7 +105,7 @@ public class ITestPushCdi extends AbstractWebDriverTest {
         messageInputElement.sendKeys(format(TEST_STRING_TEMPLATE, (i + 1)));
         Graphene.guardAjax(submitButton).click();
         Graphene.waitGui().withMessage("The input should be empty after submiting!")
-                .until().element(messageInputElement).value().equalTo("");
+            .until().element(messageInputElement).value().equalTo("");
     }
 
     @Test
@@ -125,7 +126,7 @@ public class ITestPushCdi extends AbstractWebDriverTest {
         checkExpectedMessagesOnConsumers(consumersWindows);
     }
 
-    private class WindowsHandlesSizeIncreasePredicate implements Predicate<WebDriver> {
+    private class WindowsHandlesSizeIncreasePredicate implements Function<WebDriver, Boolean> {
 
         private final int previousWindowHandlesSize;
 
@@ -134,14 +135,12 @@ public class ITestPushCdi extends AbstractWebDriverTest {
         }
 
         @Override
-        public boolean apply(WebDriver d) {
+        public Boolean apply(WebDriver d) {
             return (d.getWindowHandles().size() - 1) > previousWindowHandlesSize;
         }
-    }
+    };
 
-    ;
-
-    private class ConsumerHasMessagePredicate implements Predicate<WebDriver> {
+    private class ConsumerHasMessagePredicate implements Function<WebDriver, Boolean> {
 
         private final int index;
         private String message, actualText, expectedText;
@@ -151,7 +150,7 @@ public class ITestPushCdi extends AbstractWebDriverTest {
         }
 
         @Override
-        public boolean apply(WebDriver t) {
+        public Boolean apply(WebDriver t) {
             actualText = webDriver.findElement(MESSAGES_BY_ID).getText();
             expectedText = EXPECTED_MESSAGES_ON_CONSUMERS.get(index);
             boolean result = actualText.equals(expectedText);

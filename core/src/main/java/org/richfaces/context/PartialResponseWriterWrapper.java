@@ -22,12 +22,13 @@
 
 package org.richfaces.context;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.PartialResponseWriter;
-import jakarta.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.PartialResponseWriter;
+import jakarta.faces.context.ResponseWriter;
 
 /**
  * Wraps {@link PartialResponseWriter} and delegates all calls to wrapped writer by default.

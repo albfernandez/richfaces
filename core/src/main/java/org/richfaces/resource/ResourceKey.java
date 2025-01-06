@@ -21,9 +21,9 @@
  */
 package org.richfaces.resource;
 
-import com.google.common.base.Function;
-
 import jakarta.faces.application.Resource;
+
+import com.google.common.base.Function;
 
 /**
  * Encapsulates resource name and resource library
@@ -32,14 +32,6 @@ import jakarta.faces.application.Resource;
  */
 public final class ResourceKey {
 
-    /**
-     * A function for creating {@link ResourceKey} from strings by calling {@link #create(String)} factory.
-     */
-    public static final Function<String, ResourceKey> FACTORY = new Function<String, ResourceKey>() {
-        public ResourceKey apply(String from) {
-            return create(from);
-        }
-    };
     private final String resourceName;
     private final String libraryName;
 
@@ -47,6 +39,20 @@ public final class ResourceKey {
         super();
         this.resourceName = resourceName;
         this.libraryName = libraryName;
+    }
+
+    /**
+     * Returns resource's name
+     */
+    public String getResourceName() {
+        return resourceName;
+    }
+
+    /**
+     * Returns library's name
+     */
+    public String getLibraryName() {
+        return libraryName;
     }
 
     /**
@@ -86,20 +92,6 @@ public final class ResourceKey {
         }
 
         return resourceQualifier.substring(0, idx);
-    }
-
-    /**
-     * Returns resource's name
-     */
-    public String getResourceName() {
-        return resourceName;
-    }
-
-    /**
-     * Returns library's name
-     */
-    public String getLibraryName() {
-        return libraryName;
     }
 
     @Override
@@ -146,4 +138,13 @@ public final class ResourceKey {
     public String toString() {
         return libraryName + ":" + resourceName;
     }
+
+    /**
+     * A function for creating {@link ResourceKey} from strings by calling {@link #create(String)} factory.
+     */
+    public static final Function<String, ResourceKey> FACTORY = new Function<String, ResourceKey>() {
+        public ResourceKey apply(String from) {
+            return create(from);
+        }
+    };
 }

@@ -21,11 +21,11 @@
  */
 package org.richfaces.resource.mapping;
 
-import org.richfaces.application.CoreConfiguration;
-import org.richfaces.application.configuration.ConfigurationServiceHelper;
-
 import jakarta.faces.application.ProjectStage;
 import jakarta.faces.context.FacesContext;
+
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
+import org.richfaces.application.CoreConfiguration;
 
 /**
  * <p>
@@ -71,39 +71,6 @@ enum ResourceLoadingOptimizationConfiguration {
 
     /**
      * <p>
-     * Constructs infix composed from items of enumeration of features which are turned on in current {@link ProjectStage}.
-     * </p>
-     *
-     * <p>
-     * If no feature is enabled, infix "Static" is returned.
-     * </p>
-     *
-     * <p>
-     * Items are composed in order in which are specified in {@link ResourceMappingConfiguration} enumeration.
-     * </p>
-     *
-     * @return infix composed from items of enumeration of features which are turned on in current {@link ProjectStage};
-     * "Static" is returned when no other feature enabled
-     */
-    private static String getEnabledFeatures() {
-        StringBuffer affix = new StringBuffer();
-        for (ResourceLoadingOptimizationConfiguration feature : ResourceLoadingOptimizationConfiguration.values()) {
-            if (feature.enabled()) {
-                affix.append(feature.toString());
-            }
-        }
-        if (affix.length() == 0) {
-            return STATIC_RESOURCES_FEATURE_NAME;
-        }
-        return affix.toString();
-    }
-
-    private static String format(String string, String message) {
-        return string.replace(FEATURES_PLACEHOLDER, message);
-    }
-
-    /**
-     * <p>
      * Determines if the feature is enabled in current project stage.
      * </p>
      *
@@ -121,5 +88,38 @@ enum ResourceLoadingOptimizationConfiguration {
         }
         ProjectStage projectStage = FacesContext.getCurrentInstance().getApplication().getProjectStage();
         return "All".equals(configuredPhases) || configuredPhases.matches("(^|.*,)" + projectStage.toString() + "($|,.*)");
+    }
+
+    /**
+     * <p>
+     * Constructs infix composed from items of enumeration of features which are turned on in current {@link ProjectStage}.
+     * </p>
+     *
+     * <p>
+     * If no feature is enabled, infix "Static" is returned.
+     * </p>
+     *
+     * <p>
+     * Items are composed in order in which are specified in {@link ResourceMappingConfiguration} enumeration.
+     * </p>
+     *
+     * @return infix composed from items of enumeration of features which are turned on in current {@link ProjectStage};
+     *         "Static" is returned when no other feature enabled
+     */
+    private static String getEnabledFeatures() {
+        StringBuilder affix = new StringBuilder();
+        for (ResourceLoadingOptimizationConfiguration feature : ResourceLoadingOptimizationConfiguration.values()) {
+            if (feature.enabled()) {
+                affix.append(feature.toString());
+            }
+        }
+        if (affix.length() == 0) {
+            return STATIC_RESOURCES_FEATURE_NAME;
+        }
+        return affix.toString();
+    }
+
+    private static String format(String string, String message) {
+        return string.replace(FEATURES_PLACEHOLDER, message);
     }
 }

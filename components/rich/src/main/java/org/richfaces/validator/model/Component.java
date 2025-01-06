@@ -22,10 +22,11 @@
 
 package org.richfaces.validator.model;
 
-import com.google.common.collect.Lists;
-
-import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
+
+import jakarta.xml.bind.annotation.XmlElement;
+
+import com.google.common.collect.Lists;
 
 public class Component {
     private String type;

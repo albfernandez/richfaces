@@ -21,8 +21,9 @@
  */
 package org.richfaces.fragment.common;
 
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
+import java.util.Iterator;
+import java.util.List;
+
 import org.jboss.arquillian.graphene.context.GrapheneContext;
 import org.jboss.arquillian.graphene.enricher.WebElementUtils;
 import org.jboss.arquillian.graphene.javascript.JSInterfaceFactory;
@@ -38,10 +39,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.util.Iterator;
-import java.util.List;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public final class Utils {
@@ -56,14 +58,14 @@ public final class Utils {
             return (JavascriptExecutor) context.getWebDriver(JavascriptExecutor.class);
         }
         throw new RuntimeException(
-                "Cannot obtain JavascriptExecutor from element which is not an instance of GrapheneProxyInstance.");
+            "Cannot obtain JavascriptExecutor from element which is not an instance of GrapheneProxyInstance.");
     }
 
     /**
      * Returns the result of invocation of jQuery function <code>index()</code> on given element.
      *
      * @param element element on which the command will be executed, has to be instance of
-     *                org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance
+     * org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance
      */
     public static int getIndexOfElement(WebElement element) {
         return Integer.valueOf(returningJQ(getExecutorFromElement(element), "index()", element));
@@ -81,7 +83,7 @@ public final class Utils {
     /**
      * Returns the closest ancestor with tagName from the element.
      *
-     * @param element                  element from which will be the ancestor found
+     * @param element element from which will be the ancestor found
      * @param tagNameOfAncestorElement tagName of the ancestor to be found
      */
     public static WebElement getAncestorOfElement(WebElement element, String tagNameOfAncestorElement) {
@@ -100,7 +102,7 @@ public final class Utils {
     /**
      * Returns the closest following sibling with tagName from the element.
      *
-     * @param element          element from which will be the sibling found
+     * @param element element from which will be the sibling found
      * @param tagNameofSibling tagName of the sibling to be found
      */
     public static WebElement getNextSiblingOfElement(WebElement element, String tagNameofSibling) {
@@ -119,7 +121,7 @@ public final class Utils {
     /**
      * Returns the closest preceding sibling with tagName from the element.
      *
-     * @param element          element from which will be the sibling found
+     * @param element element from which will be the sibling found
      * @param tagNameofSibling tagName of the sibling to be found
      */
     public static WebElement getPreviousSiblingOfElement(WebElement element, String tagNameofSibling) {
@@ -133,13 +135,13 @@ public final class Utils {
 
     /**
      * Returns the given option of the component determined by its root element.
-     * <p>
+     *
      * For example <tt>getComponentOption(rootOfHotKey, "key")</tt> will return concrete value of the hotkey's option
      * <tt>key</tt>
      *
      * @param rootOfComponent
      * @param option
-     * @return
+     * @return  the given option of the component determined by its root element.
      */
     @SuppressWarnings("unchecked")
     public static <T> Optional<T> getComponentOption(WebElement rootOfComponent, String option) {
@@ -148,7 +150,7 @@ public final class Utils {
 
     /**
      * Returns the given option of the component determined by its root element in a document object safe way.
-     * <p>
+     *
      * It provides a safe way to retrieve an option if the option value can be equal to the JavaScript object <tt>document</tt>.
      *
      * @param rootOfComponent
@@ -199,13 +201,13 @@ public final class Utils {
     /**
      * Invokes RF JS API function on given root of RF component. The root must be set correctly.
      *
-     * @param componentRoot      root of the RF component
+     * @param componentRoot root of the RF component
      * @param functionWithParams JS API function with params (e.g. <code>setValue(new Date('October 10, 2012 12:00:00'))</code>
-     *                           )
+     * )
      */
     public static <T> T invokeRichFacesJSAPIFunction(WebElement componentRoot, String functionWithParams) {
         return (T) getExecutorFromElement(componentRoot).executeScript(
-                "return RichFaces.component(arguments[0])." + functionWithParams, componentRoot);
+            "return RichFaces.component(arguments[0])." + functionWithParams, componentRoot);
     }
 
     public static boolean isVisible(WebElement e) {
@@ -231,7 +233,7 @@ public final class Utils {
     /**
      * Executes jQuery command on input element. E.g. to trigger click use jQ("click()", element).
      *
-     * @param cmd     command to be executed
+     * @param cmd command to be executed
      * @param element element on which the command will be executed
      */
     public static void jQ(JavascriptExecutor executor, String cmd, WebElement element) {
@@ -245,7 +247,7 @@ public final class Utils {
     /**
      * Executes jQuery command on input element. E.g. to trigger click use jQ("click()", element).
      *
-     * @param cmd     command to be executed
+     * @param cmd command to be executed
      * @param element element on which the command will be executed
      */
     public static void jQ(String cmd, WebElement element) {
@@ -286,7 +288,7 @@ public final class Utils {
      * Executes returning jQuery command on input element. E.g. to get a position of element from top of the page use
      * returningjQ("position().top", element).
      *
-     * @param cmd     command to be executed
+     * @param cmd command to be executed
      * @param element element on which the command will be executed
      */
     public static String returningJQ(JavascriptExecutor executor, String cmd, WebElement element) {
@@ -301,7 +303,7 @@ public final class Utils {
      * Executes returning jQuery command on input element. E.g. to get a position of element from top of the page use
      * returningjQ("position().top", element).
      *
-     * @param cmd     command to be executed
+     * @param cmd command to be executed
      * @param element element on which the command will be executed
      */
     public static String returningJQ(String cmd, WebElement element) {
@@ -318,8 +320,8 @@ public final class Utils {
     public static void tolerantAssertPointEquals(Point p1, Point p2, int xTolerance, int yTolerance, String message) {
         if (!_tolerantAssertPointEquals(p1, p2, xTolerance, yTolerance)) {
             throw new AssertionError("The points are not equal or not in tolerance.\n" + " The tolerance for x axis was: "
-                    + xTolerance + ". The tolerance for y axis was: " + yTolerance + ".\n" + "First point: " + p1 + "\n"
-                    + "Second point: " + p2 + ".\n" + message);
+                + xTolerance + ". The tolerance for y axis was: " + yTolerance + ".\n" + "First point: " + p1 + "\n"
+                + "Second point: " + p2 + ".\n" + message);
         }
     }
 
@@ -335,8 +337,8 @@ public final class Utils {
             p2 = it2.next();
             if (!_tolerantAssertPointEquals(p1, p2, xTolerance, yTolerance)) {
                 throw new AssertionError("The locations are not equal or are not in tolerance.\n" + "First location: " + l1
-                        + ".\n" + "Second location: " + l2 + ".\n" + "Diverging point: " + p1 + " (first), " + p2 + " (second).\n"
-                        + message);
+                    + ".\n" + "Second location: " + l2 + ".\n" + "Diverging point: " + p1 + " (first), " + p2 + " (second).\n"
+                    + message);
             }
         }
     }
@@ -345,7 +347,7 @@ public final class Utils {
      * Asserts that elements locations and some other locations are equal with some allowed tolerance.
      */
     public static void tolerantAssertLocationsEquals(WebElement element, Locations l2, int xTolerance, int yTolerance,
-                                                     String message) {
+        String message) {
         tolerantAssertLocationsEquals(Utils.getLocations(element), l2, xTolerance, yTolerance, message);
     }
 
@@ -354,8 +356,8 @@ public final class Utils {
      * mouseout...
      *
      * @param executor JavascriptExecutor
-     * @param event    event to be triggered
-     * @param element  element on which the command will be executed
+     * @param event event to be triggered
+     * @param element element on which the command will be executed
      */
     public static void triggerJQ(JavascriptExecutor executor, String event, WebElement element) {
         jQ(executor, String.format("trigger('%s')", event), element);
@@ -365,9 +367,9 @@ public final class Utils {
      * Executes jQuery trigger command on input element. Useful for easy triggering of JavaScript events like click, dblclick,
      * mouseout...
      *
-     * @param event   event to be triggered
+     * @param event event to be triggered
      * @param element element on which the command will be executed, has to be instance of
-     *                org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance
+     * org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance
      */
     public static void triggerJQ(String event, WebElement element) {
         triggerJQ(getExecutorFromElement(element), event, element);
@@ -386,7 +388,7 @@ public final class Utils {
      * Returns the default timeout for GUI waiting in milliseconds.
      *
      * @param browser
-     * @return
+     * @return the default timeout for GUI waiting in milliseconds.
      */
     public static long getWaitGUIDefaultTimeout(WebDriver browser) {
         return 1000 * ((GrapheneProxyInstance) browser).getGrapheneContext().getConfiguration().getWaitGuiInterval();
@@ -396,7 +398,7 @@ public final class Utils {
      * Returns the default timeout for Ajax waiting in milliseconds.
      *
      * @param browser
-     * @return
+     * @return the default timeout for Ajax waiting in milliseconds.
      */
     public static long getWaitAjaxDefaultTimeout(WebDriver browser) {
         return 1000 * ((GrapheneProxyInstance) browser).getGrapheneContext().getConfiguration().getWaitAjaxInterval();

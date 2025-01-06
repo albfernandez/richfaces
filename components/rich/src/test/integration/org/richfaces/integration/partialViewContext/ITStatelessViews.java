@@ -47,28 +47,11 @@ public class ITStatelessViews {
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITStatelessViews.class);
 
-        deployment.addMavenDependency("org.richfaces:richfaces-a4j:4.5.18.Final");
+        deployment.addMavenDependency("com.github.albfernandez.richfaces:richfaces-a4j:4.6.22-SNAPSHOT");
 
         addIndexPage(deployment);
 
         return deployment.getFinalArchive();
-    }
-
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.stateless(true);
-
-        p.body("<h:form id='form' prependId='false'>");
-
-        p.body("<h:commandButton id='jsfAjax' value='JSF AJAX' oncomplete='document.title = \"completed\"'><f:ajax render='@none' /></h:commandButton>");
-        p.body("<h:commandButton id='richfacesAjax' value='RichFaces AJAX'><a4j:ajax render='@none' /></h:commandButton>");
-
-        p.body("</h:form>");
-
-        PartialResponseTestingHelper.addPartialResponseInterceptorToPage(p);
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
     @Test
@@ -108,5 +91,22 @@ public class ITStatelessViews {
 
         assertEquals("j_id1:javax.faces.ViewState:0", update.getAttribute("id"));
         assertEquals("stateless", update.getTextContent());
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.stateless(true);
+
+        p.body("<h:form id='form' prependId='false'>");
+
+        p.body("<h:commandButton id='jsfAjax' value='JSF AJAX' oncomplete='document.title = \"completed\"'><f:ajax render='@none' /></h:commandButton>");
+        p.body("<h:commandButton id='richfacesAjax' value='RichFaces AJAX'><a4j:ajax render='@none' /></h:commandButton>");
+
+        p.body("</h:form>");
+
+        PartialResponseTestingHelper.addPartialResponseInterceptorToPage(p);
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

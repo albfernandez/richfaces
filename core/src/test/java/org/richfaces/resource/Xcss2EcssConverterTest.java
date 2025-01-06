@@ -22,16 +22,17 @@
 
 package org.richfaces.resource;
 
-import org.junit.Test;
-import org.xml.sax.SAXException;
+import static org.junit.Assert.assertEquals;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import static org.junit.Assert.assertEquals;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.junit.Test;
+import org.xml.sax.SAXException;
 
 public class Xcss2EcssConverterTest {
 
@@ -88,8 +89,8 @@ public class Xcss2EcssConverterTest {
                 "</u:style>\n" +
                 "</u:selector>";
         assertEcssEquals(".myDiv{"
-                        + "background-image:\"url(#{resource['test?gradientHeight=100px&height=150px&gradientColor=Skin.myskin']})\";"
-                        + "}",
+                + "background-image:\"url(#{resource['test?gradientHeight=100px&height=150px&gradientColor=Skin.myskin']})\";"
+                + "}",
                 convertFragment(xcss));
     }
 
@@ -145,7 +146,7 @@ public class Xcss2EcssConverterTest {
                 + "</f:if>"
                 + "</u:selector>";
         assertEcssEquals(".menu{background-image:\"#{notemptya4jSkin.menu1?'url(':''}" +
-                        "#{notemptya4jSkin.menu1?resource[a4jSkin.menu1]:''}#{notemptya4jSkin.menu1?')':''}\";}",
+                "#{notemptya4jSkin.menu1?resource[a4jSkin.menu1]:''}#{notemptya4jSkin.menu1?')':''}\";}",
                 convertFragment(xcss));
     }
 
@@ -159,7 +160,7 @@ public class Xcss2EcssConverterTest {
                 + "</f:if>"
                 + "</u:selector>";
         assertEcssEquals(".menu{background-image:\"#{notemptya4jSkin.menu1?'url(':''}" +
-                        "#{notemptya4jSkin.menu1?resource['META-INF/lien.gif']:''}#{notemptya4jSkin.menu1?')':''}\";}",
+                "#{notemptya4jSkin.menu1?resource['META-INF/lien.gif']:''}#{notemptya4jSkin.menu1?')':''}\";}",
                 convertFragment(xcss));
     }
 

@@ -21,19 +21,21 @@
  */
 package org.richfaces.renderkit;
 
+import java.io.IOException;
+import java.util.Map;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.DnDScript;
 import org.richfaces.javascript.JavaScriptService;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
-
 /**
  * @author abelevich
+ *
  */
 public abstract class DnDRenderBase extends RendererBase {
     public void buildAndStoreScript(FacesContext facesContext, UIComponent component) {

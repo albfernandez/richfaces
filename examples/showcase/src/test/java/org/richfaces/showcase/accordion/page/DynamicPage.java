@@ -21,14 +21,14 @@
  *******************************************************************************/
 package org.richfaces.showcase.accordion.page;
 
-import org.jboss.arquillian.graphene.findby.FindByJQuery;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.junit.Assert.assertTrue;
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -36,11 +36,13 @@ import static org.junit.Assert.assertTrue;
  */
 public class DynamicPage {
 
-    static final int NUMBER_OF_ACCORDION_PANELS = 7;
     @FindBy(css = ".rf-ac-itm-lbl")
     private List<WebElement> accordionExpanders;
+
     @FindByJQuery("input:visible:eq(1)")
     private WebElement skinSwitcherButton;
+
+    static final int NUMBER_OF_ACCORDION_PANELS = 7;
 
     public void interateOverAccordionPanelsAndAssert() {
         for (int i = 0; i < NUMBER_OF_ACCORDION_PANELS; i++) {

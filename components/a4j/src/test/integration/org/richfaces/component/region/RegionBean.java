@@ -25,7 +25,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import javax.enterprise.context.SessionScoped;
-import jakarta.faces.context.FacesContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 @Named
@@ -39,7 +39,7 @@ public class RegionBean implements Serializable {
     public Collection<String> getExecutedIds() {
         return executedIds;
     }
-
+    
     public void action() {
         executedIds = FacesContext.getCurrentInstance().getPartialViewContext().getExecuteIds();
     }

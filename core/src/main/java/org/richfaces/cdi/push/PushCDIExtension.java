@@ -21,21 +21,6 @@
  */
 package org.richfaces.cdi.push;
 
-import org.richfaces.application.push.MessageException;
-import org.richfaces.application.push.TopicKey;
-import org.richfaces.application.push.TopicsContext;
-
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.event.Observes;
-import javax.enterprise.event.Reception;
-import javax.enterprise.event.TransactionPhase;
-import javax.enterprise.inject.spi.AfterBeanDiscovery;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.enterprise.inject.spi.Extension;
-import javax.enterprise.inject.spi.InjectionPoint;
-import javax.enterprise.inject.spi.ObserverMethod;
-import javax.enterprise.inject.spi.ProcessInjectionTarget;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -43,6 +28,22 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import jakarta.enterprise.context.spi.CreationalContext;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.event.Reception;
+import jakarta.enterprise.event.TransactionPhase;
+import jakarta.enterprise.inject.spi.AfterBeanDiscovery;
+import jakarta.enterprise.inject.spi.Bean;
+import jakarta.enterprise.inject.spi.BeanManager;
+import jakarta.enterprise.inject.spi.Extension;
+import jakarta.enterprise.inject.spi.InjectionPoint;
+import jakarta.enterprise.inject.spi.ObserverMethod;
+import jakarta.enterprise.inject.spi.ProcessInjectionTarget;
+
+import org.richfaces.application.push.MessageException;
+import org.richfaces.application.push.TopicKey;
+import org.richfaces.application.push.TopicsContext;
 
 /**
  * <p>
@@ -64,7 +65,7 @@ import java.util.Set;
  */
 public class PushCDIExtension implements Extension {
 
-    private Set<Push> pushAnnotations = new LinkedHashSet<Push>();
+    private Set<Push> pushAnnotations = new LinkedHashSet<>();
 
     /**
      * Scans all the injection points on found injection targets for {@link Push} annotations
@@ -88,7 +89,7 @@ public class PushCDIExtension implements Extension {
     }
 
     /**
-     * Register observer method {@link PushObserverMethod} for each {@link Push} annotation found in annotation scanning.
+     * Register observer method {@link PushCDIExtension.PushObserverMethod} for each {@link Push} annotation found in annotation scanning.
      *
      * @param event
      * @param beanManager
@@ -117,6 +118,7 @@ public class PushCDIExtension implements Extension {
      * </p>
      *
      * @author lfryc
+     *
      */
     private static class PushObserverMethod implements ObserverMethod<Object> {
 
@@ -130,7 +132,7 @@ public class PushCDIExtension implements Extension {
 
         /**
          * Publishes message to topic determined by {@link TopicKey} using {@link TopicsContext}.
-         * <p>
+         *
          * References to {@link TopicsContext} and {@link TopicKeyResolver} (needed for {@link TopicKey} resolution) are done
          * through {@link BeanManager}.
          */
@@ -154,7 +156,7 @@ public class PushCDIExtension implements Extension {
         }
 
         public Set<Annotation> getObservedQualifiers() {
-            return new HashSet<Annotation>(Arrays.asList(pushAnnotation));
+            return new HashSet<>(Arrays.asList(pushAnnotation));
         }
 
         public Reception getReception() {

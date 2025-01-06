@@ -21,13 +21,13 @@
  */
 package org.richfaces.showcase.collapsiblePanel;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.collapsiblePanel.page.SimplePage;
 import org.richfaces.showcase.panel.AbstractPanelTest;
-
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -46,16 +46,16 @@ public class ITestSimple extends AbstractPanelTest {
         page.getFirstPanel().click();// close
         guardAjax(page.getSecondPanel()).click();// open
         Graphene.waitAjax(webDriver)
-                .withMessage("The content of the first panel should not be visible, since the panel is collapsed!")
-                .until().element(page.getFirstPanelContent()).is().not().visible();
+            .withMessage("The content of the first panel should not be visible, since the panel is collapsed!")
+            .until().element(page.getFirstPanelContent()).is().not().visible();
         Graphene.waitAjax(webDriver).until().element(page.getSecondPanelContent()).is().visible();
         checkContentOfPanel(page.getSecondPanelContent(), RICH_FACES_JSF_INFO);
 
         guardAjax(page.getSecondPanel()).click();// close
         page.getFirstPanel().click();// open
         Graphene.waitAjax(webDriver)
-                .withMessage("The content of the second panel should not be visible, since the panel is collapsed!")
-                .until().element(page.getSecondPanelContent()).is().not().visible();
+            .withMessage("The content of the second panel should not be visible, since the panel is collapsed!")
+            .until().element(page.getSecondPanelContent()).is().not().visible();
         Graphene.waitGui(webDriver).until().element(page.getFirstPanelContent()).is().visible();
         checkContentOfPanel(page.getFirstPanelContent(), RICH_FACES_INFO);
     }

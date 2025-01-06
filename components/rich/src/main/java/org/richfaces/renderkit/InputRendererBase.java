@@ -21,13 +21,14 @@
  */
 package org.richfaces.renderkit;
 
-import org.richfaces.component.util.InputUtils;
+import java.util.Map;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
-import java.util.Map;
+
+import org.richfaces.component.util.InputUtils;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com created 23.01.2007

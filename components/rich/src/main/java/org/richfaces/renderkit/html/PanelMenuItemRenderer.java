@@ -21,7 +21,22 @@
  */
 package org.richfaces.renderkit.html;
 
-import com.google.common.base.Predicate;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.event.ActionEvent;
+
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenu;
@@ -32,20 +47,7 @@ import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.util.PanelIcons;
 import org.richfaces.renderkit.util.PanelIcons.State;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import jakarta.faces.event.ActionEvent;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
-import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+import com.google.common.base.Predicate;
 
 /**
  * @author akolonitsky
@@ -58,19 +60,6 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     private static final String CSS_CLASS_PREFIX = "rf-pm-itm";
     private static final String TOP_CSS_CLASS_PREFIX = "rf-pm-top-itm";
     private static final ParentPanelMenuPredicate PARENT_PANEL_MENU_PREDICATE = new ParentPanelMenuPredicate();
-
-    private static AbstractPanelMenu getParentPanelMenu(AbstractPanelMenuItem menuItem) {
-        return (AbstractPanelMenu) ComponentIterators.getParent(menuItem, PARENT_PANEL_MENU_PREDICATE);
-    }
-
-    static boolean isParentPanelMenuDisabled(AbstractPanelMenuItem menuItem) {
-        AbstractPanelMenu parentPanelMenu = (AbstractPanelMenu) ComponentIterators.getParent(menuItem,
-                PARENT_PANEL_MENU_PREDICATE);
-        if (parentPanelMenu != null) {
-            return parentPanelMenu.isDisabled();
-        }
-        return false;
-    }
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -103,7 +92,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     }
 
     private void encodeHeaderGroupBegin(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem,
-                                        String classPrefix) throws IOException {
+        String classPrefix) throws IOException {
         writer.startElement("table", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, classPrefix + "-gr", null);
         writer.startElement(TBODY_ELEMENT, null);
@@ -121,7 +110,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     }
 
     private void encodeHeaderGroupEnd(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem,
-                                      String classPrefix) throws IOException {
+        String classPrefix) throws IOException {
         writer.endElement(TD_ELEM);
 
         encodeHeaderGroupRightIcon(writer, context, menuItem, classPrefix);
@@ -136,9 +125,9 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     }
 
     private void encodeHeaderGroupRightIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem,
-                                            String classPrefix) throws IOException {
+        String classPrefix) throws IOException {
         String icon = PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? menuItem
-                .getRightDisabledIcon() : menuItem.getRightIcon();
+            .getRightDisabledIcon() : menuItem.getRightIcon();
         String cssClasses = concatClasses(classPrefix + "-exp-ico", menuItem.getRightIconClass());
 
         if (icon == null || icon.trim().length() == 0) {
@@ -148,9 +137,9 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     }
 
     private void encodeHeaderGroupLeftIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem,
-                                           String classPrefix) throws IOException {
+        String classPrefix) throws IOException {
         String icon = PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? menuItem
-                .getLeftDisabledIcon() : menuItem.getLeftIcon();
+            .getLeftDisabledIcon() : menuItem.getLeftIcon();
         String cssClasses = concatClasses(classPrefix + "-ico", menuItem.getLeftIconClass());
 
         if (icon == null || icon.trim().length() == 0) {
@@ -168,7 +157,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
 
     // TODO nick - the same as in PanelMenuGroupRenderer
     public void encodeTdIcon(ResponseWriter writer, FacesContext context, String classPrefix, String attrIconValue,
-                             PanelIcons.State state) throws IOException {
+        PanelIcons.State state) throws IOException {
         if (!isIconRendered(attrIconValue)) {
             return;
         }
@@ -183,7 +172,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
                 writer.startElement(HtmlConstants.IMG_ELEMENT, null);
                 writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
                 writer.writeURIAttribute(HtmlConstants.SRC_ATTRIBUTE, RenderKitUtils.getResourceURL(attrIconValue, context),
-                        null);
+                    null);
                 writer.endElement(HtmlConstants.IMG_ELEMENT);
             }
         }
@@ -195,13 +184,13 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     protected String getStyleClass(UIComponent component) {
         AbstractPanelMenuItem menuItem = (AbstractPanelMenuItem) component;
         return concatClasses(
-                getCssClass(menuItem, ""),
-                attributeAsString(component, "styleClass"),
-                PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? getCssClass(menuItem, "-dis")
-                        : "",
-                (menuItem.isActiveItem() ? getCssClass(menuItem, "-sel") : ""),
-                PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? attributeAsString(component,
-                        "disabledClass") : "");
+            getCssClass(menuItem, ""),
+            attributeAsString(component, "styleClass"),
+            PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? getCssClass(menuItem, "-dis")
+                : "",
+            (menuItem.isActiveItem() ? getCssClass(menuItem, "-sel") : ""),
+            PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? attributeAsString(component,
+                "disabledClass") : "");
     }
 
     public String getCssClass(AbstractPanelMenuItem item, String postfix) {
@@ -211,14 +200,14 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.PanelMenuItem", component.getClientId(context), getScriptObjectOptions(context,
-                component));
+            component));
     }
 
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractPanelMenuItem panelMenuItem = (AbstractPanelMenuItem) component;
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         // TODO nick - ajax options should not be rendered in client mode
         options.put("ajax", getAjaxOptions(context, panelMenuItem));
         options.put("disabled", PanelMenuItemRenderer.isParentPanelMenuDisabled(panelMenuItem) || panelMenuItem.isDisabled());
@@ -252,6 +241,19 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractPanelMenuItem.class;
+    }
+
+    private static AbstractPanelMenu getParentPanelMenu(AbstractPanelMenuItem menuItem) {
+        return (AbstractPanelMenu) ComponentIterators.getParent(menuItem, PARENT_PANEL_MENU_PREDICATE);
+    }
+
+    static boolean isParentPanelMenuDisabled(AbstractPanelMenuItem menuItem) {
+        AbstractPanelMenu parentPanelMenu = (AbstractPanelMenu) ComponentIterators.getParent(menuItem,
+            PARENT_PANEL_MENU_PREDICATE);
+        if (parentPanelMenu != null) {
+            return parentPanelMenu.isDisabled();
+        }
+        return false;
     }
 
     private static class ParentPanelMenuPredicate implements Predicate<UIComponent> {

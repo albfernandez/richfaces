@@ -31,29 +31,29 @@ import org.openqa.selenium.Keys;
 public interface ExtendedDataTable {
 
     /**
-     * Selects a particular row.
-     * <p>
-     * All indexes are relative to one page. It does not take into account
-     * table pagination.
-     *
-     * @param rowIndex the index of the row to be selected
-     * @param keys     the keys to be pressed prior the selecting of the row,
-     *                 and released afterwards. No more than 2 keys can be passed. Usually,
-     *                 used ones are SHIFT and CONTROL.
-     */
+    * Selects a particular row.
+    *
+    * All indexes are relative to one page. It does not take into account
+    * table pagination.
+    *
+    * @param rowIndex the index of the row to be selected
+    * @param keys the keys to be pressed prior the selecting of the row,
+    * and released afterwards. No more than 2 keys can be passed. Usually,
+    * used ones are SHIFT and CONTROL.
+    */
     void selectRow(int rowIndex, Keys... keys);
 
     /**
-     * Deselects a particular row.
-     * <p>
-     * All indexes are relative to one page. It does not take into account
-     * table pagination.
-     *
-     * @param rowIndex the index of the row to be deselected
-     * @param keys     the keys to be pressed prior the deselecting of the row,
-     *                 and released afterwards. No more than 2 keys can be passed. Usually,
-     *                 used ones are SHIFT and CONTROL.
-     */
+    * Deselects a particular row.
+    *
+    * All indexes are relative to one page. It does not take into account
+    * table pagination.
+    *
+    * @param rowIndex the index of the row to be deselected
+    * @param keys the keys to be pressed prior the deselecting of the row,
+    * and released afterwards. No more than 2 keys can be passed. Usually,
+    * used ones are SHIFT and CONTROL.
+    */
     void deselectRow(int rowIndex, Keys... keys);
 
     /**

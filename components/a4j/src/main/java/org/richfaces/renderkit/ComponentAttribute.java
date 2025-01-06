@@ -28,26 +28,23 @@ import java.util.TreeMap;
  * @author Nick Belaevski
  */
 public class ComponentAttribute implements Comparable<ComponentAttribute> {
+    public enum Kind {
+        BOOL,
+        GENERIC,
+        URI
+    }
+
     private final String htmlAttributeName;
     private String componentAttributeName;
     private Object defaultValue;
     private String[] eventNames = {};
     private Kind kind = Kind.GENERIC;
-    public ComponentAttribute(String htmlAttributeName) {
-        super();
-        this.htmlAttributeName = htmlAttributeName;
-    }
 
     // TODO handling for aliases: "styleClass" -> "class"
 
-    public static final Map<String, ComponentAttribute> createMap(ComponentAttribute... attributes) {
-        Map<String, ComponentAttribute> result = new TreeMap<String, ComponentAttribute>();
-
-        for (ComponentAttribute componentAttribute : attributes) {
-            result.put(componentAttribute.getComponentAttributeName(), componentAttribute);
-        }
-
-        return result;
+    public ComponentAttribute(String htmlAttributeName) {
+        super();
+        this.htmlAttributeName = htmlAttributeName;
     }
 
     /**
@@ -90,6 +87,16 @@ public class ComponentAttribute implements Comparable<ComponentAttribute> {
         this.kind = kind;
     }
 
+    public static final Map<String, ComponentAttribute> createMap(ComponentAttribute... attributes) {
+        Map<String, ComponentAttribute> result = new TreeMap<>();
+
+        for (ComponentAttribute componentAttribute : attributes) {
+            result.put(componentAttribute.getComponentAttributeName(), componentAttribute);
+        }
+
+        return result;
+    }
+
     /**
      * @return the name
      */
@@ -106,7 +113,6 @@ public class ComponentAttribute implements Comparable<ComponentAttribute> {
 
     /**
      * @param componentAttributeName the componentAttributeName to set
-     * @return
      */
     public ComponentAttribute setComponentAttributeName(String componentAttributeName) {
         this.componentAttributeName = componentAttributeName;
@@ -123,7 +129,6 @@ public class ComponentAttribute implements Comparable<ComponentAttribute> {
 
     /**
      * @param eventNames the eventNames to set
-     * @return
      */
     public ComponentAttribute setEventNames(String... eventNames) {
         this.eventNames = eventNames;
@@ -133,11 +138,5 @@ public class ComponentAttribute implements Comparable<ComponentAttribute> {
 
     public int compareTo(ComponentAttribute o) {
         return getHtmlAttributeName().compareTo(o.getHtmlAttributeName());
-    }
-
-    public enum Kind {
-        BOOL,
-        GENERIC,
-        URI
     }
 }

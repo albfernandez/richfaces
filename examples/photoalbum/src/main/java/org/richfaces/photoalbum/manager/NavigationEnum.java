@@ -25,7 +25,7 @@ package org.richfaces.photoalbum.manager;
  * Class encapsulated all possible states, that can be applied to so called 'mainArea' area on the page. This ensured that
  * properly template will be applied, and user will be redirected to desired page. Next template to show obviously determined in
  * Controller and pushes to Model.
- *
+ * 
  * @author Andrey Markhel
  */
 
@@ -58,11 +58,11 @@ public enum NavigationEnum {
     EVENT_PREVIEW("/includes/event.xhtml"),
     EVENT_EDIT("/includes/event/EventEditInfo.xhtml");
 
-    private String template;
-
     private NavigationEnum(String t) {
         template = t;
     }
+
+    private String template;
 
     public String getTemplate() {
         return template;

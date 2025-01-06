@@ -21,14 +21,14 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.component.UISelectOne;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.FocusProps;
 import org.richfaces.component.attribute.SelectProps;
-
-import jakarta.faces.component.UISelectOne;
 
 /**
  * @author abelevich

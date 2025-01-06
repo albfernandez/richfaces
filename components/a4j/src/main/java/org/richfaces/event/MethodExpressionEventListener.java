@@ -41,9 +41,10 @@ import jakarta.faces.event.FacesListener;
  *
  * @author akolonitsky
  * @version 1.0
+ *
  */
 public abstract class MethodExpressionEventListener implements FacesListener, StateHolder {
-    private static final Class<?>[] EVENT_LISTENER_ZERO_ARG_SIG = new Class[]{};
+    private static final Class<?>[] EVENT_LISTENER_ZERO_ARG_SIG = new Class[] {};
     private static final Object[] NO_PARAMS = new Object[0];
 
     // ------------------------------------------------------ Instance Variables
@@ -65,7 +66,7 @@ public abstract class MethodExpressionEventListener implements FacesListener, St
      * </p>
      *
      * @param methodExpressionOneArg a <code>MethodExpression</code> that points to a method that returns <code>void</code> and
-     *                               takes a single argument of type {@link FacesEvent}.
+     *        takes a single argument of type {@link FacesEvent}.
      */
     protected MethodExpressionEventListener(MethodExpression methodExpressionOneArg) {
 
@@ -74,10 +75,10 @@ public abstract class MethodExpressionEventListener implements FacesListener, St
         FacesContext context = FacesContext.getCurrentInstance();
         ELContext elContext = context.getELContext();
         this.methodExpressionZeroArg = context
-                .getApplication()
-                .getExpressionFactory()
-                .createMethodExpression(elContext, methodExpressionOneArg.getExpressionString(), Void.class,
-                        EVENT_LISTENER_ZERO_ARG_SIG);
+            .getApplication()
+            .getExpressionFactory()
+            .createMethodExpression(elContext, methodExpressionOneArg.getExpressionString(), Void.class,
+                EVENT_LISTENER_ZERO_ARG_SIG);
     }
 
     /**
@@ -107,8 +108,8 @@ public abstract class MethodExpressionEventListener implements FacesListener, St
      * cause of the failure.</span>
      * </p>
      *
-     * @throws NullPointerException     {@inheritDoc}
-     * @throws AbortProcessingException {@inheritDoc}
+     * @throws NullPointerException if event is null
+     * @throws AbortProcessingException AbortProcessingException
      */
     public void processEvent(FacesEvent event) throws AbortProcessingException {
 
@@ -121,7 +122,7 @@ public abstract class MethodExpressionEventListener implements FacesListener, St
         // has an elaborate message capture, logging, and rethrowing block.
         // Why not here?
         try {
-            methodExpressionOneArg.invoke(elContext, new Object[]{event});
+            methodExpressionOneArg.invoke(elContext, new Object[] { event });
         } catch (MethodNotFoundException mnf) {
             if (null != methodExpressionZeroArg) {
 
@@ -149,8 +150,8 @@ public abstract class MethodExpressionEventListener implements FacesListener, St
             throw new NullPointerException();
         }
 
-        return new Object[]{UIComponentBase.saveAttachedState(context, methodExpressionOneArg),
-                UIComponentBase.saveAttachedState(context, methodExpressionZeroArg)};
+        return new Object[] { UIComponentBase.saveAttachedState(context, methodExpressionOneArg),
+                UIComponentBase.saveAttachedState(context, methodExpressionZeroArg) };
     }
 
     /**

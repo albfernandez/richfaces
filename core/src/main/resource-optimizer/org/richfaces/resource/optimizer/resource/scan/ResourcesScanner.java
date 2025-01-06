@@ -21,12 +21,13 @@
  */
 package org.richfaces.resource.optimizer.resource.scan;
 
-import org.richfaces.resource.ResourceKey;
-
 import java.util.Collection;
+
+import org.richfaces.resource.ResourceKey;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public interface ResourcesScanner {
 

@@ -22,10 +22,18 @@
 
 package org.richfaces.component;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.richfaces.renderkit.html.ScriptsRenderer;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import jakarta.faces.el.ValueBinding;
-import org.richfaces.renderkit.html.ScriptsRenderer;
 
 import jakarta.el.ValueExpression;
 import jakarta.faces.component.UIComponent;
@@ -39,18 +47,11 @@ import jakarta.faces.event.FacesListener;
 import jakarta.faces.event.SystemEvent;
 import jakarta.faces.event.SystemEventListener;
 import jakarta.faces.render.Renderer;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public abstract class UITransient extends UIComponentBase {
-    private final Map<String, Object> attributesMap = new AttributesMap();
     private String id;
     private UIComponent parent;
+    private final Map<String, Object> attributesMap = new AttributesMap();
     private String clientId;
 
     public UITransient() {
@@ -84,18 +85,20 @@ public abstract class UITransient extends UIComponentBase {
         return attributesMap;
     }
 
+    /*MZ
     @SuppressWarnings("deprecation")
     @Override
-    public ValueBinding getValueBinding(String name) {
+    public jakarta.faces.el.ValueBinding getValueBinding(String name) {
         return null;
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    public void setValueBinding(String name, ValueBinding binding) {
+    public void setValueBinding(String name, jakarta.faces.el.ValueBinding binding) {
         // do nothing
 
     }
+	*/
 
     @Override
     public ValueExpression getValueExpression(String name) {
@@ -127,7 +130,7 @@ public abstract class UITransient extends UIComponentBase {
             // now resolve our own client id
             String clientId = getId();
             if (clientId == null) {
-                if (null != namingContainerAncestor && namingContainerAncestor instanceof UniqueIdVendor) {
+                if (namingContainerAncestor instanceof UniqueIdVendor) {
                     clientId = ((UniqueIdVendor) namingContainerAncestor).createUniqueId(context, null);
                 } else {
                     clientId = context.getViewRoot().createUniqueId();
@@ -327,17 +330,6 @@ public abstract class UITransient extends UIComponentBase {
         return result;
     }
 
-    @Override
-    public List<SystemEventListener> getListenersForEventClass(Class<? extends SystemEvent> eventClass) {
-        return Collections.EMPTY_LIST;
-    }
-
-    protected abstract boolean hasAttribute(Object key);
-
-    protected abstract Object setAttribute(String key, Object value);
-
-    protected abstract Object getAttribute(Object key);
-
     final class AttributesMap implements Map<String, Object> {
         @Override
         public void clear() {
@@ -413,4 +405,15 @@ public abstract class UITransient extends UIComponentBase {
             return ImmutableList.<Object>of(getId(), getClientId());
         }
     }
+
+    @Override
+    public List<SystemEventListener> getListenersForEventClass(Class<? extends SystemEvent> eventClass) {
+        return Collections.emptyList();
+    }
+
+    protected abstract boolean hasAttribute(Object key);
+
+    protected abstract Object setAttribute(String key, Object value);
+
+    protected abstract Object getAttribute(Object key);
 }

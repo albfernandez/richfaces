@@ -24,8 +24,10 @@ package org.richfaces.application;
 import org.richfaces.application.configuration.ConfigurationItem;
 
 
+
 /**
  * @author Nick Belaevski
+ *
  */
 public final class IterationComponentsConfiguration {
     private IterationComponentsConfiguration() {

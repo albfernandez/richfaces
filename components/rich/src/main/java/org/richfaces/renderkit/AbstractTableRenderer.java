@@ -21,22 +21,24 @@
  */
 package org.richfaces.renderkit;
 
-import org.richfaces.component.Row;
-import org.richfaces.component.UIDataTableBase;
-import org.richfaces.component.util.HtmlUtil;
+import java.io.IOException;
+import java.util.Iterator;
 
 import jakarta.faces.application.ResourceDependencies;
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Iterator;
+
+import org.richfaces.component.Row;
+import org.richfaces.component.UIDataTableBase;
+import org.richfaces.component.util.HtmlUtil;
 
 /**
  * @author Anton Belevich
+ *
  */
-@ResourceDependencies({@ResourceDependency(library = "org.richfaces", name = "richfaces-event.js")})
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js") })
 public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer implements MetaComponentRenderer {
     public static final String HIDDEN_CONTAINER_ID = ":sc";
 
@@ -64,6 +66,14 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         return rowHolder;
     }
 
+    protected class SimpleHeaderEncodeStrategy implements EncodeStrategy {
+        public void begin(ResponseWriter writer, FacesContext context, UIComponent column, Object[] params) throws IOException {
+        }
+
+        public void end(ResponseWriter writer, FacesContext context, UIComponent column, Object[] params) throws IOException {
+        }
+    }
+
     protected void doDecode(FacesContext context, UIComponent component) {
         decodeSortingFiltering(context, component);
     }
@@ -84,7 +94,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
 
     protected boolean isEncodeHeaders(UIDataTableBase table) {
         return table.isColumnFacetPresent(UIDataTableBase.HEADER) || isColumnAttributeSet(table, "sortBy")
-                || isColumnAttributeSet(table, "comparator") || isColumnAttributeSet(table, "filterBy");
+            || isColumnAttributeSet(table, "comparator") || isColumnAttributeSet(table, "filterBy");
     }
 
     public void encodeTableStructure(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable) throws IOException {
@@ -92,11 +102,11 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     }
 
     public void encodeBeforeRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
-                                 boolean encodeParentTBody, boolean partialUpdate) throws IOException {
+        boolean encodeParentTBody, boolean partialUpdate) throws IOException {
     }
 
     public void encodeAfterRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
-                                boolean encodeParentTBody, boolean partialUpdate) throws IOException {
+        boolean encodeParentTBody, boolean partialUpdate) throws IOException {
     }
 
     public abstract boolean encodeParentTBody(UIDataTableBase dataTableBase);
@@ -116,7 +126,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     }
 
     public void encodeTableRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
-                                boolean encodePartialUpdate) throws IOException {
+        boolean encodePartialUpdate) throws IOException {
 
         int rowCount = dataTableBase.getRowCount();
 
@@ -128,7 +138,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         encodeBeforeRows(writer, facesContext, dataTableBase, encodeParentTBody, encodePartialUpdate);
 
         if (rowCount > 0) {
-            processRows(writer, facesContext, dataTableBase, new Object[]{encodePartialUpdate, encodeParentTBody});
+            processRows(writer, facesContext, dataTableBase, new Object[] { encodePartialUpdate, encodeParentTBody });
         } else {
             encodeNoDataFacetOrLabel(writer, facesContext, dataTableBase);
         }
@@ -140,7 +150,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             partialStart(facesContext, id);
         }
 
-        encodeHiddens(writer, facesContext, dataTableBase, new Object[]{encodeParentTBody});
+        encodeHiddens(writer, facesContext, dataTableBase, new Object[] { encodeParentTBody });
 
         if (encodePartialUpdate) {
             partialEnd(facesContext);
@@ -151,7 +161,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     }
 
     public void encodeNoDataFacetOrLabel(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase)
-            throws IOException {
+        throws IOException {
 
         int columns = getColumnsCount(dataTableBase.columns());
         UIComponent noDataFacet = dataTableBase.getNoData();
@@ -211,7 +221,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     }
 
     protected void encodeHiddens(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
-                                 Object[] params) throws IOException {
+        Object[] params) throws IOException {
         EncodeStrategy encodeStrategy = getHiddenContainerStrategy(dataTableBase);
         if (encodeStrategy != null) {
             encodeStrategy.begin(writer, facesContext, dataTableBase, params);
@@ -228,17 +238,17 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     }
 
     public abstract void encodeClientScript(ResponseWriter writer, FacesContext context, UIDataTableBase component)
-            throws IOException;
+        throws IOException;
 
     public abstract void encodeHiddenInput(ResponseWriter writer, FacesContext context, UIDataTableBase component)
-            throws IOException;
+        throws IOException;
 
     public void encodeTableBodyStart(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase)
-            throws IOException {
+        throws IOException {
 
         writer.startElement(HtmlConstants.TBODY_ELEMENT, dataTableBase);
         String clientId = (dataTableBase.getRowKey() == null) ? dataTableBase.getContainerClientId(facesContext)
-                : dataTableBase.getRelativeClientId(facesContext);
+            : dataTableBase.getRelativeClientId(facesContext);
 
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":tb", null);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, getTableBodySkinClass(), null);
@@ -249,7 +259,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     }
 
     public void encodeFooterFacet(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTable,
-                                  boolean encodePartialUpdate) throws IOException {
+        boolean encodePartialUpdate) throws IOException {
 
         UIComponent footer = dataTable.getFooter();
         boolean columnFacetPresent = dataTable.isColumnFacetPresent("footer");
@@ -318,7 +328,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 // TODO nick - rename method "encodeTableHeaderFacet"
                 saveRowStyles(facesContext, clientId, firstClass, rowClass, cellClass);
                 encodeTableFacet(facesContext, writer, clientId, columns, footer, UIDataTableBase.FOOTER, rowClass, cellClass,
-                        encodePartialUpdateForChildren);
+                    encodePartialUpdateForChildren);
             }
 
             if (encodeTfoot) {
@@ -343,7 +353,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     }
 
     public void encodeHeaderFacet(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTable,
-                                  boolean encodePartialUpdate) throws IOException {
+        boolean encodePartialUpdate) throws IOException {
 
         UIComponent header = dataTable.getHeader();
         boolean isEncodeHeaders = isEncodeHeaders(dataTable);
@@ -388,7 +398,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 saveRowStyles(facesContext, clientId, firstClass, rowClass, cellClass);
 
                 encodeTableFacet(facesContext, writer, clientId, columns, header, UIDataTableBase.HEADER, rowClass, cellClass,
-                        encodePartialUpdateForChildren);
+                    encodePartialUpdateForChildren);
             }
 
             if (isEncodeHeaders) {
@@ -438,7 +448,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     }
 
     protected void encodeColumnFacet(FacesContext context, ResponseWriter writer, UIDataTableBase dataTableBase,
-                                     String facetName, int colCount, String cellClass) throws IOException {
+        String facetName, int colCount, String cellClass) throws IOException {
         int tColCount = 0;
         String id = dataTableBase.getClientId(context);
         String element = getCellElement(context, id);
@@ -473,7 +483,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             String columnClass = cellClass;
             boolean useBuiltInSort = this.isBuiltInSortRequiredFocColumn(facetName, column);
             if (useBuiltInSort) {
-                columnClass = HtmlUtil.concatClasses(columnClass, "rf-dt-c-srt");
+                columnClass = HtmlUtil.concatClasses( columnClass, "rf-dt-c-srt");
             }
 
             encodeStyleClass(writer, context, column, facetName + "Class", columnClass);
@@ -485,13 +495,13 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
 
             EncodeStrategy strategy = getHeaderEncodeStrategy(column, facetName);
             if (strategy != null) {
-                strategy.begin(writer, context, column, new String[]{facetName});
+                strategy.begin(writer, context, column, new String[] { facetName });
 
                 UIComponent facet = column.getFacet(facetName);
                 if (facet != null && facet.isRendered()) {
                     facet.encodeAll(context);
                 }
-                strategy.end(writer, context, column, new String[]{facetName});
+                strategy.end(writer, context, column, new String[] { facetName });
             }
             if (useBuiltInSort) {
                 this.renderSortButton(context, column, "rf-dt");
@@ -502,8 +512,8 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     }
 
     protected void encodeTableFacet(FacesContext facesContext, ResponseWriter writer, String id, int columns,
-                                    UIComponent footer, String facetName, String rowClass, String cellClass, boolean encodePartialUpdate)
-            throws IOException {
+        UIComponent footer, String facetName, String rowClass, String cellClass, boolean encodePartialUpdate)
+        throws IOException {
 
         boolean isColumnGroup = (footer instanceof Row);
         String element = getCellElement(facesContext, id);
@@ -625,13 +635,5 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
 
     protected void partialEnd(FacesContext facesContext) throws IOException {
         facesContext.getPartialViewContext().getPartialResponseWriter().endUpdate();
-    }
-
-    protected class SimpleHeaderEncodeStrategy implements EncodeStrategy {
-        public void begin(ResponseWriter writer, FacesContext context, UIComponent column, Object[] params) throws IOException {
-        }
-
-        public void end(ResponseWriter writer, FacesContext context, UIComponent column, Object[] params) throws IOException {
-        }
     }
 }

@@ -1,21 +1,21 @@
 package org.richfaces.arquillian.container.installation;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
 import org.apache.commons.io.FileUtils;
 import org.jboss.arquillian.core.api.annotation.Observes;
 import org.jboss.arquillian.core.spi.Validate;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.richfaces.arquillian.configuration.FundamentalTestConfiguration;
 import org.richfaces.arquillian.configuration.FundamentalTestConfigurationContext;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.logging.Logger;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 /**
  * Installs the container distribution and configuration before it will be started
@@ -105,16 +105,16 @@ public class ContainerInstaller {
 
     private void unzip(InputStream inputStream, File destination, boolean overwrite) {
         try {
-            byte[] buf = new byte[1024];
             ZipInputStream zipinputstream = null;
             ZipEntry zipentry;
             zipinputstream = new ZipInputStream(inputStream);
 
             zipentry = zipinputstream.getNextEntry();
             while (zipentry != null) {
-                int n;
-                FileOutputStream fileoutputstream;
                 File newFile = new File(destination, zipentry.getName());
+                if (!newFile.toPath().normalize().startsWith(destination.toPath())) {
+                    throw new Exception("Bad zip entry");
+                }
                 if (zipentry.isDirectory()) {
                     newFile.mkdirs();
                     zipentry = zipinputstream.getNextEntry();
@@ -126,13 +126,8 @@ public class ContainerInstaller {
                     newFile.delete();
                 }
 
-                fileoutputstream = new FileOutputStream(newFile);
-
-                while ((n = zipinputstream.read(buf, 0, 1024)) > -1) {
-                    fileoutputstream.write(buf, 0, n);
-                }
-
-                fileoutputstream.close();
+                Files.copy(zipinputstream, newFile.toPath());
+                
                 zipinputstream.closeEntry();
                 zipentry = zipinputstream.getNextEntry();
 

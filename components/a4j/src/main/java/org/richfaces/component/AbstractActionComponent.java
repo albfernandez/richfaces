@@ -21,15 +21,16 @@
  */
 package org.richfaces.component;
 
-import org.richfaces.component.attribute.BypassProps;
-
 import jakarta.faces.component.UICommand;
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.FacesEvent;
 import jakarta.faces.event.PhaseId;
 
+import org.richfaces.component.attribute.BypassProps;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public abstract class AbstractActionComponent extends UICommand implements BypassProps {
 

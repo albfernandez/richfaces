@@ -21,9 +21,7 @@
  */
 package org.richfaces.webapp;
 
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.resource.ResourceHandlerImpl;
+import java.io.IOException;
 
 import jakarta.faces.webapp.FacesServlet;
 import jakarta.servlet.Servlet;
@@ -33,7 +31,10 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.resource.ResourceHandlerImpl;
 
 /**
  * <p>
@@ -49,16 +50,99 @@ import java.io.IOException;
  * </p>
  *
  * <p>
- * For security reasons, the servlet handles just requests for JSF resources (context path starting with /javax.faces.resource/).
+ * For security reasons, the servlet handles just requests for JSF resources (context path starting with /jakarta.faces.resource/).
  * </p>
  */
 public class ResourceServlet implements Servlet {
 
-    public static final String RESOURCE_SERVLET_REQUEST_FLAG = ResourceServlet.class.getName();
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
-    private static final String JAVAX_FACES_RESOURCE_IDENTIFIER = "/javax.faces.resource/";
+
+    private static final String JAVAX_FACES_RESOURCE_IDENTIFIER = "/jakarta.faces.resource/";
+
+    public static final String RESOURCE_SERVLET_REQUEST_FLAG = ResourceServlet.class.getName();
+
     private ServletConfig servletConfig;
     private FacesServlet facesServlet;
+
+    /*
+     * (non-Javadoc)
+     * @see jakarta.servlet.Servlet#init(jakarta.servlet.ServletConfig)
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        servletConfig = config;
+
+        facesServlet = new FacesServlet();
+        facesServlet.init(config);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see jakarta.servlet.Servlet#getServletConfig()
+     */
+    @Override
+    public ServletConfig getServletConfig() {
+        return servletConfig;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see jakarta.servlet.Servlet#getServletInfo()
+     */
+    @Override
+    public String getServletInfo() {
+        return (this.getClass().getName());
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see jakarta.servlet.Servlet#destroy()
+     */
+    @Override
+    public void destroy() {
+        facesServlet.destroy();
+        facesServlet = null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see jakarta.servlet.Servlet#service(jakarta.servlet.ServletRequest, jakarta.servlet.ServletResponse)
+     */
+    @Override
+    public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+        HttpServletRequest req;
+        HttpServletResponse res;
+
+        try {
+            req = (HttpServletRequest) request;
+            res = (HttpServletResponse) response;
+        } catch (ClassCastException e) {
+            throw new ServletException("non-HTTP request or response");
+        }
+
+        httpService(req, res);
+    }
+
+    private void httpService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (handleRequestByResourceServlet(request)) {
+            request.setAttribute(RESOURCE_SERVLET_REQUEST_FLAG, Boolean.TRUE);
+            facesServlet.service(request, response);
+        } else {
+            sendResourceNotFound(response);
+        }
+    }
+
+    private boolean handleRequestByResourceServlet(HttpServletRequest request) {
+        String resourcePath = getResourcePathFromRequest(request);
+
+        if (resourcePath == null) {
+            LOGGER.debug("ResourceServlet detected request which is not JSF resource request: " + request.getPathInfo());
+            return false;
+        }
+
+        // when resource path found in the request path, then we can handle the request
+        return true;
+    }
 
     private static String getResourcePathFromRequest(HttpServletRequest request) {
         String resourceName = decodeResourceURL(request);
@@ -122,85 +206,5 @@ public class ResourceServlet implements Servlet {
         } else {
             return servletPath.substring(idx);
         }
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
-     */
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        servletConfig = config;
-
-        facesServlet = new FacesServlet();
-        facesServlet.init(config);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Servlet#getServletConfig()
-     */
-    @Override
-    public ServletConfig getServletConfig() {
-        return servletConfig;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Servlet#getServletInfo()
-     */
-    @Override
-    public String getServletInfo() {
-        return (this.getClass().getName());
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Servlet#destroy()
-     */
-    @Override
-    public void destroy() {
-        facesServlet.destroy();
-        facesServlet = null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see javax.servlet.Servlet#service(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     */
-    @Override
-    public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-        HttpServletRequest req;
-        HttpServletResponse res;
-
-        try {
-            req = (HttpServletRequest) request;
-            res = (HttpServletResponse) response;
-        } catch (ClassCastException e) {
-            throw new ServletException("non-HTTP request or response");
-        }
-
-        httpService(req, res);
-    }
-
-    private void httpService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (handleRequestByResourceServlet(request)) {
-            request.setAttribute(RESOURCE_SERVLET_REQUEST_FLAG, Boolean.TRUE);
-            facesServlet.service(request, response);
-        } else {
-            sendResourceNotFound(response);
-        }
-    }
-
-    private boolean handleRequestByResourceServlet(HttpServletRequest request) {
-        String resourcePath = getResourcePathFromRequest(request);
-
-        if (resourcePath == null) {
-            LOGGER.debug("ResourceServlet detected request which is not JSF resource request: " + request.getPathInfo());
-            return false;
-        }
-
-        // when resource path found in the request path, then we can handle the request
-        return true;
     }
 }

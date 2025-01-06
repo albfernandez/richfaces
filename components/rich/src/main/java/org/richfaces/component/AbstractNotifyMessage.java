@@ -21,6 +21,9 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.component.UIMessage;
+import jakarta.faces.context.FacesContext;
+
 import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -30,9 +33,6 @@ import org.richfaces.component.attribute.AjaxOutputProps;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.OutputFormatProps;
-
-import jakarta.faces.component.UIMessage;
-import jakarta.faces.context.FacesContext;
 
 /**
  * <p>The &lt;rich:notifyMessage&gt; component is built on top of &lt;rich:notify&gt;, the difference is in usage. The

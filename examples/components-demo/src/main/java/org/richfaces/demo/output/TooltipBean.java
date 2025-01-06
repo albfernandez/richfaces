@@ -22,15 +22,17 @@
 
 /**
  * @author Pavel Yaschenko
+ *
  */
 package org.richfaces.demo.output;
 
 import org.richfaces.component.Positioning;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 
 @ManagedBean
@@ -55,36 +57,36 @@ public class TooltipBean implements Serializable {
         return new Date();
     }
 
-    public Positioning getJointPoint() {
-        return jointPoint;
-    }
-
     public void setJointPoint(Positioning jointPoint) {
         this.jointPoint = jointPoint;
     }
 
-    public Positioning getDirection() {
-        return direction;
+    public Positioning getJointPoint() {
+        return jointPoint;
     }
 
     public void setDirection(Positioning direction) {
         this.direction = direction;
     }
 
-    public int getHorizontalOffset() {
-        return horizontalOffset;
+    public Positioning getDirection() {
+        return direction;
     }
 
     public void setHorizontalOffset(int horizontalOffset) {
         this.horizontalOffset = horizontalOffset;
     }
 
-    public int getVerticalOffset() {
-        return verticalOffset;
+    public int getHorizontalOffset() {
+        return horizontalOffset;
     }
 
     public void setVerticalOffset(int verticalOffset) {
         this.verticalOffset = verticalOffset;
+    }
+
+    public int getVerticalOffset() {
+        return verticalOffset;
     }
 
     public Positioning[] getPositioningValues() {

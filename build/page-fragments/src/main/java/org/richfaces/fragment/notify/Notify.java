@@ -25,6 +25,7 @@ import org.richfaces.fragment.list.ListItem;
 import org.richfaces.fragment.messages.Messages;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface Notify<T extends NotifyMessage & ListItem> extends Messages<T> {

@@ -29,17 +29,22 @@ import org.richfaces.fragment.switchable.AbstractComponentContainer;
 
 public class RichFacesAccordionItem extends AbstractComponentContainer implements AdvancedInteractions<RichFacesAccordionItem.AdvancedAccordionItemInteractions> {
 
-    private final AdvancedAccordionItemInteractions advancedInteractions = new AdvancedAccordionItemInteractions();
     @FindBy(className = "rf-ac-itm-lbl-act")
     private GrapheneElement activeHeader;
+
     @FindBy(className = "rf-ac-itm-lbl-dis")
     private GrapheneElement disabledHeader;
+
     @FindBy(className = "rf-ac-itm-lbl-inact")
     private GrapheneElement inactiveHeader;
+
     @FindBy(className = "rf-ac-itm-cnt")
     private GrapheneElement content;
+
     @FindBy(className = "rf-ac-itm-hdr")
     private GrapheneElement toActivate;
+
+    private final AdvancedAccordionItemInteractions advancedInteractions = new AdvancedAccordionItemInteractions();
 
     @Override
     public AdvancedAccordionItemInteractions advanced() {

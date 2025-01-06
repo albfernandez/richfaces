@@ -21,11 +21,6 @@
  */
 package org.richfaces.util;
 
-import com.google.common.collect.Maps;
-import org.ajax4jsf.resource.util.URLToStreamHelper;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -34,8 +29,15 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.Properties;
 
+import org.ajax4jsf.resource.util.URLToStreamHelper;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
+import com.google.common.collect.Maps;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public final class PropertiesUtil {
     private static final Logger LOGGER = RichfacesLogger.UTIL.getLogger();
@@ -73,8 +75,6 @@ public final class PropertiesUtil {
                     loaded = true;
                 } catch (IOException e) {
                     LOGGER.warn(MessageFormat.format("Failure loading properties from URL: {0}", url.toExternalForm()), e);
-
-                    continue;
                 } finally {
                     if (null != propertyStream) {
                         propertyStream.close();

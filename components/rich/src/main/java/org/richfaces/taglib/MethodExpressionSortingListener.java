@@ -21,11 +21,11 @@
  */
 package org.richfaces.taglib;
 
-import org.richfaces.event.SortingEvent;
-import org.richfaces.event.SortingListener;
-
 import jakarta.el.MethodExpression;
 import jakarta.faces.context.FacesContext;
+
+import org.richfaces.event.SortingEvent;
+import org.richfaces.event.SortingListener;
 
 public class MethodExpressionSortingListener implements SortingListener {
     private MethodExpression methodExpression;
@@ -41,6 +41,6 @@ public class MethodExpressionSortingListener implements SortingListener {
 
     public void processSorting(SortingEvent sortingEvent) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        methodExpression.invoke(facesContext.getELContext(), new Object[]{sortingEvent});
+        methodExpression.invoke(facesContext.getELContext(), new Object[] { sortingEvent });
     }
 }

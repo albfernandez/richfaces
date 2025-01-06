@@ -21,10 +21,6 @@
  */
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeSource;
-import org.richfaces.event.MethodExpressionItemChangeListener;
-
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.FaceletContext;
@@ -33,6 +29,10 @@ import jakarta.faces.view.facelets.MetaRuleset;
 import jakarta.faces.view.facelets.Metadata;
 import jakarta.faces.view.facelets.MetadataTarget;
 import jakarta.faces.view.facelets.TagAttribute;
+
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeSource;
+import org.richfaces.event.MethodExpressionItemChangeListener;
 
 /**
  * @author akolonitsky
@@ -65,7 +65,7 @@ public class TogglePanelTagHandler extends ComponentHandler {
     }
 
     private static final class ItemChangeExpressionMetadata extends Metadata {
-        private static final Class<?>[] ITEM_CHANGE_SIG = new Class[]{ItemChangeEvent.class};
+        private static final Class<?>[] ITEM_CHANGE_SIG = new Class[] { ItemChangeEvent.class };
         private final TagAttribute attr;
 
         ItemChangeExpressionMetadata(TagAttribute attr) {
@@ -75,7 +75,7 @@ public class TogglePanelTagHandler extends ComponentHandler {
         @Override
         public void applyMetadata(FaceletContext ctx, Object instance) {
             ((ItemChangeSource) instance).addItemChangeListener(new MethodExpressionItemChangeListener(this.attr
-                    .getMethodExpression(ctx, null, ITEM_CHANGE_SIG)));
+                .getMethodExpression(ctx, null, ITEM_CHANGE_SIG)));
         }
     }
 }

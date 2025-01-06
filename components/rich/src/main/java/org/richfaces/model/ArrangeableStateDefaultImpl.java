@@ -26,6 +26,7 @@ import java.util.Locale;
 
 /**
  * @author Konstantin Mishin
+ *
  */
 public class ArrangeableStateDefaultImpl implements ArrangeableState {
     private List<FilterField> filterFields;

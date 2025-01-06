@@ -26,6 +26,19 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 import org.richfaces.photoalbum.model.Shelf;
 import org.richfaces.photoalbum.model.User;
@@ -38,37 +51,31 @@ import org.richfaces.photoalbum.model.event.ShelfEvent;
 import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.Preferred;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.inject.Any;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
 @Named
 @RequestScoped
 public class ShelfManager implements Serializable {
 
     private static final long serialVersionUID = 2631634926126857691L;
+
+    private boolean validationSuccess = false;
+
+    private List<Shelf> shelves;
+
     @Inject
     IShelfAction shelfAction;
+
     @Inject
     @Preferred
     User user;
+
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
     Event<ErrorEvent> error;
+
     @Inject
     @Any
     Event<ShelfEvent> shelfEvent;
-    private boolean validationSuccess = false;
-    private List<Shelf> shelves;
+
     private Shelf newShelf = new Shelf();
 
     public Shelf getShelf() {
@@ -81,6 +88,7 @@ public class ShelfManager implements Serializable {
 
     /**
      * Method, that invoked when user want to create new shelf. Only registered users can create new shelves.
+     * 
      */
     public void createShelf() {
         if (user == null) {
@@ -91,8 +99,9 @@ public class ShelfManager implements Serializable {
 
     /**
      * Method, that invoked on creation of the new shelf. Only registered users can create new shelves.
-     *
+     * 
      * @param album - new album
+     * 
      */
     public void addShelf(Shelf shelf) {
         if (user == null) {
@@ -118,9 +127,10 @@ public class ShelfManager implements Serializable {
     /**
      * Method, that invoked when user click 'Edit shelf' button or by inplaceInput component. Only registered users can edit
      * shelves.
-     *
-     * @param shelf           - shelf to edit
+     * 
+     * @param shelf - shelf to edit
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
+     * 
      */
     public void editShelf(Shelf shelf, boolean editFromInplace) {
         if (user == null) {
@@ -156,8 +166,9 @@ public class ShelfManager implements Serializable {
 
     /**
      * Method, that invoked when user click 'Delete shelf' button. Only registered users can delete shelves.
-     *
+     * 
      * @param image - shelf to delete
+     * 
      */
     public void deleteShelf(Shelf shelf) {
         if (user == null) {
@@ -175,8 +186,9 @@ public class ShelfManager implements Serializable {
 
     /**
      * This method used to populate 'pre-defined shelves' tree
-     *
+     * 
      * @return List of predefined shelves
+     * 
      */
     public List<Shelf> getPredefinedShelves() {
         if (shelves == null) {

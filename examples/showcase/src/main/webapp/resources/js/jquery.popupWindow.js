@@ -3,7 +3,7 @@
 		
 		return this.each(function(){
 		
-		$(this).click(function(){
+		$(this).on("click", function(){
 		
 		$.fn.popupWindow.defaultSettings = {
 			centerBrowser:0, // center window over browser window? {1 (YES) or 0 (NO)}. overrides top and left

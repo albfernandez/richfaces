@@ -26,9 +26,24 @@ import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface Message extends AdvancedInteractions<Message.AdvancedMessageInteractions> {
+
+    /**
+     * Represents the severity of the messages represented by Message component.
+     *
+     * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
+     */
+    public enum MessageType {
+
+        FATAL,
+        ERROR,
+        INFORMATION,
+        WARNING,
+        OK;
+    }
 
     /**
      * Gets the summary part of the message.
@@ -50,20 +65,6 @@ public interface Message extends AdvancedInteractions<Message.AdvancedMessageInt
      * @return the message type which represents the severity
      */
     MessageType getType();
-
-    /**
-     * Represents the severity of the messages represented by Message component.
-     *
-     * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
-     */
-    public enum MessageType {
-
-        FATAL,
-        ERROR,
-        INFORMATION,
-        WARNING,
-        OK;
-    }
 
     public interface AdvancedMessageInteractions {
 

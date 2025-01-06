@@ -21,8 +21,18 @@
  */
 package org.richfaces.resource.optimizer.task;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.MessageFormat;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionService;
+
+import jakarta.activation.MimetypesFileTypeMap;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.FacesContext;
+
 import org.richfaces.log.Logger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceSkinUtils;
@@ -32,94 +42,17 @@ import org.richfaces.resource.optimizer.ResourceWriter;
 import org.richfaces.resource.optimizer.faces.CurrentResourceContext;
 import org.richfaces.resource.optimizer.resource.util.ResourceConstants;
 import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
-import org.richfaces.util.StreamUtils;
 
-import javax.activation.MimetypesFileTypeMap;
-import jakarta.faces.application.Resource;
-import jakarta.faces.application.ResourceHandler;
-import jakarta.faces.context.FacesContext;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.MessageFormat;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CompletionService;
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.common.io.ByteStreams;
+import com.google.common.primitives.Bytes;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
-
-    private Logger log;
-    private Faces faces;
-    private ResourceWriter resourceWriter;
-    private CompletionService<Object> completionService;
-    private String[] skins = new String[0];
-    private Predicate<Resource> filter = Predicates.alwaysTrue();
-    private String packName;
-    public ResourceTaskFactoryImpl(Faces faces, String packName) {
-        super();
-        this.faces = faces;
-        this.packName = packName;
-    }
-
-    private boolean containsELExpression(Resource resource) {
-        InputStream is = null;
-        try {
-            is = resource.getInputStream();
-            byte[] bs = StreamUtils.toByteArray(is);
-
-            for (int i = 0; i < bs.length; i++) {
-                byte b = bs[i];
-
-                if (b == '#' && i + 1 < bs.length && bs[i + 1] == '{') {
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                // Swallow
-            }
-        }
-
-        return false;
-    }
-
-    private boolean shouldCheckForEL(Resource resource) {
-        String resourceName = resource.getResourceName();
-
-        return resourceName.endsWith(".js") || resourceName.endsWith(".css");
-    }
-
-    public void setLog(Logger log) {
-        this.log = log;
-    }
-
-    public void setResourceWriter(ResourceWriter resourceWriter) {
-        this.resourceWriter = resourceWriter;
-    }
-
-    public void setSkins(String[] skins) {
-        this.skins = skins;
-    }
-
-    public void setCompletionService(CompletionService<Object> completionService) {
-        this.completionService = completionService;
-    }
-
-    public void setFilter(Predicate<Resource> filter) {
-        this.filter = filter;
-    }
-
-    public void submit(Iterable<ResourceKey> locators) {
-        for (ResourceKey locator : locators) {
-            completionService.submit(new ResourcesRendererCallable(locator));
-        }
-    }
 
     private class ResourcesRendererCallable implements Callable<Object> {
         private ResourceKey resourceKey;
@@ -255,6 +188,77 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
                 }
             }
             return false;
+        }
+    }
+
+    private Logger log;
+    private Faces faces;
+    private ResourceWriter resourceWriter;
+    private CompletionService<Object> completionService;
+    private String[] skins = new String[0];
+    private Predicate<Resource> filter = Predicates.alwaysTrue();
+    private String packName;
+
+    public ResourceTaskFactoryImpl(Faces faces, String packName) {
+        super();
+        this.faces = faces;
+        this.packName = packName;
+    }
+
+    private boolean containsELExpression(Resource resource) {
+        byte[] elExpression = { '#', '{' };
+
+        InputStream is = null;
+        try {
+            is = resource.getInputStream();
+            byte[] bs = ByteStreams.toByteArray(is);
+
+            return Bytes.indexOf(bs, elExpression) != -1;
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+        } finally {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+            }
+            catch(IOException e){
+                // Swallow
+            }
+        }
+
+        return false;
+    }
+
+    private boolean shouldCheckForEL(Resource resource) {
+        String resourceName = resource.getResourceName();
+
+        return resourceName.endsWith(".js") || resourceName.endsWith(".css");
+    }
+
+    public void setLog(Logger log) {
+        this.log = log;
+    }
+
+    public void setResourceWriter(ResourceWriter resourceWriter) {
+        this.resourceWriter = resourceWriter;
+    }
+
+    public void setSkins(String[] skins) {
+        this.skins = skins;
+    }
+
+    public void setCompletionService(CompletionService<Object> completionService) {
+        this.completionService = completionService;
+    }
+
+    public void setFilter(Predicate<Resource> filter) {
+        this.filter = filter;
+    }
+
+    public void submit(Iterable<ResourceKey> locators) {
+        for (ResourceKey locator : locators) {
+            completionService.submit(new ResourcesRendererCallable(locator));
         }
     }
 }

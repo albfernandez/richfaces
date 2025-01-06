@@ -21,6 +21,9 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
@@ -30,10 +33,8 @@ import org.richfaces.fragment.popupPanel.RichFacesPopupPanel;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.ConfirmationPanel.Body;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.HowItWorksPopupPanel.Controls;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class ConfirmationPanel extends RichFacesPopupPanel<TextualFragmentPart, Controls, Body> {

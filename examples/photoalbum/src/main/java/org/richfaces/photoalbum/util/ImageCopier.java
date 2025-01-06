@@ -21,18 +21,6 @@
  */
 package org.richfaces.photoalbum.util;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.ejb.Startup;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import jakarta.faces.context.FacesContext;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-
 import static org.richfaces.photoalbum.util.Constants.PHOTOALBUM_FOLDER;
 import static org.richfaces.photoalbum.util.Constants.TEMP_DIR;
 import static org.richfaces.photoalbum.util.Constants.UPLOAD_FOLDER_PATH_ERROR;
@@ -40,10 +28,24 @@ import static org.richfaces.photoalbum.util.FileManipulation.copyDirectory;
 import static org.richfaces.photoalbum.util.FileManipulation.deleteDirectory;
 import static org.richfaces.photoalbum.util.FileManipulation.joinFiles;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.ejb.Startup;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+
 /**
  * Utility class, that perform copying images from ear file to temp folder at startup application
- *
+ * 
  * @author Andrey Markavtsov
+ * 
  */
 
 @Startup
@@ -61,6 +63,7 @@ public class ImageCopier {
 
     /**
      * Method, that perform copying images from ear file to temp folder at startup application
+     * 
      */
     @PostConstruct
     public void create() throws IOException {
@@ -71,6 +74,7 @@ public class ImageCopier {
 
     /**
      * Method, that perform deleting images from temp folder during destroy application
+     * 
      */
     @PreDestroy
     public void destroy() throws IOException {
@@ -79,7 +83,7 @@ public class ImageCopier {
 
     private void resolveImageFolder() throws MalformedURLException {
         final ServletContext servletContext = ((HttpSession) (FacesContext.getCurrentInstance().getExternalContext()
-                .getSession(false))).getServletContext();
+            .getSession(false))).getServletContext();
 
         if (servletContext != null) {
             // this.imageSrc = getClass().getClassLoader().getResource(IMAGE_FOLDER).getPath();

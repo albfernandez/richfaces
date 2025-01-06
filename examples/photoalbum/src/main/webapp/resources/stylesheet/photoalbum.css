@@ -1590,11 +1590,6 @@ input.G-text-button {
 
 /* disabled buttons */
 span.FB-btn-small, span.G-btn-small, span.G-btn-medium, span.FB-btn-medium {
-    -moz-filter: grayscale(100%);
-    -webkit-filter: grayscale(100%);
-    -moz-filter: grayscale(100%);
-    -ms-filter: grayscale(100%);
-    -o-filter: grayscale(100%);
     filter: grayscale(100%);
 }
 

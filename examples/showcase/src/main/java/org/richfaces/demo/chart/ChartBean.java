@@ -1,15 +1,16 @@
 package org.richfaces.demo.chart;
 
-import org.richfaces.model.ChartDataModel;
-import org.richfaces.model.PlotClickEvent;
-import org.richfaces.model.StringChartDataModel;
-
-import javax.annotation.PostConstruct;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import org.richfaces.model.ChartDataModel;
+import org.richfaces.model.PlotClickEvent;
+import org.richfaces.model.StringChartDataModel;
 
 @ManagedBean
 @ViewScoped

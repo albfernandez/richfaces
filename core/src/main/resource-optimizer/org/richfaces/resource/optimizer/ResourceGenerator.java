@@ -21,18 +21,33 @@
  */
 package org.richfaces.resource.optimizer;
 
-import com.beust.jcommander.Parameter;
-import com.beust.jcommander.Parameters;
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.base.Strings;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
-import com.google.common.collect.Sets;
+import static com.google.common.base.Predicates.notNull;
+import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Collections2.transform;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceDependency;
+
 import org.richfaces.application.Module;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.ServicesFactoryImpl;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -63,36 +78,23 @@ import org.richfaces.resource.optimizer.util.MorePredicates;
 import org.richfaces.resource.optimizer.vfs.VFS;
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
 import org.richfaces.resource.optimizer.vfs.VirtualFile;
+import org.richfaces.application.ServiceTracker;
 
-import jakarta.faces.application.Resource;
-import jakarta.faces.application.ResourceDependency;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CompletionService;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
-import static com.google.common.base.Predicates.notNull;
-import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Collections2.transform;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.common.base.Strings;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
 
 /**
  * Configurable command-line interface of CDK generator.
- * <p>
- * This class is similar functionality as {@link org.richfaces.builder.mojo.GenerateMojo} from richfaces-cdk-maven-plugin.
+ *
+ * This class is similar functionality as org.richfaces.builder.mojo.GenerateMojo from richfaces-cdk-maven-plugin.
  *
  * @author Lukas Fryc
  */
@@ -136,72 +138,72 @@ public class ResourceGenerator {
     /**
      * Request print of usage
      */
-    @Parameter(names = {"--help"}, descriptionKey = "help")
+    @Parameter(names = { "--help" }, descriptionKey = "help")
     private boolean help = false;
 
     /**
      * Output directory for processed resources
      */
-    @Parameter(names = {"-o", "--output"}, descriptionKey = "resourcesOutputDir", required = true)
+    @Parameter(names = { "-o", "--output" }, descriptionKey = "resourcesOutputDir", required = true)
     private String resourcesOutputDir;
 
     /**
      * Configures what prefix should be placed to each file before the library and name of the resource
      */
-    @Parameter(names = {"-p", "--prefix"}, descriptionKey = "staticResourcePrefix", required = true)
+    @Parameter(names = { "-p", "--prefix" }, descriptionKey = "staticResourcePrefix", required = true)
     private String staticResourcePrefix;
 
     /**
      * Output file for resource mapping configuration
      */
-    @Parameter(names = {"-m", "--mapping"}, descriptionKey = "staticResourceMappingFile", required = true)
+    @Parameter(names = { "-m", "--mapping" }, descriptionKey = "staticResourceMappingFile", required = true)
     private String staticResourceMappingFile;
 
     /**
      * The list of RichFaces skins to be processed
      */
-    @Parameter(names = {"-s", "--skins"}, descriptionKey = "skins", required = true)
+    @Parameter(names = { "-s", "--skins" }, descriptionKey = "skins", required = true)
     private String skins;
 
     /**
      * Output directory for processed resources
      */
-    @Parameter(names = {"-c", "--classpathDir"}, descriptionKey = "classpathDir", required = true)
+    @Parameter(names = { "-c", "--classpathDir" }, descriptionKey = "classpathDir", required = true)
     private File classpathDir;
     /**
      * The list of mime-types to be included in processing
      */
-    @Parameter(names = {"--includeContentType"}, descriptionKey = "includedContentTypes")
+    @Parameter(names = { "--includeContentType" }, descriptionKey = "includedContentTypes")
     private List<String> includedContentTypes = Arrays.asList("application/javascript", "text/css", "image/.+");
     /**
      * The list of mime-types to be excluded in processing
      */
-    @Parameter(names = {"--excludeContentType"}, descriptionKey = "excludedContentTypes")
+    @Parameter(names = { "--excludeContentType" }, descriptionKey = "excludedContentTypes")
     private List<String> excludedContentTypes = Arrays.asList();
     /**
      * List of included files.
      */
-    @Parameter(names = {"--includeFile"}, descriptionKey = "includedFiles")
+    @Parameter(names = { "--includeFile" }, descriptionKey = "includedFiles")
     private List<String> includedFiles = Arrays.asList();
     /**
      * List of excluded files
      */
-    @Parameter(names = {"--excludeFile"}, descriptionKey = "excludedFiles")
-    private List<String> excludedFiles = Arrays.asList("^javax.faces", "^\\Qorg.richfaces.renderkit.html.images.\\E.*", "^\\Qorg.richfaces.renderkit.html.iconimages.\\E.*");
+    @Parameter(names = { "--excludeFile" }, descriptionKey = "excludedFiles")
+    private List<String> excludedFiles = Arrays.asList("^jakarta.faces", "^\\Qorg.richfaces.renderkit.html.images.\\E.*", "^\\Qorg.richfaces.renderkit.html.iconimages.\\E.*");
     /**
      * Turns on compression with YUI Compressor (JavaScript/CSS compression)
      */
-    @Parameter(names = {"--compress"}, descriptionKey = "compress")
+    @Parameter(names = { "--compress" }, descriptionKey = "compress")
     private boolean compress = false;
     /**
      * Turns on packing of JavaScript/CSS resources
      */
-    @Parameter(names = {"--pack"}, descriptionKey = "pack")
+    @Parameter(names = { "--pack" }, descriptionKey = "pack")
     private String pack;
     /**
      * Mapping of file names to output file names
      */
-    private FileNameMapping[] fileNameMappings = new FileNameMapping[]{
+    private FileNameMapping[] fileNameMappings = new FileNameMapping[] {
             new FileNameMapping("^.*showcase.*/([^/]+\\.css)$", "org.richfaces.showcase.css/$1"),
             new FileNameMapping("^.+/([^/]+\\.(png|gif|jpg))$", "org.richfaces.images/$1"),
             new FileNameMapping("^.+/([^/]+\\.css)$", "org.richfaces.css/$1")
@@ -310,11 +312,10 @@ public class ResourceGenerator {
     }
 
     protected URL[] getProjectClassPath() {
-        List<String> classpath = new ArrayList<String>();
+        List<String> classpath = new ArrayList<>();
         classpath.add(classpathDir.getAbsolutePath());
 
-        URL[] urlClasspath = filter(transform(classpath, filePathToURL), notNull()).toArray(EMPTY_URL_ARRAY);
-        return urlClasspath;
+        return filter(transform(classpath, filePathToURL), notNull()).toArray(EMPTY_URL_ARRAY);
     }
 
     protected ClassLoader createProjectClassLoader(URL[] cp) {
@@ -326,7 +327,7 @@ public class ResourceGenerator {
     /**
      * Initializes {@link ServiceTracker} to be able use it inside RichFaces framework code
      * in order to handle dynamic resources.
-     * <p>
+     *
      * Fake {@link ServiceFactoryModule} is used for this purpose.
      *
      * @throws IllegalStateException when initialization fails
@@ -335,7 +336,7 @@ public class ResourceGenerator {
         ServicesFactoryImpl servicesFactory = new ServicesFactoryImpl();
         ServiceTracker.setFactory(servicesFactory);
 
-        ArrayList<Module> modules = new ArrayList<Module>();
+        ArrayList<Module> modules = new ArrayList<>();
         modules.add(new ServiceFactoryModule());
 //        try {
 //            modules.addAll(ServiceLoader.loadServices(Module.class));
@@ -347,7 +348,7 @@ public class ResourceGenerator {
 
     /**
      * Will determine ordering of resources from {@link ResourceDependency} annotations on renderers.
-     * <p>
+     *
      * Sorts foundResources using the determined ordering.
      */
     private void reorderFoundResources(Collection<VFSRoot> cpResources, DynamicResourceHandler dynamicResourceHandler, ResourceFactory resourceFactory) throws Exception {
@@ -414,7 +415,7 @@ public class ResourceGenerator {
             taskFactory.setResourceWriter(resourceWriter);
 
             executorService = createExecutorService();
-            CompletionService<Object> completionService = new CountingExecutorCompletionService<Object>(executorService);
+            CompletionService<Object> completionService = new CountingExecutorCompletionService<>(executorService);
             taskFactory.setCompletionService(completionService);
             taskFactory.setSkins(Iterables.toArray(Constants.COMMA_SPLITTER.split(skins), String.class));
             taskFactory.setLog(log);

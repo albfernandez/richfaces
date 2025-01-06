@@ -42,20 +42,34 @@ public class ITDisablingBuiltinSortingAndFiltering {
             @Override
             public WebAppDescriptor apply(@Nullable WebAppDescriptor input) {
                 input
-                        .createContextParam()
+                    .createContextParam()
                         .paramName("org.richfaces.builtin.sort.enabled")
                         .paramValue("false")
-                        .up()
-                        .createContextParam()
+                    .up()
+                    .createContextParam()
                         .paramName("org.richfaces.builtin.filter.enabled")
                         .paramValue("false")
-                        .up();
+                    .up();
                 return input;
             }
         });
 
 
         return deployment.getFinalArchive();
+    }
+
+    @Test
+    public void check_for_no_sort_control() throws InterruptedException {
+        browser.get(contextPath.toExternalForm());
+        List<WebElement> sortHandles = browser.findElements(By.cssSelector(".rf-edt-srt"));
+        Assert.assertEquals(0, sortHandles.size());
+    }
+
+    @Test
+    public void check_for_no_filter_control() throws InterruptedException {
+        browser.get(contextPath.toExternalForm());
+        List<WebElement> filterInputs = browser.findElements(By.cssSelector(".rf-edt-flt-i"));
+        Assert.assertEquals(0, filterInputs.size());
     }
 
     private static void addIndexPage(RichDeployment deployment) {
@@ -86,7 +100,7 @@ public class ITDisablingBuiltinSortingAndFiltering {
         p.body("            <f:facet name='header'>Column 2</f:facet> ");
         p.body("            <h:outputText value='#{bean}' /> ");
         p.body("        </rich:column> ");
-        p.body("        <rich:column id='column3' width='150px'");
+        p.body("        <rich:column id='column3' width='150px'" );
         p.body("                     sortBy='#{bean}' ");
         p.body("                     sortOrder='#{iterationBuiltInBean.sortOrder2}' > ");
         p.body("            <f:facet name='header'>Column 3</f:facet> ");
@@ -97,20 +111,6 @@ public class ITDisablingBuiltinSortingAndFiltering {
         p.body("</h:form> ");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    @Test
-    public void check_for_no_sort_control() throws InterruptedException {
-        browser.get(contextPath.toExternalForm());
-        List<WebElement> sortHandles = browser.findElements(By.cssSelector(".rf-edt-srt"));
-        Assert.assertEquals(0, sortHandles.size());
-    }
-
-    @Test
-    public void check_for_no_filter_control() throws InterruptedException {
-        browser.get(contextPath.toExternalForm());
-        List<WebElement> filterInputs = browser.findElements(By.cssSelector(".rf-edt-flt-i"));
-        Assert.assertEquals(0, filterInputs.size());
     }
 
 }

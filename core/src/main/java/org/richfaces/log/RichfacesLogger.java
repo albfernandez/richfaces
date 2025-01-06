@@ -27,6 +27,7 @@ import jakarta.faces.component.UIViewRoot;
 
 /**
  * @author Anton Belevich
+ *
  */
 public enum RichfacesLogger {
     RESOURCE("Resource"),
@@ -47,7 +48,16 @@ public enum RichfacesLogger {
         this.loggerName = LOGGER_NAME_PREFIX + loggerName;
     }
 
+    public String getLoggerName() {
+        return loggerName;
+    }
+
+    public Logger getLogger() {
+        return LogFactory.getLogger(loggerName);
+    }
+
     /**
+     *
      * Return string which contains formated path from view root to component.
      *
      * @param component
@@ -76,13 +86,5 @@ public enum RichfacesLogger {
             }
             builder.append("]");
         }
-    }
-
-    public String getLoggerName() {
-        return loggerName;
-    }
-
-    public Logger getLogger() {
-        return LogFactory.getLogger(loggerName);
     }
 }

@@ -41,7 +41,7 @@ final class ZipNode {
         setDirectory(true);
 
         if (children == null) {
-            children = new LinkedHashMap<String, ZipNode>();
+            children = new LinkedHashMap<>();
         }
 
         String lcName = name.toLowerCase();
@@ -74,16 +74,12 @@ final class ZipNode {
         return children.values();
     }
 
-    public boolean isDirectory() {
-        return directory;
-    }
-
     private void setDirectory(boolean directory) {
         this.directory = directory;
     }
 
-    public ZipEntry getZipEntry() {
-        return zipEntry;
+    public boolean isDirectory() {
+        return directory;
     }
 
     public void setZipEntry(ZipEntry zipEntry) {
@@ -91,6 +87,10 @@ final class ZipNode {
         setDirectory(zipEntry.isDirectory());
     }
 
+    public ZipEntry getZipEntry() {
+        return zipEntry;
+    }
+    
     @Override
     public String toString() {
         return "ZipNode[" + name + ", " + zipEntry.getName() + "]";

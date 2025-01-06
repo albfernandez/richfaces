@@ -22,15 +22,15 @@
 
 package org.richfaces.webapp;
 
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Sets;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Set;
 
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Sets;
 
 /**
  * Forms a facade for {@link ServletContext} that can hold map of default configuration used in case no other configuration provided.
@@ -68,11 +68,11 @@ public final class ServletConfigDefaultsFacade implements ServletConfig {
         return parameter;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public Enumeration getInitParameterNames() {
         Set<String> result = Sets.newHashSet();
 
-        Iterators.addAll(result, (Iterator<? extends String>) defaults.keySet());
+        Iterators.addAll(result, defaults.keySet().iterator());
         Iterators.addAll(result, Iterators.forEnumeration(config.getInitParameterNames()));
         Iterators.addAll(result, Iterators.forEnumeration(config.getServletContext().getInitParameterNames()));
 

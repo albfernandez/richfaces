@@ -21,6 +21,9 @@
  */
 package org.richfaces.fragment.dataScroller;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -31,15 +34,11 @@ import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * @author <a href="https://community.jboss.org/people/ppitonak">Pavol Pitonak</a>
  */
 public class RichFacesDataScroller implements DataScroller, AdvancedVisibleComponentIteractions<RichFacesDataScroller.AdvancedDataScrollerInteractions> {
 
-    private final AdvancedDataScrollerInteractions advancedInteractions = new AdvancedDataScrollerInteractions();
     @Root
     private WebElement root;
     @FindBy(className = "rf-ds-btn-first")
@@ -58,6 +57,8 @@ public class RichFacesDataScroller implements DataScroller, AdvancedVisibleCompo
     private List<GrapheneElement> numberedPages;
     @FindBy(className = "rf-ds-act")
     private GrapheneElement activePage;
+
+    private final AdvancedDataScrollerInteractions advancedInteractions = new AdvancedDataScrollerInteractions();
 
     @Override
     public int getActivePageNumber() {

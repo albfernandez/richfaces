@@ -21,8 +21,11 @@
  */
 package org.richfaces.application.push.impl;
 
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.richfaces.application.push.MessageDataSerializer;
-import org.richfaces.application.push.MessageException;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.SessionPreSubscriptionEvent;
 import org.richfaces.application.push.SubscriptionFailureException;
@@ -33,14 +36,11 @@ import org.richfaces.application.push.TopicListener;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import java.text.MessageFormat;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 /**
  * Topic encapsulates particular endpoint for sending/receiving messages.
  *
  * @author Nick Belaevski
+ *
  * @see Topic
  */
 public abstract class AbstractTopic implements Topic {
@@ -48,7 +48,7 @@ public abstract class AbstractTopic implements Topic {
     private TopicKey key;
     private volatile MessageDataSerializer serializer;
     private volatile boolean allowSubtopics;
-    private List<TopicListener> listeners = new CopyOnWriteArrayList<TopicListener>();
+    private List<TopicListener> listeners = new CopyOnWriteArrayList<>();
 
     public AbstractTopic(TopicKey key) {
         super();
@@ -160,18 +160,4 @@ public abstract class AbstractTopic implements Topic {
             }
         }
     }
-
-    /*
-     * (non-Javadoc)
-     * @see org.richfaces.application.push.Topic#publish(java.lang.Object)
-     */
-    @Override
-    public abstract void publish(Object messageData) throws MessageException;
-
-    /*
-     * (non-Javadoc)
-     * @see org.richfaces.application.push.Topic#publish(java.lang.Object, java.lang.String)
-     */
-    @Override
-    public abstract void publish(Object messageData, String subtopicName) throws MessageException;
 }

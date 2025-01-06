@@ -1,11 +1,11 @@
 package org.richfaces.renderkit;
 
+import java.io.File;
+import java.net.URISyntaxException;
+
 import org.junit.Test;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.renderkit.html.RendererTestBase;
-
-import java.io.File;
-import java.net.URISyntaxException;
 
 public class InputNumberSpinnerRendererTest extends RendererTestBase {
 

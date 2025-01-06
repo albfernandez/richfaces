@@ -21,7 +21,10 @@
  */
 package org.richfaces.context;
 
-import org.ajax4jsf.component.AjaxOutput;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import jakarta.faces.component.NamingContainer;
 import jakarta.faces.component.UIComponent;
@@ -32,15 +35,13 @@ import jakarta.faces.event.PostAddToViewEvent;
 import jakarta.faces.event.PreRemoveFromViewEvent;
 import jakarta.faces.event.SystemEvent;
 import jakarta.faces.event.SystemEventListener;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+
+import org.ajax4jsf.component.AjaxOutput;
 
 /**
  * Tracker that tracks all {@link AjaxOutput} components in the component tree and that can retrieve tracked {@link AjaxOutput}s
  * in O(n) where "n" is depth of the tree.
- * <p>
+ *
  * The O(n) is ensured by tracking nested {@link AjaxOutput} in each {@link NamingContainer} component on a way from the
  * {@link UIViewRoot} to the given component.
  *
@@ -50,11 +51,35 @@ public class AjaxOutputTracker implements SystemEventListener {
     private static final String ATTRIBUTE_NAME = "org.richfaces.AjaxOutputTracker";
 
     /**
+     * Tracks additions (resp. removals) of {@link AjaxOutput} to (resp. from) a component tree on {@link PostAddToViewEvent}
+     * (resp. {@link PreRemoveFromViewEvent})
+     */
+    @Override
+    public void processEvent(SystemEvent event) throws AbortProcessingException {
+        if (event instanceof PostAddToViewEvent) {
+            PostAddToViewEvent addToViewEvent = (PostAddToViewEvent) event;
+            componentAdded(addToViewEvent.getComponent());
+        } else if (event instanceof PreRemoveFromViewEvent) {
+            PreRemoveFromViewEvent removeFromViewEvent = (PreRemoveFromViewEvent) event;
+            componentRemoved(removeFromViewEvent.getComponent());
+        } else {
+            throw new IllegalArgumentException(event.toString());
+        }
+    }
+
+    /**
+     * Tracks just {@link AjaxOutput} components
+     */
+    public boolean isListenerForSource(Object source) {
+        return source instanceof AjaxOutput;
+    }
+
+    /**
      * Return a list of all {@link AjaxOutput} components in a tree under a given component.
      */
     static Collection<UIComponent> getAjaxOutputs(FacesContext facesContext, UIComponent component) {
         final Collection<String> childrenIds = getDirectChildrenIds(component);
-        final Set<UIComponent> ajaxOutputs = new HashSet<UIComponent>();
+        final Set<UIComponent> ajaxOutputs = new HashSet<>();
 
         if (childrenIds != null) {
             for (String childId : childrenIds) {
@@ -74,7 +99,7 @@ public class AjaxOutputTracker implements SystemEventListener {
     /**
      * Returns a list of {@link AjaxOutput} (or IDs of {@link NamingContainer} that contains at least one {@link AjaxOutput})
      * tracked in the given component subtree.
-     * <p>
+     *
      * Provided component must be Container Component as specified by {@link #isContainerComponent(UIComponent)}.
      *
      * @throws IllegalArgumentException when the provided component is not Container Component
@@ -104,7 +129,7 @@ public class AjaxOutputTracker implements SystemEventListener {
         @SuppressWarnings("unchecked")
         Set<String> trackedChildrenSet = (Set<String>) attributes.get(ATTRIBUTE_NAME);
         if (trackedChildrenSet == null && create) {
-            trackedChildrenSet = new HashSet<String>();
+            trackedChildrenSet = new HashSet<>();
             attributes.put(ATTRIBUTE_NAME, trackedChildrenSet);
         }
 
@@ -130,30 +155,6 @@ public class AjaxOutputTracker implements SystemEventListener {
 
     private static boolean isContainerComponent(UIComponent component) {
         return component instanceof NamingContainer || component instanceof UIViewRoot;
-    }
-
-    /**
-     * Tracks additions (resp. removals) of {@link AjaxOutput} to (resp. from) a component tree on {@link PostAddToViewEvent}
-     * (resp. {@link PreRemoveFromViewEvent})
-     */
-    @Override
-    public void processEvent(SystemEvent event) throws AbortProcessingException {
-        if (event instanceof PostAddToViewEvent) {
-            PostAddToViewEvent addToViewEvent = (PostAddToViewEvent) event;
-            componentAdded(addToViewEvent.getComponent());
-        } else if (event instanceof PreRemoveFromViewEvent) {
-            PreRemoveFromViewEvent removeFromViewEvent = (PreRemoveFromViewEvent) event;
-            componentRemoved(removeFromViewEvent.getComponent());
-        } else {
-            throw new IllegalArgumentException(event.toString());
-        }
-    }
-
-    /**
-     * Tracks just {@link AjaxOutput} components
-     */
-    public boolean isListenerForSource(Object source) {
-        return source instanceof AjaxOutput;
     }
 
     private UIComponent findParentContainerComponent(UIComponent component) {

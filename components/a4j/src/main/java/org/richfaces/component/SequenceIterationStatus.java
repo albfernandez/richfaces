@@ -42,9 +42,9 @@ public final class SequenceIterationStatus implements Serializable {
     /**
      * The SequenceIterationsStatus constructor.
      *
-     * @param begin    the index of the first row of the current page of the table
-     * @param end      the index of the last row of the current page of the table
-     * @param index    the index of the current row
+     * @param begin the index of the first row of the current page of the table
+     * @param end the index of the last row of the current page of the table
+     * @param index the index of the current row
      * @param rowCount the number of rows in the model
      */
     public SequenceIterationStatus(Integer begin, Integer end, int index, Integer rowCount) {
@@ -83,7 +83,6 @@ public final class SequenceIterationStatus implements Serializable {
 
     /**
      * Currently unused
-     *
      * @return null
      */
     public Object getCurrent() {
@@ -106,7 +105,6 @@ public final class SequenceIterationStatus implements Serializable {
 
     /**
      * Used for complex components
-     *
      * @return 1
      */
     public Integer getStep() {

@@ -1,14 +1,15 @@
 package org.richfaces.demo.fileupload;
 
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
-
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
 
 /**
  * @author Ilya Shaikovsky

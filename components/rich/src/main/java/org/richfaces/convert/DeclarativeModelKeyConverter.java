@@ -21,22 +21,25 @@
  */
 package org.richfaces.convert;
 
-import com.google.common.base.Strings;
-import org.richfaces.model.DeclarativeModelKey;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.ConverterException;
-import java.util.Iterator;
-
 import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
 import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_SPLITTER;
 import static org.richfaces.convert.TreeConverterUtil.escape;
 import static org.richfaces.convert.TreeConverterUtil.unescape;
 
+import java.util.Iterator;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+
+import org.richfaces.model.DeclarativeModelKey;
+
+import com.google.common.base.Strings;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class DeclarativeModelKeyConverter implements Converter {
     private Converter delegateConverter;

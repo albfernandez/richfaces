@@ -21,12 +21,13 @@
  */
 package org.richfaces.model;
 
-import com.google.common.base.MoreObjects;
-
 import java.io.Serializable;
+
+import com.google.common.base.MoreObjects;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class DeclarativeModelKey implements Serializable {
     private static final long serialVersionUID = 7065813074553570168L;

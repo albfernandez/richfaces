@@ -21,12 +21,12 @@
  */
 package org.richfaces.services;
 
-import org.richfaces.application.Initializable;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import org.richfaces.application.Initializable;
 
 public final class ServiceUtils {
 
@@ -42,7 +42,7 @@ public final class ServiceUtils {
      *
      * @param services list of services
      */
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static void sortByPriority(List<?> services) {
         Collections.sort(services, new Comparator() {
             @Override

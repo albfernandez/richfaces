@@ -21,8 +21,8 @@
  */
 package org.richfaces.resource.optimizer.vfs.zip;
 
-import com.google.common.collect.Lists;
-import org.richfaces.resource.optimizer.vfs.VirtualFile;
+import static org.richfaces.resource.optimizer.strings.Constants.SLASH_JOINER;
+import static org.richfaces.resource.optimizer.strings.Constants.SLASH_SPLITTER;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,11 +31,13 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import static org.richfaces.resource.optimizer.strings.Constants.SLASH_JOINER;
-import static org.richfaces.resource.optimizer.strings.Constants.SLASH_SPLITTER;
+import org.richfaces.resource.optimizer.vfs.VirtualFile;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class ZipVFSFile implements VirtualFile {
     private ZipFile zipFile;
@@ -123,7 +125,7 @@ public class ZipVFSFile implements VirtualFile {
     protected ZipNode getZipNode() {
         return zipNode;
     }
-
+    
     @Override
     public String toString() {
         return "ZipVFSFile[" + zipFile.getName() + ", " + zipNode + ", " + relativePath + "]";

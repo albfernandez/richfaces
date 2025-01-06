@@ -24,6 +24,7 @@ package org.richfaces.application.push;
 /**
  * MessageDataSerializer is responsible for transforming message data object into a format that browser can understand, e.g. JSON.
  *
+ *
  * @author Nick Belaevski
  */
 public interface MessageDataSerializer {

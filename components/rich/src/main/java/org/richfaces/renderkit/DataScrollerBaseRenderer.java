@@ -21,6 +21,20 @@
  */
 package org.richfaces.renderkit;
 
+import static org.richfaces.component.DataScrollerControlsMode.auto;
+import static org.richfaces.component.DataScrollerControlsMode.show;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSLiteral;
@@ -30,27 +44,14 @@ import org.richfaces.component.DataScrollerControlsMode;
 import org.richfaces.event.DataScrollEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
-import jakarta.faces.application.ResourceDependencies;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.richfaces.component.DataScrollerControlsMode.auto;
-import static org.richfaces.component.DataScrollerControlsMode.show;
-
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "datascroller.js"),
-        @ResourceDependency(library = "org.richfaces", name = "datascroller.ecss")})
+        @ResourceDependency(library = "org.richfaces", name = "datascroller.ecss") })
 public class DataScrollerBaseRenderer extends RendererBase {
     public void doDecode(FacesContext context, UIComponent component) {
         Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
@@ -70,12 +71,12 @@ public class DataScrollerBaseRenderer extends RendererBase {
         }
     }
 
-    protected boolean shouldRender(UIComponent component) {
+    protected boolean shouldRender(UIComponent component){
         AbstractDataScroller ds = (AbstractDataScroller) component;
-        if ((ds.getPageCount() == 1) && (!ds.isRenderIfSinglePage())) {
+        if ((ds.getPageCount() == 1)&&(!ds.isRenderIfSinglePage())){
             return false;
-        } else {
-            return true;
+        }else{
+        return true;
         }
     }
 
@@ -186,7 +187,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
         int maxPages = (Integer) component.getAttributes().get("maxPagesOrDefault");
         int pageCount = (Integer) component.getAttributes().get("pageCount");
 
-        Map<String, String> digital = new HashMap<String, String>();
+        Map<String, String> digital = new HashMap<>();
 
         if (pageCount <= 1) {
             return digital;
@@ -263,9 +264,9 @@ public class DataScrollerBaseRenderer extends RendererBase {
 
     public Map<String, Map<String, String>> getControls(FacesContext context, UIComponent component, ControlsState controlsState) {
 
-        Map<String, Map<String, String>> controls = new HashMap<String, Map<String, String>>();
-        Map<String, String> right = new HashMap<String, String>();
-        Map<String, String> left = new HashMap<String, String>();
+        Map<String, Map<String, String>> controls = new HashMap<>();
+        Map<String, String> right = new HashMap<>();
+        Map<String, String> left = new HashMap<>();
 
         String clientId = component.getClientId(context);
 
@@ -304,12 +305,12 @@ public class DataScrollerBaseRenderer extends RendererBase {
     }
 
     public void buildScript(ResponseWriter writer, FacesContext context, UIComponent component, Map<?, ?> buttons, Map<?, ?> digitals)
-            throws IOException {
+        throws IOException {
 
         JSFunction function = new JSFunction("new RichFaces.ui.DataScroller");
         function.addParameter(component.getClientId(context));
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         options.put("buttons", buttons);
         options.put("digitals", digitals);
         options.put("currentPage", (Integer) component.getAttributes().get("page"));
@@ -322,7 +323,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
 
     public JSFunctionDefinition getSubmitFunction(FacesContext facesContext, UIComponent component) {
         JSFunctionDefinition definition = new JSFunctionDefinition(JSReference.EVENT, new JSReference("element"),
-                new JSReference("data"));
+            new JSReference("data"));
 
         AjaxFunction function = AjaxRendererUtils.buildAjaxFunction(facesContext, component);
 

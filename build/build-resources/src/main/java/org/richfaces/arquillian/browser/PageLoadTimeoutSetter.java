@@ -1,5 +1,7 @@
 package org.richfaces.arquillian.browser;
 
+import java.util.concurrent.TimeUnit;
+
 import org.jboss.arquillian.core.api.Instance;
 import org.jboss.arquillian.core.api.annotation.Inject;
 import org.jboss.arquillian.core.api.annotation.Observes;
@@ -7,8 +9,6 @@ import org.jboss.arquillian.drone.spi.DroneContext;
 import org.jboss.arquillian.drone.spi.DronePoint;
 import org.jboss.arquillian.drone.spi.event.AfterDronePrepared;
 import org.openqa.selenium.WebDriver;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Sets default page load timeout of WebDriver instance to 20 seconds.

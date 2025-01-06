@@ -27,6 +27,7 @@ import jakarta.faces.event.FacesListener;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class TreeToggleEvent extends FacesEvent {
     private static final long serialVersionUID = -7264894390585192069L;

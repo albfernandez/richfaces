@@ -21,20 +21,6 @@
  */
 package org.richfaces.resource;
 
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.cache.Cache;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.renderkit.html.ResourceLibraryRenderer;
-import org.richfaces.util.RequestStateManager.BooleanRequestStateVariable;
-
-import jakarta.faces.application.ProjectStage;
-import jakarta.faces.application.Resource;
-import jakarta.faces.application.ResourceHandler;
-import jakarta.faces.application.ResourceHandlerWrapper;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -43,6 +29,21 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.application.ResourceHandlerWrapper;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.http.HttpServletResponse;
+
+import org.richfaces.cache.Cache;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.html.ResourceLibraryRenderer;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.util.RequestStateManager.BooleanRequestStateVariable;
 
 /**
  * <p>RichFaces-specific {@link ResourceHandler}.</p>
@@ -78,37 +79,9 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
         }
     }
 
-    private static String getResourcePathFromRequest(FacesContext context) {
-        String resourceName = ResourceUtils.decodeResourceURL(context);
-
-        if (resourceName != null) {
-            if (resourceName.startsWith(RICHFACES_RESOURCE_IDENTIFIER)) {
-                return resourceName.substring(RICHFACES_RESOURCE_IDENTIFIER.length());
-            } else {
-                return null;
-            }
-        } else {
-            LOGGER.warn("Resource key not found" + resourceName);
-            return null;
-        }
-    }
-
-    private static void sendNotModified(FacesContext context) {
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("User agent has actual resource copy - sending 304 status code");
-        }
-
-        // TODO send cacheable resource headers (ETag + LastModified)?
-        context.getExternalContext().setResponseStatus(HttpServletResponse.SC_NOT_MODIFIED);
-    }
-
-    private static void sendResourceNotFound(FacesContext context) {
-        context.getExternalContext().setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
-    }
-
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#isResourceRequest(javax.faces.context.FacesContext)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#isResourceRequest(jakarta.faces.context.FacesContext)
      */
     @Override
     public boolean isResourceRequest(FacesContext context) {
@@ -117,7 +90,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#handleResourceRequest(javax.faces.context.FacesContext)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#handleResourceRequest(jakarta.faces.context.FacesContext)
      */
     @Override
     public void handleResourceRequest(FacesContext context) throws IOException {
@@ -165,7 +138,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
                             if (LOGGER.isDebugEnabled()) {
                                 LOGGER.debug(new MessageFormat(
                                         "Storing {0} resource in cache until {1,date,dd MMM yyyy HH:mm:ss zzz}", Locale.US)
-                                        .format(new Object[]{data.getResourceKey(), cacheExpirationDate}));
+                                        .format(new Object[] { data.getResourceKey(), cacheExpirationDate }));
                             }
                             cache.put(data.getResourceKey(), cachedResource, cacheExpirationDate);
                         }
@@ -286,7 +259,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#createResource(java.lang.String, java.lang.String, java.lang.String)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#createResource(java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
     public Resource createResource(String resourceName, String libraryName, String contentType) {
@@ -300,7 +273,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#createResource(java.lang.String, java.lang.String)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#createResource(java.lang.String, java.lang.String)
      */
     @Override
     public Resource createResource(String resourceName, String libraryName) {
@@ -309,7 +282,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#createResource(java.lang.String)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#createResource(java.lang.String)
      */
     @Override
     public Resource createResource(String resourceName) {
@@ -318,16 +291,16 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#getRendererTypeForResourceName(java.lang.String)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#getRendererTypeForResourceName(java.lang.String)
      */
     @Override
     public String getRendererTypeForResourceName(String resourceName) {
 
-        if (resourceName.endsWith(".ecss")) {
-            return "javax.faces.resource.Stylesheet";
+        if (resourceName != null && resourceName.endsWith(".ecss")) {
+            return "jakarta.faces.resource.Stylesheet";
         }
 
-        if (resourceName.endsWith(ResourceLibraryRenderer.RESOURCE_LIBRARY_EXTENSION)) {
+        if (resourceName != null && resourceName.endsWith(ResourceLibraryRenderer.RESOURCE_LIBRARY_EXTENSION)) {
             return ResourceLibraryRenderer.RENDERER_TYPE;
         }
 
@@ -336,7 +309,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#libraryExists(java.lang.String)
+     * @see jakarta.faces.application.ResourceHandlerWrapper#libraryExists(java.lang.String)
      */
     @Override
     public boolean libraryExists(String libraryName) {
@@ -345,10 +318,38 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     /*
      * (non-Javadoc)
-     * @see javax.faces.application.ResourceHandlerWrapper#getWrapped()
+     * @see jakarta.faces.application.ResourceHandlerWrapper#getWrapped()
      */
     @Override
     public ResourceHandler getWrapped() {
         return defaultHandler;
+    }
+
+    private static String getResourcePathFromRequest(FacesContext context) {
+        String resourceName = ResourceUtils.decodeResourceURL(context);
+
+        if (resourceName != null) {
+            if (resourceName.startsWith(RICHFACES_RESOURCE_IDENTIFIER)) {
+                return resourceName.substring(RICHFACES_RESOURCE_IDENTIFIER.length());
+            } else {
+                return null;
+            }
+        } else {
+            LOGGER.warn("Resource key not found" + resourceName);
+            return null;
+        }
+    }
+
+    private static void sendNotModified(FacesContext context) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("User agent has actual resource copy - sending 304 status code");
+        }
+
+        // TODO send cacheable resource headers (ETag + LastModified)?
+        context.getExternalContext().setResponseStatus(HttpServletResponse.SC_NOT_MODIFIED);
+    }
+
+    private static void sendResourceNotFound(FacesContext context) {
+        context.getExternalContext().setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
     }
 }

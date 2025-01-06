@@ -21,12 +21,13 @@
  */
 package org.richfaces.application.configuration;
 
-import org.richfaces.application.ServiceTracker;
-
 import jakarta.faces.context.FacesContext;
+
+import org.richfaces.application.ServiceTracker;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public final class ConfigurationServiceHelper {
     private ConfigurationServiceHelper() {

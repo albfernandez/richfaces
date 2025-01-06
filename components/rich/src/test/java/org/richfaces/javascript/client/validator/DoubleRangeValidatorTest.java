@@ -3,16 +3,18 @@
  */
 package org.richfaces.javascript.client.validator;
 
-import org.junit.runners.Parameterized.Parameters;
-import org.richfaces.javascript.client.RunParameters;
-
-import jakarta.faces.validator.DoubleRangeValidator;
-import jakarta.faces.validator.Validator;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.faces.validator.DoubleRangeValidator;
+import jakarta.faces.validator.Validator;
+
+import org.junit.runners.Parameterized.Parameters;
+import org.richfaces.javascript.client.RunParameters;
+
 /**
  * @author asmirnov
+ *
  */
 public class DoubleRangeValidatorTest extends ValidatorTestBase {
     private static final String MINIMUM = "min";
@@ -23,17 +25,6 @@ public class DoubleRangeValidatorTest extends ValidatorTestBase {
      */
     public DoubleRangeValidatorTest(RunParameters criteria) {
         super(criteria);
-    }
-
-    @SuppressWarnings("deprecation")
-    @Parameters
-    public static List<RunParameters[]> parameters() {
-        return options(pass(0L), pass(3L), pass(Double.MAX_VALUE), pass(0.0D, MINIMUM, 2.0D, IGNORE_MESSAGE, true),
-                pass(2.0D, MINIMUM, 2.0D), pass(3.0D, MINIMUM, 2.0D), pass(-3.0D, MINIMUM, 2.0D, IGNORE_MESSAGE, true),
-                pass(0.0D, MAXIMUM, 2.0D), pass(2.0D, MAXIMUM, 2.0D), pass(3.0D, MAXIMUM, 2.0D, IGNORE_MESSAGE, true),
-                pass(-3.0D, MAXIMUM, 2.0D), pass(0.0D, MINIMUM, 3.0D, MAXIMUM, 5.0D, IGNORE_MESSAGE, true),
-                pass(3.0D, MINIMUM, 3.0D, MAXIMUM, 5.0D), pass(4.0D, MINIMUM, 3.0D, MAXIMUM, 5.0D),
-                pass(7.0D, MINIMUM, 3.0D, MAXIMUM, 5.0D, IGNORE_MESSAGE, true));
     }
 
     /*
@@ -62,5 +53,16 @@ public class DoubleRangeValidatorTest extends ValidatorTestBase {
     @Override
     protected String getJavaScriptFunctionName() {
         return "validateDoubleRange";
+    }
+
+    @SuppressWarnings("deprecation")
+    @Parameters
+    public static List<RunParameters[]> parameters() {
+        return options(pass(0L), pass(3L), pass(Double.MAX_VALUE), pass(0.0D, MINIMUM, 2.0D, IGNORE_MESSAGE, true),
+            pass(2.0D, MINIMUM, 2.0D), pass(3.0D, MINIMUM, 2.0D), pass(-3.0D, MINIMUM, 2.0D, IGNORE_MESSAGE, true),
+            pass(0.0D, MAXIMUM, 2.0D), pass(2.0D, MAXIMUM, 2.0D), pass(3.0D, MAXIMUM, 2.0D, IGNORE_MESSAGE, true),
+            pass(-3.0D, MAXIMUM, 2.0D), pass(0.0D, MINIMUM, 3.0D, MAXIMUM, 5.0D, IGNORE_MESSAGE, true),
+            pass(3.0D, MINIMUM, 3.0D, MAXIMUM, 5.0D), pass(4.0D, MINIMUM, 3.0D, MAXIMUM, 5.0D),
+            pass(7.0D, MINIMUM, 3.0D, MAXIMUM, 5.0D, IGNORE_MESSAGE, true));
     }
 }

@@ -1,18 +1,20 @@
 package org.richfaces.convert;
 
-import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
-import com.google.common.collect.ObjectArrays;
-import org.richfaces.model.SequenceRowKey;
+import static org.richfaces.model.TreeDataModel.SEPARATOR_CHAR;
+
+import java.util.List;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
-import java.util.List;
 
-import static org.richfaces.model.TreeDataModel.SEPARATOR_CHAR;
+import org.richfaces.model.SequenceRowKey;
+
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import com.google.common.collect.ObjectArrays;
 
 /**
  * @author Nick Belaevski

@@ -21,11 +21,11 @@
  */
 package org.ajax4jsf.util;
 
-import org.ajax4jsf.Messages;
-
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.ajax4jsf.Messages;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
@@ -37,7 +37,7 @@ public final class HtmlColor {
     static {
 
         // color names.
-        colorNames = new HashMap<String, Color>();
+        colorNames = new HashMap<>();
         colorNames.put("black", new Color(0x000000));
         colorNames.put("green", new Color(0x008000));
         colorNames.put("silver", new Color(0xC0C0C0));
@@ -78,7 +78,7 @@ public final class HtmlColor {
                 c = Color.decode(color.trim());
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException(Messages.getMessage(Messages.DECODE_COLOR_PARAMETER_ERROR, color,
-                        e.getMessage()));
+                    e.getMessage()));
             }
         }
 
@@ -86,7 +86,7 @@ public final class HtmlColor {
     }
 
     public static Integer integerValue(String color) {
-        return new Integer(decode(color).getRGB());
+        return Integer.valueOf(decode(color).getRGB());
     }
 
     public static String encodeRGB(Color color) {

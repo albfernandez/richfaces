@@ -22,8 +22,8 @@
 
 package org.richfaces.demo.output;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +39,7 @@ public class DynamicTabBean implements Serializable {
     public DynamicTabBean() {
         System.out.println("post construct: initialize");
         name = "John";
-        names = Arrays.asList(new String[]{"Dynamic Tab 1", "Dynamic Tab 2"});
+        names = Arrays.asList(new String[] {"Dynamic Tab 1", "Dynamic Tab 2"});
     }
 
     public String getName() {

@@ -7,20 +7,16 @@ The supported container matrix is:
 
 * WildFly 8.1
 * WildFly 8.2
-* WildFly 9.0
 * WildFly 10.0
-* JBoss EAP 6.2
-* JBoss EAP 6.3
-* JBoss EAP 6.4
 * Tomcat 7
 * Tomcat 8
+* Tomcat 9
 
 Note: for specific supported versions consult the pom.xml
 
 The supported browser matrix is:
 
-* PhantomJS (default)
-* Chrome
+* Chrome (Default)
 * Firefox
 * others (TBD)
 
@@ -29,19 +25,19 @@ TL;DR
 
 Running a full build including smoke tests:
 
-    mvn install -Dintegration=wildfly82 -Dsmoke
+    mvn install -Dintegration=wildfly81 -Dsmoke
 
 Running particular framework test (on Chrome) from console:
 
-    // console 1: start WildFly 8.2 
-    ./wildfly-8.2.0.Final/bin/standalone.sh
+    // console 1: start WildFly 8.1
+    ./wildfly-8.1.0.Final/bin/standalone.sh
 
     // console 2: start Selenium Server
     java -jar selenium-server-standalone-${VERSION}.jar -Dwebdriver.chrome.driver=/opt/google/chrome/chromedriver
     
     // console 3: run a test
     cd richfaces/core/
-    mvn verify -Dintegration=wildfly82-remote -Dbrowser=chrome -Dreusable -DskipTests=true -Dtest=IT_RF12765
+    mvn verify -Dintegration=wildfly81-remote -Dbrowser=chrome -Dreusable -DskipTests=true -Dtest=IT_RF12765
 
 You can also add following parameters to skip CDK build and/or Resource Optimization and/or disable unit tests:
 
@@ -143,8 +139,11 @@ Choosing a browser
 To switch the browser used in test execution, you can use the following Maven property:
 
     -Dbrowser=chrome
+    
+Note: to use chrome, you must download chrome driver from [https://sites.google.com/chromium.org/driver/](https://sites.google.com/chromium.org/driver/) and install to `/opt/google/crhome/chromedriver`
 
-By default, tests will use headless browser `phantomjs`.
+
+By default, tests will use headless browser `chrome`.
 
 
 Using reusable Selenium session
@@ -231,7 +230,6 @@ The intention is to use more categories as required to:
 Test inclusion / exclusion intends to provide as extensive test coverage for all supported environments, but still avoid the known failures to affect test results.  The categories should be designed for two purposes, as evidenced from the samples:
 
 * `JavaEEOnly` - these tests will be run *only* on Java EE capable containers
-* `FailingOnPhantomJS` - these tests *won't* be executed on PhantomJS
 * `FailingOnMyFaces`, `FailingOnFirefox`, `FailingOnTomcat` - these tests are *currently failing*, but they should pass once the referenced issue is fixed
 
 Note that those categories use keywords `*Only`, `No*` and `FailingOn*` in order to be sufficiently descriptive.
@@ -243,7 +241,7 @@ There is a possibility to take screenshots during executing tests. Its done via 
 
 To take screenshots one has to run the build with `take-screenshots` profile.
 
-    mvn verify -Dintegration=wildfly82 -Ptake-screenshots
+    mvn verify -Dintegration=wildfly81 -Ptake-screenshots
 
     
 Managed Containers 
@@ -257,25 +255,11 @@ Managed Containers
 
     mvn verify -Dintegration=wildfly82
 
-### WildFly 9.0 - Managed
-
-    mvn verify -Dintegration=wildfly90
 
 ### WildFly 10.0 - Managed
 
     mvn verify -Dintegration=wildfly100
 
-### JBoss EAP 6.2 - Managed
-
-    mvn verify -Dintegration=jbosseap62
-
-### JBoss EAP 6.3 - Managed
-
-    mvn verify -Dintegration=jbosseap63
-
-### JBoss EAP 6.4 - Managed
-
-    mvn verify -Dintegration=jbosseap64
 
 ### Tomcat 7 - Managed
 
@@ -285,6 +269,9 @@ Managed Containers
 
     mvn verify -Dintegration=tomcat8
 
+### Tomcat 9 - Managed
+
+    mvn verify -Dintegration=tomcat9
 
 Providing container distribution
 --------------------------------
@@ -336,13 +323,6 @@ Profile: `wildfly-remote-8-2`
 
     mvn verify -Dintegration=wildfly82-remote
 
-### WildFly 9.0 - Remote
-
-Start: `[wildfly-9.0]$ ./bin/standalone.sh`
-
-Profile: `wildfly-remote-9-0`
-
-    mvn verify -Dintegration=wildfly90-remote
 
 ### WildFly 10.0 - Remote
 
@@ -352,31 +332,9 @@ Profile: `wildfly-remote-10-0`
 
     mvn verify -Dintegration=wildfly100-remote
 
-### JBoss EAP 6.2 - Remote
 
-Start: `[jboss-eap-6.2]$ ./bin/standalone.sh`
 
-Profile: `jbosseap-remote-6-2`
-
-    mvn verify -Dintegration=jbosseap62-remote
-
-### JBoss EAP 6.3 - Remote
-
-Start: `[jboss-eap-6.3]$ ./bin/standalone.sh`
-
-Profile: `jbosseap-remote-6-3`
-
-    mvn verify -Dintegration=jbosseap63-remote
-
-### JBoss EAP 6.4 - Remote
-
-Start: `[jboss-eap-6.4]$ ./bin/standalone.sh`
-
-Profile: `jbosseap-remote-6-4`
-
-    mvn verify -Dintegration=jbosseap64-remote
-
-### Tomcat 7/8 - Remote
+### Tomcat 7/8/+ - Remote
 
 You need to modify the `conf/tomcat-users.xml` file:
 

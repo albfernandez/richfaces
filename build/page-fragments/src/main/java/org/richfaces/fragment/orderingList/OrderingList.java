@@ -26,6 +26,7 @@ import org.richfaces.fragment.common.picker.ChoicePickerHelper.ByIndexChoicePick
 import org.richfaces.fragment.common.picker.ChoicePickerHelper.ByVisibleTextChoicePicker;
 
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface OrderingList {

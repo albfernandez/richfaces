@@ -3,6 +3,7 @@ test-output
 .classpath
 .settings
 .project
+.tern-project
 .clover
 .externalToolBuilders
 .idea
@@ -27,3 +28,7 @@ arquillian.xml
 /components/a4j/lib/
 /components/rich/lib/
 /core/lib/
+
+.mvn/wrapper/maven-wrapper.jar
+
+examples

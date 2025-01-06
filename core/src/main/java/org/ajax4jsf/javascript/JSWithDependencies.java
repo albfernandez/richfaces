@@ -32,6 +32,7 @@ import java.io.IOException;
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public class JSWithDependencies extends ScriptStringBase implements ScriptWithDependencies {
     private final Iterable<ResourceKey> resources;

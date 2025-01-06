@@ -21,24 +21,10 @@
  */
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.Alias;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.Facet;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.attribute.ColumnProps;
-import org.richfaces.component.attribute.CoreProps;
-import org.richfaces.component.attribute.IterationProps;
-import org.richfaces.component.attribute.RowColumnStyleProps;
-import org.richfaces.component.attribute.SequenceProps;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.renderkit.MetaComponentRenderer;
-import org.richfaces.taglib.DataGridHandler;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.visit.VisitCallback;
@@ -46,10 +32,25 @@ import jakarta.faces.component.visit.VisitContext;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PreRenderComponentEvent;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+
+import org.richfaces.cdk.annotations.Alias;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Facet;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.component.attribute.ColumnProps;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.IterationProps;
+import org.richfaces.component.attribute.RowColumnStyleProps;
+import org.richfaces.component.attribute.SequenceProps;
+import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.taglib.DataGridHandler;
 
 /**
  * <p> The &lt;rich:dataGrid&gt; component is used to arrange data objects in a grid. Values in the grid can be updated
@@ -72,12 +73,16 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
     public static final String FOOTER = "footer";
     public static final String BODY = "body";
     private static final Logger RENDERKIT_LOG = RichfacesLogger.RENDERKIT.getLogger();
-    private static final Set<String> SUPPORTED_META_COMPONENTS = new HashSet<String>();
+    private static final Set<String> SUPPORTED_META_COMPONENTS = new HashSet<>();
 
     static {
         SUPPORTED_META_COMPONENTS.add(HEADER);
         SUPPORTED_META_COMPONENTS.add(FOOTER);
         SUPPORTED_META_COMPONENTS.add(BODY);
+    }
+
+    enum PropertyKeys {
+        columns
     }
 
     /**
@@ -201,9 +206,5 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
     public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
 
         return null;
-    }
-
-    enum PropertyKeys {
-        columns
     }
 }

@@ -21,15 +21,16 @@
  */
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.component.AbstractAttachQueue;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
 import jakarta.faces.view.facelets.FaceletContext;
 
+import org.richfaces.component.AbstractAttachQueue;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class AttachQueueHandler extends ComponentHandler {
     /**

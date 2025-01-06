@@ -20,7 +20,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.model;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.event.FacesEvent;
 import jakarta.faces.event.FacesListener;
@@ -28,11 +27,13 @@ import jakarta.faces.event.FacesListener;
 /**
  * The class represents plotclick event fired by the chart component, when user
  * clicks a point in a chart.
- *
  * @author Lukas Macko
  */
 public class PlotClickEvent extends FacesEvent {
-    /**
+
+	private static final long serialVersionUID = -759268060945981166L;
+
+	/**
      * Index into chart series. The first series has index 0.
      */
     private int seriesIndex;
@@ -53,7 +54,7 @@ public class PlotClickEvent extends FacesEvent {
     private Number y;
 
     public PlotClickEvent(UIComponent component, int seriesIndex,
-                          int pointIndex, String x, Number y) {
+            int pointIndex, String x, Number y) {
         super(component);
         this.seriesIndex = seriesIndex;
         this.pointIndex = pointIndex;

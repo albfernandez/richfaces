@@ -21,33 +21,65 @@
  */
 package org.richfaces.resource.optimizer.resource.util;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
-import com.google.common.primitives.Ints;
-import org.richfaces.resource.ResourceKey;
-import org.richfaces.resource.optimizer.vfs.VFSRoot;
-import org.richfaces.resource.optimizer.vfs.VirtualFile;
+import static org.richfaces.resource.optimizer.strings.Constants.COLON_JOINER;
+import static org.richfaces.resource.optimizer.strings.Constants.DOT_JOINER;
 
-import jakarta.faces.application.Resource;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.richfaces.resource.optimizer.strings.Constants.COLON_JOINER;
-import static org.richfaces.resource.optimizer.strings.Constants.DOT_JOINER;
+import jakarta.faces.application.Resource;
+
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.resource.optimizer.vfs.VFSRoot;
+import org.richfaces.resource.optimizer.vfs.VirtualFile;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
+import com.google.common.primitives.Ints;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public final class ResourceUtil {
     private static final String CLASSPATH_RESOURCES_LOCATION = "META-INF/resources";
     private static final String WEB_RESOURCES_LOCATION = "resources";
     private static final Pattern LIBRARY_VERSION_PATTERN = Pattern.compile("^(\\d+)(_\\d+)+");
     private static final Pattern RESOURCE_VERSION_PATTERN = Pattern.compile("^((?:\\d+)(?:_\\d+)+)[\\.]?(\\w+)?");
+
+    public static final class VersionKey {
+        static final Ordering<VersionKey> ORDERING = Ordering.from(new Comparator<VersionKey>() {
+            @Override
+            public int compare(VersionKey o1, VersionKey o2) {
+                return Ints.lexicographicalComparator().compare(o1.versionVector, o2.versionVector);
+            }
+        }).nullsFirst();
+        private String version;
+        private int[] versionVector;
+        private String extension;
+
+        public VersionKey(String version, String extension) throws NumberFormatException {
+            this.version = version;
+            this.versionVector = parseVersionString(version);
+            this.extension = extension;
+        }
+
+        private static int[] parseVersionString(String s) {
+            String[] split = s.split("_");
+            int[] result = new int[split.length];
+            for (int i = 0; i < result.length; i++) {
+                result[i] = Integer.parseInt(split[i]);
+            }
+            return result;
+        }
+
+        public String toString() {
+            return DOT_JOINER.join(version, extension);
+        }
+    }
 
     private ResourceUtil() {
     }
@@ -86,8 +118,7 @@ public final class ResourceUtil {
         return null;
     }
 
-    private static Collection<VirtualFile> getExistingChildren(Iterable<VFSRoot> files, String path) throws URISyntaxException,
-            IOException {
+    private static Collection<VirtualFile> getExistingChildren(Iterable<VFSRoot> files, String path) {
         Collection<VirtualFile> result = Lists.newArrayList();
 
         for (VirtualFile file : files) {
@@ -100,8 +131,7 @@ public final class ResourceUtil {
         return result;
     }
 
-    public static Collection<VirtualFile> getResourceRoots(Iterable<VFSRoot> cpRoots, Iterable<VFSRoot> webRoots)
-            throws URISyntaxException, IOException {
+    public static Collection<VirtualFile> getResourceRoots(Iterable<VFSRoot> cpRoots, Iterable<VFSRoot> webRoots) {
         List<VirtualFile> result = Lists.newArrayList();
 
         result.addAll(getExistingChildren(cpRoots, CLASSPATH_RESOURCES_LOCATION));
@@ -113,10 +143,10 @@ public final class ResourceUtil {
     public static String getResourceQualifier(Resource resource) {
         return COLON_JOINER.join(resource.getLibraryName(), resource.getResourceName());
     }
-
+    
     /**
      * Returns the qualified name of resourceKey in format libraryName:resourceName.
-     *
+     * 
      * @param resourceKey the resourceKey
      * @return the qualified name of resourceKey in format libraryName:resourceName.
      */
@@ -126,9 +156,9 @@ public final class ResourceUtil {
 
     /**
      * Returns true if resourceKey and resource represents same resource.
-     *
+     * 
      * @param resourceKey resource key representation of resource
-     * @param resource    resource instance
+     * @param resource resource instance
      * @return true if resourceKey and resource represents same resource; false otherwise
      */
     public static boolean isSameResource(Resource resource, ResourceKey resourceKey) {
@@ -138,36 +168,5 @@ public final class ResourceUtil {
 
     private static String defaultString(String string) {
         return string == null ? null : string;
-    }
-
-    public static final class VersionKey {
-        static final Ordering<VersionKey> ORDERING = Ordering.from(new Comparator<VersionKey>() {
-            @Override
-            public int compare(VersionKey o1, VersionKey o2) {
-                return Ints.lexicographicalComparator().compare(o1.versionVector, o2.versionVector);
-            }
-        }).nullsFirst();
-        private String version;
-        private int[] versionVector;
-        private String extension;
-
-        public VersionKey(String version, String extension) throws NumberFormatException {
-            this.version = version;
-            this.versionVector = parseVersionString(version);
-            this.extension = extension;
-        }
-
-        private static int[] parseVersionString(String s) {
-            String[] split = s.split("_");
-            int[] result = new int[split.length];
-            for (int i = 0; i < result.length; i++) {
-                result[i] = Integer.parseInt(split[i]);
-            }
-            return result;
-        }
-
-        public String toString() {
-            return DOT_JOINER.join(version, extension);
-        }
     }
 }

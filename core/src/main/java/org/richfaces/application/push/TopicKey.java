@@ -21,11 +21,12 @@
  */
 package org.richfaces.application.push;
 
-import com.google.common.base.Function;
-import org.richfaces.util.FastJoiner;
-
 import java.io.Serializable;
 import java.util.regex.Pattern;
+
+import org.richfaces.util.FastJoiner;
+
+import com.google.common.base.Function;
 
 /**
  * <p>
@@ -50,16 +51,7 @@ public class TopicKey implements Serializable {
     private static final long serialVersionUID = -6967010810728932698L;
     private static final Pattern NAME_PATTERN = Pattern.compile("([a-zA-Z0-9_]+|#\\{.+\\})");
     private static final FastJoiner AT_JOINER = FastJoiner.on(SUBCHANNEL_SEPARATOR);
-    private static final Function<TopicKey, String> TO_ADDRESS = new Function<TopicKey, String>() {
-        public String apply(TopicKey from) {
-            return from.getTopicAddress();
-        }
-    };
-    private static final Function<String, TopicKey> FACTORY = new Function<String, TopicKey>() {
-        public TopicKey apply(String from) {
-            return new TopicKey(from);
-        }
-    };
+
     private final String topicName;
     private final String subtopicName;
 
@@ -92,47 +84,6 @@ public class TopicKey implements Serializable {
             throw new IllegalArgumentException("Subtopic name '" + subtopicName + "' does not match pattern "
                     + NAME_PATTERN.pattern());
         }
-    }
-
-    /**
-     * Static method that returns topic name for given topic address, i.e. it removes subtopic name and separated of subtopic.
-     * name.
-     */
-    private static String getTopicName(String topicAddress) {
-        int idx = topicAddress.indexOf(SUBCHANNEL_SEPARATOR);
-
-        if (idx < 0) {
-            return topicAddress;
-        }
-
-        return topicAddress.substring(idx + 1);
-    }
-
-    /**
-     * Static method that returns subtopic name for given topic address, i.e. it removes topic name and separator of topic name.
-     */
-    private static String getSubtopicName(String topicAddress) {
-        int idx = topicAddress.indexOf(SUBCHANNEL_SEPARATOR);
-
-        if (idx < 0) {
-            return null;
-        }
-
-        return topicAddress.substring(0, idx);
-    }
-
-    /**
-     * Returns the function for creating {@link TopicKey}s from strings.
-     */
-    public static Function<String, TopicKey> factory() {
-        return FACTORY;
-    }
-
-    /**
-     * Returns a function for converting {@link TopicKey} to address strings in format 'subtopic@topic'.
-     */
-    public static Function<TopicKey, String> toAddress() {
-        return TO_ADDRESS;
     }
 
     /**
@@ -231,4 +182,57 @@ public class TopicKey implements Serializable {
     public String toString() {
         return "TopicKey[" + TO_ADDRESS.apply(this) + "]";
     }
+
+    /**
+     * Static method that returns topic name for given topic address, i.e. it removes subtopic name and separated of subtopic.
+     * name.
+     */
+    private static String getTopicName(String topicAddress) {
+        int idx = topicAddress.indexOf(SUBCHANNEL_SEPARATOR);
+
+        if (idx < 0) {
+            return topicAddress;
+        }
+
+        return topicAddress.substring(idx + 1);
+    }
+
+    /**
+     * Static method that returns subtopic name for given topic address, i.e. it removes topic name and separator of topic name.
+     */
+    private static String getSubtopicName(String topicAddress) {
+        int idx = topicAddress.indexOf(SUBCHANNEL_SEPARATOR);
+
+        if (idx < 0) {
+            return null;
+        }
+
+        return topicAddress.substring(0, idx);
+    }
+
+    /**
+     * Returns the function for creating {@link TopicKey}s from strings.
+     */
+    public static Function<String, TopicKey> factory() {
+        return FACTORY;
+    }
+
+    /**
+     * Returns a function for converting {@link TopicKey} to address strings in format 'subtopic@topic'.
+     */
+    public static Function<TopicKey, String> toAddress() {
+        return TO_ADDRESS;
+    }
+
+    private static final Function<String, TopicKey> FACTORY = new Function<String, TopicKey>() {
+        public TopicKey apply(String from) {
+            return new TopicKey(from);
+        }
+    };
+
+    private static final Function<TopicKey, String> TO_ADDRESS = new Function<TopicKey, String>() {
+        public String apply(TopicKey from) {
+            return from.getTopicAddress();
+        }
+    };
 }

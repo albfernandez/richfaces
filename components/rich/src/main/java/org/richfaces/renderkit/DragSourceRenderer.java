@@ -21,40 +21,39 @@
  */
 package org.richfaces.renderkit;
 
-import com.google.common.base.Strings;
+import java.util.HashMap;
+import java.util.Map;
+
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+
 import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractDragSource;
 import org.richfaces.javascript.DnDScript;
 import org.richfaces.javascript.DragScript;
 
-import jakarta.faces.application.ResourceDependencies;
-import jakarta.faces.application.ResourceDependency;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import java.util.HashMap;
-import java.util.Map;
+import com.google.common.base.Strings;
 
 /**
  * @author abelevich
+ *
  */
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.position.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
-        @ResourceDependency(library = "com.jqueryui", name = "core.js"),
-        @ResourceDependency(library = "com.jqueryui", name = "widget.js"),
-        @ResourceDependency(library = "com.jqueryui", name = "mouse.js"),
-        @ResourceDependency(library = "com.jqueryui", name = "draggable.js"),
-        @ResourceDependency(library = "com.jqueryui", name = "droppable.js"),
-        @ResourceDependency(library = "org.richfaces", name = "dnd-draggable.js")})
+        @ResourceDependency(library = "com.jqueryui", name = "jquery-ui.js"),
+        @ResourceDependency(library = "org.richfaces", name = "dnd-draggable.js") })
 @JsfRenderer(type = "org.richfaces.DragSourceRenderer", family = AbstractDragSource.COMPONENT_FAMILY)
 public class DragSourceRenderer extends DnDRenderBase {
     @Override
     public Map<String, Object> getOptions(FacesContext facesContext, UIComponent component) {
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         if (component instanceof AbstractDragSource) {
             AbstractDragSource dragSource = (AbstractDragSource) component;
             options.put("indicator", getDragIndicatorClientId(facesContext, dragSource));

@@ -21,13 +21,13 @@
  *******************************************************************************/
 package org.richfaces.showcase.tabPanel;
 
+import static org.junit.Assert.assertTrue;
+
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.panel.AbstractPanelTest;
 import org.richfaces.showcase.tabPanel.page.SimplePage;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

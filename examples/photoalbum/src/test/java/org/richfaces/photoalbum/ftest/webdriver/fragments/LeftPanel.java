@@ -21,8 +21,8 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebDriver;
@@ -35,6 +35,8 @@ import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
 import org.richfaces.photoalbum.ftest.webdriver.pages.PhotoalbumPage;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -163,11 +165,11 @@ public class LeftPanel {
     public GroupsView openOwnGroups(final int expectedGroupsCount) {
         Graphene.waitAjax().until().element(myGroupsLink).is().visible();
         Graphene.guardAjax(myGroupsLink).click();
-        Graphene.waitAjax().until(new Predicate<WebDriver>() {
+        Graphene.waitAjax().until(new Function<WebDriver, Boolean>() {
             private int size;
 
             @Override
-            public boolean apply(WebDriver t) {
+            public Boolean apply(WebDriver t) {
                 size = page.getContentPanel().groupsView().getGroups().size();
                 return size == expectedGroupsCount;
             }
@@ -199,11 +201,11 @@ public class LeftPanel {
     public GroupsView openPredefinedGroups(final int expectedGroupsCount) {
         Graphene.waitAjax().until().element(preDefinedGroupsLink).is().visible();
         Graphene.guardAjax(preDefinedGroupsLink).click();
-        Graphene.waitAjax().until(new Predicate<WebDriver>() {
+        Graphene.waitAjax().until(new Function<WebDriver, Boolean>() {
             private int size;
 
             @Override
-            public boolean apply(WebDriver t) {
+            public Boolean apply(WebDriver t) {
                 size = page.getContentPanel().groupsView().getGroups().size();
                 return size == expectedGroupsCount;
             }

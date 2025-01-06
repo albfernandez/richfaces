@@ -21,13 +21,15 @@
  */
 package org.richfaces.resource;
 
-import jakarta.faces.context.FacesContext;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import jakarta.faces.context.FacesContext;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public interface StateHolderResource {
     boolean isTransient();

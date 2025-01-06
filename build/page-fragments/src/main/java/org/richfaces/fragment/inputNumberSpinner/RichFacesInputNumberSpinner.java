@@ -32,17 +32,21 @@ import org.richfaces.fragment.inputNumberSlider.AbstractNumberInput;
 import org.richfaces.fragment.inputNumberSlider.NumberInput;
 
 public class RichFacesInputNumberSpinner extends AbstractNumberInput implements NumberInput,
-        AdvancedVisibleComponentIteractions<RichFacesInputNumberSpinner.AdvancedInputNumberSpinnerInteractions> {
+    AdvancedVisibleComponentIteractions<RichFacesInputNumberSpinner.AdvancedInputNumberSpinnerInteractions> {
 
-    private final AdvancedInputNumberSpinnerInteractions advancedInteractions = new AdvancedInputNumberSpinnerInteractions();
     @FindBy(css = "input.rf-insp-inp")
     private TextInputComponentImpl input;
+
     @FindBy(css = "span.rf-insp-btns > span.rf-insp-inc")
     private WebElement arrowIncrease;
+
     @FindBy(css = "span.rf-insp-btns > span.rf-insp-dec")
     private WebElement arrowDecrease;
+
     @Root
     private WebElement root;
+
+    private final AdvancedInputNumberSpinnerInteractions advancedInteractions = new AdvancedInputNumberSpinnerInteractions();
 
     @Override
     public AdvancedInputNumberSpinnerInteractions advanced() {
@@ -50,7 +54,7 @@ public class RichFacesInputNumberSpinner extends AbstractNumberInput implements 
     }
 
     public class AdvancedInputNumberSpinnerInteractions extends AbstractNumberInput.AdvancedNumberInputInteractions
-            implements VisibleComponentInteractions {
+        implements VisibleComponentInteractions {
 
         @Override
         public WebElement getArrowDecreaseElement() {

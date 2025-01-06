@@ -21,6 +21,12 @@
  */
 package org.richfaces.photoalbum.ui;
 
+import java.io.Serializable;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.richfaces.photoalbum.manager.AlbumManager;
 import org.richfaces.photoalbum.manager.ImageManager;
 import org.richfaces.photoalbum.manager.ShelfManager;
@@ -28,27 +34,17 @@ import org.richfaces.photoalbum.model.Album;
 import org.richfaces.photoalbum.model.Image;
 import org.richfaces.photoalbum.model.Shelf;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.Serializable;
-
 @Named
 @ApplicationScoped
 public class ConfirmationPopupHelper implements Serializable {
 
     private static final long serialVersionUID = 2561824019376412988L;
-    @Inject
-    AlbumManager albumManager;
-    @Inject
-    ShelfManager shelfManager;
-    @Inject
-    ImageManager imageManager;
-    private String caption;
-    private Actions action;
-    private Image image;
-    private Shelf shelf;
-    private Album album;
+
+    private enum Actions {
+        DELETE_SHELF,
+        DELETE_ALBUM,
+        DELETE_IMAGE
+    }
 
     public Actions getDeleteShelf() {
         return Actions.DELETE_SHELF;
@@ -61,6 +57,25 @@ public class ConfirmationPopupHelper implements Serializable {
     public Actions getDeleteImage() {
         return Actions.DELETE_IMAGE;
     }
+
+    private String caption;
+
+    private Actions action;
+
+    private Image image;
+
+    private Shelf shelf;
+
+    private Album album;
+
+    @Inject
+    AlbumManager albumManager;
+
+    @Inject
+    ShelfManager shelfManager;
+
+    @Inject
+    ImageManager imageManager;
 
     public void initImagePopup(Actions action, String caption, Image image) {
         this.caption = caption;
@@ -120,11 +135,5 @@ public class ConfirmationPopupHelper implements Serializable {
                 deleteImage();
                 break;
         }
-    }
-
-    private enum Actions {
-        DELETE_SHELF,
-        DELETE_ALBUM,
-        DELETE_IMAGE
     }
 }

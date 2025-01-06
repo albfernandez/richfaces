@@ -21,15 +21,15 @@
  */
 package org.richfaces.fragment.list;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.MultipleChoicePicker;
 
-import java.util.List;
-
 /**
- * @param <T> type extending ListItem
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
+ * @param <T> type extending ListItem
  */
 public interface ListComponent<T extends ListItem> {
 
@@ -37,15 +37,15 @@ public interface ListComponent<T extends ListItem> {
      * Gets the item on the given <code>index</code>.
      *
      * @param index index of the item to be returned
-     * @return item at index or null
+     * @return      item at index or null
      */
     T getItem(int index);
 
     /**
      * Gets the item which text representation is exact match with the given param <code>text</code>
      *
-     * @param text the text according to which the item will be returned
-     * @return first item which matches given text or null
+     * @param  text  the text according to which the item will be returned
+     * @return       first item which matches given text or null
      */
     T getItem(String text);
 
@@ -56,6 +56,7 @@ public interface ListComponent<T extends ListItem> {
      * @return found item or null
      * @see org.richfaces.fragment.common.picker.ChoicePickerHelper.ByIndexChoicePicker
      * @see org.richfaces.fragment.common.picker.ChoicePickerHelper.ByVisibleTextChoicePicker
+
      */
     T getItem(ChoicePicker picker);
 

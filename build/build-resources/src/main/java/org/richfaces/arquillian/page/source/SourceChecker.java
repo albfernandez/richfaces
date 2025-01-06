@@ -1,8 +1,13 @@
 package org.richfaces.arquillian.page.source;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.Assert.fail;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.URL;
+
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.DifferenceListener;
 import org.custommonkey.xmlunit.XMLUnit;
@@ -14,13 +19,9 @@ import org.openqa.selenium.By.ById;
 import org.openqa.selenium.By.ByTagName;
 import org.xml.sax.SAXException;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.URL;
-
-import static org.junit.Assert.fail;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class SourceChecker {
 
@@ -28,26 +29,27 @@ public class SourceChecker {
     private Instance<TestClass> testClass;
 
     public void checkComponentSource(URL pageName, String xmlunitPage, By pageElementToTest) throws IOException, SAXException {
-        WebClient client = new WebClient();
-        client.getOptions().setJavaScriptEnabled(false);
+        try (WebClient client = new WebClient()) {
+            client.getOptions().setJavaScriptEnabled(false);
 
-        HtmlPage page = client.getPage(pageName);
-        DomElement element;
+            HtmlPage page = client.getPage(pageName);
+            DomElement element;
 
-        String locator = pageElementToTest.toString();
-        locator = locator.substring(locator.indexOf(':') + 1).trim();
+            String locator = pageElementToTest.toString();
+            locator = locator.substring(locator.indexOf(':') + 1).trim();
 
-        if (pageElementToTest instanceof ById) {
-            element = page.getElementById(locator);
-        } else if (pageElementToTest instanceof ByTagName) {
-            element = page.getElementsByTagName(locator).get(0);
-        } else {
-            throw new IllegalArgumentException("Only id and name are supported");
+            if (pageElementToTest instanceof ById) {
+                element = page.getElementById(locator);
+            } else if (pageElementToTest instanceof ByTagName) {
+                element = page.getElementsByTagName(locator).get(0);
+            } else {
+                throw new IllegalArgumentException("Only id and name are supported");
+            }
+
+            String pageCode = element.asXml();
+
+            checkXmlStructure(xmlunitPage, pageCode);
         }
-
-        String pageCode = element.asXml();
-
-        checkXmlStructure(xmlunitPage, pageCode);
     }
 
     protected void checkXmlStructure(String xmlunitPage, String pageCode) throws SAXException, IOException {

@@ -1,12 +1,12 @@
 package org.richfaces.renderkit;
 
-import org.richfaces.CustomizedHtmlUnitEnvironment;
-import org.richfaces.renderkit.html.RendererTestBase;
-import org.xml.sax.SAXException;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+
+import org.richfaces.CustomizedHtmlUnitEnvironment;
+import org.richfaces.renderkit.html.RendererTestBase;
+import org.xml.sax.SAXException;
 
 public abstract class InplaceRendererTestBase extends RendererTestBase {
     public static String EDIT = "Edit";

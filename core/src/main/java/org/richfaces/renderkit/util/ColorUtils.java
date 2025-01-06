@@ -40,7 +40,7 @@ public final class ColorUtils {
      * @param g the green component of the color
      * @param b the blue component of the color
      * @return an array of three elements containing the hue, saturation, and lightness (in that order), of the color with the
-     * indicated red, green, and blue components.
+     *         indicated red, green, and blue components.
      */
     public static float[] convertRGBtoHSL(int r, int g, int b) {
         float varR = (r / 255f);
@@ -77,7 +77,7 @@ public final class ColorUtils {
             h = 60 * (varR - varG) / delMax + 240;
         }
 
-        return new float[]{h, s, l};
+        return new float[] { h, s, l };
     }
 
     /**
@@ -145,15 +145,16 @@ public final class ColorUtils {
      * <p>
      * The <code>difference</code> values in the range (-1.0, 1.0): 1.0 - the brightest value; -1.0 - the dimmest value.
      *
-     * @param c          color to adjust
+     * @param c color to adjust
      * @param difference value to be added to the current brightness
+     *
      * @return a new <code>Color</code> instance with increased/decreased brightness by specified <code>difference</code>
      * @throws IllegalArgumentException if difference is outside of the range -1.0 to 1.0, inclusive
      */
     public static Color adjustBrightness(Color c, float difference) {
         if (difference < -1.0 || difference > 1.0) {
             throw new IllegalArgumentException("Difference parameter outside of expected range: "
-                    + "Difference parameter should be floating-point values between -1 and 1");
+                + "Difference parameter should be floating-point values between -1 and 1");
         }
 
         Color retVal = null;
@@ -171,15 +172,16 @@ public final class ColorUtils {
      * <p>
      * The <code>difference</code> values in the range (-1.0, 1.0): 1.0 - the lightest value; -1.0 - on the contrary.
      *
-     * @param c          color to adjust
+     * @param c color to adjust
      * @param difference value to be added to the current lightness
+     *
      * @return a new <code>Color</code> instance with increased/decreased lightness by specified <code>difference</code>
      * @throws IllegalArgumentException if difference is outside of the range -1.0 to 1.0, inclusive
      */
     public static Color adjustLightness(Color c, float difference) {
         if (difference < -1.0 || difference > 1.0) {
             throw new IllegalArgumentException("Difference parameter outside of expected range: "
-                    + "Difference parameter should be floating-point values between -1 and 1");
+                + "Difference parameter should be floating-point values between -1 and 1");
         }
 
         Color retVal = null;
@@ -195,7 +197,7 @@ public final class ColorUtils {
     /**
      * Overwrites alpha value for given color.
      *
-     * @param c     color to overwrite
+     * @param c color to overwrite
      * @param alpha a new value of alpha
      * @return a new <code>Color</code> object with a new specified alpha value
      */

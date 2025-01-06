@@ -29,9 +29,7 @@ import java.util.Iterator;
  * @author Nick Belaevski - nbelaevski@exadel.com created 15.12.2006
  */
 public class JSONCollection extends AbstractCollection implements Serializable {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 3192118108278773579L;
     private JSONArray array;
 

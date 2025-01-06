@@ -21,14 +21,6 @@
  */
 package org.richfaces.skin;
 
-import org.ajax4jsf.Messages;
-import org.richfaces.el.util.ELUtils;
-import org.richfaces.util.PropertiesUtil;
-
-import jakarta.el.ELContext;
-import jakarta.el.ExpressionFactory;
-import jakarta.faces.application.Application;
-import jakarta.faces.context.FacesContext;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -38,10 +30,33 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
+import jakarta.el.ELContext;
+import jakarta.el.ExpressionFactory;
+import jakarta.faces.application.Application;
+import jakarta.faces.context.FacesContext;
+
+import org.ajax4jsf.Messages;
+import org.richfaces.el.util.ELUtils;
+import org.richfaces.util.PropertiesUtil;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public abstract class AbstractSkinFactory extends SkinFactory {
+    private final class SkinBuilder implements Callable<Skin> {
+        private String skinName;
+
+        SkinBuilder(String skinName) {
+            super();
+            this.skinName = skinName;
+        }
+
+        public Skin call() throws Exception {
+            return buildSkin(FacesContext.getCurrentInstance(), skinName);
+        }
+    }
+
     /**
      * Resource Uri for properties file with default values of skin parameters.
      */
@@ -52,8 +67,8 @@ public abstract class AbstractSkinFactory extends SkinFactory {
      * Path in jar to pre-defined vendor and custom user-defined skins definitions. in this realisation "META-INF/skins/" for
      * vendor , "" - user-defined.
      */
-    private static final String[] SKINS_PATHS = {DEFAULT_SKIN_PATH, USER_SKIN_PATH};
-    private ConcurrentMap<String, FutureTask<Skin>> skins = new ConcurrentHashMap<String, FutureTask<Skin>>();
+    private static final String[] SKINS_PATHS = { DEFAULT_SKIN_PATH, USER_SKIN_PATH };
+    private ConcurrentMap<String, FutureTask<Skin>> skins = new ConcurrentHashMap<>();
 
     protected void processProperties(FacesContext context, Map<Object, Object> properties) {
         ELContext elContext = context.getELContext();
@@ -83,7 +98,7 @@ public abstract class AbstractSkinFactory extends SkinFactory {
      * 'name'.skin.properties and append in content to default properties. First, get it from META-INF/skins/ , next - from root
      * package. for any place search order determined by {@link java.lang.ClassLoader } realisation.
      *
-     * @param name    name for builded skin.
+     * @param name name for builded skin.
      * @param context
      * @return skin instance for current name
      * @throws SkinNotFoundException - if no skin properies found for name.
@@ -129,7 +144,7 @@ public abstract class AbstractSkinFactory extends SkinFactory {
 
         FutureTask<Skin> skinFuture = skins.get(name);
         if (skinFuture == null) {
-            FutureTask<Skin> newSkinFuture = new FutureTask<Skin>(new SkinBuilder(name));
+            FutureTask<Skin> newSkinFuture = new FutureTask<>(new SkinBuilder(name));
             skinFuture = skins.putIfAbsent(name, newSkinFuture);
 
             if (skinFuture == null) {
@@ -144,19 +159,6 @@ public abstract class AbstractSkinFactory extends SkinFactory {
             throw new SkinNotFoundException(Messages.getMessage(Messages.SKIN_NOT_FOUND_ERROR, name), e);
         } catch (ExecutionException e) {
             throw new SkinNotFoundException(Messages.getMessage(Messages.SKIN_NOT_FOUND_ERROR, name), e);
-        }
-    }
-
-    private final class SkinBuilder implements Callable<Skin> {
-        private String skinName;
-
-        SkinBuilder(String skinName) {
-            super();
-            this.skinName = skinName;
-        }
-
-        public Skin call() throws Exception {
-            return buildSkin(FacesContext.getCurrentInstance(), skinName);
         }
     }
 }

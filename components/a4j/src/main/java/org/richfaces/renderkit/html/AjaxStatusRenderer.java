@@ -1,150 +1,62 @@
 /**
  * License Agreement.
- * <p>
+ *
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- * <p>
+ *
  * Copyright (C) 2007 Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractAjaxStatus;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.renderkit.util.HandlersChain;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import static org.richfaces.renderkit.RenderKitUtils.renderAttribute;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import jakarta.faces.application.ResourceDependencies;
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
-import static org.richfaces.renderkit.RenderKitUtils.renderAttribute;
+import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractAjaxStatus;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.renderkit.util.HandlersChain;
 
 /**
  * @author Nick Belaevski
  */
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
-        @ResourceDependency(library = "org.richfaces", name = "status.js")})
+        @ResourceDependency(library = "org.richfaces", name = "status.js") })
 @JsfRenderer(type = "org.richfaces.StatusRenderer", family = AbstractAjaxStatus.COMPONENT_FAMILY)
 public class AjaxStatusRenderer extends RendererBase {
     private static final String START = "start";
     private static final String STOP = "stop";
     private static final String ERROR = "error";
-    private static final String[] EVENT_NAMES = {"start", "stop", "error", "success"};
-
-    protected void encodeState(FacesContext facesContext, AbstractAjaxStatus status, StatusState state) throws IOException {
-
-        Map<String, Object> statusAttributes = status.getAttributes();
-        UIComponent stateFacet = status.getFacet(state.getFacetName());
-        String stateText = null;
-
-        if (stateFacet == null) {
-            stateText = (String) statusAttributes.get(state.getTextAttributeName());
-        }
-
-        if (state.isOptional() && stateFacet == null && stateText == null) {
-            return;
-        }
-
-        ResponseWriter writer = facesContext.getResponseWriter();
-        writer.startElement(HtmlConstants.SPAN_ELEM, status);
-
-        String stateStyle = (String) statusAttributes.get(state.getStyleAttributeName());
-
-        renderAttribute(facesContext, HtmlConstants.STYLE_ATTRIBUTE,
-                HtmlUtil.concatStyles(stateStyle, state.isInitial() ? null : "display:none"));
-
-        String stateStyleClass = (String) statusAttributes.get(state.getStyleClassAttributeName());
-
-        renderAttribute(facesContext, HtmlConstants.CLASS_ATTRIBUTE,
-                HtmlUtil.concatClasses(state.getDefaultStyleClass(), stateStyleClass));
-
-        if (stateFacet != null && stateFacet.isRendered()) {
-            stateFacet.encodeAll(facesContext);
-        } else {
-            if (stateText != null) {
-                writer.writeText(stateText, null);
-            }
-        }
-
-        writer.endElement(HtmlConstants.SPAN_ELEM);
-    }
-
-    @Override
-    public void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        super.doEncodeEnd(writer, context, component);
-
-        AbstractAjaxStatus ajaxStatus = (AbstractAjaxStatus) component;
-        writer.startElement(HtmlConstants.SPAN_ELEM, component);
-        String clientId = component.getClientId(context);
-        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId, "id");
-
-        for (StatusState state : StatusState.values()) {
-            encodeState(context, ajaxStatus, state);
-        }
-
-        writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
-        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.TEXT_JAVASCRIPT_TYPE, null);
-
-        JSFunction statusConstructor = new JSFunction("new RichFaces.ui.Status", clientId);
-
-        Map<String, Object> options = new HashMap<String, Object>();
-
-        Map<String, Object> attributes = ajaxStatus.getAttributes();
-        for (String eventName : EVENT_NAMES) {
-            String eventAttribute = "on" + eventName;
-            HandlersChain handlersChain = new HandlersChain(context, component, true);
-            handlersChain.addInlineHandlerFromAttribute(eventAttribute);
-            handlersChain.addBehaviors(eventName);
-            addToScriptHash(options, eventAttribute, handlersChain.toScript(), null, ScriptHashVariableWrapper.eventHandler);
-        }
-
-        addToScriptHash(options, "statusName", attributes.get("name"));
-
-        if (!options.isEmpty()) {
-            statusConstructor.addParameter(options);
-        }
-
-        writer.writeText(statusConstructor.toScript(), null);
-        writer.endElement(HtmlConstants.SCRIPT_ELEM);
-
-        writer.endElement(HtmlConstants.SPAN_ELEM);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.ajax4jsf.renderkit.RendererBase#getComponentClass()
-     */
-    @Override
-    protected Class<? extends UIComponent> getComponentClass() {
-        return AbstractAjaxStatus.class;
-    }
+    private static final String[] EVENT_NAMES = { "start", "stop", "error", "success" };
 
     private static enum StatusState {
         // NOTE: states encode order is important for script!
@@ -210,5 +122,94 @@ public class AjaxStatusRenderer extends RendererBase {
         protected void setInitial() {
             this.initial = true;
         }
+    }
+
+    protected void encodeState(FacesContext facesContext, AbstractAjaxStatus status, StatusState state) throws IOException {
+
+        Map<String, Object> statusAttributes = status.getAttributes();
+        UIComponent stateFacet = status.getFacet(state.getFacetName());
+        String stateText = null;
+
+        if (stateFacet == null) {
+            stateText = (String) statusAttributes.get(state.getTextAttributeName());
+        }
+
+        if (state.isOptional() && stateFacet == null && stateText == null) {
+            return;
+        }
+
+        ResponseWriter writer = facesContext.getResponseWriter();
+        writer.startElement(HtmlConstants.SPAN_ELEM, status);
+
+        String stateStyle = (String) statusAttributes.get(state.getStyleAttributeName());
+
+        renderAttribute(facesContext, HtmlConstants.STYLE_ATTRIBUTE,
+            HtmlUtil.concatStyles(stateStyle, state.isInitial() ? null : "display:none"));
+
+        String stateStyleClass = (String) statusAttributes.get(state.getStyleClassAttributeName());
+
+        renderAttribute(facesContext, HtmlConstants.CLASS_ATTRIBUTE,
+            HtmlUtil.concatClasses(state.getDefaultStyleClass(), stateStyleClass));
+
+        if (stateFacet != null && stateFacet.isRendered()) {
+            stateFacet.encodeAll(facesContext);
+        } else {
+            if (stateText != null) {
+                writer.writeText(stateText, null);
+            }
+        }
+
+        writer.endElement(HtmlConstants.SPAN_ELEM);
+    }
+
+    @Override
+    public void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        super.doEncodeEnd(writer, context, component);
+
+        AbstractAjaxStatus ajaxStatus = (AbstractAjaxStatus) component;
+        writer.startElement(HtmlConstants.SPAN_ELEM, component);
+        String clientId = component.getClientId(context);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId, "id");
+
+        for (StatusState state : StatusState.values()) {
+            encodeState(context, ajaxStatus, state);
+        }
+
+        writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.TEXT_JAVASCRIPT_TYPE, null);
+
+        JSFunction statusConstructor = new JSFunction("new RichFaces.ui.Status", clientId);
+
+        Map<String, Object> options = new HashMap<>();
+
+        Map<String, Object> attributes = ajaxStatus.getAttributes();
+        for (String eventName : EVENT_NAMES) {
+            String eventAttribute = "on" + eventName;
+            HandlersChain handlersChain = new HandlersChain(context, component, true);
+            handlersChain.addInlineHandlerFromAttribute(eventAttribute);
+            handlersChain.addBehaviors(eventName);
+            addToScriptHash(options, eventAttribute, handlersChain.toScript(), null, ScriptHashVariableWrapper.eventHandler);
+        }
+
+        addToScriptHash(options, "statusName", attributes.get("name"));
+
+        if (!options.isEmpty()) {
+            statusConstructor.addParameter(options);
+        }
+
+        writer.writeText(statusConstructor.toScript(), null);
+        writer.endElement(HtmlConstants.SCRIPT_ELEM);
+
+        writer.endElement(HtmlConstants.SPAN_ELEM);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.ajax4jsf.renderkit.RendererBase#getComponentClass()
+     */
+    @Override
+    protected Class<? extends UIComponent> getComponentClass() {
+        return AbstractAjaxStatus.class;
     }
 }

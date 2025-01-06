@@ -21,16 +21,17 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
-import org.richfaces.skin.SkinPropertiesELResolver;
-
 import jakarta.el.CompositeELResolver;
 import jakarta.el.ELContext;
 import jakarta.el.ELResolver;
 import jakarta.el.FunctionMapper;
 import jakarta.el.VariableMapper;
 
+import org.richfaces.skin.SkinPropertiesELResolver;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class ELContextImpl extends ELContext {
     private VariableMapper variableMapper = createVariableMapper();
@@ -52,7 +53,7 @@ public class ELContextImpl extends ELContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.el.ELContext#getELResolver()
+     * @see jakarta.el.ELContext#getELResolver()
      */
     @Override
     public ELResolver getELResolver() {
@@ -62,7 +63,7 @@ public class ELContextImpl extends ELContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.el.ELContext#getFunctionMapper()
+     * @see jakarta.el.ELContext#getFunctionMapper()
      */
     @Override
     public FunctionMapper getFunctionMapper() {

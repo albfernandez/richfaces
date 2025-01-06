@@ -25,6 +25,7 @@ package org.richfaces.component;
  * Marker interface for all components used as column in UIDataTable
  *
  * @author shura
+ *
  */
 public interface Column {
 }

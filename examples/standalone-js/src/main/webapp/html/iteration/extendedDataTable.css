@@ -32,7 +32,7 @@
     padding: 0;
 }
 *.rf-edt-hdr, *.rf-edt-tbl-hdr {
-    /*background-image: url(/components-demo/org.richfaces.resources/rfRes/colHdrGrad.png?v=4.5.17.Final&db=eAFjZJBjZDBiZBBhYGBgAgADawBq&ln=org.richfaces.images);*/
+
 }
 *.rf-edt-tbl-hdr {
     border-bottom: 0px solid ;
@@ -73,7 +73,6 @@ div.rf-edt-ftr-cnt {
     height: 0px;
 }
 *.rf-edt-rsz {
-    /*background-image: url(/components-demo/org.richfaces.resources/javax.faces.resource/spacer.gif?ln=org.richfaces);*/
     cursor: e-resize;
     height: 20px;
     position: absolute;
@@ -133,7 +132,6 @@ div.rf-edt-ftr-cnt {
     height: 9px;
     font-size: 9px;
     width: 9px;
-    /*background-image: url(/components-demo/org.richfaces.resources/javax.faces.resource/reorderMarker.gif?ln=org.richfaces);*/
     display: none;
 }
 *.rf-edt-r-act {
@@ -149,13 +147,11 @@ div.rf-edt-ftr-cnt {
     vertical-align: middle;
 }
 *.rf-edt-srt-uns {
-    /*background: url(/components-demo/org.richfaces.resources/javax.faces.resource/sort_uns.gif?ln=org.richfaces) no-repeat center;*/
 }
 *.rf-edt-srt-asc {
-    /*background: url(/components-demo/org.richfaces.resources/javax.faces.resource/sort_asc.gif?ln=org.richfaces) no-repeat center;*/
 }
 *.rf-edt-srt-des {
-    /*background: url(/components-demo/org.richfaces.resources/javax.faces.resource/sort_des.gif?ln=org.richfaces) no-repeat center;*/
+
 }
 *.rf-edt-flt-cnt {
     text-align: center;

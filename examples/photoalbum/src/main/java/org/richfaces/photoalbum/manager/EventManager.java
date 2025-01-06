@@ -22,6 +22,16 @@
 
 package org.richfaces.photoalbum.manager;
 
+import java.io.Serializable;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Any;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.richfaces.photoalbum.model.Event;
 import org.richfaces.photoalbum.model.EventCategory;
 import org.richfaces.photoalbum.model.Shelf;
@@ -36,15 +46,6 @@ import org.richfaces.photoalbum.model.event.ShelfEvent;
 import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.Preferred;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Any;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 @Named
 @RequestScoped
 public class EventManager implements Serializable {
@@ -53,20 +54,27 @@ public class EventManager implements Serializable {
      *
      */
     private static final long serialVersionUID = 1L;
+
+    private boolean validationSuccess = false;
+
     @Inject
     IEventAction eventAction;
+
     @Inject
     IShelfAction shelfAction;
+
     @Inject
     @Preferred
     User user;
+
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
     javax.enterprise.event.Event<ErrorEvent> error;
+
     @Inject
     @Any
     javax.enterprise.event.Event<ShelfEvent> shelfEvent;
-    private boolean validationSuccess = false;
+
     private Event newEvent = new Event();
     private Shelf newShelf = new Shelf();
 
@@ -120,9 +128,10 @@ public class EventManager implements Serializable {
     /**
      * Method, that invoked when user click 'Edit event' button or by inplaceInput component. Only registered users can edit
      * shelves.
-     *
-     * @param event           - event to edit
+     * 
+     * @param event - event to edit
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
+     * 
      */
     public void editEvent(Event event, boolean editFromInplace) {
         if (user == null) {
@@ -140,8 +149,9 @@ public class EventManager implements Serializable {
 
     /**
      * Method, that invoked when user click 'Delete event' button. Only registered users can delete shelves.
-     *
+     * 
      * @param image - event to delete
+     * 
      */
     public void deleteEvent(Event event) {
         if (user == null) {

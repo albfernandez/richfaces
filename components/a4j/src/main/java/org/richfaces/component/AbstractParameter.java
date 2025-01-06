@@ -1,33 +1,24 @@
 /**
  * License Agreement.
- * <p>
+ *
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- * <p>
+ *
  * Copyright (C) 2007 Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.component;
-
-import org.ajax4jsf.Messages;
-import org.ajax4jsf.component.JavaScriptParameter;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.util.PartialStateHolderUtil;
-import org.richfaces.view.facelets.html.ParameterHandler;
 
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
@@ -39,6 +30,15 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.ActionListener;
+
+import org.ajax4jsf.Messages;
+import org.ajax4jsf.component.JavaScriptParameter;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.util.PartialStateHolderUtil;
+import org.richfaces.view.facelets.html.ParameterHandler;
 
 /**
  * <p>
@@ -70,20 +70,26 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
     @Attribute
     public abstract boolean isNoEscape();
 
-    public abstract void setNoEscape(boolean noEscape);
-
     /**
      * EL expression for updatable bean property. This property will be updated if the parent command component performs an actionEvent.
      */
     @Attribute
     public abstract Object getAssignTo();
 
+    public abstract void setNoEscape(boolean noEscape);
+
+    public void setAssignToExpression(ValueExpression ve) {
+        setValueExpression(ASSIGN_TO, ve);
+    }
+
     public ValueExpression getAssignToExpression() {
         return getValueExpression(ASSIGN_TO);
     }
 
-    public void setAssignToExpression(ValueExpression ve) {
-        setValueExpression(ASSIGN_TO, ve);
+    public void setConverter(Converter converter) {
+        clearInitialState();
+
+        this.converter = converter;
     }
 
     /**
@@ -92,12 +98,6 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
     @Attribute(generate = false)
     public Converter getConverter() {
         return converter;
-    }
-
-    public void setConverter(Converter converter) {
-        clearInitialState();
-
-        this.converter = converter;
     }
 
     public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
@@ -215,7 +215,7 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
             return null;
         }
 
-        return new Object[]{superState, converterState};
+        return new Object[] { superState, converterState };
     }
 
     @Override

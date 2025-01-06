@@ -21,7 +21,12 @@
  */
 package org.richfaces.component;
 
-import jakarta.faces.el.ValueBinding;
+import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
@@ -39,15 +44,8 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.model.ArrayDataModel;
 import jakarta.faces.model.DataModel;
 import jakarta.faces.model.ListDataModel;
-import jakarta.faces.model.ResultDataModel;
 import jakarta.faces.model.ResultSetDataModel;
 import jakarta.faces.model.ScalarDataModel;
-import jakarta.servlet.jsp.jstl.sql.Result;
-import java.sql.ResultSet;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author Nick Belaevski
@@ -55,6 +53,10 @@ import java.util.Map;
 public class UISequence extends UIDataAdaptor {
     private Object iterationStatusVarObject;
     private Converter defaultRowKeyConverter;
+
+    protected enum PropertyKeys {
+        first, rows, value, iterationStatusVar
+    }
 
     protected void updateState(SequenceState state) {
         state.setFirst(getActualFirst());
@@ -90,8 +92,8 @@ public class UISequence extends UIDataAdaptor {
             model = new ArrayDataModel((Object[]) value);
         } else if (value instanceof ResultSet) {
             model = new ResultSetDataModel((ResultSet) value);
-        } else if (value instanceof Result) {
-            model = new ResultDataModel((Result) value);
+        //MZ } else if (value instanceof Result) {
+        //MZ     model = new ResultDataModel((Result) value);
         } else if (value instanceof Collection) {
             model = new CollectionDataModel((Collection) value);
         } else {
@@ -127,6 +129,14 @@ public class UISequence extends UIDataAdaptor {
         return state;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.component.UIDataAdaptor#getRowKeyConverter()
+     */
+
+    // TODO make this a property of model
+
     @Override
     @Attribute
     public Converter getRowKeyConverter() {
@@ -142,14 +152,6 @@ public class UISequence extends UIDataAdaptor {
 
         return converter;
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.richfaces.component.UIDataAdaptor#getRowKeyConverter()
-     */
-
-    // TODO make this a property of model
 
     @Attribute
     public int getFirst() {
@@ -258,6 +260,7 @@ public class UISequence extends UIDataAdaptor {
         }
     }
 
+    /*MZ
     @SuppressWarnings("deprecation")
     @Override
     public void setValueBinding(String name, ValueBinding binding) {
@@ -269,6 +272,7 @@ public class UISequence extends UIDataAdaptor {
 
         super.setValueBinding(name, binding);
     }
+    */
 
     @Override
     public void setValueExpression(String name, ValueExpression binding) {
@@ -366,9 +370,5 @@ public class UISequence extends UIDataAdaptor {
         } catch (Exception ignore) {
             return -1;
         }
-    }
-
-    protected enum PropertyKeys {
-        first, rows, value, iterationStatusVar
     }
 }

@@ -1,24 +1,27 @@
 /**
  * License Agreement.
- * <p>
+ *
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- * <p>
+ *
  * Copyright (C) 2007 Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.view.facelets;
+
+import java.io.IOException;
+import java.io.Serializable;
 
 import jakarta.el.ValueExpression;
 import jakarta.faces.component.UIComponent;
@@ -34,8 +37,6 @@ import jakarta.faces.view.facelets.TagAttributeException;
 import jakarta.faces.view.facelets.TagConfig;
 import jakarta.faces.view.facelets.TagException;
 import jakarta.faces.view.facelets.TagHandler;
-import java.io.IOException;
-import java.io.Serializable;
 
 /**
  * @author akolonitsky
@@ -44,6 +45,44 @@ import java.io.Serializable;
 public abstract class EventListenerHandler extends TagHandler implements AttachedObjectHandler {
     protected final TagAttribute binding;
     protected final String listenerType;
+
+    public abstract static class LazyEventListener<L extends FacesListener> implements FacesListener, Serializable {
+        private static final long serialVersionUID = 1L;
+        protected final String type;
+        protected final ValueExpression binding;
+
+        protected LazyEventListener(String type, ValueExpression binding) {
+            this.type = type;
+            this.binding = binding;
+        }
+
+        public void processEvent(FacesEvent event) throws AbortProcessingException {
+
+            FacesContext faces = FacesContext.getCurrentInstance();
+            if (faces == null) {
+                return;
+            }
+
+            L instance = null;
+            if (this.binding != null) {
+                instance = (L) binding.getValue(faces.getELContext());
+            }
+            if (instance == null && this.type != null) {
+                try {
+                    instance = (L) TagHandlerUtils.loadClass(this.type, Object.class).getDeclaredConstructor().newInstance();
+                } catch (Exception e) {
+                    throw new AbortProcessingException("Couldn't Lazily instantiate EventListener", e);
+                }
+                if (this.binding != null) {
+                    binding.setValue(faces.getELContext(), instance);
+                }
+            }
+
+            if (instance != null) {
+                event.processListener(instance);
+            }
+        }
+    }
 
     public EventListenerHandler(TagConfig config) {
         super(config);
@@ -88,42 +127,4 @@ public abstract class EventListenerHandler extends TagHandler implements Attache
     }
 
     public abstract boolean isEventSource(UIComponent comp);
-
-    public abstract static class LazyEventListener<L extends FacesListener> implements FacesListener, Serializable {
-        private static final long serialVersionUID = 1L;
-        protected final String type;
-        protected final ValueExpression binding;
-
-        protected LazyEventListener(String type, ValueExpression binding) {
-            this.type = type;
-            this.binding = binding;
-        }
-
-        public void processEvent(FacesEvent event) throws AbortProcessingException {
-
-            FacesContext faces = FacesContext.getCurrentInstance();
-            if (faces == null) {
-                return;
-            }
-
-            L instance = null;
-            if (this.binding != null) {
-                instance = (L) binding.getValue(faces.getELContext());
-            }
-            if (instance == null && this.type != null) {
-                try {
-                    instance = (L) TagHandlerUtils.loadClass(this.type, Object.class).newInstance();
-                } catch (Exception e) {
-                    throw new AbortProcessingException("Couldn't Lazily instantiate EventListener", e);
-                }
-                if (this.binding != null) {
-                    binding.setValue(faces.getELContext(), instance);
-                }
-            }
-
-            if (instance != null) {
-                event.processListener(instance);
-            }
-        }
-    }
 }

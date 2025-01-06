@@ -45,24 +45,24 @@ public class ITRegionRichAjax extends AbstractRegionTest {
 
     @FindBy(id = "buttonNull")
     private WebElement buttonNull;
-
+    
     @FindBy(id = "buttonThis")
     private WebElement buttonThis;
-
+    
     @FindBy(id = "buttonAll")
     private WebElement buttonAll;
-
+    
     @FindBy(id = "buttonForm")
     private WebElement buttonForm;
-
+    
     @FindBy(id = "buttonRegion")
     private WebElement buttonRegion;
-
+    
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RegionTestDeployment deployment = new RegionTestDeployment(ITRegionRichAjax.class);
         deployment.archive()
-                .addAsWebResource(ITRegionRichAjax.class.getResource("RegionRichAjax.xhtml"), "index.xhtml");
+            .addAsWebResource(ITRegionRichAjax.class.getResource("RegionRichAjax.xhtml"), "index.xhtml");
         return deployment.getFinalArchive();
     }
 
@@ -95,7 +95,7 @@ public class ITRegionRichAjax extends AbstractRegionTest {
         openPage("@region");
         verifyExecutedIds(buttonRegion, "region");
     }
-
+    
     protected void verifyExecutedIds(WebElement button, String... expectedExecutedIds) {
         Graphene.guardAjax(button).click();
         Assert.assertEquals(Arrays.toString(expectedExecutedIds), output.getText());

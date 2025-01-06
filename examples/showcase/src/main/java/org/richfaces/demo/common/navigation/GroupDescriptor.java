@@ -1,11 +1,14 @@
 package org.richfaces.demo.common.navigation;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
+import java.util.Collection;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import java.util.Collection;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 
 public class GroupDescriptor extends BaseDescriptor {
     private static final long serialVersionUID = -3481702232804120885L;
@@ -49,9 +52,7 @@ public class GroupDescriptor extends BaseDescriptor {
         return Collections2.filter(demos, new Predicate<DemoDescriptor>() {
             public boolean apply(DemoDescriptor demo) {
                 return demo.hasEnabledItems();
-            }
-
-            ;
+            };
         });
     }
 

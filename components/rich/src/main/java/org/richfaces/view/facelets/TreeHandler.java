@@ -21,9 +21,8 @@
  */
 package org.richfaces.view.facelets;
 
-import com.google.common.base.Strings;
-import org.richfaces.component.AbstractTree;
-import org.richfaces.component.AbstractTreeNode;
+import static org.richfaces.component.AbstractTree.DEFAULT_TREE_NODE_FACET_NAME;
+import static org.richfaces.component.AbstractTree.DEFAULT_TREE_NODE_ID;
 
 import jakarta.faces.application.Application;
 import jakarta.faces.component.UIComponent;
@@ -38,11 +37,14 @@ import jakarta.faces.view.facelets.Metadata;
 import jakarta.faces.view.facelets.MetadataTarget;
 import jakarta.faces.view.facelets.TagAttribute;
 
-import static org.richfaces.component.AbstractTree.DEFAULT_TREE_NODE_FACET_NAME;
-import static org.richfaces.component.AbstractTree.DEFAULT_TREE_NODE_ID;
+import org.richfaces.component.AbstractTree;
+import org.richfaces.component.AbstractTreeNode;
+
+import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class TreeHandler extends ComponentHandler {
     private static final MetaRule RULE = new MetaRule() {
@@ -97,9 +99,9 @@ public class TreeHandler extends ComponentHandler {
             UIComponent text = application.createComponent(HtmlOutputText.COMPONENT_TYPE);
 
             text.setValueExpression(
-                    "value",
-                    application.getExpressionFactory().createValueExpression(facesContext.getELContext(), "#{" + var + "}",
-                            String.class));
+                "value",
+                application.getExpressionFactory().createValueExpression(facesContext.getELContext(), "#{" + var + "}",
+                    String.class));
             treeNode.getChildren().add(text);
         }
     }

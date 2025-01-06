@@ -27,8 +27,6 @@ public class ITTestBase {
 
     @ArquillianResource
     private URL contextPath;
-    @FindBy
-    private WebElement input;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -38,18 +36,21 @@ public class ITTestBase {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(CoreDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.form("<h:inputText id='input' value='xyz'><a4j:ajax /></h:inputText>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
+    @FindBy
+    private WebElement input;
 
     @Test
     public void testBasicDeployment() throws InterruptedException {
         browser.get(contextPath.toExternalForm());
 
         assertEquals("xyz", input.getAttribute("value"));
+    }
+
+    private static void addIndexPage(CoreDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.form("<h:inputText id='input' value='xyz'><a4j:ajax /></h:inputText>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

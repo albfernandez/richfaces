@@ -21,6 +21,11 @@
  */
 package org.richfaces.component;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+
 import org.richfaces.HeaderAlignment;
 import org.richfaces.HeaderPosition;
 import org.richfaces.cdk.annotations.Attribute;
@@ -33,11 +38,6 @@ import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.view.facelets.html.TogglePanelTagHandler;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitResult;
-import jakarta.faces.context.FacesContext;
 
 /**
  * <p>The &lt;rich:tabPanel&gt; component provides a set of tabbed panels for displaying one panel of content at a time.

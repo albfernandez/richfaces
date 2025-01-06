@@ -35,13 +35,13 @@ public final class Validate {
      * validating according to an arbitrary boolean expression, such as validating a
      * primitive number or using your own custom validation expression.</p>
      *
-     * <pre>Validate.isTrue(i > 0.0, "The value must be greater than zero: %d", i);</pre>
+     * <pre>Validate.isTrue(i &gt; 0.0, "The value must be greater than zero: %d", i);</pre>
      *
      * <p>For performance reasons, the long value is passed as a separate parameter and
      * appended to the exception message only in the case of an error.</p>
      *
-     * @param expression       the boolean expression to check
-     * @param message          the {@link String#format(String, Object...)} exception message if invalid, not null
+     * @param expression  the boolean expression to check
+     * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null
      * @param messageArguments the arguments for formatting the message when invalid
      * @throws IllegalArgumentException if expression is {@code false}
      */

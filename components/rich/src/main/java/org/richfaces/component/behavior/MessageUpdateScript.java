@@ -1,13 +1,14 @@
 package org.richfaces.component.behavior;
 
-import com.google.common.collect.Lists;
+import java.io.IOException;
+import java.util.List;
+
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.ScriptString;
 import org.ajax4jsf.javascript.ScriptStringBase;
 import org.richfaces.javascript.Message;
 
-import java.io.IOException;
-import java.util.List;
+import com.google.common.collect.Lists;
 
 public class MessageUpdateScript extends ScriptStringBase implements ScriptString {
     private final List<Message> messages;

@@ -21,6 +21,13 @@
  */
 package org.richfaces.component;
 
+import jakarta.el.MethodExpression;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.PhaseId;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -33,19 +40,11 @@ import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
 import org.richfaces.view.facelets.DropHandler;
 
-import jakarta.el.MethodExpression;
-import jakarta.faces.component.UIComponentBase;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.FacesEvent;
-import jakarta.faces.event.PhaseId;
-
 /**
  * <p>
- * The &lt;rich:dropTarget&gt; component can be added to a component so that the component can accept dragged items.
- * The dragged items must be defined with a compatible drop type for the &lt;rich:dragSource&gt; component.
+ *     The &lt;rich:dropTarget&gt; component can be added to a component so that the component can accept dragged items.
+ *     The dragged items must be defined with a compatible drop type for the &lt;rich:dragSource&gt; component.
  * </p>
- *
  * @author abelevich
  */
 @JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY,

@@ -27,6 +27,7 @@ import jakarta.faces.event.FacesListener;
 
 /**
  * @author Anton Belevich
+ *
  */
 public class CollapsibleSubTableToggleEvent extends FacesEvent {
     private static final long serialVersionUID = 2916560585918250885L;

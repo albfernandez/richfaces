@@ -21,10 +21,10 @@
  *******************************************************************************/
 package org.richfaces.showcase.panel;
 
+import static org.jboss.arquillian.graphene.Graphene.waitAjax;
+
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.junit.Test;
-
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -50,10 +50,10 @@ public class ITestSimple extends AbstractPanelTest {
     @Test
     public void testPanelWithoutHeader() {
         waitAjax(webDriver).until("Panel header should not be visible!")
-                .element(ByJQuery.selector(PANEL_WITHOUT_HEADER + " > " + HEADER))
-                .is()
-                .not()
-                .present();
+            .element(ByJQuery.selector(PANEL_WITHOUT_HEADER + " > " + HEADER))
+            .is()
+            .not()
+            .present();
         checkContentOfPanel(PANEL_WITHOUT_HEADER, BODY_OF_PANEL_WITHOUT_HDR);
     }
 }

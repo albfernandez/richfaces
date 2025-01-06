@@ -1,26 +1,24 @@
 /**
  * License Agreement.
- * <p>
- * JBoss RichFaces - Ajax4jsf Component Library
- * <p>
+ *
+ *  JBoss RichFaces - Ajax4jsf Component Library
+ *
  * Copyright (C) 2007  Exadel, Inc.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.renderkit.html.images;
-
-import org.richfaces.resource.DynamicUserResource;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,6 +27,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
+
+import org.richfaces.resource.DynamicUserResource;
 
 /**
  * @author Maksim Kaszynski
@@ -49,7 +49,7 @@ public class DotSeparatorImage extends ToolbarSeparatorImage {
         Color gradientColorEnd = new Color(this.getHeaderBackgroundColor());
         Ellipse2D inSquare = new Ellipse2D.Double(2, 2, DIMENSIONS.getWidth() - 4, DIMENSIONS.getHeight() - 4);
         GradientPaint paint = new GradientPaint((float) 3, (float) 3, gradientColorStart, (float) DIMENSIONS.getWidth() - 2,
-                (float) DIMENSIONS.getHeight() - 2, gradientColorEnd);
+            (float) DIMENSIONS.getHeight() - 2, gradientColorEnd);
         g2d.setPaint(paint);
         g2d.fill(inSquare);
 

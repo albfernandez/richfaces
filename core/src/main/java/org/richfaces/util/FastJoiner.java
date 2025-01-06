@@ -22,8 +22,10 @@
 package org.richfaces.util;
 
 
+
 /**
  * @author Nick Belaevski
+ *
  */
 public final class FastJoiner {
     private String separator;
@@ -31,14 +33,6 @@ public final class FastJoiner {
     private FastJoiner(String separator) {
         super();
         this.separator = separator;
-    }
-
-    public static FastJoiner on(String sep) {
-        return new FastJoiner(sep);
-    }
-
-    public static FastJoiner on(char c) {
-        return new FastJoiner(String.valueOf(c));
     }
 
     private String maskNullString(String s) {
@@ -109,5 +103,13 @@ public final class FastJoiner {
         }
 
         return sb.toString();
+    }
+
+    public static FastJoiner on(String sep) {
+        return new FastJoiner(sep);
+    }
+
+    public static FastJoiner on(char c) {
+        return new FastJoiner(String.valueOf(c));
     }
 }

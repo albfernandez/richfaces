@@ -21,8 +21,6 @@
  */
 package org.richfaces.taglib;
 
-import org.richfaces.component.AbstractDataScroller;
-
 import jakarta.el.ValueExpression;
 import jakarta.faces.view.facelets.ComponentConfig;
 import jakarta.faces.view.facelets.ComponentHandler;
@@ -32,6 +30,8 @@ import jakarta.faces.view.facelets.MetaRuleset;
 import jakarta.faces.view.facelets.Metadata;
 import jakarta.faces.view.facelets.MetadataTarget;
 import jakarta.faces.view.facelets.TagAttribute;
+
+import org.richfaces.component.AbstractDataScroller;
 
 /**
  * Created 11.03.2008
@@ -61,19 +61,8 @@ public class DataScrollerHandler extends ComponentHandler {
         }
     };
 
-    public DataScrollerHandler(ComponentConfig config) {
-        super(config);
-    }
-
-    protected MetaRuleset createMetaRuleset(Class type) {
-        MetaRuleset ruleset = super.createMetaRuleset(type);
-        ruleset.addRule(PAGERULE);
-        ruleset.addRule(SCROLL_LISTENER_RULE);
-        return ruleset;
-    }
-
     private static final class ScrollListenerMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[]{org.richfaces.event.DataScrollEvent.class};
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.DataScrollEvent.class };
         private final TagAttribute attribute;
 
         public ScrollListenerMapper(TagAttribute attribute) {
@@ -84,7 +73,7 @@ public class DataScrollerHandler extends ComponentHandler {
         public void applyMetadata(FaceletContext ctx, Object instance) {
 
             ((AbstractDataScroller) instance).addScrollListener((new MethodExpressionScrollListener(this.attribute
-                    .getMethodExpression(ctx, null, SIGNATURE))));
+                .getMethodExpression(ctx, null, SIGNATURE))));
         }
     }
 
@@ -106,5 +95,16 @@ public class DataScrollerHandler extends ComponentHandler {
                 datascroller.setValueExpression("page", ve);
             }
         }
+    }
+
+    public DataScrollerHandler(ComponentConfig config) {
+        super(config);
+    }
+
+    protected MetaRuleset createMetaRuleset(Class type) {
+        MetaRuleset ruleset = super.createMetaRuleset(type);
+        ruleset.addRule(PAGERULE);
+        ruleset.addRule(SCROLL_LISTENER_RULE);
+        return ruleset;
     }
 }

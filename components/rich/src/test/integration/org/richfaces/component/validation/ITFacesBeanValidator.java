@@ -46,8 +46,8 @@ public class ITFacesBeanValidator extends GraphValidationTestBase {
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
                 webXml.createContextParam()
-                        .paramName("javax.faces.validator.DISABLE_DEFAULT_BEAN_VALIDATOR")
-                        .paramValue("true");
+                    .paramName("javax.faces.validator.DISABLE_DEFAULT_BEAN_VALIDATOR")
+                    .paramValue("true");
                 return webXml;
             }
         });

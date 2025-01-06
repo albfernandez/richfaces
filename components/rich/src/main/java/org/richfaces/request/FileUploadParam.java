@@ -21,12 +21,13 @@
  */
 package org.richfaces.request;
 
-import org.richfaces.request.ByteSequenceMatcher.BytesHandler;
-
 import java.io.IOException;
+
+import org.richfaces.request.ByteSequenceMatcher.BytesHandler;
 
 /**
  * @author Nick Belaevski
+ *
  */
 interface FileUploadParam extends BytesHandler {
     void create() throws IOException;

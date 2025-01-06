@@ -21,12 +21,14 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
+import java.util.Map;
+
 import jakarta.faces.application.Resource;
 import jakarta.faces.context.FacesContext;
-import java.util.Map;
 
 /**
  * @author Nick Belaevski
+ *
  */
 // TODO nested resources?
 public final class CurrentResourceContext {
@@ -47,11 +49,11 @@ public final class CurrentResourceContext {
         return stack;
     }
 
-    public Resource getResource() {
-        return resource;
-    }
-
     public void setResource(Resource resource) {
         this.resource = resource;
+    }
+
+    public Resource getResource() {
+        return resource;
     }
 }

@@ -21,13 +21,22 @@
  */
 package org.richfaces.resource.optimizer.resource.writer.impl;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-import com.google.common.io.ByteSource;
-import com.google.common.io.FileWriteMode;
-import com.google.common.io.Files;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.StandardOpenOption;
+import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
+
+import jakarta.faces.application.Resource;
+
 import org.richfaces.log.Logger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceSkinUtils;
@@ -37,28 +46,37 @@ import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 import org.richfaces.resource.optimizer.strings.Constants;
 
-import jakarta.faces.application.Resource;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.MessageFormat;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Set;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+import com.google.common.io.ByteSource;
+import com.google.common.io.FileWriteMode;
+import com.google.common.io.Files;
 
 /**
  * @author Nick Belaevski
  */
 public class ResourceWriterImpl implements ResourceWriter {
+    private static final class ResourceInputStreamSupplier extends ByteSource {
+        private Resource resource;
+
+        public ResourceInputStreamSupplier(Resource resource) {
+            super();
+            this.resource = resource;
+        }
+
+        @Override
+        public InputStream openStream() throws IOException {
+            return resource.getInputStream();
+        }
+    }
+
     /*
      * packed output stream by extension
      */
-    private final Map<String, OutputStream> PACKED = new LinkedHashMap<String, OutputStream>();
+    private final Map<String, OutputStream> PACKED = new LinkedHashMap<>();
+
     private File resourceContentsDir;
     private Map<String, String> processedResources = Maps.newConcurrentMap();
     private Iterable<ResourceProcessor> resourceProcessors;
@@ -66,6 +84,7 @@ public class ResourceWriterImpl implements ResourceWriter {
     private long currentTime;
     private Set<ResourceKey> resourcesWithKnownOrder;
     private Set<ResourceKey> packedResources = Sets.newHashSet();
+
     public ResourceWriterImpl(File resourceContentsDir, Iterable<ResourceProcessor> resourceProcessors, Logger log,
                               Set<ResourceKey> resourcesWithKnownOrder) {
         this.resourceContentsDir = resourceContentsDir;
@@ -106,9 +125,10 @@ public class ResourceWriterImpl implements ResourceWriter {
         File outFile = createOutputFile(requestPathWithSkin);
 
         log.debug("Opening output stream for " + outFile);
-        matchingProcessor.process(requestPathWithSkin, new ResourceInputStreamSupplier(resource).openStream(),
-                Files.asByteSink(outFile).openStream(), true);
-        processedResources.put(ResourceUtil.getResourceQualifier(resource), requestPath);
+        try (InputStream is = new ResourceInputStreamSupplier(resource).openStream(); OutputStream os = Files.asByteSink(outFile).openStream()) {
+            matchingProcessor.process(requestPathWithSkin, is, os, true);
+            processedResources.put(ResourceUtil.getResourceQualifier(resource), requestPath);
+        }
     }
 
     public void writePackedResource(String packName, String skinName, Resource resource) throws IOException {
@@ -148,8 +168,9 @@ public class ResourceWriterImpl implements ResourceWriter {
         }
 
         synchronized (outputStream) {
-            matchingProcessor.process(requestPathWithSkin, resource.getInputStream(), outputStream,
-                    false);
+            try (InputStream is = resource.getInputStream()) {
+                matchingProcessor.process(requestPathWithSkin, is, outputStream, false);
+            }
         }
 
         processedResources.put(ResourceUtil.getResourceQualifier(resource), requestPathWithSkinVariable);
@@ -182,29 +203,21 @@ public class ResourceWriterImpl implements ResourceWriter {
     @Override
     public void writeProcessedResourceMappings(File staticResourceMappingFile, String staticResourcePrefix) throws IOException {
         // TODO separate mappings file location
-        FileOutputStream fos = null;
-        try {
-            if (!staticResourceMappingFile.exists()) {
-                staticResourceMappingFile.getParentFile().mkdirs();
-                staticResourceMappingFile.createNewFile();
-            }
 
-            fos = new FileOutputStream(staticResourceMappingFile, true);
+        if (!staticResourceMappingFile.exists()) {
+            staticResourceMappingFile.getParentFile().mkdirs();
+            staticResourceMappingFile.createNewFile();
+        }
+
+        try (OutputStream fos = new BufferedOutputStream(
+                java.nio.file.Files.newOutputStream(staticResourceMappingFile.toPath(), StandardOpenOption.CREATE, StandardOpenOption.APPEND))) {
 
             Properties properties = new Properties();
             for (Entry<String, String> entry : processedResources.entrySet()) {
                 properties.put(entry.getKey(), staticResourcePrefix + entry.getValue());
             }
-            // properties.putAll(processedResources);
+
             properties.store(fos, null);
-        } finally {
-            try {
-                if (fos != null) {
-                    fos.close();
-                }
-            } catch (IOException e) {
-                // TODO: handle exception
-            }
         }
     }
 
@@ -215,20 +228,6 @@ public class ResourceWriterImpl implements ResourceWriter {
             } catch (IOException e) {
                 // Swallow
             }
-        }
-    }
-
-    private static final class ResourceInputStreamSupplier extends ByteSource {
-        private Resource resource;
-
-        public ResourceInputStreamSupplier(Resource resource) {
-            super();
-            this.resource = resource;
-        }
-
-        @Override
-        public InputStream openStream() throws IOException {
-            return resource.getInputStream();
         }
     }
 }

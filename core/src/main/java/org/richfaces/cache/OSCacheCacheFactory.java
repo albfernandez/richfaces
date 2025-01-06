@@ -21,15 +21,8 @@
  */
 package org.richfaces.cache;
 
-import com.opensymphony.oscache.base.AbstractCacheAdministrator;
-import com.opensymphony.oscache.general.GeneralCacheAdministrator;
-import org.ajax4jsf.resource.util.URLToStreamHelper;
-import org.richfaces.application.CoreConfiguration;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
 
-import jakarta.faces.FacesException;
-import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -39,14 +32,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
+
+import org.ajax4jsf.resource.util.URLToStreamHelper;
+import org.richfaces.application.CoreConfiguration;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
+import com.opensymphony.oscache.base.AbstractCacheAdministrator;
+import com.opensymphony.oscache.general.GeneralCacheAdministrator;
 
 /**
  * @author Nick - mailto:nbelaevski@exadel.com created 01.05.2007
  */
 public class OSCacheCacheFactory implements CacheFactory {
     private static final Logger LOG = RichfacesLogger.CACHE.getLogger();
-    private List<GeneralCacheAdministrator> cacheAdministrators = new ArrayList<GeneralCacheAdministrator>(1);
+    private List<GeneralCacheAdministrator> cacheAdministrators = new ArrayList<>(1);
 
     public OSCacheCacheFactory() throws ClassNotFoundException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();

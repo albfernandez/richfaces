@@ -21,6 +21,18 @@
  */
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.RenderKitUtils.attributes;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+
+import java.io.IOException;
+import java.util.Map;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+
 import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.JavaScriptService;
@@ -28,24 +40,14 @@ import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
-
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.renderkit.RenderKitUtils.attributes;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
-
 /**
  * @author akolonitsky
+ *
  */
 public abstract class DivPanelRenderer extends RendererBase {
     // Attributes defined in org.richfaces.component.AbstractDivPanel
     private static final RenderKitUtils.Attributes PASS_THROUGH_ATTRIBUTES = attributes("lang", "onclick", "ondblclick",
-            "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "title", "dir");
+        "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "title", "dir");
 
     protected static String attributeAsStyle(UIComponent comp, Enum attr) {
         return attributeAsStyle(comp, attr.toString());
@@ -155,9 +157,9 @@ public abstract class DivPanelRenderer extends RendererBase {
     /**
      * Adds script which switches given panel to given item
      *
-     * @param context  FacesContext
+     * @param context FacesContext
      * @param itemName the item to switch to
-     * @param panelId  the panel
+     * @param panelId the panel
      */
     protected void addOnCompleteParam(FacesContext context, String itemName, String panelId) {
         String script = new StringBuilder().append("RichFaces.component('").append(panelId).append("').onCompleteHandler('")

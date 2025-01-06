@@ -23,6 +23,7 @@ package org.ajax4jsf.javascript;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class JSChainJSFFunction extends JSFunction {
     public JSChainJSFFunction(Object... parameters) {

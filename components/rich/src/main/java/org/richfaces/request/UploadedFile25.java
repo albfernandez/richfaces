@@ -21,9 +21,6 @@
  */
 package org.richfaces.request;
 
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Multimap;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -31,8 +28,12 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Locale;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Multimap;
+
 /**
  * @author Nick Belaevski
+ *
  */
 public class UploadedFile25 extends BaseUploadedFile {
     private FileUploadResource uploadResource;
@@ -69,14 +70,14 @@ public class UploadedFile25 extends BaseUploadedFile {
     }
 
     public Collection<String> getHeaderNames() {
-        return new HashSet<String>(headersMap.keySet());
+        return new HashSet<>(headersMap.keySet());
     }
 
     public Collection<String> getHeaders(String headerName) {
         String lcHeaderName = headerName.toLowerCase(Locale.US);
         Collection<String> headers = headersMap.get(lcHeaderName);
 
-        return new ArrayList<String>(headers);
+        return new ArrayList<>(headers);
     }
 
     public long getSize() {

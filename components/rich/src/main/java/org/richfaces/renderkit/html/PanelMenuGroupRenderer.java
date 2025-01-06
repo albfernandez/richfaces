@@ -21,21 +21,6 @@
  */
 package org.richfaces.renderkit.html;
 
-import com.google.common.base.Strings;
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.PanelMenuMode;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractPanelMenuGroup;
-import org.richfaces.component.AbstractPanelMenuItem;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import jakarta.faces.event.ActionEvent;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
 import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
 import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
@@ -46,6 +31,23 @@ import static org.richfaces.renderkit.HtmlConstants.TYPE_ATTR;
 import static org.richfaces.renderkit.HtmlConstants.VALUE_ATTRIBUTE;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.event.ActionEvent;
+
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.PanelMenuMode;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractPanelMenuGroup;
+import org.richfaces.component.AbstractPanelMenuItem;
+
+import com.google.common.base.Strings;
 
 /**
  * @author akolonitsky
@@ -67,9 +69,9 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     private static final String DEFAULT_EXPAND_EVENT = "click";
     private static final String DEFAULT_COLLAPSE_EVENT = "click";
     private final TableIconsRendererHelper<AbstractPanelMenuGroup> headerRenderer = new PanelMenuGroupHeaderRenderer(
-            CSS_CLASS_PREFIX);
+        CSS_CLASS_PREFIX);
     private final TableIconsRendererHelper<AbstractPanelMenuGroup> topHeaderRenderer = new PanelMenuGroupHeaderRenderer(
-            TOP_CSS_CLASS_PREFIX);
+        TOP_CSS_CLASS_PREFIX);
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -119,15 +121,15 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(ID_ATTRIBUTE, menuGroup.getClientId(context) + ":hdr", null);
         writer.writeAttribute(
-                CLASS_ATTRIBUTE,
-                concatClasses(
-                        getCssClass(menuGroup, "-hdr"),
-                        "rf-pm-hdr-" + (menuGroup.getState() ? "exp" : "colps"),
-                        (menuGroup.getPanelMenu().isBubbleSelection()
-                                && menuGroup.hasActiveItem(menuGroup, menuGroup.getPanelMenu().getActiveItem()) ? getCssClass(menuGroup,
-                                "-sel") : ""),
-                        PanelMenuItemRenderer.isParentPanelMenuDisabled(menuGroup) || menuGroup.isDisabled() ? getCssClass(menuGroup,
-                                "-hdr-dis") : null), null);
+            CLASS_ATTRIBUTE,
+            concatClasses(
+                getCssClass(menuGroup, "-hdr"),
+                "rf-pm-hdr-" + (menuGroup.getState() ? "exp" : "colps"),
+                (menuGroup.getPanelMenu().isBubbleSelection()
+                    && menuGroup.hasActiveItem(menuGroup, menuGroup.getPanelMenu().getActiveItem()) ? getCssClass(menuGroup,
+                    "-sel") : ""),
+                PanelMenuItemRenderer.isParentPanelMenuDisabled(menuGroup) || menuGroup.isDisabled() ? getCssClass(menuGroup,
+                    "-hdr-dis") : null), null);
 
         (menuGroup.isTopItem() ? topHeaderRenderer : headerRenderer).encodeHeader(writer, context, menuGroup);
 
@@ -139,11 +141,11 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     }
 
     private void encodeContentBegin(ResponseWriter writer, FacesContext context, AbstractPanelMenuGroup menuGroup)
-            throws IOException {
+        throws IOException {
         writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(ID_ATTRIBUTE, menuGroup.getClientId(context) + ":cnt", null);
         writer.writeAttribute(CLASS_ATTRIBUTE,
-                concatClasses(getCssClass(menuGroup, "-cnt"), menuGroup.getState() ? "rf-pm-exp" : "rf-pm-colps"), null);
+            concatClasses(getCssClass(menuGroup, "-cnt"), menuGroup.getState() ? "rf-pm-exp" : "rf-pm-colps"), null);
 
         writeJavaScript(writer, context, menuGroup);
     }
@@ -157,18 +159,18 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         AbstractPanelMenuItem menuItem = (AbstractPanelMenuItem) component;
 
         return concatClasses(
-                getCssClass(menuItem, ""),
-                attributeAsString(component, "styleClass"),
-                PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? getCssClass(menuItem, "-dis")
-                        : "",
-                PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? attributeAsString(component,
-                        "disabledClass") : "");
+            getCssClass(menuItem, ""),
+            attributeAsString(component, "styleClass"),
+            PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? getCssClass(menuItem, "-dis")
+                : "",
+            PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? attributeAsString(component,
+                "disabledClass") : "");
     }
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.PanelMenuGroup", component.getClientId(context), getScriptObjectOptions(context,
-                component));
+            component));
     }
 
     private String getExpandEvent(AbstractPanelMenuGroup group) {
@@ -197,7 +199,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractPanelMenuGroup panelMenuGroup = (AbstractPanelMenuGroup) component;
 
-        Map<String, Object> options = new HashMap<String, Object>();
+        Map<String, Object> options = new HashMap<>();
         // TODO nick - non-default values should not be rendered
         options.put("ajax", getAjaxOptions(context, panelMenuGroup));
         options.put("name", panelMenuGroup.getName());

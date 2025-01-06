@@ -101,7 +101,7 @@ More detail and specific examples can be found in the included HTML file.
 
 				if (options.series.pie.radius == "auto") {
 					if (options.series.pie.label.show) {
-						options.series.pie.radius = 3/4;
+						options.series.pie.radius = 3 / 4;
 					} else {
 						options.series.pie.radius = 1;
 					}
@@ -121,10 +121,10 @@ More detail and specific examples can be found in the included HTML file.
 			var options = plot.getOptions();
 			if (options.series.pie.show) {
 				if (options.grid.hoverable) {
-					eventHolder.unbind("mousemove").mousemove(onMouseMove);
+					eventHolder.off("mousemove").on("mousemove", onMouseMove);
 				}
 				if (options.grid.clickable) {
-					eventHolder.unbind("click").click(onClick);
+					eventHolder.off("click").on("click", onClick);
 				}
 			}
 		});
@@ -151,7 +151,7 @@ More detail and specific examples can be found in the included HTML file.
 		});
 
 		function processDatapoints(plot, series, datapoints) {
-			if (!processed)	{
+			if (!processed) {
 				processed = true;
 				canvas = plot.getCanvas();
 				target = $(canvas).parent();
@@ -182,7 +182,7 @@ More detail and specific examples can be found in the included HTML file.
 				// that the user may have stored in higher indexes.
 
 				if ($.isArray(value) && value.length == 1) {
-    				value = value[0];
+					value = value[0];
 				}
 
 				if ($.isArray(value)) {
@@ -287,7 +287,7 @@ More detail and specific examples can be found in the included HTML file.
 
 			// calculate maximum radius and center point
 
-			maxRadius =  Math.min(canvasWidth, canvasHeight / options.series.pie.tilt) / 2;
+			maxRadius = Math.min(canvasWidth, canvasHeight / options.series.pie.tilt) / 2;
 			centerTop = canvasHeight / 2 + options.series.pie.offset.top;
 			centerLeft = canvasWidth / 2;
 
@@ -353,13 +353,13 @@ More detail and specific examples can be found in the included HTML file.
 				}
 
 				ctx.save();
-				ctx.translate(shadowLeft,shadowTop);
+				ctx.translate(shadowLeft, shadowTop);
 				ctx.globalAlpha = alpha;
 				ctx.fillStyle = "#000";
 
 				// center and rotate to starting position
 
-				ctx.translate(centerLeft,centerTop);
+				ctx.translate(centerLeft, centerTop);
 				ctx.scale(1, options.series.pie.tilt);
 
 				//radius -= edge;
@@ -382,7 +382,7 @@ More detail and specific examples can be found in the included HTML file.
 				// center and rotate to starting position
 
 				ctx.save();
-				ctx.translate(centerLeft,centerTop);
+				ctx.translate(centerLeft, centerTop);
 				ctx.scale(1, options.series.pie.tilt);
 				//ctx.rotate(startAngle); // start at top; -- This doesn't work properly in Opera
 
@@ -439,8 +439,8 @@ More detail and specific examples can be found in the included HTML file.
 					}
 
 					//ctx.arc(0, 0, radius, 0, angle, false); // This doesn't work properly in Opera
-					ctx.arc(0, 0, radius,currentAngle, currentAngle + angle / 2, false);
-					ctx.arc(0, 0, radius,currentAngle + angle / 2, currentAngle + angle, false);
+					ctx.arc(0, 0, radius, currentAngle, currentAngle + angle / 2, false);
+					ctx.arc(0, 0, radius, currentAngle + angle / 2, currentAngle + angle, false);
 					ctx.closePath();
 					//ctx.rotate(angle); // This doesn't work properly in Opera
 					currentAngle += angle;
@@ -539,7 +539,7 @@ More detail and specific examples can be found in the included HTML file.
 
 				layer.save();
 				var innerRadius = options.series.pie.innerRadius > 1 ? options.series.pie.innerRadius : maxRadius * options.series.pie.innerRadius;
-				layer.globalCompositeOperation = "destination-out"; // this does not work with excanvas, but it will fall back to using the stroke color
+				layer.globalCompositeOperation = "destination-out";
 				layer.beginPath();
 				layer.fillStyle = options.series.pie.stroke.color;
 				layer.arc(0, 0, innerRadius, 0, Math.PI * 2, false);
@@ -564,10 +564,10 @@ More detail and specific examples can be found in the included HTML file.
 		//-- Additional Interactive related functions --
 
 		function isPointInPoly(poly, pt) {
-			for(var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
-				((poly[i][1] <= pt[1] && pt[1] < poly[j][1]) || (poly[j][1] <= pt[1] && pt[1]< poly[i][1]))
-				&& (pt[0] < (poly[j][0] - poly[i][0]) * (pt[1] - poly[i][1]) / (poly[j][1] - poly[i][1]) + poly[i][0])
-				&& (c = !c);
+			for (var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
+				((poly[i][1] <= pt[1] && pt[1] < poly[j][1]) || (poly[j][1] <= pt[1] && pt[1] < poly[i][1]))
+					&& (pt[0] < (poly[j][0] - poly[i][0]) * (pt[1] - poly[i][1]) / (poly[j][1] - poly[i][1]) + poly[i][0])
+					&& (c = !c);
 			return c;
 		}
 
@@ -604,34 +604,6 @@ More detail and specific examples can be found in the included HTML file.
 								seriesIndex: i
 							};
 						}
-					} else {
-
-						// excanvas for IE doesn;t support isPointInPath, this is a workaround.
-
-						var p1X = radius * Math.cos(s.startAngle),
-							p1Y = radius * Math.sin(s.startAngle),
-							p2X = radius * Math.cos(s.startAngle + s.angle / 4),
-							p2Y = radius * Math.sin(s.startAngle + s.angle / 4),
-							p3X = radius * Math.cos(s.startAngle + s.angle / 2),
-							p3Y = radius * Math.sin(s.startAngle + s.angle / 2),
-							p4X = radius * Math.cos(s.startAngle + s.angle / 1.5),
-							p4Y = radius * Math.sin(s.startAngle + s.angle / 1.5),
-							p5X = radius * Math.cos(s.startAngle + s.angle),
-							p5Y = radius * Math.sin(s.startAngle + s.angle),
-							arrPoly = [[0, 0], [p1X, p1Y], [p2X, p2Y], [p3X, p3Y], [p4X, p4Y], [p5X, p5Y]],
-							arrPoint = [x, y];
-
-						// TODO: perhaps do some mathmatical trickery here with the Y-coordinate to compensate for pie tilt?
-
-						if (isPointInPoly(arrPoly, arrPoint)) {
-							ctx.restore();
-							return {
-								datapoint: [s.percent, s.data],
-								dataIndex: 0,
-								series: s,
-								seriesIndex: i
-							};
-						}
 					}
 
 					ctx.restore();
@@ -655,7 +627,7 @@ More detail and specific examples can be found in the included HTML file.
 
 			var offset = plot.offset();
 			var canvasX = parseInt(e.pageX - offset.left);
-			var canvasY =  parseInt(e.pageY - offset.top);
+			var canvasY = parseInt(e.pageY - offset.top);
 			var item = findNearbySlice(canvasX, canvasY);
 
 			if (options.grid.autoHighlight) {
@@ -770,7 +742,7 @@ More detail and specific examples can be found in the included HTML file.
 				show: false,
 				radius: "auto",	// actual radius of the visible pie (based on full calculated radius if <=1, or hard pixel value)
 				innerRadius: 0, /* for donut */
-				startAngle: 3/2,
+				startAngle: 3 / 2,
 				tilt: 1,
 				shadow: {
 					left: 5,	// shadow left offset

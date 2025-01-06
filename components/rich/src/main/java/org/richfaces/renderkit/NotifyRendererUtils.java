@@ -21,20 +21,21 @@
  */
 package org.richfaces.renderkit;
 
-import org.richfaces.component.AbstractNotify;
-import org.richfaces.component.AbstractNotifyStack;
-import org.richfaces.component.NotifyAttributes;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.util.RendererUtils;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Map;
 
 import jakarta.faces.FacesException;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Map;
+
+import org.richfaces.component.AbstractNotify;
+import org.richfaces.component.AbstractNotifyStack;
+import org.richfaces.component.NotifyAttributes;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
@@ -68,7 +69,7 @@ public class NotifyRendererUtils {
     }
 
     public static void addFacetOrAttributeAsOption(String name, Map<String, Object> options, FacesContext facesContext,
-                                                   UIComponent component) {
+            UIComponent component) {
 
         UIComponent facet = component.getFacet(name);
         if (facet != null && facet.isRendered()) {

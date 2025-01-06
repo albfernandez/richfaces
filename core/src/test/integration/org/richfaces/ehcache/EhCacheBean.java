@@ -24,7 +24,7 @@ package org.richfaces.ehcache;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.ViewScoped;
 import jakarta.faces.context.FacesContext;

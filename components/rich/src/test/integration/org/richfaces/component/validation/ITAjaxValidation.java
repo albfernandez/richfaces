@@ -56,24 +56,6 @@ public class ITAjaxValidation extends ValidationTestBase {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(org.richfaces.deployment.BaseDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form id='form'>");
-        p.body("  <h:inputText id='text' value='#{test.value}'>");
-        p.body("    <f:validator validatorId='custom' />");
-        p.body("    <rich:validator event='blur' />");
-        p.body("  </h:inputText>");
-        p.body("  <h:outputText id='out' value='#{test.value}'></h:outputText>");
-        p.body("</h:form>");
-        p.body("<br />");
-        p.body("<input id='blurButton' value='blur' type='button' />");
-        p.body("<br />");
-        p.body("<rich:message id='uiMessage' for='text' />");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     @Category(Smoke.class)
     public void testSubmitTooShortValue() throws Exception {
@@ -93,6 +75,24 @@ public class ITAjaxValidation extends ValidationTestBase {
     @Override
     protected void submitValue() {
         guardAjax(blurButton).click();
+    }
+
+    private static void addIndexPage(org.richfaces.deployment.BaseDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='form'>");
+        p.body("  <h:inputText id='text' value='#{test.value}'>");
+        p.body("    <f:validator validatorId='custom' />");
+        p.body("    <rich:validator event='blur' />");
+        p.body("  </h:inputText>");
+        p.body("  <h:outputText id='out' value='#{test.value}'></h:outputText>");
+        p.body("</h:form>");
+        p.body("<br />");
+        p.body("<input id='blurButton' value='blur' type='button' />");
+        p.body("<br />");
+        p.body("<rich:message id='uiMessage' for='text' />");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
 }

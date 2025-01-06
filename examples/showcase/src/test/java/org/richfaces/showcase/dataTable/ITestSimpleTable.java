@@ -21,12 +21,12 @@
  *******************************************************************************/
 package org.richfaces.showcase.dataTable;
 
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.dataTable.page.SimpleTablePage;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>

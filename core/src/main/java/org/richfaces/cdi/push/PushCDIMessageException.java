@@ -21,6 +21,8 @@
  */
 package org.richfaces.cdi.push;
 
+import org.richfaces.application.push.MessageException;
+
 /**
  * Unchecked exception wrapper for {@link MessageException}.
  *

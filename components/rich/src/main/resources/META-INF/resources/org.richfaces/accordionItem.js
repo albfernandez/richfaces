@@ -20,121 +20,123 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-(function ($, rf) {
+(function($, rf) {
 
-    rf.ui = rf.ui || {};
+	rf.ui = rf.ui || {};
 
-    rf.ui.AccordionItem = rf.ui.TogglePanelItem.extendClass({
-            // class name
-            name:"AccordionItem",
+	rf.ui.AccordionItem = rf.ui.TogglePanelItem.extendClass({
+		// class name
+		name: "AccordionItem",
 
-            /**
-             * Backing object for rich:accordionItem
-             * 
-             * @extends RichFaces.ui.TogglePanelItem
-             * @memberOf! RichFaces.ui
-             * @constructs RichFaces.ui.AccordionItem
-             * 
-             * @param {string} componentId - component id
-             * @param {Object} options - params
-             * */
-            init : function (componentId, options) {
-                $super.constructor.call(this, componentId, options);
+		/**
+		 * Backing object for rich:accordionItem
+		 * 
+		 * @extends RichFaces.ui.TogglePanelItem
+		 * @memberOf! RichFaces.ui
+		 * @constructs RichFaces.ui.AccordionItem
+		 * 
+		 * @param {string} componentId - component id
+		 * @param {Object} options - params
+		 * */
+		init: function(componentId, options) {
+			$super.constructor.call(this, componentId, options);
 
-                if (!this.disabled) {
-                    rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this);
-                }
+			if (!this.disabled) {
+				rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this);
+			}
 
-                if (this.isSelected()) {
-                    var item = this;
-                    $(document).ready(function () {
-                        item.__fitToHeight(item.getTogglePanel());
-                    }).one("javascriptServiceComplete", function () {
-                        item.__fitToHeight(item.getTogglePanel());
-                    });
-                }
-            },
+			if (this.isSelected()) {
+				var item = this;
+				$(document).ready(function() {
+					item.__fitToHeight(item.getTogglePanel());
+				}).one("javascriptServiceComplete", function() {
+					item.__fitToHeight(item.getTogglePanel());
+				});
+			}
+		},
 
-            /***************************** Public Methods  ****************************************************************/
+		/***************************** Public Methods  ****************************************************************/
 
-            __onHeaderClick : function (comp) {
-                this.getTogglePanel().switchToItem(this.getName());
-            },
+		__onHeaderClick: function(comp) {
+			this.getTogglePanel().switchToItem(this.getName());
+		},
 
-            /**
-             * @private
-             * @return {jQuery}
-             * */
-            __header : function () {
-                return $(rf.getDomElement(this.id + ":header"));
-            },
+		/**
+		 * @private
+		 * @return {jQuery}
+		 * */
+		__header: function() {
+			return $(rf.getDomElement(this.id + ":header"));
+		},
 
-            /**
-             * @private
-             * @return {jQuery}
-             * */
-            __content : function () {
-                if (!this.__content_) {
-                    this.__content_ = $(rf.getDomElement(this.id + ":content"));
-                }
-                return this.__content_;
-            },
+		/**
+		 * @private
+		 * @return {jQuery}
+		 * */
+		__content: function() {
+			if (!this.__content_) {
+				this.__content_ = $(rf.getDomElement(this.id + ":content"));
+			}
+			return this.__content_;
+		},
 
-            /**
-             * @private
-             *
-             * used in TogglePanel
-             * */
-            __enter : function () {
-                var parentPanel = this.getTogglePanel();
-                if (parentPanel.isKeepHeight) {
-                    this.__content().hide(); // TODO ?
-                    this.__fitToHeight(parentPanel);
-                }
+		/**
+		 * used in TogglePanel
+		 * 
+		 * @private
+		 *
+		 * */
+		__enter: function() {
+			var parentPanel = this.getTogglePanel();
+			if (parentPanel.isKeepHeight) {
+				this.__content().hide(); // TODO ?
+				this.__fitToHeight(parentPanel);
+			}
 
-                this.__content().show();
-                this.__header().addClass("rf-ac-itm-hdr-act").removeClass("rf-ac-itm-hdr-inact");
+			this.__content().show();
+			this.__header().addClass("rf-ac-itm-hdr-act").removeClass("rf-ac-itm-hdr-inact");
 
-                return this.__fireEnter();
-            },
+			return this.__fireEnter();
+		},
 
-            __fitToHeight : function (parentPanel) {
-                var h = parentPanel.getInnerHeight();
+		__fitToHeight: function(parentPanel) {
+			var h = parentPanel.getInnerHeight();
 
-                var items = parentPanel.getItems();
-                for (var i = 0; i < items.length; i++) {
-                    h -= items[i].__header().outerHeight();
-                }
+			var items = parentPanel.getItems();
+			for (var i = 0; i < items.length; i++) {
+				h -= items[i].__header().outerHeight();
+			}
 
-                this.__content().height(h - 20); // 20 it is padding top and bottom
-            },
+			this.__content().height(h - 20); // 20 it is padding top and bottom
+		},
 
-            getHeight : function (recalculate) {
-                if (recalculate || !this.__height) {
-                    this.__height = $(rf.getDomElement(this.id)).outerHeight(true)
-                }
+		getHeight: function(recalculate) {
+			if (recalculate || !this.__height) {
+				this.__height = $(rf.getDomElement(this.id)).outerHeight(true)
+			}
 
-                return this.__height;
-            },
+			return this.__height;
+		},
 
-            /**
-             * @private
-             *
-             * used in TogglePanel
-             * */
-            __leave : function () {
-                var continueProcess = this.__fireLeave();
-                if (!continueProcess) {
-                    return false;
-                }
+		/**
+		 * used in TogglePanel
+		 * 
+		 * @private
+		 *
+		 * */
+		__leave: function() {
+			var continueProcess = this.__fireLeave();
+			if (!continueProcess) {
+				return false;
+			}
 
-                this.__content().hide();
-                this.__header().removeClass("rf-ac-itm-hdr-act").addClass("rf-ac-itm-hdr-inact");
+			this.__content().hide();
+			this.__header().removeClass("rf-ac-itm-hdr-act").addClass("rf-ac-itm-hdr-inact");
 
-                return true;
-            }
-        });
+			return true;
+		}
+	});
 
-    // define super class link
-    var $super = rf.ui.AccordionItem.$super;
+	// define super class link
+	var $super = rf.ui.AccordionItem.$super;
 })(RichFaces.jQuery, RichFaces);

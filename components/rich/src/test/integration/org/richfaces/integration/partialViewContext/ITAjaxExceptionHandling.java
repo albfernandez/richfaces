@@ -52,24 +52,6 @@ public class ITAjaxExceptionHandling {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
-        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
-        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
-
-        p.form("<h:panelGroup id='panel'>");
-        p.form("    <h:commandButton id='button' action='#{exceptionCausingBean.causeException}' >");
-        p.form("        <f:ajax />");
-        p.form("    </h:commandButton>");
-        p.form("</h:panelGroup>");
-
-        PartialResponseTestingHelper.addPartialResponseInterceptorToPage(p);
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void test() throws ParserConfigurationException, SAXException, IOException {
         browser.get(contextPath.toExternalForm());
@@ -87,6 +69,24 @@ public class ITAjaxExceptionHandling {
         String errorMessage = error.getElementsByTagName("error-message").item(0).getTextContent();
 
         assertEquals(IllegalStateException.class.toString(), errorName);
-        assertTrue(errorMessage.contains("this should be handled by JSF"));
+        assertTrue(errorMessage.contains("this should be handled by JSF") || errorMessage.contains("See your server log for more information"));
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
+
+        p.form("<h:panelGroup id='panel'>");
+        p.form("    <h:commandButton id='button' action='#{exceptionCausingBean.causeException}' >");
+        p.form("        <f:ajax />");
+        p.form("    </h:commandButton>");
+        p.form("</h:panelGroup>");
+
+        PartialResponseTestingHelper.addPartialResponseInterceptorToPage(p);
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

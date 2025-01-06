@@ -82,7 +82,7 @@ Licensed under the MIT license.
 				if (window.G_vmlCanvasManager) {
 					element = window.G_vmlCanvasManager.initElement(element);
 				} else {
-					throw new Error("Canvas is not available. If you're using IE with a fall-back such as Excanvas, then there's either a mistake in your conditional include, or the page has no DOCTYPE and is rendering in Quirks Mode.");
+					throw new Error("Canvas is not available");
 				}
 			}
 		}
@@ -144,7 +144,7 @@ Licensed under the MIT license.
 		// size of its element, to take advantage of the fact that retina
 		// displays have that many more pixels in the same advertised space.
 
-		// Resizing should reset the state (excanvas seems to be buggy though)
+
 
 		if (this.width != width) {
 			element.width = width * pixelRatio;
@@ -1317,7 +1317,7 @@ Licensed under the MIT license.
             octx = overlay.context;
 
             // define which element we're listening for events on
-            eventHolder = $(overlay.element).unbind();
+            eventHolder = $(overlay.element).off();
 
             // If we're re-using a plot object, shut down the old one
 
@@ -1335,7 +1335,7 @@ Licensed under the MIT license.
         function bindEvents() {
             // bind events
             if (options.grid.hoverable) {
-                eventHolder.mousemove(onMouseMove);
+                eventHolder.on("mousemove", onMouseMove);
 
                 // Use bind, rather than .mouseleave, because we officially
                 // still support jQuery 1.2.6, which doesn't define a shortcut
@@ -1343,22 +1343,22 @@ Licensed under the MIT license.
                 // was fixed somewhere around 1.3.x.  We can return to using
                 // .mouseleave when we drop support for 1.2.6.
 
-                eventHolder.bind("mouseleave", onMouseLeave);
+                eventHolder.on("mouseleave", onMouseLeave);
             }
 
-            if (options.grid.clickable)
-                eventHolder.click(onClick);
-
+            if (options.grid.clickable){
+                eventHolder.on("click", onClick);
+            }
             executeHooks(hooks.bindEvents, [eventHolder]);
         }
 
         function shutdown() {
-            if (redrawTimeout)
+            if (redrawTimeout){
                 clearTimeout(redrawTimeout);
-
-            eventHolder.unbind("mousemove", onMouseMove);
-            eventHolder.unbind("mouseleave", onMouseLeave);
-            eventHolder.unbind("click", onClick);
+            }
+            eventHolder.off("mousemove", onMouseMove);
+            eventHolder.off("mouseleave", onMouseLeave);
+            eventHolder.off("click", onClick);
 
             executeHooks(hooks.shutdown, [eventHolder]);
         }
@@ -2637,7 +2637,6 @@ Licensed under the MIT license.
             if (lineWidth > 0 && (drawLeft || drawRight || drawTop || drawBottom)) {
                 c.beginPath();
 
-                // FIXME: inline moveTo is buggy with excanvas
                 c.moveTo(left, bottom);
                 if (drawLeft)
                     c.lineTo(left, top);
@@ -2712,7 +2711,7 @@ Licensed under the MIT license.
         function insertLegend() {
 
             if (options.legend.container != null) {
-                $(options.legend.container).html("");
+                $.find(options.legend.container).html("");
             } else {
                 placeholder.find(".legend").remove();
             }

@@ -37,14 +37,14 @@ public abstract class AbstractPickList extends AbstractOrderingComponent impleme
     public abstract boolean isKeepSourceOrder();
 
     /**
-     * The text placed above the source list of items
-     */
+      * The text placed above the source list of items
+      */
     @Attribute
     public abstract String getSourceCaption();
 
     /**
-     * The text placed above the target list of items
-     */
+      * The text placed above the target list of items
+      */
     @Attribute
     public abstract String getTargetCaption();
 

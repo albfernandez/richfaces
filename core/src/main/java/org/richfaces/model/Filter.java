@@ -23,6 +23,7 @@ package org.richfaces.model;
 
 /**
  * @author Maksim Kaszynski
+ *
  */
 public interface Filter<T> {
     boolean accept(T t);

@@ -21,12 +21,11 @@
  */
 package org.richfaces.application;
 
-import com.google.common.collect.Iterables;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -39,12 +38,15 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import com.google.common.collect.Iterables;
+
 /**
  * <p class="changed_added_4_0">
  * This class loads services from files placed to the META-INF/services in classpath.
  * </p>
  *
  * @author asmirnov@exadel.com
+ *
  */
 public final class ServiceLoader {
     private static final String META_INF_SERVICES = "META-INF/services/";
@@ -61,12 +63,12 @@ public final class ServiceLoader {
      *
      * @param <S>
      * @param serviceClass
-     * @return
+     * @return all service implementations.
      * @throws ServiceException
      */
     public static <S> Collection<S> loadServices(Class<S> serviceClass) throws ServiceException {
         Collection<Class<? extends S>> serviceClasses = loadServiceClasses(serviceClass);
-        List<S> instances = new ArrayList<S>();
+        List<S> instances = new ArrayList<>();
         for (Class<? extends S> implementationClass : serviceClasses) {
             instances.add(createInstance(implementationClass));
         }
@@ -94,12 +96,20 @@ public final class ServiceLoader {
 
     private static <S> S createInstance(Class<? extends S> implementationClass) {
         try {
-            return implementationClass.newInstance();
+            return implementationClass.getDeclaredConstructor().newInstance();
         } catch (InstantiationException e) {
             throw new ServiceException("Cannot instantiate service class, does it have default constructor ?", e);
         } catch (IllegalAccessException e) {
             throw new ServiceException("Cannot instantiate service class, illegal access", e);
-        }
+        } catch (IllegalArgumentException e) {
+        	throw new ServiceException("Cannot instantiate service class", e);
+		} catch (InvocationTargetException e) {
+			throw new ServiceException("Cannot instantiate service class", e);
+		} catch (NoSuchMethodException e) {
+			throw new ServiceException("Cannot instantiate service class", e);
+		} catch (SecurityException e) {
+			throw new ServiceException("Cannot instantiate service class", e);
+		}
     }
 
     /**
@@ -109,12 +119,12 @@ public final class ServiceLoader {
      *
      * @param <S>
      * @param serviceClass
-     * @return
+     * @return service implementation classes.
      * @throws ServiceException
      */
     public static <S> Collection<Class<? extends S>> loadServiceClasses(Class<S> serviceClass) throws ServiceException {
         ClassLoader classLoader = getClassLoader(serviceClass);
-        Set<String> names = new LinkedHashSet<String>();
+        Set<String> names = new LinkedHashSet<>();
         Enumeration<URL> resources;
         try {
             resources = classLoader.getResources(META_INF_SERVICES + serviceClass.getName());
@@ -124,7 +134,7 @@ public final class ServiceLoader {
         } catch (IOException e) {
             throw new ServiceException("Error load service descriptions", e);
         }
-        Set<Class<? extends S>> instanceClasses = new LinkedHashSet<Class<? extends S>>();
+        Set<Class<? extends S>> instanceClasses = new LinkedHashSet<>();
         for (String className : names) {
             instanceClasses.add(loadClass(serviceClass, classLoader, className));
         }
@@ -140,7 +150,7 @@ public final class ServiceLoader {
             } catch (IllegalArgumentException e) {
                 // Do nothing.
             }
-            Set<String> names = new HashSet<String>();
+            Set<String> names = new HashSet<>();
             inputStream = connection.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
             String line;
@@ -200,7 +210,7 @@ public final class ServiceLoader {
     }
 
     private static <S> Class<? extends S> loadClass(Class<S> serviceClass, ClassLoader classLoader, String className)
-            throws ServiceException {
+        throws ServiceException {
         try {
             Class<?> implementationClass = classLoader.loadClass(className);
             if (serviceClass.isAssignableFrom(implementationClass)) {

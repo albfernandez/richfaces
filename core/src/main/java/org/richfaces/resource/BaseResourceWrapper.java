@@ -21,20 +21,22 @@
  */
 package org.richfaces.resource;
 
-import jakarta.faces.FacesWrapper;
-import jakarta.faces.component.StateHolder;
-import jakarta.faces.context.FacesContext;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getStringConfigurationValue;
+import static org.richfaces.application.CoreConfiguration.Items.resourcesDefaultVersion;
+
 import java.util.Date;
 import java.util.Map;
 
-import static org.richfaces.application.CoreConfiguration.Items.resourcesDefaultVersion;
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getStringConfigurationValue;
+import jakarta.faces.FacesWrapper;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource implements VersionedResource, StateHolder,
-        FacesWrapper<T> {
+    FacesWrapper<T> {
     private T resourceObject;
     private boolean cacheable;
     private boolean versioned;

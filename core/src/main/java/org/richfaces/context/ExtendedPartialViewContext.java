@@ -21,16 +21,18 @@
  */
 package org.richfaces.context;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Maps;
-import org.ajax4jsf.component.AjaxOutput;
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.javascript.ScriptsHolder;
-import org.richfaces.renderkit.AjaxDataSerializer;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.util.FastJoiner;
+import static org.richfaces.renderkit.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
+import static org.richfaces.renderkit.AjaxConstants.ALL;
+import static org.richfaces.renderkit.AjaxConstants.BEHAVIOR_EVENT_PARAMETER;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 
 import jakarta.faces.FactoryFinder;
 import jakarta.faces.component.UIComponent;
@@ -44,18 +46,18 @@ import jakarta.faces.context.PartialResponseWriter;
 import jakarta.faces.context.PartialViewContext;
 import jakarta.faces.context.PartialViewContextWrapper;
 import jakarta.faces.event.PhaseId;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
 
-import static org.richfaces.renderkit.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
-import static org.richfaces.renderkit.AjaxConstants.ALL;
-import static org.richfaces.renderkit.AjaxConstants.BEHAVIOR_EVENT_PARAMETER;
+import org.ajax4jsf.component.AjaxOutput;
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.javascript.ScriptsHolder;
+import org.richfaces.renderkit.AjaxDataSerializer;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.util.FastJoiner;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Maps;
 
 /**
  * <p>
@@ -171,7 +173,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     private StringBuilder completeHandler = new StringBuilder();
 
     // current visit mode setup during #processPartial method
-    private Stack<ExtendedVisitContextMode> visitMode = new Stack<ExtendedVisitContextMode>();
+    private Stack<ExtendedVisitContextMode> visitMode = new Stack<>();
 
 
     public ExtendedPartialViewContext(PartialViewContext wrappedViewContext, FacesContext facesContext) {
@@ -181,46 +183,24 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     }
 
     /**
-     * Return current {@link ExtendedPartialViewContext} instance for given {@link FacesContext}
+     * The partial view processing mode
      */
-    public static ExtendedPartialViewContext getInstance(FacesContext facesContext) {
-        return (ExtendedPartialViewContext) facesContext.getAttributes().get(ATTRIBUTE_NAME);
-    }
+    private enum ContextMode {
+        /**
+         * Use wrapped {@link PartialViewContext} implementation for partial view processing.
+         */
+        WRAPPED,
 
-    /**
-     * Setups given {@link ExtendedPartialViewContext} instance to context
-     *
-     * @param facesContext
-     * @param instance
-     */
-    private static void setInstance(FacesContext facesContext, ExtendedPartialViewContext instance) {
-        facesContext.getAttributes().put(ATTRIBUTE_NAME, instance);
-    }
-
-    private static void startExtensionElementIfNecessary(PartialResponseWriter partialResponseWriter,
-                                                         Map<String, String> attributes, boolean[] writingState) throws IOException {
-
-        if (!writingState[0]) {
-            writingState[0] = true;
-
-            partialResponseWriter.startExtension(attributes);
-        }
-    }
-
-    private static void endExtensionElementIfNecessary(PartialResponseWriter partialResponseWriter, boolean[] writingState)
-            throws IOException {
-
-        if (writingState[0]) {
-            writingState[0] = false;
-
-            partialResponseWriter.endExtension();
-        }
+        /**
+         * Use RichFaces-specific partial view processing processing via {@link ExtendedPartialViewContext}
+         */
+        EXTENDED
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.PartialViewContextWrapper#getWrapped()
+     * @see jakarta.faces.context.PartialViewContextWrapper#getWrapped()
      */
     @Override
     public PartialViewContext getWrapped() {
@@ -240,6 +220,22 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
      */
     protected FacesContext getFacesContext() {
         return facesContext;
+    }
+
+    /**
+     * Return current {@link ExtendedPartialViewContext} instance for given {@link FacesContext}
+     */
+    public static ExtendedPartialViewContext getInstance(FacesContext facesContext) {
+        return (ExtendedPartialViewContext) facesContext.getAttributes().get(ATTRIBUTE_NAME);
+    }
+
+    /**
+     * Setups given {@link ExtendedPartialViewContext} instance to context
+     * @param facesContext
+     * @param instance
+     */
+    private static void setInstance(FacesContext facesContext, ExtendedPartialViewContext instance) {
+        facesContext.getAttributes().put(ATTRIBUTE_NAME, instance);
     }
 
     /**
@@ -279,14 +275,14 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.PartialViewContextWrapper#getExecuteIds()
+     * @see jakarta.faces.context.PartialViewContextWrapper#getExecuteIds()
      */
     @Override
     public Collection<String> getExecuteIds() {
         assertNotReleased();
         if (detectContextMode() == ContextMode.EXTENDED) {
             if (executeIds == null) {
-                executeIds = new LinkedHashSet<String>();
+                executeIds = new LinkedHashSet<>();
                 visitActivatorAtExecute();
             }
             return executeIds;
@@ -298,7 +294,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.PartialViewContextWrapper#getRenderIds()
+     * @see jakarta.faces.context.PartialViewContextWrapper#getRenderIds()
      */
     @Override
     public Collection<String> getRenderIds() {
@@ -306,7 +302,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
         if (detectContextMode() == ContextMode.EXTENDED) {
             PhaseId currenPhaseId = facesContext.getCurrentPhaseId();
             if (renderIds == null) {
-                renderIds = new LinkedHashSet<String>();
+                renderIds = new LinkedHashSet<>();
             }
             if (currenPhaseId == PhaseId.RENDER_RESPONSE) {
                 visitActivatorAtRender();
@@ -320,7 +316,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.PartialViewContextWrapper#isExecuteAll()
+     * @see jakarta.faces.context.PartialViewContextWrapper#isExecuteAll()
      */
     @Override
     public boolean isExecuteAll() {
@@ -335,7 +331,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.PartialViewContextWrapper#isRenderAll()
+     * @see jakarta.faces.context.PartialViewContextWrapper#isRenderAll()
      */
     @Override
     public boolean isRenderAll() {
@@ -350,10 +346,30 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
         }
     }
 
+    /**
+     * Detects whether current context's state indicates render=@all
+     */
+    private boolean detectRenderAll() {
+        // RF-13740, MyFaces doesn't call for renderIds in advance
+        if (renderIds == null) {
+            renderIds = new LinkedHashSet<>();
+            
+            PhaseId currentPhaseId = facesContext.getCurrentPhaseId();
+            // NEW: Do this only in the RENDER_RESPONSE Phase
+            // to fix #25
+            // https://github.com/albfernandez/richfaces/issues/25
+            if (currentPhaseId == PhaseId.RENDER_RESPONSE) {
+                visitActivatorAtRender();
+            }
+        }
+
+        return Boolean.TRUE.equals(renderAll) || renderIds.contains(ALL);
+    }
+
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.PartialViewContextWrapper#setRenderAll(boolean)
+     * @see jakarta.faces.context.PartialViewContextWrapper#setRenderAll(boolean)
      */
     @Override
     public void setRenderAll(final boolean renderAll) {
@@ -370,19 +386,6 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     }
 
     /**
-     * Detects whether current context's state indicates render=@all
-     */
-    private boolean detectRenderAll() {
-        // RF-13740, MyFaces doesn't call for renderIds in advance
-        if (renderIds == null) {
-            renderIds = new LinkedHashSet<String>();
-            visitActivatorAtRender();
-        }
-
-        return Boolean.TRUE.equals(renderAll) || renderIds.contains(ALL);
-    }
-
-    /**
      * Returns user-provided data as an extension for partial-response response element
      */
     public Object getResponseData() {
@@ -390,17 +393,17 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     }
 
     /**
-     * Sets user-provided data as an extension for partial-response
-     */
-    public void setResponseData(Object responseData) {
-        this.responseData = responseData;
-    }
-
-    /**
      * Returns data provided by components as an extension for partial-response response element
      */
     public Map<String, Object> getResponseComponentDataMap() {
         return responseComponentDataMap;
+    }
+
+    /**
+     * Sets user-provided data as an extension for partial-response
+     */
+    public void setResponseData(Object responseData) {
+        this.responseData = responseData;
     }
 
     /**
@@ -476,8 +479,8 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
 
     /**
      * Set ups current visit mode to given value.
-     * <p>
-     * Works as a stack because {@link #processPartial(javax.faces.event.PhaseId)} methods that sets this flag may nest.
+     *
+     * Works as a stack because {@link #processPartial(jakarta.faces.event.PhaseId)} methods that sets this flag may nest.
      *
      * @see #resetVisitMode()
      */
@@ -487,8 +490,8 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
 
     /**
      * Resets current visit mode.
-     * <p>
-     * Works as a stack because {@link #processPartial(javax.faces.event.PhaseId)} methods that sets this flag may nest.
+     *
+     * Works as a stack because {@link #processPartial(jakarta.faces.event.PhaseId)} methods that sets this flag may nest.
      * Partial processing needs to {@link #resetVisitMode()} before returning.
      */
     private void resetVisitMode() {
@@ -497,7 +500,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
 
     /**
      * We are wrapping {@link PartialResponseWriter} obtained from wrapped implementation into {@link ExtensionWritingPartialResponseWriter}.
-     * <p>
+     *
      * The wrapper makes sure the RichFaces-specific extensions are written into partial-response before the document is ended.
      */
     @Override
@@ -507,6 +510,33 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
             partialResponseWriter = new ExtensionWritingPartialResponseWriter(wrappedViewContext.getPartialResponseWriter());
         }
         return partialResponseWriter;
+    }
+
+    /**
+     * Makes sure the RichFaces-specific extensions are written into partial-response before the document is ended.
+     */
+    private class ExtensionWritingPartialResponseWriter extends PartialResponseWriterWrapper {
+
+        public ExtensionWritingPartialResponseWriter(PartialResponseWriter wrapped) {
+            super(wrapped);
+        }
+
+        /**
+         * Render RichFaces-specific extensions and then {@link #endDocument()} finally.
+         */
+        @Override
+        public void endDocument() throws IOException {
+            try {
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                UIViewRoot viewRoot = facesContext.getViewRoot();
+
+
+                addJavaScriptServicePageScripts(facesContext);
+                renderExtensions(facesContext, viewRoot);
+            } finally {
+                super.endDocument();
+            }
+        }
     }
 
     /**
@@ -603,7 +633,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
 
     /**
      * Adding implicitly executed areas to the list of component that should be executed.
-     * <p>
+     *
      * This implementation handles just {@link UIViewRoot#METADATA_FACET_NAME} execution.
      */
     protected void addImplicitExecuteIds(Collection<String> executeIds) {
@@ -619,13 +649,15 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
 
     /**
      * Adding implicitly renderer areas to the list of component that should be rendered.
+     *
+     *
      */
     protected void addImplicitRenderIds(Collection<String> renderIds) {
         if (!limitRender) {
             final FacesContext facesContext = getFacesContext();
             Collection<UIComponent> ajaxOutputs = AjaxOutputTracker.getAjaxOutputs(facesContext, facesContext.getViewRoot());
             for (UIComponent component : ajaxOutputs) {
-                if (component instanceof AjaxOutput && ((AjaxOutput) component).isAjaxRendered()) {
+                if (component instanceof AjaxOutput && ((AjaxOutput)component).isAjaxRendered()) {
                     renderIds.add(component.getClientId(facesContext));
                 }
             }
@@ -667,7 +699,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
         Map<String, String> attributes = Collections.singletonMap(HtmlConstants.ID_ATTRIBUTE, context.getExternalContext()
                 .encodeNamespace(EXTENSION_ID));
         PartialResponseWriter writer = context.getPartialViewContext().getPartialResponseWriter();
-        boolean[] writingState = new boolean[]{false};
+        boolean[] writingState = new boolean[] { false };
 
         Object onbeforedomupdate = this.getOnbeforedomupdate();
         if (onbeforedomupdate != null) {
@@ -742,7 +774,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
             Set<String> idsToVisit = Collections.singleton(componentActivatorId);
             setVisitMode(ExtendedVisitContextMode.EXECUTE);
             VisitContextFactory visitContextFactory = (VisitContextFactory) FactoryFinder
-                    .getFactory(javax.faces.FactoryFinder.VISIT_CONTEXT_FACTORY);
+                    .getFactory(jakarta.faces.FactoryFinder.VISIT_CONTEXT_FACTORY);
             VisitContext visitContext = visitContextFactory.getVisitContext(facesContext, idsToVisit, visitHints);
             return facesContext.getViewRoot().visitTree(visitContext, visitCallback);
         } finally {
@@ -781,6 +813,26 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
         }
     }
 
+    private static void startExtensionElementIfNecessary(PartialResponseWriter partialResponseWriter,
+            Map<String, String> attributes, boolean[] writingState) throws IOException {
+
+        if (!writingState[0]) {
+            writingState[0] = true;
+
+            partialResponseWriter.startExtension(attributes);
+        }
+    }
+
+    private static void endExtensionElementIfNecessary(PartialResponseWriter partialResponseWriter, boolean[] writingState)
+            throws IOException {
+
+        if (writingState[0]) {
+            writingState[0] = false;
+
+            partialResponseWriter.endExtension();
+        }
+    }
+
     /**
      * All the parent wrappers of this context will be traversed and given callback will be called upon them
      */
@@ -790,47 +842,5 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
             pvc = ((PartialViewContextWrapper) pvc).getWrapped();
             function.apply(pvc);
         } while (pvc instanceof PartialViewContextWrapper);
-    }
-
-    /**
-     * The partial view processing mode
-     */
-    private enum ContextMode {
-        /**
-         * Use wrapped {@link PartialViewContext} implementation for partial view processing.
-         */
-        WRAPPED,
-
-        /**
-         * Use RichFaces-specific partial view processing processing via {@link ExtendedPartialViewContext}
-         */
-        EXTENDED
-    }
-
-    /**
-     * Makes sure the RichFaces-specific extensions are written into partial-response before the document is ended.
-     */
-    private class ExtensionWritingPartialResponseWriter extends PartialResponseWriterWrapper {
-
-        public ExtensionWritingPartialResponseWriter(PartialResponseWriter wrapped) {
-            super(wrapped);
-        }
-
-        /**
-         * Render RichFaces-specific extensions and then {@link #endDocument()} finally.
-         */
-        @Override
-        public void endDocument() throws IOException {
-            try {
-                FacesContext facesContext = FacesContext.getCurrentInstance();
-                UIViewRoot viewRoot = facesContext.getViewRoot();
-
-
-                addJavaScriptServicePageScripts(facesContext);
-                renderExtensions(facesContext, viewRoot);
-            } finally {
-                super.endDocument();
-            }
-        }
     }
 }

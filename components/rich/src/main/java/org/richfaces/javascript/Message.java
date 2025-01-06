@@ -29,6 +29,7 @@ import jakarta.faces.application.FacesMessage;
 
 /**
  * @author asmirnov
+ *
  */
 public final class Message {
     private final int severity;

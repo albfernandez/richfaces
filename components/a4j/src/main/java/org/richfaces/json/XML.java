@@ -36,39 +36,39 @@ public final class XML {
     /**
      * The Character '&'.
      */
-    public static final Character AMP = new Character('&');
+    public static final Character AMP = Character.valueOf('&');
     /**
      * The Character '''.
      */
-    public static final Character APOS = new Character('\'');
+    public static final Character APOS = Character.valueOf('\'');
     /**
      * The Character '!'.
      */
-    public static final Character BANG = new Character('!');
+    public static final Character BANG = Character.valueOf('!');
     /**
      * The Character '='.
      */
-    public static final Character EQ = new Character('=');
+    public static final Character EQ = Character.valueOf('=');
     /**
      * The Character '>'.
      */
-    public static final Character GT = new Character('>');
-    /**
+    public static final Character GT = Character.valueOf('>');
+/**
      * The Character '<'.
      */
-    public static final Character LT = new Character('<');
+    public static final Character LT = Character.valueOf('<');
     /**
      * The Character '?'.
      */
-    public static final Character QUEST = new Character('?');
+    public static final Character QUEST = Character.valueOf('?');
     /**
      * The Character '"'.
      */
-    public static final Character QUOT = new Character('"');
+    public static final Character QUOT = Character.valueOf('"');
     /**
      * The Character '/'.
      */
-    public static final Character SLASH = new Character('/');
+    public static final Character SLASH = Character.valueOf('/');
 
     private XML() {
     }
@@ -87,7 +87,7 @@ public final class XML {
      * @return The escaped string.
      */
     public static String escape(String string) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int len = string.length();
 
         for (int i = 0; i < len; i++) {
@@ -125,9 +125,9 @@ public final class XML {
     /**
      * Scan the content following the named tag, attaching it to the context.
      *
-     * @param x       The XMLTokener containing the source string.
+     * @param x The XMLTokener containing the source string.
      * @param context The JSONObject that will include the new material.
-     * @param name    The tag name.
+     * @param name The tag name.
      * @return true if the close tag is processed.
      * @throws JSONException
      */
@@ -222,7 +222,7 @@ public final class XML {
             t = null;
             o = new JSONObject();
 
-            for (; ; ) {
+            for (;;) {
                 if (t == null) {
                     t = x.nextToken();
                 }
@@ -257,7 +257,7 @@ public final class XML {
 
                     // Content, between <...> and </...>
                 } else if (t == GT) {
-                    for (; ; ) {
+                    for (;;) {
                         t = x.nextContent();
 
                         if (t == null) {
@@ -332,13 +332,13 @@ public final class XML {
     /**
      * Convert a JSONObject into a well-formed, element-normal XML string.
      *
-     * @param o       A JSONObject.
+     * @param o A JSONObject.
      * @param tagName The optional name of the enclosing tag.
      * @return A string.
      * @throws JSONException
      */
     public static String toString(Object o, String tagName) throws JSONException {
-        StringBuffer b = new StringBuffer();
+        StringBuilder b = new StringBuilder();
         int i;
         JSONArray ja;
         JSONObject jo;
@@ -432,7 +432,7 @@ public final class XML {
             s = (o == null) ? "null" : escape(o.toString());
 
             return (tagName == null) ? "\"" + s + "\"" : (s.length() == 0) ? "<" + tagName + "/>" : "<" + tagName + ">" + s
-                    + "</" + tagName + ">";
+                + "</" + tagName + ">";
         }
     }
 }

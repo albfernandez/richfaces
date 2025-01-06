@@ -21,7 +21,8 @@
  */
 package org.richfaces.showcase.notify.page;
 
-import com.google.common.base.Predicate;
+import java.util.function.Function;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -63,9 +64,9 @@ public class NotifyAttributesPage extends NotifyPage {
     public void setNonBlocking(final boolean nonBlocking) {
         if (nonBlockingCheckBox.isSelected() != nonBlocking) {
             Graphene.guardAjax(nonBlockingCheckBox).click();
-            Graphene.waitGui().until(new Predicate<WebDriver>() {
+            Graphene.waitGui().until(new Function<WebDriver, Boolean>() {
                 @Override
-                public boolean apply(WebDriver input) {
+                public Boolean apply(WebDriver input) {
                     return inputForNonBlockingOpacity.isEnabled() == nonBlocking;
                 }
             });
@@ -97,10 +98,10 @@ public class NotifyAttributesPage extends NotifyPage {
 
     private void setInputValueTo(WebElement input, double value) {
         Action action = actions
-                .click(input)
-                .sendKeys(Keys.chord(Keys.CONTROL, "a"), String.valueOf(value))
-                // blur the input
-                .sendKeys(Keys.TAB).build();
+            .click(input)
+            .sendKeys(Keys.chord(Keys.CONTROL, "a"), String.valueOf(value))
+            // blur the input
+            .sendKeys(Keys.TAB).build();
         if (!input.getAttribute("value").equals(String.valueOf(value))) {
             // value was changed => ajax request
             action = Graphene.guardAjax(action);

@@ -21,11 +21,11 @@
  */
 package org.richfaces.event;
 
-import org.richfaces.component.SortOrder;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.event.FacesEvent;
 import jakarta.faces.event.FacesListener;
+
+import org.richfaces.component.SortOrder;
 
 public class SortingEvent extends FacesEvent {
     private static final long serialVersionUID = 2125258204996535522L;
@@ -46,19 +46,19 @@ public class SortingEvent extends FacesEvent {
         ((SortingListener) listener).processSorting(this);
     }
 
-    public SortOrder getSortOrder() {
-        return sortOrder;
-    }
-
     public void setSortOrder(SortOrder sortOrder) {
         this.sortOrder = sortOrder;
     }
 
-    public String getColumnId() {
-        return columnId;
+    public SortOrder getSortOrder() {
+        return sortOrder;
     }
 
     public void setColumnId(String columnId) {
         this.columnId = columnId;
+    }
+
+    public String getColumnId() {
+        return columnId;
     }
 }

@@ -21,6 +21,8 @@
  */
 package org.richfaces.fragment.messages;
 
+import java.util.List;
+
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.list.ListComponent;
@@ -28,18 +30,17 @@ import org.richfaces.fragment.list.ListItem;
 import org.richfaces.fragment.message.Message;
 import org.richfaces.fragment.message.Message.MessageType;
 
-import java.util.List;
-
 /**
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public interface Messages<T extends Message & ListItem> extends ListComponent<T>, AdvancedInteractions<Messages.AdvancedMessagesInteractions> {
 
     /**
-     * Gets multiple messages which have given <code>type<code>.
+     * Gets multiple messages which have given <code>type</code>.
      *
      * @param type the message type (its severity) to determine which messages to return
-     * @return all messages with given type
+     * @return     all messages with given type
      */
     List<? extends Message> getItems(MessageType type);
 

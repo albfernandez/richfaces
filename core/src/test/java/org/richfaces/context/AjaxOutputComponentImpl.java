@@ -21,35 +21,36 @@
  */
 package org.richfaces.context;
 
-import org.ajax4jsf.component.AjaxOutput;
-
 import jakarta.faces.component.UIOutput;
+
+import org.ajax4jsf.component.AjaxOutput;
 
 /**
  * @author Nick Belaevski
+ *
  */
 public class AjaxOutputComponentImpl extends UIOutput implements AjaxOutput {
+    private enum PropertyKeys {
+        ajaxRendered
+    }
+
     public AjaxOutputComponentImpl() {
-        setRendererType("javax.faces.Text");
+        setRendererType("jakarta.faces.Text");
     }
 
     public boolean isAjaxRendered() {
         return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.ajaxRendered)));
     }
 
-    public void setAjaxRendered(boolean ajaxRendered) {
-        getStateHelper().put(PropertyKeys.ajaxRendered, ajaxRendered);
-    }
-
     public boolean isKeepTransient() {
         return false;
     }
 
-    public void setKeepTransient(boolean ajaxRendered) {
-        throw new UnsupportedOperationException();
+    public void setAjaxRendered(boolean ajaxRendered) {
+        getStateHelper().put(PropertyKeys.ajaxRendered, ajaxRendered);
     }
 
-    private enum PropertyKeys {
-        ajaxRendered
+    public void setKeepTransient(boolean ajaxRendered) {
+        throw new UnsupportedOperationException();
     }
 }

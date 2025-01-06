@@ -21,12 +21,13 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import org.richfaces.component.UITree;
+import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import jakarta.faces.context.FacesContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import java.io.Serializable;
+
+import org.richfaces.component.UITree;
 
 @Named
 @SessionScoped

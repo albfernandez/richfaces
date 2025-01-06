@@ -24,18 +24,11 @@ package org.richfaces.fragment.configuration;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy.FutureTarget;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxyHandler;
-
 import java.lang.reflect.Method;
 
 public class RichFacesPageFragmentsConfigurationContext {
 
     private static final ThreadLocal<RichFacesPageFragmentsConfiguration> REFERENCE = new ThreadLocal<RichFacesPageFragmentsConfiguration>();
-    private static FutureTarget TARGET = new FutureTarget() {
-        @Override
-        public Object getTarget() {
-            return get();
-        }
-    };
 
     /**
      * Returns the context of configuration for current thread
@@ -96,4 +89,11 @@ public class RichFacesPageFragmentsConfigurationContext {
         }
         REFERENCE.set(configuration);
     }
+
+    private static FutureTarget TARGET = new FutureTarget() {
+        @Override
+        public Object getTarget() {
+            return get();
+        }
+    };
 }

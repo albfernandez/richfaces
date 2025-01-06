@@ -54,28 +54,6 @@ public class ITPopupPanel {
         return archive;
     }
 
-    private static void addIndexPage(RichDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("<h:form id='myForm'>");
-        p.body("    <h:commandButton value='Call the popup' class='showButton'> ");
-        p.body("        <rich:componentControl target='popup' operation='show' /> ");
-        p.body("    </h:commandButton> ");
-        p.body("    <rich:popupPanel id='popup' modal='true' resizeable='true' onmaskclick='#{rich:component(\"popup\")}.hide()' > ");
-        p.body("        <f:facet name='header'> ");
-        p.body("            <h:outputText value='Simple popup panel' /> ");
-        p.body("        </f:facet> ");
-        p.body("        <f:facet name='controls'> ");
-        p.body("            <h:outputLink styleClass='closeLink' value='#' onclick='#{rich:component(\"popup\")}.hide(); return false;'>X</h:outputLink> ");
-        p.body("        </f:facet> ");
-        p.body("        <p>You can also check and trigger events if the use clicks outside of the panel.</p> ");
-        p.body("        <p>In this example clicking outside closes the panel.</p> ");
-        p.body("    </rich:popupPanel> ");
-        p.body("</h:form>");
-
-        deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
     @Test
     public void check_toggle_panel() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
@@ -110,6 +88,28 @@ public class ITPopupPanel {
         Assert.assertEquals("Shadow width", "300px", shadow.getCssValue("width"));
         Assert.assertEquals("Container height", "200px", container.getCssValue("height"));
         Assert.assertEquals("Shadow height", "200px", shadow.getCssValue("height"));
+    }
+
+    private static void addIndexPage(RichDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='myForm'>");
+        p.body("    <h:commandButton value='Call the popup' class='showButton'> ");
+        p.body("        <rich:componentControl target='popup' operation='show' /> ");
+        p.body("    </h:commandButton> ");
+        p.body("    <rich:popupPanel id='popup' modal='true' resizeable='true' onmaskclick='#{rich:component(\"popup\")}.hide()' > ");
+        p.body("        <f:facet name='header'> ");
+        p.body("            <h:outputText value='Simple popup panel' /> ");
+        p.body("        </f:facet> ");
+        p.body("        <f:facet name='controls'> ");
+        p.body("            <h:outputLink styleClass='closeLink' value='#' onclick='#{rich:component(\"popup\")}.hide(); return false;'>X</h:outputLink> ");
+        p.body("        </f:facet> ");
+        p.body("        <p>You can also check and trigger events if the use clicks outside of the panel.</p> ");
+        p.body("        <p>In this example clicking outside closes the panel.</p> ");
+        p.body("    </rich:popupPanel> ");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
 }

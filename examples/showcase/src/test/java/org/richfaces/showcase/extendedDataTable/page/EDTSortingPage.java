@@ -21,6 +21,9 @@
  *******************************************************************************/
 package org.richfaces.showcase.extendedDataTable.page;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.text.WordUtils;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
@@ -32,9 +35,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars;
 import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars.Field;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>

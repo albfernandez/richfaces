@@ -20,57 +20,57 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-(function ($, rf) {
+(function($, rf) {
 
-    rf.ui = rf.ui || {};
+	rf.ui = rf.ui || {};
 
-    var DEFAULT_OPTIONS = {switchMode: 'ajax'};
+	var DEFAULT_OPTIONS = { switchMode: 'ajax' };
 
-    rf.ui.CollapsiblePanelItem = rf.ui.TogglePanelItem.extendClass({
+	rf.ui.CollapsiblePanelItem = rf.ui.TogglePanelItem.extendClass({
 
-            /**
-             * Backing object for rich:collapsiblePanelItem
-             * 
-             * @extends RichFaces.ui.TogglePanelItem
-             * @memberOf! RichFaces.ui
-             * @constructs RichFaces.ui.CollapsiblePanelItem
-             * 
-             * @param componentId
-             * @param options
-             */
-            init : function (componentId, options) {
-                rf.ui.TogglePanelItem.call(this, componentId, $.extend({}, DEFAULT_OPTIONS, options));
+		/**
+		 * Backing object for rich:collapsiblePanelItem
+		 * 
+		 * @extends RichFaces.ui.TogglePanelItem
+		 * @memberOf! RichFaces.ui
+		 * @constructs RichFaces.ui.CollapsiblePanelItem
+		 * 
+		 * @param componentId
+		 * @param options
+		 */
+		init: function(componentId, options) {
+			rf.ui.TogglePanelItem.call(this, componentId, $.extend({}, DEFAULT_OPTIONS, options));
 
-                this.headerClass = "rf-cp-hdr-" + this.__state();
-            },
+			this.headerClass = "rf-cp-hdr-" + this.__state();
+		},
 
-            __enter : function () {
-                this.__content().show();
-                this.__header().addClass(this.headerClass);
+		__enter: function() {
+			this.__content().show();
+			this.__header().addClass(this.headerClass);
 
-                return true;
-            },
+			return true;
+		},
 
-            __leave : function () {
-                this.__content().hide();
+		__leave: function() {
+			this.__content().hide();
 
-                if (this.options.switchMode == 'client') {
-                    this.__header().removeClass(this.headerClass);
-                }
+			if (this.options.switchMode == 'client') {
+				this.__header().removeClass(this.headerClass);
+			}
 
-                return true;
-            },
+			return true;
+		},
 
-            __state : function () {
-                return this.getName() === "true" ? "exp" : "colps";
-            },
+		__state: function() {
+			return this.getName() === "true" ? "exp" : "colps";
+		},
 
-            __content : function () {
-                return $(rf.getDomElement(this.id));
-            },
+		__content: function() {
+			return $(rf.getDomElement(this.id));
+		},
 
-            __header : function () {
-                return $(rf.getDomElement(this.togglePanelId + ":header"));
-            }
-        });
+		__header: function() {
+			return $(rf.getDomElement(this.togglePanelId + ":header"));
+		}
+	});
 })(RichFaces.jQuery, RichFaces);

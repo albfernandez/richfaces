@@ -1,33 +1,19 @@
 package org.richfaces.javascript.client.converter;
 
-import org.junit.runners.Parameterized.Parameters;
-import org.richfaces.javascript.client.RunParameters;
+import java.util.List;
+import java.util.Map;
 
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.NumberConverter;
-import java.util.List;
-import java.util.Map;
+
+import org.junit.runners.Parameterized.Parameters;
+import org.richfaces.javascript.client.RunParameters;
 
 public class NumberConverterTest extends ConverterTestBase {
     private static final String TYPE = "type";
 
     public NumberConverterTest(RunParameters criteria) {
         super(criteria);
-    }
-
-    @Parameters
-    public static List<RunParameters[]> getRunParameterss() {
-        return options(
-                pass("true"),
-                pass("123"),
-                pass("0"),
-                pass("1"),
-                pass("255"),
-                pass("-128"),
-                pass("-129"),
-                pass("256"),
-                pass("-0"),
-                pass("0.05"));
     }
 
     @Override
@@ -48,5 +34,20 @@ public class NumberConverterTest extends ConverterTestBase {
     @Override
     protected void compareResult(Object convertedValue, Object jsConvertedValue) {
         compareNumbers(convertedValue, jsConvertedValue);
+    }
+
+    @Parameters
+    public static List<RunParameters[]> getRunParameterss() {
+        return options(
+                pass("true"),
+                pass("123"),
+                pass("0"),
+                pass("1"),
+                pass("255"),
+                pass("-128"),
+                pass("-129"),
+                pass("256"),
+                pass("-0"),
+                pass("0.05"));
     }
 }

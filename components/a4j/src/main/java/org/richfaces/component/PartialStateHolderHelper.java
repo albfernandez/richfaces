@@ -21,30 +21,32 @@
  */
 package org.richfaces.component;
 
-import jakarta.faces.component.PartialStateHolder;
-import jakarta.faces.component.StateHelper;
-import jakarta.faces.component.StateHolder;
-import jakarta.faces.context.FacesContext;
+import static jakarta.faces.component.UIComponentBase.restoreAttachedState;
+import static jakarta.faces.component.UIComponentBase.saveAttachedState;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
-import static jakarta.faces.component.UIComponentBase.restoreAttachedState;
-import static jakarta.faces.component.UIComponentBase.saveAttachedState;
+import jakarta.faces.component.PartialStateHolder;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author akolonitsky
  * @since Feb 2, 2010
- * <p>
- * A base implementation for maps which implement the PartialStateHolder interface.
- * <p/>
- * This can be used as a base-class for all state-holder implementations in components, converters and validators and
- * other implementations of the StateHolder interface.
+ *
+ *        A base implementation for maps which implement the PartialStateHolder interface.
+ *        <p/>
+ *        This can be used as a base-class for all state-holder implementations in components, converters and validators and
+ *        other implementations of the StateHolder interface.
  */
-@SuppressWarnings({"unchecked"})
+@SuppressWarnings({ "unchecked" })
 public class PartialStateHolderHelper implements StateHelper {
     private PartialStateHolder stateHolder;
     private boolean isTransient;
@@ -56,8 +58,8 @@ public class PartialStateHolderHelper implements StateHelper {
     public PartialStateHolderHelper(PartialStateHolder stateHolder) {
 
         this.stateHolder = stateHolder;
-        this.deltaMap = new HashMap<Serializable, Object>();
-        this.defaultMap = new HashMap<Serializable, Object>();
+        this.deltaMap = new HashMap<>();
+        this.defaultMap = new HashMap<>();
     }
 
     // ------------------------------------------------ Methods from StateHelper
@@ -115,14 +117,14 @@ public class PartialStateHolderHelper implements StateHelper {
         if (stateHolder.initialStateMarked()) {
             Map<String, Object> dMap = (Map<String, Object>) deltaMap.get(key);
             if (dMap == null) {
-                dMap = new HashMap<String, Object>(5);
+                dMap = new HashMap<>(5);
                 deltaMap.put(key, dMap);
             }
             ret = dMap.put(mapKey, value);
         }
         Map<String, Object> map = (Map<String, Object>) get(key);
         if (map == null) {
-            map = new HashMap<String, Object>(8);
+            map = new HashMap<>(8);
             defaultMap.put(key, map);
         }
         if (ret == null) {
@@ -136,9 +138,6 @@ public class PartialStateHolderHelper implements StateHelper {
     /**
      * Get the object from the main-map. As everything is written through from the delta-map to the main-map, this should be
      * enough.
-     *
-     * @param key
-     * @return
      */
     public Object get(Serializable key) {
         return defaultMap.get(key);
@@ -151,9 +150,16 @@ public class PartialStateHolderHelper implements StateHelper {
         return eval(key, null);
     }
 
+    @Override
+    public Object eval(Serializable key, Supplier<Object> defaultValueSupplier) {
+        Object defaultValue = defaultValueSupplier != null ? defaultValueSupplier.get() : null;
+        return eval(key, defaultValue);
+    }
+
     /**
      * @see StateHelper#eval(java.io.Serializable, Object)
      */
+    @Override
     public Object eval(Serializable key, Object defaultValue) {
         Object retVal = get(key);
         if (retVal == null) {
@@ -175,14 +181,14 @@ public class PartialStateHolderHelper implements StateHelper {
         if (stateHolder.initialStateMarked()) {
             List<Object> deltaList = (List<Object>) deltaMap.get(key);
             if (deltaList == null) {
-                deltaList = new ArrayList<Object>(4);
+                deltaList = new ArrayList<>(4);
                 deltaMap.put(key, deltaList);
             }
             deltaList.add(value);
         }
         List<Object> items = (List<Object>) get(key);
         if (items == null) {
-            items = new ArrayList<Object>(4);
+            items = new ArrayList<>(4);
             defaultMap.put(key, items);
         }
         items.add(value);
@@ -224,7 +230,7 @@ public class PartialStateHolderHelper implements StateHelper {
      * One and only implementation of restore state. Makes all other implementations unnecessary.
      *
      * @param context FacesContext
-     * @param state   the state to be restored.
+     * @param state the state to be restored.
      */
     public void restoreState(FacesContext context, Object state) {
 
@@ -301,7 +307,7 @@ public class PartialStateHolderHelper implements StateHelper {
                 // delta tracking has been disabled. We're assuming that
                 // the VDL will reset the status when the view is reconstructed,
                 // so no need to save the state if the saved state is the default.
-                return new Object[]{stateHolder.initialStateMarked()};
+                return new Object[] { stateHolder.initialStateMarked() };
             }
             return null;
         }

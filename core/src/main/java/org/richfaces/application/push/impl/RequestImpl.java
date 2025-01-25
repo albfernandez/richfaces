@@ -23,7 +23,7 @@ package org.richfaces.application.push.impl;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.atmosphere.cpr.AtmosphereResourceEvent;
 import org.atmosphere.cpr.AtmosphereResourceEventListener;
@@ -99,7 +99,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
      */
     @Override
     public boolean isPolling() {
-        HttpServletRequest req = meteor.getAtmosphereResource().getRequest();
+        HttpServletRequest req = (HttpServletRequest) meteor.getAtmosphereResource().getRequest();
         boolean isWebsocket = req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) != null
                 || req.getAttribute(WebSocket.WEBSOCKET_RESUME) != null;
 

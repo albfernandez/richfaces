@@ -24,9 +24,8 @@ package org.richfaces.component;
 
 import java.util.Collections;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;
@@ -35,7 +34,6 @@ import org.richfaces.resource.ResourceLibrary;
 import org.richfaces.application.ServiceTracker;
 
 @RequestScoped
-@ManagedBean(name = "test")
 public class Bean {
 
     private static final class TestScript extends JSLiteral implements ResourceLibrary {

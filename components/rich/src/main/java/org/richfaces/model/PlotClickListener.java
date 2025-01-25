@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.model;
-import javax.faces.event.FacesListener;
+import jakarta.faces.event.FacesListener;
 
 /**
  * Define listener for PlotClickEvent.

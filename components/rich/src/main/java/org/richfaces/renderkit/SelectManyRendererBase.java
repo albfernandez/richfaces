@@ -26,13 +26,13 @@ import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.SelectUtils;
 import org.richfaces.renderkit.util.HtmlDimensions;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -42,7 +42,7 @@ import java.util.Map;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  *
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),

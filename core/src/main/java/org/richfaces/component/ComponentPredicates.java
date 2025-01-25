@@ -23,7 +23,7 @@ package org.richfaces.component;
 
 import com.google.common.base.Predicate;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 /**
  * @author Nick Belaevski

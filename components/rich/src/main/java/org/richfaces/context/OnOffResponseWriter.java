@@ -24,8 +24,8 @@ package org.richfaces.context;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.faces.context.ResponseWriter;
-import javax.faces.context.ResponseWriterWrapper;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.context.ResponseWriterWrapper;
 
 /**
  * @author Nick Belaevski

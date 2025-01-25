@@ -36,17 +36,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.FacesException;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.ContextCallback;
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.ContextCallback;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialResponseWriter;
+import jakarta.faces.context.PartialViewContext;
+import jakarta.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
@@ -71,7 +71,7 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
  *
  */
 @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer", family = AbstractExtendedDataTable.COMPONENT_FAMILY)
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
@@ -85,7 +85,7 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
     private static final JSReference CLIENT_PARAMS = new JSReference("clientParams");
     private static final String DATA_ATTRIBUTE = "data-rf-column-name";
-    private static final String BEHAVIOR_EVENT_NAME = "javax.faces.behavior.event";
+    private static final String BEHAVIOR_EVENT_NAME = "jakarta.faces.behavior.event";
     private static final String ROW = "row";
 
     protected enum PartName {

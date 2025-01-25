@@ -20,10 +20,10 @@
  */
 package org.richfaces.renderkit.util;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UIViewRoot;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UIViewRoot;
 
 import org.jboss.test.faces.AbstractFacesTest;
 import org.richfaces.component.SwitchType;

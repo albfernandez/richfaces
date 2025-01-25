@@ -25,7 +25,7 @@ package org.richfaces.validator;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 public final class GraphValidatorState {
     public static final String STATE_ATTRIBUTE = "org.richfaces.GraphValidator:";

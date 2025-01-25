@@ -97,7 +97,7 @@ public class ITJavaScriptServiceAjax {
 
         p.head("<title></title>");
 
-        p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
+        p.head("<h:outputScript name='faces.js' library='jakarta.faces' />");
         p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
         p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 

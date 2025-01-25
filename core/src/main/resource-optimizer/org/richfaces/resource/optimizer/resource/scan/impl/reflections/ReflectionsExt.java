@@ -24,6 +24,7 @@ package org.richfaces.resource.optimizer.resource.scan.impl.reflections;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
 import org.reflections.Configuration;
 import org.reflections.Reflections;
@@ -32,7 +33,6 @@ import org.reflections.scanners.Scanner;
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.Multimap;
 
 /**
  * @author Nick Belaevski
@@ -70,8 +70,8 @@ public class ReflectionsExt extends Reflections {
     }
 
     public Collection<Class<?>> getMarkedClasses() {
-        Map<String, Multimap<String, String>> storeMap = getStore().getStoreMap();
-        Multimap<String, String> scannerMMap = storeMap.get(MarkerResourcesScanner.class.getName());
+        Map<String, Map<String, Set<String>>> storeMap = getStore();
+        Map<String, Set<String>> scannerMMap = storeMap.get(MarkerResourcesScanner.class.getName());
         if (scannerMMap == null) {
             return Collections.emptySet();
         }

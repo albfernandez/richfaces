@@ -27,16 +27,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIParameter;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.context.FacesContext;
-import javax.faces.render.ClientBehaviorRenderer;
-import javax.faces.render.FacesBehaviorRenderer;
-import javax.faces.render.RenderKitFactory;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.ClientBehaviorRenderer;
+import jakarta.faces.render.FacesBehaviorRenderer;
+import jakarta.faces.render.RenderKitFactory;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
@@ -51,7 +51,7 @@ import org.richfaces.renderkit.util.RendererUtils;
  *
  */
 @FacesBehaviorRenderer(rendererType = "org.richfaces.behavior.ComponentControlBehavior", renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),

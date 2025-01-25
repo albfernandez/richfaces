@@ -26,11 +26,11 @@ import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.Map;
 
-import javax.faces.FacesException;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;

@@ -31,15 +31,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nullable;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.annotation.Nullable;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.event.PreRenderComponentEvent;
 
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
@@ -168,7 +168,7 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         boolean result = false;
         while (columns.hasNext() && !result) {
             UIComponent component = columns.next();
-            if (component instanceof javax.faces.component.UIColumn) {
+            if (component instanceof jakarta.faces.component.UIColumn) {
                 if (component.isRendered()) {
                     UIComponent facet = component.getFacet(facetName);
                     result = facet != null && facet.isRendered();

@@ -21,215 +21,215 @@
  */
 
 
-(function ($, rf) {
+(function($, rf) {
 
-    rf.ui = rf.ui || {};
+	rf.ui = rf.ui || {};
 
-    var __DEFAULT_OPTIONS = {
-        expandSingle : true,
-        bubbleSelection : true
-    };
+	var __DEFAULT_OPTIONS = {
+		expandSingle: true,
+		bubbleSelection: true
+	};
 
-    rf.ui.PanelMenu = rf.BaseComponent.extendClass({
-            // class name
-            name:"PanelMenu",
+	rf.ui.PanelMenu = rf.BaseComponent.extendClass({
+		// class name
+		name: "PanelMenu",
 
-            /**
-             * Backing object for rich:panelMenu
-             * 
-             * @extends RichFaces.BaseComponent
-             * @memberOf! RichFaces.ui
-             * @constructs RichFaces.ui.PanelMenu
-             * 
-             * @param {string} componentId - component id
-             * @param {Object} options - params
-             * */
-            init : function (componentId, options) {
-                $super.constructor.call(this, componentId);
-                this.items = {};
-                this.attachToDom();
+		/**
+		 * Backing object for rich:panelMenu
+		 * 
+		 * @extends RichFaces.BaseComponent
+		 * @memberOf! RichFaces.ui
+		 * @constructs RichFaces.ui.PanelMenu
+		 * 
+		 * @param {string} componentId - component id
+		 * @param {Object} options - params
+		 * */
+		init: function(componentId, options) {
+			$super.constructor.call(this, componentId);
+			this.items = {};
+			this.attachToDom();
 
-                this.options = $.extend(this.options, __DEFAULT_OPTIONS, options || {});
-                this.activeItem = this.__getValueInput().value;
-                this.nestingLevel = 0;
+			this.options = $.extend(this.options, __DEFAULT_OPTIONS, options || {});
+			this.activeItem = this.__getValueInput().value;
+			this.nestingLevel = 0;
 
-                this.__addUserEventHandler("collapse");
-                this.__addUserEventHandler("expand");
-            },
+			this.__addUserEventHandler("collapse");
+			this.__addUserEventHandler("expand");
+		},
 
-            addItem: function(item) {
-                this.items[item.itemName] = item;
-            },
+		addItem: function(item) {
+			this.items[item.itemName] = item;
+		},
 
-            deleteItem: function(item) {
-                delete this.items[item.itemName];
-            },
+		deleteItem: function(item) {
+			delete this.items[item.itemName];
+		},
 
-            getSelectedItem: function() {
-                return this.getItem(this.selectedItem());
-            },
+		getSelectedItem: function() {
+			return this.getItem(this.selectedItem());
+		},
 
-            getItem: function (name) {
-                var item = this.items[name];
+		getItem: function(name) {
+			var item = this.items[name];
 
-                if (!item) { // name not found, try id
-                    var menuItem = rf.component(name);
-                    if (menuItem) {
-                        item = this.items[menuItem.itemName];
-                    }
-                }
-                return item;
-            },
+			if (!item) { // name not found, try id
+				var menuItem = rf.component(name);
+				if (menuItem) {
+					item = this.items[menuItem.itemName];
+				}
+			}
+			return item;
+		},
 
-            /***************************** Public Methods  ****************************************************************/
-            /**
-             * Select a menu item
-             * 
-             * @method
-             * @name RichFaces.ui.PanelMenu#selectItem
-             * @param {string} name
-             */
-            selectItem: function (name) {
-                var item = this.getItem(name);
+		/***************************** Public Methods  ****************************************************************/
+		/**
+		 * Select a menu item
+		 * 
+		 * @method
+		 * @name RichFaces.ui.PanelMenu#selectItem
+		 * @param {string} name
+		 */
+		selectItem: function(name) {
+			var item = this.getItem(name);
 
-                if (item) {
-                    item.select();
-                }
-            },
+			if (item) {
+				item.select();
+			}
+		},
 
-            selectedItem: function (id) {
-                if (typeof id != "undefined") {
-                    var valueInput = this.__getValueInput();
-                    var prevActiveItem = valueInput.value;
+		selectedItem: function(id) {
+			if (typeof id != "undefined") {
+				var valueInput = this.__getValueInput();
+				var prevActiveItem = valueInput.value;
 
-                    this.activeItem = id;
-                    valueInput.value = id;
+				this.activeItem = id;
+				valueInput.value = id;
 
-                    for (var itemName in this.items) {
-                        if (this.items.hasOwnProperty(itemName)) {
-                            var item = this.items[itemName];
-                            if (item.__isSelected()) {
-                                item.__unselect();
-                            }
-                        }
-                    }
+				for (var itemName in this.items) {
+					if (this.items.hasOwnProperty(itemName)) {
+						var item = this.items[itemName];
+						if (item.__isSelected()) {
+							item.__unselect();
+						}
+					}
+				}
 
-                    return prevActiveItem;
-                } else {
-                    return this.activeItem;
-                }
-            },
+				return prevActiveItem;
+			} else {
+				return this.activeItem;
+			}
+		},
 
-            __getValueInput : function() {
-                return document.getElementById(this.id + "-value");
-            },
+		__getValueInput: function() {
+			return document.getElementById(this.id + "-value");
+		},
 
-            /**
-             * Expand all groups and subgroups
-             * 
-             * @method
-             * @name RichFaces.ui.PanelMenu#expandAll
-             */
-            expandAll: function () {
-                for (var item in this.items) {
-                    if (this.items.hasOwnProperty(item)) {
-                        if (this.items[item].expand) {
-                            this.items[item].expand();
-                        }
-                    }
-                }
-            },
+		/**
+		 * Expand all groups and subgroups
+		 * 
+		 * @method
+		 * @name RichFaces.ui.PanelMenu#expandAll
+		 */
+		expandAll: function() {
+			for (var item in this.items) {
+				if (this.items.hasOwnProperty(item)) {
+					if (this.items[item].expand) {
+						this.items[item].expand();
+					}
+				}
+			}
+		},
 
-            /**
-             * Collapse all groups and subgroups
-             * 
-             * @method
-             * @name RichFaces.ui.PanelMenu#collapseAll
-             */
-            collapseAll: function () {
-                for (var item in this.items) {
-                    if (this.items.hasOwnProperty(item)) {
-                        if (this.items[item].collapse) {
-                            this.items[item].collapse();
-                        }
-                    }
-                }
-            },
+		/**
+		 * Collapse all groups and subgroups
+		 * 
+		 * @method
+		 * @name RichFaces.ui.PanelMenu#collapseAll
+		 */
+		collapseAll: function() {
+			for (var item in this.items) {
+				if (this.items.hasOwnProperty(item)) {
+					if (this.items[item].collapse) {
+						this.items[item].collapse();
+					}
+				}
+			}
+		},
 
-            /**
-             * Expand a menu group
-             * 
-             * @method
-             * @name RichFaces.ui.PanelMenu#expandGroup
-             * @param groupName {string} name or full id of the group
-             */
-            expandGroup: function (groupName) {
-                var group = this.getItem(groupName);
+		/**
+		 * Expand a menu group
+		 * 
+		 * @method
+		 * @name RichFaces.ui.PanelMenu#expandGroup
+		 * @param groupName {string} name or full id of the group
+		 */
+		expandGroup: function(groupName) {
+			var group = this.getItem(groupName);
 
-                if (group && group.expand) {
-                    group.expand();
-                }
-            },
+			if (group && group.expand) {
+				group.expand();
+			}
+		},
 
-            /**
-             * Collapse a menu group
-             * 
-             * @method
-             * @name RichFaces.ui.PanelMenu#collapseGroup
-             * @param groupName {string} name or full id of the group
-             */
-            collapseGroup: function (groupName) {
-                var group = this.getItem(groupName);
+		/**
+		 * Collapse a menu group
+		 * 
+		 * @method
+		 * @name RichFaces.ui.PanelMenu#collapseGroup
+		 * @param groupName {string} name or full id of the group
+		 */
+		collapseGroup: function(groupName) {
+			var group = this.getItem(groupName);
 
-                if (group && group.collapse) {
-                    group.collapse();
-                }
-            },
-
-
-            /***************************** Private Methods ****************************************************************/
+			if (group && group.collapse) {
+				group.collapse();
+			}
+		},
 
 
-            __panelMenu  : function () {
-                return $(rf.getDomElement(this.id));
-            },
+		/***************************** Private Methods ****************************************************************/
 
-            __childGroups : function () {
-                return this.__panelMenu().children(".rf-pm-top-gr")
-            },
 
-            /**
-             * @private
-             * */
-            __addUserEventHandler : function (name) {
-                var handler = this.options["on" + name];
-                if (handler) {
-                    //TODO nick - this will cause slowdowns in IE
-                    rf.Event.bindById(this.id, name, handler);
-                }
-            },
+		__panelMenu: function() {
+			return $(rf.getDomElement(this.id));
+		},
 
-            __isActiveItem: function(item) {
-                return item.itemName == this.activeItem;
-            },
+		__childGroups: function() {
+			return this.__panelMenu().children(".rf-pm-top-gr")
+		},
 
-            __collapseGroups : function (source) {
-                var topGroup = source.__rfTopGroup();
-                this.__childGroups().each(function (index, group) {
-                    if (group.id != source.getEventElement() && (!topGroup || group.id != topGroup.id)) {
-                        rf.component(group).__collapse();
-                    }
-                });
+		/**
+		 * @private
+		 * */
+		__addUserEventHandler: function(name) {
+			var handler = this.options["on" + name];
+			if (handler) {
+				//TODO nick - this will cause slowdowns in IE
+				rf.Event.bindById(this.id, name, handler);
+			}
+		},
 
-            },
+		__isActiveItem: function(item) {
+			return item.itemName == this.activeItem;
+		},
 
-            destroy: function () {
-                rf.Event.unbindById(this.id, "." + this.namespace);
-                $super.destroy.call(this);
-            }
-        });
+		__collapseGroups: function(source) {
+			var topGroup = source.__rfTopGroup();
+			this.__childGroups().each(function(index, group) {
+				if (group.id != source.getEventElement() && (!topGroup || group.id != topGroup.id)) {
+					rf.component(group).__collapse();
+				}
+			});
 
-    // define super class link
-    var $super = rf.ui.PanelMenu.$super;
+		},
+
+		destroy: function() {
+			rf.Event.unbindById(this.id, "." + this.namespace);
+			$super.destroy.call(this);
+		}
+	});
+
+	// define super class link
+	var $super = rf.ui.PanelMenu.$super;
 
 })(RichFaces.jQuery, RichFaces);

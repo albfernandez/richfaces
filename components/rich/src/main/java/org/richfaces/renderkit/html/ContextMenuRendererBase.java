@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractContextMenu;
 import org.richfaces.component.AbstractMenuGroup;
@@ -22,7 +22,7 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.RendererUtils;
 
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),

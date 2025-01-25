@@ -89,7 +89,7 @@ public class ITStatelessViews {
 
         Element update = (Element) updateElements.item(0);
 
-        assertEquals("j_id1:javax.faces.ViewState:0", update.getAttribute("id"));
+        assertEquals("j_id1:jakarta.faces.ViewState:0", update.getAttribute("id"));
         assertEquals("stateless", update.getTextContent());
     }
 

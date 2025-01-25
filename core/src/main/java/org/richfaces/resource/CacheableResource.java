@@ -23,7 +23,7 @@ package org.richfaces.resource;
 
 import java.util.Date;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski

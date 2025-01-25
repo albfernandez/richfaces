@@ -21,20 +21,20 @@
  */
 package org.richfaces.webapp;
 
-import java.io.IOException;
-
-import javax.faces.webapp.FacesServlet;
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import jakarta.faces.webapp.FacesServlet;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.myfaces.webapp.DelegatedFacesServlet;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceHandlerImpl;
+
+import java.io.IOException;
 
 /**
  * <p>
@@ -50,14 +50,14 @@ import org.richfaces.resource.ResourceHandlerImpl;
  * </p>
  *
  * <p>
- * For security reasons, the servlet handles just requests for JSF resources (context path starting with /javax.faces.resource/).
+ * For security reasons, the servlet handles just requests for JSF resources (context path starting with /jakarta.faces.resource/).
  * </p>
  */
-public class ResourceServlet implements Servlet {
+public class ResourceServlet implements Servlet, DelegatedFacesServlet {
 
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
 
-    private static final String JAVAX_FACES_RESOURCE_IDENTIFIER = "/javax.faces.resource/";
+    private static final String JAKARTA_FACES_RESOURCE_IDENTIFIER = "/jakarta.faces.resource/";
 
     public static final String RESOURCE_SERVLET_REQUEST_FLAG = ResourceServlet.class.getName();
 
@@ -66,7 +66,7 @@ public class ResourceServlet implements Servlet {
 
     /*
      * (non-Javadoc)
-     * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
+     * @see jakarta.servlet.Servlet#init(jakarta.servlet.ServletConfig)
      */
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -78,7 +78,7 @@ public class ResourceServlet implements Servlet {
 
     /*
      * (non-Javadoc)
-     * @see javax.servlet.Servlet#getServletConfig()
+     * @see jakarta.servlet.Servlet#getServletConfig()
      */
     @Override
     public ServletConfig getServletConfig() {
@@ -87,7 +87,7 @@ public class ResourceServlet implements Servlet {
 
     /*
      * (non-Javadoc)
-     * @see javax.servlet.Servlet#getServletInfo()
+     * @see jakarta.servlet.Servlet#getServletInfo()
      */
     @Override
     public String getServletInfo() {
@@ -96,7 +96,7 @@ public class ResourceServlet implements Servlet {
 
     /*
      * (non-Javadoc)
-     * @see javax.servlet.Servlet#destroy()
+     * @see jakarta.servlet.Servlet#destroy()
      */
     @Override
     public void destroy() {
@@ -106,7 +106,7 @@ public class ResourceServlet implements Servlet {
 
     /*
      * (non-Javadoc)
-     * @see javax.servlet.Servlet#service(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     * @see jakarta.servlet.Servlet#service(jakarta.servlet.ServletRequest, jakarta.servlet.ServletResponse)
      */
     @Override
     public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
@@ -148,8 +148,8 @@ public class ResourceServlet implements Servlet {
         String resourceName = decodeResourceURL(request);
 
         if (resourceName != null) {
-            if (resourceName.startsWith(JAVAX_FACES_RESOURCE_IDENTIFIER)) {
-                return resourceName.substring(JAVAX_FACES_RESOURCE_IDENTIFIER.length());
+            if (resourceName.startsWith(JAKARTA_FACES_RESOURCE_IDENTIFIER)) {
+                return resourceName.substring(JAKARTA_FACES_RESOURCE_IDENTIFIER.length());
             }
             if (resourceName.startsWith(ResourceHandlerImpl.RICHFACES_RESOURCE_IDENTIFIER)) {
                 return resourceName;
@@ -189,7 +189,7 @@ public class ResourceServlet implements Servlet {
             return null;
         }
 
-        if (servletPath.length() == 0) {
+        if (servletPath.isEmpty()) {
             return "/";
         }
 

@@ -21,18 +21,17 @@
  */
 package org.richfaces.component;
 
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.component.attribute.AjaxCommandProps;
+import org.richfaces.util.Sets;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
-
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
-
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.component.attribute.AjaxCommandProps;
-import org.richfaces.util.Sets;
 
 public class BasicActionComponent extends AbstractActionComponent implements AjaxCommandProps {
 
@@ -46,15 +45,9 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
     }
 
     private Set<String> toSet(Serializable propertyName, Object value) {
-
-        Set<String> result = null;
-
-        result = Sets.asSet(value);
-
+        Set<String> result = Sets.asSet(value);
         if (result == null) {
-            throw new FacesException(
-                propertyName.toString()
-                    + "' attribute value must be Collection, List, array, String, comma-separated String, whitespace-separate String'");
+            throw new FacesException(propertyName.toString() + "' attribute value must be Collection, List, array, String, comma-separated String, whitespace-separate String'");
         }
 
         return result;
@@ -74,15 +67,13 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
             value = expression.getValue(facesContext.getELContext());
 
             if (value != null) {
-
                 if (value instanceof Collection) {
                     return (Collection<String>) value;
                 }
-
                 result = toSet(propertyName, value);
             }
         }
-        return result == null ? Collections.<String>emptyList() : result;
+        return result == null ? Collections.emptyList() : result;
     }
 
     /**

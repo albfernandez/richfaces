@@ -18,7 +18,7 @@ every element of the plot to be rendered directly to canvas.
 The plugin supports these options:
 
 {
-    canvas: boolean
+	canvas: boolean
 }
 
 The "canvas" option controls whether full canvas drawing is enabled, making it
@@ -49,8 +49,8 @@ browser, but needs to redraw with canvas text when exporting as an image.
 
 		if (render == null) {
 			getTextInfo = Canvas.prototype.getTextInfo,
-			addText = Canvas.prototype.addText,
-			render = Canvas.prototype.render;
+				addText = Canvas.prototype.addText,
+				render = Canvas.prototype.render;
 		}
 
 		// Finishes rendering the canvas, including overlaid text

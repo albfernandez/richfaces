@@ -23,11 +23,10 @@ package org.ajax4jsf.javascript;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class JSChainJSFFunction extends JSFunction {
     public JSChainJSFFunction(Object... parameters) {
-        super("jsf.util.chain", (Object[]) createFunctionArgs(parameters));
+        super("faces.util.chain", createFunctionArgs(parameters));
     }
 
     private static Object[] createFunctionArgs(Object[] sourceParams) {
@@ -36,9 +35,7 @@ public class JSChainJSFFunction extends JSFunction {
         result[0] = JSReference.THIS;
         result[1] = JSReference.EVENT;
 
-        for (int i = 0; i < sourceParams.length; i++) {
-            result[i + 2] = sourceParams[i];
-        }
+        System.arraycopy(sourceParams, 0, result, 2, sourceParams.length);
         return result;
     }
 }

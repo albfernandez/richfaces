@@ -29,7 +29,11 @@
                 <h:outputText value="No files currently uploaded" rendered="#{fileUploadBean.size==0}" />
                 <rich:dataGrid columns="1" value="#{fileUploadBean.files}" var="file" rowKeyVar="row">
                     <rich:panel bodyClass="rich-laguna-panel-no-header">
-                        <h:panelGrid columns="2">                           
+                        <h:panelGrid columns="2">
+                            <a4j:mediaOutput element="img" mimeType="image/jpeg" createContent="#{fileUploadBean.paint}"
+                                value="#{row}" style="width:100px; height:100px;" cacheable="false">
+                                <f:param value="#{fileUploadBean.timeStamp}" name="time" />
+                            </a4j:mediaOutput>
                             <h:panelGrid columns="2">
                                 <h:outputText value="File Name:" />
                                 <h:outputText value="     #{file.name}" />

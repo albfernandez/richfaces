@@ -32,6 +32,7 @@ public final class DefaultCodecResourceRequestData implements ResourceRequestDat
     private String libraryName;
     private String version;
     private String dataString;
+    private boolean dataSerialized;
     // lazy evaluated
     private String resourceKey = null;
     // lazy evaluated
@@ -81,9 +82,21 @@ public final class DefaultCodecResourceRequestData implements ResourceRequestDat
         this.dataString = dataString;
     }
 
+    protected boolean isDataSerialized() {
+        return dataSerialized;
+    }
+
+    protected void setDataSerialized(boolean dataSerialized) {
+        this.dataSerialized = dataSerialized;
+    }
+
     public Object getData() {
         if (data == null && dataString != null) {
-            data = ResourceUtils.decodeBytesData(dataString);
+            if (isDataSerialized()) {
+                data = ResourceUtils.decodeObjectData(dataString);
+            } else {
+                data = ResourceUtils.decodeBytesData(dataString);
+            }
         }
 
         return data;

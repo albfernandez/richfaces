@@ -22,8 +22,8 @@
  */
 package org.richfaces.component;
 
-import javax.faces.validator.FacesValidator;
-import javax.faces.validator.LengthValidator;
+import jakarta.faces.validator.FacesValidator;
+import jakarta.faces.validator.LengthValidator;
 
 /**
  * <p class="changed_added_4_0">

@@ -21,12 +21,14 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.el.VariableMapper;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.ValueExpression;
+import jakarta.el.VariableMapper;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.skin.SkinFactory;
+
+import java.io.Serial;
 
 /**
  * @author Nick Belaevski
@@ -34,6 +36,7 @@ import org.richfaces.skin.SkinFactory;
  */
 public class VariableMapperImpl extends VariableMapper {
     private static final ValueExpression SKIN_VALUE_EXPRESSION = new ReadOnlyValueExpression() {
+        @Serial
         private static final long serialVersionUID = 3552483406787835235L;
 
         @Override
@@ -43,6 +46,7 @@ public class VariableMapperImpl extends VariableMapper {
         }
     };
     private static final ValueExpression RESOURCE_VALUE_EXPRESSION = new ReadOnlyValueExpression() {
+        @Serial
         private static final long serialVersionUID = -8545250767102884398L;
 
         @Override
@@ -55,7 +59,7 @@ public class VariableMapperImpl extends VariableMapper {
     /*
      * (non-Javadoc)
      *
-     * @see javax.el.VariableMapper#resolveVariable(java.lang.String)
+     * @see jakarta.el.VariableMapper#resolveVariable(java.lang.String)
      */
     @Override
     public ValueExpression resolveVariable(String variable) {
@@ -71,7 +75,7 @@ public class VariableMapperImpl extends VariableMapper {
     /*
      * (non-Javadoc)
      *
-     * @see javax.el.VariableMapper#setVariable(java.lang.String, javax.el.ValueExpression)
+     * @see jakarta.el.VariableMapper#setVariable(java.lang.String, jakarta.el.ValueExpression)
      */
     @Override
     public ValueExpression setVariable(String variable, ValueExpression expression) {

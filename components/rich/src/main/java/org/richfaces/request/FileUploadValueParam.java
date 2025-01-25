@@ -24,7 +24,7 @@ package org.richfaces.request;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import javax.faces.FacesException;
+import jakarta.faces.FacesException;
 
 import org.ajax4jsf.io.ByteBuffer;
 

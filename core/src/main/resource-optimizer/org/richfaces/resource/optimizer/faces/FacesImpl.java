@@ -24,9 +24,9 @@ package org.richfaces.resource.optimizer.faces;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.application.DependencyInjector;
 import org.richfaces.application.DependencyInjectorImpl;

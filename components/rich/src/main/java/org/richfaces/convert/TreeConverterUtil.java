@@ -23,8 +23,8 @@ package org.richfaces.convert;
 
 import java.text.MessageFormat;
 
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski

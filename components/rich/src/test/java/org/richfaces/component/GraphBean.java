@@ -1,14 +1,15 @@
 package org.richfaces.component;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @SessionScoped
-@ManagedBean(name="graphBean")
-public class GraphBean {
+@Named("graphBean")
+public class GraphBean implements Serializable {
     public static final String FOO_MSG = "Foo";
 
     public static final String SHORT_MSG = "Short";

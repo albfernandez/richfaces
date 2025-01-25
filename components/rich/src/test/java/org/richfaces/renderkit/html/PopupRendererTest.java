@@ -28,9 +28,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.faces.application.ViewHandler;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewDeclarationLanguage;
 
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;

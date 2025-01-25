@@ -26,15 +26,15 @@ import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Locale;
 
-import javax.el.ELException;
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
+import jakarta.el.ELException;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.Validator;
+import jakarta.faces.validator.ValidatorException;
 
 import org.richfaces.cdk.annotations.JsfValidator;
 import org.richfaces.application.ServiceTracker;
@@ -93,7 +93,7 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.validator.Validator#validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent,
+     * @see jakarta.faces.validator.Validator#validate(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent,
      * java.lang.Object)
      */
     public void validate(FacesContext context, UIComponent component, Object convertedValue) throws ValidatorException {

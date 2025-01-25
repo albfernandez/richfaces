@@ -27,7 +27,7 @@
     <groupId>com.github.albfernandez.richfaces</groupId>
     <artifactId>richfaces-build</artifactId>
     <packaging>pom</packaging>
-    <version>4.6.22-SNAPSHOT</version>
+    <version>10.0.1-SNAPSHOT</version>
     <name>RichFaces Build Version Management</name>
 
     <description>
@@ -64,20 +64,20 @@
 
     <properties>
         <!-- Base Dependencies Versions -->
-        <version.richfaces>4.6.22-SNAPSHOT</version.richfaces>
-        <version.cdk>4.6.1.ayg</version.cdk>
+        <version.richfaces>10.0.1-SNAPSHOT</version.richfaces>
+        <version.cdk>10.0.1-SNAPSHOT</version.cdk>
         <version.jboss-javaee>3.0.3.Final</version.jboss-javaee>
 
         <!-- Project Versions -->
-        <version.google-guava>32.0.1-jre</version.google-guava>
+        <version.google-guava>33.3.0-jre</version.google-guava>
         <version.cssparser>0.9.30</version.cssparser>
 
         <!-- JSF Implementations Versions-->
         <version.javax.faces-api>2.2</version.javax.faces-api>
-        <version.org.glassfish.javax.faces>2.2.20</version.org.glassfish.javax.faces>
+        <version.org.glassfish.jakarta.faces>4.0.9</version.org.glassfish.jakarta.faces>
         <version.org.jboss.spec.javax.faces.jboss-jsf-api_2.2_spec>2.2.14</version.org.jboss.spec.javax.faces.jboss-jsf-api_2.2_spec>
         <version.org.jboss.javax.faces.jsf-impl>2.2.12-jbossorg-2</version.org.jboss.javax.faces.jsf-impl>
-        <version.myfaces>2.2.12</version.myfaces>
+        <version.myfaces>4.0.2</version.myfaces>
 
         <!-- Push Dependencies -->
         <version.atmosphere>2.4.32</version.atmosphere>
@@ -96,18 +96,18 @@
         <version.jstl-api>1.2-rev-1</version.jstl-api>
 
         <!-- Resource Optimizer -->
-        <version.reflections>0.9.8</version.reflections> <!-- Update to 0.9.9+ requires code changes -->
+        <version.reflections>0.10.2</version.reflections> <!-- Update to 0.9.9+ requires code changes -->
         <version.yuicompressor>2.4.8</version.yuicompressor>
         <version.jcommander>1.82</version.jcommander>
         <version.jboss-el>1.0_02.CR6</version.jboss-el>
 
         <!-- Test Dependencies Versions -->
         <version.junit>4.13.2</version.junit>
-        <version.hamcrest>1.3</version.hamcrest>
-        <version.jsf-test>1.1.16</version.jsf-test>
-        <version.easymock>3.0</version.easymock>
-        <version.mockito>1.8.5</version.mockito>
-        <version.xmlunit>1.6</version.xmlunit>
+        <version.hamcrest>3.0</version.hamcrest>
+        <version.jsf-test>10.0.1-SNAPSHOT</version.jsf-test>
+        <version.easymock>5.4.0</version.easymock>
+        <version.mockito>5.14.1</version.mockito>
+        <version.xmlunit-legacy>2.10.0</version.xmlunit-legacy>
 
         <version.htmlunit>2.70.0</version.htmlunit>
         <version.htmlunit-core-js>2.70.0</version.htmlunit-core-js>
@@ -139,6 +139,7 @@
     <!-- Runtime dependency management -->
     <dependencyManagement>
         <dependencies>
+        	<!--MZ
             <dependency>
                 <groupId>org.jboss.spec</groupId>
                 <artifactId>jboss-javaee-6.0</artifactId>
@@ -158,6 +159,52 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            -->
+	        <dependency>
+				<groupId>jakarta.el</groupId>
+				<artifactId>jakarta.el-api</artifactId>
+				<version>6.0.1</version>
+			</dependency>
+			<dependency>
+		    	<groupId>org.glassfish</groupId>
+		    	<artifactId>jakarta.el</artifactId>
+		    	<version>4.0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.servlet</groupId>
+				<artifactId>jakarta.servlet-api</artifactId>
+				<version>6.1.0</version>
+			</dependency>
+			<dependency>
+			    <groupId>jakarta.jms</groupId>
+			    <artifactId>jakarta.jms-api</artifactId>
+			    <version>3.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.inject</groupId>
+				<artifactId>jakarta.inject-api</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+			    <groupId>jakarta.validation</groupId>
+			    <artifactId>jakarta.validation-api</artifactId>
+			    <version>3.1.0</version>
+			</dependency>
+			<dependency>
+			    <groupId>jakarta.enterprise</groupId>
+			    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+			    <version>4.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.transaction</groupId>
+				<artifactId>jakarta.transaction-api</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+			    <groupId>jakarta.activation</groupId>
+			    <artifactId>jakarta.activation-api</artifactId>
+			    <version>2.1.3</version>
+			</dependency>
 
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -175,18 +222,18 @@
             <dependency>
                 <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces</artifactId>
-                <version>4.6.22-SNAPSHOT</version>
+                <version>10.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-push-depchain</artifactId>
-                <version>4.6.22-SNAPSHOT</version>
+                <version>10.0.1-SNAPSHOT</version>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-push-native-depchain</artifactId>
-                <version>4.6.22-SNAPSHOT</version>
+                <version>10.0.1-SNAPSHOT</version>
                 <type>pom</type>
             </dependency>
             <dependency>
@@ -205,11 +252,13 @@
                 <artifactId>annotations</artifactId>
                 <version>${version.cdk}</version>
             </dependency>
+            <!--MZ
             <dependency>
                 <groupId>javax.xml.bind</groupId>
                 <artifactId>jaxb-api</artifactId>
                 <version>2.3.1</version>
             </dependency>
+            -->
             <dependency>
                 <groupId>com.github.albfernandez.richfaces.cdk</groupId>
                 <artifactId>generator</artifactId>
@@ -334,8 +383,8 @@
             </dependency>
             <dependency>
                 <groupId>org.glassfish</groupId>
-                <artifactId>javax.faces</artifactId>
-                <version>${version.org.glassfish.javax.faces}</version>
+                <artifactId>jakarta.faces</artifactId>
+                <version>${version.org.glassfish.jakarta.faces}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec.javax.faces</groupId>
@@ -378,6 +427,11 @@
                 <artifactId>slf4j-api</artifactId>
                 <version>${version.slf4j}</version>
             </dependency>
+            <dependency> 
+		    <groupId>org.slf4j</groupId>
+		  		<artifactId>slf4j-jdk14</artifactId>
+		  		<version>${version.slf4j}}</version>
+			</dependency>
             <dependency>
                 <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
@@ -388,6 +442,7 @@
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${version.hibernate-entitymanager}</version>
             </dependency>
+            <!--MZ
             <dependency>
                 <groupId>org.hornetq</groupId>
                 <artifactId>hornetq-core</artifactId>
@@ -403,6 +458,7 @@
                 <artifactId>hornetq-logging</artifactId>
                 <version>${version.hornetq}</version>
             </dependency>
+            -->
             <dependency>
                 <groupId>org.jboss.weld.servlet</groupId>
                 <artifactId>weld-servlet</artifactId>
@@ -464,7 +520,7 @@
             </dependency>
             <dependency>
                 <groupId>org.hamcrest</groupId>
-                <artifactId>hamcrest-all</artifactId>
+                <artifactId>hamcrest</artifactId>
                 <version>${version.hamcrest}</version>
             </dependency>
             <dependency>
@@ -503,22 +559,23 @@
                 <artifactId>easymock</artifactId>
                 <version>${version.easymock}</version>
             </dependency>
+            <!--MZ
             <dependency>
                 <groupId>org.easymock</groupId>
                 <artifactId>easymockclassextension</artifactId>
                 <version>${version.easymock}</version>
             </dependency>
-
+            -->
             <dependency>
                 <groupId>org.mockito</groupId>
-                <artifactId>mockito-all</artifactId>
+                <artifactId>mockito-core</artifactId>
                 <version>${version.mockito}</version>
             </dependency>
 
             <dependency>
-                <groupId>xmlunit</groupId>
-                <artifactId>xmlunit</artifactId>
-                <version>${version.xmlunit}</version>
+                <groupId>org.xmlunit</groupId>
+                <artifactId>xmlunit-legacy</artifactId>
+                <version>${version.xmlunit-legacy}</version>
             </dependency>
 
             <dependency>
@@ -608,7 +665,7 @@
 					<plugin>
 				        <groupId>org.apache.maven.plugins</groupId>
 				        <artifactId>maven-gpg-plugin</artifactId>
-				        <version>1.6</version>
+				        <version>3.2.7</version>
 				        <configuration>
 				            <keyname>${gpg.keyname}</keyname>
 				            <passphraseServerId>${gpg.keyname}</passphraseServerId>
@@ -626,7 +683,7 @@
 				    <plugin>
 				        <groupId>org.sonatype.plugins</groupId>
 				        <artifactId>nexus-staging-maven-plugin</artifactId>
-				        <version>1.6.8</version>
+				        <version>1.7.0</version>
 				        <extensions>true</extensions>
 				        <configuration>
 				            <serverId>ossrh</serverId>

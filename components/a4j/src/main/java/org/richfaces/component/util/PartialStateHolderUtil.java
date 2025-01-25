@@ -23,11 +23,11 @@ package org.richfaces.component.util;
 
 import java.io.Serializable;
 
-import javax.faces.component.PartialStateHolder;
-import javax.faces.component.StateHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.PartialStateHolder;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski

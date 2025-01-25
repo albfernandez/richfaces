@@ -24,10 +24,10 @@ package org.richfaces.webapp;
 import java.text.MessageFormat;
 import java.util.Set;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
-import javax.servlet.ServletRegistration.Dynamic;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
+import jakarta.servlet.ServletRegistration.Dynamic;
 
 import org.richfaces.application.push.impl.PushContextFactoryImpl;
 import org.richfaces.log.Logger;
@@ -51,13 +51,15 @@ public class PushServletContainerInitializer extends AbstractServletContainerIni
      * Uses dynamic servlet registartaion for registering PushServlet automatically
      */
     private static void registerPushServlet(ServletContext context) {
+    	/*MZ TODO
         Dynamic dynamicRegistration = context.addServlet("AutoRegisteredPushServlet", PushServlet.class);
         dynamicRegistration.addMapping(PUSH_CONTEXT_DEFAULT_MAPPING);
         dynamicRegistration.setAsyncSupported(true);
-
+		
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Auto-registered servlet " + PushServlet.class.getSimpleName() + " with mapping '" + PUSH_CONTEXT_DEFAULT_MAPPING + "'");
         }
+        */
     }
 
     /**
@@ -79,6 +81,7 @@ public class PushServletContainerInitializer extends AbstractServletContainerIni
             return;
         }
 
+        /*MZ TODO
         try {
             String pushHandlerMapping;
 
@@ -94,6 +97,7 @@ public class PushServletContainerInitializer extends AbstractServletContainerIni
         } catch (Exception e) {
             servletContext.log(MessageFormat.format("Caught exception when registering RichFaces Push Servlet: {0}", e.getMessage()), e);
         }
+        */
     }
 
     private boolean isAtmospherePresent() {

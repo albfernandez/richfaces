@@ -24,7 +24,7 @@ package org.richfaces.component.attribute;
 
 import java.util.Collection;
 
-import javax.el.MethodExpression;
+import jakarta.el.MethodExpression;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;

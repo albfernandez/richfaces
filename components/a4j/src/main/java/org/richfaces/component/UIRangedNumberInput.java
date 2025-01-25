@@ -20,9 +20,9 @@
  */
 package org.richfaces.component;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.component.util.MessageUtil;
 

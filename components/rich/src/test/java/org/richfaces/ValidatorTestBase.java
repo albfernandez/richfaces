@@ -1,6 +1,6 @@
 package org.richfaces;
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;

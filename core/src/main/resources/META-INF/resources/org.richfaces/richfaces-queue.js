@@ -24,7 +24,7 @@
  * @author Pavel Yaschenko
  */
 
-(function($, rf, jsf) {
+(function($, rf, faces) {
 
     /**
      * RichFaces Ajax container
@@ -35,40 +35,40 @@
      * */
     rf.ajaxContainer = rf.ajaxContainer || {};
 
-    if (rf.ajaxContainer.jsfRequest) {
+    if (rf.ajaxContainer.facesRequest) {
         return;
     }
 
     /**
-     * JSF 2.0 original method that sends an asynchronous ajax request to the server
-     * see jsf.ajax.request method for parameter's description
+     * FACES 2.0 original method that sends an asynchronous ajax request to the server
+     * see faces.ajax.request method for parameter's description
      * @function
-     * @name RichFaces.ajaxContainer.jsfRequest
+     * @name RichFaces.ajaxContainer.facesRequest
      *
      * */
-    rf.ajaxContainer.jsfRequest = jsf.ajax.request;
+    rf.ajaxContainer.facesRequest = faces.ajax.request;
 
     /**
-     * RichFaces wrapper function of JSF 2.0 original method jsf.ajax.request
+     * RichFaces wrapper function of FACES 2.0 original method faces.ajax.request
      * @function
-     * @name jsf.ajax.request
+     * @name faces.ajax.request
      *
      * @param {string|DOMElement} source - The DOM element or an id that triggered this ajax request
      * @param {object} [event] - The DOM event that triggered this ajax request
      * @param {object} [options] - The set name/value pairs that can be sent as request parameters to control client and/or server side request processing
      * */
-    jsf.ajax.request = function(source, event, options) {
+    faces.ajax.request = function(source, event, options) {
         rf.queue.push(source, event, options);
     };
 
-    rf.ajaxContainer.jsfResponse = jsf.ajax.response;
+    rf.ajaxContainer.facesResponse = faces.ajax.response;
 
     rf.ajaxContainer.isIgnoreResponse = function() {
         return rf.queue.isIgnoreResponse();
     };
 
 
-    jsf.ajax.response = function(request, context) {
+    faces.ajax.response = function(request, context) {
         rf.queue.response(request, context);
     };
 
@@ -263,10 +263,10 @@
                 }
             });
 
-        // TODO: add this two variables to richfaces and report bug to jsf about constants
-        var JSF_EVENT_TYPE = 'event';
-        var JSF_EVENT_SUCCESS = 'success';
-        var JSF_EVENT_COMPLETE = 'complete';
+        // TODO: add this two variables to richfaces and report bug to faces about constants
+        var FACES_EVENT_TYPE = 'event';
+        var FACES_EVENT_SUCCESS = 'success';
+        var FACES_EVENT_COMPLETE = 'complete';
 
         var items = [];
         var lastRequestedEntry;
@@ -304,7 +304,7 @@
         }
 
         var onComplete = function (data) {
-            if (data.type == JSF_EVENT_TYPE && data.status == JSF_EVENT_SUCCESS) { // or JSF_EVENT_COMPLETE will be rather
+            if (data.type == FACES_EVENT_TYPE && data.status == FACES_EVENT_SUCCESS) { // or FACES_EVENT_COMPLETE will be rather
                 rf.log.debug("richfaces.queue: ajax submit successfull");
                 lastRequestedEntry = null;
                 removeStaleEntriesFromQueue();
@@ -312,8 +312,8 @@
             }
         };
 
-        jsf.ajax.addOnEvent(onComplete);
-        jsf.ajax.addOnError(onError);
+        faces.ajax.addOnEvent(onComplete);
+        faces.ajax.addOnError(onError);
 
         var submitFirstEntry = function() {
             if (QUEUE_MODE == QUEUE_MODE_PULL && lastRequestedEntry) {
@@ -331,7 +331,7 @@
                     rf.log.debug("richfaces.queue: will submit request NOW");
                     var o = lastRequestedEntry.options;
                     o["AJAX:EVENTS_COUNT"] = lastRequestedEntry.eventsCount;
-                    rf.ajaxContainer.jsfRequest(lastRequestedEntry.source, lastRequestedEntry.event, o);
+                    rf.ajaxContainer.facesRequest(lastRequestedEntry.source, lastRequestedEntry.event, o);
 
                     // call event handlers
                     if (o.queueonsubmit) {
@@ -477,7 +477,7 @@
                     lastRequestedEntry = null;
                     submitFirstEntry();
                 } else {
-                    rf.ajaxContainer.jsfResponse(request, context);
+                    rf.ajaxContainer.facesResponse(request, context);
                 }
             },
 
@@ -529,4 +529,4 @@
             }
         }
     }());
-}(RichFaces.jQuery, RichFaces, jsf));
+}(RichFaces.jQuery, RichFaces, faces));

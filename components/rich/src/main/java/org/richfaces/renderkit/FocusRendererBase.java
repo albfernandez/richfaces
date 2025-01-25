@@ -1,8 +1,8 @@
 package org.richfaces.renderkit;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.application.ServiceTracker;
@@ -13,7 +13,7 @@ import org.richfaces.renderkit.focus.FocusRendererInterface;
 import org.richfaces.renderkit.focus.FormFocusRenderStrategy;
 import org.richfaces.renderkit.focus.ViewFocusRenderStrategy;
 
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),

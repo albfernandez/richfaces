@@ -22,7 +22,7 @@
 
 package org.richfaces.validator.model;
 
-import javax.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElement;
 
 public class Resource {
     private String name;

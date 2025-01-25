@@ -21,7 +21,7 @@
  */
 package org.richfaces.resource.external;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
 

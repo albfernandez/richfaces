@@ -21,9 +21,9 @@
  */
 package org.richfaces.application;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski

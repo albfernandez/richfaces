@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
-import javax.faces.FacesException;
+import jakarta.faces.FacesException;
 
 import org.junit.After;
 import org.junit.Before;

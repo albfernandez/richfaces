@@ -38,9 +38,9 @@ RichFaces.QUnit.run(function() {
         
         RichFaces.queue.setQueueOptions(opts.queueId, options);
         ok(RichFaces.queue.isEmpty(), "empty");
-        jsf.ajax.request(element, event, opts);
-        jsf.ajax.request(element, event, opts);
-        jsf.ajax.request(element, event, opts);
+        faces.ajax.request(element, event, opts);
+        faces.ajax.request(element, event, opts);
+        faces.ajax.request(element, event, opts);
         ok(!RichFaces.queue.isEmpty(), "not empty");
         RichFaces.queue.clear();
         ok(RichFaces.queue.isEmpty(), "empty");

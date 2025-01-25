@@ -23,8 +23,8 @@ package org.richfaces.component;
 
 import java.util.Comparator;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.cdk.annotations.Attribute;
@@ -49,7 +49,7 @@ import org.richfaces.model.SortField;
 @JsfComponent(type = AbstractColumn.COMPONENT_TYPE, family = AbstractColumn.COMPONENT_FAMILY, facets = {
         @Facet(name = "header", description = @Description("Column header")),
         @Facet(name = "footer", description = @Description("Column footer")) }, tag = @Tag(name = "column"))
-public abstract class AbstractColumn extends javax.faces.component.UIColumn implements Column, ColumnProps, StyleClassProps, StyleProps {
+public abstract class AbstractColumn extends jakarta.faces.component.UIColumn implements Column, ColumnProps, StyleClassProps, StyleProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Column";
     public static final String COMPONENT_FAMILY = "org.richfaces.Column";
     private static Boolean builtInSortControlsEnabled;

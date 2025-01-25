@@ -24,8 +24,8 @@ package org.richfaces.validator;
 
 import java.util.Collection;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_4_0">

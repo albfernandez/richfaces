@@ -9,7 +9,7 @@ RichFaces.QUnit.run(function() {
         var testDivElement = document.getElementById("testDiv");
         RichFaces.QUnit.appendDomElements(testDivElement,
             '<form id="testForm">' +
-                '<input id="button" type="button" value="hello" onclick="jsf.ajax.request(this,event,{queueId: \'testQueueId\', param: \'value\'}); return false;"/>' +
+                '<input id="button" type="button" value="hello" onclick="faces.ajax.request(this,event,{queueId: \'testQueueId\', param: \'value\'}); return false;"/>' +
             '</form>');
         var button = document.getElementById("button");
         var numberOfAjaxResponses = 0;
@@ -21,13 +21,13 @@ RichFaces.QUnit.run(function() {
             if (numberOfAjaxResponses == 1) {
                 button.parentNode.removeChild(button);
             }
-            for (var i = 0; i < jsf.ajax.eventHandlers.length; i++) {
-                jsf.ajax.eventHandlers[i]({type: "event", status: "success"});
+            for (var i = 0; i < faces.ajax.eventHandlers.length; i++) {
+                faces.ajax.eventHandlers[i]({type: "event", status: "success"});
             }
         };
 
         // Simulate an Ajax request-response with a round trip time of 100 milliseconds
-        RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
+        RichFaces.ajaxContainer.facesRequest = function (source, event, options) {
             numberOfAjaxRequests++;
             setTimeout(function() {
                 simulateAjaxResponse(source)

@@ -23,8 +23,8 @@ package org.richfaces.resource;
 
 import java.util.Collection;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski

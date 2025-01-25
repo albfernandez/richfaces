@@ -26,9 +26,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;

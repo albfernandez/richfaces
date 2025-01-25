@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.resource.ImageType;
 import org.richfaces.resource.Java2DUserResource;

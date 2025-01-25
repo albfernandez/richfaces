@@ -22,7 +22,6 @@ package org.richfaces.component;
 
 import static org.junit.Assert.assertEquals;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -163,15 +162,17 @@ public abstract class AbstractQueueComponentTest {
         return this.getClass().getPackage().getName().replace('.', '/');
     }
 
+    /*MZ
     @SuppressWarnings("deprecation") // deprecated in JSF 2.2
-    protected javax.faces.view.facelets.ResourceResolver createResourceResolver() {
-        return new javax.faces.view.facelets.ResourceResolver() {
+    protected jakarta.faces.view.facelets.ResourceResolver createResourceResolver() {
+        return new jakarta.faces.view.facelets.ResourceResolver() {
             public URL resolveUrl(String path) {
                 return Thread.currentThread().getContextClassLoader().getResource(getRootContextPath() + path);
             }
         };
     }
-
+	*/
+    
     protected void postRenderView() throws Exception {
     	Window window = null;
     	Object o = page.executeJavaScript("window").getJavaScriptResult();

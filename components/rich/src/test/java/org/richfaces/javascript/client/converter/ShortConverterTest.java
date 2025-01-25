@@ -2,8 +2,8 @@ package org.richfaces.javascript.client.converter;
 
 import java.util.List;
 
-import javax.faces.convert.Converter;
-import javax.faces.convert.ShortConverter;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ShortConverter;
 
 import org.junit.runners.Parameterized.Parameters;
 import org.richfaces.javascript.client.RunParameters;

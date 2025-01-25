@@ -23,7 +23,7 @@ package org.richfaces.resource;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.application.CommonComponentsConfiguration;
 
@@ -39,7 +39,7 @@ import com.google.common.collect.ImmutableList;
 public class AjaxResourceLibrary implements ResourceLibrary {
 
     private static final ImmutableList<ResourceKey> AJAX_ONLY_KEYS = ImmutableList.of(
-        ResourceKey.create("jsf.js", "javax.faces"),
+        ResourceKey.create("faces.js", "jakarta.faces"),
         ResourceKey.create("jquery.js", "org.richfaces"),
         ResourceKey.create("richfaces.js", "org.richfaces"));
 

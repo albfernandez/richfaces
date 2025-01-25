@@ -21,7 +21,7 @@
  */
 package org.richfaces.skin;
 
-import javax.faces.FacesException;
+import jakarta.faces.FacesException;
 
 public class SkinNotFoundException extends FacesException {
     /**

@@ -29,11 +29,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractToolbar;
 import org.richfaces.component.AbstractToolbarGroup;
@@ -44,7 +44,7 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.util.HtmlDimensions;
 import org.richfaces.renderkit.RendererBase;
 
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
@@ -312,7 +312,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
         }
     }
 
-    protected Class<? extends javax.faces.component.UIComponent> getComponentClass() {
+    protected Class<? extends jakarta.faces.component.UIComponent> getComponentClass() {
         return AbstractToolbar.class;
     }
 

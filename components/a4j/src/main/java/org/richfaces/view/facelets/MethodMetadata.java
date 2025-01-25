@@ -21,10 +21,10 @@
  */
 package org.richfaces.view.facelets;
 
-import javax.el.MethodExpression;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.Metadata;
-import javax.faces.view.facelets.TagAttribute;
+import jakarta.el.MethodExpression;
+import jakarta.faces.view.facelets.FaceletContext;
+import jakarta.faces.view.facelets.Metadata;
+import jakarta.faces.view.facelets.TagAttribute;
 
 /**
  * @author akolonitsky

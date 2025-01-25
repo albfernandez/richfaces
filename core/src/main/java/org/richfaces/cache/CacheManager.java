@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.richfaces.cache.lru.LRUMapCacheFactory;

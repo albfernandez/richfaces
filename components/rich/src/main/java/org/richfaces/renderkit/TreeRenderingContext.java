@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
@@ -71,7 +71,7 @@ public final class TreeRenderingContext {
                 return firstHandler;
             }
 
-            return new JSFunction("return jsf.util.chain", JSReference.THIS, JSReference.EVENT, firstHandler, secondHandler)
+            return new JSFunction("return faces.util.chain", JSReference.THIS, JSReference.EVENT, firstHandler, secondHandler)
                 .toScript();
         }
 

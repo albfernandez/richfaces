@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;

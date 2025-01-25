@@ -31,17 +31,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.component.UIParameter;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.behavior.ClientBehaviorContext.Parameter;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.behavior.ClientBehaviorContext.Parameter;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 import org.ajax4jsf.Messages;
 import org.ajax4jsf.component.JavaScriptParameter;

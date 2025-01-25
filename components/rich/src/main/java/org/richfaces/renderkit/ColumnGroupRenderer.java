@@ -24,11 +24,11 @@ package org.richfaces.renderkit;
 import java.io.IOException;
 import java.util.Iterator;
 
-import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.AbortProcessingException;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.event.AbortProcessingException;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractColumnGroup;

@@ -21,8 +21,8 @@
  */
 package org.richfaces.event;
 
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesListener;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.FacesListener;
 
 /**
  * @author Nick Belaevski

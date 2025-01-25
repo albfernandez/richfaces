@@ -29,7 +29,7 @@ import org.richfaces.json.JSONObject;
 import org.richfaces.json.JSONStringer;
 import org.richfaces.json.JSONWriter;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;

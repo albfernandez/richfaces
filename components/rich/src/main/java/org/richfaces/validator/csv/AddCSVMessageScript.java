@@ -24,8 +24,8 @@ package org.richfaces.validator.csv;
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
 
 import org.ajax4jsf.javascript.ScriptString;
 import org.ajax4jsf.javascript.ScriptStringBase;

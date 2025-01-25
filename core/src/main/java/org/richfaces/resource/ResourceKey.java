@@ -21,7 +21,7 @@
  */
 package org.richfaces.resource;
 
-import javax.faces.application.Resource;
+import jakarta.faces.application.Resource;
 
 import com.google.common.base.Function;
 

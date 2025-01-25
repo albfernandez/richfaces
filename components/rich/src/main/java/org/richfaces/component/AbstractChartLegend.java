@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.component;
-import javax.faces.component.UIComponentBase;
+import jakarta.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;

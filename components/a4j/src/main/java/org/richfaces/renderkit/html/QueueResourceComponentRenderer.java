@@ -29,13 +29,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.Renderer;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.render.Renderer;
 
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.application.CommonComponentsConfiguration;
@@ -49,7 +49,7 @@ import org.richfaces.renderkit.HtmlConstants;
  */
 @JsfRenderer(type = QueueResourceComponentRenderer.TYPE, family = UIOutput.COMPONENT_FAMILY)
 @ResourceDependencies({
-        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")

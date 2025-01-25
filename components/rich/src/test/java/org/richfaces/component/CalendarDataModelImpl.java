@@ -22,9 +22,8 @@ package org.richfaces.component;
 
 import java.util.Date;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import org.richfaces.model.CalendarDataModel;
 import org.richfaces.model.CalendarDataModelItem;
 
@@ -32,7 +31,7 @@ import org.richfaces.model.CalendarDataModelItem;
  * @author Nick Belaevski - mailto:nbelaevski@exadel.com created 30.06.2007
  *
  */
-@ManagedBean(name = "calendarDataModel")
+@Named("calendarDataModel")
 @ApplicationScoped
 public class CalendarDataModelImpl implements CalendarDataModel {
     /*

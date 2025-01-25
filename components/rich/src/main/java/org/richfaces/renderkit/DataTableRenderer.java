@@ -27,15 +27,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.ContextCallback;
-import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.ContextCallback;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -51,14 +51,14 @@ import org.richfaces.renderkit.util.AjaxRendererUtils;
  * @author Anton Belevich
  */
 @JsfRenderer(type = "org.richfaces.DataTableRenderer", family = AbstractDataTable.COMPONENT_FAMILY)
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "datatable.js"),
         @ResourceDependency(library = "org.richfaces", name = "datatable.ecss") })
 public class DataTableRenderer extends AbstractTableRenderer {
-    private static final String BEHAVIOR_EVENT_NAME = "javax.faces.behavior.event";
+    private static final String BEHAVIOR_EVENT_NAME = "jakarta.faces.behavior.event";
     private static final String ROW = "row";
 
     private class DataTableHiddenEncodeStrategy implements EncodeStrategy {

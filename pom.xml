@@ -24,17 +24,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+	<!--MZ
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
         <version>36</version>
         <relativePath />
     </parent>
+    -->
+    
+    <parent>
+        <groupId>org.jboss</groupId>
+    	<version>36-custom</version>
+    	<artifactId>jboss-parent</artifactId>
+        <relativePath>./parent-parent/pom.xml</relativePath>
+    </parent>
 
     <groupId>com.github.albfernandez.richfaces</groupId>
     <artifactId>richfaces-parent</artifactId>
     <packaging>pom</packaging>
-    <version>4.6.22-SNAPSHOT</version>
+    <version>10.0.1-SNAPSHOT</version>
     <name>RichFaces Parent</name>
 
     <modules>
@@ -43,8 +52,8 @@
         <module>build</module>
         <module>build/build-resources</module>
         <module>build/page-fragments</module>
-        <module>build/push-depchain</module>
-        <module>build/push-native-depchain</module>
+        <!--<module>build/push-depchain</module>
+        <module>build/push-native-depchain</module>-->
         <module>build/resource-optimizer-plugin</module>
 
         <module>core</module>
@@ -61,6 +70,7 @@
         <module>examples/irc-client</module>
         <module>examples/components-demo</module>
          -->
+        <module>parent-parent</module>
     </modules>
 
     <description>
@@ -97,13 +107,13 @@
     </issueManagement>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Base Dependencies Versions -->
-        <version.richfaces>4.6.22-SNAPSHOT</version.richfaces>
-        <version.cdk>4.6.1.ayg</version.cdk>
+        <version.richfaces>10.0.1-SNAPSHOT</version.richfaces>
+        <version.cdk>10.0.1-SNAPSHOT</version.cdk>
         <version.jboss-javaee>3.0.3.Final</version.jboss-javaee>
 
         <!-- Container Versions -->
@@ -120,21 +130,21 @@
         <version.payara5>5.201</version.payara5>
 
         <!-- Plugin Management: versions -->
-        <version.assembly.plugin>3.1.1</version.assembly.plugin>
-        <version.clean.plugin>3.1.0</version.clean.plugin>
-        <version.compiler.plugin>3.8.1</version.compiler.plugin>
-        <version.install.plugin>3.0.0-M1</version.install.plugin>
-        <version.jacoco.plugin>0.8.3</version.jacoco.plugin>
-        <version.jrebel.plugin>1.1.9</version.jrebel.plugin>
-        <version.release.plugin>2.5.3</version.release.plugin>
-        <version.replacer.plugin>1.5.3</version.replacer.plugin>
-        <version.resources.plugin>3.1.0</version.resources.plugin>
-        <version.scm.plugin>1.11.2</version.scm.plugin>
-        <version.source.plugin>3.0.1</version.source.plugin>
-        <version.surefire.plugin>3.0.0-M5</version.surefire.plugin>
-        <version.vdldoc>1.2</version.vdldoc>
+        <version.assembly.plugin>3.7.1</version.assembly.plugin>
+        <version.clean.plugin>3.3.2</version.clean.plugin>
+        <version.compiler.plugin>3.13.0</version.compiler.plugin>
+        <version.install.plugin>3.1.2</version.install.plugin>
+         <version.jacoco.plugin>0.8.12</version.jacoco.plugin>
+         <version.jrebel.plugin>1.2.0</version.jrebel.plugin>
+        <version.release.plugin>3.1.1</version.release.plugin>
+         <version.replacer.plugin>1.5.3</version.replacer.plugin>
+        <version.resources.plugin>3.3.1</version.resources.plugin>
+         <version.scm.plugin>2.1.0</version.scm.plugin>
+        <version.source.plugin>3.3.1</version.source.plugin>
+        <version.surefire.plugin>3.5.0</version.surefire.plugin>
+         <version.vdldoc>2.1</version.vdldoc>
 
-        <version.screenshooter>2.1.0.Alpha1</version.screenshooter>
+        <version.screenshooter>2.5.4</version.screenshooter>
 
 
         <!-- maven-compiler-plugin -->
@@ -147,12 +157,13 @@
 
         <!-- JVM values for surefire plugin -->
         <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->
-        <surefire.jvm.params>-Xms1024m -Xmx2048m</surefire.jvm.params>
+        <surefire.jvm.params>-Xms1024m -Xmx2048m --add-opens=java.base/sun.util.calendar=ALL-UNNAMED</surefire.jvm.params>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <!-- Java EE -->
+            <!--MZ
             <dependency>
                 <groupId>org.jboss.spec</groupId>
                 <artifactId>jboss-javaee-6.0</artifactId>
@@ -173,6 +184,58 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            -->
+            <dependency>
+	            <groupId>org.apache.myfaces.core</groupId>
+	            <artifactId>myfaces-api</artifactId>
+	            <version>4.0.2</version>
+	        </dependency>
+	        <dependency>
+				<groupId>jakarta.el</groupId>
+				<artifactId>jakarta.el-api</artifactId>
+				<version>6.0.1</version>
+			</dependency>
+			<dependency>
+		    	<groupId>org.glassfish</groupId>
+		    	<artifactId>jakarta.el</artifactId>
+		    	<version>4.0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.servlet</groupId>
+				<artifactId>jakarta.servlet-api</artifactId>
+				<version>6.1.0</version>
+			</dependency>
+			<dependency>
+			    <groupId>jakarta.jms</groupId>
+			    <artifactId>jakarta.jms-api</artifactId>
+			    <version>3.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.inject</groupId>
+				<artifactId>jakarta.inject-api</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+			    <groupId>jakarta.validation</groupId>
+			    <artifactId>jakarta.validation-api</artifactId>
+			    <version>3.1.0</version>
+			</dependency>
+			<dependency>
+			    <groupId>jakarta.enterprise</groupId>
+			    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+			    <version>4.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.transaction</groupId>
+				<artifactId>jakarta.transaction-api</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+			    <groupId>jakarta.activation</groupId>
+			    <artifactId>jakarta.activation-api</artifactId>
+			    <version>2.1.3</version>
+			</dependency>
+
 
             <!-- RichFaces -->
             <dependency>
@@ -204,7 +267,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -227,6 +290,7 @@
                     <configuration>
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
+                        <release>${java.version}</release>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -246,7 +310,9 @@
                             <manifestEntries>
                                 <mode>development</mode>
                                 <Build-Number>${buildNumber}</Build-Number>
+                                <!--MZ
                                 <Automatic-Module-Name>com.github.albfernandez.richfaces.${project.artifactId}</Automatic-Module-Name>
+                            	-->
                             </manifestEntries>
                         </archive>
                     </configuration>
@@ -255,10 +321,12 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <configuration>
-                    	<source>7</source>
+                    	<source>21</source>
+                    	<!--MZ
 						<links>
 	                        <link>https://docs.oracle.com/javase/7/docs/api/</link>
 	                    </links>
+	                    -->
                         <keywords>true</keywords>
                         <quiet>true</quiet>
                         <!-- Solves issues related to link lookups for all
@@ -319,73 +387,12 @@
                     <artifactId>maven-scm-plugin</artifactId>
                     <version>${version.scm.plugin}</version>
                 </plugin>
-
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
                 <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>com.github.albfernandez.richfaces.cdk</groupId>
-                                        <artifactId>richfaces-cdk-maven-plugin</artifactId>
-                                        <versionRange>[4.5.2.Final,)</versionRange>
-                                        <goals>
-                                            <goal>generate</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <execute>
-                                            <runOnIncremental>false</runOnIncremental>
-                                        </execute>
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>com.github.albfernandez.richfaces.cdk</groupId>
-                                        <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
-                                        <versionRange>[4.5.2.Final,)</versionRange>
-                                        <goals>
-                                            <goal>process</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore />
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-dependency-plugin</artifactId>
-                                        <versionRange>[2.9,)</versionRange>
-                                        <goals>
-                                            <goal>unpack</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <execute />
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.codehaus.mojo</groupId>
-                                        <artifactId>exec-maven-plugin</artifactId>
-                                        <versionRange>[1.3.2,)</versionRange>
-                                        <goals>
-                                            <goal>java</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore />
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${version.source.plugin}</version>
                 </plugin>
+
             </plugins>
         </pluginManagement>
         <plugins>
@@ -1193,7 +1200,7 @@
 				    <plugin>
 				        <groupId>org.sonatype.plugins</groupId>
 				        <artifactId>nexus-staging-maven-plugin</artifactId>
-				        <version>1.6.8</version>
+				        <version>1.7.0</version>
 				        <extensions>true</extensions>
 				        <configuration>
 				            <serverId>ossrh</serverId>
@@ -1202,6 +1209,92 @@
 				        </configuration>
 				    </plugin>
 				</plugins>
+			</build>
+		</profile>
+		
+		 
+        <profile>
+	        <id>only-eclipse</id>
+			<activation>
+			  <property>
+			    <name>m2e.version</name>
+			  </property>
+			</activation>
+			<build>
+			
+			        <pluginManagement>
+            <plugins>
+            
+            	 <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>com.github.albfernandez.richfaces.cdk</groupId>
+                                        <artifactId>richfaces-cdk-maven-plugin</artifactId>
+                                        <versionRange>[4.5.2.Final,)</versionRange>
+                                        <goals>
+                                            <goal>generate</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute>
+                                            <runOnIncremental>false</runOnIncremental>
+                                        </execute>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>com.github.albfernandez.richfaces.cdk</groupId>
+                                        <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
+                                        <versionRange>[4.5.2.Final,)</versionRange>
+                                        <goals>
+                                            <goal>process</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-dependency-plugin</artifactId>
+                                        <versionRange>[2.9,)</versionRange>
+                                        <goals>
+                                            <goal>unpack</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>exec-maven-plugin</artifactId>
+                                        <versionRange>[1.3.2,)</versionRange>
+                                        <goals>
+                                            <goal>java</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+             
+            </plugins>
+        </pluginManagement>
+		
 			</build>
 		</profile>
 

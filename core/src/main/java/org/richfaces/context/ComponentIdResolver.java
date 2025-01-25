@@ -32,9 +32,9 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.component.AjaxContainer;
 import org.richfaces.component.ComponentIterators;

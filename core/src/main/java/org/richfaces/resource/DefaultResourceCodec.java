@@ -21,20 +21,22 @@
  */
 package org.richfaces.resource;
 
+import jakarta.faces.context.FacesContext;
 import java.util.Map;
-
-import javax.faces.context.FacesContext;
 
 public final class DefaultResourceCodec implements ResourceCodec {
     private static final String VERSION_PARAM = "v";
     private static final String DATA_BYTES_ARRAY_PARAM = "db";
+    private static final String DATA_OBJECT_PARAM = "do";
     private static final String LIBRARY_NAME_PARAM = "ln";
 
     String encodeResource(DefaultCodecResourceRequestData data) {
-        return encodeResource(data.getLibraryName(), data.getResourceName(), data.getDataString(), data.getVersion());
+        return encodeResource(data.getLibraryName(), data.getResourceName(), data.getDataString(), data.isDataSerialized(),
+                data.getVersion());
     }
 
-    String encodeResource(String libraryName, String resourceName, String encodedResourceData, String resourceVersion) {
+    String encodeResource(String libraryName, String resourceName, String encodedResourceData, boolean dataIsSerialized,
+                          String resourceVersion) {
 
         boolean parameterAppended = false;
 
@@ -60,7 +62,7 @@ public final class DefaultResourceCodec implements ResourceCodec {
                 sb.append('&');
             }
 
-            sb.append(DATA_BYTES_ARRAY_PARAM);
+            sb.append(dataIsSerialized ? DATA_OBJECT_PARAM : DATA_BYTES_ARRAY_PARAM);
             sb.append('=');
             sb.append(ResourceUtils.encodeURIQueryPart(encodedResourceData));
         }
@@ -82,14 +84,20 @@ public final class DefaultResourceCodec implements ResourceCodec {
     }
 
     public String encodeResourceRequestPath(FacesContext context, String libraryName, String resourceName, Object resourceData,
-        String resourceVersion) {
+                                            String resourceVersion) {
         String encodedDataString = null;
+        boolean dataIsSerialized = false;
         if (resourceData != null) {
-            encodedDataString = ResourceUtils.encodeBytesData((byte[]) resourceData);
+            if (resourceData instanceof byte[]) {
+                encodedDataString = ResourceUtils.encodeBytesData((byte[]) resourceData);
+            } else {
+                encodedDataString = ResourceUtils.encodeObjectData(resourceData);
+                dataIsSerialized = true;
+            }
         }
 
         return ResourceHandlerImpl.RICHFACES_RESOURCE_IDENTIFIER
-            + encodeResource(libraryName, resourceName, encodedDataString, resourceVersion);
+                + encodeResource(libraryName, resourceName, encodedDataString, dataIsSerialized, resourceVersion);
     }
 
     public String encodeJSFMapping(FacesContext context, String resourcePath) {
@@ -102,7 +110,14 @@ public final class DefaultResourceCodec implements ResourceCodec {
         data.setResourceName(requestPath);
         data.setLibraryName(params.get(LIBRARY_NAME_PARAM));
         data.setVersion(params.get(VERSION_PARAM));
-        data.setDataString(params.get(DATA_BYTES_ARRAY_PARAM));
+
+        String objectDataString = params.get(DATA_OBJECT_PARAM);
+        if (objectDataString != null) {
+            data.setDataString(objectDataString);
+            data.setDataSerialized(true);
+        } else {
+            data.setDataString(params.get(DATA_BYTES_ARRAY_PARAM));
+        }
         return data;
     }
 }

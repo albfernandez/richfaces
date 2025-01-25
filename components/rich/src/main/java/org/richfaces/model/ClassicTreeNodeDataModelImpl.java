@@ -23,7 +23,7 @@ package org.richfaces.model;
 
 import java.util.Iterator;
 
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.Converter;
 
 import org.richfaces.convert.StringSequenceRowKeyConverter;
 import org.richfaces.model.iterators.ClassicTreeNodeTuplesIterator;

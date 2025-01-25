@@ -28,26 +28,26 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.application.Application;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.ActionSource;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIMessage;
-import javax.faces.component.UIMessages;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.convert.Converter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.BehaviorEvent;
-import javax.faces.render.ClientBehaviorRenderer;
-import javax.faces.render.RenderKit;
-import javax.faces.validator.BeanValidator;
-import javax.faces.validator.Validator;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.ActionSource;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIMessage;
+import jakarta.faces.component.UIMessages;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialViewContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.BehaviorEvent;
+import jakarta.faces.render.ClientBehaviorRenderer;
+import jakarta.faces.render.RenderKit;
+import jakarta.faces.validator.BeanValidator;
+import jakarta.faces.validator.Validator;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.ajax4jsf.javascript.ScriptUtils;
@@ -260,7 +260,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.component.behavior.ClientValidatorBehavior#getConverter(javax.faces.component.behavior.
+     * @see org.richfaces.component.behavior.ClientValidatorBehavior#getConverter(jakarta.faces.component.behavior.
      * ClientBehaviorContext)
      */
     public ConverterDescriptor getConverter(ClientBehaviorContext context) throws ConverterNotFoundException {
@@ -304,7 +304,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.component.behavior.ClientValidatorBehavior#getValidators(javax.faces.component.behavior.
+     * @see org.richfaces.component.behavior.ClientValidatorBehavior#getValidators(jakarta.faces.component.behavior.
      * ClientBehaviorContext)
      */
     public Collection<ValidatorDescriptor> getValidators(ClientBehaviorContext context) {

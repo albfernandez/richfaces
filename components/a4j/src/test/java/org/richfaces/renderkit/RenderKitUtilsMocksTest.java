@@ -40,16 +40,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.component.behavior.ClientBehaviorHint;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.el.ELContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.component.behavior.ClientBehaviorHint;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 import org.easymock.EasyMock;
 import org.jboss.test.faces.mock.MockFacesEnvironment;
@@ -195,9 +195,9 @@ public class RenderKitUtilsMocksTest {
         UIComponent component = (UIComponent) behaviorHolder;
 
         responseWriter.writeAttribute(eq("onkeypress"),
-                eq("return jsf.util.chain(this, event, 'alert(keypress)','prompt(keypress)')"), EasyMock.<String>isNull());
+                eq("return faces.util.chain(this, event, 'alert(keypress)','prompt(keypress)')"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("onclick"),
-                eq("return jsf.util.chain(this, event, 'alert(click)','prompt(action1)','prompt(action2)')"),
+                eq("return faces.util.chain(this, event, 'alert(click)','prompt(action1)','prompt(action2)')"),
                 EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("onmousemove"), eq("alert(mousemove)"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("oncontextmenu"), eq("prompt(contextmenu)"), EasyMock.<String>isNull());
@@ -244,7 +244,7 @@ public class RenderKitUtilsMocksTest {
         UIComponent component = setupBehaviorsTestForDisabledComponent();
 
         responseWriter.writeAttribute(eq("onclick"),
-                eq("return jsf.util.chain(this, event, 'alert(click)','prompt(action1)')"), EasyMock.<String>isNull());
+                eq("return faces.util.chain(this, event, 'alert(click)','prompt(action1)')"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("onmousemove"), eq("alert(mousemove)"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("style"), eq("color:green"), EasyMock.<String>isNull());
 

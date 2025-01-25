@@ -21,10 +21,10 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIOutput;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.convert.Converter;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.convert.Converter;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;

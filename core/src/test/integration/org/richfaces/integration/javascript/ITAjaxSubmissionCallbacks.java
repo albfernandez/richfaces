@@ -111,7 +111,7 @@ public class ITAjaxSubmissionCallbacks {
     private static FaceletAsset buildPage(boolean formScopedRegistration, boolean pageScopedRegistration) {
         FaceletAsset p = new FaceletAsset();
 
-        p.head("<h:outputScript library='javax.faces' name='jsf.js' />");
+        p.head("<h:outputScript library='jakarta.faces' name='faces.js' />");
         p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
         p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 

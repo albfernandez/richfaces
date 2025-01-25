@@ -21,11 +21,11 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.StateHolder;
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.UIForm;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.component.IterationStateHolder;
 

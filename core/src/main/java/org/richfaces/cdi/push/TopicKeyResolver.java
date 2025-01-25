@@ -21,7 +21,7 @@
  */
 package org.richfaces.cdi.push;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import org.richfaces.application.push.TopicKey;
 

@@ -22,8 +22,8 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIMessages;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIMessages;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;
@@ -57,7 +57,7 @@ public abstract class AbstractMessages extends UIMessages implements AjaxOutput,
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.component.ClientSideMessage#updateMessages(javax.faces.context.FacesContext, java.lang.String)
+     * @see org.richfaces.component.ClientSideMessage#updateMessages(jakarta.faces.context.FacesContext, java.lang.String)
      */
     public void updateMessages(FacesContext context, String clientId) {
         // TODO Auto-generated method stub

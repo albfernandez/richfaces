@@ -1,17 +1,7 @@
 package org.richfaces.component.behavior;
 
-import static org.easymock.EasyMock.capture;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.same;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-
-import java.util.Collections;
-
-import javax.faces.convert.Converter;
-import javax.faces.convert.NumberConverter;
-
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.NumberConverter;
 import org.easymock.Capture;
 import org.easymock.EasyMock;
 import org.jboss.test.faces.mock.Mock;
@@ -24,6 +14,15 @@ import org.junit.runner.RunWith;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesConverterService;
+
+import java.util.Collections;
+
+import static org.easymock.EasyMock.capture;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.same;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
 /**
  * <p class="changed_added_4_0">
@@ -47,7 +46,7 @@ public class BehaviorGetConverterTest extends BehaviorTestBase {
     @Before
     public void setupService() {
         expect(factory.getInstance(FacesConverterService.class)).andStubReturn(converterService);
-        converterCapture = new Capture<>();
+        converterCapture = EasyMock.newCapture();
         expect(
             converterService.getConverterDescription(same(environment.getFacesContext()), same(input),
                 capture(converterCapture), EasyMock.<String>isNull())).andStubReturn(descriptor);

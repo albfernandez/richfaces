@@ -3,8 +3,51 @@
 
 <ui:composition>
     <p>
+        The <b>a4j:mediaOutput</b> component allows images, video, sounds, and other binary resources to be displayed as defined
+        by a user on the fly.
         The <b>a4j:mediaOutput</b> component has been removed from this distribution to mitigate <a target="_blank" href="https://nvd.nist.gov/vuln/detail/CVE-2018-12532">CVE-2018-12532</a>
     </p>
+
+    <p>
+        The <b>createContent</b> attribute references the method that is used for creating content. The method accepts two
+        parameters:
+    </p>
+    <ul>
+        <li>The <b>OutputStream</b> parameter is a reference to the stream that is used for output.</li>
+        <li>The second parameter is a reference to the <b>value</b> attribute of the component.</li>
+    </ul>
+    <p>
+        The <b>value</b> attribute references data that can be used as input data for the content creator method. The data
+        should be serializable since it is encoded as the URL of the resource.
+    </p>
+
+    <p>
+        The <b>mimeType</b> attribute defines the type of output content. It is used to define the corresponding type in the
+        header of an HTTP response.
+    </p>
+
+    <p>
+        The <b>cacheable</b> attribute is a flag that defines the caching strategy. If <b>cacheable</b> is set to false, the
+        response will not be cached. If set to true, it will be cached and the serialized value of the <b>value</b> attribute is
+        used as a cache key.
+    </p>
+
+    <p>
+        This example reads the existing image and re-indexes the palette using colors you selected below.
+    </p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/mediaOutput/MediaBean.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View MediaBean Source" />
+        <ui:param name="hideLabel" value="Hide MediaBean Source" />
+    </ui:include>
 </ui:composition>
 
 </html>

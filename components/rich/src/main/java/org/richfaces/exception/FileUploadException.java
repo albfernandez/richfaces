@@ -21,7 +21,7 @@
  */
 package org.richfaces.exception;
 
-import javax.faces.FacesException;
+import jakarta.faces.FacesException;
 
 /**
  * Thrown when an exception occurs while uploading a file.

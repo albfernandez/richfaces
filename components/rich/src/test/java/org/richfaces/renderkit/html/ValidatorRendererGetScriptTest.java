@@ -1,7 +1,7 @@
 package org.richfaces.renderkit.html;
 
-import javax.faces.FacesException;
-import javax.faces.component.behavior.ClientBehavior;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.behavior.ClientBehavior;
 
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.Test;

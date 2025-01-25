@@ -24,10 +24,10 @@ package org.richfaces.webapp;
 import java.text.MessageFormat;
 import java.util.Set;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
-import javax.servlet.ServletRegistration.Dynamic;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
+import jakarta.servlet.ServletRegistration.Dynamic;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -38,7 +38,7 @@ import org.richfaces.log.RichfacesLogger;
  * </p>
  *
  * <p>
- * Initialization can be turned of by "org.richfaces.resources.skipResourceServletRegistration" context parameter.
+ * Initialization can be turned off by "org.richfaces.resources.skipResourceServletRegistration" context parameter.
  * </p>
  */
 public class ResourceServletContainerInitializer extends AbstractServletContainerInitializer {
@@ -51,11 +51,11 @@ public class ResourceServletContainerInitializer extends AbstractServletContaine
     /*
      * (non-Javadoc)
      *
-     * @see javax.servlet.ServletContainerInitializer#onStartup(java.util.Set, javax.servlet.ServletContext)
+     * @see jakarta.servlet.ServletContainerInitializer#onStartup(java.util.Set, jakarta.servlet.ServletContext)
      */
     @Override
     public void onStartup(Set<Class<?>> c, ServletContext servletContext) throws ServletException {
-        if (Boolean.valueOf(servletContext.getInitParameter(SKIP_SERVLET_REGISTRATION_PARAM))) {
+        if (Boolean.parseBoolean(servletContext.getInitParameter(SKIP_SERVLET_REGISTRATION_PARAM))) {
             return;
         }
 

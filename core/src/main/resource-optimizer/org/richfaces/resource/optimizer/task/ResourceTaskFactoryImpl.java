@@ -28,10 +28,10 @@ import java.text.MessageFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
 
-import javax.activation.MimetypesFileTypeMap;
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
+import jakarta.activation.MimetypesFileTypeMap;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.log.Logger;
 import org.richfaces.resource.ResourceKey;

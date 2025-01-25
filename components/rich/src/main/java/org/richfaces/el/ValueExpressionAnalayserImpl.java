@@ -22,10 +22,10 @@
 
 package org.richfaces.el;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.validator.GraphValidatorState;
 

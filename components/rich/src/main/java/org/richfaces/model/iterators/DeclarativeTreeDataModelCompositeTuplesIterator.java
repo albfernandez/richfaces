@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 import org.richfaces.component.ComponentPredicates;
 import org.richfaces.component.TreeModelAdaptor;

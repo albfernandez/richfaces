@@ -25,20 +25,20 @@ import static org.richfaces.application.configuration.ConfigurationServiceHelper
 
 import java.util.List;
 
-import javax.faces.application.Application;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.ListenersFor;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.PreRemoveFromViewEvent;
-import javax.faces.render.Renderer;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ComponentSystemEventListener;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.ListenersFor;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PreRemoveFromViewEvent;
+import jakarta.faces.render.Renderer;
 
 import org.richfaces.application.CommonComponentsConfiguration;
 import org.richfaces.component.QueueRegistry;
@@ -49,7 +49,7 @@ import org.richfaces.log.RichfacesLogger;
  * @author Nick Belaevski Base class for rendering Queue
  */
 @ResourceDependencies({
-        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")

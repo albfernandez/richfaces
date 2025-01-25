@@ -21,8 +21,8 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIMessage;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIMessage;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;

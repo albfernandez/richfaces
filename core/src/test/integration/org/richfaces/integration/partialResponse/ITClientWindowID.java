@@ -64,7 +64,7 @@ public class ITClientWindowID {
 
     @FindBy
     private WebElement inputText;
-    @FindBy(css = "input[name='javax.faces.ClientWindow']")
+    @FindBy(css = "input[name='jakarta.faces.ClientWindow']")
     private WebElement hiddenFieldWithClientWindowID;
     @FindBy(css = "[id='checkClientWindowIdIsNotEmptyResultElement']")
     private WebElement checkClientWindowIdIsNotEmptyResultElement;
@@ -77,7 +77,7 @@ public class ITClientWindowID {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
                 return webXml
                     .createContextParam()
-                    .paramName("javax.faces.CLIENT_WINDOW_MODE")
+                    .paramName("jakarta.faces.CLIENT_WINDOW_MODE")
                     .paramValue("url")
                     .up();
             }

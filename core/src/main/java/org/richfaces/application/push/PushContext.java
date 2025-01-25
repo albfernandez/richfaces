@@ -21,7 +21,7 @@
  */
 package org.richfaces.application.push;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p>PushContext serves as container class holding references to {@link TopicsContext}, {@link SessionFactory} and {@link SessionManager}.</p>

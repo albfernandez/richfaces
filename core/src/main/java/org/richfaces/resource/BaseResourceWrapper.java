@@ -27,9 +27,9 @@ import static org.richfaces.application.CoreConfiguration.Items.resourcesDefault
 import java.util.Date;
 import java.util.Map;
 
-import javax.faces.FacesWrapper;
-import javax.faces.component.StateHolder;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesWrapper;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski

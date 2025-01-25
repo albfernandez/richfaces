@@ -23,12 +23,12 @@ package org.richfaces.context;
 
 import java.util.Collection;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIData;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

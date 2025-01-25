@@ -21,28 +21,35 @@
  */
 package org.richfaces.resource.optimizer.resource.scan.impl.reflections;
 
-import org.reflections.scanners.AbstractScanner;
+import java.util.List;
+import java.util.Map.Entry;
+
+import org.reflections.scanners.Scanner;
 import org.reflections.vfs.Vfs.File;
 
 import com.google.common.collect.Multimap;
+
+import javassist.bytecode.ClassFile;
 
 /**
  * @author Nick Belaevski
  *
  */
-public class MarkerResourcesScanner extends AbstractScanner {
+public class MarkerResourcesScanner implements Scanner {
     static final String STORE_KEY = "org.richfaces.cdk.dynamicResourceNames";
     private static final String RESOURCE_PROPERTIES_EXT = ".resource.properties";
     private static final String META_INF = "META-INF/";
+    
+    private Multimap<String, String> store;
 
-    @Override
+    //MZ @Override
     public void scan(Object cls) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void scan(File file) {
-        String relativePath = file.getRelativePath();
+	public List<Entry<String, String>> scan(ClassFile file) {
+        String relativePath = file.getSourceFile();
         if (relativePath.startsWith(META_INF) && relativePath.endsWith(RESOURCE_PROPERTIES_EXT)) {
             Multimap<String, String> store = getStore();
 
@@ -50,10 +57,24 @@ public class MarkerResourcesScanner extends AbstractScanner {
                     relativePath.length() - RESOURCE_PROPERTIES_EXT.length());
             store.put(STORE_KEY, className);
         }
+        
+        return null;
+        
     }
 
     @Override
     public boolean acceptsInput(String file) {
         return true;
     }
+    
+    
+    
+    private Multimap<String, String> getStore() {
+        return store;
+    }
+
+    private void setStore(final Multimap<String, String> store) {
+        this.store = store;
+    }
+    
 }

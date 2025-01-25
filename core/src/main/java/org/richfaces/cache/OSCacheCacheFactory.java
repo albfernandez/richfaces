@@ -32,8 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.richfaces.application.CoreConfiguration;

@@ -28,8 +28,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.application.push.PushContext;

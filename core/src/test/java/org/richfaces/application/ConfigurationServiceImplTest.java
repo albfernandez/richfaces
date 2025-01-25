@@ -30,7 +30,7 @@ import static org.richfaces.application.configuration.ConfigurationServiceHelper
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getLongConfigurationValue;
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getStringConfigurationValue;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.junit.Rule;
 import org.junit.Test;

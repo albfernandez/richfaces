@@ -22,7 +22,7 @@
 package org.ajax4jsf.component;
 
 /**
- * Interface for extend {@link javax.faces.component.UIParameter} component by handling isertion parameters into JavaScript code
+ * Interface for extend {@link jakarta.faces.component.UIParameter} component by handling isertion parameters into JavaScript code
  * as references, not string literals.
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)

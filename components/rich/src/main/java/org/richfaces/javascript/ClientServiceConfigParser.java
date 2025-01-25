@@ -38,8 +38,8 @@ import org.richfaces.validator.model.ClientSideScripts;
 import org.richfaces.validator.model.Component;
 import org.richfaces.validator.model.Resource;
 
-import javax.faces.FacesException;
-import javax.xml.bind.JAXB;
+import jakarta.faces.FacesException;
+import jakarta.xml.bind.JAXB;
 
 import java.io.IOException;
 import java.net.URL;

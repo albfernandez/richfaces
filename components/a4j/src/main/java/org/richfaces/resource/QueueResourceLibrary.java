@@ -25,7 +25,7 @@ import static org.richfaces.application.configuration.ConfigurationServiceHelper
 
 import java.util.Collections;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.application.CommonComponentsConfiguration;
 

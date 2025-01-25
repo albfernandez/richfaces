@@ -31,7 +31,7 @@ import static org.junit.Assert.fail;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Mock;

@@ -23,9 +23,9 @@ package org.richfaces.component.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.renderkit.util.HtmlDimensions;

@@ -1,7 +1,7 @@
 package org.richfaces.renderkit.focus;
 
-import javax.faces.component.UIForm;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractFocus;
 

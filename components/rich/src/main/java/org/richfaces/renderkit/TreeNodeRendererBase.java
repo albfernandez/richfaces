@@ -26,10 +26,10 @@ import static org.richfaces.renderkit.RenderKitUtils.getFirstNonEmptyAttribute;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialViewContext;
+import jakarta.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;

@@ -25,20 +25,18 @@
  */
 package org.richfaces.el;
 
-import java.beans.FeatureDescriptor;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.FunctionMapper;
-import javax.el.ValueExpression;
-import javax.el.VariableMapper;
-import javax.faces.el.CompositeComponentExpressionHolder;
-
 import org.richfaces.validator.GraphValidatorState;
+
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.FunctionMapper;
+import jakarta.el.ValueExpression;
+import jakarta.el.VariableMapper;
+import jakarta.faces.el.CompositeComponentExpressionHolder;
 
 /**
  * This class wraps original ELContext and capture whole call stack to the target object so it could be used to extract semantic
@@ -194,10 +192,12 @@ public class CapturingELContext extends ELContext {
             return delegate.isReadOnly(context, base, property);
         }
 
+        /*MZ
         @Override
         public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
             return delegate.getFeatureDescriptors(context, base);
         }
+        */
 
         @Override
         public Class<?> getCommonPropertyType(ELContext context, Object base) {

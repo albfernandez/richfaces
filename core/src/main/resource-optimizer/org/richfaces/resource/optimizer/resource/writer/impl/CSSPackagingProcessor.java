@@ -30,7 +30,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.optimizer.faces.CurrentResourceContext;

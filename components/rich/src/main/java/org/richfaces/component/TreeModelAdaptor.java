@@ -21,7 +21,7 @@
  */
 package org.richfaces.component;
 
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.Converter;
 
 import org.richfaces.cdk.annotations.Attribute;
 

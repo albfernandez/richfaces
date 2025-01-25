@@ -26,9 +26,9 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.PartialResponseWriter;
+import jakarta.faces.context.ResponseWriter;
 
 /**
  * Wraps {@link PartialResponseWriter} and delegates all calls to wrapped writer by default.

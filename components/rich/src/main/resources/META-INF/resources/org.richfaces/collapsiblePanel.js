@@ -20,105 +20,105 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-(function ($, rf) {
+(function($, rf) {
 
-    rf.ui = rf.ui || {};
+	rf.ui = rf.ui || {};
 
-    rf.ui.CollapsiblePanel = rf.ui.TogglePanel.extendClass({
+	rf.ui.CollapsiblePanel = rf.ui.TogglePanel.extendClass({
 
-            name:"CollapsiblePanel",
+		name: "CollapsiblePanel",
 
-            /**
-             * Backing object for rich:collapsiblePanel
-             * 
-             * @extends RichFaces.ui.TogglePanel
-             * @memberOf! RichFaces.ui
-             * @constructs RichFaces.ui.CollapsiblePanel
-             * 
-             * @param {string} componentId - component id
-             * @param {Object} options - params
-             * */
-            init : function (componentId, options) {
-                rf.ui.TogglePanel.call(this, componentId, options);
-                this.switchMode = options.switchMode;
+		/**
+		 * Backing object for rich:collapsiblePanel
+		 * 
+		 * @extends RichFaces.ui.TogglePanel
+		 * @memberOf! RichFaces.ui
+		 * @constructs RichFaces.ui.CollapsiblePanel
+		 * 
+		 * @param {string} componentId - component id
+		 * @param {Object} options - params
+		 * */
+		init: function(componentId, options) {
+			rf.ui.TogglePanel.call(this, componentId, options);
+			this.switchMode = options.switchMode;
 
-                this.__addUserEventHandler("beforeswitch");
-                this.__addUserEventHandler("switch");
+			this.__addUserEventHandler("beforeswitch");
+			this.__addUserEventHandler("switch");
 
-                this.options.cycledSwitching = true;
+			this.options.cycledSwitching = true;
 
-                var panel = this;
-                $(document.getElementById(this.id)).ready(function () { // TODO
-                    rf.Event.bindById(panel.id + ":header", "click", panel.__onHeaderClick, panel);
+			var panel = this;
+			$(document.getElementById(this.id)).ready(function() { // TODO
+				rf.Event.bindById(panel.id + ":header", "click", panel.__onHeaderClick, panel);
 
-                    new RichFaces.ui.CollapsiblePanelItem(
-                        panel.id + ":content", {"index":0, "togglePanelId":panel.id, "switchMode":panel.switchMode, "name":"true"}),
+				new RichFaces.ui.CollapsiblePanelItem(
+					panel.id + ":content", { "index": 0, "togglePanelId": panel.id, "switchMode": panel.switchMode, "name": "true" }),
 
-                        new RichFaces.ui.CollapsiblePanelItem(
-                            panel.id + ":empty", {"index":1, "togglePanelId":panel.id, "switchMode":panel.switchMode, "name":"false"})
-                })
-            },
+					new RichFaces.ui.CollapsiblePanelItem(
+						panel.id + ":empty", { "index": 1, "togglePanelId": panel.id, "switchMode": panel.switchMode, "name": "false" })
+			})
+		},
 
-            /**
-             * Switch the state of the panel
-             * 
-             * @method
-             * @name RichFaces.ui.CollapsiblePanel#switchPanel
-             * @param [to] {string} state to switch to: "true" (expanded), "false" (collapsed), "@next"
-             */
-            switchPanel : function (to) {
-                this.switchToItem(to || "@next");
-            },
+		/**
+		 * Switch the state of the panel
+		 * 
+		 * @method
+		 * @name RichFaces.ui.CollapsiblePanel#switchPanel
+		 * @param [to] {string} state to switch to: "true" (expanded), "false" (collapsed), "@next"
+		 */
+		switchPanel: function(to) {
+			this.switchToItem(to || "@next");
+		},
 
-            /**
-             * Expand the panel
-             * 
-             * @method
-             * @name RichFaces.ui.CollapsiblePanel#expand
-             */
-            expand: function() {
-                this.switchToItem("true");
-            },
+		/**
+		 * Expand the panel
+		 * 
+		 * @method
+		 * @name RichFaces.ui.CollapsiblePanel#expand
+		 */
+		expand: function() {
+			this.switchToItem("true");
+		},
 
-            /**
-             * Collapse the panel
-             * 
-             * @method
-             * @name RichFaces.ui.CollapsiblePanel#collapse
-             */
-            collapse: function() {
-                this.switchToItem("false");
-            },
+		/**
+		 * Collapse the panel
+		 * 
+		 * @method
+		 * @name RichFaces.ui.CollapsiblePanel#collapse
+		 */
+		collapse: function() {
+			this.switchToItem("false");
+		},
 
-            /**
-             * Returns true if the panel is expanded
-             * 
-             * @method
-             * @name RichFaces.ui.CollapsiblePanel#isExpanded
-             * @return {boolean} true if the panel is expanded
-             */
-            isExpanded: function() {
-                return this.activeItem == "true";
-            },
-            
-            /***************************** Private Methods ********************************************************/
+		/**
+		 * Returns true if the panel is expanded
+		 * 
+		 * @method
+		 * @name RichFaces.ui.CollapsiblePanel#isExpanded
+		 * @return {boolean} true if the panel is expanded
+		 */
+		isExpanded: function() {
+			return this.activeItem == "true";
+		},
 
-            __onHeaderClick : function () {
-                this.switchToItem("@next");
-            },
+		/***************************** Private Methods ********************************************************/
 
-            __fireItemChange : function (oldItem, newItem) {
-                return new rf.Event.fireById(this.id, "switch", {
-                        id: this.id,
-                        isExpanded : newItem.getName()
-                    });
-            },
+		__onHeaderClick: function() {
+			this.switchToItem("@next");
+		},
 
-            __fireBeforeItemChange : function (oldItem, newItem) {
-                return rf.Event.fireById(this.id, "beforeswitch", {
-                        id: this.id,
-                        isExpanded : newItem.getName()
-                    });
-            }
-        });
+		__fireItemChange: function(oldItem, newItem) {
+			return new rf.Event.fireById(this.id, "switch", {
+				id: this.id,
+				isExpanded: newItem.getName()
+			});
+		},
+
+		__fireBeforeItemChange: function(oldItem, newItem) {
+			return rf.Event.fireById(this.id, "beforeswitch", {
+				id: this.id,
+				isExpanded: newItem.getName()
+			});
+		}
+	});
 })(RichFaces.jQuery, RichFaces);

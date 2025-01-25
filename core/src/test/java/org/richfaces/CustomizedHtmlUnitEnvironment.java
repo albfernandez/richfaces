@@ -1,10 +1,10 @@
 package org.richfaces;
 
+import org.htmlunit.BrowserVersion;
 import org.jboss.test.faces.ServletHolder;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.richfaces.webapp.ResourceServlet;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
 
 public class CustomizedHtmlUnitEnvironment extends HtmlUnitEnvironment {
 

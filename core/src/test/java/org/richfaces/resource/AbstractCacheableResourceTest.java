@@ -31,7 +31,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.easymock.EasyMock;
 import org.easymock.IAnswer;
@@ -177,7 +177,7 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         BooleanAnswer tagMatches = new BooleanAnswer();
         BooleanAnswer lastModifiedMatches = new BooleanAnswer();
         BooleanAnswer cacheable = new BooleanAnswer();
-        AbstractCacheableResource resource = FacesMock.createControl().createMock(AbstractTestResource.class,
+        AbstractCacheableResource resource = FacesMock.createControl().createMock("AbstractCacheableResource",AbstractTestResource.class,null,
                 AbstractTestResource.class.getDeclaredMethods());
 
         EasyMock.expect(resource.isCacheable(facesContext)).andStubAnswer(cacheable);

@@ -27,8 +27,8 @@ import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
@@ -131,7 +131,7 @@ public final class ServiceTracker {
      * </p>
      */
     public static void release() {
-        ServicesFactory servicesFactory = INSTANCES.remove(getCurrentLoader());
+    	ServicesFactory servicesFactory = INSTANCES.remove(getCurrentLoader());
         servicesFactory.release();
     }
 

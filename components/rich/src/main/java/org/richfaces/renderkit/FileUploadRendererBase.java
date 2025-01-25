@@ -26,13 +26,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
 import org.richfaces.component.AbstractFileUpload;
 import org.richfaces.event.FileUploadEvent;
@@ -64,7 +64,7 @@ public class FileUploadRendererBase extends RendererBase {
     private String getTempFilesDirectory(ServletContext servletContext) {
         String result = servletContext.getInitParameter("org.richfaces.fileUpload.tempFilesDirectory");
         if (result == null) {
-            File servletTempDir = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+            File servletTempDir = (File) servletContext.getAttribute(ServletContext.TEMPDIR);
             if (servletTempDir != null) {
                 result = servletTempDir.getAbsolutePath();
             }
@@ -81,7 +81,7 @@ public class FileUploadRendererBase extends RendererBase {
             List<UploadedFile> files = new LinkedList<>();
 
             // check if Servlet 3.0+ is being used
-            if (request.getParts().size() > 0) {
+            if (!request.getParts().isEmpty()) {
                 Collection<Part> parts = request.getParts();
 
                 for (Part part : parts) {

@@ -23,16 +23,16 @@ package org.richfaces.view.facelets.html;
 
 import java.io.IOException;
 
-import javax.el.ELException;
-import javax.faces.FacesException;
-import javax.faces.FacesWrapper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.ComponentHandler;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.Tag;
-import javax.faces.view.facelets.TagAttribute;
+import jakarta.el.ELException;
+import jakarta.faces.FacesException;
+import jakarta.faces.FacesWrapper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.facelets.ComponentHandler;
+import jakarta.faces.view.facelets.FaceletContext;
+import jakarta.faces.view.facelets.Tag;
+import jakarta.faces.view.facelets.TagAttribute;
 
 /**
  * @author Nick Belaevski

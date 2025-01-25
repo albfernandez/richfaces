@@ -6,9 +6,9 @@ import static org.junit.Assert.assertNull;
 
 import java.util.HashMap;
 
-import javax.el.ELException;
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELException;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;

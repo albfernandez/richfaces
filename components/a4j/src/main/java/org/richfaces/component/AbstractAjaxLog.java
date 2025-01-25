@@ -20,9 +20,9 @@
  */
 package org.richfaces.component;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponentBase;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -39,7 +39,7 @@ import org.richfaces.component.attribute.StyleProps;
  * </p>
  * @author Nick Belaevski
  */
-@ResourceDependencies(value = { @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies(value = { @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),

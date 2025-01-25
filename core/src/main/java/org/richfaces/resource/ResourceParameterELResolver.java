@@ -21,12 +21,9 @@
  */
 package org.richfaces.resource;
 
-import java.beans.FeatureDescriptor;
-import java.util.Iterator;
-
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
@@ -40,10 +37,12 @@ public class ResourceParameterELResolver extends ELResolver {
         return String.class;
     }
 
+    /*MZ TODO
     @Override
     public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
         return null;
     }
+    */
 
     @Override
     public Class<?> getType(ELContext context, Object base, Object property) {

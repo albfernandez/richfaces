@@ -28,8 +28,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.el.util.ELUtils;
 import org.richfaces.log.Logger;

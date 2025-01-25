@@ -23,13 +23,13 @@ package org.richfaces.component;
 
 import java.util.Map;
 
-import javax.el.ValueExpression;
-import javax.faces.component.PartialStateHolder;
-import javax.faces.component.StateHelper;
-import javax.faces.component.StateHolder;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.PartialStateHolder;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.convert.ConverterUtil;

@@ -27,9 +27,9 @@ package org.richfaces.validator;
 
 import java.util.Collection;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.ValidatorException;
 
 /**
  * This interface should be implemented by the JSF {@link Validator} which able to validate entire graph.

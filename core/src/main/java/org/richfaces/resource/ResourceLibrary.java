@@ -34,7 +34,7 @@ package org.richfaces.resource;
  * <p>library.properties files can either:</p>
  *
  * <ul>
- * <li>define a comma-separated list of resources, e.g. <tt>resources=javax.faces:jsf.js, org.richfaces:richfaces.js</tt></li>
+ * <li>define a comma-separated list of resources, e.g. <tt>resources=jakarta.faces:faces.js, org.richfaces:richfaces.js</tt></li>
  * <li>or container a reference to a class implementing {@link ResourceLibrary} that will (dynamically) return list of resources contained in the library, e.g. <tt>class=my.library.CustomResourceLibrary</tt></li>
  * </ul>
  *

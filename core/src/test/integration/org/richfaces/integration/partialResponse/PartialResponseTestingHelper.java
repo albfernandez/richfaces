@@ -3,9 +3,9 @@ package org.richfaces.integration.partialResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import jakarta.xml.parsers.DocumentBuilder;
+import jakarta.xml.parsers.DocumentBuilderFactory;
+import jakarta.xml.parsers.ParserConfigurationException;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +14,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 /**
- * This utility helps to parse a last partial-response done by jsf.js by intercepting the JSF JS API and writing the response to
+ * This utility helps to parse a last partial-response done by faces.js by intercepting the JSF JS API and writing the response to
  * the object for inspection.
  */
 public class PartialResponseTestingHelper {

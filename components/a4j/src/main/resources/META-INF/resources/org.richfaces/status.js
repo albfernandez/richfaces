@@ -19,48 +19,53 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-(function($, rf) {
+(function ($, rf) {
 
-    var getGlobalStatusNameVariable = function() {
+    const getGlobalStatusNameVariable = function () {
         return rf.statusName;
     }
 
-    var RICHFACES_AJAX_STATUS = "richfaces:ajaxStatus";
+    const RICHFACES_AJAX_STATUS = "richfaces:ajaxStatus";
 
-    var getStatusDataAttributeName = function(statusName) {
+    const getStatusDataAttributeName = function (statusName) {
         return statusName ? (RICHFACES_AJAX_STATUS + "@" + statusName) : RICHFACES_AJAX_STATUS;
     };
 
-    var statusAjaxEventHandler = function(data, methodName) {
+    const statusAjaxEventHandler = function (data, methodName) {
         if (methodName) {
             //global status name
-            var statusName = getGlobalStatusNameVariable();
-            var source = data.source;
+            const statusName = getGlobalStatusNameVariable();
 
-            var statusApplied = false;
-            var statusDataAttribute = getStatusDataAttributeName(statusName);
+            let statusApplied = false;
+            const statusDataAttribute = getStatusDataAttributeName(statusName);
 
-            var statusContainers;
+            let statusContainers;
             if (statusName) {
                 statusContainers = [$(document)];
             } else {
+                const source = data.source;
+                if (source === null) {
+                    console.log(`Error: source is null. methodName='${methodName}', statusName='${statusName}'`)
+                    return;
+                }
+
                 // the element reference will be stale if it was rerendered
                 // we need to find the current element in the DOM
-                var currentSource = document.getElementById(source.id);
+                const currentSource = document.getElementById(source.id);
 
                 statusContainers = [$(currentSource).parents('form'), $(document)];
             }
 
-            for (var containerIdx = 0; containerIdx < statusContainers.length && !statusApplied;
+            for (let containerIdx = 0; containerIdx < statusContainers.length && !statusApplied;
                  containerIdx++) {
 
-                var statusContainer = statusContainers[containerIdx];
-                var statuses = statusContainer.data(statusDataAttribute);
+                const statusContainer = statusContainers[containerIdx];
+                const statuses = statusContainer.data(statusDataAttribute);
                 if (statuses) {
-                    for (var statusId in statuses) {
+                    for (let statusId in statuses) {
                         if (statuses.hasOwnProperty(statusId)) {
-                            var status = statuses[statusId];
-                            var result = status[methodName].apply(status, arguments);
+                            const status = statuses[statusId];
+                            const result = status[methodName].apply(status, arguments);
                             if (result) {
                                 statusApplied = true;
                             } else {
@@ -77,147 +82,146 @@
         }
     };
 
-    var initializeStatuses = function() {
-        var thisFunction = arguments.callee;
+    const initializeStatuses = function () {
+        const thisFunction = arguments.callee;
         if (!thisFunction.initialized) {
             thisFunction.initialized = true;
 
-            var jsfEventsListener = rf.createJSFEventsAdapter({
-                    begin: function(event) {
-                        statusAjaxEventHandler(event, 'start');
-                    },
-                    error: function(event) {
-                        statusAjaxEventHandler(event, 'error');
-                    },
-                    success: function(event) {
-                        statusAjaxEventHandler(event, 'success');
-                    },
-                    complete: function() {
-                        rf.setGlobalStatusNameVariable(null);
-                    }
-                });
+            const facesEventsListener = rf.createFacesEventsAdapter({
+                begin: function (event) {
+                    statusAjaxEventHandler(event, 'start');
+                },
+                error: function (event) {
+                    statusAjaxEventHandler(event, 'error');
+                },
+                success: function (event) {
+                    statusAjaxEventHandler(event, 'success');
+                },
+                complete: function () {
+                    rf.setGlobalStatusNameVariable(null);
+                }
+            });
 
-            jsf.ajax.addOnEvent(jsfEventsListener);
+            faces.ajax.addOnEvent(facesEventsListener);
             //TODO blocks default alert error handler
-            jsf.ajax.addOnError(jsfEventsListener);
+            faces.ajax.addOnError(facesEventsListener);
         }
     };
 
     rf.ui = rf.ui || {};
-    
+
     rf.ui.Status = rf.BaseComponent.extendClass({
 
-            name: "Status",
-            
-            /**
-             * Backing object for a4j:status
-             * 
-             * @extends RichFaces.BaseComponent
-             * @memberOf! RichFaces.ui
-             * @constructs RichFaces.ui.Status
-             * 
-             * @param id {string} component id
-             * @param [options] {Object} status options
-             */
-            //TODO - support for parallel requests
-            init: function(id, options) {
-                this.id = id;
-                this.attachToDom();
-                this.options = options || {};
-                this.register();
-            },
+        name: "Status",
 
-            register: function() {
-                initializeStatuses();
+        /**
+         * Backing object for a4j:status
+         *
+         * @extends RichFaces.BaseComponent
+         * @memberOf! RichFaces.ui
+         * @constructs RichFaces.ui.Status
+         *
+         * @param id {string} component id
+         * @param [options] {Object} status options
+         */
+        //TODO - support for parallel requests
+        init: function (id, options) {
+            this.id = id;
+            this.attachToDom();
+            this.options = options || {};
+            this.register();
+        },
 
-                var statusName = this.options.statusName;
-                var dataStatusAttribute = getStatusDataAttributeName(statusName);
+        register: function () {
+            initializeStatuses();
 
-                var container;
-                if (statusName) {
+            const statusName = this.options.statusName;
+            const dataStatusAttribute = getStatusDataAttributeName(statusName);
+
+            let container;
+            if (statusName) {
+                container = $(document);
+            } else {
+                container = $(rf.getDomElement(this.id)).parents('form');
+                if (container.length === 0) {
                     container = $(document);
-                } else {
-                    container = $(rf.getDomElement(this.id)).parents('form');
-                    if (container.length == 0) {
-                        container = $(document);
-                    }
-                    ;
-                }
-
-                var statuses = container.data(dataStatusAttribute);
-                if (!statuses) {
-                    statuses = {};
-                    container.data(dataStatusAttribute, statuses);
-                }
-
-                statuses[this.id] = this;
-            },
-
-            /**
-             * Switches status to the stop state.
-             * 
-             * @method
-             * @name RichFaces.ui.Status#start
-             */
-            start: function() {
-                if (this.options.onstart) {
-                    this.options.onstart.apply(this, arguments);
-                }
-
-                return this.__showHide('.rf-st-start');
-            },
-
-            /**
-             * Switches status to the stop state.
-             * 
-             * @method
-             * @name RichFaces.ui.Status#stop
-             */
-            stop: function() {
-                this.__stop();
-                return this.__showHide('.rf-st-stop');
-            },
-
-            success: function() {
-                if (this.options.onsuccess) {
-                    this.options.onsuccess.apply(this, arguments);
-                }
-                return this.stop();
-            },
-
-            /**
-             * Switches status to the error state.
-             * 
-             * @method
-             * @name RichFaces.ui.Status#error
-             */
-            error: function() {
-                if (this.options.onerror) {
-                    this.options.onerror.apply(this, arguments);
-                }
-                this.__stop();
-
-                return this.__showHide(':not(.rf-st-error) + .rf-st-stop, .rf-st-error');
-            },
-
-            __showHide: function(selector) {
-                var element = $(rf.getDomElement(this.id));
-                if (element) {
-                    var statusElts = element.children();
-                    statusElts.each(function() {
-                        var t = $(this);
-                        t.css('display', t.is(selector) ? '' : 'none');
-                    });
-
-                    return true;
-                }
-                return false;
-            },
-
-            __stop: function () {
-                if (this.options.onstop) {
-                    this.options.onstop.apply(this, arguments);
                 }
             }
-        });
+
+            let statuses = container.data(dataStatusAttribute);
+            if (!statuses) {
+                statuses = {};
+                container.data(dataStatusAttribute, statuses);
+            }
+
+            statuses[this.id] = this;
+        },
+
+        /**
+         * Switches status to the stop state.
+         *
+         * @method
+         * @name RichFaces.ui.Status#start
+         */
+        start: function () {
+            if (this.options.onstart) {
+                this.options.onstart.apply(this, arguments);
+            }
+
+            return this.__showHide('.rf-st-start');
+        },
+
+        /**
+         * Switches status to the stop state.
+         *
+         * @method
+         * @name RichFaces.ui.Status#stop
+         */
+        stop: function () {
+            this.__stop();
+            return this.__showHide('.rf-st-stop');
+        },
+
+        success: function () {
+            if (this.options.onsuccess) {
+                this.options.onsuccess.apply(this, arguments);
+            }
+            return this.stop();
+        },
+
+        /**
+         * Switches status to the error state.
+         *
+         * @method
+         * @name RichFaces.ui.Status#error
+         */
+        error: function () {
+            if (this.options.onerror) {
+                this.options.onerror.apply(this, arguments);
+            }
+            this.__stop();
+
+            return this.__showHide(':not(.rf-st-error) + .rf-st-stop, .rf-st-error');
+        },
+
+        __showHide: function (selector) {
+            const element = $(rf.getDomElement(this.id));
+            if (element) {
+                const statusElts = element.children();
+                statusElts.each(function () {
+                    const t = $(this);
+                    t.css('display', t.is(selector) ? '' : 'none');
+                });
+
+                return true;
+            }
+            return false;
+        },
+
+        __stop: function () {
+            if (this.options.onstop) {
+                this.options.onstop.apply(this, arguments);
+            }
+        }
+    });
 }(RichFaces.jQuery, window.RichFaces));

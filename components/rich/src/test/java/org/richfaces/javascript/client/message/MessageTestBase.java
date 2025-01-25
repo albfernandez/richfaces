@@ -4,14 +4,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.ajax4jsf.javascript.JSFunction;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 import org.jboss.test.qunit.Qunit;
 import org.jboss.test.qunit.Qunit.Builder;
 import org.junit.Rule;
 import org.richfaces.javascript.Message;
-
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class MessageTestBase {
     public static final String COMPONENT = "form:component";

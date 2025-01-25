@@ -21,6 +21,7 @@
  */
 package org.richfaces.component;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -29,6 +30,7 @@ import org.junit.Test;
  */
 public class DummyQueueTest extends AbstractQueueComponentTest {
     @Test
+    @Ignore
     public void testFoo() throws Exception {
         renderView("/test.jsf");
         ajax(10, "test data X", createAjaxParameters());

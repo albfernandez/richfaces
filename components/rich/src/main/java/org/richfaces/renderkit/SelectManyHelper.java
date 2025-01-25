@@ -33,7 +33,7 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.HtmlDimensions;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import jakarta.el.ValueExpression;
 import jakarta.faces.FacesException;
 import jakarta.faces.application.Application;

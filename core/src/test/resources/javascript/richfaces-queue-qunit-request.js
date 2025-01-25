@@ -25,28 +25,28 @@ RichFaces.QUnit.run(function() {
 
     var element;
     var event;
-    var jsfRequestBackup;
+    var facesRequestBackup;
     var warnLogBackup;
 
     QUnit.testStart(function(context) {
         element = document.getElementById("testDiv");
         event = {type:"testevent"};
-        jsfRequestBackup = RichFaces.ajaxContainer.jsfRequest;
+        facesRequestBackup = RichFaces.ajaxContainer.facesRequest;
         warnLogBackup = RichFaces.log.warn;
     });
     
     QUnit.testDone(function(context) {
         element = document.getElementById("testDiv");
         event = {type:"testevent"};
-        RichFaces.ajaxContainer.jsfRequest = jsfRequestBackup;
+        RichFaces.ajaxContainer.facesRequest = facesRequestBackup;
         RichFaces.queue.clear();
         RichFaces.log.warn = warnLogBackup;
     });
     
-    // reference to original jsf.ajax.request function
-    test("Reference to origional jsf.ajax.request function", function() {
+    // reference to original faces.ajax.request function
+    test("Reference to origional faces.ajax.request function", function() {
         expect(1);
-        equal(RichFaces.ajaxContainer.jsfRequest, jsf_ajax_request);
+        equal(RichFaces.ajaxContainer.facesRequest, faces_ajax_request);
     });
 
     // default queue id
@@ -93,19 +93,19 @@ RichFaces.QUnit.run(function() {
     // queue handlers
     test("queue event and error handlers", function() {
         expect(4);
-        equal(jsf.ajax.__data.afterEventHandlers - jsf.ajax.__data.beforeEventHandlers, 1, "one event handler");
-        equal(typeof jsf.ajax.eventHandlers[jsf.ajax.__data.beforeEventHandlers], "function", "event handler is function");
-        equal(jsf.ajax.__data.afterErrorHandlers - jsf.ajax.__data.beforeErrorHandlers, 1, "one error handler");
-        equal(typeof jsf.ajax.errorHandlers[jsf.ajax.__data.beforeErrorHandlers], "function", "error handler is function");
+        equal(faces.ajax.__data.afterEventHandlers - faces.ajax.__data.beforeEventHandlers, 1, "one event handler");
+        equal(typeof faces.ajax.eventHandlers[faces.ajax.__data.beforeEventHandlers], "function", "event handler is function");
+        equal(faces.ajax.__data.afterErrorHandlers - faces.ajax.__data.beforeErrorHandlers, 1, "one error handler");
+        equal(typeof faces.ajax.errorHandlers[faces.ajax.__data.beforeErrorHandlers], "function", "error handler is function");
     });
 
-    //jsf.ajax.request - parameters test
-    test("jsf.ajax.request - parameters", function() {
+    //faces.ajax.request - parameters test
+    test("faces.ajax.request - parameters", function() {
         expect(5);
 
-        RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
-            for (var i = 0; i < jsf.ajax.eventHandlers.length; i++) {
-                jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
+        RichFaces.ajaxContainer.facesRequest = function (source, event, options) {
+            for (var i = 0; i < faces.ajax.eventHandlers.length; i++) {
+                faces.ajax.eventHandlers[i]({type:"event", status:"success"});
             }
             equal(source.id, "testButton1", "source");
             equal(event.type, "click", "event");
@@ -116,7 +116,7 @@ RichFaces.QUnit.run(function() {
 
         var elements = RichFaces.QUnit.appendDomElements(element,
             '<form id="testForm">' +
-                '<input id="testButton1" type="button" value="hello" onclick="jsf.ajax.request(this,event,{parameters:{key:\'value\'}})"/>' +
+                '<input id="testButton1" type="button" value="hello" onclick="faces.ajax.request(this,event,{parameters:{key:\'value\'}})"/>' +
                 '</table>' +
                 '</form>');
 
@@ -124,24 +124,24 @@ RichFaces.QUnit.run(function() {
         RichFaces.queue.clear();
     });
     
-    test("jsf.ajax.request - error", function() {
+    test("faces.ajax.request - error", function() {
         expect(1);
 
         var messages = [];
         RichFaces.log.warn =  function(message) {
-            ok(message && message.indexOf("exception during jsf.ajax.request"), "one given log message should be observed");
+            ok(message && message.indexOf("exception during faces.ajax.request"), "one given log message should be observed");
         };
 
-        RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
-            for (var i = 0; i < jsf.ajax.eventHandlers.length; i++) {
-                jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
+        RichFaces.ajaxContainer.facesRequest = function (source, event, options) {
+            for (var i = 0; i < faces.ajax.eventHandlers.length; i++) {
+                faces.ajax.eventHandlers[i]({type:"event", status:"success"});
             }
-            throw new Error("exception during jsf.ajax.request");
+            throw new Error("exception during faces.ajax.request");
         }
 
         var elements = RichFaces.QUnit.appendDomElements(element,
             '<form id="testForm">' +
-                '<input id="testButton1" type="button" value="hello" onclick="jsf.ajax.request(this,event,{parameters:{key:\'value\'}})"/>' +
+                '<input id="testButton1" type="button" value="hello" onclick="faces.ajax.request(this,event,{parameters:{key:\'value\'}})"/>' +
                 '</table>' +
                 '</form>');
 
@@ -149,13 +149,13 @@ RichFaces.QUnit.run(function() {
         RichFaces.queue.clear();
     });
 
-    //jsf.ajax.request - queueId
-    test("jsf.ajax.request - queueId", function() {
+    //faces.ajax.request - queueId
+    test("faces.ajax.request - queueId", function() {
         expect(3);
 
-        RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
-            for (var i = 0; i < jsf.ajax.eventHandlers.length; i++) {
-                jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
+        RichFaces.ajaxContainer.facesRequest = function (source, event, options) {
+            for (var i = 0; i < faces.ajax.eventHandlers.length; i++) {
+                faces.ajax.eventHandlers[i]({type:"event", status:"success"});
             }
             equal(typeof options.queueId, "undefined", "options.queueId");
             equal(typeof options.requestGroupingId, "undefined", "options.requestGroupingId");
@@ -164,7 +164,7 @@ RichFaces.QUnit.run(function() {
 
         var elements = RichFaces.QUnit.appendDomElements(element,
             '<form id="testForm2">' +
-                '<input id="testButton2" type="button" value="hello" onclick="jsf.ajax.request(this,event,{queueId: \'testQueueId1\', param: \'value\'})"/>' +
+                '<input id="testButton2" type="button" value="hello" onclick="faces.ajax.request(this,event,{queueId: \'testQueueId1\', param: \'value\'})"/>' +
                 '</table>' +
                 '</form>');
 
@@ -174,13 +174,13 @@ RichFaces.QUnit.run(function() {
         RichFaces.queue.clear();
     });
 
-    //jsf.ajax.request - 2 x queueId
-    test("jsf.ajax.request - 2 x queueId", function() {
+    //faces.ajax.request - 2 x queueId
+    test("faces.ajax.request - 2 x queueId", function() {
         expect(3);
 
-        RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
-            for (var i = 0; i < jsf.ajax.eventHandlers.length; i++) {
-                jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
+        RichFaces.ajaxContainer.facesRequest = function (source, event, options) {
+            for (var i = 0; i < faces.ajax.eventHandlers.length; i++) {
+                faces.ajax.eventHandlers[i]({type:"event", status:"success"});
             }
             equal(typeof options.queueId, "undefined", "options.queueId");
             equal(typeof options.requestGroupingId, "undefined", "options.requestGroupingId");
@@ -189,7 +189,7 @@ RichFaces.QUnit.run(function() {
 
         var elements = RichFaces.QUnit.appendDomElements(element,
             '<form id="testForm3">' +
-                '<input id="testButton3" type="button" value="hello" onclick="jsf.ajax.request(this,event,{queueId: \'testQueueId1\', param: \'newValue\'})"/>' +
+                '<input id="testButton3" type="button" value="hello" onclick="faces.ajax.request(this,event,{queueId: \'testQueueId1\', param: \'newValue\'})"/>' +
                 '</table>' +
                 '</form>');
 
@@ -201,8 +201,8 @@ RichFaces.QUnit.run(function() {
         RichFaces.queue.clear();
     });
 
-    //jsf.ajax.request - requestDelay
-    test("jsf.ajax.request - requestDelay", function() {
+    //faces.ajax.request - requestDelay
+    test("faces.ajax.request - requestDelay", function() {
         Timer.beginSimulation();
         var time;
         var newTime;
@@ -220,16 +220,16 @@ RichFaces.QUnit.run(function() {
                 RichFaces.queue.clear();
             }
         }
-        RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
-            for (var i = 0; i < jsf.ajax.eventHandlers.length; i++) {
-                jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
+        RichFaces.ajaxContainer.facesRequest = function (source, event, options) {
+            for (var i = 0; i < faces.ajax.eventHandlers.length; i++) {
+                faces.ajax.eventHandlers[i]({type:"event", status:"success"});
             }
             newTime = Timer.currentTime;
         }
 
         var elements = RichFaces.QUnit.appendDomElements(element,
             '<form id="testForm4">' +
-                '<input id="testButton4" type="button" value="hello" onclick="jsf.ajax.request(this,event,{queueId: \'testQueueId1\'})"/>' +
+                '<input id="testButton4" type="button" value="hello" onclick="faces.ajax.request(this,event,{queueId: \'testQueueId1\'})"/>' +
                 '</table>' +
                 '</form>');
 
@@ -243,8 +243,8 @@ RichFaces.QUnit.run(function() {
         Timer.endSimulation();
     });
 
-    //jsf.ajax.request - equal requestGroupingId
-    test("jsf.ajax.request - equal requestGroupingId", function() {
+    //faces.ajax.request - equal requestGroupingId
+    test("faces.ajax.request - equal requestGroupingId", function() {
         Timer.beginSimulation();
         var time;
         var newTime;
@@ -264,9 +264,9 @@ RichFaces.QUnit.run(function() {
                 RichFaces.queue.clear();
             }
         }
-        RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
-            for (var i = 0; i < jsf.ajax.eventHandlers.length; i++) {
-                jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
+        RichFaces.ajaxContainer.facesRequest = function (source, event, options) {
+            for (var i = 0; i < faces.ajax.eventHandlers.length; i++) {
+                faces.ajax.eventHandlers[i]({type:"event", status:"success"});
             }
             newTime = Timer.currentTime;
             param = options.param;
@@ -274,8 +274,8 @@ RichFaces.QUnit.run(function() {
 
         var elements = RichFaces.QUnit.appendDomElements(element,
             '<form id="testForm5">' +
-                '<input id="testButton5-1" type="button" value="hello" onclick="jsf.ajax.request(this,event,{queueId: \'testQueueId1\', param: \'value\'})"/>' +
-                '<input id="testButton5-2" type="button" value="hello" onclick="jsf.ajax.request(this,event,{queueId: \'testQueueId1\', param: \'value2\'})"/>' +
+                '<input id="testButton5-1" type="button" value="hello" onclick="faces.ajax.request(this,event,{queueId: \'testQueueId1\', param: \'value\'})"/>' +
+                '<input id="testButton5-2" type="button" value="hello" onclick="faces.ajax.request(this,event,{queueId: \'testQueueId1\', param: \'value2\'})"/>' +
                 '</table>' +
                 '</form>');
 
@@ -292,8 +292,8 @@ RichFaces.QUnit.run(function() {
         Timer.endSimulation();
     });
 
-    //jsf.ajax.request - not equal requestGroupingId
-    test("jsf.ajax.request - not equal requestGroupingId", function() {
+    //faces.ajax.request - not equal requestGroupingId
+    test("faces.ajax.request - not equal requestGroupingId", function() {
         Timer.beginSimulation();
         var time;
         var newTime;
@@ -320,9 +320,9 @@ RichFaces.QUnit.run(function() {
                 RichFaces.queue.clear();
             }
         }
-        RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
-            for (var i = 0; i < jsf.ajax.eventHandlers.length; i++) {
-                jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
+        RichFaces.ajaxContainer.facesRequest = function (source, event, options) {
+            for (var i = 0; i < faces.ajax.eventHandlers.length; i++) {
+                faces.ajax.eventHandlers[i]({type:"event", status:"success"});
             }
             param = options.param;
             if (typeof newTime == "undefined") {
@@ -334,8 +334,8 @@ RichFaces.QUnit.run(function() {
 
         var elements = RichFaces.QUnit.appendDomElements(element,
             '<form id="testForm6">' +
-                '<input id="testButton6-1" type="button" value="hello" onclick="jsf.ajax.request(this,event,{queueId: \'testQueueId1\', param: \'value\'})"/>' +
-                '<input id="testButton6-2" type="button" value="hello" onclick="jsf.ajax.request(this,event,{queueId: \'testQueueId2\', param: \'value2\'})"/>' +
+                '<input id="testButton6-1" type="button" value="hello" onclick="faces.ajax.request(this,event,{queueId: \'testQueueId1\', param: \'value\'})"/>' +
+                '<input id="testButton6-2" type="button" value="hello" onclick="faces.ajax.request(this,event,{queueId: \'testQueueId2\', param: \'value2\'})"/>' +
                 '</table>' +
                 '</form>');
 

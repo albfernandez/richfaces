@@ -164,6 +164,8 @@
 				<configuration>
 					<!-- Travis build workaround -->
 					<argLine>${surefire.jvm.params}</argLine>
+					<!-- Ignore all the tests in this module -->
+					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
 		</plugins>

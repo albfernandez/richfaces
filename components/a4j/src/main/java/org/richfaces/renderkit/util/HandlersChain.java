@@ -176,7 +176,7 @@ public final class HandlersChain {
             if (handlers.size() == 1) {
                 result = handlers.get(0);
             } else {
-                JSFunction jsFunction = new JSFunction("jsf.util.chain", JSReference.THIS, JSReference.EVENT);
+                JSFunction jsFunction = new JSFunction("faces.util.chain", JSReference.THIS, JSReference.EVENT);
 
                 for (String handler : handlers) {
                     jsFunction.addParameter(handler);

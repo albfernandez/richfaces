@@ -1,4 +1,4 @@
-// AJAX-JSF AJAX-like library, for communicate with view Tree on server side.
+// AJAX-FACES AJAX-like library, for communicate with view Tree on server side.
 // In case of XMLHttpRequest don't worked, use :
 // JSHttpRequest v1.12. (C) Dmitry Koterov, 2005-01-27. 
 // http://forum.dklab.ru/users/DmitryKoterov/
@@ -6,7 +6,7 @@
 // Do not remove this comment if you want to use script!
 // ?? ???????? ?????? ???????????, ???? ?? ?????? ???????????? ??????!
 //
-// Modified by Alexander J. Smirnov to use as JSF AJAX-like components. 
+// Modified by Alexander J. Smirnov to use as FACES AJAX-like components.
 
 // DOM - like elements for JSRequest. JS serialiser encode
 // XML sax events to creation of corresponding objects.  
@@ -124,5 +124,3 @@ D = function(text) {
 D.prototype.getContent = function(context) {
 	return "<![CDATA[" + this.value + "]]>";
 };
-
-

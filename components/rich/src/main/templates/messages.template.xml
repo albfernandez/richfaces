@@ -25,7 +25,7 @@ Foundation,
 		<cdk:component-family>jakarta.faces.Messages</cdk:component-family>
 		<cdk:renderer-type>org.richfaces.MessagesRenderer</cdk:renderer-type>
 
-		<cdk:resource-dependency library="jakarta.faces" name="jsf.js" />
+		<cdk:resource-dependency library="jakarta.faces" name="faces.js" />
 		<cdk:resource-dependency library="org.richfaces" name="jquery.js" />
 		<cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
 		<cdk:resource-dependency library="org.richfaces"

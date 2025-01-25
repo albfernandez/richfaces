@@ -12,7 +12,7 @@
 		<cdk:renderer-type>org.richfaces.ChartRenderer</cdk:renderer-type>
 		<cdk:component-base-class>org.richfaces.component.AbstractChart</cdk:component-base-class>
 
-		<cdk:resource-dependency library="jakarta.faces" name="jsf.js" />
+		<cdk:resource-dependency library="jakarta.faces" name="faces.js" />
 		<cdk:resource-dependency library="org.richfaces" name="jquery.js" />
 		<cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
 		<cdk:resource-dependency library="org.richfaces"

@@ -38,13 +38,13 @@ import org.richfaces.renderkit.util.HandlersChain;
  * @version $Revision: 1.1.2.3 $ $Date: 2007/02/12 17:46:53 $
  *
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies({ @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib") })
 public abstract class AjaxCommandRendererBase extends RendererBase {
     private static final Logger LOG = RichfacesLogger.RENDERKIT.getLogger();
-    private static final String SOURCE_ID = "javax.faces.source";
+    private static final String SOURCE_ID = "jakarta.faces.source";
 
     @Override
     protected void queueComponentEventForBehaviorEvent(FacesContext context, UIComponent component, String eventName) {

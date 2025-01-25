@@ -22,17 +22,16 @@
 
 package org.richfaces.resource;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.junit.Test;
-import org.xml.sax.SAXException;
+import static org.junit.Assert.assertEquals;
 
 public class Xcss2EcssConverterTest {
 
@@ -89,8 +88,8 @@ public class Xcss2EcssConverterTest {
                 "</u:style>\n" +
                 "</u:selector>";
         assertEcssEquals(".myDiv{"
-                + "background-image:\"url(#{resource['test?gradientHeight=100px&height=150px&gradientColor=Skin.myskin']})\";"
-                + "}",
+                        + "background-image:\"url(#{resource['test?gradientHeight=100px&height=150px&gradientColor=Skin.myskin']})\";"
+                        + "}",
                 convertFragment(xcss));
     }
 
@@ -146,7 +145,7 @@ public class Xcss2EcssConverterTest {
                 + "</f:if>"
                 + "</u:selector>";
         assertEcssEquals(".menu{background-image:\"#{notemptya4jSkin.menu1?'url(':''}" +
-                "#{notemptya4jSkin.menu1?resource[a4jSkin.menu1]:''}#{notemptya4jSkin.menu1?')':''}\";}",
+                        "#{notemptya4jSkin.menu1?resource[a4jSkin.menu1]:''}#{notemptya4jSkin.menu1?')':''}\";}",
                 convertFragment(xcss));
     }
 
@@ -160,7 +159,7 @@ public class Xcss2EcssConverterTest {
                 + "</f:if>"
                 + "</u:selector>";
         assertEcssEquals(".menu{background-image:\"#{notemptya4jSkin.menu1?'url(':''}" +
-                "#{notemptya4jSkin.menu1?resource['META-INF/lien.gif']:''}#{notemptya4jSkin.menu1?')':''}\";}",
+                        "#{notemptya4jSkin.menu1?resource['META-INF/lien.gif']:''}#{notemptya4jSkin.menu1?')':''}\";}",
                 convertFragment(xcss));
     }
 
@@ -208,22 +207,14 @@ public class Xcss2EcssConverterTest {
         Xcss2EcssConverter.CreateParser parser;
         try {
             parser = new Xcss2EcssConverter.CreateParser(handler);
-        } catch (SAXException e) {
-            throw new RuntimeException(e);
-        } catch (ParserConfigurationException e) {
+        } catch (SAXException | ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
         try {
-            parser.parse(new ByteArrayInputStream(xcssFragment.getBytes("utf-8")));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (SAXException e) {
+            parser.parse(new ByteArrayInputStream(xcssFragment.getBytes(StandardCharsets.UTF_8)));
+        } catch (IOException | SAXException e) {
             throw new RuntimeException(e);
         }
-        try {
-            return new String(baos.toByteArray(), "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        return new String(baos.toByteArray(), StandardCharsets.UTF_8);
     }
 }

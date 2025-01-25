@@ -95,7 +95,7 @@ public class QUnitTest {
             i++;
         }
 
-        if (sb.length() > 0) {
+        if (!sb.isEmpty()) {
             fail("Failures:\n" + sb + "User Agent: " + page.getElementById("qunit-userAgent").getTextContent());
         }
     }

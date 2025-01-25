@@ -9,7 +9,7 @@ import com.google.common.collect.ImmutableSet;
 public class AjaxOnlyScript extends ValidatorScriptBase {
 
     public static final Iterable<ResourceKey> AJAX_LIBRARIES = ImmutableSet.of(
-            ResourceKey.create("javax.faces:jsf.js"),
+            ResourceKey.create("jakarta.faces:faces.js"),
             ResourceKey.create("org.richfaces:jquery.js"),
             ResourceKey.create("org.richfaces:richfaces.js"),
             ResourceKey.create("org.richfaces:richfaces-queue.reslib"),

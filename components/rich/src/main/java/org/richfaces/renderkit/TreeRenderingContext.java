@@ -71,7 +71,7 @@ public final class TreeRenderingContext {
                 return firstHandler;
             }
 
-            return new JSFunction("return jsf.util.chain", JSReference.THIS, JSReference.EVENT, firstHandler, secondHandler)
+            return new JSFunction("return faces.util.chain", JSReference.THIS, JSReference.EVENT, firstHandler, secondHandler)
                 .toScript();
         }
 

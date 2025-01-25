@@ -183,7 +183,7 @@
 		};
 
 		this.isFirstAjax = false;
-		//caution: JSF submits inputs with empty names causing "WARNING: Parameters: Invalid chunk ignored." in Tomcat log
+		//caution: FACES submits inputs with empty names causing "WARNING: Parameters: Invalid chunk ignored." in Tomcat log
 		var params = {};
 		params[this.id + ".ajax"] = "1";
 		var opts = {

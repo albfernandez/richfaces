@@ -24,9 +24,8 @@ package org.richfaces.javascript.client.message;
 
 import static org.junit.Assert.assertFalse;
 
+import org.htmlunit.html.HtmlElement;
 import org.junit.Test;
-
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * <p class="changed_added_4_0">

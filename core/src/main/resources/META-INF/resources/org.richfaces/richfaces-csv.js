@@ -281,7 +281,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             "convertDate": function (value, label, params, msg) {
                 var result;
                 value = $.trim(value);
-                // TODO - JSF date converter options.
+                // TODO - FACES date converter options.
                 result = Date.parse(value);
                 return result;
             },

@@ -20,10 +20,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-if (typeof jsf != 'undefined') {
-    (function($, rf, jsf) {
+if (typeof faces != 'undefined') {
+    (function($, rf, faces) {
 
-        //JSF log adapter
+        //FACES log adapter
         var identifyElement = function(elt) {
             var identifier = '<' + elt.tagName.toLowerCase();
             var e = $(elt);
@@ -70,7 +70,7 @@ if (typeof jsf != 'undefined') {
             return logElement;
         }
 
-        var jsfAjaxLogAdapter = function(data) {
+        var facesAjaxLogAdapter = function(data) {
             try {
                 var log = rf.log;
 
@@ -110,17 +110,17 @@ if (typeof jsf != 'undefined') {
             }
         };
 
-        var eventsListener = rf.createJSFEventsAdapter({
-                begin: jsfAjaxLogAdapter,
-                beforedomupdate: jsfAjaxLogAdapter,
-                success: jsfAjaxLogAdapter,
-                complete: jsfAjaxLogAdapter,
-                error: jsfAjaxLogAdapter
+        var eventsListener = rf.createFacesEventsAdapter({
+                begin: facesAjaxLogAdapter,
+                beforedomupdate: facesAjaxLogAdapter,
+                success: facesAjaxLogAdapter,
+                complete: facesAjaxLogAdapter,
+                error: facesAjaxLogAdapter
             });
 
-        jsf.ajax.addOnEvent(eventsListener);
-        jsf.ajax.addOnError(eventsListener);
+        faces.ajax.addOnEvent(eventsListener);
+        faces.ajax.addOnError(eventsListener);
         //
-    }(RichFaces.jQuery, RichFaces, jsf));
+    }(RichFaces.jQuery, RichFaces, faces));
 }
 ;

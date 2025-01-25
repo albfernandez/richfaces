@@ -46,7 +46,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.ByteBuffer;
@@ -80,10 +83,12 @@ import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 
+import org.ajax4jsf.Messages;
 import org.ajax4jsf.util.base64.Codec;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.FastJoiner;
+import org.richfaces.util.LookAheadObjectInputStream;
 import org.richfaces.util.PropertiesUtil;
 
 import com.google.common.base.Function;
@@ -250,11 +255,48 @@ public final class ResourceUtils {
         return decrypt(dataArray);
     }
 
+    public static Object decodeObjectData(String encodedData) {
+        byte[] objectArray = decodeBytesData(encodedData);
+
+        try {
+            ObjectInputStream in = new LookAheadObjectInputStream(new ByteArrayInputStream(objectArray));
+            return in.readObject();
+        } catch (StreamCorruptedException e) {
+            RESOURCE_LOGGER.error(Messages.getMessage(Messages.STREAM_CORRUPTED_ERROR), e);
+        } catch (IOException e) {
+            RESOURCE_LOGGER.error(Messages.getMessage(Messages.DESERIALIZE_DATA_INPUT_ERROR), e);
+        } catch (ClassNotFoundException e) {
+            RESOURCE_LOGGER.error(Messages.getMessage(Messages.DATA_CLASS_NOT_FOUND_ERROR), e);
+        }
+
+        return null;
+    }
+
     public static String encodeBytesData(byte[] data) {
         if (data != null) {
             byte[] dataArray = encrypt(data);
 
             return new String(dataArray, StandardCharsets.ISO_8859_1);
+        }
+
+        return null;
+    }
+
+    public static String encodeObjectData(Object data) {
+        if (data != null) {
+            try {
+                ByteArrayOutputStream dataStream = new ByteArrayOutputStream(1024);
+                ObjectOutputStream objStream = new ObjectOutputStream(dataStream);
+
+                objStream.writeObject(data);
+                objStream.flush();
+                objStream.close();
+                dataStream.close();
+
+                return encodeBytesData(dataStream.toByteArray());
+            } catch (Exception e) {
+                RESOURCE_LOGGER.error(Messages.getMessage(Messages.QUERY_STRING_BUILDING_ERROR), e);
+            }
         }
 
         return null;

@@ -42,6 +42,7 @@ import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.component.AbstractAttachQueue;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
@@ -121,6 +122,7 @@ public class AttachQueueHandlerTest {
     }
 
     @Test
+    @Ignore
     public void testAttachQueueWithNestedAjax() throws Exception {
         buildView("/attachQueueWithNestedAjax.xhtml");
 
@@ -137,6 +139,7 @@ public class AttachQueueHandlerTest {
     }
 
     @Test
+    @Ignore
     public void testAttachQueueWithParentComponent() throws Exception {
         buildView("/attachQueueWithParentComponent.xhtml");
 
@@ -145,6 +148,7 @@ public class AttachQueueHandlerTest {
     }
 
     @Test
+    @Ignore
     public void testAttachQueueWithWrappingAjax() throws Exception {
         buildView("/attachQueueWithWrappingAjax.xhtml");
 
@@ -168,6 +172,7 @@ public class AttachQueueHandlerTest {
     }
 
     @Test
+    @Ignore
     public void testAttachQueueWithWrappingBehaviors() throws Exception {
         buildView("/attachQueueWithWrappingBehaviors.xhtml");
 

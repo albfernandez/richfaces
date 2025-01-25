@@ -27,7 +27,7 @@ Foundation,
 		<cdk:import package="org.richfaces.renderkit"
 			names="NotifyRendererUtils.addStackIdOption" static="true" />
 
-		<cdk:resource-dependency library="jakarta.faces" name="jsf.js" />
+		<cdk:resource-dependency library="jakarta.faces" name="faces.js" />
 		<cdk:resource-dependency library="org.richfaces" name="jquery.js" />
 		<cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
 		<cdk:resource-dependency library="org.richfaces"

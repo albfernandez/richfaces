@@ -21,8 +21,12 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+<faces-config
+        version="3.0" xmlns="https://jakarta.ee/xml/ns/jakartaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+        https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd"
+>
 
     <name>richfaces_core</name>
 
@@ -58,17 +62,6 @@
         <partial-view-context-factory>org.richfaces.context.ExtendedPartialViewContextFactory</partial-view-context-factory>
         <visit-context-factory>org.richfaces.context.ExtendedVisitContextFactory</visit-context-factory>
     </factory>
-
-    <managed-bean>
-        <managed-bean-name>richfacesVersion</managed-bean-name>
-        <managed-bean-class>org.richfaces.VersionBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>a4jSkin</managed-bean-name>
-        <managed-bean-class>org.richfaces.skin.SkinBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
 
     <component>
         <component-type>org.richfaces.Scripts</component-type>

@@ -13,7 +13,7 @@
 		<cdk:renderer-type>org.richfaces.TreeRenderer</cdk:renderer-type>
 		<cdk:renders-children>true</cdk:renders-children>
 
-		<cdk:resource-dependency library="jakarta.faces" name="jsf.js" />
+		<cdk:resource-dependency library="jakarta.faces" name="faces.js" />
 		<cdk:resource-dependency library="org.richfaces" name="jquery.js" />
 		<cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
 		<cdk:resource-dependency library="org.richfaces"

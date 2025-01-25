@@ -150,9 +150,16 @@ public class PartialStateHolderHelper implements StateHelper {
         return eval(key, null);
     }
 
+    @Override
+    public Object eval(Serializable key, Supplier<Object> defaultValueSupplier) {
+        Object defaultValue = defaultValueSupplier != null ? defaultValueSupplier.get() : null;
+        return eval(key, defaultValue);
+    }
+
     /**
      * @see StateHelper#eval(java.io.Serializable, Object)
      */
+    @Override
     public Object eval(Serializable key, Object defaultValue) {
         Object retVal = get(key);
         if (retVal == null) {
@@ -379,13 +386,4 @@ public class PartialStateHolderHelper implements StateHelper {
         }
         return ret;
     }
-
-	@Override
-	public Object eval(Serializable key, Supplier<Object> defaultValueSupplier) {
-		//MZ TODO Auto-generated method stub
-		
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MZ TODO");
-		
-		return null;
-	}
 }

@@ -1,4 +1,4 @@
-(function($, rf, jsf) {
+(function($, rf, faces) {
 
 
   /**
@@ -358,20 +358,20 @@
   /*
    * INITIALIZE PUSH
    *
-   * when document is ready and when JSF errors happens
+   * when document is ready and when FACES errors happens
    */
 
   $(document).ready(function() {
     rf.push.updateConnection();
   });
 
-  jsf.ajax.addOnEvent(jsfErrorHandler);
-  jsf.ajax.addOnError(jsfErrorHandler);
+  faces.ajax.addOnEvent(facesErrorHandler);
+  faces.ajax.addOnError(facesErrorHandler);
 
 
   /* PRIVATE FUNCTIONS */
 
-  function jsfErrorHandler(event) {
+  function facesErrorHandler(event) {
     if (event.type == 'event') {
       if (event.status != 'success') {
         return;
@@ -391,4 +391,4 @@
     return result;
   }
 
-}(RichFaces.jQuery, RichFaces, jsf));
+}(RichFaces.jQuery, RichFaces, faces));

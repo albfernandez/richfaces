@@ -42,7 +42,7 @@ import org.richfaces.view.facelets.html.RepeatHandler;
         renderer = @JsfRenderer(type = "org.richfaces.RepeatRenderer"))
 public class UIRepeat extends UISequence implements RowsProps, SequenceProps, IterationProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Repeat";
-    public static final String COMPONENT_FAMILY = "javax.faces.Data";
+    public static final String COMPONENT_FAMILY = "jakarta.faces.Data";
 
     public UIRepeat() {
         setRendererType("org.richfaces.RepeatRenderer");

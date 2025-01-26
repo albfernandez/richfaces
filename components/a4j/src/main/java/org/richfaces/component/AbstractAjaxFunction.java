@@ -38,7 +38,7 @@ import org.richfaces.component.attribute.BypassProps;
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.FunctionRenderer"), tag = @Tag(name = "jsFunction", type = TagType.Facelets))
 public abstract class AbstractAjaxFunction extends BasicActionComponent implements AjaxCommandProps, BypassProps {
-    public static final String COMPONENT_FAMILY = "javax.faces.Command";
+    public static final String COMPONENT_FAMILY = "jakarta.faces.Command";
     public static final String COMPONENT_TYPE = "org.richfaces.Function";
 
     /**

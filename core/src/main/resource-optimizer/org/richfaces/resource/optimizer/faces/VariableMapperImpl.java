@@ -28,12 +28,15 @@ import jakarta.faces.context.FacesContext;
 
 import org.richfaces.skin.SkinFactory;
 
+import java.io.Serial;
+
 /**
  * @author Nick Belaevski
  *
  */
 public class VariableMapperImpl extends VariableMapper {
     private static final ValueExpression SKIN_VALUE_EXPRESSION = new ReadOnlyValueExpression() {
+        @Serial
         private static final long serialVersionUID = 3552483406787835235L;
 
         @Override
@@ -43,6 +46,7 @@ public class VariableMapperImpl extends VariableMapper {
         }
     };
     private static final ValueExpression RESOURCE_VALUE_EXPRESSION = new ReadOnlyValueExpression() {
+        @Serial
         private static final long serialVersionUID = -8545250767102884398L;
 
         @Override

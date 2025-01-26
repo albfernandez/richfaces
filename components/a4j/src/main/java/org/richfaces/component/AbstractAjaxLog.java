@@ -39,7 +39,7 @@ import org.richfaces.component.attribute.StyleProps;
  * </p>
  * @author Nick Belaevski
  */
-@ResourceDependencies(value = { @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+@ResourceDependencies(value = { @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),

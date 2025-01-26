@@ -1396,7 +1396,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     private boolean requiresRowIteration(VisitContext context) {
         // The VisitHint.SKIP_ITERATION enum is only available as of JSF 2.1.
         if (JsfVersion.getCurrent() == JsfVersion.JSF_2_0) {
-            return ! Boolean.TRUE.equals(context.getFacesContext().getAttributes().get("javax.faces.visit.SKIP_ITERATION"));
+            return ! Boolean.TRUE.equals(context.getFacesContext().getAttributes().get("jakarta.faces.visit.SKIP_ITERATION"));
         }
 
         return !context.getHints().contains(VisitHint.SKIP_ITERATION);

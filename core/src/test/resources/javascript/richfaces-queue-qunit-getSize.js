@@ -39,7 +39,7 @@ RichFaces.QUnit.run(function() {
         RichFaces.queue.setQueueOptions(opts.queueId, options);
         var size = RichFaces.queue.getSize();
         equal(size, 0, "empty queue");
-        jsf.ajax.request(element, event, opts);
+        faces.ajax.request(element, event, opts);
         size = RichFaces.queue.getSize();
         equal(size, 1, "not empty");
     });

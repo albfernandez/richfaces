@@ -64,7 +64,7 @@ public class FileUploadRendererBase extends RendererBase {
     private String getTempFilesDirectory(ServletContext servletContext) {
         String result = servletContext.getInitParameter("org.richfaces.fileUpload.tempFilesDirectory");
         if (result == null) {
-            File servletTempDir = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+            File servletTempDir = (File) servletContext.getAttribute(ServletContext.TEMPDIR);
             if (servletTempDir != null) {
                 result = servletTempDir.getAbsolutePath();
             }
@@ -81,7 +81,7 @@ public class FileUploadRendererBase extends RendererBase {
             List<UploadedFile> files = new LinkedList<>();
 
             // check if Servlet 3.0+ is being used
-            if (request.getParts().size() > 0) {
+            if (!request.getParts().isEmpty()) {
                 Collection<Part> parts = request.getParts();
 
                 for (Part part : parts) {

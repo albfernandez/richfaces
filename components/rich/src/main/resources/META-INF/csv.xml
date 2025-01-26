@@ -23,7 +23,7 @@
 
 <scripts>
 	<component>
-		<type>javax.faces.convert.NumberConverter</type>
+		<type>jakarta.faces.convert.NumberConverter</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -31,7 +31,7 @@
 		<function>RichFaces.csv.convertNumber</function>
 	</component>
 	<component>
-		<type>javax.faces.convert.BooleanConverter</type>
+		<type>jakarta.faces.convert.BooleanConverter</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -39,7 +39,7 @@
 		<function>RichFaces.csv.convertBoolean</function>
 	</component>
 	<component>
-		<type>javax.faces.convert.ByteConverter</type>
+		<type>jakarta.faces.convert.ByteConverter</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -47,7 +47,7 @@
 		<function>RichFaces.csv.convertByte</function>
 	</component>
 	<component>
-		<type>javax.faces.convert.ShortConverter</type>
+		<type>jakarta.faces.convert.ShortConverter</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -55,7 +55,7 @@
 		<function>RichFaces.csv.convertShort</function>
 	</component>
 	<component>
-		<type>javax.faces.convert.CharacterConverter</type>
+		<type>jakarta.faces.convert.CharacterConverter</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -63,7 +63,7 @@
 		<function>RichFaces.csv.convertCharacter</function>
 	</component>
 	<component>
-		<type>javax.faces.convert.IntegerConverter</type>
+		<type>jakarta.faces.convert.IntegerConverter</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -71,7 +71,7 @@
 		<function>RichFaces.csv.convertInteger</function>
 	</component>
 	<component>
-		<type>javax.faces.convert.LongConverter</type>
+		<type>jakarta.faces.convert.LongConverter</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -79,7 +79,7 @@
 		<function>RichFaces.csv.convertLong</function>
 	</component>
 	<component>
-		<type>javax.faces.convert.FloatConverter</type>
+		<type>jakarta.faces.convert.FloatConverter</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -87,7 +87,7 @@
 		<function>RichFaces.csv.convertFloat</function>
 	</component>
 	<component>
-		<type>javax.faces.convert.DoubleConverter</type>
+		<type>jakarta.faces.convert.DoubleConverter</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -95,7 +95,7 @@
 		<function>RichFaces.csv.convertDouble</function>
 	</component>
 	<component>
-		<type>javax.faces.convert.DateTimeConverter</type>
+		<type>jakarta.faces.convert.DateTimeConverter</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -103,7 +103,7 @@
 		<function>RichFaces.csv.convertDate</function>
 	</component>
 	<component>
-		<type>javax.faces.convert.ShortConverter</type>
+		<type>jakarta.faces.convert.ShortConverter</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -111,7 +111,7 @@
 		<function>RichFaces.csv.convertShort</function>
 	</component>
 	<component>
-		<type>javax.faces.validator.LengthValidator</type>
+		<type>jakarta.faces.validator.LengthValidator</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -119,7 +119,7 @@
 		<function>RichFaces.csv.validateLength</function>
 	</component>
 	<component>
-		<type>javax.faces.validator.LongRangeValidator</type>
+		<type>jakarta.faces.validator.LongRangeValidator</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -127,7 +127,7 @@
 		<function>RichFaces.csv.validateLongRange</function>
 	</component>
 	<component>
-		<type>javax.faces.validator.DoubleRangeValidator</type>
+		<type>jakarta.faces.validator.DoubleRangeValidator</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -135,7 +135,7 @@
 		<function>RichFaces.csv.validateDoubleRange</function>
 	</component>
 	<component>
-		<type>javax.faces.validator.RegexValidator</type>
+		<type>jakarta.faces.validator.RegexValidator</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>
@@ -143,7 +143,7 @@
 		<function>RichFaces.csv.validateRegex</function>
 	</component>
 	<component>
-		<type>javax.faces.validator.RequiredValidator</type>
+		<type>jakarta.faces.validator.RequiredValidator</type>
 		<resource>
 			<name>csv.reslib</name>
 			<library>org.richfaces</library>

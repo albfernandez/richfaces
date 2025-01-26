@@ -60,7 +60,7 @@ public class ITJsfAjaxScriptRendering {
     @FindBy(id = "button")
     private WebElement button;
 
-    @FindByJQuery("script[src*='jsf.js']")
+    @FindByJQuery("script[src*='faces.js']")
     private List<WebElement> jsfJsScripts;
 
     @Deployment(testable = false)
@@ -76,13 +76,13 @@ public class ITJsfAjaxScriptRendering {
     public void test_that_jsf_js_is_rendered_just_once() {
         browser.get(contextPath.toExternalForm());
 
-        assertEquals("there should be one jsf.js script on the page", 1, jsfJsScripts.size());
+        assertEquals("there should be one faces.js script on the page", 1, jsfJsScripts.size());
 
         guardAjax(button).click();
-        assertEquals("there should be still just one jsf.js script on the page", 1, jsfJsScripts.size());
+        assertEquals("there should be still just one faces.js script on the page", 1, jsfJsScripts.size());
 
         guardAjax(button).click();
-        assertEquals("there should be still just one jsf.js script on the page", 1, jsfJsScripts.size());
+        assertEquals("there should be still just one faces.js script on the page", 1, jsfJsScripts.size());
     }
 
     private static void addIndexPage(A4JDeployment deployment) {

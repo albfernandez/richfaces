@@ -21,15 +21,11 @@
  */
 package org.richfaces.cdi.push;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.security.cert.Extension;
-
-import org.richfaces.cdi.push.producer.TopicsContextProducer;
-
 import jakarta.enterprise.event.Observes;
 import jakarta.enterprise.inject.spi.BeanManager;
 import jakarta.enterprise.inject.spi.BeforeBeanDiscovery;
+import jakarta.enterprise.inject.spi.Extension;
+import org.richfaces.cdi.push.producer.TopicsContextProducer;
 
 /**
  * Registers all necessary beans required by {@link PushCDIExtension} extension.
@@ -43,35 +39,7 @@ public class PushCDIDependencyRegistrationExtension implements Extension {
      */
     public void beforeBeanDiscovery(@Observes BeforeBeanDiscovery bbd, BeanManager beanManager) {
         bbd.addAnnotatedType(beanManager.createAnnotatedType(Push.class), "Push");
-        bbd.addAnnotatedType(beanManager.createAnnotatedType(TopicKeyResolver.class),"TopicKeyResolver");
+        bbd.addAnnotatedType(beanManager.createAnnotatedType(TopicKeyResolver.class), "TopicKeyResolver");
         bbd.addAnnotatedType(beanManager.createAnnotatedType(TopicsContextProducer.class), "TopicsContextProducer");
     }
-
-    //MZ
-	@Override
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	//MZ
-	@Override
-	public boolean isCritical() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	//MZ
-	@Override
-	public byte[] getValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	//MZ
-	@Override
-	public void encode(OutputStream out) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
 }

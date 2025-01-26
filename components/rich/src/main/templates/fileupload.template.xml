@@ -33,7 +33,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<cdk:superclass>org.richfaces.renderkit.FileUploadRendererBase</cdk:superclass>
 		<cdk:component-family>org.richfaces.FileUpload</cdk:component-family>
 		<cdk:renderer-type>org.richfaces.FileUploadRenderer</cdk:renderer-type>
-		<cdk:resource-dependency library="jakarta.faces" name="jsf.js" />
+		<cdk:resource-dependency library="jakarta.faces" name="faces.js" />
 		<cdk:resource-dependency library="org.richfaces" name="jquery.js" />
 		<cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
 		<cdk:resource-dependency library="org.richfaces"

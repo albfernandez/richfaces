@@ -38,7 +38,7 @@ import org.richfaces.log.RichfacesLogger;
  * </p>
  *
  * <p>
- * Initialization can be turned of by "org.richfaces.resources.skipResourceServletRegistration" context parameter.
+ * Initialization can be turned off by "org.richfaces.resources.skipResourceServletRegistration" context parameter.
  * </p>
  */
 public class ResourceServletContainerInitializer extends AbstractServletContainerInitializer {
@@ -55,7 +55,7 @@ public class ResourceServletContainerInitializer extends AbstractServletContaine
      */
     @Override
     public void onStartup(Set<Class<?>> c, ServletContext servletContext) throws ServletException {
-        if (Boolean.valueOf(servletContext.getInitParameter(SKIP_SERVLET_REGISTRATION_PARAM))) {
+        if (Boolean.parseBoolean(servletContext.getInitParameter(SKIP_SERVLET_REGISTRATION_PARAM))) {
             return;
         }
 

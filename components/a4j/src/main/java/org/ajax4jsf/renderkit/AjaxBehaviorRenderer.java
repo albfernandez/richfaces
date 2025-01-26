@@ -55,7 +55,7 @@ import com.google.common.base.Strings;
  */
 @FacesBehaviorRenderer(rendererType = "org.ajax4jsf.behavior.Ajax", renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
 @ResourceDependencies({
-        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")

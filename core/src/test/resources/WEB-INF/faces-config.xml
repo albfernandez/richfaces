@@ -21,7 +21,9 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:bridge="http://www.apache.org/myfaces/xml/ns/bridge/bridge-extension">
+<faces-config version="3.0" xmlns="https://jakarta.ee/xml/ns/jakartaee"
+              xmlns:bridge="http://www.apache.org/myfaces/xml/ns/bridge/bridge-extension"
+>
     <application>
         <application-extension>
             <bridge:excluded-attributes>

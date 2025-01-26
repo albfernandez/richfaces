@@ -168,6 +168,8 @@
 
       <!-- Special version for MR JAR jdk-misc artifact -->
       <version.jdk-misc>3.Final</version.jdk-misc>
+
+      <surefire.jvm.params>-Xms1024m -Xmx2048m --add-opens=java.base/sun.util.calendar=ALL-UNNAMED</surefire.jvm.params>
     </properties>
 
     <build>
@@ -554,10 +556,11 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <version>${version.surefire.plugin}</version>
             <configuration>
+              <argLine>${surefire.jvm.params}</argLine>
               <trimStackTrace>false</trimStackTrace>
-              <systemProperties>
+              <systemPropertyVariables>
                 <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
-              </systemProperties>
+              </systemPropertyVariables>
             </configuration>
           </plugin>
           <plugin>

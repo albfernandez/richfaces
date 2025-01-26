@@ -35,6 +35,8 @@ import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -45,6 +47,8 @@ import org.richfaces.log.RichfacesLogger;
  * @author asmirnov@exadel.com (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
+@Named("richfacesVersion")
+@ApplicationScoped
 public final class VersionBean {
     public static final Version VERSION = new Version();
 

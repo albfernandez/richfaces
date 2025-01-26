@@ -49,7 +49,7 @@ import org.richfaces.log.RichfacesLogger;
  * @author Nick Belaevski Base class for rendering Queue
  */
 @ResourceDependencies({
-        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")

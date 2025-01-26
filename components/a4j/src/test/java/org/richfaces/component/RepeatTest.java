@@ -28,14 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
-
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author Nick Belaevski

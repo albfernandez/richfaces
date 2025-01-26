@@ -14,7 +14,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 /**
- * This utility helps to parse a last partial-response done by jsf.js by intercepting the JSF JS API and writing the response to
+ * This utility helps to parse a last partial-response done by faces.js by intercepting the JSF JS API and writing the response to
  * the object for inspection.
  */
 public class PartialResponseTestingHelper {

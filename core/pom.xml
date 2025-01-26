@@ -426,7 +426,7 @@
             <dependencies>
                 <dependency>
                     <groupId>org.glassfish</groupId>
-                    <artifactId>javax.faces</artifactId>
+                    <artifactId>jakarta.faces</artifactId>
                     <scope>compile</scope>
                     <optional>true</optional>
                 </dependency>

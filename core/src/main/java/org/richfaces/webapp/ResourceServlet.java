@@ -21,8 +21,6 @@
  */
 package org.richfaces.webapp;
 
-import java.io.IOException;
-
 import jakarta.faces.webapp.FacesServlet;
 import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletConfig;
@@ -31,10 +29,12 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import org.apache.myfaces.webapp.DelegatedFacesServlet;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceHandlerImpl;
+
+import java.io.IOException;
 
 /**
  * <p>
@@ -53,11 +53,11 @@ import org.richfaces.resource.ResourceHandlerImpl;
  * For security reasons, the servlet handles just requests for JSF resources (context path starting with /jakarta.faces.resource/).
  * </p>
  */
-public class ResourceServlet implements Servlet {
+public class ResourceServlet implements Servlet, DelegatedFacesServlet {
 
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
 
-    private static final String JAVAX_FACES_RESOURCE_IDENTIFIER = "/jakarta.faces.resource/";
+    private static final String JAKARTA_FACES_RESOURCE_IDENTIFIER = "/jakarta.faces.resource/";
 
     public static final String RESOURCE_SERVLET_REQUEST_FLAG = ResourceServlet.class.getName();
 
@@ -148,8 +148,8 @@ public class ResourceServlet implements Servlet {
         String resourceName = decodeResourceURL(request);
 
         if (resourceName != null) {
-            if (resourceName.startsWith(JAVAX_FACES_RESOURCE_IDENTIFIER)) {
-                return resourceName.substring(JAVAX_FACES_RESOURCE_IDENTIFIER.length());
+            if (resourceName.startsWith(JAKARTA_FACES_RESOURCE_IDENTIFIER)) {
+                return resourceName.substring(JAKARTA_FACES_RESOURCE_IDENTIFIER.length());
             }
             if (resourceName.startsWith(ResourceHandlerImpl.RICHFACES_RESOURCE_IDENTIFIER)) {
                 return resourceName;
@@ -189,7 +189,7 @@ public class ResourceServlet implements Servlet {
             return null;
         }
 
-        if (servletPath.length() == 0) {
+        if (servletPath.isEmpty()) {
             return "/";
         }
 

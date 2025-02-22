@@ -61,19 +61,29 @@ public class Codec {
     
     
     public static Codec createCodec() {
+    	if (enableEncryption()) {
+	    	String randomPassword = UUID.randomUUID().toString();
+	    	try {
+	    		return new Codec(randomPassword);
+	    	}
+	    	catch (Exception e) {
+	    		throw new RuntimeException(e);
+	    	}
+    	}
+    	return new Codec();
+    }
+    
+    private static boolean enableEncryption() {
+    	if (FacesContext.getCurrentInstance() == null) {
+    		return true;
+    	}
     	HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
     	String value = request.getServletContext().getInitParameter("org.ajax4jsf.ENCRYPT_RESOURCE_DATA");
     	
     	if ("false".equals(value)) {
-    		return new Codec();
+    		return false;
     	}    	
-    	String randomPassword = UUID.randomUUID().toString();
-    	try {
-    		return new Codec(randomPassword);
-    	}
-    	catch (Exception e) {
-    		throw new RuntimeException(e);
-    	}
+    	return true;
     }
 
     /**

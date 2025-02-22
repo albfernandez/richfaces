@@ -23,19 +23,26 @@ package org.ajax4jsf.util.base64;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Arrays;
+import java.util.UUID;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+
 import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:59:10 $
  */
 public class Codec {
+	
     private Cipher decripter = null;
     private Cipher encripter = null;
 
+    
+    
     /**
      *
      */
@@ -49,6 +56,24 @@ public class Codec {
     public Codec(String p) throws Exception {
     	super();
         setPassword(p);
+    }
+    
+    
+    
+    public static Codec createCodec() {
+    	HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    	String value = request.getServletContext().getInitParameter("org.ajax4jsf.ENCRYPT_RESOURCE_DATA");
+    	
+    	if ("false".equals(value)) {
+    		return new Codec();
+    	}    	
+    	String randomPassword = UUID.randomUUID().toString();
+    	try {
+    		return new Codec(randomPassword);
+    	}
+    	catch (Exception e) {
+    		throw new RuntimeException(e);
+    	}
     }
 
     /**

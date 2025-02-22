@@ -107,7 +107,7 @@ public final class ResourceUtils {
     /* HTTP Date format required by the HTTP/1.1 RFC */
     private static final String RFC1123_DATE_PATTERN = "EEE, dd MMM yyyy HH:mm:ss zzz";
     // TODO codec have settings
-    private static final Codec CODEC = new Codec();
+    private static final Codec CODEC =  Codec.createCodec();
     private static final SimpleDateFormat RFC1123_DATE_FORMATTER;
     private static final String QUESTION_SIGN = "?";
     private static final String EQUALS_SIGN = "=";

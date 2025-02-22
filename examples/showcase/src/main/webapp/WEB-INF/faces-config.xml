@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 
-<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
-
+<faces-config version="3.0" xmlns="https://jakarta.ee/xml/ns/jakartaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+              https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
     <factory>
         <lifecycle-factory>org.richfaces.demo.arrangeablemodel.PersistenceLifecycleFactory</lifecycle-factory>
     </factory>
@@ -18,10 +19,6 @@
     </managed-bean>
 
     <application>
-        <system-event-listener>
-            <system-event-listener-class>org.richfaces.demo.push.TopicsContextMessageProducerInitializer</system-event-listener-class>
-            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
-        </system-event-listener>
         <locale-config>
             <default-locale>en_US</default-locale>
             <supported-locale>en_US</supported-locale>

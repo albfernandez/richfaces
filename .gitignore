@@ -31,3 +31,4 @@ arquillian.xml
 
 .mvn/wrapper/maven-wrapper.jar
 
+.metadata

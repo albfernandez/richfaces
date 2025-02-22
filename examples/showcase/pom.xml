@@ -239,10 +239,16 @@
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
         </dependency>
+        
         <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
+		    <groupId>jakarta.servlet.jsp.jstl</groupId>
+		    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
         </dependency>
+        
+        		<dependency>
+		    <groupId>org.glassfish</groupId>
+		    <artifactId>jakarta.faces</artifactId>
+		</dependency>
 
 
 		<!-- Dependencies for CDI -->
@@ -259,10 +265,10 @@
         </dependency>
 
 		<!-- The rewrite library allows us to do url rewriting - used here for rewriting mobile devices to mobile specific views -->
-        <dependency>
-            <groupId>org.ocpsoft.rewrite</groupId>
-            <artifactId>rewrite-servlet</artifactId>
-        </dependency>
+		<dependency>
+		    <groupId>org.ocpsoft.rewrite</groupId>
+		    <artifactId>rewrite-servlet</artifactId>
+		</dependency>
 
 		<!-- Jsoup used for validation of safe html input -->
         <dependency>

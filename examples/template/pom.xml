@@ -92,7 +92,17 @@
     </dependencyManagement>
 
     <dependencies>
-
+		<dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet</artifactId>
+           
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.weld</groupId>
+                    <artifactId>weld-build-config</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces</artifactId>
@@ -132,15 +142,9 @@
 		    <artifactId>jakarta.activation-api</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>jakarta.faces</groupId>
-		    <artifactId>jakarta.faces-api</artifactId>
-		    <version>4.1.2</version>
-		</dependency>
-		<dependency>
 		    <groupId>org.glassfish</groupId>
 		    <artifactId>jakarta.faces</artifactId>
 		</dependency>
-
 
         <!-- Test dependencies -->
         <dependency>

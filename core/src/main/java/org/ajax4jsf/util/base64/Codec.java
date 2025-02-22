@@ -73,16 +73,7 @@ public class Codec {
     	return new Codec();
     }
     
-    private static boolean enableEncryption() {
-    	if (FacesContext.getCurrentInstance() == null) {
-    		return true;
-    	}
-    	HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-    	String value = request.getServletContext().getInitParameter("org.ajax4jsf.ENCRYPT_RESOURCE_DATA");
-    	
-    	if ("false".equals(value)) {
-    		return false;
-    	}    	
+    private static boolean enableEncryption() {    	
     	return true;
     }
 

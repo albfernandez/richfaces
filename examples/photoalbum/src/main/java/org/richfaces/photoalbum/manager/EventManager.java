@@ -27,10 +27,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Any;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.inject.Any;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.richfaces.photoalbum.model.Event;
 import org.richfaces.photoalbum.model.EventCategory;
@@ -69,11 +69,11 @@ public class EventManager implements Serializable {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    javax.enterprise.event.Event<ErrorEvent> error;
+    jakarta.enterprise.event.Event<ErrorEvent> error;
 
     @Inject
     @Any
-    javax.enterprise.event.Event<ShelfEvent> shelfEvent;
+    jakarta.enterprise.event.Event<ShelfEvent> shelfEvent;
 
     private Event newEvent = new Event();
     private Shelf newShelf = new Shelf();

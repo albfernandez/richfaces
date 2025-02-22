@@ -23,7 +23,6 @@ package org.richfaces.photoalbum.model.actions;
 
 import java.util.List;
 
-import javax.ejb.Local;
 
 import org.richfaces.photoalbum.model.Shelf;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
@@ -34,7 +33,6 @@ import org.richfaces.photoalbum.util.PhotoAlbumException;
  * @author Andrey Markhel
  */
 
-@Local
 public interface IShelfAction {
 
     void addShelf(Shelf shelf) throws PhotoAlbumException;

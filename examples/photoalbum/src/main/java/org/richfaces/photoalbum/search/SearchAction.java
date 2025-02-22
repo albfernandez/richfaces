@@ -25,8 +25,9 @@ package org.richfaces.photoalbum.search;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+
+
+import jakarta.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -44,7 +45,6 @@ import org.richfaces.photoalbum.util.PhotoAlbumException;
  * @author Andrey Markhel
  */
 
-@Stateless
 @SuppressWarnings("unchecked")
 public class SearchAction implements ISearchAction {
 

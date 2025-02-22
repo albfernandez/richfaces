@@ -23,11 +23,11 @@ package org.richfaces.photoalbum.manager;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Any;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Any;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.richfaces.component.UITree;
 import org.richfaces.photoalbum.model.Album;
@@ -77,11 +77,11 @@ public class Controller implements Serializable {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    javax.enterprise.event.Event<ErrorEvent> error;
+    jakarta.enterprise.event.Event<ErrorEvent> error;
 
     @Inject
     @Any
-    javax.enterprise.event.Event<SimpleEvent> event;
+    jakarta.enterprise.event.Event<SimpleEvent> event;
 
     @Inject
     FacebookAlbumCache fac;

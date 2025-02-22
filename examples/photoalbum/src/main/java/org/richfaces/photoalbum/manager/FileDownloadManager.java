@@ -35,12 +35,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
@@ -91,11 +91,11 @@ public class FileDownloadManager implements Serializable {
 
     @Inject
     @EventType(Events.EVENT_EDITED_EVENT)
-    javax.enterprise.event.Event<ShelfEvent> shelfEvent;
+    jakarta.enterprise.event.Event<ShelfEvent> shelfEvent;
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    javax.enterprise.event.Event<ErrorEvent> error;
+    jakarta.enterprise.event.Event<ErrorEvent> error;
 
     private List<String> imageUrls;
     private Iterator<String> iterator;

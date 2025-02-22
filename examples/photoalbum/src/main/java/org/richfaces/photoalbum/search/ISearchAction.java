@@ -23,7 +23,6 @@ package org.richfaces.photoalbum.search;
 
 import java.util.List;
 
-import javax.ejb.Local;
 
 import org.richfaces.photoalbum.model.Album;
 import org.richfaces.photoalbum.model.Image;
@@ -37,7 +36,6 @@ import org.richfaces.photoalbum.util.PhotoAlbumException;
  *
  * @author Andrey Markhel
  */
-@Local
 public interface ISearchAction {
     public List<Image> searchByImage(String query, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException;
 

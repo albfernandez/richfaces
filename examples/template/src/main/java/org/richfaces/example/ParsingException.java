@@ -30,10 +30,14 @@ package org.richfaces.example;
  *
  */
 public class ParsingException extends Exception {
-    /**
+	
+    private static final long serialVersionUID = 7385900768062999344L;
+
+	/**
      *
      */
     public ParsingException() {
+    	super();
         // TODO Auto-generated constructor stub
     }
 

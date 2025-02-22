@@ -30,11 +30,11 @@ package org.richfaces.photoalbum.util;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PreDestroy;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import jakarta.annotation.PreDestroy;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.event.Event;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 
 import org.richfaces.photoalbum.manager.LoggedUserTracker;
 import org.richfaces.photoalbum.model.Comment;

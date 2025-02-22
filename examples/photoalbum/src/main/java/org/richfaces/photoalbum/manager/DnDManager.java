@@ -26,8 +26,8 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
@@ -66,13 +66,13 @@ public class DnDManager implements DropListener {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    javax.enterprise.event.Event<ErrorEvent> error;
+    jakarta.enterprise.event.Event<ErrorEvent> error;
     @Inject
     @EventType(Events.ALBUM_DRAGGED_EVENT)
-    javax.enterprise.event.Event<AlbumEvent> albumEvent;
+    jakarta.enterprise.event.Event<AlbumEvent> albumEvent;
     @Inject
     @EventType(Events.IMAGE_DRAGGED_EVENT)
-    javax.enterprise.event.Event<ImageEvent> imageEvent;
+    jakarta.enterprise.event.Event<ImageEvent> imageEvent;
 
     /**
      * Listener, that is invoked during drag'n'drop process. Only registered users can drag images.

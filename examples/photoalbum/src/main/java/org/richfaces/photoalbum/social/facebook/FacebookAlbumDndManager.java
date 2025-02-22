@@ -24,9 +24,9 @@ package org.richfaces.photoalbum.social.facebook;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
@@ -61,7 +61,7 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    javax.enterprise.event.Event<ErrorEvent> error;
+    jakarta.enterprise.event.Event<ErrorEvent> error;
 
     private String albumId;
     private Event event;

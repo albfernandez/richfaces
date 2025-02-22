@@ -24,8 +24,8 @@ package org.richfaces.photoalbum.search;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 

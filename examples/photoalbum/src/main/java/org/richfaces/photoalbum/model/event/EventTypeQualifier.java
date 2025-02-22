@@ -22,7 +22,7 @@
 
 package org.richfaces.photoalbum.model.event;
 
-import javax.enterprise.util.AnnotationLiteral;
+import jakarta.enterprise.util.AnnotationLiteral;
 
 @SuppressWarnings("all")
 public class EventTypeQualifier extends AnnotationLiteral<EventType> implements EventType {

@@ -21,8 +21,8 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import javax.enterprise.event.Observes;
-import javax.inject.Named;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Named;
 
 import org.richfaces.photoalbum.model.event.EventType;
 import org.richfaces.photoalbum.model.event.Events;

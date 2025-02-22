@@ -21,8 +21,7 @@
  */
 package org.richfaces.photoalbum.model.actions;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.richfaces.photoalbum.manager.UserBean;
@@ -36,7 +35,6 @@ import org.richfaces.photoalbum.util.PhotoAlbumException;
  * @author Andrey Markhel
  */
 
-@Stateless
 public class UserAction implements IUserAction {
 
     @Inject

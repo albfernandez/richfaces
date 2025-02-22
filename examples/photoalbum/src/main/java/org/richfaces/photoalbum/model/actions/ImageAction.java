@@ -25,8 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
@@ -43,7 +42,6 @@ import org.richfaces.photoalbum.util.PhotoAlbumException;
  *
  * @author Andrey Markhel
  */
-@Stateless
 public class ImageAction implements IImageAction {
 
     @Inject

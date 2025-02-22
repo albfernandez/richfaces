@@ -24,11 +24,11 @@ package org.richfaces.example;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.model.SelectItem;
+import jakarta.inject.Named;
 
-@ManagedBean(name = "skinBean")
+@Named("skinBean")
 @SessionScoped
 public class SkinBean implements Serializable {
     private static final long serialVersionUID = 2744605279708632184L;

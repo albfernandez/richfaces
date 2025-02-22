@@ -27,9 +27,9 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.richfaces.photoalbum.manager.FileManager;
 import org.richfaces.photoalbum.util.Constants;

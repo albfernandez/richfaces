@@ -24,7 +24,7 @@ package org.richfaces.photoalbum.manager;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  * Special wrapper for Map, that contains pairs(userId, sessionId) to track what sessionId is actual by specified user. Used to

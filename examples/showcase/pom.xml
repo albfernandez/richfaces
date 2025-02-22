@@ -26,7 +26,7 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-showcase</artifactId>
-    <version>4.6.22-SNAPSHOT</version>
+    <version>10.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>RichFaces Showcase</name>
 
@@ -61,14 +61,14 @@
     </issueManagement>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <version.richfaces>4.6.22-SNAPSHOT</version.richfaces>
+        <version.richfaces>10.0.1-SNAPSHOT</version.richfaces>
 
         <!-- Container Versions -->
         <version.wildfly100>10.1.0.Final</version.wildfly100>
@@ -188,19 +188,24 @@
                     <groupId>xalan</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>   
+        
         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <scope>provided</scope>
-            <type>pom</type>
-            <exclusions>
-                <exclusion>
-                    <artifactId>xalan</artifactId>
-                    <groupId>xalan</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>3.0.0</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.3.1</version>
+</dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -225,7 +230,7 @@
             <scope>${dependency.scope}</scope>
         </dependency>
 
-        <!-- Dependencies for Tomcat -->
+		<!-- Dependencies for Tomcat -->
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jandex</artifactId>
@@ -239,15 +244,8 @@
             <artifactId>jstl-api</artifactId>
         </dependency>
 
-        <!-- Dependencies for Push -->
-        <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
-            <artifactId>richfaces-push-depchain</artifactId>
-            <type>pom</type>
-            <version>${version.richfaces}</version>
-        </dependency>
 
-        <!-- Dependencies for CDI -->
+		<!-- Dependencies for CDI -->
         <dependency>
             <groupId>org.jboss.weld.servlet</groupId>
             <artifactId>weld-servlet</artifactId>
@@ -260,19 +258,19 @@
             </exclusions>
         </dependency>
 
-        <!-- The rewrite library allows us to do url rewriting - used here for rewriting mobile devices to mobile specific views -->
+		<!-- The rewrite library allows us to do url rewriting - used here for rewriting mobile devices to mobile specific views -->
         <dependency>
             <groupId>org.ocpsoft.rewrite</groupId>
             <artifactId>rewrite-servlet</artifactId>
         </dependency>
 
-        <!-- Jsoup used for validation of safe html input -->
+		<!-- Jsoup used for validation of safe html input -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
         </dependency>
 
-        <!-- Test dependencies -->
+		<!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -343,20 +341,20 @@
                     <execution>
                         <id>default-test</id>
                         <configuration>
-                            <!-- Travis build workaround -->
+							<!-- Travis build workaround -->
                             <argLine>${surefire.jvm.params}</argLine>
-                            <!--  there are no unit tests -->
+							<!--  there are no unit tests -->
                             <skipTests>true</skipTests>
                         </configuration>
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- Travis build workaround -->
+					<!-- Travis build workaround -->
                     <argLine>${surefire.jvm.params}</argLine>
                     <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>
                         <container.classifier>${showcase.war.classifier}</container.classifier>
-                        <!-- never restart container, override '1' from build-resources -->
+						<!-- never restart container, override '1' from build-resources -->
                         <arquillian.maxTestClassesBeforeRestart>0</arquillian.maxTestClassesBeforeRestart>
                     </systemPropertyVariables>
                 </configuration>
@@ -389,7 +387,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M3</version>
                     <configuration>
-                        <!-- Travis build workaround -->
+						<!-- Travis build workaround -->
                         <argLine>${surefire.jvm.params}</argLine>
                     </configuration>
                 </plugin>
@@ -428,11 +426,6 @@
                     <groupId>javax.faces</groupId>
                     <artifactId>javax.faces-api</artifactId>
                     <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>javax.faces</artifactId>
-                    <scope>${dependency.scope}</scope>
                 </dependency>
             </dependencies>
         </profile>
@@ -489,7 +482,7 @@
             <build>
                 <plugins>
                     <plugin>
-                        <!-- any changes in this plugin configuration should be repeated in the "release" profile executions -->
+						<!-- any changes in this plugin configuration should be repeated in the "release" profile executions -->
                         <artifactId>maven-war-plugin</artifactId>
                         <configuration>
                             <classifier>${showcase.war.classifier}</classifier>
@@ -765,7 +758,7 @@
                 <integration.test.source>src/test/java</integration.test.source>
                 <integration.test.pattern>**/**/IT*.java</integration.test.pattern>
 
-                <!-- Arquillian Configuration -->
+				<!-- Arquillian Configuration -->
                 <arquillian.debug>false</arquillian.debug>
                 <arquillian.drone.browser>chromeHeadless</arquillian.drone.browser>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
@@ -780,18 +773,18 @@
                 <arquillian.container.vmargs>-Xmx768m -XX:MaxPermSize=256m</arquillian.container.vmargs>
                 <arquillian.maven.settings />
 
-                <!-- Container Selection -->
+				<!-- Container Selection -->
                 <arquillian.launch.jbosseap6>false</arquillian.launch.jbosseap6>
                 <arquillian.launch.tomcat7>false</arquillian.launch.tomcat7>
                 <arquillian.launch.tomcat8>false</arquillian.launch.tomcat8>
                 <arquillian.launch.tomcat85>false</arquillian.launch.tomcat85>
                 <arquillian.launch.tomcat9>false</arquillian.launch.tomcat9>
 
-                <!-- HTTPS testing -->
+				<!-- HTTPS testing -->
                 <firefoxProfileTemplate />
                 <trustStore />
 
-                <!-- JUnit Categories Selection -->
+				<!-- JUnit Categories Selection -->
                 <testCategory.excluded.container />
                 <testCategory.excluded.jsf />
             </properties>
@@ -893,9 +886,9 @@
                             <execution>
                                 <id>default-test</id>
                                 <configuration>
-                                    <!-- Travis build workaround -->
+									<!-- Travis build workaround -->
                                     <argLine>${surefire.jvm.params}</argLine>
-                                    <!--  there are no unit tests -->
+									<!--  there are no unit tests -->
                                     <skipTests>true</skipTests>
                                     <test>${test}</test>
                                     <excludes>
@@ -910,7 +903,7 @@
                                     <goal>test</goal>
                                 </goals>
                                 <configuration>
-                                    <!-- Travis build workaround -->
+									<!-- Travis build workaround -->
                                     <argLine>${surefire.jvm.params}</argLine>
                                     <skipTests>${skipITs}</skipTests>
                                     <test>${test}</test>
@@ -975,7 +968,7 @@
             </properties>
         </profile>
 
-        <!-- Containers -->
+		<!-- Containers -->
         <profile>
             <id>wildfly-managed-10-0</id>
             <activation>
@@ -1049,7 +1042,7 @@
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
-                            <!-- Travis build workaround -->
+							<!-- Travis build workaround -->
                             <argLine>${surefire.jvm.params}</argLine>
                             <environmentVariables>
                                 <HTTPS_TESTING>true</HTTPS_TESTING>

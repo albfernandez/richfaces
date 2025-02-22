@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -19,7 +19,7 @@ import org.richfaces.demo.common.data.RandomHelper;
 import org.richfaces.demo.tables.model.cars.InventoryItem;
 import org.richfaces.demo.tables.model.cars.InventoryVendorList;
 
-@ManagedBean(name = "carsBean")
+@Named("carsBean")
 @ViewScoped
 public class CarsBean implements Serializable {
     private static final long serialVersionUID = -3832235132261771583L;

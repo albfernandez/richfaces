@@ -25,22 +25,24 @@ import org.ajax4jsf.util.base64.Codec;
 import org.jboss.test.faces.AbstractThreadedTest;
 
 public class CodecTest extends AbstractThreadedTest {
-    Codec cocdec;
+    Codec codec;
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
 
         String message = "";
 
         try {
-            cocdec = new Codec("anbshsquycwuudyft");
+            codec = new Codec();
         } catch (Exception e) {
             message = "Cannot create Codec instance " + e.getMessage();
         }
 
-        assertNotNull(message, cocdec);
+        assertNotNull(message, codec);
     }
 
+    @Override
     public void tearDown() throws Exception {
         super.tearDown();
     }
@@ -49,7 +51,7 @@ public class CodecTest extends AbstractThreadedTest {
         CodecTestRunnable[] runnables = new CodecTestRunnable[100];
 
         for (int i = 0; i < runnables.length; i++) {
-            runnables[i] = new CodecTestRunnable(cocdec, generateRandomString(), i);
+            runnables[i] = new CodecTestRunnable(codec, generateRandomString(), i);
         }
 
         runTestCaseRunnables(runnables);
@@ -68,19 +70,19 @@ public class CodecTest extends AbstractThreadedTest {
     }
 
     class CodecTestRunnable extends TestCaseRunnable {
-        Codec cocdec;
+        Codec codec;
         int id;
         String original;
 
         public CodecTestRunnable(Codec codec, String original, int id) {
-            this.cocdec = codec;
+            this.codec = codec;
             this.original = original;
             this.id = id;
         }
 
         public void runTestCase() throws Throwable {
-            String encoded = cocdec.encode(original);
-            String decoded = cocdec.decode(encoded);
+            String encoded = codec.encode(original);
+            String decoded = codec.decode(encoded);
 
             assertEquals("Failure in thread " + id, decoded, original);
         }

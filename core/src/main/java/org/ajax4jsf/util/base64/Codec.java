@@ -31,7 +31,7 @@ import java.security.SecureRandom;
 
 public class Codec {
     private static final String ALGORITHM = "AES/CFB/PKCS5Padding";
-    public static final int AES_KEY_SIZE = 128; // in bits
+    private static final int AES_KEY_SIZE = 128; // in bits
 
     private final Cipher decripter;
     private final Cipher encripter;

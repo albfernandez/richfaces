@@ -1,152 +1,160 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.ajax4jsf.util.base64;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.util.Arrays;
-import java.util.UUID;
+import com.google.common.primitives.Bytes;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.logging.Logger;
 
-import jakarta.faces.FacesException;
-import jakarta.faces.context.FacesContext;
-import jakarta.servlet.http.HttpServletRequest;
-
-/**
- * @author shura (latest modification by $Author: alexsmirnov $)
- * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:59:10 $
- */
 public class Codec {
-	
-    private Cipher decripter = null;
-    private Cipher encripter = null;
+    private static final String KEY_ALGORITHM = "AES";
+    private static final String ALGORITHM = "AES/CFB/PKCS5Padding";
+    private static final int AES_KEY_SIZE = 128; // in bits
+    private static final int IV_LENGTH = 16;
 
-    
-    
-    /**
-     *
-     */
+    private static final String ENCRYPT_PASSWORD_CONFIG = "org.ajax4jsf.ENCRYPT_PASSWORD";
+    private static final String ENCRYPT_RESOURCE_DATA_CONFIG = "org.ajax4jsf.ENCRYPT_RESOURCE_DATA";
+
+    private static final Logger log = Logger.getLogger(Codec.class.getName());
+
+    private final boolean encryptionEnabled;
+    private final SecureRandom random;
+    private final SecretKey secretKey;
+
     public Codec() {
-    	super();
-    }
+        super();
 
-    /**
-     *
-     */
-    public Codec(String p) throws Exception {
-    	super();
-        setPassword(p);
-    }
-    
-    
-    
-    public static Codec createCodec() {
-    	if (enableEncryption()) {
-	    	String randomPassword = UUID.randomUUID().toString();
-	    	try {
-	    		return new Codec(randomPassword);
-	    	}
-	    	catch (Exception e) {
-	    		throw new RuntimeException(e);
-	    	}
-    	}
-    	return new Codec();
-    }
-    
-    private static boolean enableEncryption() {    	
-    	return true;
-    }
-
-    /**
-     * @param password
-     * @throws java.security.InvalidKeyException
-     *
-     * @throws java.io.UnsupportedEncodingException
-     *
-     * @throws java.security.spec.InvalidKeySpecException
-     *
-     * @throws java.security.NoSuchAlgorithmException
-     *
-     * @throws javax.crypto.NoSuchPaddingException
-     *
-     */
-    public void setPassword(String password) throws FacesException {
-
+        // Initialize encryption
         try {
-              MessageDigest sha = MessageDigest.getInstance("SHA-256");
-              byte[] shaKey = sha.digest(password.getBytes(StandardCharsets.UTF_8));
-              byte[] finalKey = Arrays.copyOf(shaKey, 16); 
-              SecretKeySpec secretKey = new SecretKeySpec(finalKey, "AES");
-              
-              Cipher encripter = Cipher.getInstance("AES");
-              encripter.init(Cipher.ENCRYPT_MODE, secretKey);
-              
-              Cipher decripter = Cipher.getInstance("AES");
-              decripter.init(Cipher.DECRYPT_MODE, secretKey);
-
-        } catch (Exception e) {
-            throw new FacesException("Error set encryption key", e);
+            encryptionEnabled = encryptionIsEnabled();
+            if (encryptionEnabled) {
+                random = SecureRandom.getInstanceStrong();
+                secretKey = getSecretKey();
+            } else {
+                random = null;
+                secretKey = null;
+            }
+        } catch (NoSuchAlgorithmException e) {
+            throw new FacesException("Error set encryption randomizer: ", e);
         }
+    }
+
+    private SecretKey getSecretKey() {
+        try {
+            // Get the optionally configured password
+            String password = null;
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            if (facesContext != null) {
+                ExternalContext externalContext = facesContext.getExternalContext();
+                password = externalContext.getInitParameter(ENCRYPT_PASSWORD_CONFIG);
+            }
+
+            if (password != null && !password.trim().isEmpty()) {
+                log.info("Resource reference encoding: Setting fixed resource encoding password");
+                MessageDigest sha = MessageDigest.getInstance("SHA-256");
+                byte[] shaKey = sha.digest(password.getBytes(StandardCharsets.UTF_8));
+                byte[] finalKey = Arrays.copyOf(shaKey, 16);
+                return new SecretKeySpec(finalKey, KEY_ALGORITHM);
+            } else {
+                log.info("Resource reference encoding: Generating random password");
+                KeyGenerator keyGen = KeyGenerator.getInstance(KEY_ALGORITHM);
+                keyGen.init(AES_KEY_SIZE, random);
+                return keyGen.generateKey();
+            }
+        } catch (Exception e) {
+            throw new FacesException("Error set encryption key: " + e.getMessage(), e);
+        }
+    }
+
+    private boolean encryptionIsEnabled() {
+        final boolean enabled;
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        if (facesContext != null) {
+            ExternalContext externalContext = facesContext.getExternalContext();
+            String configFlag = externalContext.getInitParameter(ENCRYPT_RESOURCE_DATA_CONFIG);
+            enabled = configFlag == null || !configFlag.equalsIgnoreCase("false");
+        } else {
+            enabled = true;
+        }
+        log.info(() -> String.format("Resource reference encoding: Encryption %s", enabled ? "enabled" : "disabled"));
+        return enabled;
     }
 
     public String decode(String str) throws Exception {
         byte[] src = str.getBytes(StandardCharsets.UTF_8);
         byte[] utf8 = decode(src);
-
-        // Decode using utf-8
         return new String(utf8, StandardCharsets.UTF_8);
     }
 
     public String encode(String str) throws Exception {
-
         byte[] src = str.getBytes(StandardCharsets.UTF_8);
-
         byte[] utf8 = encode(src);
-        // Decode using utf-8
         return new String(utf8, StandardCharsets.UTF_8);
     }
 
     public byte[] decode(byte[] src) throws Exception {
-        byte[] dec = URL64Codec.decodeBase64(src);
+        byte[] bytes = URL64Codec.decodeBase64(src);
 
-        // Decrypt
-        if (null != decripter) {
-            return decripter.doFinal(dec);
-        } else {
-            return dec;
-        }
+        if (!encryptionEnabled) return bytes;
+
+        // First IV_LENGTH bytes contain the IV
+        byte[] iv = Arrays.copyOfRange(bytes, 0, IV_LENGTH);
+        IvParameterSpec spec = new IvParameterSpec(iv);
+
+        // Init the decripter
+        Cipher decripter = Cipher.getInstance(ALGORITHM);
+        decripter.init(Cipher.DECRYPT_MODE, secretKey, spec, random);
+
+        byte[] encrypted = Arrays.copyOfRange(bytes, IV_LENGTH, bytes.length);
+        return decripter.doFinal(encrypted);
     }
 
     public byte[] encode(byte[] src) throws Exception {
-        byte[] dec;
+        if (!encryptionEnabled) return URL64Codec.encodeBase64(src);
 
-        if (null != encripter) {
-            dec = encripter.doFinal(src);
-        } else {
-            dec = src;
-        }
+        // Create the initialization vector
+        byte[] iv = new byte[IV_LENGTH];
+        random.nextBytes(iv);
+        IvParameterSpec spec = new IvParameterSpec(iv);
 
-        // Decrypt
-        return URL64Codec.encodeBase64(dec);
+        // Init the encripter
+        Cipher encripter = Cipher.getInstance(ALGORITHM);
+        encripter.init(Cipher.ENCRYPT_MODE, secretKey, spec, random);
+
+        byte[] encrypted = encripter.doFinal(src);
+        byte[] bytes = Bytes.concat(iv, encrypted);
+        return URL64Codec.encodeBase64(bytes);
     }
 }

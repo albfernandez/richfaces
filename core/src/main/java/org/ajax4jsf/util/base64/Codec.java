@@ -25,23 +25,21 @@ import jakarta.faces.FacesException;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
 public class Codec {
-    private static final String ALGORITHM = "AES";
+    private static final String ALGORITHM = "AES/CFB/PKCS5Padding";
     public static final int AES_KEY_SIZE = 128; // in bits
 
-    private Cipher decripter;
-    private Cipher encripter;
+    private final Cipher decripter;
+    private final Cipher encripter;
 
     public Codec() {
         super();
 
-        initCiphers();
-    }
-
-    private void initCiphers() throws FacesException {
+        // Initialize the Ciphers
         try {
             // Create a random secret key
             SecureRandom random = SecureRandom.getInstanceStrong();
@@ -49,13 +47,18 @@ public class Codec {
             keyGen.init(AES_KEY_SIZE, random);
             SecretKey secretKey = keyGen.generateKey();
 
+            // Create the initialization vector
+            byte[] iv = new byte[16];
+            new SecureRandom().nextBytes(iv);
+            IvParameterSpec spec = new IvParameterSpec(iv);
+
             // Init the encripter
             encripter = Cipher.getInstance(ALGORITHM);
-            encripter.init(Cipher.ENCRYPT_MODE, secretKey);
+            encripter.init(Cipher.ENCRYPT_MODE, secretKey, spec, random);
 
             // Init the decripter
             decripter = Cipher.getInstance(ALGORITHM);
-            decripter.init(Cipher.DECRYPT_MODE, secretKey);
+            decripter.init(Cipher.DECRYPT_MODE, secretKey, spec, random);
         } catch (Exception e) {
             throw new FacesException("Error set encryption key", e);
         }
@@ -73,12 +76,12 @@ public class Codec {
         return new String(utf8, StandardCharsets.UTF_8);
     }
 
-    public byte[] decode(byte[] src) throws Exception {
+    public synchronized byte[] decode(byte[] src) throws Exception {
         byte[] dec = URL64Codec.decodeBase64(src);
         return decripter.doFinal(dec);
     }
 
-    public byte[] encode(byte[] src) throws Exception {
+    public synchronized byte[] encode(byte[] src) throws Exception {
         byte[] dec = encripter.doFinal(src);
         return URL64Codec.encodeBase64(dec);
     }

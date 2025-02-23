@@ -30,7 +30,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 import jakarta.faces.FacesException;
 import jakarta.faces.context.FacesContext;
-import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
@@ -38,10 +37,10 @@ import jakarta.servlet.http.HttpServletRequest;
  */
 public class Codec {
 	
+	private static final String ALGORITHM = "AES";
+	
     private Cipher decripter = null;
     private Cipher encripter = null;
-
-    
     
     /**
      *
@@ -58,24 +57,49 @@ public class Codec {
         setPassword(p);
     }
     
-    
-    
     public static Codec createCodec() {
+    	Codec codec = new Codec();
     	if (enableEncryption()) {
-	    	String randomPassword = UUID.randomUUID().toString();
-	    	try {
-	    		return new Codec(randomPassword);
-	    	}
-	    	catch (Exception e) {
-	    		throw new RuntimeException(e);
-	    	}
+	    	String password = getConfiguredPassword();
+    		codec.setPassword(password);
     	}
-    	return new Codec();
+    	return codec;    	
     }
     
-    private static boolean enableEncryption() {    	
-    	return true;
+    private static String getConfiguredPassword() {
+    	return getInitProperty("org.richfaces.ENCRYPT_PASSWORD", null);
     }
+    
+    private static String generateRandomPassword() {
+		return UUID.randomUUID().toString();
+	}
+
+	private static boolean enableEncryption() {
+		// always enabled
+//		return true;
+		String configuredValue = getInitProperty("org.richfaces.ENCRYPT_RESOURCE_DATA", "true");
+		return !"false".equals(configuredValue);
+    }
+	
+	private static String getInitProperty(String key, String defaultValue) {
+		try {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			if (ctx == null) {
+				return defaultValue;
+			}
+			if (ctx.getExternalContext() == null || ctx.getExternalContext().getInitParameterMap() == null) {
+				return defaultValue;
+			}
+			String val = ctx.getExternalContext().getInitParameterMap().get(key);
+			if (val != null && val.length() != 0) {
+				return val;
+			}
+			return defaultValue;
+
+		} catch (Exception e) {
+			return defaultValue;
+		}
+	}
 
     /**
      * @param password
@@ -92,17 +116,25 @@ public class Codec {
      */
     public void setPassword(String password) throws FacesException {
 
+    	String pwd = password;
+    	if (pwd == null || pwd.length() == 0) {
+    		pwd = generateRandomPassword();
+    	}
         try {
-              MessageDigest sha = MessageDigest.getInstance("SHA-256");
-              byte[] shaKey = sha.digest(password.getBytes(StandardCharsets.UTF_8));
-              byte[] finalKey = Arrays.copyOf(shaKey, 16); 
-              SecretKeySpec secretKey = new SecretKeySpec(finalKey, "AES");
+              MessageDigest sha = MessageDigest.getInstance("SHA-512");
+              byte[] shaKey = sha.digest(pwd.getBytes(StandardCharsets.UTF_8));
+              // 32 bytes - 256 bits key
+              byte[] finalKey = Arrays.copyOf(shaKey, 32);  
+              SecretKeySpec secretKey = new SecretKeySpec(finalKey, ALGORITHM);
               
-              Cipher encripter = Cipher.getInstance("AES");
-              encripter.init(Cipher.ENCRYPT_MODE, secretKey);
+              Cipher encripter1 = Cipher.getInstance(ALGORITHM);
+              encripter1.init(Cipher.ENCRYPT_MODE, secretKey);
               
-              Cipher decripter = Cipher.getInstance("AES");
-              decripter.init(Cipher.DECRYPT_MODE, secretKey);
+              Cipher decripter1 = Cipher.getInstance(ALGORITHM);
+              decripter1.init(Cipher.DECRYPT_MODE, secretKey);
+              
+              this.encripter = encripter1;
+              this.decripter = decripter1;
 
         } catch (Exception e) {
             throw new FacesException("Error set encryption key", e);
@@ -140,13 +172,13 @@ public class Codec {
     public byte[] encode(byte[] src) throws Exception {
         byte[] dec;
 
+        // Decrypt
         if (null != encripter) {
             dec = encripter.doFinal(src);
         } else {
             dec = src;
         }
 
-        // Decrypt
         return URL64Codec.encodeBase64(dec);
     }
 }

@@ -1,83 +1,61 @@
 /**
  * License Agreement.
- *
+ * <p>
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
- *
+ * <p>
  * Copyright (C) 2007 Exadel, Inc.
- *
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License version 2.1 as published by the Free Software Foundation.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.ajax4jsf.util.base64;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.util.Arrays;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import jakarta.faces.FacesException;
 
-/**
- * @author shura (latest modification by $Author: alexsmirnov $)
- * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:59:10 $
- */
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
+
 public class Codec {
-    private Cipher decripter = null;
-    private Cipher encripter = null;
+    private static final String ALGORITHM = "AES";
+    public static final int AES_KEY_SIZE = 128; // in bits
 
-    /**
-     *
-     */
+    private Cipher decripter;
+    private Cipher encripter;
+
     public Codec() {
-    	super();
+        super();
+
+        initCiphers();
     }
 
-    /**
-     *
-     */
-    public Codec(String p) throws Exception {
-    	super();
-        setPassword(p);
-    }
-
-    /**
-     * @param password
-     * @throws java.security.InvalidKeyException
-     *
-     * @throws java.io.UnsupportedEncodingException
-     *
-     * @throws java.security.spec.InvalidKeySpecException
-     *
-     * @throws java.security.NoSuchAlgorithmException
-     *
-     * @throws javax.crypto.NoSuchPaddingException
-     *
-     */
-    public void setPassword(String password) throws FacesException {
-
+    private void initCiphers() throws FacesException {
         try {
-              MessageDigest sha = MessageDigest.getInstance("SHA-256");
-              byte[] shaKey = sha.digest(password.getBytes(StandardCharsets.UTF_8));
-              byte[] finalKey = Arrays.copyOf(shaKey, 16); 
-              SecretKeySpec secretKey = new SecretKeySpec(finalKey, "AES");
-              
-              Cipher encripter = Cipher.getInstance("AES");
-              encripter.init(Cipher.ENCRYPT_MODE, secretKey);
-              
-              Cipher decripter = Cipher.getInstance("AES");
-              decripter.init(Cipher.DECRYPT_MODE, secretKey);
+            // Create a random secret key
+            SecureRandom random = SecureRandom.getInstanceStrong();
+            KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+            keyGen.init(AES_KEY_SIZE, random);
+            SecretKey secretKey = keyGen.generateKey();
 
+            // Init the encripter
+            encripter = Cipher.getInstance(ALGORITHM);
+            encripter.init(Cipher.ENCRYPT_MODE, secretKey);
+
+            // Init the decripter
+            decripter = Cipher.getInstance(ALGORITHM);
+            decripter.init(Cipher.DECRYPT_MODE, secretKey);
         } catch (Exception e) {
             throw new FacesException("Error set encryption key", e);
         }
@@ -86,41 +64,22 @@ public class Codec {
     public String decode(String str) throws Exception {
         byte[] src = str.getBytes(StandardCharsets.UTF_8);
         byte[] utf8 = decode(src);
-
-        // Decode using utf-8
         return new String(utf8, StandardCharsets.UTF_8);
     }
 
     public String encode(String str) throws Exception {
-
         byte[] src = str.getBytes(StandardCharsets.UTF_8);
-
         byte[] utf8 = encode(src);
-        // Decode using utf-8
         return new String(utf8, StandardCharsets.UTF_8);
     }
 
     public byte[] decode(byte[] src) throws Exception {
         byte[] dec = URL64Codec.decodeBase64(src);
-
-        // Decrypt
-        if (null != decripter) {
-            return decripter.doFinal(dec);
-        } else {
-            return dec;
-        }
+        return decripter.doFinal(dec);
     }
 
     public byte[] encode(byte[] src) throws Exception {
-        byte[] dec;
-
-        if (null != encripter) {
-            dec = encripter.doFinal(src);
-        } else {
-            dec = src;
-        }
-
-        // Decrypt
+        byte[] dec = encripter.doFinal(src);
         return URL64Codec.encodeBase64(dec);
     }
 }

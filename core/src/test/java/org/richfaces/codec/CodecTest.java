@@ -25,22 +25,24 @@ import org.ajax4jsf.util.base64.Codec;
 import org.jboss.test.faces.AbstractThreadedTest;
 
 public class CodecTest extends AbstractThreadedTest {
-    Codec c;
+    Codec codec;
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
 
         String message = "";
 
         try {
-            c = new Codec("anbshsquycwuudyft");
+            codec = new Codec();
         } catch (Exception e) {
             message = "Cannot create Codec instance " + e.getMessage();
         }
 
-        assertNotNull(message, c);
+        assertNotNull(message, codec);
     }
 
+    @Override
     public void tearDown() throws Exception {
         super.tearDown();
     }
@@ -49,7 +51,7 @@ public class CodecTest extends AbstractThreadedTest {
         CodecTestRunnable[] runnables = new CodecTestRunnable[100];
 
         for (int i = 0; i < runnables.length; i++) {
-            runnables[i] = new CodecTestRunnable(c, generateRandomString(), i);
+            runnables[i] = new CodecTestRunnable(codec, generateRandomString(), i);
         }
 
         runTestCaseRunnables(runnables);
@@ -68,21 +70,21 @@ public class CodecTest extends AbstractThreadedTest {
     }
 
     class CodecTestRunnable extends TestCaseRunnable {
-        Codec c;
+        Codec codec;
         int id;
-        String s;
+        String original;
 
-        public CodecTestRunnable(Codec c, String s, int id) {
-            this.c = c;
-            this.s = s;
+        public CodecTestRunnable(Codec codec, String original, int id) {
+            this.codec = codec;
+            this.original = original;
             this.id = id;
         }
 
         public void runTestCase() throws Throwable {
-            String s1 = c.encode(s);
-            String s2 = c.decode(s1);
+            String encoded = codec.encode(original);
+            String decoded = codec.decode(encoded);
 
-            assertEquals("Failure in thread " + id, s2, s);
+            assertEquals("Failure in thread " + id, decoded, original);
         }
     }
 }

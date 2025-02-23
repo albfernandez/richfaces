@@ -22,6 +22,7 @@
 package org.richfaces.resource;
 
 import jakarta.faces.context.FacesContext;
+
 import java.util.Map;
 
 public final class DefaultResourceCodec implements ResourceCodec {
@@ -43,7 +44,7 @@ public final class DefaultResourceCodec implements ResourceCodec {
         StringBuilder sb = new StringBuilder();
         sb.append(resourceName);
 
-        if (resourceVersion != null && resourceVersion.length() != 0) {
+        if (resourceVersion != null && !resourceVersion.isEmpty()) {
             if (!parameterAppended) {
                 sb.append('?');
                 parameterAppended = true;
@@ -54,7 +55,7 @@ public final class DefaultResourceCodec implements ResourceCodec {
             sb.append(ResourceUtils.encodeURIQueryPart(resourceVersion));
         }
 
-        if (encodedResourceData != null && encodedResourceData.length() != 0) {
+        if (encodedResourceData != null && !encodedResourceData.isEmpty()) {
             if (!parameterAppended) {
                 sb.append('?');
                 parameterAppended = true;
@@ -67,7 +68,7 @@ public final class DefaultResourceCodec implements ResourceCodec {
             sb.append(ResourceUtils.encodeURIQueryPart(encodedResourceData));
         }
 
-        if (libraryName != null && libraryName.length() != 0) {
+        if (libraryName != null && !libraryName.isEmpty()) {
             if (!parameterAppended) {
                 sb.append('?');
                 parameterAppended = true;
@@ -88,8 +89,8 @@ public final class DefaultResourceCodec implements ResourceCodec {
         String encodedDataString = null;
         boolean dataIsSerialized = false;
         if (resourceData != null) {
-            if (resourceData instanceof byte[]) {
-                encodedDataString = ResourceUtils.encodeBytesData((byte[]) resourceData);
+            if (resourceData instanceof byte[] resourceByteData) {
+                encodedDataString = ResourceUtils.encodeBytesData(resourceByteData);
             } else {
                 encodedDataString = ResourceUtils.encodeObjectData(resourceData);
                 dataIsSerialized = true;

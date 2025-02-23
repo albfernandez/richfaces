@@ -84,7 +84,7 @@ public class Codec {
     public byte[] encode(byte[] src) throws Exception {
         // Create the initialization vector
         byte[] iv = new byte[IV_LENGTH];
-        new SecureRandom().nextBytes(iv);
+        random.nextBytes(iv);
         IvParameterSpec spec = new IvParameterSpec(iv);
 
         // Init the encripter

@@ -27,7 +27,7 @@
     <artifactId>template</artifactId>
     <groupId>org.richfaces.examples</groupId>
     <name>RichFaces Examples Template</name>
-    <version>4.6.22-SNAPSHOT</version>
+    <version>10.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <description>
@@ -68,7 +68,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <version.richfaces>4.6.22-SNAPSHOT</version.richfaces>
+        <version.richfaces>10.0.1-SNAPSHOT</version.richfaces>
     </properties>
 
     <dependencyManagement>
@@ -92,24 +92,59 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-web-6.0</artifactId>
-            <type>pom</type>
-            <scope>provided</scope>
+		<dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet</artifactId>
+           
             <exclusions>
                 <exclusion>
-                    <artifactId>xalan</artifactId>
-                    <groupId>xalan</groupId>
+                    <groupId>org.jboss.weld</groupId>
+                    <artifactId>weld-build-config</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
-
         <dependency>
             <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces</artifactId>
             <scope>provided</scope>
         </dependency>
+        
+        <dependency>
+			<groupId>jakarta.el</groupId>
+			<artifactId>jakarta.el-api</artifactId>
+		</dependency>
+		<dependency>
+	    	<groupId>org.glassfish</groupId>
+	    	<artifactId>jakarta.el</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>jakarta.jms</groupId>
+		    <artifactId>jakarta.jms-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>jakarta.enterprise</groupId>
+		    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.transaction</groupId>
+			<artifactId>jakarta.transaction-api</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>jakarta.activation</groupId>
+		    <artifactId>jakarta.activation-api</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.glassfish</groupId>
+		    <artifactId>jakarta.faces</artifactId>
+		</dependency>
 
         <!-- Test dependencies -->
         <dependency>
@@ -145,6 +180,11 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.3</version>
             </plugin>
+            <plugin>
+				  <groupId>org.eclipse.jetty.ee10</groupId>
+				  <artifactId>jetty-ee10-maven-plugin</artifactId>
+				  <version>12.0.16</version>
+			</plugin>
         </plugins>
     </build>
 

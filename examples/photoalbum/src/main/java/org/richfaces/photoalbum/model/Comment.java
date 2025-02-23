@@ -24,7 +24,7 @@ package org.richfaces.photoalbum.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

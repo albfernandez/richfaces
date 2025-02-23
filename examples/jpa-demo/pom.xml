@@ -27,7 +27,7 @@
     <groupId>org.richfaces.examples</groupId>
     <artifactId>jpa-demo</artifactId>
     <packaging>war</packaging>
-    <version>4.6.22-SNAPSHOT</version>
+    <version>10.0.1-SNAPSHOT</version>
     <name>RichFaces Example - JPA Demo</name>
 
     <description>
@@ -61,14 +61,14 @@
     </issueManagement>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <version.richfaces>4.6.22-SNAPSHOT</version.richfaces>
+        <version.richfaces>10.0.1-SNAPSHOT</version.richfaces>
     </properties>
 
     <dependencyManagement>
@@ -152,6 +152,11 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.3</version>
             </plugin>
+            <plugin>
+				  <groupId>org.eclipse.jetty.ee10</groupId>
+				  <artifactId>jetty-ee10-maven-plugin</artifactId>
+				  <version>12.0.16</version>
+			</plugin>
         </plugins>
     </build>
 

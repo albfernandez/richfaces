@@ -24,11 +24,11 @@ package org.richfaces.photoalbum.manager;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Any;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Any;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.richfaces.photoalbum.model.Album;
 import org.richfaces.photoalbum.model.Event;
@@ -73,7 +73,7 @@ public class Model implements Serializable {
 
     @Inject
     @Any
-    javax.enterprise.event.Event<SimpleEvent> event;
+    jakarta.enterprise.event.Event<SimpleEvent> event;
     @Inject
     MetaTag metatag;
 

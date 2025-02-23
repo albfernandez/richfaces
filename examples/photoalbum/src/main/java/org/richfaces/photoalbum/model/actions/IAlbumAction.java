@@ -21,7 +21,6 @@
  */
 package org.richfaces.photoalbum.model.actions;
 
-import javax.ejb.Local;
 
 import org.richfaces.photoalbum.model.Album;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
@@ -32,7 +31,6 @@ import org.richfaces.photoalbum.util.PhotoAlbumException;
  * @author Andrey Markhel
  */
 
-@Local
 public interface IAlbumAction {
 
     void addAlbum(Album album) throws PhotoAlbumException;

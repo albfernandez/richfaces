@@ -27,11 +27,11 @@ import static org.richfaces.photoalbum.model.event.Events.ADD_ERROR_EVENT;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.event.Event;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.richfaces.photoalbum.model.User;

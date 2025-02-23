@@ -27,9 +27,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Properties;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 
 public class Environment {
 

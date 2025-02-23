@@ -21,9 +21,7 @@
  */
 package org.richfaces.photoalbum.util;
 
-import javax.ejb.ApplicationException;
 
-@ApplicationException(rollback = false)
 public class PhotoAlbumException extends Exception {
 
     private static final long serialVersionUID = -305899531752889504L;

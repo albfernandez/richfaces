@@ -28,10 +28,10 @@ package org.richfaces.photoalbum.manager;
  */
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.event.Event;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 
 import org.richfaces.photoalbum.model.User;
 import org.richfaces.photoalbum.model.actions.IUserAction;

@@ -2,7 +2,7 @@ package org.richfaces.demo.arrangeablemodel;
 
 import java.util.List;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -182,6 +182,7 @@ public abstract class JPADataModel<T> extends ExtendedDataModel<T> implements Ar
             visitor.process(context, getId(t), argument);
         }
     }
+    
 
     @Override
     public boolean isRowAvailable() {
@@ -221,4 +222,8 @@ public abstract class JPADataModel<T> extends ExtendedDataModel<T> implements Ar
 
     // TODO - implement using metadata
     protected abstract Object getId(T t);
+    
+    
+
+    
 }

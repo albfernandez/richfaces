@@ -27,10 +27,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Event;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.richfaces.photoalbum.manager.NavigationEnum;
 import org.richfaces.photoalbum.model.event.ErrorEvent;

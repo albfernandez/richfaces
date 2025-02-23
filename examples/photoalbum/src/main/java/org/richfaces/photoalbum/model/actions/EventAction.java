@@ -24,8 +24,7 @@ package org.richfaces.photoalbum.model.actions;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
@@ -33,7 +32,6 @@ import org.richfaces.photoalbum.model.Event;
 import org.richfaces.photoalbum.model.EventCategory;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
 
-@Stateless
 public class EventAction implements IEventAction {
 
     @Inject

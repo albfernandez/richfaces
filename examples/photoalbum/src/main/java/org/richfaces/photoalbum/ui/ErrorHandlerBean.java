@@ -21,9 +21,9 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Named;
 
 import org.richfaces.photoalbum.model.event.ErrorEvent;
 import org.richfaces.photoalbum.model.event.EventType;

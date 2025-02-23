@@ -21,9 +21,7 @@
  **/
 package org.richfaces.demo.ui;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-
+import org.ocpsoft.rewrite.annotation.RewriteConfiguration;
 import org.ocpsoft.rewrite.config.Configuration;
 import org.ocpsoft.rewrite.config.ConfigurationBuilder;
 import org.ocpsoft.rewrite.config.Direction;
@@ -34,11 +32,16 @@ import org.ocpsoft.rewrite.servlet.config.HttpConfigurationProvider;
 import org.ocpsoft.rewrite.servlet.config.Path;
 import org.ocpsoft.rewrite.servlet.http.event.HttpServletRewrite;
 
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+
+
 /**
  * This class provides the configuration for ReWrite.
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
+@RewriteConfiguration
 public class RewriteConfigurationProvider extends HttpConfigurationProvider {
 
     @Override
@@ -54,24 +57,26 @@ public class RewriteConfigurationProvider extends HttpConfigurationProvider {
      *            the ServletContext
      * @return the ReWrite Configuration
      */
+    
     @Override
     public Configuration getConfiguration(final ServletContext context) {
-        return ConfigurationBuilder
-            .begin()
-            .addRule()
-            .when(
-                Direction.isInbound()
-                    .and(Path.matches("/").or(Path.matches("/index.jsf")).or(Path.matches("/faces/index.xhtml")))
-                    .and(new HttpCondition() {
-                        @Override
-                        public boolean evaluateHttp(HttpServletRewrite httpServletRewrite,
-                            EvaluationContext evaluationContext) {
-                            HttpServletRequest request = httpServletRewrite.getRequest();
-                            String userAgentStr = request.getHeader("user-agent");
-                            String httpAccept = request.getHeader("Accept");
-                            UAgentInfo uAgentInfo = new UAgentInfo(userAgentStr, httpAccept);
-                            return uAgentInfo.detectTierIphone() || uAgentInfo.detectTierTablet();
-                        }
-                    })).perform(Forward.to("/mobile/index.jsf"));
+    	 return ConfigurationBuilder
+    	            .begin()
+    	            .addRule()
+    	            .when(
+    	                Direction.isInbound()
+    	                    .and(Path.matches("/").or(Path.matches("/index.jsf")).or(Path.matches("/faces/index.xhtml")))
+    	                    .and(new HttpCondition() {
+    	                        @Override
+    	                        public boolean evaluateHttp(HttpServletRewrite httpServletRewrite,
+    	                            EvaluationContext evaluationContext) {
+    	                            HttpServletRequest request = httpServletRewrite.getRequest();
+    	                            String userAgentStr = request.getHeader("user-agent");
+    	                            String httpAccept = request.getHeader("Accept");
+    	                            UAgentInfo uAgentInfo = new UAgentInfo(userAgentStr, httpAccept);
+    	                            return uAgentInfo.detectTierIphone() || uAgentInfo.detectTierTablet();
+    	                        }
+    	                    })).perform(Forward.to("/mobile/index.jsf"));
     }
+    
 }

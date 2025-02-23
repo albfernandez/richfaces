@@ -32,14 +32,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.ejb.Startup;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Utility class, that perform copying images from ear file to temp folder at startup application
@@ -48,7 +48,6 @@ import javax.servlet.http.HttpSession;
  * 
  */
 
-@Startup
 @ApplicationScoped
 public class ImageCopier {
 

@@ -30,13 +30,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.inject.Any;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -52,6 +45,14 @@ import org.richfaces.photoalbum.model.event.EventTypeQualifier;
 import org.richfaces.photoalbum.model.event.Events;
 import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.Preferred;
+
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.event.Event;
+import jakarta.enterprise.inject.Any;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 @Named
 @RequestScoped

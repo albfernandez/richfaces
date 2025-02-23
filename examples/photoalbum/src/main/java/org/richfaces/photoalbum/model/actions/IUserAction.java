@@ -21,7 +21,6 @@
  */
 package org.richfaces.photoalbum.model.actions;
 
-import javax.ejb.Local;
 
 import org.richfaces.photoalbum.model.User;
 import org.richfaces.photoalbum.util.PhotoAlbumException;
@@ -32,7 +31,6 @@ import org.richfaces.photoalbum.util.PhotoAlbumException;
  * @author Andrey Markhel
  */
 
-@Local
 public interface IUserAction {
     //public User login(String username, String password);
 

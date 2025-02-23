@@ -24,9 +24,9 @@ package org.richfaces.photoalbum.ui;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.richfaces.photoalbum.model.Image;

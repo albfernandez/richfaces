@@ -25,7 +25,7 @@
  */
 package org.richfaces.example;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author leo

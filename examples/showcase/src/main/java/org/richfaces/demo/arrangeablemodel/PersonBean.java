@@ -30,6 +30,7 @@ public class PersonBean implements Serializable {
         protected Object getId(Person t) {
             return t.getId();
         }
+                
     }
 
     private Map<String, SortOrder> sortOrders = Maps.newHashMapWithExpectedSize(1);

@@ -4,9 +4,9 @@
 name: Richfaces CI
 on:
   push:
-    branches: [ main ]
+    branches: [ main, jakarta ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, jakarta ]
 
 jobs:
   build:

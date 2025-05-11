@@ -49,7 +49,7 @@ import jakarta.persistence.Persistence;
 /**
  * @author Nick Belaevski
  */
-@Named
+@Named("persistenceService")
 @ApplicationScoped
 public class PersistenceService {
     private static final Logger LOGGER = Logger.getLogger(PersistenceService.class.getName());

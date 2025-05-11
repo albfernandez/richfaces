@@ -16,6 +16,7 @@ import jakarta.faces.application.ConfigurableNavigationHandler;
 import jakarta.faces.application.NavigationCase;
 import jakarta.faces.application.NavigationHandler;
 import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 @Named
@@ -29,7 +30,7 @@ public class DemoNavigator implements Serializable {
     private static final String SEPARATOR = "/";
     private static final String SAMPLE_PREFIX = "-sample";
     private static final String SAMPLES_FOLDER = "samples/";
-    @ManagedProperty(value = "#{navigationParser.groupsList}")
+
     private List<GroupDescriptor> groups;
     private DemoDescriptor currentDemo;
     private SampleDescriptor currentSample;
@@ -40,6 +41,7 @@ public class DemoNavigator implements Serializable {
     public void init() {
         currentDemo = null;
         currentSample = null;
+        groups = new NavigationParser().getGroupsList();
         groups = new ArrayList<GroupDescriptor>(Collections2.filter(groups, new Predicate<GroupDescriptor>() {
             public boolean apply(GroupDescriptor input) {
                 return input.hasEnabledItems();

@@ -71,14 +71,6 @@
         <version.richfaces>10.0.1-SNAPSHOT</version.richfaces>
 
         <!-- Container Versions -->
-        <version.wildfly100>10.1.0.Final</version.wildfly100>
-        <version.wildfly90>9.0.2.Final</version.wildfly90>
-        <version.wildfly81>8.1.0.Final</version.wildfly81>
-        <version.wildfly82>8.2.1.Final</version.wildfly82>
-        <version.tomcat7>7.0.94</version.tomcat7>
-        <version.tomcat8>8.0.53</version.tomcat8>
-        <version.tomcat85>8.5.40</version.tomcat85>
-        <version.tomcat9>9.0.19</version.tomcat9>
 
         <dependency.scope>compile</dependency.scope>
         <container.resources>${project.basedir}/src/main/resources-tomcat</container.resources>
@@ -120,7 +112,6 @@
             WEB-INF/lib/cglib*,
             WEB-INF/lib/commons-collections*,
             WEB-INF/lib/dom4j*,
-            WEB-INF/lib/hsqldb*,
             WEB-INF/lib/javassist*,
             WEB-INF/lib/cdi-api*,
             WEB-INF/lib/javax.inject*,
@@ -167,6 +158,26 @@
     </dependencyManagement>
 
     <dependencies>
+		 <dependency>
+             <groupId>org.atmosphere</groupId>
+             <artifactId>atmosphere-runtime</artifactId>
+        </dependency>
+        <dependency>
+	      <groupId>rhino</groupId>
+	      <artifactId>js</artifactId>
+	      <type>jar</type>
+     	  <version>1.7R2</version>
+	    </dependency>
+	     <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.collections</groupId>
+                    <artifactId>google-collections</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 		<dependency>
 		    <groupId>jakarta.persistence</groupId>
 		    <artifactId>jakarta.persistence-api</artifactId>
@@ -748,12 +759,6 @@
                 <arquillian.container.vmargs>-Xmx768m -XX:MaxPermSize=256m</arquillian.container.vmargs>
                 <arquillian.maven.settings />
 
-				<!-- Container Selection -->
-                <arquillian.launch.jbosseap6>false</arquillian.launch.jbosseap6>
-                <arquillian.launch.tomcat7>false</arquillian.launch.tomcat7>
-                <arquillian.launch.tomcat8>false</arquillian.launch.tomcat8>
-                <arquillian.launch.tomcat85>false</arquillian.launch.tomcat85>
-                <arquillian.launch.tomcat9>false</arquillian.launch.tomcat9>
 
 				<!-- HTTPS testing -->
                 <firefoxProfileTemplate />
@@ -775,7 +780,6 @@
                     <type>zip</type>
                     <scope>test</scope>
                     <version>${version.richfaces}</version>
-                    <classifier>configuration-wildfly82-https</classifier>
                 </dependency>
                 <dependency>
                     <groupId>com.github.albfernandez.richfaces</groupId>

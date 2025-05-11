@@ -57,7 +57,9 @@ class PersistenceLifecycle extends Lifecycle {
         try {
             lifecycle.execute(context);
         } finally {
-            PersistenceServiceRef.PERSISTENCE_SERVICE.closeEntityManager();
+        	if (PersistenceServiceRef.PERSISTENCE_SERVICE != null){
+        		PersistenceServiceRef.PERSISTENCE_SERVICE.closeEntityManager();
+        	}
         }
     }
 
@@ -65,7 +67,9 @@ class PersistenceLifecycle extends Lifecycle {
         try {
             lifecycle.render(context);
         } finally {
-            PersistenceServiceRef.PERSISTENCE_SERVICE.closeEntityManager();
+        	if (PersistenceServiceRef.PERSISTENCE_SERVICE != null) {
+        		PersistenceServiceRef.PERSISTENCE_SERVICE.closeEntityManager();
+        	}
         }
     }
 }

@@ -11,7 +11,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-@Named	
+@Named("navigationParser")
 @ApplicationScoped
 public class NavigationParser {
     private List<GroupDescriptor> groupsList;

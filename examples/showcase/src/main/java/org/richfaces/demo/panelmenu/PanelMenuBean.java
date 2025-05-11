@@ -7,8 +7,11 @@ import jakarta.inject.Named;
 
 @Named
 @ViewScoped
-public class PanelMenuBean {
-    private String current;
+public class PanelMenuBean implements java.io.Serializable {
+	
+	
+    private static final long serialVersionUID = 8676881864581040850L;
+	private String current;
     private boolean singleMode;
 
     public boolean isSingleMode() {

@@ -19,7 +19,7 @@
             <plugin>
                 <groupId>com.github.albfernandez.richfaces.cdk</groupId>
                 <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
-                <version>10.0.1-SNAPSHOT</version>
+                <version>${version.cdk}</version>
                 <executions>
                     <execution>
                         <id>process</id>

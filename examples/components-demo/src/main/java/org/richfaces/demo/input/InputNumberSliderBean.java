@@ -21,16 +21,16 @@
  */
 package org.richfaces.demo.input;
 
+import java.util.Date;
+
 import org.richfaces.component.InputNumberSliderHandleType;
 import org.richfaces.component.InputNumberSliderInputPosition;
 
-import java.util.Date;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 
 
-@ManagedBean(name = "inputNumberSliderBean")
+@Named("inputNumberSliderBean")
 @SessionScoped
 public class InputNumberSliderBean {
     private double value;

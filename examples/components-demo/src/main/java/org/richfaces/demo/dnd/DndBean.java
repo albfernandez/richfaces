@@ -25,10 +25,10 @@ package org.richfaces.demo.dnd;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 
-@ManagedBean
+@Named
 @SessionScoped
 public class DndBean {
     private List<String> dropValues = new ArrayList<String>();

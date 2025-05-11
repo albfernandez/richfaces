@@ -25,22 +25,23 @@
  */
 package org.richfaces.demo.iteration.model.tree;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.Unmarshaller.Listener;
+
 import org.richfaces.demo.iteration.model.tree.adaptors.Entry;
 import org.richfaces.demo.iteration.model.tree.adaptors.Root;
 
-import javax.faces.FacesException;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.Unmarshaller.Listener;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.FacesException;
+import jakarta.inject.Named;
 
 /**
  * @author Nick Belaevski mailto:nbelaevski@exadel.com created 25.07.2007
  *
  */
-@ManagedBean
+@Named
 @ApplicationScoped
 public class TreeModelDataBean {
     private Root root;

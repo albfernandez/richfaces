@@ -3,12 +3,12 @@ package org.richfaces.demo.mediaOutput;
 import java.io.BufferedInputStream;
 import java.io.OutputStream;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 
-@ManagedBean(name = "mediaBean")
+@Named("mediaBean")
 @RequestScoped
 public class MediaBean {
     private static final int BUFFER_SIZE = 8192;

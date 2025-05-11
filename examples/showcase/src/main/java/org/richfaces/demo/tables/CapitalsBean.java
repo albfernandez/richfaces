@@ -3,13 +3,13 @@ package org.richfaces.demo.tables;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-
 import org.richfaces.demo.tables.model.capitals.Capital;
 
-@ManagedBean
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.annotation.ManagedProperty;
+import jakarta.inject.Named;
+
+@Named
 @SessionScoped
 public class CapitalsBean implements Serializable {
     private static final long serialVersionUID = -1509108399715814302L;

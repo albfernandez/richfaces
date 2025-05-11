@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ 8, 11 ]
+        java: [ 21 ]
     name: Java ${{matrix.java}}
     steps:
       - uses: actions/checkout@v2
@@ -28,4 +28,4 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
-        run: mvn clean package verify -Dcheckstyle.skip=true -Dgpg.skip=true -B -q -Pquickrun,examples
+        run: mvn clean verify -Dcheckstyle.skip=true -Dgpg.skip=true -B -q -Pquickrun,examples

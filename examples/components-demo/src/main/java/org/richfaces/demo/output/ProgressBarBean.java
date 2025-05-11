@@ -29,14 +29,14 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 
 /**
  * @author Ilya Shaikovsky
  *
  */
-@ManagedBean
+@Named	
 @ViewScoped
 public class ProgressBarBean implements Serializable {
     private static final long serialVersionUID = -446286889238296278L;

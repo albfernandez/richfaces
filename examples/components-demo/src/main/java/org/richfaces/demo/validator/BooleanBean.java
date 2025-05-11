@@ -25,15 +25,16 @@
  */
 package org.richfaces.demo.validator;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.validation.constraints.AssertTrue;
+
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 
 /**
  * @author asmirnov
  *
  */
-@ManagedBean
+@Named
 @RequestScoped
 public class BooleanBean extends Validable<Boolean> {
     @AssertTrue()

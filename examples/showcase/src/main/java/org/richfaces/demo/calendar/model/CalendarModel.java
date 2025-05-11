@@ -4,13 +4,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-
 import org.richfaces.model.CalendarDataModel;
 import org.richfaces.model.CalendarDataModelItem;
 
-@ManagedBean
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
+
+@Named
 @ApplicationScoped
 public class CalendarModel implements CalendarDataModel {
     private static final String WEEKEND_DAY_CLASS = "wdc";

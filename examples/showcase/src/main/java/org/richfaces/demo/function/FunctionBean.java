@@ -1,9 +1,9 @@
 package org.richfaces.demo.function;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 
-@ManagedBean(name = "functionBean")
+@Named("functionBean")
 @RequestScoped
 public class FunctionBean {
     private String text;

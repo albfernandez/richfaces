@@ -22,15 +22,16 @@
 
 package org.richfaces.demo.validator;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-@ManagedBean(name = "test")
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
+
+@Named(	"test")
 @RequestScoped
 public class Bean {
     public static final String FOO_VALUE = "fooValue";

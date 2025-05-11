@@ -8,11 +8,11 @@ import java.util.List;
 
 import jakarta.inject.Named;
 import jakarta.faces.view.ViewScoped;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.model.SelectItem;
 
 import org.richfaces.JsfVersion;
 import org.richfaces.demo.common.data.RandomHelper;

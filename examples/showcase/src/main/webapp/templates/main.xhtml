@@ -6,7 +6,7 @@
         <link rel="icon" type="image/gif" href="#{facesContext.externalContext.requestContextPath}/images/icons/richfaces_icon.gif" />
     </h:head>
     <h:body>
-        <c:if test="#{initParam['javax.faces.PROJECT_STAGE'] eq 'Development'}">
+        <c:if test="#{initParam['jakarta.faces.PROJECT_STAGE'] eq 'Development'}">
             <a4j:log mode="console" level="DEBUG" />
             <ui:debug hotkey="0" />
         </c:if>

@@ -2,22 +2,22 @@ package org.richfaces.demo.inplaces;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
+import org.richfaces.demo.tables.model.capitals.Capital;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import org.richfaces.demo.tables.model.capitals.Capital;
 
-@ManagedBean
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.annotation.ManagedProperty;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
+import jakarta.inject.Named;
+
+@Named
 @RequestScoped
 public class InplaceSelectBean {
     @ManagedProperty(value = "#{capitalsParser.capitalsList}")

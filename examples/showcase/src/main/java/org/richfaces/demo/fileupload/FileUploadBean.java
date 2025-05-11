@@ -5,16 +5,16 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 
 /**
  * @author Ilya Shaikovsky
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class FileUploadBean implements Serializable {
     private ArrayList<UploadedImage> files = new ArrayList<UploadedImage>();

@@ -21,10 +21,10 @@
  */
 package org.richfaces.demo.jpa;
 
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseListener;
-import javax.faces.lifecycle.Lifecycle;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PhaseListener;
+import jakarta.faces.lifecycle.Lifecycle;
 
 class PersistenceLifecycle extends Lifecycle {
     private static final class PersistenceServiceRef {

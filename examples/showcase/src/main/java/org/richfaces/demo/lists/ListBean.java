@@ -1,9 +1,9 @@
 package org.richfaces.demo.lists;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class ListBean {
     private String listType = "ordered";

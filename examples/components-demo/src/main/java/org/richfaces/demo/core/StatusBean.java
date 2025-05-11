@@ -21,14 +21,14 @@
  */
 package org.richfaces.demo.core;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean(name = "statusBean")
+@Named("statusBean")
 @RequestScoped
 public class StatusBean {
     public void delay() throws InterruptedException {

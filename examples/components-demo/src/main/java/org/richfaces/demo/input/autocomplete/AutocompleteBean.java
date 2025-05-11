@@ -4,17 +4,17 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import org.richfaces.demo.model.person.Person;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
-import org.richfaces.demo.model.person.Person;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class AutocompleteBean implements Serializable {
 

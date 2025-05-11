@@ -22,10 +22,10 @@
 
 package org.richfaces.demo.output;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 
-@ManagedBean(name = "rf11474")
+@Named("rf11474")
 @ViewScoped
 public class RF11474 {
 

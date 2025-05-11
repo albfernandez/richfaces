@@ -23,7 +23,7 @@ package org.richfaces.demo.iteration.model.tree.adaptors;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElement;
 
 /**
  * @author Nick Belaevski mailto:nbelaevski@exadel.com created 04.08.2007

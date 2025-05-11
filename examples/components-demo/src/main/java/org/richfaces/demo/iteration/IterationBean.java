@@ -27,16 +27,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
+import org.ajax4jsf.model.DataComponentState;
 import org.richfaces.demo.iteration.model.Employee;
 import org.richfaces.demo.iteration.utils.EmployeeUtils;
-import org.ajax4jsf.model.DataComponentState;
-import org.richfaces.model.SelectionMode;
 import org.richfaces.event.SortingEvent;
+import org.richfaces.model.SelectionMode;
 
-@ManagedBean
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+
+@Named
 @SessionScoped
 public class IterationBean {
     DataComponentState dataTableState;

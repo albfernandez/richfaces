@@ -27,8 +27,8 @@ import java.io.Serializable;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
 import jakarta.faces.context.FacesContext;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
 
 import org.richfaces.el.util.ELUtils;
 

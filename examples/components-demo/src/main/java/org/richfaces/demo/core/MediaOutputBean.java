@@ -25,17 +25,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-
 import org.richfaces.resource.ResourceUtils;
+
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 
 /**
  * @author Nick Belaevski
  *
  */
 @RequestScoped
-@ManagedBean(name = "mediaOutputBean")
+@Named("mediaOutputBean")
 public class MediaOutputBean {
     public void createContent(OutputStream os, Object data) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();

@@ -1,10 +1,10 @@
 package org.richfaces.demo.tables.model.capitals;
 
-import javax.el.ELContext;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import jakarta.el.ELContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.FacesConverter;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

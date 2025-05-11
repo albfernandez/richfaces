@@ -22,14 +22,15 @@
 
 package org.richfaces.demo.output;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
+
 @ViewScoped
-@ManagedBean
+@Named
 public class DynamicTabBean implements Serializable {
 
     private static final long serialVersionUID = -2403138958014741653L;

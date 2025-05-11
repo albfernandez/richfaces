@@ -3,13 +3,13 @@ package org.richfaces.demo.tables;
 import java.io.Serializable;
 import java.util.Comparator;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-
-import org.richfaces.demo.tables.model.capitals.Capital;
 import org.richfaces.component.SortOrder;
+import org.richfaces.demo.tables.model.capitals.Capital;
 
-@ManagedBean
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
+
+@Named
 @ViewScoped
 public class CapitalsSortingBean implements Serializable {
     private static final long serialVersionUID = -6237417487105926855L;

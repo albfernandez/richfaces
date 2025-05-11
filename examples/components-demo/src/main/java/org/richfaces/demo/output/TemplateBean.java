@@ -25,15 +25,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.annotation.PostConstruct;
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 
 /**
  * @author akolonitsky
  * @since Nov 2, 2010
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class TemplateBean implements Serializable {
     private static final long serialVersionUID = 5078700314562231363L;

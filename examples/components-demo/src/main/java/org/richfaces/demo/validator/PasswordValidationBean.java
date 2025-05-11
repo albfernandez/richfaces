@@ -24,14 +24,15 @@ package org.richfaces.demo.validator;
 
 import java.io.Serializable;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
 
-@ManagedBean
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
+
+@Named	
 @SessionScoped
 public class PasswordValidationBean implements Cloneable, Serializable {
     /**

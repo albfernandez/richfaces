@@ -51,7 +51,7 @@ public abstract class AbstractCapabilityInitializer implements CapabilityInitial
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.event.SystemEventListener#processEvent(javax.faces.event. SystemEvent)
+     * @see jakarta.faces.event.SystemEventListener#processEvent(javax.faces.event. SystemEvent)
      */
     public void processEvent(SystemEvent event) throws AbortProcessingException {
         if (isCapabilityEnabled()) {
@@ -104,7 +104,7 @@ public abstract class AbstractCapabilityInitializer implements CapabilityInitial
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.event.SystemEventListener#isListenerForSource(java.lang.Object )
+     * @see jakarta.faces.event.SystemEventListener#isListenerForSource(java.lang.Object )
      */
     public boolean isListenerForSource(Object source) {
         return true;

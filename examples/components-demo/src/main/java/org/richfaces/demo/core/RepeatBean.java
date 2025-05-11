@@ -26,14 +26,14 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class RepeatBean implements Serializable {
     private static final long serialVersionUID = -4468004449310935853L;

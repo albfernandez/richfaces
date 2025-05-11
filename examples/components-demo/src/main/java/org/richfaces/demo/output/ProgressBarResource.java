@@ -23,9 +23,9 @@ package org.richfaces.demo.output;
 
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
-
 import org.richfaces.resource.AbstractJSONResource;
+
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski

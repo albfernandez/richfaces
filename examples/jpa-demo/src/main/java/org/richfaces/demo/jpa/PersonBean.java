@@ -23,20 +23,20 @@ package org.richfaces.demo.jpa;
 
 import java.util.Map;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import javax.persistence.EntityManager;
-
 import org.richfaces.component.SortOrder;
 
 import com.google.common.collect.Maps;
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.annotation.ManagedProperty;
+import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
 
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean
+@Named("personBean")
 @SessionScoped
 public class PersonBean {
     private static final class PersonDataModel extends JPADataModel<Person> {

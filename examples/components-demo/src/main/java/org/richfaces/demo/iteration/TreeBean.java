@@ -28,39 +28,40 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.IntegerConverter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.FacesEvent;
+import jakarta.annotation.PostConstruct;
 import javax.swing.tree.TreeNode;
 
-import org.richfaces.demo.iteration.model.tree.DataHolderTreeNodeImpl;
-import org.richfaces.log.LogFactory;
-import org.richfaces.log.Logger;
-import org.richfaces.model.TreeDataModel;
-import org.richfaces.component.SwitchType;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
+import org.richfaces.component.SwitchType;
+import org.richfaces.convert.SequenceRowKeyConverter;
+import org.richfaces.demo.iteration.model.tree.DataHolderTreeNodeImpl;
 import org.richfaces.event.TreeSelectionChangeEvent;
 import org.richfaces.event.TreeSelectionChangeListener;
 import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.event.TreeToggleListener;
-import org.richfaces.convert.SequenceRowKeyConverter;
+import org.richfaces.log.LogFactory;
+import org.richfaces.log.Logger;
 import org.richfaces.model.SwingTreeNodeDataModelImpl;
 import org.richfaces.model.SwingTreeNodeImpl;
+import org.richfaces.model.TreeDataModel;
 import org.richfaces.model.TreeNodeImpl;
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.IntegerConverter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.faces.event.FacesEvent;
+import jakarta.inject.Named;
 
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class TreeBean implements Serializable {
     public static final class SelectionChangeHandler implements TreeSelectionChangeListener {

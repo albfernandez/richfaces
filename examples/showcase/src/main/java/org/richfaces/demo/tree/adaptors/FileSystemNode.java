@@ -10,8 +10,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;

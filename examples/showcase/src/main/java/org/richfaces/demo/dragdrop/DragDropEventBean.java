@@ -1,13 +1,14 @@
 package org.richfaces.demo.dragdrop;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
 
-@ManagedBean
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.annotation.ManagedProperty;
+import jakarta.inject.Named;
+
+@Named
 @RequestScoped
 public class DragDropEventBean implements DropListener {
     @ManagedProperty(value = "#{dragDropBean}")

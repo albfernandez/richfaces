@@ -1,14 +1,12 @@
 package org.richfaces.demo.common.navigation;
 
 import java.util.Collection;
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
+
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 
 public class GroupDescriptor extends BaseDescriptor {
     private static final long serialVersionUID = -3481702232804120885L;

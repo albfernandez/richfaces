@@ -61,7 +61,11 @@
     </issueManagement>
 
     <properties>
+        <java.version>11</java.version>
         <version.richfaces>10.0.1-SNAPSHOT</version.richfaces>
+
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -88,30 +92,26 @@
     </dependencyManagement>
 
     <dependencies>
-
         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <type>pom</type>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>xalan</artifactId>
-                    <groupId>xalan</groupId>
-                </exclusion>
-            </exclusions>
+		    <groupId>jakarta.enterprise</groupId>
+		    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+		</dependency>
+        
+        <dependency>
+		    <groupId>jakarta.servlet.jsp.jstl</groupId>
+		    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
         </dependency>
+        
+        <dependency>
+		    <groupId>org.glassfish</groupId>
+		    <artifactId>jakarta.faces</artifactId>
+		</dependency>
 
         <dependency>
             <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
-            <artifactId>richfaces-push-depchain</artifactId>
-            <type>pom</type>
-        </dependency>
 
         <dependency>
             <groupId>pircbot</groupId>

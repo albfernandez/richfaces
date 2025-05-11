@@ -25,12 +25,12 @@ package org.richfaces.demo.core;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.AjaxBehaviorEvent;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.inject.Named;
 
-@ManagedBean(name = "commandBean")
+@Named("commandBean")
 @SessionScoped
 public class CommandBean implements Serializable {
     private static final long serialVersionUID = 3485896940723796437L;

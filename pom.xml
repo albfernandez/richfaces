@@ -223,7 +223,13 @@
 			<dependency>
 			    <groupId>jakarta.enterprise</groupId>
 			    <artifactId>jakarta.enterprise.cdi-api</artifactId>
-			    <version>4.1.0</version>
+			    <version>4.0.1</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>jakarta.persistence</groupId>
+			    <artifactId>jakarta.persistence-api</artifactId>
+			    <version>3.2.0</version>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.transaction</groupId>
@@ -369,13 +375,6 @@
                     <groupId>com.github.albfernandez.richfaces.cdk</groupId>
                     <artifactId>richfaces-cdk-maven-plugin</artifactId>
                     <version>${version.cdk}</version>
-                    <!--<dependencies>
-                        <dependency>
-                            <groupId>javax.xml.bind</groupId>
-                            <artifactId>jaxb-api</artifactId>
-                            <version>2.3.1</version>
-                        </dependency>
-                    </dependencies>-->
                 </plugin>
                 <plugin>
                     <groupId>com.google.code.maven-replacer-plugin</groupId>

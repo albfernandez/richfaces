@@ -209,7 +209,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		    <version>${version.jackson}</version>
 		</dependency>
 
-
+		<dependency>
+		    <groupId>jakarta.persistence</groupId>
+		    <artifactId>jakarta.persistence-api</artifactId>
+		    <version>3.2.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>jakarta.ws.rs</groupId>
+		    <artifactId>jakarta.ws.rs-api</artifactId>
+		    <version>3.1.0</version>
+	    </dependency>
 
         <!-- Test dependencies -->
         <dependency>

@@ -22,14 +22,15 @@
 
 package org.richfaces.demo.validator;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
+
 @ViewScoped
-@ManagedBean
+@Named
 public class NotifyBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

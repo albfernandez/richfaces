@@ -23,14 +23,14 @@ package org.richfaces.demo.core;
 
 import org.richfaces.component.LogMode;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class LogBean {
     private static final LogMode[] LOG_MODES = new LogMode[] { LogMode.inline, LogMode.popup };

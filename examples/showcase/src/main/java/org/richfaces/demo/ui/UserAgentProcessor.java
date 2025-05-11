@@ -23,18 +23,18 @@ package org.richfaces.demo.ui;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 
 /**
  * @author jbalunas@redhat.com
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  *
  */
-@ManagedBean(name="userAgent")
+@Named("userAgent")
 @SessionScoped
 public class UserAgentProcessor implements Serializable {
 

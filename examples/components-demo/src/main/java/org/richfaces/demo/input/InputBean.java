@@ -22,12 +22,13 @@
 
 package org.richfaces.demo.input;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import java.util.List;
 
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+
 @SessionScoped
-@ManagedBean(name = "inputBean")
+@Named("inputBean")
 public class InputBean {
     private String value;
     private List<String> values;

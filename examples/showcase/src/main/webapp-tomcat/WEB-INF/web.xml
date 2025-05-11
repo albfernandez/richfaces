@@ -26,7 +26,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <display-name>richfaces-showcase</display-name>
     <context-param>
-        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+        <param-name>jakarta.faces.FACELETS_LIBRARIES</param-name>
         <param-value>/WEB-INF/app-tags.taglib.xml</param-value>
     </context-param>
     <context-param>
@@ -42,15 +42,15 @@
         <param-value>false</param-value>
     </context-param>
     <context-param>
-        <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>${javax.faces.PROJECT_STAGE}</param-value>
+        <param-name>jakarta.faces.PROJECT_STAGE</param-name>
+        <param-value>${jakarta.faces.PROJECT_STAGE}</param-value>
     </context-param>
     <context-param>
         <param-name>org.richfaces.resourceOptimization.enabled</param-name>
         <param-value>true</param-value>
     </context-param>
     <context-param>
-        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>
         <param-value>server</param-value>
     </context-param>
     <servlet>

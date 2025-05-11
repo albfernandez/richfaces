@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-
 import org.richfaces.model.ChartDataModel;
 import org.richfaces.model.PlotClickEvent;
 import org.richfaces.model.StringChartDataModel;
 
-@ManagedBean
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
+
+@Named
 @ViewScoped
 public class ChartBean implements Serializable {
 

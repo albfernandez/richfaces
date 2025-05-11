@@ -1,9 +1,9 @@
 package org.richfaces.demo.common;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 
-@ManagedBean(name = "userBean")
+@Named("userBean")
 @RequestScoped
 public class UserBean {
 

@@ -2,7 +2,7 @@ package org.richfaces.demo.tree;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElement;
 
 public class CDXmlDescriptor implements Serializable {
     private String artist;

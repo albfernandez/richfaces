@@ -24,10 +24,6 @@ package org.richfaces.demo.jpa;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -35,11 +31,15 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.annotation.ManagedProperty;
+import jakarta.inject.Named;
+
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean(name = "rf10888")
+@Named("RF10888")
 @SessionScoped
 public class RF10888 {
     private String name;

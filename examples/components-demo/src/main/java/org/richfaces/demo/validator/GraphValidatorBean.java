@@ -25,16 +25,17 @@
  */
 package org.richfaces.demo.validator;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 
 /**
  * @author asmirnov
  *
  */
-@ManagedBean
+@Named
 @RequestScoped
 public class GraphValidatorBean implements Cloneable {
     @Min(0)

@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-
 import org.richfaces.demo.tables.model.slides.Picture;
+
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 
 /**
  * @author Ilya Shaikovsky
  */
-@ManagedBean
+@Named
 @ViewScoped
 public class SlidesBean implements Serializable {
     private static final long serialVersionUID = -6498592143189891265L;

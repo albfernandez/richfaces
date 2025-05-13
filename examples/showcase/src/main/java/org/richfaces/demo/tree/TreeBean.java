@@ -15,8 +15,8 @@ import org.richfaces.demo.tree.model.Country;
 import org.richfaces.event.TreeSelectionChangeEvent;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.faces.annotation.ManagedProperty;
 import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 /**
@@ -26,7 +26,9 @@ import jakarta.inject.Named;
 @ViewScoped
 public class TreeBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    @ManagedProperty(value = "#{cdsParser.cdsList}")
+    
+    @Inject
+    private CDParser cdParser;
     private List<CDXmlDescriptor> cdXmlDescriptors;
     private List<TreeNode> rootNodes = new ArrayList<TreeNode>();
     private Map<String, Country> countriesCache = new HashMap<String, Country>();
@@ -35,14 +37,15 @@ public class TreeBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        for (CDXmlDescriptor current : cdXmlDescriptors) {
-            String countryName = current.getCountry();
-            String companyName = current.getCompany();
-            Country country = getCountryByName(current);
-            Company company = getCompanyByName(current, country);
-            CD cd = new CD(current.getTitle(), current.getArtist(), company, current.getPrice(), current.getYear());
-            company.getCds().add(cd);
-        }
+    	this.cdXmlDescriptors = cdParser.getCdsList();
+    	if (this.cdXmlDescriptors != null) {
+	        for (CDXmlDescriptor current : cdXmlDescriptors) {
+	            Country country = getCountryByName(current);
+	            Company company = getCompanyByName(current, country);
+	            CD cd = new CD(current.getTitle(), current.getArtist(), company, current.getPrice(), current.getYear());
+	            company.getCds().add(cd);
+	        }
+    	}
     }
 
     public void selectionChanged(TreeSelectionChangeEvent selectionChangeEvent) {

@@ -12,7 +12,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.faces.FacesException;
 import jakarta.inject.Named;
 
-@Named("cdsParser")
+@Named("cdParser")
 @ApplicationScoped
 public class CDParser {
     private List<CDXmlDescriptor> cdsList;

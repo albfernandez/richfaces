@@ -12,16 +12,16 @@
     </h:outputStylesheet>
     <h:panelGrid columns="2" width="100%" columnClasses="col">
 
-        <f:verbatim>
+        <h:outputText escape="false">
             This code does not work as expected. The expected echo text does not appear
             below even the condition for <code>'rendered'</code> returns <code>true</code>.
             Also, the error message does not appear when the length of the text reaches the limit.
-        </f:verbatim>
-        <f:verbatim>
+        </h:outputText>
+        <h:outputText escape="false">
             This code works properly. The <code>h:message</code> is marked for update during
             each Ajaxrequest/response. The place for bottom label is reserved with
             <code>outputPanel</code> while the component is not rendered.
-        </f:verbatim>
+        </h:outputText>
 
         <a4j:outputPanel layout="block">
 

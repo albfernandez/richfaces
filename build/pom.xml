@@ -120,7 +120,7 @@
         <!-- Integration Tests Versions -->
         <version.arquillian.core>1.1.15.Final</version.arquillian.core>
         <version.arquillian.drone>2.4.3</version.arquillian.drone>
-        <version.arquillian.graphene>2.3.2</version.arquillian.graphene>
+        <version.arquillian.graphene>2.5.4</version.arquillian.graphene>
         <version.selenium>3.7.1</version.selenium>
         <version.shrinkwrap>1.2.6</version.shrinkwrap>
         <version.shrinkwrap.resolver>2.2.7</version.shrinkwrap.resolver>

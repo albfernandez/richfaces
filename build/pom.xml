@@ -80,7 +80,7 @@
         <version.myfaces>2.2.12</version.myfaces>
 
         <!-- Push Dependencies -->
-        <version.atmosphere>2.4.32</version.atmosphere>
+        <version.atmosphere>2.7.15</version.atmosphere>
 
         <!-- Example Dependency Libraries Versions -->
         <version.slf4j>1.7.26</version.slf4j>

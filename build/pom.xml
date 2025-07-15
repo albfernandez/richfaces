@@ -123,7 +123,7 @@
         <version.arquillian.graphene>2.3.2</version.arquillian.graphene>
         <version.selenium>3.7.1</version.selenium>
         <version.shrinkwrap>1.2.6</version.shrinkwrap>
-        <version.shrinkwrap.resolver>2.2.7</version.shrinkwrap.resolver>
+        <version.shrinkwrap.resolver>3.1.4</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0</version.shrinkwrap.descriptors>
         <version.arquillian.tomcat>1.0.0.CR6</version.arquillian.tomcat>
         <version.arquillian.wildfly8>8.2.1.Final</version.arquillian.wildfly8>
